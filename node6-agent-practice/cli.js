@@ -81,7 +81,9 @@ function cmdDone(args) {
 
 function cmdSummary() {
   const rows = q.doneToday.all();
-  const today = new Date().toISOString().slice(0, 10);
+  // 로컬 시각 기준 날짜(SQL의 date('now','localtime')와 일치). toISOString은 UTC라 자정 부근에 하루 어긋남.
+  const d = new Date();
+  const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   if (!rows.length) { console.log(`오늘(${today}) 완료한 할 일이 없습니다.`); return; }
   console.log(`# 오늘 완료 (${today}) — ${rows.length}건`);
   for (const r of rows) console.log(`- [완료] ${r.title} (#${r.id})`);
