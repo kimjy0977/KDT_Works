@@ -1,35 +1,54 @@
-# 최소 합격시험 결과 (Codex 감사관 권고 반영)
+# 합격시험 결과 (Codex 재감사 R2 반영)
 
-> 르주엔 코덱스 감사관 `CODEX-KDT-NODE6-SKILLS-REVIEW-01`의 6건 권고를 반영한 뒤,
-> 감사관이 제시한 "최소 합격시험"을 확인한 결과. (2026-07-22)
+> R2에서 감사관이 재현한 watcher 실행 결함 2건(동시 실행 레이스 · 하위 변경 누락)을 수정한 뒤,
+> R2 합격 조건으로 재검증한 결과. (2026-07-22)
 
-| # | 합격 기준 | 결과 | 근거 |
-|---|---|---|---|
-| 1 | bootstrap 연속 2회 실행해도 heartbeat writer **정확히 1개** | ✅ PASS | 헬퍼 2차 실행이 `reuse` + exit 0, lease의 `pid=` 라인 1개 |
-| 2 | 살아있는 lease는 **선점 안 하고 stale만 회수** | ✅ PASS | 죽은 PID(999999) lease → `armed`(회수) / 살아있는 lease → `reuse` |
-| 3 | 같은 thread 여러 차수·양방향에서 **open·closed 정확 구분** | ✅ 규약 | `session-bootstrap` 4단계 = (스레드ID+차수+방향) 복합키, 반대방향 다음차수 회신=닫힘, superseded/withdrawn 반영, 최신 우선·dedup |
-| 4 | **승인 SHA ≠ 실행 SHA면 push·deploy 대기** | ✅ 규약 | `irreversible-gate` 승인 결속(대상·환경·SHA…), "대상 바뀌면 재승인" 명시 |
-| 5 | FACT PASS 나와도 **권리 증거 없으면 RIGHTS 미판정** | ✅ 규약 | `myth-cosign-check` = `FACT PASS/FAIL` 과 `RIGHTS NOT ASSESSED` 분리 |
-| 6 | 5개 스킬 **frontmatter·Pages 링크 재통과** | ✅ PASS | 5개 `name`·`description` 전부 존재 확인, Pages index.html 유지 |
+## R2 수정 요약
+- 획득을 `mv -f` → **`mkdir` 원자 락**으로(동시 시작 직렬화), 락 안에서 lease 재검사.
+- lease에 **owner token**(PID+시작시각+난수) 기록, **owner 일치 시에만 cleanup**(남의 lease 삭제 방지), 루프 중 owner 바뀌면 자기 종료.
+- top mtime → **재귀 스냅샷**(하위 타입·경로·크기·mtime 해시)로 하위 수정·신규·rename·삭제 감지.
+- irreversible-gate: **등급 중복 시 최고등급 우선**. session-bootstrap: 종결을 **`in_reply_to`/원참조 ID**로 명시.
 
-## 1·2 실행 로그 (헬퍼 `scripts/ensure_single_watcher.sh`)
+## 합격 조건별 결과
 
+| R2 합격 조건 | 결과 | 실측 |
+|---|---|---|
+| 동일 target **10회 동시 시작 → 실행 writer 최대 1개** | ✅ PASS | `armed_count=1 · reuse_count=9 · 고유 owner=1` |
+| live owner lease 비선점 · stale 회수 후 writer 1개 | ✅ PASS | 죽은 lease(pid 999999) → `armed`(회수) / live → `reuse` |
+| 기존파일 수정·신규·rename/delete·하위경로 변경 각각 감지 | ✅ PASS | 5개 변경 → `change` 5회 |
+| owner 일치 cleanup(남의 lease 안 지움) | ✅ PASS | 종료 시 내 owner lease만 반납 |
+
+## 시험 1 — 10회 동시 시작 (poll=2, timeout 4s)
 ```
-# TEST B — stale lease(죽은 PID) 회수
-armed: 새 감시기 lease 획득 pid=2016 ... poll=3s        ← stale 회수됨
-
-# TEST A — 살아있는 감시기 있을 때 2차 실행
-2차 exit code = 0
-reuse: 살아있는 감시기 lease 재사용 ...                   ← 선점 안 하고 재사용
-writer 수(lease의 pid= 라인) = 1                          ← 정확히 1개
+armed_count = 1
+reuse_count = 9
+서로 다른 armed owner 수 = 1
+armed: owner=16939_1784678072383731300_2998421589 pid=16939 대상=/tmp/wtest2/tree poll=2s
+reuse: 살아있는 감시기 재사용 (owner=16939_1784678072383731300_2998421589 pid=16939)   ← 9회 전부 이 owner 참조
 ```
 
-## 3 복합키 판정 예 (open vs closed)
+## 시험 2 — 재귀 변경 감지 (poll=1)
+```
+armed: owner=17729_1784678090704448700_59693103 pid=17729 대상=/tmp/wtest3/tree poll=1s
+change: ... (기존파일 a.txt 수정)
+change: ... (신규 c.txt 추가)
+change: ... (하위 sub/b.txt 수정)
+change: ... (rename c.txt→c2.txt)
+change: ... (삭제 a.txt)
+→ change 이벤트 5개 = 변경 5건 각각 감지
+```
 
-- `SKILLREC 차수1` (KDT→매니저) 뒤에 **매니저→KDT `SKILLREC 차수1-회신`** 존재 → 반대 방향 다음 차수 회신 있음 = **closed**.
-- `SKILLREC 차수2` (KDT→매니저) 뒤 매니저 회신 존재 = **closed**.
-- `SKILLREVIEW 차수1` (매니저→KDT, 회신요망=예)에 대한 KDT→매니저 회신이 아직 없음 = **open**.
-→ `회신요망=예` 텍스트만 보면 차수1도 열림으로 오판하지만, 복합키(방향+차수 대응)로 보면 닫힘.
+## 시험 3 — stale 회수 + owner 반납
+```
+(lease = owner=DEAD_owner pid=999999 선주입)
+armed: owner=18178_..._5411695 pid=18178 ...      ← 죽은 lease 회수
+종료 후: lease 정상 반납됨(파일 없음)              ← 내 owner였으므로 삭제
+```
 
-## 한계 명시
-`irreversible-gate`는 조언 계층이며 강제장치가 아니다 — 실제 차단은 permission/hook/branch protection 병행. (README·각 스킬에 명시)
+## 규약(코드 실행 아님) 항목
+- **승인 SHA ≠ 실행 SHA → push/deploy 대기**: `irreversible-gate` 승인 결속 + "대상 바뀌면 재승인".
+- **FACT PASS라도 권리 증거 없으면 RIGHTS 미판정**: `myth-cosign-check` FACT/RIGHTS 분리.
+- **open/closed 복합키 예**: `SKILLREVIEW 차수1`(매니저→KDT, 회신요망=예)에 KDT→매니저 `차수1-회신` 대응 존재 = closed. 대응 없는 최신 차수만 open. `회신요망=예` 텍스트만으로 판단하지 않음.
+
+## 한계
+`irreversible-gate`는 조언 계층 — 실제 차단은 permission/hook/branch protection 병행(각 스킬·README 명시).
