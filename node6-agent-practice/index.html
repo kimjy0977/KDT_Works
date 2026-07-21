@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI가 아는 Todo 앱 · 노드 6 실습 · 김주영</title>
+<style>
+  body{margin:0;color:#222;background:#fff;font-family:"Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;line-height:1.7;word-break:keep-all}
+  .wrap{max-width:760px;margin:auto;padding:46px 36px 64px}
+  h1{font-size:1.5rem;margin:0 0 4px;letter-spacing:-.01em}
+  .meta{color:#777;font-size:.9rem;margin-bottom:26px}
+  h2{font-size:1.1rem;margin:30px 0 8px;padding-bottom:5px;border-bottom:1px solid #ddd}
+  ul{margin:.4em 0;padding-left:1.3rem}li{margin:7px 0}
+  code{background:#eef1f5;border-radius:4px;padding:1px 6px;font-family:Consolas,monospace;font-size:.88em}
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.92rem}
+  th,td{border:1px solid #e2e4e8;padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#f6f7f9}
+  pre{background:#1e2030;color:#e6e6ef;border-radius:8px;padding:14px 16px;overflow-x:auto;font-size:.82rem;line-height:1.6}
+  .back{display:inline-block;margin-bottom:20px;font-size:.85rem;color:#2563eb;text-decoration:none}
+  .back:hover{text-decoration:underline}
+  a{color:#2563eb}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← ModuWorks 갤러리</a>
+  <h1>AI가 아는 Todo 앱</h1>
+  <div class="meta">노드 6 실습 「Todo 앱을 'AI가 아는' 앱으로」 · 김주영</div>
+
+  <p>노드 5의 로컬 Todo 앱(SQLite)을 재료로, 범용 AI를 <b>'내 앱을 아는 전용 조수'</b>로 바꾼 실습. 방향 = 무거운 MCP가 아니라 <b>앱에 CLI 달기 → 규칙 파일(CLAUDE.md)에 사용법 → 스킬로 반복 자동화.</b></p>
+
+  <h2>산출물</h2>
+  <table>
+    <tr><th>파일</th><th>역할</th></tr>
+    <tr><td><a href="https://github.com/kjuyoung77/ModuWorks/blob/main/node6-agent-practice/cli.js"><code>cli.js</code></a></td><td><code>todo.db</code>·로직 재사용한 얇은 진입점. <code>list·add·done·summary</code> + 완료시각 컬럼 자동 보강</td></tr>
+    <tr><td><a href="https://github.com/kjuyoung77/ModuWorks/blob/main/node6-agent-practice/CLAUDE.md"><code>CLAUDE.md</code></a></td><td>명령 사용법 + "todo.db 삭제 금지" 규칙. Claude Code가 자동 로드</td></tr>
+    <tr><td><a href="https://github.com/kjuyoung77/ModuWorks/blob/main/node6-agent-practice/skills/todo-summary/SKILL.md"><code>todo-summary</code> 스킬</a></td><td>직접 데이터를 뒤지지 않고 <code>cli.js summary</code>를 대신 호출</td></tr>
+  </table>
+
+  <h2>실제 실행 (검증)</h2>
+  <pre>$ node cli.js list
+[ ] 1. 노드5 실습 제출 준비하기  (~2026-07-25)  #공부 #급함
+[x] 2. 우유 사기  #장보기
+
+$ node cli.js add "노드6 스킬 과제 제출하기" --due 2026-07-22 --tag KDT
+추가됨: 3. 노드6 스킬 과제 제출하기  (~2026-07-22)  #KDT
+
+$ node cli.js done 3
+완료 처리: 3번
+
+$ node cli.js summary        # ← todo-summary 스킬이 대신 호출
+# 오늘 완료 (2026-07-21) — 1건
+- [완료] 노드6 스킬 과제 제출하기 (#3)</pre>
+
+  <h2>회고</h2>
+  <p>범용 AI가 '내 앱을 아는 조수'로 바뀐 지점 = <b>규칙 파일이 CLI 사용법을 상시 알려주니 AI가 소스가 아니라 실제 데이터를 직접 읽고, 스킬이 그 CLI를 대신 불러</b> 반복을 한마디로 압축한 것. 작은 개인 앱은 무거운 MCP 없이 'CLI + 짧은 스킬'로 충분히 조수화된다.</p>
+
+  <p style="font-size:.9rem;color:#777">원본 Todo 앱 → <a href="../node5-todo-app/">node5-todo-app</a></p>
+</div>
+</body>
+</html>

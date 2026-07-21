@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>코드 피어리뷰 · 퀘스트 C-2 · 김주영</title>
+<style>
+  body{margin:0;color:#222;background:#fff;font-family:"Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;line-height:1.7;word-break:keep-all}
+  .wrap{max-width:760px;margin:auto;padding:46px 36px 64px}
+  h1{font-size:1.5rem;margin:0 0 4px;letter-spacing:-.01em}
+  .meta{color:#777;font-size:.9rem;margin-bottom:26px}
+  h2{font-size:1.1rem;margin:30px 0 8px;padding-bottom:5px;border-bottom:1px solid #ddd}
+  ul{margin:.4em 0;padding-left:1.3rem}li{margin:7px 0}
+  code{background:#eef1f5;border-radius:4px;padding:1px 6px;font-family:Consolas,monospace;font-size:.88em}
+  .back{display:inline-block;margin-bottom:20px;font-size:.85rem;color:#2563eb;text-decoration:none}
+  .back:hover{text-decoration:underline}
+  a{color:#2563eb}
+  .note{background:#f6f7f9;border:1px solid #e2e4e8;border-radius:8px;padding:10px 14px;margin:14px 0;font-size:.9rem;color:#555}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← ModuWorks 갤러리</a>
+  <h1>코드 피어리뷰 (퀘스트 C-2)</h1>
+  <div class="meta">노션 퀘스트 C-2 · 상호 피어리뷰 · 리뷰어 김주영 · 파트너 SunCreation</div>
+
+  <h2>내가 리뷰어로서 한 것</h2>
+  <ul>
+    <li>대상: <b>SunCreation/realtodo</b> (macOS SwiftUI + GRDB/SQLite + Google Calendar + AI CLI 투두 앱)</li>
+    <li>AIFFEL PRT 5문항 + 프로젝트 제출 루브릭(보안·백엔드·프론트)으로 근거를 채워 리뷰</li>
+    <li>fork에 <code>review.md</code> 커밋 → PR 제출: <a href="https://github.com/SunCreation/realtodo/pull/1">SunCreation/realtodo #1</a></li>
+  </ul>
+  <p><b>주요 발견:</b> 아침 AI 루틴 타이머 일회성 버그(핵심 워크플로 정지) · OAuth state/PKCE 부재(CSRF) · 토큰 평문 저장 · 회고 부재. <b>칭찬:</b> AI CRUD를 자기 추천 id로만 한정한 방어 설계(무결성).</p>
+  <div class="note">⚠️ macOS 전용 앱이라 리뷰어(Windows)는 빌드·실행을 못 하고 <b>코드 판독 기반</b>으로 검토했음을 리뷰에 명시함.</div>
+
+  <h2>내가 코더로서 받은 것</h2>
+  <ul>
+    <li>파트너가 내 <code>node4-world-atlas</code> 백엔드를 리뷰해 PR로 보냄 → 소스 대조로 검증(전부 사실) → <b>병합</b></li>
+    <li>수용한 개선: <code>code</code> 형식 CHECK(저장소 고갈 방어) 등 보안 하드닝을 라이브 DB에 적용</li>
+  </ul>
+
+  <h2>리뷰 본문</h2>
+  <p>→ <a href="https://github.com/kjuyoung77/ModuWorks/blob/main/quest-c2-code-review/review.md">review.md (전체 근거·PRT·루브릭 평가)</a></p>
+</div>
+</body>
+</html>

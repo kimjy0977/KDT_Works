@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 에이전트 스킬집 · 노드 6 과제 · 김주영</title>
+<style>
+  body{margin:0;color:#222;background:#fff;font-family:"Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;line-height:1.7;word-break:keep-all}
+  .wrap{max-width:760px;margin:auto;padding:46px 36px 64px}
+  h1{font-size:1.5rem;margin:0 0 4px;letter-spacing:-.01em}
+  .meta{color:#777;font-size:.9rem;margin-bottom:26px}
+  h2{font-size:1.1rem;margin:30px 0 8px;padding-bottom:5px;border-bottom:1px solid #ddd}
+  ul{margin:.4em 0;padding-left:1.3rem}li{margin:7px 0}
+  code{background:#eef1f5;border-radius:4px;padding:1px 6px;font-family:Consolas,monospace;font-size:.88em}
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:.92rem}
+  th,td{border:1px solid #e2e4e8;padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#f6f7f9}
+  .back{display:inline-block;margin-bottom:20px;font-size:.85rem;color:#2563eb;text-decoration:none}
+  .back:hover{text-decoration:underline}
+  a{color:#2563eb}
+  .note{background:#f6f7f9;border:1px solid #e2e4e8;border-radius:8px;padding:10px 14px;margin:14px 0;font-size:.9rem;color:#555}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← ModuWorks 갤러리</a>
+  <h1>AI 에이전트 스킬집 (5종)</h1>
+  <div class="meta">노드 6 과제 「AI 에이전트 도구」 · 김주영</div>
+
+  <p>과제 요건은 "매번 반복하던 일을 스킬 하나로"지만, 반복 작업이 여러 개라 <b>스킬집(5종)</b>으로 만들었습니다. 각 스킬은 <code>SKILL.md</code>(머리말 <code>name</code>·<code>description</code> + 본문 절차) 하나로, AI가 관련 작업을 만나면 자동으로 꺼내 씁니다.</p>
+
+  <h2>5종 — 무슨 불편을, 어떻게 없앴나</h2>
+  <table>
+    <tr><th>스킬</th><th>계열</th><th>불편 → 해결</th></tr>
+    <tr><td><a href="https://github.com/kjuyoung77/ModuWorks/blob/main/node6-agent-skills/skills/session-bootstrap/SKILL.md"><code>session-bootstrap</code></a></td><td>인프라</td><td>세션 끊길 때마다 맥락·미처리 건 되짚음 → 재무장·in-flight 점검·상태 복원을 한 순서로 고정</td></tr>
+    <tr><td><a href="https://github.com/kjuyoung77/ModuWorks/blob/main/node6-agent-skills/skills/irreversible-gate/SKILL.md"><code>irreversible-gate</code></a></td><td>인프라</td><td>push·배포·삭제를 무심코 실행 → 실행 직전 가역/비가역 판별 + 승인 게이트</td></tr>
+    <tr><td><a href="https://github.com/kjuyoung77/ModuWorks/blob/main/node6-agent-skills/skills/watcher-arm/SKILL.md"><code>watcher-arm</code></a></td><td>인프라</td><td>감시기를 매번 다르게 짜다 빠뜨림 → 표준 형태(자기발신 제외·heartbeat)로 재현</td></tr>
+    <tr><td><a href="https://github.com/kjuyoung77/ModuWorks/blob/main/node6-agent-skills/skills/myth-cosign-check/SKILL.md"><code>myth-cosign-check</code></a></td><td>콘텐츠</td><td>신화·미술 사실검증을 즉흥으로 → 귀속·환각·전거 층위·헷지 체크리스트로 고정</td></tr>
+    <tr><td><a href="https://github.com/kjuyoung77/ModuWorks/blob/main/node6-agent-skills/skills/docent-tone/SKILL.md"><code>docent-tone</code></a></td><td>콘텐츠</td><td>도록 톤이 사람마다 흔들림 → 서사체 톤 규칙으로 통일</td></tr>
+  </table>
+
+  <h2>쓰는 법 (Claude Code)</h2>
+  <p><code>skills/&lt;이름&gt;/</code> 폴더를 프로젝트의 <code>.claude/skills/</code>에 두면 자동 인식. 다른 대화에서 한 줄로 발동 — 예: "session-bootstrap 스킬로 이어받아 줘".</p>
+
+  <div class="note">공개 저장소라 스킬은 <b>재사용 가능한 일반 절차</b>로만 담았습니다(키·비공개 URL·내부 세부 제외). 전체 내용은 <a href="https://github.com/kjuyoung77/ModuWorks/tree/main/node6-agent-skills">GitHub 폴더</a> 참고.</div>
+</div>
+</body>
+</html>
