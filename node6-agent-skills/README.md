@@ -28,6 +28,9 @@
 ```
 node6-agent-skills/
 ├─ README.md            ← 이 파일 (왜 만들었나)
+├─ TESTS.md             ← 최소 합격시험 결과 (감사관 권고 반영)
+├─ scripts/
+│  └─ ensure_single_watcher.sh   ← watcher-arm 결정론적 헬퍼(단일 인스턴스)
 └─ skills/
    ├─ session-bootstrap/SKILL.md
    ├─ irreversible-gate/SKILL.md
@@ -38,7 +41,13 @@ node6-agent-skills/
 
 ## 쓰는 법 (Claude Code 기준)
 
-`skills/<이름>/` 폴더를 프로젝트의 `.claude/skills/`에 두면 자동 인식된다. 다른 대화에서 한 줄로 발동 — 예: "session-bootstrap 스킬로 이어받아 줘", "이 문장 myth-cosign-check로 검증해 줘".
+`skills/<이름>/` 폴더를 프로젝트의 `.claude/skills/`에 두면 자동 인식된다. 다른 대화에서 **슬래시 명령**으로 발동 — `/session-bootstrap`, `/myth-cosign-check` 등.
+
+> ⚠️ 최상위 `.claude/skills/`를 **최초로 생성**한 직후엔 도구를 한 번 재시작해야 인식된다.
+
+## 강건성 (르주엔 코덱스 감사 반영, 2026-07-22)
+
+외부 감사관 검토를 받아 실운영 수준으로 보강했다 — session-bootstrap을 **오케스트레이터**로(무조건 재무장 금지), watcher-arm에 **단일 인스턴스 lease 계약**(PID·mtime 생존판정), irreversible-gate에 **위험등급 + 승인 SHA 결속**, myth-cosign-check에 **재현 가능 증거 + 사실/권리 분리**. 검증 결과는 [`TESTS.md`](./TESTS.md). ※ 스킬은 조언 계층 — 실제 차단은 permission/hook/branch protection 병행.
 
 ## 회고
 

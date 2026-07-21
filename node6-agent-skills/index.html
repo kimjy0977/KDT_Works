@@ -40,7 +40,10 @@
   </table>
 
   <h2>쓰는 법 (Claude Code)</h2>
-  <p><code>skills/&lt;이름&gt;/</code> 폴더를 프로젝트의 <code>.claude/skills/</code>에 두면 자동 인식. 다른 대화에서 한 줄로 발동 — 예: "session-bootstrap 스킬로 이어받아 줘".</p>
+  <p><code>skills/&lt;이름&gt;/</code> 폴더를 프로젝트의 <code>.claude/skills/</code>에 두면 자동 인식. 다른 대화에서 <b>슬래시 명령</b>으로 발동 — <code>/session-bootstrap</code>, <code>/myth-cosign-check</code> 등. (최상위 <code>.claude/skills/</code> 최초 생성 직후엔 도구 재시작 필요.)</p>
+
+  <h2>강건성 (코덱스 감사 반영 · 2026-07-22)</h2>
+  <p>외부 감사관 검토로 실운영 수준 보강 — 오케스트레이터화(무조건 재무장 금지) · watcher <b>단일 인스턴스 lease 계약</b>(PID·mtime 생존판정) · 위험등급 + 승인 SHA 결속 · 사실검증 <b>재현 증거 + 사실/권리 분리</b>. 검증 결과 → <a href="https://github.com/kjuyoung77/ModuWorks/blob/main/node6-agent-skills/TESTS.md">TESTS.md</a>. ※ 스킬은 조언 계층이며 실제 차단은 permission/hook/branch protection 병행.</p>
 
   <div class="note">공개 저장소라 스킬은 <b>재사용 가능한 일반 절차</b>로만 담았습니다(키·비공개 URL·내부 세부 제외). 전체 내용은 <a href="https://github.com/kjuyoung77/ModuWorks/tree/main/node6-agent-skills">GitHub 폴더</a> 참고.</div>
 </div>
