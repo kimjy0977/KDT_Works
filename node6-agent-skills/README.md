@@ -4,6 +4,9 @@
 > 과제 요건은 "매번 반복하던 일을 스킬 하나로 만들어 GitHub에 올리기"지만,
 > 실제로 반복하던 작업이 여러 개라 **스킬집(5종)**으로 만들었습니다.
 
+**🔗 배포 페이지:** https://kjuyoung77.github.io/ModuWorks/node6-agent-skills/
+**📁 갤러리:** https://kjuyoung77.github.io/ModuWorks/
+
 ## 스킬이란
 
 폴더 1개 + `SKILL.md`(머리말 `name`·`description` + 본문 절차). AI는 평소 이름·설명만 알고 있다가(점진 공개), 관련 작업을 만나면 본문을 꺼내 쓴다. 좋은 후보 = **매번 똑같이 설명·지시하던 일**(재프롬프트 없애기).
