@@ -227,7 +227,8 @@ async function loadTopic(title, textId, srcId){
 }
 function loadTopics(){ const tp=wikiTopics(); loadTopic(tp.geo,'geoText','geoSrc'); loadTopic(tp.hist,'histText','histSrc'); loadTopic(tp.cult,'cultText','cultSrc'); }
 // ===== 서브내비 스크롤 스파이 =====
-let spyOn=false;
+// ★var로 선언(let이면 start()가 선언 전 호출돼 TDZ 크래시 → 이후 initAuth 미실행 → me=null → 댓글 RLS 실패)
+var spyOn=false;
 function initSubnavSpy(){
   if(spyOn) return; spyOn=true;
   addEventListener('scroll', ()=>{
