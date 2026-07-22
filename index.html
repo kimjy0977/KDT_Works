@@ -13,14 +13,13 @@
   header{padding:72px 0 30px}
   .eyebrow{font-family:var(--disp);font-weight:700;font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent)}
   h1{font-weight:900;font-size:clamp(2.3rem,7vw,3.7rem);line-height:1.03;letter-spacing:-.03em;margin:22px 0 0}
-  .sub{color:var(--muted);font-size:1.02rem;max-width:58ch;margin:18px 0 0;line-height:1.75}
+  .sub{color:var(--muted);font-size:1.02rem;max-width:60ch;margin:18px 0 0;line-height:1.75}
 
   /* 탭 */
   .tabs{display:flex;flex-wrap:wrap;gap:0 22px;margin:26px 0 0;border-bottom:1px solid var(--line)}
   .tab{font-family:var(--disp);font-weight:700;font-size:.9rem;letter-spacing:.01em;color:var(--muted);background:none;border:0;border-bottom:2px solid transparent;padding:12px 2px;margin-bottom:-1px;cursor:pointer;transition:.15s;white-space:nowrap}
   .tab:hover{color:var(--fg)}
   .tab.on{color:var(--accent);border-bottom-color:var(--accent)}
-  .tabcount{font-size:.72rem;color:var(--faint);margin-left:5px}
 
   .sechead{display:flex;align-items:baseline;gap:12px;margin:44px 0 4px}
   .sechead h2{font-size:1.28rem;font-weight:900;letter-spacing:-.01em;margin:0}
@@ -30,10 +29,11 @@
 
   /* 리스트 */
   .list{border-top:1px solid var(--line)}
-  .row{display:grid;grid-template-columns:192px minmax(0,1fr) 96px;gap:22px;align-items:start;
+  .row{display:grid;grid-template-columns:172px minmax(0,1fr) 96px;gap:22px;align-items:start;
        padding:20px 6px;border-bottom:1px solid var(--line);text-decoration:none;color:inherit;transition:.15s}
   .row:hover{background:#15162e}
   .row:hover .go{color:var(--accent)}
+  .row.node:hover{border-color:var(--node)}
   .row.node:hover .go{color:var(--node)}
   .row.main:hover{border-color:var(--main)}
   .row.main:hover .go{color:var(--main)}
@@ -44,12 +44,13 @@
   .row.node .rnode{color:var(--node)}
   .row.main .rnode{color:var(--main)}
   .rcat{font-size:.78rem;color:var(--muted)}
+  .rwhen{font-family:var(--disp);font-size:.68rem;letter-spacing:.02em;color:var(--faint);margin-top:1px}
 
   .rmain{min-width:0}
   .rmain h3{font-size:1.16rem;font-weight:900;letter-spacing:-.01em;margin:0;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
   .rmain h3 .ico{font-size:1.15rem;line-height:1}
   .rmain h3 .en{font-family:var(--disp);color:var(--faint);font-size:.72rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase}
-  .rmain p{color:var(--muted);font-size:.9rem;line-height:1.65;margin:8px 0 0}
+  .rmain p{color:var(--muted);font-size:.9rem;line-height:1.6;margin:7px 0 0}
   .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
   .tag{border:1px solid var(--line);color:var(--muted);font-size:.68rem;font-weight:500;padding:3px 9px;border-radius:999px;letter-spacing:.02em}
 
@@ -72,13 +73,13 @@
   <header><div class="wrap">
     <div class="eyebrow">ModuWorks</div>
     <h1>KDT 과제 모음</h1>
-    <p class="sub">아이펠 KDT AI 에이전트 과정에서 수행한 <b>메인 퀘스트</b>·<b>노드 과제·실습</b>·<b>퀘스트</b> 모음입니다. 탭으로 골라 보고, 각 항목을 눌러 실행·열람하세요.</p>
+    <p class="sub">아이펠 KDT AI 에이전트 과정에서 만든 <b>메인 퀘스트</b>·<b>퀘스트</b>·<b>과제</b>·<b>실습</b> 모음입니다. 탭으로 골라 보고, 각 항목을 눌러 실행·열람하세요.</p>
     <nav class="tabs">
       <button class="tab on" data-tab="all">전체</button>
       <button class="tab" data-tab="mainquest">메인 퀘스트</button>
-      <button class="tab" data-tab="assignment">노드 과제</button>
-      <button class="tab" data-tab="practice">노드 실습</button>
       <button class="tab" data-tab="quest">퀘스트</button>
+      <button class="tab" data-tab="assignment">과제</button>
+      <button class="tab" data-tab="practice">실습</button>
     </nav>
   </div></header>
 
@@ -87,85 +88,17 @@
     <!-- 메인 퀘스트 -->
     <section class="cat" data-cat="mainquest">
       <div class="sechead"><h2>메인 퀘스트</h2><span class="n">Main Quest</span></div>
-      <p class="secdesc">과정의 최종 프로젝트 — 배운 조각을 모아 만든 나만의 웹 서비스.</p>
+      <p class="secdesc">과정의 최종 프로젝트 — 배운 것을 모아 만든 나만의 웹 서비스.</p>
       <div class="list">
 
         <a class="row main" href="https://modu-works-main-quest.vercel.app" target="_blank" rel="noopener">
-          <div class="rmeta"><span class="rdate">2026.07.22</span><span class="rnode">바이브코딩2 · 메인 퀘스트</span><span class="rcat">웹 서비스</span></div>
+          <div class="rmeta"><span class="rdate">2026.07.22</span><span class="rnode">모듈2 · 2-5강</span><span class="rcat">웹 서비스</span></div>
           <div class="rmain">
             <h3><span class="ico">🎨</span> ORIGIN — 영감의 계보 <span class="en">Lineage of Inspiration</span></h3>
-            <p>디자인의 원류를 시대순으로 훑는 아카이브. 7사조·37작품·6칼럼을 무드보드에 담고, <b>AI 큐레이터</b>가 "오늘로 이어진 계보"를 도슨트처럼 해설. Next.js + <b>Supabase</b>(Auth·RLS) + <b>Claude API</b>. 계보 타임라인·검색·EN/KO·다크/라이트 토글.</p>
+            <p>디자인의 원류(역사)를 시대순으로 모아 보고, AI가 그 계보를 해설해 주는 웹 아카이브 서비스.</p>
             <div class="tags"><span class="tag">Next.js</span><span class="tag">Supabase</span><span class="tag">Claude API</span><span class="tag">Auth·RLS</span><span class="tag">i18n</span></div>
           </div>
           <span class="go">열기 ↗</span>
-        </a>
-
-      </div>
-    </section>
-
-    <!-- 노드 과제 -->
-    <section class="cat" data-cat="assignment">
-      <div class="sechead"><h2>노드 과제</h2><span class="n">Node Assignments</span></div>
-      <p class="secdesc">루브릭 평가 노드에서 만든 실행형 웹 프로젝트.</p>
-      <div class="list">
-
-        <a class="row node" href="./node2-soul-dungeon/">
-          <div class="rmeta"><span class="rdate">2026.07.14</span><span class="rnode">바이브코딩1 · 노드 2</span><span class="rcat">게임</span></div>
-          <div class="rmain">
-            <h3><span class="ico">⚔️</span> 소울 던전 <span class="en">Soul Dungeon</span></h3>
-            <p>소울나이트식 탑다운 던전 크롤러. 3×3로 연결된 던전, 방 잠금·전투, 몬스터 4종, 미니맵, 캐릭터 커스터마이징. 순수 Canvas, 외부 의존성 0.</p>
-            <div class="tags"><span class="tag">Canvas</span><span class="tag">게임</span><span class="tag">WASD</span></div>
-          </div>
-          <span class="go">플레이 →</span>
-        </a>
-
-        <a class="row node" href="./node4-world-atlas/">
-          <div class="rmeta"><span class="rdate">2026.07.19</span><span class="rnode">바이브코딩2 · 노드 4</span><span class="rcat">백엔드</span></div>
-          <div class="rmain">
-            <h3><span class="ico">🗺️</span> 세계 국가 도감 <span class="en">World Atlas</span></h3>
-            <p>노드3 프레임워크로 만든 40개국 도감에 <b>노드4 백엔드</b>를 붙인 프로젝트. 한/영 토글·위키 연동 상세 + 방문자 수·조회수·댓글·반응을 저장하는 <b>Supabase 백엔드</b>(RLS 보안).</p>
-            <div class="tags"><span class="tag">Frontend</span><span class="tag">Supabase 백엔드</span><span class="tag">i18n</span><span class="tag">RLS</span></div>
-          </div>
-          <span class="go">열기 →</span>
-        </a>
-
-        <a class="row node" href="./node6-agent-skills/">
-          <div class="rmeta"><span class="rdate">2026.07.21</span><span class="rnode">바이브코딩2 · 노드 6</span><span class="rcat">에이전트</span></div>
-          <div class="rmain">
-            <h3><span class="ico">🧰</span> AI 에이전트 스킬집 <span class="en">Agent Skills</span></h3>
-            <p>범용 AI를 '내 서비스 전용 조수'로 만드는 재사용 스킬 <b>5종(SKILL.md)</b>. 인프라 3(세션 부트스트랩·비가역 게이트·감시기) + 콘텐츠 2(신화 사실검증·도록 톤).</p>
-            <div class="tags"><span class="tag">Agent Skills</span><span class="tag">SKILL.md</span><span class="tag">하네스</span></div>
-          </div>
-          <span class="go">열기 →</span>
-        </a>
-
-      </div>
-    </section>
-
-    <!-- 노드 실습 -->
-    <section class="cat" data-cat="practice">
-      <div class="sechead"><h2>노드 실습</h2><span class="n">Node Practice</span></div>
-      <p class="secdesc">노드 강의를 따라 만든 실습 산출물 — 루브릭 제출 과제는 아님.</p>
-      <div class="list">
-
-        <a class="row node" href="./node5-todo-app/">
-          <div class="rmeta"><span class="rdate">2026.07.20</span><span class="rnode">바이브코딩2 · 노드 5</span><span class="rcat">DB 실습</span></div>
-          <div class="rmain">
-            <h3><span class="ico">✅</span> 내 Todo 앱 <span class="en">Todo App</span></h3>
-            <p>배운 CRUD·관계·RLS를 손에 익히는 실습. 마감일·태그(다대다) 지원. <b>클라우드(Supabase)</b> 버전이 라이브로 돌고, 로컬 <b>SQLite</b> 버전 소스도 포함.</p>
-            <div class="tags"><span class="tag">SQLite</span><span class="tag">Supabase</span><span class="tag">CRUD</span><span class="tag">RLS</span></div>
-          </div>
-          <span class="go">열기 →</span>
-        </a>
-
-        <a class="row node" href="./node6-agent-practice/">
-          <div class="rmeta"><span class="rdate">2026.07.21</span><span class="rnode">바이브코딩2 · 노드 6</span><span class="rcat">실습</span></div>
-          <div class="rmain">
-            <h3><span class="ico">🔌</span> AI가 아는 Todo 앱 <span class="en">Agent-Aware App</span></h3>
-            <p>노드5 Todo 앱에 <b>CLI + CLAUDE.md + 스킬</b>을 붙여, AI가 화면 대신 명령줄로 내 데이터를 직접 다루게 한 실습. 규칙 파일이 CLI 사용법을 상시 알려준다.</p>
-            <div class="tags"><span class="tag">CLI</span><span class="tag">CLAUDE.md</span><span class="tag">Skill</span></div>
-          </div>
-          <span class="go">열기 →</span>
         </a>
 
       </div>
@@ -178,53 +111,121 @@
       <div class="list">
 
         <a class="row" href="./onboarding-git-setup/">
-          <div class="rmeta"><span class="rdate">2026.07.10</span><span class="rnode">온보딩</span><span class="rcat">세팅</span></div>
+          <div class="rmeta"><span class="rdate">2026.07.10</span><span class="rnode">온보딩</span><span class="rcat">세팅</span><span class="rwhen">↳ 적응기 · 과정 시작</span></div>
           <div class="rmain">
             <h3><span class="ico">🛠️</span> 개발 환경 세팅 <span class="en">Dev Setup</span></h3>
-            <p>Claude Desktop·Git·GitHub·SSH 키 세팅부터 첫 커밋 push까지, 온보딩 개발환경 세팅 아카이브.</p>
+            <p>개발 환경을 처음부터 세팅한 온보딩 과정 기록(Git·GitHub·SSH).</p>
             <div class="tags"><span class="tag">Git</span><span class="tag">SSH</span><span class="tag">문서</span></div>
           </div>
           <span class="go">읽기 →</span>
         </a>
 
         <a class="row" href="./onboarding-computational-thinking/">
-          <div class="rmeta"><span class="rdate">2026.07.10</span><span class="rnode">온보딩</span><span class="rcat">문서</span></div>
+          <div class="rmeta"><span class="rdate">2026.07.10</span><span class="rnode">온보딩</span><span class="rcat">문서</span><span class="rwhen">↳ 적응기 · 과정 시작</span></div>
           <div class="rmain">
             <h3><span class="ico">🧩</span> 내 문제를 네 조각으로 <span class="en">Computational Thinking</span></h3>
-            <p>바이브코딩 중 막히는 문제를 분해·패턴·추상화·알고리즘 네 동작으로 쪼갠 온보딩 프로젝트. 디자이너 시점의 문제 해결 기록.</p>
+            <p>복잡한 문제를 네 단계로 쪼개 푸는 '컴퓨팅 사고'를 내 문제에 적용한 기록.</p>
             <div class="tags"><span class="tag">컴퓨팅 사고</span><span class="tag">문서</span></div>
           </div>
           <span class="go">읽기 →</span>
         </a>
 
         <a class="row" href="./quest-b-git-teaching/">
-          <div class="rmeta"><span class="rdate">2026.07.14</span><span class="rnode">퀘스트 B</span><span class="rcat">팀 티칭</span></div>
+          <div class="rmeta"><span class="rdate">2026.07.14</span><span class="rnode">퀘스트 B</span><span class="rcat">팀 티칭</span><span class="rwhen">↳ 모듈1 · 1-2강 무렵</span></div>
           <div class="rmain">
             <h3><span class="ico">📚</span> Git 핵심 정리 <span class="en">Git &amp; GitHub Teaching</span></h3>
-            <p>타팀을 가르치기 위한 Git/GitHub 핵심 개념 + 예상문제 15선. "AI는 생성하고, Git은 고정한다."</p>
+            <p>다른 팀을 가르치기 위해 만든 Git/GitHub 핵심 개념 + 예상문제 모음.</p>
             <div class="tags"><span class="tag">Git</span><span class="tag">팀 티칭</span><span class="tag">문서</span></div>
           </div>
           <span class="go">읽기 →</span>
         </a>
 
         <a class="row" href="./quest-c1-spot-the-difference/">
-          <div class="rmeta"><span class="rdate">2026.07.14</span><span class="rnode">퀘스트 C-1</span><span class="rcat">게임 · 페어</span></div>
+          <div class="rmeta"><span class="rdate">2026.07.14</span><span class="rnode">퀘스트 C-1</span><span class="rcat">게임 · 페어</span><span class="rwhen">↳ 모듈1 · 1-2강 무렵</span></div>
           <div class="rmain">
             <h3><span class="ico">🔍</span> 틀린 그림 찾기 <span class="en">Spot the Difference</span></h3>
-            <p>페어프로그래밍으로 만든 게임. Canvas로 좌·우 장면을 그려 다른 곳 5개를 찾기. 5스테이지, 제한시간·보너스, ESC 일시정지.</p>
+            <p>두 장면에서 다른 곳 5개를 찾는 웹 게임 — 페어프로그래밍으로 제작.</p>
             <div class="tags"><span class="tag">Canvas</span><span class="tag">게임</span><span class="tag">페어플밍</span></div>
           </div>
           <span class="go">플레이 →</span>
         </a>
 
         <a class="row" href="./quest-c2-code-review/">
-          <div class="rmeta"><span class="rdate">2026.07.21</span><span class="rnode">퀘스트 C-2</span><span class="rcat">코드 리뷰</span></div>
+          <div class="rmeta"><span class="rdate">2026.07.21</span><span class="rnode">퀘스트 C-2</span><span class="rcat">코드 리뷰</span><span class="rwhen">↳ 모듈2 · 2-4강 무렵</span></div>
           <div class="rmain">
             <h3><span class="ico">🔬</span> 코드 피어리뷰 <span class="en">Code Peer Review</span></h3>
-            <p>파트너(SunCreation/realtodo)의 macOS 앱을 PRT+루브릭으로 리뷰해 PR 제출. 타이머 버그·OAuth CSRF 등 발견. 상호 리뷰로 내 백엔드도 하드닝.</p>
+            <p>동료의 macOS 앱을 리뷰해 버그·보안 이슈를 찾고 PR로 제출한 기록.</p>
             <div class="tags"><span class="tag">코드리뷰</span><span class="tag">PR</span><span class="tag">보안</span></div>
           </div>
           <span class="go">읽기 →</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 과제 -->
+    <section class="cat" data-cat="assignment">
+      <div class="sechead"><h2>과제</h2><span class="n">Assignments</span></div>
+      <p class="secdesc">루브릭 평가가 있는 강의 과제로 만든 실행형 웹 프로젝트.</p>
+      <div class="list">
+
+        <a class="row node" href="./node2-soul-dungeon/">
+          <div class="rmeta"><span class="rdate">2026.07.14</span><span class="rnode">모듈1 · 1-2강</span><span class="rcat">게임</span></div>
+          <div class="rmain">
+            <h3><span class="ico">⚔️</span> 소울 던전 <span class="en">Soul Dungeon</span></h3>
+            <p>키보드로 던전을 누비는 탑다운 액션 게임 — 순수 Canvas, 외부 의존성 0.</p>
+            <div class="tags"><span class="tag">Canvas</span><span class="tag">게임</span><span class="tag">WASD</span></div>
+          </div>
+          <span class="go">플레이 →</span>
+        </a>
+
+        <a class="row node" href="./node4-world-atlas/">
+          <div class="rmeta"><span class="rdate">2026.07.19</span><span class="rnode">모듈2 · 2-2강</span><span class="rcat">백엔드</span></div>
+          <div class="rmain">
+            <h3><span class="ico">🗺️</span> 세계 국가 도감 <span class="en">World Atlas</span></h3>
+            <p>40개국을 한/영으로 둘러보고 조회수·댓글·반응까지 남기는 도감 웹(Supabase 백엔드).</p>
+            <div class="tags"><span class="tag">Frontend</span><span class="tag">Supabase 백엔드</span><span class="tag">i18n</span><span class="tag">RLS</span></div>
+          </div>
+          <span class="go">열기 →</span>
+        </a>
+
+        <a class="row node" href="./node6-agent-skills/">
+          <div class="rmeta"><span class="rdate">2026.07.21</span><span class="rnode">모듈2 · 2-4강</span><span class="rcat">에이전트</span></div>
+          <div class="rmain">
+            <h3><span class="ico">🧰</span> AI 에이전트 스킬집 <span class="en">Agent Skills</span></h3>
+            <p>AI에게 반복 작업을 미리 가르쳐 두는 재사용 스킬 모음(5종·SKILL.md).</p>
+            <div class="tags"><span class="tag">Agent Skills</span><span class="tag">SKILL.md</span><span class="tag">하네스</span></div>
+          </div>
+          <span class="go">열기 →</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 실습 -->
+    <section class="cat" data-cat="practice">
+      <div class="sechead"><h2>실습</h2><span class="n">Practice</span></div>
+      <p class="secdesc">강의를 따라 만든 실습 산출물 — 루브릭 제출 과제는 아님.</p>
+      <div class="list">
+
+        <a class="row node" href="./node5-todo-app/">
+          <div class="rmeta"><span class="rdate">2026.07.20</span><span class="rnode">모듈2 · 2-3강</span><span class="rcat">DB 실습</span></div>
+          <div class="rmain">
+            <h3><span class="ico">✅</span> 내 Todo 앱 <span class="en">Todo App</span></h3>
+            <p>마감일·태그로 할 일을 관리하는 웹앱 — 클라우드(Supabase)·로컬(SQLite) 둘 다.</p>
+            <div class="tags"><span class="tag">SQLite</span><span class="tag">Supabase</span><span class="tag">CRUD</span><span class="tag">RLS</span></div>
+          </div>
+          <span class="go">열기 →</span>
+        </a>
+
+        <a class="row node" href="./node6-agent-practice/">
+          <div class="rmeta"><span class="rdate">2026.07.21</span><span class="rnode">모듈2 · 2-4강</span><span class="rcat">실습</span></div>
+          <div class="rmain">
+            <h3><span class="ico">🔌</span> AI가 아는 Todo 앱 <span class="en">Agent-Aware App</span></h3>
+            <p>AI가 화면 대신 명령줄로 직접 조작할 수 있게 만든 Todo 앱(CLI + 스킬).</p>
+            <div class="tags"><span class="tag">CLI</span><span class="tag">CLAUDE.md</span><span class="tag">Skill</span></div>
+          </div>
+          <span class="go">열기 →</span>
         </a>
 
       </div>
