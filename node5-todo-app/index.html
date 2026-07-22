@@ -72,8 +72,9 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 // ⚠️ publishable(anon) 키는 '브라우저 공개용'이라 여기 둬도 안전합니다.
 //    진짜 보호는 DB의 RLS(행 수준 보안). secret 키였다면 절대 여기 두면 안 됨(.env로).
-const SUPABASE_URL = 'https://fckktjzfjzjnjrbpautk.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_b9uy0UWer4zUf8qq1lUPbQ_6RgxeU9x';
+// 노드 버킷(kdt-nodes = world-atlas 프로젝트)로 이전 · lab_ 접두사 테이블 사용
+const SUPABASE_URL = 'https://gfpbvtcaxozcvoqfhxps.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_rdSZJSTgLwHslFTTnnnchA_39UC1P36';
 const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let todos = [], filter = 'all';
@@ -83,13 +84,13 @@ const showErr = m => { const e=$('err'); e.textContent='⚠️ '+m; e.style.disp
 
 async function load(){
   const { data, error } = await sb
-    .from('todos')
-    .select('id,title,is_done,due_date,created_at, todo_tags(tags(name))')
+    .from('lab_todos')
+    .select('id,title,is_done,due_date,created_at, lab_todo_tags(lab_tags(name))')
     .order('is_done', {ascending:true})
     .order('due_date', {ascending:true, nullsFirst:false})
     .order('created_at', {ascending:false});
   if(error){ showErr('불러오기 실패: '+error.message); return; }
-  todos = data.map(t => ({...t, tags: (t.todo_tags||[]).map(x=>x.tags?.name).filter(Boolean)}));
+  todos = data.map(t => ({...t, tags: (t.lab_todo_tags||[]).map(x=>x.lab_tags?.name).filter(Boolean)}));
   render();
 }
 
@@ -133,26 +134,26 @@ $('form').onsubmit=async e=>{
   const title=$('title').value.trim(); if(!title) return;
   const tagNames=$('tags').value.split(',').map(s=>s.trim()).filter(Boolean);
   // 1) 할 일 추가
-  const { data:todo, error:e1 } = await sb.from('todos')
+  const { data:todo, error:e1 } = await sb.from('lab_todos')
     .insert({title, due_date:$('due').value||null}).select('id').single();
   if(e1){ showErr('추가 실패: '+e1.message); return; }
   // 2) 태그 upsert(중복이면 무시) → 3) 연결표에 짝 저장 (다대다)
   for(const name of tagNames){
-    const { data:tag, error:e2 } = await sb.from('tags')
+    const { data:tag, error:e2 } = await sb.from('lab_tags')
       .upsert({name},{onConflict:'name'}).select('id').single();
     if(e2){ showErr('태그 실패: '+e2.message); continue; }
-    await sb.from('todo_tags').upsert({todo_id:todo.id, tag_id:tag.id});
+    await sb.from('lab_todo_tags').upsert({todo_id:todo.id, tag_id:tag.id});
   }
   e.target.reset(); $('title').focus();
   load();
 };
 
 async function toggle(id,is_done){
-  const { error }=await sb.from('todos').update({is_done}).eq('id',id);
+  const { error }=await sb.from('lab_todos').update({is_done}).eq('id',id);
   if(error){ showErr('수정 실패: '+error.message); return; } load();
 }
 async function remove(id){
-  const { error }=await sb.from('todos').delete().eq('id',id);
+  const { error }=await sb.from('lab_todos').delete().eq('id',id);
   if(error){ showErr('삭제 실패: '+error.message); return; } load();
 }
 
