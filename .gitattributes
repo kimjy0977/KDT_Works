@@ -1,0 +1,3 @@
+# 줄바꿈 정규화 — 셸 스크립트는 반드시 LF(Windows checkout에서도)
+* text=auto
+*.sh text eol=lf
