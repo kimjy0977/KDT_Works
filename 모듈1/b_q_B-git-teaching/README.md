@@ -1,23 +1,3 @@
-# Git 핵심 정리 — 퀘스트B · 팀 티칭
-
-> 🏷️ **퀘스트 B · 팀 티칭** — 노션 퀘스트 산출물.
-
-## ▶ 라이브 문서
-### 👉 https://kimjy0977.github.io/KDT_Works/모듈1/b_q_B-git-teaching/
-
-**주제:** Git & GitHub 입문 + AI 시대의 Git · **형식:** 팀 간 티칭(T팀이 S팀을 가르치고, S팀이 던전 문제 통과)
-
-> **한 줄 프레임:** AI는 생성하고, Git은 고정한다. AI는 속도를, Git은 되돌아갈 길을 준다.
-
-Git/GitHub 핵심 개념(버전관리·3공간·명령어·브랜치·merge·AI시대 5이유) + **예상문제 15선**을 팀 공유용으로 정리한 자료.
-
-## 파일
-- `index.html` — 보기 좋은 정리 페이지(위 라이브 링크)
-- `Git-핵심정리.md` — 원문 마크다운
-
-## 출처
-- 허남철 「초보자를 위한 git과 Github 시작하기」(실습)
-- 조해창 「Git이 뭔데, 설치하라는 건가요?」(개념·AI 시대)
-
----
-*KDT AI 에이전트 · 퀘스트B · [← KDT_Works 전체 보기](../)*
+# B-git-teaching — Git 핵심 정리 (팀 티칭)
+`모듈1 · 퀘스트 B` — 타팀 티칭용 Git/GitHub 핵심 + 예상문제 15선. *"AI는 생성, Git은 고정."*
+🔗 https://kimjy0977.github.io/KDT_Works/모듈1/b_q_B-git-teaching/ · 원문 [`Git-핵심정리.md`](./Git-핵심정리.md)
