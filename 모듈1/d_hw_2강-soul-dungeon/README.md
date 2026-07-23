@@ -3,7 +3,7 @@
 > 🏷️ **노드 2 · 과제(제출물)** — 바이브코딩 게임 배포 과제.
 
 ## ▶ 라이브 플레이
-### 👉 https://kimjy0977.github.io/KDT_Works/04_node-assignment/node2-soul-dungeon/
+### 👉 https://kimjy0977.github.io/KDT_Works/모듈1/d_hw_2강-soul-dungeon/
 > 화면을 한 번 클릭해 포커스를 준 뒤 조작하세요.
 
 바이브코딩으로 만든 **소울나이트식 탑다운 던전 크롤러**. 순수 Canvas(외부 의존성 0).
@@ -22,4 +22,4 @@
 - `index.html` · `styles.css` · `script.js` (외부 의존성 없음, 순수 Canvas)
 
 ---
-*KDT AI 에이전트 · 노드2 [프로젝트] · [← ModuWorks 전체 보기](../)*
+*KDT AI 에이전트 · 노드2 [프로젝트] · [← KDT_Works 전체 보기](../)*

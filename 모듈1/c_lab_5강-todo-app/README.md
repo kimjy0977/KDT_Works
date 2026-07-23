@@ -3,7 +3,7 @@
 > 🏷️ **노드 5 · 실습(따라하기)** — 루브릭 제출 과제가 **아님**. 배운 CRUD·관계·RLS를 손에 익히는 연습 산출물.
 
 ## ▶ 라이브 데모 (클라우드 · Supabase)
-### 👉 https://kimjy0977.github.io/KDT_Works/03_node-practice/node5-todo-app/
+### 👉 https://kimjy0977.github.io/KDT_Works/모듈1/c_lab_5강-todo-app/
 > 할 일을 추가하면 **클라우드 DB(Supabase Postgres)** 에 저장돼, 새로고침·다른 기기에서도 남습니다.
 > 마감일·태그(다대다) 지원. ☁️ RLS 켠 공개 데모.
 

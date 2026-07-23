@@ -3,7 +3,7 @@
 > 🏷️ **노드 4 · 과제(제출물)** — 백엔드 루브릭 제출물.
 
 ## ▶ 라이브 데모
-### 👉 https://kimjy0977.github.io/KDT_Works/04_node-assignment/node4-world-atlas/
+### 👉 https://kimjy0977.github.io/KDT_Works/모듈1/d_hw_4강-world-atlas/
 > 상단에 **"👁 누적 방문 · 오늘"** 숫자가 뜨면 백엔드 연결 성공.
 > 나라를 눌러 상세 페이지 → 가봤어요·가고싶어요·댓글·즐겨찾기가 새로고침·다른 기기에도 저장됩니다.
 
@@ -81,4 +81,4 @@
 | `flags/` | 국기 SVG 40개 |
 
 ---
-*KDT AI 에이전트 · 노드4 백엔드 제출물 · [← ModuWorks 전체 보기](../)*
+*KDT AI 에이전트 · 노드4 백엔드 제출물 · [← KDT_Works 전체 보기](../)*

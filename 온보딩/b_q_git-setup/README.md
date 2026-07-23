@@ -3,7 +3,7 @@
 > 🏷️ **온보딩 · 퀘스트** — 개발환경 세팅 아카이브.
 
 ## ▶ 라이브 문서
-### 👉 https://kimjy0977.github.io/KDT_Works/01_onboarding/onboarding-git-setup/
+### 👉 https://kimjy0977.github.io/KDT_Works/온보딩/b_q_git-setup/
 
 개발 환경 세팅 아카이브 (노드1 「바이브코딩을 위한 작업대 마련하기」 · 5일차 실습 활용).
 
@@ -20,4 +20,4 @@
 - SSH = 내 컴퓨터 ↔ GitHub 신원 인증
 
 ---
-*KDT AI 에이전트 · [← ModuWorks 전체 보기](../)*
+*KDT AI 에이전트 · [← KDT_Works 전체 보기](../)*

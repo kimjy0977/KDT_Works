@@ -3,7 +3,7 @@
 > 🏷️ **퀘스트 C-1 · 페어프로그래밍** — 노션 퀘스트 산출물.
 
 ## ▶ 라이브 플레이
-### 👉 https://kimjy0977.github.io/KDT_Works/02_quests/quest-c1-spot-the-difference/
+### 👉 https://kimjy0977.github.io/KDT_Works/모듈1/b_q_C1-spot-the-difference/
 
 **주제:** 페어프로그래밍으로 만든 웹 미니게임 · **산출물:** `index.html`(단일 HTML·오프라인 실행·라이브러리 없음)
 
@@ -16,4 +16,4 @@ Canvas로 좌·우 두 장면을 직접 그려 **다른 곳 5개**를 찾는 게
 - **ESC 일시정지**(정지 중 그림은 가려짐 — 엿보기 방지), 클리어 시 홈 복귀
 
 ---
-*KDT AI 에이전트 · 퀘스트C-1 · [← ModuWorks 전체 보기](../)*
+*KDT AI 에이전트 · 퀘스트C-1 · [← KDT_Works 전체 보기](../)*
