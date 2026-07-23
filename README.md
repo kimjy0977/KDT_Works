@@ -4,7 +4,7 @@
 루트(`index.html`)가 갤러리이고, 각 프로젝트는 자기 폴더의 `index.html`로 바로 실행·열람됩니다.
 각 폴더 README 상단의 🏷️ 뱃지로 **과제(제출물)·실습·퀘스트**를 구분합니다.
 
-🔗 **갤러리:** https://kjuyoung77.github.io/ModuWorks/
+🔗 **갤러리:** https://kjuyoung77.github.io/KDT_Works/
 
 ---
 
