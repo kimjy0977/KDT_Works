@@ -19,5 +19,8 @@
 - **실습** — [5강 todo-app](02_module1/c_lab_L5-todo-app/) · [6강 agent-practice](02_module1/c_lab_L6-agent-practice/)
 - **과제** — [2강 soul-dungeon](02_module1/d_hw_L2-soul-dungeon/) · [4강 world-atlas](02_module1/d_hw_L4-world-atlas/) · [6강 agent-skills](02_module1/d_hw_L6-agent-skills/)
 
+### 도메인개발 (백엔드 자가연습)
+- [opening-trainer](https://github.com/kimjy0977/opening-trainer) — 체스 오프닝 트레이너(FastAPI + JSON) *(별도 repo · 미배포)*
+
 ---
 *Made with vibe coding · KDT AI 에이전트 1기*
