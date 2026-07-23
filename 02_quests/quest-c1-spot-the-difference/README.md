@@ -3,7 +3,7 @@
 > 🏷️ **퀘스트 C-1 · 페어프로그래밍** — 노션 퀘스트 산출물.
 
 ## ▶ 라이브 플레이
-### 👉 https://kjuyoung77.github.io/ModuWorks/quest-c1-spot-the-difference/
+### 👉 https://kimjy0977.github.io/KDT_Works/02_quests/quest-c1-spot-the-difference/
 
 **주제:** 페어프로그래밍으로 만든 웹 미니게임 · **산출물:** `index.html`(단일 HTML·오프라인 실행·라이브러리 없음)
 

@@ -3,7 +3,7 @@
 > 🏷️ **퀘스트 B · 팀 티칭** — 노션 퀘스트 산출물.
 
 ## ▶ 라이브 문서
-### 👉 https://kjuyoung77.github.io/ModuWorks/quest-b-git-teaching/
+### 👉 https://kimjy0977.github.io/KDT_Works/02_quests/quest-b-git-teaching/
 
 **주제:** Git & GitHub 입문 + AI 시대의 Git · **형식:** 팀 간 티칭(T팀이 S팀을 가르치고, S팀이 던전 문제 통과)
 

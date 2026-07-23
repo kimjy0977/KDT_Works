@@ -3,7 +3,7 @@
 > 🏷️ **온보딩 · 퀘스트** — 컴퓨팅 사고 프로젝트.
 
 ## ▶ 라이브 문서
-### 👉 https://kjuyoung77.github.io/ModuWorks/onboarding-computational-thinking/
+### 👉 https://kimjy0977.github.io/KDT_Works/01_onboarding/onboarding-computational-thinking/
 
 바이브코딩 중 막히는 문제를 **분해 · 패턴 · 추상화 · 알고리즘** 네 동작으로 쪼갠 아이펠 온보딩 프로젝트(5.[프로젝트] Computational Thinking). 디자이너 시점의 문제 해결 기록.
 

@@ -3,7 +3,7 @@
 > 🏷️ **노드 4 · 과제(제출물)** — 백엔드 루브릭 제출물.
 
 ## ▶ 라이브 데모
-### 👉 https://kjuyoung77.github.io/ModuWorks/node4-world-atlas/
+### 👉 https://kimjy0977.github.io/KDT_Works/04_node-assignment/node4-world-atlas/
 > 상단에 **"👁 누적 방문 · 오늘"** 숫자가 뜨면 백엔드 연결 성공.
 > 나라를 눌러 상세 페이지 → 가봤어요·가고싶어요·댓글·즐겨찾기가 새로고침·다른 기기에도 저장됩니다.
 

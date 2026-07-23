@@ -4,8 +4,8 @@
 > 과제 요건은 "매번 반복하던 일을 스킬 하나로 만들어 GitHub에 올리기"지만,
 > 실제로 반복하던 작업이 여러 개라 **스킬집(5종)**으로 만들었습니다.
 
-**🔗 배포 페이지:** https://kjuyoung77.github.io/ModuWorks/node6-agent-skills/
-**📁 갤러리:** https://kjuyoung77.github.io/ModuWorks/
+**🔗 배포 페이지:** https://kimjy0977.github.io/KDT_Works/04_node-assignment/node6-agent-skills/
+**📁 갤러리:** https://kimjy0977.github.io/KDT_Works/
 
 ## 스킬이란
 
