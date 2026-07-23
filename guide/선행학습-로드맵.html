@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 에이전트 과정 선행학습 로드맵</title>
+  <style>
+
+
+    /* ===== Pretendard (한글+라틴 모던 고딕) ===== */
+    @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+    /* ===== Design tokens ===== */
+    :root{
+      --bg:#f7f6f2; --surface:#ffffff; --sunken:#f2f0ea;
+      --ink:#1b2130; --ink-2:#525b6a; --ink-3:#8c94a2;
+      --line:#e8e4db; --line-soft:#f0ede5;
+      --brand:#0f766e; --brand-ink:#0b5b54; --brand-soft:#e4f3f0; --brand-2:#0e7490;
+      --amber:#b45309; --amber-soft:#fdf3e3; --rose:#be123c; --rose-soft:#fdeef1;
+      --blue:#2563eb; --blue-soft:#eef4ff;
+      --hl-y:#fde68a; --hl-g:#a7f3d0; --hl-p:#fecdd3;
+      --shadow:0 1px 2px rgba(20,28,45,.04), 0 12px 32px -14px rgba(20,28,45,.16);
+      --shadow-sm:0 1px 3px rgba(20,28,45,.07);
+      --r:18px; --r-sm:11px; --r-xs:7px;
+      --wrap:1180px; --gut:clamp(1.05rem,4vw,2.4rem);
+      --sans:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,-apple-system,Segoe UI,sans-serif;
+      --mono:"SFMono-Regular",ui-monospace,Consolas,"Liberation Mono",Menlo,monospace;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+      font-size:16.5px;line-height:1.75;letter-spacing:-.003em;word-break:keep-all;
+      -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    a{color:inherit;text-decoration:none}
+    ::selection{background:#cdeee8}
+    .wrap{width:min(var(--wrap),calc(100% - 2*var(--gut)));margin-inline:auto}
+
+    /* ===== Hero ===== */
+    .hero{position:relative;overflow:hidden;color:#fff;padding:74px 0 58px;
+      background:
+        radial-gradient(130% 150% at 100% -10%, rgba(20,184,166,.38), transparent 55%),
+        linear-gradient(135deg,#0b3a33 0%,#0d5c53 52%,#0e7490 100%)}
+    .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+    .hero h1{font-size:clamp(2.1rem,4.9vw,3.55rem);font-weight:800;line-height:1.1;letter-spacing:-.035em;margin:.42em 0 .32em}
+    .hero p{max-width:74ch;margin:0;font-size:1.03rem;line-height:1.72;color:rgba(255,255,255,.9)}
+    .hero .hl,.hero .hl2,.hero .hl3{color:#0b2b26}
+
+    .pagenav{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+    .page-switch{display:inline-flex;align-items:center;gap:7px;margin-top:0;
+      padding:9px 15px;border-radius:999px;font-weight:700;font-size:.9rem;text-decoration:none;
+      background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);
+      box-shadow:none;backdrop-filter:blur(4px);transition:background .16s,transform .16s}
+    .page-switch:hover{background:rgba(255,255,255,.22);transform:translateY(-1px)}
+
+    /* ===== Quick cards ===== */
+    .quick{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:34px}
+    .quick a{padding:18px 18px 16px;border-radius:var(--r-sm);text-decoration:none;color:#fff;
+      background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);transition:background .16s,transform .16s}
+    .quick a:hover{background:rgba(255,255,255,.17);transform:translateY(-2px)}
+    .quick b{display:block;font-size:1.02rem;font-weight:800;letter-spacing:-.01em}
+    .quick span{display:block;margin-top:5px;font-size:.82rem;line-height:1.5;color:rgba(255,255,255,.78)}
+
+    /* ===== Layout + TOC ===== */
+    .layout{display:grid;grid-template-columns:288px minmax(0,1fr);gap:38px;padding:38px 0 84px}
+    .toc{position:sticky;top:18px;align-self:start;max-height:calc(100vh - 36px);overflow-y:auto;
+      overscroll-behavior:contain;background:var(--surface);border:1px solid var(--line);
+      border-radius:var(--r);padding:20px 16px;box-shadow:var(--shadow-sm);
+      scrollbar-width:thin;scrollbar-color:#d6d1c7 transparent}
+    .toc::-webkit-scrollbar{width:8px}
+    .toc::-webkit-scrollbar-thumb{background:#ddd8ce;border-radius:8px;border:2px solid var(--surface)}
+    .toc strong{display:block;margin:2px 4px 12px;font-size:1.06rem;font-weight:800;letter-spacing:-.01em}
+    .toc small{display:block;margin:18px 8px 6px;font-size:.7rem;font-weight:800;letter-spacing:.06em;
+      text-transform:uppercase;color:var(--brand)}
+    .toc small.legend{margin:2px 6px 10px;color:var(--ink-3);font-weight:600;letter-spacing:0;text-transform:none;font-size:.72rem}
+    .toc small.legend .toctag{margin-left:0;margin-right:3px}
+
+    .toc a{display:block;text-decoration:none;color:var(--ink-2);padding:6px 10px;border-radius:8px;
+      font-size:.885rem;line-height:1.35;border-left:2px solid transparent;transition:background .13s,color .13s}
+    .toc a:hover{background:var(--sunken);color:var(--ink)}
+    .toc a.active{background:var(--brand-soft);color:var(--brand-ink);font-weight:700;border-left-color:var(--brand)}
+
+    .toc a.tochead{margin-top:3px;font-weight:800;color:var(--ink);letter-spacing:-.01em;font-size:.9rem;
+      display:flex;align-items:baseline;gap:.15em;cursor:pointer}
+    .toc a.tochead:first-of-type{margin-top:2px}
+    .toc a.tochead:hover{background:var(--brand-soft);color:var(--brand-ink)}
+    .toc a.tochead.activehead{background:var(--brand-soft);color:var(--brand-ink);border-left-color:var(--brand)}
+    .toc a.tochead::before{content:"▸";display:inline-block;width:1.05em;flex:0 0 auto;color:var(--brand);
+      font-size:.78em;transition:transform .2s ease;transform-origin:center}
+    .toc a.tochead:has(+ .tocgroup.open)::before{transform:rotate(90deg)}
+
+    .toc .tocgroup{max-height:0;overflow:hidden;opacity:.4;
+      transition:max-height .3s ease, opacity .25s ease, margin .25s ease}
+    .toc .tocgroup.open{max-height:1400px;opacity:1;margin-bottom:6px}
+    .toc .tocgroup a{margin-left:6px;font-size:.85rem;color:var(--ink-3)}
+    .toc .tocgroup a:hover{color:var(--ink)}
+    .toc .tocgroup a.active{color:var(--brand-ink)}
+
+    .toctag{display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.02em;padding:1px 6px;
+      border-radius:6px;margin-left:5px;vertical-align:middle;line-height:1.6}
+    .toctag.q{background:var(--amber-soft);color:var(--amber)}
+    .toctag.p{background:var(--brand-soft);color:var(--brand-ink)}
+
+    /* ===== Pager ===== */
+    .pager{display:flex;gap:12px;margin-top:10px}
+    .pgbtn{flex:1;display:flex;flex-direction:column;gap:3px;padding:15px 18px;background:var(--surface);
+      border:1px solid var(--line);border-radius:var(--r-sm);text-decoration:none;color:var(--ink);
+      box-shadow:var(--shadow-sm);transition:border-color .16s,transform .16s,box-shadow .16s}
+    .pgbtn:hover{border-color:var(--brand);transform:translateY(-2px);box-shadow:var(--shadow)}
+    .pgbtn span{font-size:.74rem;color:var(--ink-3);font-weight:700;letter-spacing:.02em}
+    .pgbtn b{font-size:.94rem;line-height:1.35;letter-spacing:-.01em}
+    .pgbtn.next{text-align:right;align-items:flex-end}
+    .pgbtn.ghost{visibility:hidden;box-shadow:none;border:0;background:none}
+
+    /* ===== Sections (pager: one at a time) ===== */
+    .js main>.section{display:none}
+    .js main>.section.shown{display:block;animation:fade .28s ease}
+    @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    main{min-width:0}
+    .section{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+      padding:clamp(20px,3.5vw,34px);margin-bottom:20px;box-shadow:var(--shadow-sm);scroll-margin-top:16px}
+
+    h2{margin:0 0 6px;font-size:clamp(1.35rem,2.6vw,1.7rem);font-weight:800;letter-spacing:-.02em;line-height:1.25;color:var(--ink)}
+    h2 .dur{font-size:.72rem;font-weight:700;color:var(--brand);background:var(--brand-soft);
+      padding:3px 9px;border-radius:999px;margin-left:9px;vertical-align:middle;letter-spacing:0}
+    .lead{color:var(--ink-2);margin:2px 0 18px;font-size:1.02rem;line-height:1.7}
+    h3{font-size:1.14rem;font-weight:800;letter-spacing:-.015em;margin:28px 0 9px;padding-top:2px}
+    h3::before{content:"";display:inline-block;width:.62em;height:.62em;margin-right:.5em;border-radius:3px;
+      background:var(--brand);vertical-align:middle;transform:translateY(-.08em)}
+    h4{font-size:1.01rem;font-weight:800;margin:18px 0 6px;color:var(--brand-ink)}
+    p{margin:.6em 0}
+    ul,ol{margin:9px 0;padding-left:1.35rem}
+    li{margin:5px 0}li::marker{color:var(--ink-3)}
+
+    code{background:var(--sunken);border:1px solid var(--line);border-radius:6px;padding:1.5px 6px;
+      font-size:.88em;font-family:var(--mono);color:#0b5b54}
+    pre{background:#141b2d;color:#e6ebf5;border-radius:var(--r-sm);padding:17px 19px;overflow:auto;
+      font-size:.86rem;line-height:1.65;margin:14px 0;box-shadow:var(--shadow-sm)}
+    pre code{background:none;border:0;padding:0;color:inherit;font-size:inherit}
+
+    /* Marker highlights */
+    .hl,.hl2,.hl3{padding:.5px 5px;border-radius:5px;font-weight:700;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+    .hl{background:linear-gradient(180deg,transparent 55%,var(--hl-y) 55%)}
+    .hl2{background:linear-gradient(180deg,transparent 55%,var(--hl-g) 55%)}
+    .hl3{background:linear-gradient(180deg,transparent 55%,var(--hl-p) 55%)}
+
+    /* Callouts */
+    .notice{border-left:4px solid var(--blue);background:var(--blue-soft);padding:15px 18px;
+      border-radius:0 var(--r-sm) var(--r-sm) 0;margin:16px 0;font-size:.98rem;line-height:1.7}
+    .notice.warn{border-color:var(--amber);background:var(--amber-soft)}
+    .notice.teal{border-color:var(--brand);background:var(--brand-soft)}
+    .notice.key{border-color:var(--rose);background:var(--rose-soft)}
+    .notice b{font-weight:800}
+
+    /* Tables */
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:var(--r-sm);margin:16px 0;box-shadow:var(--shadow-sm)}
+    table{width:100%;border-collapse:collapse;min-width:520px;background:var(--surface);font-size:.94rem}
+    th,td{padding:12px 15px;border-bottom:1px solid var(--line-soft);text-align:left;vertical-align:top;line-height:1.6}
+    th{background:var(--sunken);color:var(--ink);font-weight:800;font-size:.86rem;letter-spacing:-.01em;
+      position:sticky;top:0}
+    tbody tr:nth-child(even){background:#fbfaf7}
+    tr:last-child td{border-bottom:0}
+
+    /* Tags */
+    .tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:.76rem;font-weight:800;letter-spacing:-.01em;
+      background:var(--blue-soft);color:var(--blue)}
+    .tag.green{background:var(--brand-soft);color:var(--brand-ink)}
+    .tag.amber{background:var(--amber-soft);color:var(--amber)}
+    .tag.teal{background:var(--brand-soft);color:var(--brand-ink)}
+    .tag.rust{background:var(--amber-soft);color:var(--amber)}
+
+    /* Grids + mini cards */
+    .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .mini{border:1px solid var(--line);border-radius:var(--r-sm);padding:17px;background:#fdfcfa}
+    .mini h3,.mini h4{margin:0 0 8px}
+    .mini h3::before{display:none}
+
+    /* Steps */
+    .steps{counter-reset:s}
+    .step{counter-increment:s;position:relative;padding:3px 0 16px 46px;min-height:42px}
+    .step:before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;display:grid;
+      place-items:center;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;font-size:.9rem}
+
+    .formula{font-size:1.02rem;font-weight:800;text-align:center;background:var(--amber-soft);
+      border:1px solid #f3ddb6;border-radius:var(--r-sm);padding:18px;letter-spacing:-.01em}
+    .fine{font-size:.86rem;color:var(--ink-3);line-height:1.65}
+
+    /* Coursehead (module intro) */
+    .coursehead{border:0;color:#fff;position:relative;overflow:hidden;
+      background:radial-gradient(120% 160% at 100% 0%, rgba(20,184,166,.32), transparent 58%),
+                 linear-gradient(135deg,#0c453c,#0e6c62)}
+    .coursehead h2{color:#fff;font-size:clamp(1.5rem,3vw,2rem)}
+    .coursehead .lead{color:rgba(255,255,255,.88)}
+    .coursehead .dur{background:rgba(255,255,255,.18);color:#fff}
+    .badge{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.02em;
+      background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);padding:5px 12px;border-radius:999px;margin-bottom:10px}
+
+    /* Footer */
+    .footer{border-top:1px solid var(--line);margin-top:8px;padding:26px 0 46px;color:var(--ink-3);font-size:.85rem}
+
+    /* Responsive */
+    @media(max-width:920px){
+      .quick{grid-template-columns:1fr}
+      .layout{display:block;padding:26px 0 60px}
+      .toc{position:static;max-height:none;margin-bottom:20px}
+      .grid2,.grid3{grid-template-columns:1fr}
+    }
+    @media(max-width:560px){
+      body{font-size:16px}
+      .hero{padding:52px 0 40px}
+      .section{padding:20px 17px}
+      .pager{flex-direction:column}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *{scroll-behavior:auto!important}
+      .js main>.section.shown{animation:none}
+      .toc .tocgroup{transition:none}
+      .toc a.tochead::before{transition:none}
+    }
+
+    /* Print */
+    @media print{
+      body{background:#fff;font-size:10.5pt;color:#111}
+      .hero{padding:22px 0;background:#fff!important;color:#111;border-bottom:2px solid #111}
+      .hero p{color:#333}.eyebrow{color:#555}
+      .page-switch,.pagenav,.toc,.pager{display:none!important}
+      .quick a{border:1px solid #aaa;background:#fff;color:#111}
+      .quick b,.quick span{color:#111}
+      .layout{display:block;padding:16px 0}
+      .section{box-shadow:none;border:1px solid #bbb;padding:16px;break-inside:avoid}
+      .coursehead{background:#eee!important;color:#111}.coursehead h2,.coursehead .lead,.badge{color:#111}
+      .badge{border-color:#999}
+      h2,h3,h4{color:#111}h3::before{background:#111}
+      pre{background:#f4f4f5;color:#111;border:1px solid #ccc}
+      code{color:#111}
+      .hl,.hl2,.hl3{background:transparent;text-decoration:underline}
+      main>.section{display:block!important}.footer{display:none}
+    }
+
+  
+  </style>
+</head>
+<body>
+  <header class="hero"><div class="wrap"><div class="eyebrow">PRE-STUDY ROADMAP</div><h1>AI 에이전트 과정 선행학습 로드맵</h1><p>첫날 기준으로 “무엇을 미리 공부하면 수업을 덜 버겁게 따라갈 수 있는지”를 우선순위와 실습 단위로 정리했습니다. 운영 규정 문서와 함께 보면 학습·출결·프로젝트 준비 흐름을 같이 잡을 수 있습니다.</p><nav class="pagenav" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px"><a class="page-switch" style="margin-top:0" href="KDT-교육-운영-종합안내.html">📋 운영 안내</a><span class="page-switch" style="margin-top:0;background:#fbbf24;color:#172033;box-shadow:none;cursor:default">🧭 선행학습</span><a class="page-switch" style="margin-top:0" href="AI에이전트-강의노트.html">📝 강의 노트(앤트로픽·인프런)</a><a class="page-switch" style="margin-top:0" href="모두연-노드-강의노트.html">🧩 모두연 노드</a><a class="page-switch" style="margin-top:0" href="https://kjuyoung77.github.io/ModuWorks/" target="_blank" rel="noopener">🗂️ 과제 모음 ↗</a></nav><div class="quick"><div><b>1순위</b><span>Git·터미널</span></div><div><b>2순위</b><span>Python 기본기</span></div><div><b>3순위</b><span>웹·API 기초</span></div><div><b>4순위</b><span>LLM·RAG 감 잡기</span></div></div></div></header>
+  <div class="wrap layout">
+    <nav class="toc"><strong>목차</strong><a href="#overview">1. 과정 흐름 이해</a><a href="#priority">2. 선행학습 우선순위</a><a href="#routine">3. 4주 루틴</a><a href="#projects">4. 추천 미니 프로젝트</a><a href="#daily">5. 매일 학습법</a><a href="#not-now">6. 지금 깊게 안 해도 되는 것</a><a href="#check">7. 체크리스트</a></nav>
+    <main>
+      <section class="section" id="overview"><h2>1. 과정 흐름 이해</h2><p>이 과정은 <b>총 6개월</b>(실시간 온라인 50% + 오프라인 50%, 평일 10:00~18:00), 업무일 기준 약 120일 동안 진행되며, 초반 기초부터 AI 에이전트 프로젝트까지 단계적으로 이어집니다.</p><div class="table-wrap"><table><thead><tr><th>구간</th><th>핵심 내용</th><th>선행학습 관점</th></tr></thead><tbody><tr><td>Part 1 / Phase 1</td><td>CS, Git, 바이브 코딩, 웹서비스 실습</td><td>Git·터미널·Python·웹 기초가 가장 중요</td></tr><tr><td>Phase 2</td><td>AI 모델 이해와 사용, LLM, OCR, YOLO, 멀티모달</td><td>Python 패키지 사용, API 호출, 모델 사용 흐름 이해</td></tr><tr><td>Part 2 / Phase 3</td><td>프롬프트 엔지니어링, RAG, Tool Use, MCP, 에이전트 설계</td><td>LLM·프롬프트·RAG·JSON·API 개념을 미리 보면 유리</td></tr><tr><td>Phase 4</td><td>CI/CD, 클라우드, 보안, 모니터링, 비용 최적화, A/B 테스트</td><td>서비스 배포 구조와 운영 개념 이해</td></tr><tr><td>Part 3 / Phase 5</td><td>AIFFELthon, 나만의 연구주제 AI 프로젝트</td><td>작은 프로젝트를 꾸준히 쌓아 주제 후보를 확보</td></tr></tbody></table></div><div class="notice teal"><b>핵심 방향:</b> 지금은 AI 논문을 깊게 파기보다, 매일 과제와 프로젝트에서 손이 막히지 않게 만드는 기초 체력을 먼저 확보하는 편이 효율적입니다.</div></section>
+
+      <section class="section" id="priority"><h2>2. 선행학습 우선순위</h2><div class="mini"><h3>1순위 · Git / GitHub / 터미널</h3><p>수업 중 가장 자주 발목을 잡는 것은 AI 이론보다 경로, 설치, Git, 제출 문제일 가능성이 큽니다.</p><ul><li><code>cd</code>, <code>ls</code>, <code>mkdir</code>, <code>rm</code>, <code>cp</code>, <code>mv</code> 같은 터미널 기본</li><li>Git 흐름: <b>clone → add → commit → push → pull</b></li><li>GitHub 저장소 생성, README 작성, <code>.gitignore</code> 이해</li><li>에러 로그를 복사해서 AI에게 정확히 질문하는 법</li></ul></div><div class="mini"><h3>2순위 · Python 기본기</h3><ul><li>변수, 리스트, 딕셔너리</li><li>조건문, 반복문, 함수</li><li>파일 읽고 쓰기</li><li><code>pip install</code>, 가상환경 개념</li><li>에러 메시지 읽기</li></ul><p class="fine">목표는 “알고리즘 고수”가 아니라, 수업 코드와 AI가 만들어준 코드를 읽고 고칠 수 있는 수준입니다.</p></div><div class="mini"><h3>3순위 · 웹 기초</h3><ul><li>HTML: 화면 구조</li><li>CSS: 배치와 스타일</li><li>JavaScript: 클릭, 입력값 처리</li><li>API: 요청과 응답</li><li>JSON: 데이터 교환 형식</li><li>서버 기본: 라우팅, 요청 처리</li></ul></div><div class="mini"><h3>4순위 · LLM / 프롬프트 / RAG 감 잡기</h3><ul><li>LLM, 프롬프트, 컨텍스트, 토큰</li><li>RAG: 내 문서를 검색해 답변에 붙이는 방식</li><li>임베딩: 문장을 숫자 벡터로 바꾸는 것</li><li>벡터DB: 의미 기반 검색 저장소</li><li>에이전트: LLM이 도구를 호출하며 작업하는 구조</li><li>MCP: AI가 외부 도구·데이터와 연결되는 표준화된 방식</li></ul></div><div class="notice warn"><b>추천 순서:</b> Git·터미널 → Python → 웹/API → LLM·RAG 용어 → 그다음 NLP/CV/논문 순서가 가장 안전합니다.</div></section>
+
+      <section class="section" id="routine"><h2>3. 4주 선행학습 루틴</h2><div class="table-wrap"><table><thead><tr><th>기간</th><th>할 것</th><th>목표</th></tr></thead><tbody><tr><td>1주차</td><td>Git / GitHub / 터미널 + Python 기본</td><td>과제 제출, 저장소 관리, 환경 문제 대응</td></tr><tr><td>2주차</td><td>HTML / CSS / JavaScript / API / JSON</td><td>AI가 만든 웹앱 코드를 읽고 수정</td></tr><tr><td>3주차</td><td>Python으로 작은 자동화 만들기</td><td>파일 정리, 간단 API 호출, 데이터 저장</td></tr><tr><td>4주차</td><td>LLM API / 프롬프트 / RAG 개념</td><td>에이전트·RAG 수업 진입 준비</td></tr></tbody></table></div><div class="notice">하루 1~2시간만 가능하다면 “개념 영상 보기 30분 + 직접 쳐보기 60분 + 오늘 배운 것 기록 10분” 정도가 좋습니다.</div></section>
+
+      <section class="section" id="projects"><h2>4. 추천 미니 프로젝트 3개</h2><div class="grid2"><div class="mini"><h3>출결·과제 정리 도우미</h3><ul><li>오늘 할 일 입력</li><li>마감일 입력</li><li>완료 체크</li><li>로컬 JSON 파일에 저장</li></ul><p class="fine">Git, Python, JSON, 간단한 UI를 함께 연습할 수 있습니다.</p></div><div class="mini"><h3>강의자료 요약 도우미</h3><ul><li>텍스트 붙여넣기</li><li>핵심 요약</li><li>모르는 용어 추출</li><li>질문 리스트 생성</li></ul><p class="fine">프롬프트 설계와 LLM 활용 감각을 키우기 좋습니다.</p></div><div class="mini"><h3>나만의 학습 로그 앱</h3><ul><li>오늘 배운 것</li><li>막힌 것</li><li>해결한 것</li><li>내일 할 것</li><li>GitHub에 매일 커밋</li></ul><p class="fine">포트폴리오와 면접 스토리의 씨앗이 됩니다.</p></div></div><div class="formula">작게 만들고, 매일 고치고, GitHub에 남기는 것이 가장 좋은 선행학습입니다.</div></section>
+
+      <section class="section" id="daily"><h2>5. 매일 학습법</h2><div class="steps"><div class="step"><b>수업 전 20분</b><br>오늘 나올 키워드 3개만 미리 검색합니다. 깊게 파지 말고 단어의 뜻과 쓰임만 확인합니다.</div><div class="step"><b>수업 중</b><br>모르는 내용을 전부 정리하려 하지 말고, “지금 막힌 지점”과 “나중에 다시 볼 키워드”를 분리합니다.</div><div class="step"><b>수업 후 40~60분</b><br>오늘 배운 내용을 아주 작은 코드나 문서로 재현합니다. 재현이 안 되면 그 부분만 다시 질문합니다.</div><div class="step"><b>하루 마감</b><br>학습 로그를 남기고 GitHub에 커밋합니다. 커밋 메시지는 “무엇을 이해했는지”가 보이게 씁니다.</div></div></section>
+
+      <section class="section" id="not-now"><h2>6. 지금 깊게 안 해도 되는 것</h2><p>커리큘럼에 CV, NLP, HuggingFace, BERT, Machine Translation, Chatbot, 논문 작성이 나오지만 첫날부터 깊게 들어가면 오히려 부담이 커질 수 있습니다.</p><ul><li>수식 중심 머신러닝·딥러닝 이론</li><li>Transformer 논문 완독</li><li>NLP/CV 모델 구조 세부 구현</li><li>배포·클라우드·CI/CD 고급 설정</li><li>논문 작성법 전체</li></ul><div class="notice warn"><b>지금 목표:</b> “잘 모르지만 프로젝트를 따라 만들 수 있는 상태”를 먼저 만드는 것입니다. 깊은 이론은 수업 흐름에 맞춰 필요한 순간에 들어가도 늦지 않습니다.</div></section>
+
+      <section class="section" id="check"><h2>7. 선행학습 체크리스트</h2><ul><li>터미널에서 폴더 이동과 파일 생성·삭제를 할 수 있다.</li><li>GitHub 저장소를 만들고 commit/push 할 수 있다.</li><li>Python 리스트·딕셔너리·함수를 읽고 쓸 수 있다.</li><li>에러 메시지를 복사해 원인과 해결방법을 질문할 수 있다.</li><li>HTML/CSS/JS가 각각 무엇을 담당하는지 설명할 수 있다.</li><li>API 요청과 JSON 응답의 구조를 대략 이해한다.</li><li>LLM, 프롬프트, 토큰, 컨텍스트, RAG, 임베딩, 벡터DB, 에이전트, MCP의 의미를 한 문장으로 설명할 수 있다.</li><li>작은 미니 프로젝트 하나를 GitHub에 남기기 시작했다.</li></ul><div class="notice teal">첫달의 목표는 “완벽한 이해”가 아니라 “수업을 놓치지 않는 작동 가능한 기초 체력”입니다.</div></section>
+    </main>
+  </div>
+  <footer class="footer"><div class="wrap">이 문서는 수업 로드맵과 첫날 안내 내용을 바탕으로 만든 개인 선행학습 가이드입니다.</div></footer>
+</body>
+</html>

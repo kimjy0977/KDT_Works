@@ -1,0 +1,2080 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>모두연 노드 학습 노트 · 바이브 코딩으로 웹 만들기</title>
+  <style>
+
+    /* ===== Pretendard (한글+라틴 모던 고딕) ===== */
+    @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+    /* ===== Design tokens ===== */
+    :root{
+      --bg:#f7f6f2; --surface:#ffffff; --sunken:#f2f0ea;
+      --ink:#1b2130; --ink-2:#525b6a; --ink-3:#8c94a2;
+      --line:#e8e4db; --line-soft:#f0ede5;
+      --brand:#0f766e; --brand-ink:#0b5b54; --brand-soft:#e4f3f0; --brand-2:#0e7490;
+      --amber:#b45309; --amber-soft:#fdf3e3; --rose:#be123c; --rose-soft:#fdeef1;
+      --blue:#2563eb; --blue-soft:#eef4ff;
+      --hl-y:#fde68a; --hl-g:#a7f3d0; --hl-p:#fecdd3;
+      --shadow:0 1px 2px rgba(20,28,45,.04), 0 12px 32px -14px rgba(20,28,45,.16);
+      --shadow-sm:0 1px 3px rgba(20,28,45,.07);
+      --r:18px; --r-sm:11px; --r-xs:7px;
+      --wrap:1180px; --gut:clamp(1.05rem,4vw,2.4rem);
+      --sans:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,-apple-system,Segoe UI,sans-serif;
+      --mono:"SFMono-Regular",ui-monospace,Consolas,"Liberation Mono",Menlo,monospace;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+      font-size:16.5px;line-height:1.75;letter-spacing:-.003em;word-break:keep-all;
+      -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    a{color:inherit;text-decoration:none}
+    ::selection{background:#cdeee8}
+    .wrap{width:min(var(--wrap),calc(100% - 2*var(--gut)));margin-inline:auto}
+
+    /* ===== Hero ===== */
+    .hero{position:relative;overflow:hidden;color:#fff;padding:74px 0 58px;
+      background:
+        radial-gradient(130% 150% at 100% -10%, rgba(20,184,166,.38), transparent 55%),
+        linear-gradient(135deg,#0b3a33 0%,#0d5c53 52%,#0e7490 100%)}
+    .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+    .hero h1{font-size:clamp(2.1rem,4.9vw,3.55rem);font-weight:800;line-height:1.1;letter-spacing:-.035em;margin:.42em 0 .32em}
+    .hero p{max-width:74ch;margin:0;font-size:1.03rem;line-height:1.72;color:rgba(255,255,255,.9)}
+    .hero .hl,.hero .hl2,.hero .hl3{color:#0b2b26}
+
+    .pagenav{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+    .page-switch{display:inline-flex;align-items:center;gap:7px;margin-top:0;
+      padding:9px 15px;border-radius:999px;font-weight:700;font-size:.9rem;text-decoration:none;
+      background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);
+      box-shadow:none;backdrop-filter:blur(4px);transition:background .16s,transform .16s}
+    .page-switch:hover{background:rgba(255,255,255,.22);transform:translateY(-1px)}
+
+    /* ===== Quick cards ===== */
+    .quick{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:34px}
+    .quick a{padding:18px 18px 16px;border-radius:var(--r-sm);text-decoration:none;color:#fff;
+      background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);transition:background .16s,transform .16s}
+    .quick a:hover{background:rgba(255,255,255,.17);transform:translateY(-2px)}
+    .quick b{display:block;font-size:1.02rem;font-weight:800;letter-spacing:-.01em}
+    .quick span{display:block;margin-top:5px;font-size:.82rem;line-height:1.5;color:rgba(255,255,255,.78)}
+
+    /* ===== Layout + TOC ===== */
+    .layout{display:grid;grid-template-columns:288px minmax(0,1fr);gap:38px;padding:38px 0 84px}
+    .toc{position:sticky;top:18px;align-self:start;max-height:calc(100vh - 36px);overflow-y:auto;
+      overscroll-behavior:contain;background:var(--surface);border:1px solid var(--line);
+      border-radius:var(--r);padding:20px 16px;box-shadow:var(--shadow-sm);
+      scrollbar-width:thin;scrollbar-color:#d6d1c7 transparent}
+    .toc::-webkit-scrollbar{width:8px}
+    .toc::-webkit-scrollbar-thumb{background:#ddd8ce;border-radius:8px;border:2px solid var(--surface)}
+    .toc strong{display:block;margin:2px 4px 12px;font-size:1.06rem;font-weight:800;letter-spacing:-.01em}
+    .toc small{display:block;margin:18px 8px 6px;font-size:.7rem;font-weight:800;letter-spacing:.06em;
+      text-transform:uppercase;color:var(--brand)}
+    .toc small.legend{margin:2px 6px 10px;color:var(--ink-3);font-weight:600;letter-spacing:0;text-transform:none;font-size:.72rem}
+    .toc small.legend .toctag{margin-left:0;margin-right:3px}
+
+    .toc a{display:block;text-decoration:none;color:var(--ink-2);padding:6px 10px;border-radius:8px;
+      font-size:.885rem;line-height:1.35;border-left:2px solid transparent;transition:background .13s,color .13s}
+    .toc a:hover{background:var(--sunken);color:var(--ink)}
+    .toc a.active{background:var(--brand-soft);color:var(--brand-ink);font-weight:700;border-left-color:var(--brand)}
+
+    .toc a.tochead{margin-top:3px;font-weight:800;color:var(--ink);letter-spacing:-.01em;font-size:.9rem;
+      display:flex;align-items:baseline;gap:.15em;cursor:pointer}
+    .toc a.tochead:first-of-type{margin-top:2px}
+    .toc a.tochead:hover{background:var(--brand-soft);color:var(--brand-ink)}
+    .toc a.tochead.activehead{background:var(--brand-soft);color:var(--brand-ink);border-left-color:var(--brand)}
+    .toc a.tochead::before{content:"▸";display:inline-block;width:1.05em;flex:0 0 auto;color:var(--brand);
+      font-size:.78em;transition:transform .2s ease;transform-origin:center}
+    .toc a.tochead:has(+ .tocgroup.open)::before{transform:rotate(90deg)}
+
+    .toc .tocgroup{max-height:0;overflow:hidden;opacity:.4;
+      transition:max-height .3s ease, opacity .25s ease, margin .25s ease}
+    .toc .tocgroup.open{max-height:1400px;opacity:1;margin-bottom:6px}
+    .toc .tocgroup a{margin-left:6px;font-size:.85rem;color:var(--ink-3)}
+    .toc .tocgroup a:hover{color:var(--ink)}
+    .toc .tocgroup a.active{color:var(--brand-ink)}
+
+    .toctag{display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.02em;padding:1px 6px;
+      border-radius:6px;margin-left:5px;vertical-align:middle;line-height:1.6}
+    .toctag.q{background:var(--amber-soft);color:var(--amber)}
+    .toctag.p{background:var(--brand-soft);color:var(--brand-ink)}
+
+    /* ===== Pager ===== */
+    .pager{display:flex;gap:12px;margin-top:10px}
+    .pgbtn{flex:1;display:flex;flex-direction:column;gap:3px;padding:15px 18px;background:var(--surface);
+      border:1px solid var(--line);border-radius:var(--r-sm);text-decoration:none;color:var(--ink);
+      box-shadow:var(--shadow-sm);transition:border-color .16s,transform .16s,box-shadow .16s}
+    .pgbtn:hover{border-color:var(--brand);transform:translateY(-2px);box-shadow:var(--shadow)}
+    .pgbtn span{font-size:.74rem;color:var(--ink-3);font-weight:700;letter-spacing:.02em}
+    .pgbtn b{font-size:.94rem;line-height:1.35;letter-spacing:-.01em}
+    .pgbtn.next{text-align:right;align-items:flex-end}
+    .pgbtn.ghost{visibility:hidden;box-shadow:none;border:0;background:none}
+
+    /* ===== Sections (pager: one at a time) ===== */
+    .js main>.section{display:none}
+    .js main>.section.shown{display:block;animation:fade .28s ease}
+    @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    main{min-width:0}
+    .section{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+      padding:clamp(20px,3.5vw,34px);margin-bottom:20px;box-shadow:var(--shadow-sm);scroll-margin-top:16px}
+
+    h2{margin:0 0 6px;font-size:clamp(1.35rem,2.6vw,1.7rem);font-weight:800;letter-spacing:-.02em;line-height:1.25;color:var(--ink)}
+    h2 .dur{font-size:.72rem;font-weight:700;color:var(--brand);background:var(--brand-soft);
+      padding:3px 9px;border-radius:999px;margin-left:9px;vertical-align:middle;letter-spacing:0}
+    .lead{color:var(--ink-2);margin:2px 0 18px;font-size:1.02rem;line-height:1.7}
+    h3{font-size:1.14rem;font-weight:800;letter-spacing:-.015em;margin:28px 0 9px;padding-top:2px}
+    h3::before{content:"";display:inline-block;width:.62em;height:.62em;margin-right:.5em;border-radius:3px;
+      background:var(--brand);vertical-align:middle;transform:translateY(-.08em)}
+    h4{font-size:1.01rem;font-weight:800;margin:18px 0 6px;color:var(--brand-ink)}
+    p{margin:.6em 0}
+    ul,ol{margin:9px 0;padding-left:1.35rem}
+    li{margin:5px 0}li::marker{color:var(--ink-3)}
+
+    code{background:var(--sunken);border:1px solid var(--line);border-radius:6px;padding:1.5px 6px;
+      font-size:.88em;font-family:var(--mono);color:#0b5b54}
+    pre{background:#141b2d;color:#e6ebf5;border-radius:var(--r-sm);padding:17px 19px;overflow:auto;
+      font-size:.86rem;line-height:1.65;margin:14px 0;box-shadow:var(--shadow-sm)}
+    pre code{background:none;border:0;padding:0;color:inherit;font-size:inherit}
+
+    /* Marker highlights */
+    .hl,.hl2,.hl3{padding:.5px 5px;border-radius:5px;font-weight:700;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+    .hl{background:linear-gradient(180deg,transparent 55%,var(--hl-y) 55%)}
+    .hl2{background:linear-gradient(180deg,transparent 55%,var(--hl-g) 55%)}
+    .hl3{background:linear-gradient(180deg,transparent 55%,var(--hl-p) 55%)}
+
+    /* Callouts */
+    .notice{border-left:4px solid var(--blue);background:var(--blue-soft);padding:15px 18px;
+      border-radius:0 var(--r-sm) var(--r-sm) 0;margin:16px 0;font-size:.98rem;line-height:1.7}
+    .notice.warn{border-color:var(--amber);background:var(--amber-soft)}
+    .notice.teal{border-color:var(--brand);background:var(--brand-soft)}
+    .notice.key{border-color:var(--rose);background:var(--rose-soft)}
+    .notice b{font-weight:800}
+
+    /* Tables */
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:var(--r-sm);margin:16px 0;box-shadow:var(--shadow-sm)}
+    table{width:100%;border-collapse:collapse;min-width:520px;background:var(--surface);font-size:.94rem}
+    th,td{padding:12px 15px;border-bottom:1px solid var(--line-soft);text-align:left;vertical-align:top;line-height:1.6}
+    th{background:var(--sunken);color:var(--ink);font-weight:800;font-size:.86rem;letter-spacing:-.01em;
+      position:sticky;top:0}
+    tbody tr:nth-child(even){background:#fbfaf7}
+    tr:last-child td{border-bottom:0}
+
+    /* Tags */
+    .tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:.76rem;font-weight:800;letter-spacing:-.01em;
+      background:var(--blue-soft);color:var(--blue)}
+    .tag.green{background:var(--brand-soft);color:var(--brand-ink)}
+    .tag.amber{background:var(--amber-soft);color:var(--amber)}
+    .tag.teal{background:var(--brand-soft);color:var(--brand-ink)}
+    .tag.rust{background:var(--amber-soft);color:var(--amber)}
+
+    /* Grids + mini cards */
+    .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .mini{border:1px solid var(--line);border-radius:var(--r-sm);padding:17px;background:#fdfcfa}
+    .mini h3,.mini h4{margin:0 0 8px}
+    .mini h3::before{display:none}
+
+    /* Steps */
+    .steps{counter-reset:s}
+    .step{counter-increment:s;position:relative;padding:3px 0 16px 46px;min-height:42px}
+    .step:before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;display:grid;
+      place-items:center;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;font-size:.9rem}
+
+    .formula{font-size:1.02rem;font-weight:800;text-align:center;background:var(--amber-soft);
+      border:1px solid #f3ddb6;border-radius:var(--r-sm);padding:18px;letter-spacing:-.01em}
+    .fine{font-size:.86rem;color:var(--ink-3);line-height:1.65}
+
+    /* Coursehead (module intro) */
+    .coursehead{border:0;color:#fff;position:relative;overflow:hidden;
+      background:radial-gradient(120% 160% at 100% 0%, rgba(20,184,166,.32), transparent 58%),
+                 linear-gradient(135deg,#0c453c,#0e6c62)}
+    .coursehead h2{color:#fff;font-size:clamp(1.5rem,3vw,2rem)}
+    .coursehead .lead{color:rgba(255,255,255,.88)}
+    .coursehead .dur{background:rgba(255,255,255,.18);color:#fff}
+    .badge{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.02em;
+      background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);padding:5px 12px;border-radius:999px;margin-bottom:10px}
+
+    /* Footer */
+    .footer{border-top:1px solid var(--line);margin-top:8px;padding:26px 0 46px;color:var(--ink-3);font-size:.85rem}
+
+    /* Responsive */
+    @media(max-width:920px){
+      .quick{grid-template-columns:1fr}
+      .layout{display:block;padding:26px 0 60px}
+      .toc{position:static;max-height:none;margin-bottom:20px}
+      .grid2,.grid3{grid-template-columns:1fr}
+    }
+    @media(max-width:560px){
+      body{font-size:16px}
+      .hero{padding:52px 0 40px}
+      .section{padding:20px 17px}
+      .pager{flex-direction:column}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *{scroll-behavior:auto!important}
+      .js main>.section.shown{animation:none}
+      .toc .tocgroup{transition:none}
+      .toc a.tochead::before{transition:none}
+    }
+
+    /* Print */
+    @media print{
+      body{background:#fff;font-size:10.5pt;color:#111}
+      .hero{padding:22px 0;background:#fff!important;color:#111;border-bottom:2px solid #111}
+      .hero p{color:#333}.eyebrow{color:#555}
+      .page-switch,.pagenav,.toc,.pager{display:none!important}
+      .quick a{border:1px solid #aaa;background:#fff;color:#111}
+      .quick b,.quick span{color:#111}
+      .layout{display:block;padding:16px 0}
+      .section{box-shadow:none;border:1px solid #bbb;padding:16px;break-inside:avoid}
+      .coursehead{background:#eee!important;color:#111}.coursehead h2,.coursehead .lead,.badge{color:#111}
+      .badge{border-color:#999}
+      h2,h3,h4{color:#111}h3::before{background:#111}
+      pre{background:#f4f4f5;color:#111;border:1px solid #ccc}
+      code{color:#111}
+      .hl,.hl2,.hl3{background:transparent;text-decoration:underline}
+      main>.section{display:block!important}.footer{display:none}
+    }
+
+  </style>
+</head>
+<body>
+  <header class="hero"><div class="wrap">
+    <div class="eyebrow">모두의연구소 · 바이브 코딩으로 웹 만들기</div>
+    <h1>모두연 강의 학습 노트</h1>
+    <p>수강하는 <b>강(講)</b>이 열릴 때마다 여기에 <b>모듈·강별로 누적</b>합니다. 요약이 아니라 강의 내용을 그대로 담되, 중요한 부분은 <span class="hl">노란 강조</span>·<span class="hl2">초록(안전·핵심)</span>·<span class="hl3">분홍(주의)</span>과 콜아웃으로 표시했습니다. 관통 메시지: <span class="hl">"명령을 친 사실이 아니라, 출력으로 확인한다."</span></p>
+    <nav class="pagenav" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px"><a class="page-switch" style="margin-top:0" href="KDT-교육-운영-종합안내.html">📋 운영 안내</a><a class="page-switch" style="margin-top:0" href="선행학습-로드맵.html">🧭 선행학습</a><a class="page-switch" style="margin-top:0" href="AI에이전트-강의노트.html">📝 강의 노트(앤트로픽·인프런)</a><span class="page-switch" style="margin-top:0;background:#fbbf24;color:#172033;box-shadow:none;cursor:default">🧩 모두연 강의노트</span><a class="page-switch" style="margin-top:0" href="https://kjuyoung77.github.io/ModuWorks/" target="_blank" rel="noopener">🗂️ 과제 모음 ↗</a></nav>
+    <div class="quick"><a href="#node-0"><b>적응기 · 아이펠 적응하기</b><span>온보딩 — 협업툴·아이펠·퀘스트·CT (5강)</span></a><a href="#node-1"><b>모듈 1 · 바이브코딩 입문</b><span>작업대 · 세 겹 &amp; 게임 (1-1~1-2강)</span></a><a href="#node-3"><b>모듈 2 · 나만의 서비스 만들기</b><span>프레임워크·백엔드·DB·에이전트·메인퀘스트 (2-1~2-5강)</span></a></div>
+  </div></header>
+
+  <div class="wrap layout">
+    <nav class="toc"><strong>목차</strong>
+      <small class="legend"><span class="toctag q">과제</span>제출 과제 · <span class="toctag p">실습</span>따라하기 실습</small>
+
+      <small>적응기 · 온보딩</small>
+      <a class="tochead" href="#node-0">아이펠 적응하기</a>
+      <div class="tocgroup" data-g="0">
+      <a href="#n0-1">1강 협업 툴 소개</a>
+      <a href="#n0-2">2강 아이펠이란?</a>
+      <a href="#n0-3">3강 퀘스트란?</a>
+      <a href="#n0-4">4강 코딩 0줄로 여는 첫날<span class="toctag p">실습</span></a>
+      <a href="#n0-5">5강 Computational Thinking<span class="toctag q">과제</span></a>
+      </div>
+
+      <small>모듈 1 · 바이브코딩 입문</small>
+      <a class="tochead" href="#node-1">1-1강 · 작업대 마련하기</a>
+      <div class="tocgroup" data-g="1">
+      <a href="#n1-1">1·1 AI 작업대를 차린다</a>
+      <a href="#n1-2">1·2 내 작업대 상태 확인</a>
+      <a href="#n1-3">1·3 첫 폴더·파일 만들기</a>
+      <a href="#n1-4">1·4 바이브코딩 루프</a>
+      <a href="#n1-5">1·5 터미널·셸·커널·프롬프트</a>
+      <a href="#n1-6">1·6 터미널로 폴더 탐험</a>
+      <a href="#n1-7">1·7 AI와 폴더 안전 정리</a>
+      <a href="#n1-8">1·8 비교·회고</a>
+      </div>
+      <a class="tochead" href="#node-2">1-2강 · 세 겹 &amp; 게임</a>
+      <div class="tocgroup" data-g="2">
+      <a href="#n2-1">2·1 세 겹이란</a>
+      <a href="#n2-2">2·2 세 겹의 사연(역사)</a>
+      <a href="#n2-3">2·3 CS: 동기·스레드·코어</a>
+      <a href="#n2-4">2·4 AI로 게임 만들기</a>
+      <a href="#n2-5">2·5 바이브 루프·PRD</a>
+      <a href="#n2-6">2·6 과제: 게임 배포·제출<span class="toctag q">과제</span></a>
+      </div>
+      <small>모듈 2 · 나만의 서비스 만들기</small>
+      <a class="tochead" href="#node-3">2-1강 · 프레임워크</a>
+      <div class="tocgroup" data-g="3">
+      <a href="#n3-1">3·1 프레임워크는 왜 많나</a>
+      <a href="#n3-2">3·2 프레임워크가 푸는 3문제</a>
+      <a href="#n3-3">3·3 몇 개나 알아야 할까</a>
+      <a href="#n3-4">3·4 AI와 PRD 만들기</a>
+      <a href="#n3-5">3·5 백엔드 없이 프론트엔드</a>
+      <a href="#n3-6">3·6 CS: API가 하는 일</a>
+      <a href="#n3-7">3·7 쇼핑몰·과제(PRD)<span class="toctag q">과제</span></a>
+      </div>
+      <a class="tochead" href="#node-4">2-2강 · 백엔드</a>
+      <div class="tocgroup" data-g="4">
+      <a href="#n4-1">4·1 화면 뒤 서버가 필요한 이유</a>
+      <a href="#n4-2">4·2 네트워크 기본기</a>
+      <a href="#n4-3">4·3 백엔드가 하는 일</a>
+      <a href="#n4-4">4·4 프로토·프로덕트 — AI 약점</a>
+      <a href="#n4-5">4·5 배포</a>
+      <a href="#n4-6">4·6 무료 서버 고르기</a>
+      <a href="#n4-7">4·7 내 컴퓨터를 서버로</a>
+      <a href="#n4-8">4·8 프론트-백엔드 연결</a>
+      <a href="#n4-9">4·9 백엔드 붙이기·과제<span class="toctag q">과제</span></a>
+      </div>
+      <a class="tochead" href="#node-5">2-3강 · 데이터베이스</a>
+      <div class="tocgroup" data-g="5">
+      <a href="#n5-1">5·1 데이터를 저장할 곳이 필요한 이유</a>
+      <a href="#n5-2">5·2 왜 종류가 많을까 — DB의 역사</a>
+      <a href="#n5-3">5·3 SQL 구경과 데이터의 모양</a>
+      <a href="#n5-4">5·4 회원가입과 로그인 — 사용자 다루기</a>
+      <a href="#n5-5">5·5 데이터를 안전하게 — 보안과 백업</a>
+      <a href="#n5-6">5·6 무료로 쓸 수 있는 DB 고르기</a>
+      <a href="#n5-7">5·7 실습 — 에이전트로 Todo 앱 만들기<span class="toctag p">실습</span></a>
+      <a href="#n5-8">5·8 마무리 — 회고와 핵심 정리</a>
+      </div>
+      <a class="tochead" href="#node-6">2-4강 · AI 에이전트 도구</a>
+      <div class="tocgroup" data-g="6">
+      <a href="#n6-1">6·1 어시스턴트에서 에이전트로 — 도구의 정체</a>
+      <a href="#n6-2">6·2 MCP — AI를 내 데이터에 꽂는 USB-C</a>
+      <a href="#n6-3">6·3 스킬 — 반복 작업을 AI에게 외워 두기</a>
+      <a href="#n6-4">6·4 하네스 종류 — 어떤 AI 코딩 도구를 고를까</a>
+      <a href="#n6-5">6·5 스킬 너머 — 확장과 요즘 흐름</a>
+      <a href="#n6-6">6·6 실습 — Todo 앱을 'AI가 아는' 앱으로<span class="toctag p">실습</span></a>
+      <a href="#n6-7">6·7 워크플로 강화하기와 과제<span class="toctag q">과제</span></a>
+      </div>
+      <a class="tochead" href="#node-7">2-5강 · 메인 퀘스트</a>
+      <div class="tocgroup" data-g="7">
+      <a href="#n7-1">7·1 메인퀘스트 착수 — 조각을 모아 내 서비스로</a>
+      <a href="#n7-2">7·2 범위 좁히기 — MVP와 '안 만들 것'</a>
+      <a href="#n7-3">7·3 실전 기록 — 스펙부터 배포·관리자까지</a>
+      <a href="#n7-4">7·4 5단계 실습 — 원데이 클래스 신청<span class="toctag p">실습</span></a>
+      <a href="#n7-5">7·5 로그인 — Supabase 회원가입·로그인</a>
+      <a href="#n7-6">7·6 내 도메인으로 — 자유 제작</a>
+      <a href="#n7-7">7·7 막혔을 때 — 네 가지 규율</a>
+      <a href="#n7-8">7·8 마무리 — 회고와 정리</a>
+      </div>
+    </nav>
+
+    <main>
+
+      <!-- ================= 적응기 · 아이펠 적응하기 ================= -->
+      <section class="section coursehead" id="node-0">
+        <div class="badge">적응기 · 아이펠 적응하기 <span style="opacity:.7">· 본 커리큘럼 전 온보딩</span></div>
+        <h2>적응기 · 아이펠 적응하기 <span style="font-size:.86rem;opacity:.85">(5강)</span></h2>
+        <p class="lead">본 과정 시작 전, 과정·도구·문화에 적응하는 온보딩 5강. 뒤 2강(4·5강)은 직접 만들어보는 <b>프로젝트</b>다. 각 강의 요지만 압축해 담았다.</p>
+      </section>
+
+      <section class="section" id="n0-1"><h2>1강 · 협업 툴 소개 <span class="dur">온보딩</span></h2>
+        <p class="lead">과정 내내 쓸 협업 도구를 처음 세팅하는 시간.</p>
+        <p>수업 공간 <b>ZEP</b>, 자료·출석부 <b>노션</b>, 일과 외 소통 <b>디스코드</b>, 공지 <b>슬랙</b> — 각 도구의 역할과 로그인·기본 사용법을 훑는다. 출결은 고용24(HRD) 앱 <b>QR 입·퇴실</b>로 처리한다는 것도 이때 안내.</p>
+      </section>
+
+      <section class="section" id="n0-2"><h2>2강 · 아이펠이란? <span class="dur">온보딩</span></h2>
+        <p class="lead">모두의연구소·아이펠의 철학과 운영 규칙.</p>
+        <p>커뮤니티형·자기주도 학습 방식과 함께 <b>훈련장려금</b>·행동강령·제적 사례 등 꼭 알아야 할 규정, 길드/그룹 운영을 소개. <span class="hl">"무엇을 배우느냐"보다 "어떻게 스스로 배우느냐"</span>에 초점을 두는 과정임을 짚는다.</p>
+      </section>
+
+      <section class="section" id="n0-3"><h2>3강 · 퀘스트란? <span class="dur">온보딩</span></h2>
+        <p class="lead">이 과정의 학습 단위 '퀘스트'의 정체.</p>
+        <p>퀘스트·던전 개념, 팀 구성과 역할, 페어프로그래밍·팀 티칭 같은 협업형 과제가 어떻게 굴러가는지 설명. 이후 <b>퀘스트 B(팀 티칭)·C(페어)</b> 산출물의 배경이 되는 강이다.</p>
+      </section>
+
+      <section class="section" id="n0-4"><h2>4강 · 코딩 0줄로 여는 첫날 <span class="dur">프로젝트 · 실습</span></h2>
+        <p class="lead">코드 한 줄 없이 AI 도구만으로 첫 결과물을 만든다.</p>
+        <p>바이브코딩의 감을 잡는 첫 프로젝트. 직접 타이핑 대신 <span class="hl">"지시 → AI가 생성 → 내가 확인·수정"</span> 루프를 처음 돌려보며, 과정 전체의 작업 방식을 몸으로 익힌다.</p>
+      </section>
+
+      <section class="section" id="n0-5"><h2>5강 · Computational Thinking — 컴퓨터처럼 사고하는 법 <span class="dur">프로젝트 · 과제</span></h2>
+        <p class="lead">복잡한 문제를 네 조각으로 쪼개 푸는 사고법.</p>
+        <p><b>분해 · 패턴화 · 추상화 · 알고리즘</b> 네 동작으로 내 문제를 쪼개 접근하는 컴퓨팅 사고를 실제 문제에 적용. 산출물은 <a href="https://kjuyoung77.github.io/ModuWorks/" target="_blank" rel="noopener">과제 모음</a>의 "내 문제를 네 조각으로".</p>
+      </section>
+
+      <!-- ================= 모듈 1 · 1-1강 작업대 ================= -->
+      <section class="section coursehead" id="node-1">
+        <div class="badge">모듈 1 · 1-1강 <span style="opacity:.7">· 바이브코딩을 위한 작업대 마련하기</span></div>
+        <h2>1-1강 · AI에게 일을 맡길 작업대 차리기<span style="font-size:.86rem;opacity:.85">(8강)</span></h2>
+        <p class="lead">환경설정~터미널 Claude Code. 목표는 도구 문법 암기가 아니라 <span class="hl">"정확히 지시 → 내 컴퓨터에서 결과 확인 → 다시 수정 요청"하는 루프</span>를 한 번 여는 것. 메인 도구는 <b>Claude Code</b>.</p>
+      </section>
+
+      <section class="section" id="n1-1"><h2>1·1 · AI에게 일을 맡길 작업대를 차린다는 것 <span class="dur">00:30</span></h2>
+        <p class="lead">환경 설정 = 도구 설치가 아니라, AI에게 일을 시키고 결과를 바로 검토·수정할 <b>작업대</b>를 만드는 것.</p>
+        <h3>왜 채팅 AI가 아니라 Claude Code?</h3>
+        <p>일반 챗봇은 답과 코드를 <b>보여줄 뿐</b>. 웹서비스를 만들려면 답이 아니라 <span class="hl">실제 파일</span>이 필요하고 그게 내 컴퓨터에서 도는지 확인해야 한다. Claude Code는 자연어로 지시하면 <b>직접 파일을 만들고·고치고·명령을 실행</b>한다. 이 '말하면 손이 움직이는' 협업 = <b>에이전틱 코딩 도구</b>.</p>
+        <h3>Claude Code의 두 모습 (같은 엔진)</h3>
+        <div class="table-wrap"><table><thead><tr><th></th><th>Claude Desktop 안 Claude Code</th><th>터미널의 <code>claude</code></th></tr></thead><tbody>
+          <tr><td>화면</td><td>그래픽(마우스)</td><td>글자만</td></tr>
+          <tr><td>강점</td><td>diff·미리보기 시각화, 초심자 검토 쉬움, 병렬 세션</td><td>즉각 시작, 파일시스템 전체 접근, 스크립트 자동화·Agent SDK</td></tr>
+          <tr><td>추천</td><td>초심자 시작점</td><td>자동화 등 고급 흐름</td></tr>
+        </tbody></table></div>
+        <p class="fine">Anthropic 공식 문서는 터미널을 "가장 완전한 형태의 인터페이스"라 소개 — 스크립팅·Agent SDK는 터미널에서만.</p>
+        <h3>작업대 5도구</h3>
+        <div class="table-wrap"><table><thead><tr><th>도구</th><th>왜 필요한가</th></tr></thead><tbody>
+          <tr><td><b>Claude Code</b></td><td>이 과정의 메인. 답이 아니라 실제 파일이 나와야 서비스</td></tr>
+          <tr><td><b>Node.js + npm</b></td><td>Next.js가 도는 실행 엔진 + 패키지 창고(<code>npm run dev</code>의 주인공)</td></tr>
+          <tr><td><b>uv</b></td><td>뒤 모듈에서 MCP 서버·파이썬 AI 도구 쓸 때. 미리 깔아둠</td></tr>
+          <tr><td><b>Git</b></td><td>AI가 마음껏 고쳐도 되돌릴 수 있어 → 실험이 두렵지 않음</td></tr>
+          <tr><td><b>터미널</b></td><td>명령·로그를 눈으로 보는 "AI와의 작업 대화창"</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>🎯 오늘의 핵심 한 문장:</b> 개발 환경은 AI에게 일을 시키고, 그 결과를 바로 검토·수정하기 위한 <b>작업대</b>다. 목표는 도구 문법 암기가 아니라 <span class="hl">"정확히 지시 → 내 컴퓨터에서 결과 확인 → 다시 수정 요청"하는 루프를 한 번 여는 것.</span></div>
+      </section>
+
+      <section class="section" id="n1-2"><h2>1·2 · 내 작업대 상태 확인하기 <span class="dur">01:00</span></h2>
+        <p class="lead">설치했다 ≠ 된다. "버전 확인"이 진짜 수업. Claude Code·Node.js·npm·Git 준비.</p>
+        <h3>🅰️ 빠른 길 — Claude Code에게 맡기기</h3>
+        <p>Claude Desktop 안 Claude Code에게 자연어로: "내 OS는 ○○야. Node·npm·Git 확인하고 없으면 공식 방법으로 설치, <b>각 버전을 출력해줘</b>."</p>
+        <div class="notice"><b>🤔 왜 "버전을 보여줘"?</b> AI가 "설치했습니다"라 답해도 내 컴퓨터에서 진짜 되는지는 모른다. <span class="hl">버전 출력 = AI의 주장을 내가 검증하는 가장 단순한 방법.</span> 이게 모든 바이브 코딩의 기본.</div>
+        <h3>🅱️ 손으로 직접 설치 (기본기)</h3>
+        <p><b>Node.js·npm은 nvm으로 관리.</b> 시스템에 직접 깔면 전역 패키지 설치 때 <code>EACCES</code> 권한오류·<code>sudo</code> 문제가 잦다. nvm은 홈(<code>~/.nvm</code>)에 깔아 <span class="hl2">sudo 없이</span> 전역 설치 가능.</p>
+        <pre><code># macOS / Linux / WSL — nvm 설치 후 LTS
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh | bash
+nvm install --lts
+nvm use --lts
+node --version
+npm --version</code></pre>
+        <p class="fine">Windows는 별개인 <b>nvm-windows</b>의 <code>nvm-setup.exe</code> 설치 후 <code>nvm install &lt;LTS버전&gt;</code> / <code>nvm use &lt;LTS버전&gt;</code> (<code>--lts</code> 별칭 없음, 버전번호 명시). <code>nvm use</code> 실패 시 관리자 권한 터미널로.</p>
+        <p><b>Claude Code 설치:</b></p>
+        <pre><code># macOS/Linux/WSL
+curl -fsSL https://claude.ai/install.sh | bash
+# Windows PowerShell
+irm https://claude.ai/install.ps1 | iex
+# 또는 Node 22+ 있으면
+npm install -g @anthropic-ai/claude-code</code></pre>
+        <div class="notice warn">Claude Code는 Python 패키지가 <b>아니라서</b> <code>uv tool install</code>로 안 깐다. (uv는 Python 프로젝트·도구 관리용.)</div>
+        <h3>✅ 확인 브릿지 — 어떤 길로 깔았든 내가 확인</h3>
+        <pre><code>pwd
+node --version
+npm --version
+uv --version
+git --version
+claude --version</code></pre>
+        <div class="notice key"><b>오류는 실패가 아니라 단서.</b> <code>command not found</code>가 나오면 숨기지 말고 <span class="hl">"환경 / 실행한 명령 / 실제 출력"을 분리</span>해서 AI에게 그대로 준다. "안 돼요"라고 하면 AI도 추측하지만, 정확한 출력을 주면 다음 행동을 좁혀준다.</div>
+      </section>
+
+      <section class="section" id="n1-3"><h2>1·3 · 첫 프로젝트 폴더와 파일 만들기 <span class="dur">00:30</span></h2>
+        <p class="lead">작업대 위 첫 산출물 — <code>my-first-web</code> 폴더 + <code>index.html</code>. (Day 5 첫 화면 제작의 출발점)</p>
+        <pre><code>mkdir my-first-web
+cd my-first-web
+pwd            # 현재 위치 — 나중에 "어느 폴더서 작업 중"인지 AI에 설명하는 단서
+touch index.html
+# Windows PowerShell: New-Item index.html  (또는 ni index.html)</code></pre>
+        <h3>🔧 AI에게 첫 파일 생성을 맡기는 프롬프트</h3>
+        <p>백지에서 HTML을 외워 쓰지 않는다. 폴더에서 Claude Code 실행 후:</p>
+        <pre><code>index.html에 브라우저에서 바로 열 수 있는 첫 화면을 만들어줘.
+- 한국어 문서로.
+- 큰 제목엔 [내 이름/역할].
+- 본문엔 [내 도메인]에서 AI로 해보고 싶은 일 한 문장.</code></pre>
+        <div class="notice"><span class="hl">코드를 대신 써달라는 요청이지만, 책임까지 넘기는 건 아니다.</span> 나온 결과를 반드시 검토 — 제목이 내 역할을 드러내나 / 본문이 너무 추상적이지 않나 / 브라우저에서 글자가 보이나. "돌아간다"에서 멈추지 않고 "내 목표에 맞나"까지 본다.</div>
+        <div class="notice teal"><b>📝 산출물 체크:</b> 폴더 있다 / index.html 있다 / 브라우저에서 제목·본문 보인다 / 내 도메인 문장으로 바꿨다.</div>
+      </section>
+
+      <section class="section" id="n1-4"><h2>1·4 · 바이브 코딩 루프 한 번 돌리기 <span class="dur">00:30</span> <span class="tag amber">이 노드의 중심</span></h2>
+        <p class="lead">설치·파일 생성은 준비. 바이브 코딩은 여기서 시작.</p>
+        <div class="formula">① 만들 것을 자연어로 말한다 → ② AI가 코드 생성 → ③ 내가 읽고 판단 → ④ 근거 들어 다시 지시 → 다시 ①</div>
+        <h3>🔧 두 번째 요청: 도메인 섹션 추가</h3>
+        <p>첫 요청과 결정적으로 다른 점: <span class="hl">"무엇을 추가할지"와 "무엇은 건드리지 말지"를 함께</span> 말한다.</p>
+        <pre><code>방금 만든 index.html을 수정해줘.
+추가: 내 도메인의 반복 업무 3개를 목록으로 + 각 한 줄 설명.
+지킬 것: 기존 제목·첫 문장 유지, 들여쓰기 읽기 좋게.</code></pre>
+        <div class="notice warn"><b>🤔 AI가 실수할 지점을 미리 예측:</b> 기존 문장을 바꾸거나, 안 시킨 CSS를 넣거나, 업무 3개가 도메인과 안 맞거나.</div>
+        <p><b>재요청 예시:</b></p>
+        <pre><code>좋아. 다만 목록 3개가 내 실제 업무와 달라. 아래로 바꿔줘.
+1. [내 업무1] 2. [내 업무2] 3. [내 업무3]</code></pre>
+        <div class="notice key">이 <b>한 번의 왕복(지시→생성→판단→수정지시)</b>이 돌았다면, 개발 환경은 더 이상 "설치 목록"이 아니라 <span class="hl">작업대</span>가 된 것.</div>
+      </section>
+
+      <section class="section" id="n1-5"><h2>1·5 · 터미널·셸·커널·프롬프트를 구분하기 <span class="dur">00:30</span></h2>
+        <p class="lead">"터미널에 명령어를 쳤다" 한 마디에 <b>서로 다른 네 역할</b>이 섞여 있다. 오류를 정확히 읽기 위한 지도.</p>
+        <h3>이름의 역사 (끝·껍데기·알맹이·재촉)</h3>
+        <div class="table-wrap"><table><thead><tr><th>용어</th><th>원뜻</th><th>실제 역할</th></tr></thead><tbody>
+          <tr><td><b>터미널</b></td><td>선로의 <b>끝단</b></td><td>글자를 입출력하는 창. 오늘날 앱들은 옛 장치를 흉내낸 <b>에뮬레이터</b>. 보통 명령 뜻은 해석 안 함</td></tr>
+          <tr><td><b>셸</b></td><td><b>껍데기</b>(커널 감싼 바깥층)</td><td>사람이 쓴 글을 해석해 프로그램 실행. zsh·bash 계열. "앱 이름"이 아니라 프로그램 계열</td></tr>
+          <tr><td><b>커널</b></td><td><b>알맹이·핵심</b></td><td>CPU·메모리·파일·네트워크 자원을 중개하는 OS 중심. 직접 글 안 씀</td></tr>
+          <tr><td><b>프롬프트</b></td><td><b>재촉하다</b></td><td>셸이 "입력 기다림"을 표시(<code>$</code>,<code>%</code>). <span class="hl3">명령어가 아님 → 복사 대상 아님</span></td></tr>
+        </tbody></table></div>
+        <div class="notice warn">문서의 <code>% pwd</code>, <code>$ npm --version</code>에서 <code>%</code>·<code>$</code>는 <b>예시 프롬프트</b>. 실제로 칠 건 <code>pwd</code>, <code>npm --version</code>뿐. 초보자 최다 실수.</div>
+        <h3>명령이 지나가는 길</h3>
+        <pre><code>터미널 에뮬레이터  (% pwd 입력·화면표시)
+     ↓  PTY (가상 터미널 통신 채널: master↔slave)
+  셸 (zsh·bash)   (문장 파싱 → 명령 위치 탐색)
+     ↓  시스템 콜
+  커널            (권한 확인 + 자원 중개)
+  CPU·메모리·파일·네트워크</code></pre>
+        <p class="fine"><b>pwd 한 줄이 거치는 7단계:</b> ① 터미널이 키 입력 받음 → ② PTY가 셸에 넘김 → ③ 셸이 문장 파싱(공백·따옴표·<code>|</code>·<code>&gt;</code>) → ④ 셸이 명령 위치 탐색(<code>$PATH</code>, 단 pwd는 셸 <b>내장(builtin)</b>일 수 있음) → ⑤ 필요시 <code>fork</code>+<code>exec</code>로 새 프로세스 → ⑥ 시스템 콜로 커널에 요청 → ⑦ <code>stdout</code>이 PTY 거쳐 화면 복귀.</p>
+        <h3>오류를 층으로 나눠 읽기</h3>
+        <div class="table-wrap"><table><thead><tr><th>증상</th><th>의심할 층</th></tr></thead><tbody>
+          <tr><td>창이 안 열림·글자 깨짐·멈춤</td><td><b>터미널 앱</b>·인코딩·PTY</td></tr>
+          <tr><td><code>command not found</code></td><td><b>셸의 명령 탐색</b> 또는 설치/<code>$PATH</code></td></tr>
+          <tr><td><code>Permission denied</code>·<code>EACCES</code></td><td><b>커널이 관리하는 파일 권한</b></td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>Claude Code는 어느 층?</b> 터미널도 셸도 커널도 아닌, <span class="hl">셸 위에서 도는 프로그램</span>. <code>claude</code> 입력 → 셸이 <code>$PATH</code>에서 찾아 실행 → 그 셸의 환경·권한 안에서 파일 읽고 명령 실행 요청. <b>AI가 강력해도 현재 권한과 작업 폴더(pwd)를 초월하지 못한다.</b> 그래서 오류 한 줄 + <code>pwd</code> + 실행한 명령을 같이 주는 습관이 중요.</div>
+        <h3>각 층 직접 관찰 (읽기 전용)</h3>
+        <pre><code>echo $SHELL     # 로그인 셸 경로 (지금 실행 셸과 꼭 같진 않음)
+echo $0         # 현재 실행 중인 셸 이름
+tty             # 연결된 터미널 장치 = PTY의 흔적
+which pwd       # $PATH에서 찾은 위치 (pwd는 builtin → type pwd 도)
+echo $PATH      # 명령 찾는 디렉터리 목록 (: 로 구분)</code></pre>
+        <div class="notice teal"><b>🪟 PowerShell(내 환경):</b> 위는 zsh/bash용이라 그대로 안 됨. 대신 <code>$PSVersionTable</code>(지금 셸 확인) · <code>Get-Command pwd</code>(어디서 찾나) · <code>$env:Path</code>(탐색 경로). <span class="hl2">관찰 포인트는 동일: 지금 내 셸이 뭐고, 명령을 어디서 찾는가.</span></div>
+      </section>
+
+      <section class="section" id="n1-6"><h2>1·6 · 터미널로 폴더를 탐험하고 만들기 <span class="dur">00:30</span> <span class="tag teal">실습 1</span></h2>
+        <div class="notice key"><b>🎒 안전 규칙:</b> ① 처음엔 바탕화면 실제 파일 말고 <span class="hl2"><code>terminal-practice</code> 연습 폴더에서.</span> ② 이 실습엔 <b>삭제(<code>rm</code>) 안 씀.</b> 공백 있는 이름은 따옴표로 감쌈.</div>
+        <h3>기본 명령 7개</h3>
+        <div class="table-wrap"><table><thead><tr><th>명령</th><th>하는 일</th></tr></thead><tbody>
+          <tr><td><code>pwd</code></td><td>지금 있는 폴더의 전체 경로</td></tr>
+          <tr><td><code>ls</code></td><td>현재 폴더 안 파일·폴더 목록</td></tr>
+          <tr><td><code>cd 폴더</code></td><td>이동 (<code>cd ..</code> = 한 단계 위로)</td></tr>
+          <tr><td><code>mkdir 폴더</code></td><td>새 폴더</td></tr>
+          <tr><td><code>touch 파일</code></td><td>빈 파일 생성/수정시각 갱신</td></tr>
+          <tr><td><code>rm 파일</code></td><td>삭제 <span class="fine">(이번 실습선 안 씀)</span></td></tr>
+          <tr><td><code>mv 원본 대상</code></td><td>이동 또는 이름 변경 — <b>실행 전 원본·대상 꼭 확인</b></td></tr>
+        </tbody></table></div>
+        <div class="notice teal"><b>🪟 PowerShell:</b> <code>pwd·ls·cd·mkdir·mv</code> 그대로 됨. 둘만 다름 — <code>touch</code> 없음 → <code>ni 파일이름</code>, 폴더 여러 개는 쉼표로 <code>mkdir ideas, assets, archive</code>.</div>
+        <h3>1단계 — 내 위치 보고 연습공간</h3>
+        <pre><code>pwd
+ls
+mkdir terminal-practice
+cd terminal-practice
+mkdir ideas assets archive
+ls</code></pre>
+        <p class="fine"><code>ls</code>로 3개 폴더 보이면 성공. <code>File exists</code> 뜨면 같은 이름 폴더가 이미 있다는 뜻 → <code>ls</code>로 확인 후 진행.</p>
+        <h3>2단계 — 파일 만들고 이동</h3>
+        <pre><code>touch ideas/landing-page.txt        # PowerShell: ni ideas/landing-page.txt
+mkdir assets/images
+mv ideas/landing-page.txt assets/images/landing-page.txt
+ls assets/images
+cd ..
+pwd</code></pre>
+        <p class="fine"><code>ls assets/images</code>에 <code>landing-page.txt</code>가 <span class="hl">보일 때만 성공</span>. 명령을 친 사실이 아니라 출력으로 확인.</p>
+        <h3>3단계 — 길 잃었을 때 돌아오기</h3>
+        <pre><code>cd terminal-practice
+cd assets
+pwd
+cd ..
+ls</code></pre>
+        <div class="notice warn"><b>멈춤 신호:</b> 위치가 불안하면 <span class="hl"><code>pwd</code>부터.</span> <code>mv</code>는 대상 경로를 한 글자씩 확인 후 실행. 중요한 실제 파일엔 연습 끝날 때까지 손대지 않는다.</div>
+      </section>
+
+      <section class="section" id="n1-7"><h2>1·7 · AI와 바탕화면 폴더를 안전하게 정리하기 <span class="dur">01:00</span> <span class="tag teal">실습 2</span></h2>
+        <p class="lead">목표는 AI가 파일을 "치우게" 하는 게 아니라, <span class="hl">분류 계획을 먼저 내고 내가 승인하는 협업.</span> 중요 파일이 있으면 <code>terminal-practice</code>에서만 연습.</p>
+        <h3>Claude Code에 보낼 프롬프트</h3>
+        <pre><code>현재 작업 폴더의 파일과 폴더를 읽고 정리 계획을 세워줘.
+규칙:
+1. 삭제 명령(rm 등)은 절대 실행하지 마.
+2. 먼저 dry-run으로 파일별 '현재 위치 → 제안 위치' 목록과 분류 기준만 보여줘.
+3. 이동은 내가 목록을 검토하고 '승인'이라고 답한 뒤에만 실행해.
+4. 이름을 추측하지 말고, 확장자와 현재 이름을 근거로 분류해.
+5. 실행 뒤에는 이동한 목록과 남은 파일 목록을 보여줘.</code></pre>
+        <div class="notice key"><b>dry-run</b> = 실제 변경 없이 "무엇을 할지" 미리 보여주는 실행 계획. AI가 먼저 <code>mv</code>를 실행하려 하면 <span class="hl3">"아직 실행하지 말고 dry-run 목록만 보여줘"</span>로 즉시 중단.</div>
+        <h3>AI 산출물 검토 체크리스트</h3>
+        <div class="table-wrap"><table><thead><tr><th>확인할 것</th><th>통과 기준</th></tr></thead><tbody>
+          <tr><td>이동 전 dry-run</td><td>각 파일의 현재 위치·제안 위치가 목록으로 있다</td></tr>
+          <tr><td>삭제 방지</td><td>삭제 명령·제안이 없고, 보류 파일은 그대로 둔다</td></tr>
+          <tr><td>분류 기준</td><td>확장자·용도 등 읽을 수 있는 기준, 애매한 파일은 질문한다</td></tr>
+          <tr><td>경로 안전</td><td>작업 폴더 밖 파일을 안 건드리고, 중요 폴더를 통째로 이동 안 함</td></tr>
+          <tr><td>실행 후 확인</td><td><code>ls</code>로 이동 결과·남은 항목을 보여준다</td></tr>
+        </tbody></table></div>
+        <h3>승인·수정 요청 예시</h3>
+        <pre><code>계획을 검토했어. .png와 .jpg만 images 폴더로 옮기고,
+확장자를 알 수 없는 파일과 프로젝트 폴더는 그대로 둬.
+삭제·이름 변경은 하지 마. 실행 후 이동 전후 목록을 비교해 보여줘.</code></pre>
+      </section>
+
+      <section class="section" id="n1-8"><h2>1·8 · 직접 작업과 AI 협업을 비교하고 회고하기 <span class="dur">00:30</span> <span class="tag teal">실습 3</span></h2>
+        <p class="lead">두 방식 중 하나가 항상 낫지 않다. <span class="hl">어느 쪽이든 실행 결과 검토는 내 책임.</span></p>
+        <div class="table-wrap"><table><thead><tr><th></th><th>직접 한 것</th><th>AI에게 맡긴 것</th></tr></thead><tbody>
+          <tr><td>무엇을 어떻게 옮길지</td><td><code>mkdir</code>·<code>mv</code>를 한 줄씩 결정</td><td>dry-run 목록을 받고 승인</td></tr>
+          <tr><td>내가 확인한 증거</td><td><code>pwd</code>·<code>ls</code> 출력</td><td>AI 목록 + 내가 실행한 <code>ls</code></td></tr>
+          <tr><td>강점</td><td>현재 위치·각 파일을 세밀하게 이해</td><td>반복적 목록화·계획 작성 속도</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>✍️ 마무리 3문장(스스로 답해보기):</b><br>1) 오늘 <code>pwd</code>가 알려준 "내 위치"는 어디였나?<br>2) AI의 dry-run에서 내가 멈추거나 수정한 제안은 무엇이며 왜였나?<br>3) 다음 프로젝트에서 Node.js 버전을 바꿔야 한다면 <code>nvm</code>을 어떻게 쓸지 한 문장으로.</div>
+      </section>
+
+      <!-- ================= 노드 2 · 세 겹 & 게임 ================= -->
+      <section class="section coursehead" id="node-2">
+        <div class="badge">모듈 1 · 1-2강 <span style="opacity:.7">· 웹페이지를 이루는 세 겹 &amp; 게임 만들기</span></div>
+        <h2>1-2강 · 웹페이지를 이루는 세 겹 &amp; 게임 만들기<span style="font-size:.86rem;opacity:.85">(6강 + 과제)</span></h2>
+        <p class="lead">HTML·CSS·JS를 <b>"세 겹"</b>으로 보는 눈을 기르고, 바이브 코딩으로 게임을 만들어 <span class="hl">GitHub Pages에 배포·제출</span>한다. 멀티스레딩 등 CS 교양도 함께.</p>
+      </section>
+
+      <section class="section" id="n2-1"><h2>2·1 · AI는 잘 만드는데, 내 말은 왜 안 통할까 <span class="dur">00:10</span></h2>
+        <p class="lead">웹페이지는 한 덩어리처럼 보이지만, 성격이 다른 <b>세 겹</b>이 겹쳐 있다.</p>
+        <div class="grid3">
+          <div class="mini"><h4>HTML — 구조</h4><p class="fine">화면에 <b>무엇이</b> 있는지. 제목·문단·버튼에 "이건 제목/버튼"이라 의미를 붙임.</p></div>
+          <div class="mini"><h4>CSS — 표현</h4><p class="fine">그것이 <b>어떻게 보이는지</b>. 색·간격·크기·배치.</p></div>
+          <div class="mini"><h4>JavaScript — 동작</h4><p class="fine">사용자가 무언가 했을 때 <b>무엇이 바뀌는지</b>. 클릭 반응 등.</p></div>
+        </div>
+        <pre><code>&lt;!-- HTML: 태그로 의미를 붙임 --&gt;
+&lt;h1&gt;내 첫 웹페이지&lt;/h1&gt;
+&lt;button&gt;시작하기&lt;/button&gt;
+
+/* CSS: 어떻게 보일지 */
+h1 { color: blue; text-align: center; }
+
+// JS: 누르면 무엇이 바뀔지
+button.addEventListener('click', () =&gt; { alert('안녕하세요!'); });</code></pre>
+        <div class="notice key"><b>🎯 오늘의 핵심 한 문장:</b> 웹페이지는 <span class="hl">구조(HTML)·표현(CSS)·동작(JS) 세 겹</span>이고, 셋을 나눠 AI에게 지시하면 원하는 화면을 빠르게 만들고 고칠 수 있다.</div>
+        <div class="table-wrap"><table><thead><tr><th>겹</th><th>담당</th><th>AI에게 시킬 때 말</th><th>결과 판단 질문</th></tr></thead><tbody>
+          <tr><td><b>HTML</b></td><td>무엇이 있는지</td><td>"제목·안내 카드·버튼을 의미에 맞게 배치해줘"</td><td>필요한 정보·업무 용어가 빠지지 않았나</td></tr>
+          <tr><td><b>CSS</b></td><td>어떻게 보이는지</td><td>"모바일에서도 읽히게 간격·색·글자 크기 조정해줘"</td><td>눈이 어디로 가나, 깨지는 구간 없나</td></tr>
+          <tr><td><b>JS</b></td><td>했을 때 뭐가 바뀌는지</td><td>"버튼 누르면 화면 내용이 바뀌게 해줘"</td><td>클릭·입력·상태 변화가 기대대로인가</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>🤔 예측:</b> ① 문구가 내 업무 말과 안 맞음 → <span class="hl">HTML</span> / ② 모바일에서 글자 겹침 → <span class="hl">CSS</span> / ③ 버튼 눌러도 반응 없음 → <span class="hl">JS</span>. 요청을 세 겹으로 나누면 AI가 고칠 지점이 좁아진다.</div>
+      </section>
+
+      <section class="section" id="n2-2"><h2>2·2 · 세 겹을 나누어 이해하기 — 이름에 담긴 사연 <span class="dur">00:15</span></h2>
+        <p class="lead">세 겹은 다른 시기에, 다른 문제를 풀려고 태어났다. <span class="hl2">이름 안에 그 사연이 있다.</span></p>
+        <h3>HTML — 잃어버린 문서에서 시작</h3>
+        <p>1980년대 말 <b>CERN</b>은 정보가 엉킨 거대 연구소였다. 연구자가 떠나면 자료 위치도 사라졌다. 연구원 <b>팀 버너스리</b>가 1989년 제안: 문서 속 단어에서 다른 문서로 바로 건너뛰게 연결하자 = <b>하이퍼텍스트(hyper=순서를 뛰어넘어)</b>. 상사 코멘트는 <i>"막연하지만 흥미롭다"</i>. 1990년 말 NeXT 컴퓨터 한 대로 <b>최초의 웹 브라우저+서버</b>를 만듦(본체에 "전원 끄지 마시오" 손글씨 스티커). </p>
+        <div class="notice teal"><b>🔗 최초의 웹사이트</b> <code>info.cern.ch</code> — 배경·색·버튼 없이 링크 달린 글자뿐. "CSS도 JS도 없던 웹". <b>1993년 CERN이 웹 기술을 로열티 없이 공개</b> → 특정 회사 제품이 아닌 모두의 기반이 됨.</div>
+        <p><b>HTML = HyperText Markup Language.</b> '마크업'은 편집자가 원고 여백에 "여기는 제목"이라 표시하던 교정 관행. <span class="hl">검토 기준은 꾸밈이 아니라 정보</span> — 필요한 정보가 다 있나, 의미가 맞게 붙었나. (예: 병원 안내에 '제증명 발급'이 빠졌는지는 <b>현장을 아는 눈</b>에만 보인다 → 최종 검토자는 나.)</p>
+        <p class="fine">※ '문서 연결' 발상 자체는 1945년 버니바 부시(Memex), 1965년 테드 넬슨('하이퍼텍스트' 명명)이 먼저. 버너스리의 공헌은 <b>인터넷 위에서 실제로 작동</b>하게 만든 것.</p>
+        <h3>CSS — "제목 색을 전부 바꿔주세요"의 악몽</h3>
+        <p>초기 웹은 꾸밈 태그를 본문 곳곳에 직접 끼워야 했다. 문서 수백 개에서 "제목 색 전부 바꿔줘"가 오면 하나하나 열어 고쳐야 함(내용과 꾸밈이 붙어서). 1994년 <b>호콘 비움 리</b>가 인쇄(기사≠조판 규칙)에서 힌트 → 꾸밈 규칙을 문서 밖 <b>스타일시트</b>로 분리(1996 표준).</p>
+        <p><b>Cascading = 폭포처럼 층층이.</b> 브라우저 기본·사이트 공통·페이지 개별 규칙이 겹칠 때 우선순위가 폭포처럼 정해짐 → <b>Cascading Style Sheets</b>.</p>
+        <div class="notice teal"><b>🔗 CSS Zen Garden</b>(2003, 데이브 셰이) — HTML 하나 고정, <span class="hl">CSS만 바꿔</span> 일본 정원도 잡지 표지도 됨(내용은 한 글자도 안 바뀜). "내용 그대로, 표현만 바꿔줘"가 이 원리. <b>검토 기준 = 정보가 아니라 읽히는 방식.</b></div>
+        <h3>박스모델 — CSS를 말로 고치는 최소 지도</h3>
+        <p>버튼·카드·문단은 모두 <b>상자</b>. 안에서 밖으로 <code>content → padding → border → margin</code>. <span class="hl">안쪽 여백 = padding, 바깥쪽 여백 = margin</span>. 나란한 요소 사이 간격 = <code>gap</code>(flex/grid). 폭 정할 때 <code>box-sizing: border-box</code>를 쓰면 width 안에 padding·border 포함 → 예상보다 넓어지는 일 줄임.</p>
+        <div class="table-wrap"><table><thead><tr><th>이렇게 말하면</th><th>AI가 볼 CSS</th></tr></thead><tbody>
+          <tr><td>"카드 바깥에 여백 필요해"</td><td>margin</td></tr>
+          <tr><td>"버튼 글자가 테두리에 너무 붙어"</td><td>padding</td></tr>
+          <tr><td>"버튼들이 서로 너무 붙어"</td><td>gap, margin</td></tr>
+          <tr><td>"카드에 테두리·둥근 모서리"</td><td>border</td></tr>
+          <tr><td>"내용을 가운데로 모아줘"</td><td>flex, justify-content, margin:auto</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>💬 요청 예:</b> "카드 <b>내용은 바꾸지 말고</b>, 카드 바깥·버튼 사이 간격을 모바일에서도 읽기 좋게 조정해줘. 어떤 CSS를 바꿨는지도 알려줘."</div>
+        <h3>JavaScript — 열흘 만에 태어난 언어</h3>
+        <p>1995년 웹페이지는 눌러도 반응 없는 종이였다. <b>넷스케이프</b>가 즉석 반응 언어를 원했고 <b>브렌던 아이크</b>가 첫 버전을 <span class="hl">열흘 남짓</span>에 만듦. 이름: Mocha→LiveScript→<b>JavaScript</b>(마지막은 인기 언어 Java에 올라탄 마케팅). <i>"자바와 자바스크립트는 햄과 햄스터의 관계"</i> — 이름만 닮은 남남. 겉모습만 Java, 속은 다른 언어.</p>
+        <p>첫 임무는 <b>폼 검증</b>. 느린 모뎀 시절, 제출 전 브라우저가 그 자리에서 "이메일 형식 아닙니다"라 말해주는 것. JS는 <span class="hl">시간에 따라 변하는 것</span>(클릭·입력·필터·토글)을 맡음. 검토 기준: "무엇을 누르면 무엇이 바뀌어야 하나"가 기대대로인가.</p>
+        <div class="notice warn"><b>2005 구글 지도</b> — 지도를 끄는 동안 뒤에서 조각을 받아 이어붙임. 새로고침 없이 서버와 데이터 주고받는 기법 = <b>AJAX</b>. 웹이 '문서'→'애플리케이션'으로 넘어간 분기점. "JS는 한 번에 한 가지만 하는데 어떻게 동시에?" → 다음 CS 강에서 답.</div>
+        <h3>세 겹의 내력이 지시의 언어가 된다</h3>
+        <div class="table-wrap"><table><thead><tr><th>겹</th><th>태어난 문제</th><th>검토 기준</th></tr></thead><tbody>
+          <tr><td>HTML</td><td>흩어진 정보를 의미 있게 연결</td><td>정보·용어가 빠지지 않았나</td></tr>
+          <tr><td>CSS</td><td>내용·꾸밈이 붙어 수정이 번짐</td><td>읽히나, 깨지는 폭 없나</td></tr>
+          <tr><td>JS</td><td>눌러도 반응 없는 정적 문서</td><td>행동 뒤 변화가 기대대로인가</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>CS 교양 — 관심사의 분리</b>: 데이크스트라(1974)가 말한 <i>separation of concerns</i>. 한 번에 한 측면만 집중. <span class="hl">"페이지 고쳐줘"(범위 미지정) vs "카드 정보는 그대로, 모바일 간격만"(겹 지정)</span> — 겹을 지정하면 손댈 범위가 좁아지고 괜찮은 부분이 덜 흔들린다.</div>
+        <h3>프론트엔드 vs 백엔드 (식당 비유)</h3>
+        <div class="table-wrap"><table><thead><tr><th></th><th>프론트엔드</th><th>백엔드</th></tr></thead><tbody>
+          <tr><td>위치</td><td>브라우저 화면·버튼·입력창</td><td>서버·API·데이터 저장·권한</td></tr>
+          <tr><td>담당</td><td>HTML·CSS·JS (보이는 쪽)</td><td>저장·보안·일관성 (처리 쪽)</td></tr>
+          <tr><td>식당 비유</td><td>홀·메뉴판·주문 화면</td><td>주방·창고·주문 장부</td></tr>
+          <tr><td>AI에게 줄 말</td><td>화면 구조·배치·클릭 후 변화</td><td>저장 규칙·API·권한·오류 처리</td></tr>
+        </tbody></table></div>
+        <div class="notice"><span class="hl3">두 요청을 섞어 던지면</span> 화면은 만들었는데 저장이 빠지거나 그 반대가 나온다. 오늘은 프론트엔드 세 겹만. 백엔드·API는 뒤 강의.</div>
+      </section>
+
+      <section class="section" id="n2-3"><h2>2·3 · [오늘의 CS] 동기·비동기, 프로세스·스레드·코어 <span class="dur">00:12</span></h2>
+        <p class="lead">웹이 멈추지 않는 이유. 컴퓨터가 <b>기다림</b>을 다루는 방식.</p>
+        <div class="grid2">
+          <div class="mini"><h4>동기 = 전화 📞</h4><p class="fine">상대가 받을 때까지 붙잡힘. 그동안 다른 일 못 함. 한 작업 끝까지 다음 줄로 안 감.</p></div>
+          <div class="mini"><h4>비동기 = 문자 💬</h4><p class="fine">보내놓고 하던 일 계속, 답 오면 확인. 오래 걸리는 일을 걸어두고 다음 진행.</p></div>
+        </div>
+        <p><b>카페 진동벨</b>: 벨 없으면 카운터 앞에 서 있어야(동기, 뒷줄 길어짐), 벨 받으면 자리서 일하다 울리면 감(비동기). 커피 나오는 시간은 같고, <span class="hl">기다리는 동안 다른 일을 하느냐</span>가 다름.</p>
+        <h3>JavaScript는 일꾼이 한 명 (싱글 스레드)</h3>
+        <p>웹페이지의 JS는 기본적으로 한 번에 한 가지만 = <b>싱글 스레드</b>. 동기로만 일하면 서버 응답 3초 기다리는 동안 <span class="hl3">화면 전체가 멈춤</span>(스크롤·버튼·영상 다). 그래서 오래 걸리는 일(<code>fetch</code>, <code>setTimeout</code>)은 <b>비동기</b>로 걸어두고, 브라우저가 뒤에서 처리 후 결과를 대기줄에 올림 → 일꾼이 하던 일 끝내고 대기줄 확인. 이 구조 = <b>이벤트 루프</b>.</p>
+        <div class="notice"><b>출생의 비밀:</b> 새로고침 없이 데이터 주고받는 부품 <code>XMLHttpRequest</code>는 1990년대 말 <b>MS 아웃룩 웹메일 팀</b>이 만듦. 넷스케이프의 열흘 언어 + 경쟁사의 웹메일 부품이 만나 구글 지도에서 꽃핌. <span class="hl2">AI 코드에서 <code>async·await·setTimeout·.then()</code>을 보면 "여기는 기다리지 않고 걸어두는 부분"이라 읽으면 충분.</span></div>
+        <h3>프로세스와 스레드 — 작업실과 일꾼</h3>
+        <p><b>프로세스</b> = 실행 중인 프로그램 하나 = 독립된 <b>작업실</b>(자기 메모리, 남의 메모리 못 봄). <b>스레드</b> = 그 작업실 안 <b>일꾼</b>(여러 명 가능, 작업실 재료=메모리 공유).</p>
+        <p><b>2008 크롬</b>: 예전 브라우저는 프로그램 전체가 프로세스 하나 → 탭 하나 오류가 전체를 넘어뜨림. 크롬은 <span class="hl">탭마다 독립 프로세스</span>(OS식 격리) → 탭 하나 죽어도 나머지 멀쩡. (작업 관리자에 크롬 항목 수십 개 = 탭·확장마다 작업실 따로.)</p>
+        <div class="table-wrap"><table><thead><tr><th></th><th>멀티스레딩</th><th>멀티프로세싱</th></tr></thead><tbody>
+          <tr><td>그림</td><td>한 작업실에 일꾼 여러 명</td><td>작업실 자체를 여러 개</td></tr>
+          <tr><td>메모리</td><td>공유</td><td>각자 독립</td></tr>
+          <tr><td>강점</td><td>가볍고 재료 바로 주고받음</td><td>하나 죽어도 나머지 안전</td></tr>
+          <tr><td>약점</td><td><span class="hl3">같은 재료 동시에 건드리면 꼬임</span></td><td>무겁고 전달 비용</td></tr>
+        </tbody></table></div>
+        <p class="fine">일꾼 둘이 같은 장부에 동시에 쓰면 꼬임 → JS가 아예 일꾼을 한 명으로 정한 것도 이 문제를 피한 선택.</p>
+        <h3>코어 — 일손은 결국 몇 개인가</h3>
+        <p><b>코어</b> = CPU 안 물리적 일손(8개면 진짜 동시에 8가지). 2000년대 초까지 속도(클럭) 경쟁 → 발열·전력 한계 → <b>"적당히 빠른 걸 여러 개"</b> = 멀티코어 시대. 허브 서터 <i>"공짜 점심은 끝났다"</i>(2005): 이제 가만히 있으면 안 빨라지고, <span class="hl">여러 일손을 쓰게 설계해야</span> 빨라짐.</p>
+        <p>일손 8개가 수백 프로세스를 어떻게? OS가 <b>아주 빠르게 번갈아 실행</b>(사람 눈엔 동시). 이 <b>시분할</b>의 뿌리는 1960년대(존 매카시 제안, 코르바토 CTSS). 부산물: 여러 사람이 한 컴퓨터를 나눠 쓰며 파일 구분이 필요해져 <b>비밀번호</b>가 탄생.</p>
+        <div class="notice teal"><b>🔎 내 컴퓨터 확인</b> (Day 4 터미널) — mac: <code>sysctl -n hw.ncpu</code> / <b>Windows PowerShell: <code>echo $env:NUMBER_OF_PROCESSORS</code></b>. 코어 수 vs 프로세스 수 비교 — 일손보다 일감이 압도적인데도 안 멈추는 게 OS가 하는 일.</div>
+        <div class="notice"><b>🤔 판단:</b> ① 점수 +1 화면 표시 → <b>즉시(동기)</b> / ② 서버에서 랭킹 받아 표시 → <span class="hl">비동기</span>(기다림이 있으니).</div>
+      </section>
+
+      <section class="section" id="n2-4"><h2>2·4 · AI로 게임 만들기: 테트리스에서 내 게임까지 <span class="dur">00:30</span> <span class="tag amber">실습</span></h2>
+        <p class="lead">두 판. 1차=테트리스(한 줄 요청), 2차=내가 고른 게임(규칙부터 설계). <span class="hl">요청 방법·도구가 왜 달라지는지</span>가 관전 포인트.</p>
+        <h3>🔧 1차 — "테트리스 만들어줘"</h3>
+        <p>웹 채팅형 AI(claude.ai·ChatGPT)에 <code>테트리스 만들어줘</code> 한 줄. 미리보기가 떠서 바로 플레이. <span class="hl2">한 줄이 통하는 이유:</span> 테트리스는 1984년부터 규칙(블록·회전·줄삭제)이 AI 안에 있음 — <b>이름 자체가 규칙 명세서</b>. 요청은 길이가 아니라 <b>담긴 정보량</b>이 가른다.</p>
+        <div class="notice"><b>관찰까지가 연습:</b> 코드 보기로 전환해 세 겹 찾기 — HTML(게임판·점수), CSS(색·배치, 보통 <code>&lt;style&gt;</code>), JS(키입력·낙하·줄삭제, <code>&lt;script&gt;</code>). 같은 요청도 <span class="hl3">사람·실행마다 결과가 다름</span>(AI의 비결정성). 부가기능은 <b>한 번에 하나씩</b> 재요청("다음 블록 미리보기", "10줄마다 속도↑", "P키 일시정지", "게임오버 후 다시하기").</div>
+        <div class="notice warn">이 게임은 <b>대화 창 안</b>에 있어 내 컴퓨터엔 파일이 없다. 대화를 잃으면 게임도 사라짐 — 이 차이가 2차의 출발점.</div>
+        <h3>🎮 2차 — 내가 고른 게임 (작업대 + 개발 에이전트)</h3>
+        <p>이름만으론 안 통하는 게임이라 <b>규칙을 내가 적는다</b>. 도구도 채팅→<b>Claude Code(작업대)</b>로 바꿔 <span class="hl">파일이 내 컴퓨터에 남게</span>. 게임은 만든 사람이 첫 플레이어라 세 겹이 다 움직이고, 규칙을 내가 정해 <b>AI가 규칙을 바꿔치기했는지 판정할 기준</b>이 내 안에 있음.</p>
+        <div class="table-wrap"><table><thead><tr><th>게임의 최소 재료</th><th>뜻</th><th>가위바위보 예</th></tr></thead><tbody>
+          <tr><td><b>보이는 것</b></td><td>눈앞 요소</td><td>점수판·가위바위보 버튼·결과 문구</td></tr>
+          <tr><td><b>상태</b></td><td>"지금 상황"</td><td>이김/짐/무승부, 선택 버튼 강조</td></tr>
+          <tr><td><b>규칙</b></td><td>했을 때 상태가 어떻게 바뀌나</td><td>내 선택 vs 컴퓨터 무작위 판정, 3승이면 종료</td></tr>
+        </tbody></table></div>
+        <p class="fine">각 칸이 한두 줄이면 오늘 크기에 적당. 문단이 되면(레벨·저장·랭킹) 오늘보다 큼 → 규칙을 잘라 첫 판만.</p>
+        <h3>🔧 2차 요청문 템플릿</h3>
+        <pre><code>새 폴더 my-game을 만들고, 그 안에 아래 게임을 만들어줘.
+
+만들 게임: [가위바위보 / 숫자 맞히기 / 내가 정한 게임]
+규칙: [진행 방식 2~3문장 직접]
+끝나는 조건: [5판 승부 / 기회 10번 / 제한시간 30초]
+
+파일은 index.html, styles.css, script.js 세 개로 나눠줘.
+- 화면: [화면 요소]를 담아줘.
+- 모바일에서도 조작 편한 크기로, [상태]가 색·문구로 보이게.
+- 내가 적은 규칙 그대로 동작, 끝나는 조건이면 결과·다시하기 버튼.
+
+규칙에 애매한 부분 있으면 만들기 전에 물어봐.
+완료 후 브라우저 확인 방법과 수정 체크리스트를 알려줘.</code></pre>
+        <div class="notice key">핵심은 "세 파일로 나눠줘"가 아니라 <span class="hl">화면·상태·규칙을 구체적으로 적은 것</span>. 테트리스와 달리 이 규칙은 AI 안에 없으므로, 규칙까지 AI에 맡기면 이상해도 판정 기준이 없다.</div>
+        <div class="notice teal"><b>브라우저 확인:</b> 이기는/지는 경우 다 만들어 점수·문구·색 확인 · 버튼 연타 시 이중 점수/꼬임 없나 · 모바일 폭에서 누르기 편한가 · 끝 조건·다시하기(점수 초기화) · Tab 키만으로 플레이 가능한가 · Console 오류 없나.</div>
+      </section>
+
+      <section class="section" id="n2-5"><h2>2·5 · 바이브 코딩 루프: 관찰하고 다시 요청하기 <span class="dur">00:15</span></h2>
+        <p class="lead">AI와 일하는 리듬은 한 방향이 아니라 <b>루프</b>.</p>
+        <div class="formula">계획 맞추기 → 만들게 하기 → 결과 관찰 → 다시 요청 → (반복)</div>
+        <h3>만들기 전에 PRD부터</h3>
+        <p><b>PRD</b>(제품 요구사항 문서) = "무엇을·누구를 위해·어떤 규칙으로"를 먼저 글로 못 박는 한 장. 바이브 코딩에선 더 중요 — <span class="hl3">AI는 내 마지막 한 마디에 맞춰 움직여</span> 목표가 고정 안 되면 대화가 길수록 방향이 흘러감. 그래서 <b>스펙 주도 개발</b>(먼저 명세, 그다음 AI)이 권장됨. 앞의 화면·상태·규칙 표가 곧 PRD 뼈대(+누가·예외 상황).</p>
+        <pre><code>바로 코드를 쓰지 말고, 위 PRD대로 어떻게 만들지 계획을 먼저 알려줘.
+- 어떤 순서로 만들지
+- 내가 미리 정해줘야 할 것이 있는지
+계획이 내 생각과 맞으면 "진행"이라고 할게. 그때 만들어줘.</code></pre>
+        <div class="notice"><b>💡</b> 손으로 코드 빨리 쓰는 힘은 이미 AI가 가졌다. 남는 실력은 <span class="hl">무엇을 만들지 또렷이 정의하는 힘</span> — 좋은 명세를 쓰는 사람이 좋은 결과를 얻는다.</div>
+        <h3>🔍 결과 관찰하고 다시 요청</h3>
+        <p>재요청은 "어떤 CSS 속성 써라"(=AI의 일)가 아니라 <span class="hl">"어디서 무슨 문제를 봤고, 어떻게 되길 원한다"</span>를 평소 말로.</p>
+        <div class="formula" style="background:#eef6ff;border-color:#bcd">[어디서] · [무슨 문제] · [어떻게 되면 좋겠다]</div>
+        <ul>
+          <li>"결과 문구가 알기 어려워. '이겼습니다/졌습니다'처럼 분명하게 바꿔줘."</li>
+          <li>"모바일에서 버튼이 좁아 누르기 불편해. 커지거나 줄바꿈되게 해줘."</li>
+          <li>"무승부인데 점수가 올라가. 이겼을 때만 오르게 해줘."</li>
+        </ul>
+        <p>고쳐 돌려주면 <b>그 부분이 실제로 바뀌었는지 직접 플레이/코드로 확인</b>. "전체 다시 만들어줘"보다 문제 부분만 짚기(범위 좁으면 괜찮은 부분이 덜 흔들림).</p>
+        <div class="notice key"><b>🔧 재지시 템플릿</b><pre style="margin:8px 0 0;background:#2b2b1e"><code>지금 결과에서 [관찰한 문제]가 있어.
+- 유지할 것: [마음에 드는 부분]
+- 바꿀 것: [눈으로 확인 가능한 조건으로]
+- 확인 방법: [브라우저에서 내가 해볼 행동]
+수정 후 어떤 파일을 어떻게 바꿨는지 짧게 알려줘.</code></pre></div>
+      </section>
+
+      <section class="section" id="n2-6"><h2>2·6 · 과제 — 나만의 게임을 웹에 올리고 링크 제출 <span class="dur">00:20</span> <span class="tag" style="background:#fee2e2;color:#b91c1c">제출</span></h2>
+        <p class="lead">내 컴퓨터(또는 대화창) 안 게임을 <span class="hl">웹에 올려 링크로 제출</span>. '나만 보는 결과물' → '세상에 내보내는 서비스'의 첫걸음.</p>
+        <div class="notice key"><b>🎮 제출물 2가지:</b> ① 오늘 만든 나만의 게임 · ② <span class="hl">그 게임이 실제로 열리는 웹 링크 하나</span></div>
+        <h3>🚀 GitHub Pages로 배포 (바이브 코딩으로)</h3>
+        <p>GitHub Pages = HTML·CSS·JS 페이지를 <b>무료로 웹에 올려주는 서비스</b>. 파일 올리고 Pages 켜면 <code>https://내아이디.github.io/저장소이름/</code> 주소 생성. <b>준비물: GitHub 계정</b>(없으면 github.com 무료 가입).</p>
+        <pre><code>이 폴더의 게임을 GitHub Pages로 배포하고 싶어.
+
+1. 이 폴더를 깃 저장소로 만들고, 내 GitHub에 새 공개 저장소로 올려줘.
+2. GitHub Pages를 켜서 웹에서 열 수 있는 주소를 만들어줘.
+3. 로그인·권한 확인처럼 내가 직접 눌러야 하는 단계는 멈추고 알려줘.
+4. 배포가 끝나면 접속 주소를 알려주고, 잘 열리는지 확인 방법도 알려줘.</code></pre>
+        <div class="notice warn">⚠️ 배포엔 <b>계정 로그인·권한 승인</b>처럼 사람이 직접 해야 하는 단계가 섞임 — AI가 멈추면 그 부분만 웹 화면에서 처리 후 이어가기. 배포 직후 주소가 뜨기까지 <b>1~2분</b> 걸릴 수 있음.</div>
+        <div class="notice teal"><b>✅ 제출 전 체크:</b> 링크를 <b>새 창(시크릿)</b>에서 열면 게임이 뜬다 · 내 컴퓨터 아닌 그 웹 주소에서 조작이 동작한다 · <b>휴대폰</b>으로 열어도 플레이된다 · 링크를 동료에게 보내도 열린다.</div>
+        <div class="notice key"><b>📮 제출:</b> 배포된 게임 링크(예: <code>https://내아이디.github.io/my-game/</code>). <span class="hl">제출 방법은 과정 안내(LMS 과제 제출란 또는 지정 채널)를 따른다.</span></div>
+        <p class="fine"><b>마무리 3문장:</b> 웹 링크로 처음 열 때 내 컴퓨터와 뭐가 달랐나 / 배포 중 AI가 나에게 넘긴 단계는 무엇이고 왜 사람이 했나 / 딱 하나 더한다면?</p>
+      </section>
+
+      <!-- ================= 노드 3 · 프레임워크 ================= -->
+      <section class="section coursehead" id="node-3">
+        <div class="badge">모듈 2 · 2-1강 <span style="opacity:.7">· 오늘 써볼 프레임워크는?</span></div>
+        <h2>2-1강 · 오늘 써볼 프레임워크는?<span style="font-size:.86rem;opacity:.85">(7강 전체 · 완주)</span></h2>
+        <p class="lead">프레임워크라는 말의 뜻을 먼저 잡고, <span class="hl">내 프로젝트 조건을 AI에게 설명해 프레임워크를 선택하는 근거</span>를 만든다. 오늘의 산출물은 코드가 아니라 선택 프롬프트와 평가표.</p>
+      </section>
+
+      <section class="section" id="n3-1"><h2>3·1 · 프레임워크는 왜 이렇게 많을까 <span class="dur">00:05</span></h2>
+        <p class="lead">건축 현장에서 철골과 비계가 건물의 뼈대를 잡아주듯, <b>프레임워크</b>는 웹서비스의 반복되는 구조를 미리 세워 준다.</p>
+        <p>지난 시간엔 웹페이지를 HTML·CSS·JS <b>세 겹</b>으로 나눠 봤다. 손으로 만든 작은 페이지는 이 세 겹만 알아도 충분하다. 그런데 "프론트엔드 프레임워크 추천"을 검색하는 순간 상황이 달라진다 — React, Vue, Svelte, Angular, Solid, Qwik, 거기에 Next.js·Nuxt·SvelteKit 같은 메타프레임워크까지 붙는다. 이름을 하나씩 누르다 보면 질문이 바뀐다: <i>"웹서비스 하나 만들려면 이걸 다 알아야 하나요?"</i></p>
+        <div class="notice key"><b>오늘의 답 = 아니요.</b> 다만 막연한 위로면 안 된다. 왜 도구가 이렇게 많아졌는지, 어떤 문제를 덜어주려고 생겼는지 알아야 AI가 추천한 답도 판단할 수 있다. 그래서 오늘은 문법이 아니라 <span class="hl">"프레임워크"라는 말의 뜻</span>을 먼저 잡고, 내 프로젝트 조건을 AI에게 설명해 선택 근거를 비교하는 연습을 한다.</div>
+        <div class="notice teal"><b>💡 오늘의 산출물은 코드가 아니다.</b> "내 조건에서 어떤 프레임워크가 맞는지"를 AI에게 제대로 물을 수 있는 <b>선택 프롬프트와 평가표</b>. 이게 있어야 Claude Code에게 "React로 만들어줘" 같은 막연한 지시 대신, <span class="hl2">"내 조건에서는 왜 이 선택이 맞는지 설명하고 대안을 비교해줘"</span>라고 요청할 수 있다.</div>
+        <h3>🔬 먼저 짚기 — '프레임워크'가 대체 뭔가</h3>
+        <p><b>프레임워크(framework)</b>는 직역하면 <b>'뼈대'</b> 또는 <b>'틀'</b>. 집을 지을 때 매번 기둥·배관·전선을 0부터 설계하지 않고, 검증된 골조를 기준 삼아 그 위에 방 배치와 생활 방식을 올리는 것과 같다. 웹 프레임워크도 마찬가지 — 같은 버튼·카드를 여러 곳에서 다시 쓰기, 데이터가 바뀌면 화면을 함께 바꾸기, 주소에 따라 다른 화면 보여주기, 배포 가능한 형태로 파일 묶기처럼 <b>반복되는 일을 미리 정리해 둔 개발 골조</b>다.</p>
+        <p>이 골조는 부품 상자와 다르다. 부품 상자인 <b>라이브러리</b>는 필요할 때 꺼내 쓰는 느낌이고, 프레임워크는 "이 안에서는 화면을 이런 방식으로 나누고 연결하자"는 약속까지 함께 준다. 개발자들은 이 차이를 <b>제어의 역전(Inversion of Control)</b>이라 부른다 — 라이브러리는 내가 필요할 때 불러 쓰지만, 프레임워크는 전체 흐름을 쥐고 있다가 정해진 순간에 내가 쓴 코드를 불러 준다. 그래서 혼자 빠르게 만들 때도 도움이 되지만, <span class="hl">여러 사람이 같은 프로젝트를 오래 고칠 때 더 큰 힘</span>을 낸다. 누가 들어와도 대략 어느 폴더를 봐야 하는지, 화면 이동과 데이터 갱신이 어디서 관리되는지 짐작할 수 있기 때문이다.</p>
+        <p class="fine">도메인으로 바꿔보면: 의사라면 전자차트(EMR), 변호사라면 사건관리 SaaS, 마케터라면 광고 운영 콘솔. 매번 업무 시스템의 기본 틀을 새로 만들지 않고 검증된 구조 위에 조직의 절차·데이터를 얹는다 — 프레임워크는 웹 화면을 만들 때 쓰는 그 기본 틀에 가깝다. 이름이 수십 개인 이유도 여기서 출발한다: 팀마다 중요하게 여긴 반복 업무가 달랐고, 웹서비스가 커지며 필요한 골조도 조금씩 달라졌다.</p>
+        <h3>🤔 먼저 예측해보기</h3>
+        <p>내가 만들고 싶은 도메인 웹서비스를 떠올려, 아래 항목 중 무엇 때문에 프레임워크 선택이 어려워질지 먼저 생각해본다. <span class="hl3">아직 정답을 고르지 않는다</span> — 오늘은 "무엇을 골라야 하는가"보다 "무엇을 물어봐야 하는가"를 먼저 배운다.</p>
+        <div class="table-wrap"><table><thead><tr><th>항목</th><th>내 프로젝트에서 불안한가요?</th><th>이유</th></tr></thead><tbody>
+          <tr><td>화면이 여러 개로 늘어남</td><td></td><td></td></tr>
+          <tr><td>입력값에 따라 화면 일부가 자주 바뀜</td><td></td><td></td></tr>
+          <tr><td>팀원이 함께 고쳐야 함</td><td></td><td></td></tr>
+          <tr><td>배포 뒤에도 오래 유지해야 함</td><td></td><td></td></tr>
+          <tr><td>검색 노출·로그인·데이터 연동이 필요함</td><td></td><td></td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>🎯 오늘의 핵심 한 문장:</b> 프레임워크는 종류가 수십 개지만 비전공자가 다 배울 필요는 없다. <span class="hl">왜 이런 도구들이 생겼는지 큰 그림을 잡고, 내 상황을 AI에게 설명해 추천받고, 그 근거를 판단하는 것</span>이 선택법이다. 오늘의 산출물은 코드가 아니라 <b>선택을 위한 프롬프트와 평가표</b>다.</div>
+      </section>
+
+      <section class="section" id="n3-2"><h2>3·2 · 버튼 하나 고치려다 서른 곳을 손댄 날 <span class="dur">00:10</span></h2>
+        <p class="lead">레고 블록처럼, 화면을 재사용 가능한 조각(<b>컴포넌트</b>)으로 나누고 규격에 맞춰 조립하는 것이 프레임워크의 핵심 발상 — 프레임워크가 풀려는 세 가지 문제.</p>
+        <p>프레임워크는 개발자를 괴롭히려고 생긴 이름표가 아니다. 화면이 커질 때 반복해서 터지는 문제를 줄이려고 생겼다. 지난 시간에 본 세 겹은 여전히 유효하다 — HTML은 구조, CSS는 모양, JS는 움직임. 다만 순수 HTML/CSS/JS만으로 화면이 커지면 세 겹을 관리하는 부담이 함께 커진다. 처음엔 버튼 하나 고치면 끝났지만, 화면이 열 개가 되고 입력값과 결과 목록이 서로 연결되기 시작하면 <span class="hl3">같은 문제가 여러 곳에서 되풀이</span>된다.</p>
+        <h3>간단한 역사 — 반복을 덜어내는 20년</h3>
+        <p>이 반복을 줄이려는 시도는 2000년대부터 이어져 왔다. 이름이 바뀌어도 풀려는 문제는 같았다.</p>
+        <div class="table-wrap"><table><thead><tr><th>연도</th><th>등장</th><th>풀려던 문제</th></tr></thead><tbody>
+          <tr><td>2006</td><td><b>jQuery</b></td><td>"적게 쓰고 더 많이 하자" — 브라우저마다 다른 JS 호환성 문제를 한 번에 덮음. 큰 도움이었지만 화면이 수십 개로 늘면 코드가 여전히 뒤엉킴</td></tr>
+          <tr><td>2010</td><td><b>AngularJS · Backbone.js</b></td><td>Google·오픈소스 — "화면을 구조적으로 나누자"를 본격화. 데이터가 바뀌면 화면도 규칙적으로 바뀌는 발상 등장</td></tr>
+          <tr><td>2013</td><td><b>React</b></td><td>Facebook(Meta) — 화면을 <b>컴포넌트</b>라는 재사용 조각으로 나눔. "어떻게 바꿔라"가 아니라 "무엇이어야 한다"를 선언하는 <b>선언형 UI</b>가 업계 기본이 됨</td></tr>
+          <tr><td>2014</td><td><b>Vue</b></td><td>Evan You — React의 컴포넌트 사고를 받아들이되 더 점진적으로 배우는 구조. "쓰고 싶은 만큼만 쓴다"</td></tr>
+          <tr><td>2016~현재</td><td><b>Svelte · Solid · Qwik</b></td><td>각자 다른 병목 겨냥 — Svelte는 컴파일러로 브라우저 부담↓, Solid는 반응형 성능 극대화, Qwik은 서버 상태를 브라우저가 이어받는 resumability</td></tr>
+        </tbody></table></div>
+        <div class="notice">여기까지는 모두 <b>프론트엔드(화면)</b>를 다루는 프레임워크. 프레임워크는 화면만의 이야기가 아니다 — 눈에 안 보이는 <b>서버(백엔드)</b> 쪽에도 같은 이유로 수많은 도구가 있다: 파이썬 Django·FastAPI, 자바 Spring, Node.js Express, 루비 Rails. 언어도 여러 개, 프레임워크도 여러 개인 까닭은 결국 하나 — <span class="hl">"규모가 커질 때, 반복되는 일을 어떻게 줄일 것인가?"</span> 프론트든 백엔드든 답의 방향은 늘 같았다.</div>
+        <p class="fine">🧭 오늘의 범위 — 백엔드는 나중에 따로 다룬다. 오늘은 눈에 보이는 화면, 프론트엔드로 좁혀서 이야기한다.</p>
+        <div class="table-wrap"><table><thead><tr><th>커질 때 생기는 문제</th><th>순수 웹 코드에서 자주 겪는 모습</th><th>프레임워크가 덜어주려는 일</th></tr></thead><tbody>
+          <tr><td><b>반복</b></td><td>비슷한 카드·폼·버튼 코드를 여러 곳에 복사</td><td>화면 조각을 한 번 만들어 여러 곳에서 다시 쓰게 함</td></tr>
+          <tr><td><b>변화</b></td><td>선택값·로딩중·실패·완료 같은 현재 상황을 여러 코드가 따로 바꿈</td><td>데이터가 바뀌면 화면도 일정한 규칙으로 함께 바뀌게 함</td></tr>
+          <tr><td><b>연결</b></td><td>화면이 늘수록 파일이 커지고, 어느 주소에서 어떤 화면을 보여줄지 헷갈림</td><td>폴더 구조, 주소별 화면 연결, 빌드·테스트 관행을 맞춤</td></tr>
+        </tbody></table></div>
+        <p>개발자들은 이 세 문제를 설명할 때 자주 <b>컴포넌트·상태·라우팅</b>이란 말을 쓴다. 낯설어 보여도 방금 표의 문제를 다른 이름으로 부르는 것에 가깝다.</p>
+        <h3>🔬 표를 개발자 말로 번역하면</h3>
+        <p><b>컴포넌트(component)</b>는 화면을 이루는 재사용 가능한 조각. 같은 모양의 전문가 카드가 화면에 30개 있다면, 카드를 30번 복사해두면 이름 옆에 자격 배지 하나 추가할 때 30곳을 다 고쳐야 한다. 컴포넌트로 만들면 카드 설계를 한 곳에 두고 데이터만 바꿔 여러 번 불러올 수 있다. 도메인 서비스에서는 환자 목록의 한 행, 사건 카드, 광고 성과 요약 박스가 모두 컴포넌트가 될 수 있다.</p>
+        <p><b>상태(state)</b>는 화면이 지금 어떤 형편인지 알려주는 현재값 — "검색어가 무엇인가", "결과를 불러오는 중인가", "로그인되어 있는가", "저장에 실패했는가" 같은 값. 사용자가 필터를 바꾸면 결과 수·카드 목록·빈 화면 안내 문구가 함께 바뀌어야 한다. 이 연결을 손으로 흩어놓으면 <span class="hl3">한 곳은 바뀌고 다른 곳은 예전 값으로 남는 버그</span>가 생긴다. 프레임워크는 상태와 화면 사이의 연결 규칙을 한곳에 모아두게 돕는다.</p>
+        <p><b>라우팅(routing)</b>은 주소(URL)에 따라 어떤 화면을 보여줄지 정하는 길 안내. <code>/search</code>는 검색 화면, <code>/profile</code>은 내 정보 화면, <code>/reports/2026-06</code>은 특정 보고서 화면처럼 주소와 화면을 연결한다. 페이지가 한두 개일 땐 크게 안 느껴지지만, 서비스가 커지면 주소 체계 자체가 사용자의 길 찾기이자 팀의 작업 지도 역할을 한다.</p>
+        <p class="fine">오늘은 "프레임워크가 반복되는 화면 조각, 바뀌는 현재값, 주소별 화면 연결을 함께 관리하도록 돕는다"는 정도만 가져가면 충분하다. 이 셋은 앞으로 더 자세히 다시 만난다.</p>
+        <h3>🔬 눈으로 보기 — 같은 카드를 순수 JS와 React로</h3>
+        <p>"컴포넌트가 왜 좋은지"는 말로만 들으면 와닿지 않는다. 같은 화면 — 전문가 프로필 카드 — 을 순수 JavaScript와 React 컴포넌트로 각각 만들어 비교한다. 도메인에 맞게 환자 카드·사건 카드·광고 성과 박스로 바꿔 생각해도 된다.</p>
+        <p><b>순수 JavaScript — 복사 30번, 수정 30번</b></p>
+        <pre><code>&lt;!-- index.html: 카드 하나를 직접 적습니다 --&gt;
+&lt;div class="expert-card"&gt;
+  &lt;h3&gt;김민준 변호사&lt;/h3&gt;
+  &lt;p class="badge"&gt;형사전문 15년&lt;/p&gt;
+  &lt;p class="bio"&gt;서울중앙지검 특수부 출신. 경제사범 사건 주요 실적.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- 같은 구조를 30번 복사합니다... --&gt;
+&lt;div class="expert-card"&gt;
+  &lt;h3&gt;이서연 변호사&lt;/h3&gt;
+  &lt;p class="badge"&gt;민사전문 12년&lt;/p&gt;
+  &lt;p class="bio"&gt;대형 로펌 파트너. 부동산 분쟁 주요 실적.&lt;/p&gt;
+&lt;/div&gt;
+&lt;!-- ... (28번 더) --&gt;</code></pre>
+        <p>배지 디자인을 바꾸고 싶다면 — 예를 들어 자격 배지 옆에 작은 아이콘을 추가한다면 — HTML 30곳을 모두 찾아 고쳐야 한다. JavaScript로 동적으로 만들더라도 "어떤 요소를 찾아 → 어떻게 바꿀지"를 개발자가 일일이 적어야 한다.</p>
+        <pre><code>// 순수 JS: 카드를 동적으로 만들되, 구조를 문자열로 직접 조립
+const experts = [
+  { name: '김민준', badge: '형사전문 15년', bio: '서울중앙지검 특수부 출신.' },
+  { name: '이서연', badge: '민사전문 12년', bio: '대형 로펌 파트너.' },
+  // ... 30명
+];
+
+const container = document.getElementById('expert-list');
+experts.forEach(expert =&gt; {
+  const card = document.createElement('div');
+  card.className = 'expert-card';
+  card.innerHTML = `
+    &lt;h3&gt;${expert.name}&lt;/h3&gt;
+    &lt;p class="badge"&gt;${expert.badge}&lt;/p&gt;
+    &lt;p class="bio"&gt;${expert.bio}&lt;/p&gt;
+  `;
+  container.appendChild(card);
+});
+
+// 배지 아이콘을 추가하려면? 이 코드를 다시 찾아서 고쳐야 합니다</code></pre>
+        <p><b>React 컴포넌트 — 한 번 만들고, 데이터만 바꿔 쓰기</b></p>
+        <pre><code>// ExpertCard.jsx: 카드 설계를 "한 번" 만듭니다
+function ExpertCard({ name, badge, bio }) {
+  return (
+    &lt;div className="expert-card"&gt;
+      &lt;h3&gt;{name}&lt;/h3&gt;
+      &lt;p className="badge"&gt;{badge}&lt;/p&gt;
+      &lt;p className="bio"&gt;{bio}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+// ExpertList.jsx: 데이터만 바꿔서 여러 번 부릅니다
+const experts = [
+  { name: '김민준', badge: '형사전문 15년', bio: '서울중앙지검 특수부 출신.' },
+  { name: '이서연', badge: '민사전문 12년', bio: '대형 로펌 파트너.' },
+  // ... 30명
+];
+
+function ExpertList() {
+  return (
+    &lt;div&gt;
+      {experts.map(expert =&gt; (
+        &lt;ExpertCard key={expert.name} {...expert} /&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}</code></pre>
+        <div class="notice key">배지에 아이콘을 추가하고 싶다면? <code>ExpertCard</code> 컴포넌트 <span class="hl">한 곳만 고치면</span> 30개 카드가 모두 바뀐다 — 이것이 모듈화와 재사용의 힘이다.</div>
+        <div class="notice teal"><b>💡 오늘 외울 필요 없음</b> — 이 코드를 당장 이해하지 않아도 괜찮다. 핵심은: 순수 JS에서는 같은 구조를 30번 복사해야 하지만, 컴포넌트에서는 한 번 만들고 데이터만 바꿔 쓴다. 이 차이가 "프레임워크가 왜 생겼는가"에 대한 가장 직접적인 답.</div>
+        <h3>🔬 상태가 터지는 순간 — 필터를 바꾸면 무엇이 따라 바뀌어야 할까</h3>
+        <p>컴포넌트가 "재사용"을 해결한다면, <b>상태(state)</b>가 해결하는 건 "바뀔 때 함께 바뀌기". 시나리오: 전문가 검색 화면에서 사용자가 "형사전문" 필터를 골랐다면, 화면에서 바뀌어야 하는 곳은 한 곳이 아니다.</p>
+        <div class="table-wrap"><table><thead><tr><th>바뀌어야 하는 곳</th><th>순수 JS에서의 위험</th><th>상태가 있으면</th></tr></thead><tbody>
+          <tr><td>필터 버튼 표시(선택됨)</td><td>깜빡하면 "선택된 것처럼 안 보임"</td><td>상태가 바뀌면 자동 갱신</td></tr>
+          <tr><td>결과 목록(형사전문만)</td><td>목록만 바꾸고 카운트를 안 바꿈</td><td>목록·카운트가 함께 갱신</td></tr>
+          <tr><td>결과 수("3명 찾음")</td><td>목록은 바꿨는데 텍스트를 안 바꿈</td><td>같은 상태를 공유하므로 일관됨</td></tr>
+          <tr><td>빈 결과 안내</td><td>이 문구를 띄우는 조건을 빠뜨림</td><td>상태가 비어 있으면 자동으로 표시</td></tr>
+          <tr><td>페이지 제목("형사전문 변호사 — 검색 결과")</td><td>이것까지 바꾸는 걸 잊음</td><td>상태에서 파생되는 값으로 자동 계산</td></tr>
+        </tbody></table></div>
+        <p>순수 JavaScript에서는 이 다섯 곳을 개발자가 하나하나 챙겨야 한다. 한 곳이라도 빠지면 <span class="hl3">"필터는 바뀌었는데 목록은 예전 것"</span>이나 <span class="hl3">"목록은 바뀌었는데 카운트는 안 바뀜"</span> 같은 버그가 생긴다.</p>
+        <p><b>프레임워크에서는</b> "필터 값"이라는 하나의 상태를 중심에 두고, 그 상태에서 나머지가 파생된다.</p>
+        <pre><code>// React 예시: selectedFilter 상태가 바뀌면,
+// 아래 모든 것이 자동으로 일관되게 갱신됩니다
+function ExpertSearch({ experts }) {
+  const [selectedFilter, setSelectedFilter] = useState('all');
+
+  // 상태에서 파생되는 값들 — 개발자가 따로 안 바꿈
+  const filtered = selectedFilter === 'all'
+    ? experts
+    : experts.filter(e =&gt; e.specialty === selectedFilter);
+
+  return (
+    &lt;div&gt;
+      {/* 1. 필터 버튼 */}
+      &lt;FilterButtons
+        selected={selectedFilter}
+        onSelect={setSelectedFilter}
+      /&gt;
+
+      {/* 2. 결과 수 — 자동 계산 */}
+      &lt;p&gt;{filtered.length}명 찾음&lt;/p&gt;
+
+      {/* 3. 빈 결과 안내 — 자동 표시 */}
+      {filtered.length === 0 &amp;&amp; (
+        &lt;p&gt;조건에 맞는 전문가가 없습니다.&lt;/p&gt;
+      )}
+
+      {/* 4. 결과 목록 — 자동 갱신 */}
+      {filtered.map(expert =&gt; (
+        &lt;ExpertCard key={expert.name} {...expert} /&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}</code></pre>
+        <div class="notice">개발자는 <code>selectedFilter</code>를 바꾸는 한 줄만 적는다. "결과 수 텍스트도 바꿔라, 빈 결과 문구도 봐라, 목록도 다시 그려라"는 프레임워크가 알아서 한다. <span class="hl">한 곳을 바꾸면 연결된 곳이 모두 일관되게 바뀌는 것</span>, 이것이 상태 관리가 주는 가장 큰 이점.</div>
+        <div class="notice teal"><b>💡 도메인으로 바꿔 생각하기</b> — 환자 목록에서 "당뇨" 필터를 고르면 목록·결과 수·차트·안내 문구가 모두 바뀌어야 한다. 광고 성과에서 "지난 7일"을 고르면 표·그래프·요약 숫자·비교 문구가 다 바뀌어야 한다. 이런 <b>"한 값이 여러 곳을 당겨 바꾸는"</b> 상황이 많을수록 상태 관리의 이점이 커진다.</div>
+        <h3>🧠 CS 교양 — 추상화와 모듈화</h3>
+        <p>프레임워크가 왜 반복을 덜어주는지 한 겹 더 들어가면, 컴퓨터과학에서 오래 다듬어 온 두 생각과 만난다 — <b>추상화(abstraction)</b>와 <b>모듈화(modularity)</b>. 이름은 거창하지만 일상에서 이미 쓰는 방식이다.</p>
+        <p><b>추상화</b>는 복잡한 속을 감추고 꼭 필요한 조작만 밖으로 드러내는 것. 자동차를 몰 때 엔진의 연소 과정을 몰라도 페달·핸들이라는 단순한 손잡이만 알면 된다. 웹에서도 마찬가지 — 브라우저는 화면 속 제목·버튼·목록을 <b>DOM(Document Object Model)</b>이라는 메모리 구조로 관리하는데, 순수 JavaScript로는 "이 버튼을 찾아 색을 바꾸고, 이 목록의 세 번째 항목을 지워라"처럼 DOM을 직접 만지는 일이 많았다. 프레임워크는 이 손 많이 가는 DOM 조작을 손잡이 뒤로 감춘다 — 개발자는 "지금 상태가 이러면 화면은 이렇게 보여야 한다"만 적고, 실제로 어떤 노드를 지우고 바꿀지는 프레임워크가 알아서 한다. 그래서 "어떻게 바꿔라" 대신 <b>"무엇이어야 한다"</b>를 적는 <b>선언형(declarative) UI</b>도 추상화의 한 모습이다.</p>
+        <p><b>모듈화</b>는 큰 덩어리를 따로따로 이해하고 갈아 끼울 수 있는 조각으로 나누는 것 — 레고 블록. 블록 하나하나는 단순하지만 규격이 맞아 조립·교체할 수 있다. 앞에서 본 <b>컴포넌트</b>가 바로 이 모듈화다. 전문가 카드 하나를 독립된 조각으로 만들어두면 그 조각만 따로 고치거나 다른 화면에 그대로 옮길 수 있다. 조각 사이의 약속(어떤 데이터를 받아 무엇을 보여줄지)만 지키면, 한 조각을 고쳐도 다른 조각이 함께 무너지지 않는다.</p>
+        <div class="notice teal"><b>💡 바이브 코딩에서 왜 중요한가</b> — AI에게 화면을 만들라고 할 때, 좋은 지시는 결국 이 두 언어로 된다. "전문가 카드를 컴포넌트로 만들어 목록에서 재사용해"(모듈화), "검색 결과가 바뀌면 목록이 따라 바뀌게 해"(상태=추상화)처럼. 문법은 AI가 채우지만, 무엇을 조각으로 나누고 무엇을 상태로 둘지는 여러분이 판단한다 — 이 판단이 프레임워크 문법보다 오래 쓸모 있다.</div>
+        <div class="notice"><b>📖 역사 한 걸음</b> — 추상화·모듈화는 새 발상이 아니다. 1972년 미국 태생 컴퓨터과학자 <b>데이비드 파나스(David Parnas)</b>는 "큰 프로그램을 설계할 때, 서로 관련된 것끼리 모으는 게 아니라 <span class="hl">바뀌어야 할 이유가 같은 것끼리</span> 모아야 한다"고 주장했다. 이 원칙은 50년이 지난 지금도 React의 컴포넌트 분리, Vue의 파일 구조, Svelte의 컴파일 단위 설계 어디에나 살아 있다. 도구는 바뀌어도 복잡함을 조각으로 나누는 생각은 변하지 않았다.</div>
+        <p class="fine">이 두 가지는 프레임워크만의 이야기가 아니다. 함수로 반복 계산을 감추고, 파일·폴더로 코드를 나누고, 라이브러리로 남이 만든 기능을 가져다 쓰는 것 모두 추상화·모듈화다. React 공식 문서가 UI를 컴포넌트로 나눠 묘사하는 것, Vue 공식 문서가 상태 변화에 맞춰 화면을 갱신하는 <b>반응성(reactivity)</b>을 앞세우는 것도 결국 이 두 생각의 표현.</p>
+        <h3>🧠 CS 교양 — 가상 DOM: 설계도를 먼저 그리고 차이만 칠하기</h3>
+        <p>React가 DOM 조작을 손잡이 뒤로 감추는 방식이 <b>가상 DOM(Virtual DOM)</b>이다.</p>
+        <div class="grid2">
+          <div class="mini"><h4>직접 칠하기 (실제 DOM 조작)</h4><p class="fine">"저 벽은 연한 파랑, 이 벽은 흰색"이라며 하나하나 붓을 들고 감. 벽이 100개면 손이 100번 감.</p></div>
+          <div class="mini"><h4>설계도에 먼저 표시 (가상 DOM)</h4><p class="fine">리모델링 뒤 모습을 설계도에 먼저 그리고, 지금 집과 나란히 놓고 다른 점만 찾음. 바뀐 벽이 3개면 붓은 3번만 들고 감.</p></div>
+        </div>
+        <p>React가 하는 일: ① 가상 DOM이라는 메모리 위의 설계도를 먼저 그린다 ② 현재 화면(실제 DOM)과 설계도를 비교한다 ③ 바뀐 부분만 찾아 실제 DOM에 적용한다. 이 과정을 <b>재조정(reconciliation)</b>이라 부른다 — 이름은 어려워도 하는 일은 "설계도와 현실의 차이를 찾아 바뀐 것만 고치기".</p>
+        <p>가상 DOM 이전엔 화면을 바꿀 때 개발자가 직접 어떤 요소를 찾아 바꿀지 정해야 했다. 상태가 바뀌면 어디를 바꿔야 하는지, 실수로 빠진 곳은 없는지, 너무 많이 바꿔서 느려지지 않는지 — 이 모든 걸 개발자가 챙겼다. 가상 DOM은 이 부담을 추상화로 감췄다. 개발자는 "무엇이어야 한다"만 적고 "어떻게 바꿀지"는 React가 알아서 한다 — 앞서 본 선언형 UI가 실제로 어떻게 작동하는지 보여주는 장치다.</p>
+        <div class="notice warn"><b>오해 하나</b> — 가상 DOM이 항상 가장 빠른 건 아니다. Svelte처럼 컴파일 시점에 "무엇을 바꿔야 할지"를 미리 알아내는 방식은 실행 시점 비교가 필요 없어 더 빠를 수 있다. 가상 DOM의 강점은 <b>"가장 빠르다"</b>가 아니라 <span class="hl">"개발자가 직접 DOM을 만지지 않아도 된다"</span>는 편의성. 추상화는 속도보다 일관성과 개발 효율을 위한 선택이다.</div>
+        <h3>🔍 판단해보기</h3>
+        <div class="table-wrap"><table><thead><tr><th>요구사항</th><th>프레임워크 도움 가능성</th><th>이유</th></tr></thead><tbody>
+          <tr><td>전문가 프로필 카드 20개를 같은 형식으로 보여줌</td><td></td><td></td></tr>
+          <tr><td>사용자가 필터를 바꾸면 결과 수와 카드 목록이 함께 바뀜</td><td></td><td></td></tr>
+          <tr><td>한 명이 하루 동안 랜딩 페이지 한 장만 만듦</td><td></td><td></td></tr>
+          <tr><td>팀원이 같은 화면을 여러 달 유지보수함</td><td></td><td></td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section class="section" id="n3-3"><h2>3·3 · 프레임워크, 몇 개나 알아야 할까 <span class="dur">00:12</span></h2>
+        <p class="lead">스위스 아미 나이프 하나가 모든 상황에 완벽하지 않듯, 프레임워크도 각자 겨냥하는 문제가 다르다. <b>"다 알아야 하나요?"</b> — 아니요, 대신 판단할 수 있어야 한다.</p>
+        <p>프레임워크가 다양하다는 건 "최고"가 하나가 아니라 <b>"조건에 맞는 최선"</b>이 여럿이라는 뜻. 객관적 사용 데이터부터 본다.</p>
+        <p>Stack Overflow Developer Survey 2025의 "Web frameworks and technologies" 문항에서 React와 Next.js는 널리 사용·관심받는 후보로 나타난다. 이 문항은 지난 1년간의 광범위한 개발 경험과 다음 1년 사용 희망을 묻고, 응답 집단별 결과를 나눠 보여준다. 같은 조사 안에서도 만족도와 사용률은 다르게 움직인다 — 즉 <span class="hl">"많이 쓴다"와 "내 프로젝트에 맞다"는 같은 말이 아니다</span>. (출처: <a href="https://survey.stackoverflow.co/2025/technology" target="_blank" rel="noopener">survey.stackoverflow.co/2025/technology</a>)</p>
+        <h3>공식 문서 기준 분류</h3>
+        <div class="table-wrap"><table><thead><tr><th>범주</th><th>예시</th><th>큰 그림</th></tr></thead><tbody>
+          <tr><td><b>UI 라이브러리·프레임워크</b></td><td>React, Vue, Svelte, Angular, Solid, Qwik</td><td>화면 조각, 상태, 렌더링 규칙을 다룸</td></tr>
+          <tr><td><b>메타프레임워크</b></td><td>Next.js, Nuxt, SvelteKit</td><td>라우팅, 서버 렌더링, 빌드, 배포 흐름까지 묶음</td></tr>
+          <tr><td><b>주변 생태계</b></td><td>라우터, 상태관리, UI 컴포넌트, 테스트 도구</td><td>실제 프로젝트에서 함께 선택됨</td></tr>
+        </tbody></table></div>
+        <p class="fine">한 줄로 구분하면 <b>React(UI 라이브러리) → Next.js(React 기반 애플리케이션/메타프레임워크)</b>이고, <b>Vite</b>는 이들과 같은 종류의 대안이 아니라 <b>개발·빌드 도구</b>. React만 쓸 때는 라우팅·데이터 처리·배포 방식을 더 직접 조합하고, Next.js는 그 선택 일부를 기본 흐름으로 묶어준다.</p>
+        <p>각 도구의 공식 문서가 스스로를 어떻게 설명하는지 — 이 차이가 곧 "무엇을 다르게 풀고 싶은가"를 보여준다.</p>
+        <ul>
+          <li><b>React</b> — "UI를 렌더링하는 JavaScript 라이브러리." 화면을 컴포넌트로 나누는 사고를 널리 퍼뜨림</li>
+          <li><b>Vue</b> — "UI를 만들기 위한 JavaScript 프레임워크." 점진적으로 도입할 수 있는 구조를 앞세움</li>
+          <li><b>Angular</b> — Google이 유지하는 웹 프레임워크. 라우팅·폼·업데이트 도구 묶음이 강함. 큰 조직에서 장기 운영하는 서비스에 자주 쓰임</li>
+          <li><b>Svelte</b> — 컴파일러를 활용해 브라우저에서 해야 할 일을 줄이는 방향</li>
+          <li><b>Solid</b> — 반응형 UI의 성능을 극한까지 밈</li>
+          <li><b>Qwik</b> — 서버 렌더링 상태를 브라우저에서 이어받는 resumability를 강조</li>
+        </ul>
+        <p class="fine">이름마다 문제를 푸는 관점이 다르다. "어떤 문제를 푸는가"를 보면 왜 하나만 정답이 아닌지 보인다.</p>
+        <h3>📐 문법은 AI가 짠다 — 그래서 '무엇을 고르냐'가 더 중요해졌다</h3>
+        <p>먼저 안심해도 된다. React든 Vue든 Svelte든 코드 문법은 외울 필요가 없다. "상품 목록 컴포넌트 만들어줘"라고 하면 AI가 그 프레임워크 문법으로 정확히 써준다. 프레임워크마다 생김새는 달라도, 화면을 조각(컴포넌트)으로 나누고 데이터(상태)로 갱신한다는 뼈대는 다 같다.</p>
+        <div class="notice warn">그런데 "AI가 다 짜주니 아무거나 골라도 되겠네?"는 <b>오해</b>다. 오히려 선택이 더 중요해졌다 — <span class="hl3">AI가 프레임워크마다 코드를 짜는 정확도가 실제로 다르기 때문</span>.</div>
+        <p><b>근거 ① — AI는 자료 많은 프레임워크를 더 정확히 짠다.</b> 프런트엔드 코드 생성을 평가한 학술 벤치마크 <b>DesignBench</b>에서, 최신 AI 모델들은 React·Vue로는 컴파일 성공률이 <b>0.83</b>을 넘겼지만 Angular는 <b>0.69~0.76</b>으로 눈에 띄게 낮았다. AI 코딩 벤치마크들이 기준 프레임워크로 React를 자주 고르는 이유도 "학습 데이터에 가장 많이 담겨 있어서"다. (출처: DesignBench, arXiv:2506.06251, 2025) 즉 공개 자료가 많은 프레임워크일수록 AI의 첫 코드가 정확하다.</p>
+        <p><b>근거 ② — 규칙이 일관된 프레임워크일수록 AI가 일관되게 짠다.</b> "이건 이렇게 하는 게 정석"이라는 규칙이 강한 프레임워크는 AI가 매번 비슷한 구조로 코드를 낸다. 반대로 자유도가 아주 높은 도구는 부를 때마다 구조가 달라져, 검토·수정할 게 많아진다.</p>
+        <h3>그럼 뭘 고르나 — "가장 많이 쓴다 ≠ 가장 좋다"</h3>
+        <div class="table-wrap"><table><thead><tr><th>지표</th><th>1위</th><th>2위</th><th>3위</th></tr></thead><tbody>
+          <tr><td>프런트엔드 사용률 (SO 2025, 4.9만명)</td><td>React 44.7%</td><td>Angular 18.2%</td><td>Vue 17.6%</td></tr>
+          <tr><td>메타프레임워크</td><td colspan="3">Next.js 21.5%</td></tr>
+          <tr><td>개발자 만족도 (State of JS 2024)</td><td>Svelte 약 74%</td><td colspan="2">React 62% (하락 중)</td></tr>
+        </tbody></table></div>
+        <p>사용자가 많다는 건 자료·예제·AI 학습 데이터가 가장 많다는 뜻이기도 하다. 하지만 <span class="hl">"인기 = 정답"은 아니다</span> — 어제 배운 그대로, 많이 쓰는 것과 내 조건에 맞는 것은 다르다.</p>
+        <div class="notice key">정리: 문법은 안 외워도 된다. 대신 이렇게 판단하라 — <b>자료와 AI 지원을 최우선</b>으로 친다면 React 계열이 무난한 출발점이고, <b>코드 간결함·개발 경험을 중시</b>한다면 Svelte 같은 선택도 충분히 합리적이다. 정답 하나는 없고, 아래 판단 축으로 내 조건에 맞춰 고르면 된다.</div>
+        <div class="notice teal"><b>🔬 직접 확인하는 법</b> — 후보가 정해졌다면 AI에게 같은 요청("상품 목록 화면 만들어줘")을 세 번 시켜본다. 세 번 다 구조가 비슷하면 그 프레임워크는 AI와 궁합이 좋은 것이고, 매번 딴판이면 나중에 고치기 어려워진다.</div>
+        <h3>📐 "다 알아야 하나"에 대한 정직한 답</h3>
+        <p>다 알 필요는 없다. 특히 비전공자가 처음 웹서비스를 만들 때 목표는 "프레임워크 전문가"가 되는 게 아니라 <span class="hl">내 서비스가 어떤 조건을 갖고 있는지 설명하고, 추천의 근거를 검토하는 사람</span>이 되는 것.</p>
+        <div class="table-wrap"><table><thead><tr><th>판단 축</th><th>질문</th><th>왜 중요한가</th></tr></thead><tbody>
+          <tr><td><b>AI 친화도</b></td><td>AI가 이 프레임워크로 정확한 코드를 잘 짜나요? (학습 데이터가 많고 규칙이 일관적인가)</td><td>2026년엔 첫 코드 품질과 리뷰 부담을 가장 크게 좌우</td></tr>
+          <tr><td><b>러닝커브</b></td><td>지금 팀이 HTML/CSS/JS 다음으로 받아들일 수 있는가요?</td><td>빠른 시작과 장기 이해 사이의 균형</td></tr>
+          <tr><td><b>생태계</b></td><td>필요한 인증, 차트, 폼, UI, 배포 예제가 충분한가요?</td><td>AI가 만든 코드도 자료가 많을수록 검토하기 수월</td></tr>
+          <tr><td><b>일자리·자료</b></td><td>채용 공고, 한국어/영어 자료, 커뮤니티가 있는가요?</td><td>혼자 막혔을 때 회복 속도와 관련</td></tr>
+          <tr><td><b>장기 유지보수</b></td><td>업데이트 정책, 보안 패치, 팀 확장에 맞는가요?</td><td>서비스는 만든 뒤에도 계속 바뀜</td></tr>
+          <tr><td><b>트레이드오프</b></td><td>얻는 것 대신 잃는 것은 무엇인가요?</td><td>성능, 복잡도, 배포 방식, 자유도는 서로 영향을 줌</td></tr>
+        </tbody></table></div>
+        <p class="fine">정답 하나를 찾으려 하면 금방 지친다. 후보를 2~3개로 좁히고 근거를 비교하는 방식이 현실적이다.</p>
+        <div class="notice"><b>🧭 Next.js를 후보에 넣을 때 한 번 더 볼 것</b> — Next.js는 React에 라우팅·서버 렌더링·배포까지 묶은 메타프레임워크다. 로그인·데이터·검색 노출이 중요한 서비스에는 강점이지만, 단순한 소개 페이지에는 과할 수 있다. App Router, 서버/클라이언트 컴포넌트 같은 세부 개념은 실제로 만들 때 공식 문서를 보며 익히면 된다. (공식 문서: <a href="https://nextjs.org/docs/app" target="_blank" rel="noopener">nextjs.org/docs/app</a>)</div>
+        <h3>🤔 자문</h3>
+        <p>내 프로젝트에서 위 다섯 축 중 가장 중요한 축 두 개를 고른다.</p>
+        <div class="table-wrap"><table><thead><tr><th>1순위 판단 축</th><th>2순위 판단 축</th><th>이유</th></tr></thead><tbody>
+          <tr><td></td><td></td><td></td></tr>
+        </tbody></table></div>
+        <p class="fine">예: 실무 부서에서 오래 쓸 내부 도구라면 장기 유지보수와 생태계가 앞설 수 있다. 2주 안에 데모를 보여줘야 한다면 러닝커브와 배포 자료가 앞설 수 있다.</p>
+      </section>
+
+      <section class="section" id="n3-4"><h2>3·4 · AI와 함께 PRD 만들기 <span class="dur">00:22</span></h2>
+        <p class="lead">나침반은 방향을 알려주지만 걸을지 말지는 결정하지 않는다. AI도 마찬가지 — 후보와 근거를 정리해주지만, <b>최종 선택은 조건을 아는 사람</b>이 한다.</p>
+        <h3>🗣️ AI와 대화하며 정하기 — 인터뷰 → 추천 → PRD</h3>
+        <p>좋은 개발은 "○○ 만들어줘" 한 방으로 시작하지 않는다. 무엇을 만들지 AI와 주고받으며 정하는 편이 훨씬 좋은 결과를 낸다. 아래 세 단계로 대화한다.</p>
+        <h4>1단계 — AI에게 나를 인터뷰하게 한다</h4>
+        <p>한 번에 다 설명하려 하지 말고, AI가 되묻게 만든다.</p>
+        <pre><code>내가 만들고 싶은 건 [수제 디저트 온라인 가게]인데,
+[선물 사는 사람이 편하게 고르도록] 하고 싶어.
+구체적인 PRD를 짜기 위해 정해야 할 것들을, 한 번에 하나씩 나에게 물어봐 줘.</code></pre>
+        <p>그러면 AI가 "주 사용자는 누구인가요? 상품은 어떻게 분류되나요? 결제까지 필요한가요?"처럼 되묻는다. 답하다 보면 흐릿하던 아이디어가 정리된다. 모르는 항목은 <span class="hl2">"아직 모르겠어, 네가 제안해 줘"</span>라고 답해도 된다.</p>
+        <h4>2단계 — 프레임워크를 추천받는다</h4>
+        <p>대화로 윤곽이 잡히면, 이제 만들 도구를 고른다.</p>
+        <pre><code>이제 이 서비스를 만들기에 어떤 프레임워크가 좋을지,
+3개 이상 장단점과 함께 추천해 줘.</code></pre>
+        <div class="notice warn">여기서 나온 답은 곧이곧대로 받아들이지 말고, <b>'왜 이걸 추천했는지', '내 조건에서도 정말 맞는지'</b>를 한 번 더 되물어본다.</div>
+        <h4>3단계 — PRD로 정리받는다</h4>
+        <p>마지막으로 지금까지의 대화를 문서로 남긴다.</p>
+        <pre><code>지금까지 정한 내용을 PRD로 작성해 줘.
+추후 백엔드(로그인·저장·결제) 기능을 추가할 것도 고려해서 정리해 줘.</code></pre>
+        <p>이 PRD가 오늘 과제의 뼈대이자, 나중에 백엔드 같은 기능을 붙여 나갈 때 길잡이가 된다.</p>
+        <div class="notice key"><b>📚 더 나은 공부법</b> — 지금 단계에서는 프로그래밍 문법을 파고드는 것보다, AI와 함께 만든 이 PRD와 개발 계획을 꼼꼼히 읽어보는 것이 훨씬 좋은 학습이다. <span class="hl">코드가 무엇을, 왜 하려는지 위에서 내려다보는 눈</span>이 생기고, 그 눈이 있어야 AI가 만든 결과도 판단할 수 있기 때문이다.</div>
+      </section>
+
+      <section class="section" id="n3-5"><h2>3·5 · 백엔드 없이 프론트엔드 만들기 <span class="dur">00:08</span></h2>
+        <p class="lead">노점은 본점 주방이 완성되길 기다리지 않는다. <span class="hl">백엔드가 없어도 가짜 데이터로 화면을 먼저 돌려볼 수 있다</span> — 실무 개발자가 매일 쓰는 기술이자 AI 코딩에서 가장 빠른 프로토타이핑 열쇠.</p>
+        <h3>프론트엔드 vs 백엔드 — 식당의 홀과 주방</h3>
+        <div class="table-wrap"><table><thead><tr><th>식당</th><th>웹서비스</th><th>하는 일</th></tr></thead><tbody>
+          <tr><td>홀(hall)</td><td><b>프론트엔드</b></td><td>손님이 직접 보고 만지는 공간 — 메뉴판 보고 주문하고 음식 받음</td></tr>
+          <tr><td>주방(kitchen)</td><td><b>백엔드</b></td><td>안 보이는 곳에서 재료 저장·요리·완성</td></tr>
+          <tr><td>서빙 창구</td><td><b>API</b></td><td>홀과 주방의 연결점 — 주문 전달·완성품 내보냄</td></tr>
+          <tr><td>주문서 양식</td><td><b>JSON</b></td><td>주고받는 공통 형식. "번호·메뉴·수량"처럼 정해진 규격</td></tr>
+        </tbody></table></div>
+        <p>프론트엔드가 데이터를 요청할 땐 <b>HTTP 요청</b>을 쓴다. 브라우저가 서버에 "이 데이터 주세요" 하면 서버가 JSON으로 답한다.</p>
+        <pre><code>// 프론트엔드가 백엔드에 "전문가 목록을 주세요"
+const response = await fetch('https://내서비스.com/api/experts');
+const experts = await response.json();</code></pre>
+        <p>문제는 이 코드가 돌려면 응답하는 <b>백엔드가 이미 있어야</b> 한다는 것. 없으면 <code>fetch</code>는 실패하고 화면은 빈다.</p>
+        <div class="notice teal"><b>💡 그래서 목업 데이터(mock data).</b> "백엔드 없으면 프론트엔드 못 만드나?" → 아니다. <span class="hl2">진짜 API가 보낼 것과 같은 구조의 가짜 데이터를 코드에 직접 적어두면</span>, 백엔드 없이도 화면이 진짜처럼 동작한다.</div>
+        <h3>🎭 목업 데이터가 유용한 이유 (실무에서 매일)</h3>
+        <ul>
+          <li><b>백엔드를 안 기다림</b> — 프론트·백엔드 팀이 동시에 일하는 <b>병렬 개발</b>이 기본</li>
+          <li><b>디자인·인터랙션 먼저 검증</b> — 데이터가 어떻게 들어올지 알면 배치·상호작용을 미리 테스트</li>
+          <li><b>AI 코딩에 특히 강력</b> — "이 데이터로 화면 만들어줘" 하면 백엔드 연결 없이 완성 화면을 즉시 봄</li>
+          <li><b>나중에 진짜 API로 쉽게 교체</b> — 목업 구조를 진짜 응답과 맞춰두면 한 줄만 바꿈</li>
+        </ul>
+        <div class="notice"><b>🔧 가짜 데이터는 AI에게 부탁</b> — 손으로 안 적어도 됨. 알려줄 건 둘: ① 어떤 화면인지(쇼핑몰 상품 목록) ② 무엇을 보여줄지(이름·가격·품절 여부). + <span class="hl">"실제 인물·기관 이름은 빼고 가상의 값으로"</span>. 요령: <b>극단 사례</b>(목록이 텅 빔·이름이 유난히 긺)도 섞어달라 → 그런 상황에서 화면이 깨지는지 미리 확인.</div>
+        <h3>🔄 목업 → 진짜 API, 교체가 쉬운 구조</h3>
+        <p>데이터를 <b>컴포넌트 안에 직접 박으면</b> 교체할 때 컴포넌트 열 개를 다 뒤져야 한다. <span class="hl2">별도 파일로 빼두면</span> 백엔드가 생겼을 때 <code>import</code> 한 줄만 API 호출로 바꾸면 끝 — 화면 코드는 손 안 댐. 이것이 지난 시간 배운 <b>관심사의 분리(separation of concerns)</b>의 실전.</p>
+        <pre><code>import mockExperts from './mockData';   // ← 이 한 줄만 바꾸면 끝
+function ExpertList(){
+  const experts = mockExperts;          // → useFetch('/api/experts')
+  // ... 화면 코드는 그대로
+}</code></pre>
+      </section>
+
+      <section class="section" id="n3-6"><h2>3·6 · [CS 교양] API가 하는 일 이해하기 <span class="dur">00:10</span></h2>
+        <p class="lead">창구 너머로 실제 무엇이 오가는지, <span class="hl">화면을 만들 때 알아야 할 만큼만</span>.</p>
+        <h3>REST API — URL로 데이터를 요청</h3>
+        <p>가장 널리 쓰이는 방식. 주소창에 URL 치는 것과 본질이 같되, 화면이 아니라 <b>데이터</b>를 달라고 한다.</p>
+        <pre><code>요청:  GET https://내서비스.com/api/experts?specialty=형사
+의미:  "형사 전문 변호사 목록을 줘"
+응답(JSON): { "experts": [ {"id":1,"name":"김민준",...} ], "total": 2 }</code></pre>
+        <div class="table-wrap"><table><thead><tr><th>동사</th><th>URL 예</th><th>식당 비유</th><th>의미</th></tr></thead><tbody>
+          <tr><td><b>GET</b></td><td>/api/experts</td><td>"메뉴판 보여줘"</td><td>목록을 가져옴</td></tr>
+          <tr><td><b>POST</b></td><td>/api/experts</td><td>"이거 주문할게"</td><td>새 데이터를 만듦</td></tr>
+          <tr><td><b>PUT</b></td><td>/api/experts/1</td><td>"1번 이렇게 바꿔줘"</td><td>기존 데이터 수정</td></tr>
+          <tr><td><b>DELETE</b></td><td>/api/experts/1</td><td>"1번 취소할게"</td><td>데이터 삭제</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>💡 바이브 코딩 팁:</b> AI에게 "이 화면에 POST 요청 추가해줘"라 하면 이 약속을 안다. <span class="hl">프론트엔드 프로토타입에선 GET(가져오기)·POST(등록)가 가장 자주</span> 쓰인다.</div>
+        <h3>GraphQL — 원하는 필드만 골라 받기</h3>
+        <p>REST는 하나의 URL이 <b>정해진 덩어리</b>를 돌려준다(이름·전화·사진 다). GraphQL은 <span class="hl">"내가 필요한 필드만 골라 달라"</span>고 요청 → 통신이 가벼워짐. 대신 백엔드 구조가 더 복잡해짐.</p>
+        <div class="table-wrap"><table><thead><tr><th>관점</th><th>REST</th><th>GraphQL</th></tr></thead><tbody>
+          <tr><td>학습 난이도</td><td>낮음 (URL+동사면 충분)</td><td>중간 (쿼리 문법)</td></tr>
+          <tr><td>데이터 효율</td><td>정해진 덩어리(필요없는 것도)</td><td>요청한 필드만 정확히</td></tr>
+          <tr><td>AI 코딩 친화도</td><td>자료 많고 AI가 익숙</td><td>느는 중이나 REST만큼은 아님</td></tr>
+        </tbody></table></div>
+        <div class="notice teal"><b>🧭 첫 프로토타입은 REST가 기본.</b> 자료 많고 AI가 잘 다루며 목업 구조 맞추기 쉬움. 서비스가 커져 "요청이 너무 많다" 느낄 때 GraphQL을 후보에. 지금은 <span class="hl2">GET·POST만 알아도 충분.</span></div>
+        <p class="fine"><b>역사:</b> RPC(1980s, 원격 함수 호출) → SOAP(1990s, XML 엄격 규격, 은행·의료·정부) → <b>REST(2000s, URL+HTTP동사, 웹 사실상 표준)</b> → GraphQL(2015, Meta, 필드 선택). 형식은 바뀌어도 "요청하고 응답한다"는 본질은 같다.</p>
+        <div class="notice"><b>📖 JSON이 XML을 이긴 이유</b> — XML은 <code>&lt;name&gt;김민준&lt;/name&gt;</code>처럼 태그로 감싸 문서엔 좋지만 프로그램엔 무거웠다. JSON(<code>"name":"김민준"</code>)은 JavaScript 객체 문법과 같아 브라우저가 거의 가공 없이 바로 씀 → <span class="hl">가벼움·단순함이 이겼다.</span></div>
+      </section>
+
+      <section class="section" id="n3-7"><h2>3·7 · 쇼핑몰을 운영해보고 싶다! <span class="dur">00:08</span> <span class="tag" style="background:#fee2e2;color:#b91c1c">과제</span></h2>
+        <p class="lead">흩어진 지식은 잊힌다. 온라인 쇼핑몰 하나로 오늘 배운 셋(<b>정의 → 프레임워크 판단 → 목업 데이터</b>)을 한 흐름으로 꿴다. 코드는 아직 안 짬 — <span class="hl">AI에게 무엇을 시킬지 준비하는 단계.</span></p>
+        <div class="notice"><b>💡 오늘 범위:</b> 장바구니·결제·주문은 백엔드가 필요 → 나중에. 오늘은 <b>백엔드 없이 만들 수 있는 부분(상품을 보여주는 화면)</b>까지 준비.</div>
+        <h3>3단계</h3>
+        <div class="table-wrap"><table><thead><tr><th>단계</th><th>내용</th></tr></thead><tbody>
+          <tr><td><b>① 서비스 한 줄</b></td><td>무엇을(수제 디저트 가게) / 누구를 위해(선물용 케이크 찾는 2~30대) / 핵심 화면 3개(목록·상세·장바구니). <span class="hl">"쇼핑몰 만들어줘"보다 "상품 목록·상세·장바구니 화면 만들어줘"가 훨씬 잘 통함.</span></td></tr>
+          <tr><td><b>② 프레임워크 판단</b></td><td>"뭐가 좋아요?"가 아니라 <b>조건을 준다</b>(화면·검색노출·자료 많음·나중에 백엔드). AI는 보통 Next.js를 첫 후보로 답함. 여기서 멈추지 말고 되물음 — 후보 하나만 미나? 근거 없이 "제일 좋아요"만 하나? 내 조건을 반영했나?</td></tr>
+          <tr><td><b>③ 목업 데이터</b></td><td>가짜 상품 데이터를 AI에게(상품 6개, id·name·price·category·image·soldOut, JSON 배열)</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>판단을 3문장으로:</b> "Next.js를 골랐다. ① 선물 검색 유입이 중요한데 검색 노출에 유리하고, ② 비전공자가 참고할 한국어 자료·예제가 많으며, ③ 나중에 백엔드를 같은 틀에서 붙이기 쉽다." <span class="hl">이 3문장이 "유행 따라 골랐다"와 "조건 보고 골랐다"를 가른다.</span></div>
+        <h3>📝 과제 — 내 서비스의 PRD 한 장</h3>
+        <p>쇼핑몰이 아니어도 됨 — <b>"목록·상세 화면이 있는 서비스"</b>면 무엇이든(맛집 지도·독서 기록·반려동물 커뮤니티). 이 서비스에 앞으로 백엔드·DB·AI 도구를 한 겹씩 붙여나감. 오늘 정한 게 그 씨앗.</p>
+        <div class="table-wrap"><table><thead><tr><th>항목</th><th>채울 것</th></tr></thead><tbody>
+          <tr><td>① 서비스 한 줄</td><td>무엇을 / 누구를 위해 / 핵심 화면 3개</td></tr>
+          <tr><td>② 프레임워크 판단</td><td>AI에게 조건 주고 받은 추천 + "왜 골랐나" 3문장</td></tr>
+          <tr><td>③ 목업 데이터</td><td>내 서비스 핵심 목록용 가짜 데이터 (JSON, 5개 이상)</td></tr>
+        </tbody></table></div>
+        <div class="notice teal"><b>✅ 제출 전 체크:</b> 서비스 정의가 "쇼핑몰"처럼 뭉뚱그리지 않고 무엇을·누구에게 또렷한가 · 프레임워크 이유가 유행 아닌 내 조건에 근거하나 · 목업 필드가 화면에 보여줄 정보와 맞나 · 백엔드 필요 기능(결제·로그인·저장)과 지금 만들 부분을 구분했나</div>
+        <div class="notice key"><b>📮 내 제출물:</b> 주제 = <b>세계 국가 도감</b>(목록·상세형). PRD + 실제 페이지 제작 → <code>03_과제/02_노드과제/노드3-프레임워크-세계국가도감/</code> (PRD.md · index.html). <span class="hl">🌱 PRD는 완벽하지 않아도 됨 — 만들면서 계속 고쳐나감.</span></div>
+      </section>
+
+      <!-- ================= 노드 4 · 백엔드 ================= -->
+      <section class="section coursehead" id="node-4">
+        <div class="badge">모듈 2 · 2-2강 <span style="opacity:.7">· [프로젝트] 백엔드 — 화면 뒤에서 일어나는 일들</span></div>
+        <h2>2-2강 · 백엔드 — 화면 뒤에서 일어나는 일들<span style="font-size:.86rem;opacity:.85">(9강 + 프로젝트 제출)</span></h2>
+        <p class="lead">원하는 프로덕트를 만들려면 화면 뒤에 <b>백엔드(서버)</b>가 필요하다. 코드는 AI가 쓰되, 무엇이 필요하고 무엇이 위험한지 판단하는 것은 <b>내 몫</b>. (과정: 바이브 코딩으로 웹 만들기 2)</p>
+        <div class="table-wrap" style="color:#172033"><table><thead><tr><th>강</th><th>제목</th><th>상태</th></tr></thead><tbody>
+          <tr><td>1</td><td>화면 뒤에 서버가 필요한 이유</td><td>✅ 정리됨</td></tr>
+          <tr><td>2</td><td>네트워크 기본기 — 주소가 화면이 되기까지</td><td>✅ 정리됨</td></tr>
+          <tr><td>3</td><td>백엔드가 실제로 하는 일 — 요청 받아 처리하고 돌려주기</td><td>✅ 정리됨</td></tr>
+          <tr><td>4</td><td>프로토타입과 프로덕트 사이 — AI가 약한 곳</td><td>✅ 정리됨</td></tr>
+          <tr><td>5</td><td>세상에 내보내기 — 배포</td><td>대기</td></tr>
+          <tr><td>6</td><td>공짜로 세상에 올리기 — 무료 서버 고르기</td><td>대기</td></tr>
+          <tr><td>7</td><td>내 컴퓨터를 서버로 — 집에서 돌려보기</td><td>대기</td></tr>
+          <tr><td>8</td><td>바이브 코딩으로 프론트-백엔드 연결하기</td><td>대기</td></tr>
+          <tr><td>9</td><td>내 서비스에 백엔드 한 겹 붙이기와 과제</td><td>대기</td></tr>
+          <tr><td>—</td><td>프로젝트 제출</td><td>대기</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section class="section" id="n4-1"><h2>4·1 · 화면 뒤에 서버가 필요한 이유 <span class="dur">00:14</span> <span class="tag teal">수강중</span></h2>
+        <p class="lead">"링크 보냈는데 안 열려요" — 내가 만든 화면이 아직 세상에 없는 이유. <span class="hl">남이 못 열고, 껐다 켜면 사라진다</span> — 이 두 증상이 출발점.</p>
+
+        <h3>장면 하나 — 밤새 만든 화면, 친구는 못 본다</h3>
+        <p>어젯밤 근사한 화면을 만들어 친구에게 <code>http://localhost:3000</code> 을 자랑한다. 친구: "안 열리는데? <b>이 사이트에 연결할 수 없음</b>." 게다가 노트북을 껐다 켜니 입력해 둔 내용이 싹 사라져 있다.</p>
+
+        <h3>세 가지 증상, 하나의 원인</h3>
+        <div class="table-wrap"><table><thead><tr><th>증상</th><th>진짜 원인</th></tr></thead><tbody>
+          <tr><td>새로고침하면 입력이 사라진다</td><td>데이터를 <b>저장해 둘 곳</b>이 없다</td></tr>
+          <tr><td>친구에게 주소를 줘도 안 열린다</td><td><code>localhost</code>는 <b>'내 컴퓨터'</b>라는 뜻이다</td></tr>
+          <tr><td>노트북을 닫으면 화면도 꺼진다</td><td>서비스가 <b>내 컴퓨터에서만</b> 돌아간다</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>공통 원인 하나:</b> 지금까지 만든 것은 내 컴퓨터 안에만 있고 <b>세상과 연결된 '뒤편'이 없다.</b> 그 뒤편을 맡는 것이 <span class="hl">백엔드(서버)</span>.</div>
+
+        <h4>localhost가 뭐길래</h4>
+        <p><code>localhost</code>는 "지금 이 컴퓨터"를 가리키는 특별한 주소. 친구가 자기 컴퓨터에서 <code>localhost:3000</code>을 열면 <b>친구 자기 컴퓨터의 3000번</b>을 찾는다 — 거기엔 아무것도 없으니 "연결할 수 없음". <span class="hl3">내 방 주소를 알려줬는데 친구가 자기 집에서 그 방을 찾는 셈.</span></p>
+
+        <h3>먼저 예측해보기 — 서버가 필요한 기능은?</h3>
+        <p>서버(백엔드)가 <b>없으면 안 되는 것</b>에 O, 화면(프론트)만으로 되는 것에 X.</p>
+        <div class="table-wrap"><table><thead><tr><th>기능</th><th>서버가 필요할까?</th></tr></thead><tbody>
+          <tr><td>버튼을 누르면 색이 바뀐다</td><td><b>X</b> — 내 화면 안에서 잠깐</td></tr>
+          <tr><td>회원가입하고 로그인한다</td><td><b>O</b> — 사람 확인·비밀</td></tr>
+          <tr><td>다른 사람이 쓴 글을 본다</td><td><b>O</b> — 여럿이 나눠 씀</td></tr>
+          <tr><td>새로고침해도 남아 있는 저장</td><td><b>O</b> — 껐다 켜도 남아야</td></tr>
+          <tr><td>화면에 애니메이션을 넣는다</td><td><b>X</b> — 내 화면 안</td></tr>
+          <tr><td>입력한 카드 번호로 결제한다</td><td><b>O</b> — 비밀이 오감</td></tr>
+        </tbody></table></div>
+        <div class="notice teal"><b>판단의 실마리:</b> <span class="hl">"여러 사람이 나눠 쓰거나, 껐다 켜도 남아야 하거나, 비밀이 오가는 것"</span>은 대개 서버가 필요. "내 화면 안에서 잠깐 보이고 마는 것"(색 바꾸기·애니메이션)은 서버 없이도 된다.</div>
+
+        <h3>클라이언트와 서버 — 손님과 24시간 주방</h3>
+        <div class="grid2">
+          <div class="mini"><h4>클라이언트 (내 브라우저·앱)</h4><p class="fine">주문하러 온 <b>손님</b>. 왔다가 간다. 여러 명일 수 있다.</p></div>
+          <div class="mini"><h4>서버</h4><p class="fine">24시간 켜져 있는 <b>주방 겸 창고</b>. 늘 그 자리에서 주문을 받고(요청)·음식을 내주고(응답)·재료를 보관(저장).</p></div>
+        </div>
+        <div class="table-wrap"><table><thead><tr><th>구분</th><th>식당 비유</th><th>하는 일</th></tr></thead><tbody>
+          <tr><td><b>프론트엔드(화면)</b></td><td>손님 눈에 보이는 <b>홀</b></td><td>메뉴판·자리·분위기</td></tr>
+          <tr><td><b>백엔드(서버)</b></td><td>눈에 안 보이는 <b>주방</b></td><td>데이터 저장·"이 손님 회원 맞나" 확인·계산 처리</td></tr>
+        </tbody></table></div>
+        <p>지금까지 만든 화면은 "홀 인테리어"만 있는 셈 — 예쁘지만 주방이 없으면 진짜 주문은 못 받는다. <span class="hl2">오늘 주방에서 직접 요리(코드)하는 건 AI가 한다. 나는 "주방이 어떻게 돌아가고 무엇을 조심해야 하는지"를 알아 AI에게 제대로 시키고 결과를 판단하는 것이 목표.</span></p>
+
+        <div class="notice key"><b>🎯 오늘의 핵심 한 문장:</b> 백엔드는 화면 뒤에서 <b>데이터를 저장하고, 사람을 확인하고, 세상과 연결하는</b> 부분이다. <span class="hl">코드는 AI가 쓰지만, 무엇이 필요하고 무엇이 위험한지 판단하는 것은 내 몫.</span></div>
+
+        <h3>짧은 역사 — 인터넷은 어쩌다 이렇게 연결됐나</h3>
+        <div class="table-wrap"><table><thead><tr><th>시기</th><th>사건</th><th>남긴 것</th></tr></thead><tbody>
+          <tr><td>1969</td><td><b>ARPANET</b> — 미국 몇몇 대학 컴퓨터를 처음 연결한 실험</td><td>"멀리 있는 컴퓨터끼리 메시지를 주고받자" = 인터넷의 씨앗</td></tr>
+          <tr><td>1970~80s</td><td>공통 규칙 <b>TCP/IP</b> — 데이터를 잘게 나눠(패킷) 주소를 붙여 보내자</td><td>오늘의 <b>IP 주소</b></td></tr>
+          <tr><td>1989~91</td><td><b>웹(WWW)</b> — CERN 팀 버너스리가 "문서를 링크로 잇자" 제안·공개</td><td><b>HTTP</b>(주고받는 규칙) · <b>URL</b>(웹 주소)</td></tr>
+          <tr><td>2000s~</td><td><b>클라우드</b> — 아마존·구글이 "우리 서버를 빌려 쓰세요"</td><td>비전공자도 몇 분 만에 서비스를 올린다</td></tr>
+        </tbody></table></div>
+        <div class="formula">"멀리 있는 컴퓨터를 잇자"(1969) → "공통 규칙"(TCP/IP) → "문서를 링크로"(웹·HTTP) → "서버를 빌려 쓰자"(클라우드)</div>
+
+        <h3>손님이 몰리면 — 서버는 어떻게 버티나 (개념만)</h3>
+        <div class="grid2">
+          <div class="mini"><h4>수평 확장 · 로드 밸런서</h4><p class="fine">똑같은 서버를 여러 대 두고 손님을 나눠 보낸다. 안내 직원 = <b>로드 밸런서</b>("지금은 2번 주방으로").</p></div>
+          <div class="mini"><h4>캐시 · CDN</h4><p class="fine">인기 이미지·파일을 손님과 가까운 여러 지점에 미리 복사 → 지구 반대편에서도 빠르게. 이것이 <b>CDN</b>.</p></div>
+        </div>
+        <div class="notice"><b>비전공자가 지금 직접 다룰 일은 없다</b> — 클라우드가 대부분 자동. 다만 "인기를 끌면 서버 비용이 왜 오르나", "큰 서비스는 왜 안 느려지나"를 이해하는 감각으로 알아두면 좋다.</div>
+
+        <div class="notice teal"><b>📦 오늘의 산출물:</b> 코드가 아니라 <span class="hl">"내 서비스를 세상에 내보내는 데 필요한 것들의 지도"</span>. 그 지도를 쥐면 AI에게 "이렇게 만들어 줘"라고 자신 있게 말할 수 있다.</div>
+      </section>
+
+      <section class="section" id="n4-2"><h2>4·2 · 네트워크 기본기 — 주소가 화면이 되기까지 <span class="dur">00:18</span></h2>
+        <p class="lead">백엔드를 이해하려면 "인터넷이 어떻게 연결되는지" **최소한만** 알면 된다. <code>mysite.com</code> 입력 → 화면이 뜨기까지 <span class="hl">딱 네 조각</span>: ①도메인·DNS ②서버·호스팅 ③포트·방화벽 ④HTTP·HTTPS.</p>
+
+        <h3>① 이름을 주소로 — 도메인과 DNS</h3>
+        <p>인터넷의 모든 컴퓨터에는 번호(<b>IP 주소</b>, 예 <code>142.250.72.14</code>)가 있다. 외우기 불편하고 수시로 바뀌기도 한다.</p>
+        <div class="grid2">
+          <div class="mini"><h4>도메인 (mysite.com)</h4><p class="fine">사람이 외우는 <b>가게 이름</b>. "김밥천국"처럼.</p></div>
+          <div class="mini"><h4>DNS</h4><p class="fine">이름 → 번호로 바꿔 주는 <b>전화번호부</b>. "mysite.com 어디?" → "142.250.x.x".</p></div>
+        </div>
+        <p>도메인은 <b>사는 것</b>(연 1만원 안팎) → "이 도메인은 저 서버(IP)를 가리켜라" 연결(DNS 설정).</p>
+        <div class="notice warn"><b>흔한 함정 — 왜 바로 안 바뀌지?</b> DNS는 답을 한동안 <b>기억(캐시)</b>해 둬서, 바꿔도 즉시 반영이 안 된다. 몇 분~몇 시간이면 전 세계로 퍼짐(전파). "방금 바꿨는데 왜 안 바뀌지?"의 가장 흔한 정답.</div>
+        <h4>도메인은 '별칭' 그 이상 — 이름 한 겹을 두는 힘</h4>
+        <p>진짜 힘은 <span class="hl">이름과 실제 서버 사이에 '한 겹'을 두는 것</span>(추상화). 앞(도메인)은 그대로, 뒤(서버·IP)는 얼마든지 바꾼다.</p>
+        <div class="table-wrap"><table><thead><tr><th>따라오는 것</th><th>뜻</th></tr></thead><tbody>
+          <tr><td>서버 옮겨도 주소 그대로</td><td>서버가 죽어 새 IP를 받아도 'DNS 한 줄'만 고침. 상호는 그대로.</td></tr>
+          <tr><td>하나의 이름 → 여러 서버</td><td>부하 분산·지역별 안내(CDN). 하나 죽어도 잘 안 멈춤.</td></tr>
+          <tr><td>서브도메인 구조화</td><td><code>api.</code>·<code>blog.</code>·<code>shop.</code>로 갈라도 브랜드는 하나.</td></tr>
+          <tr><td>신원·신뢰의 증표</td><td>이메일 @뒤·HTTPS 인증서가 '도메인'에 발급 → 정체성.</td></tr>
+          <tr><td>내 이름으로 보유·이동</td><td>호스팅 바꿔도 들고 감 → 브랜드 자산.</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>자주 하는 오해</b> — 자물쇠(HTTPS)는 '믿을 만한 회사' 증명이 아니다. '이 도메인 주인과 암호 걸어 통신 중'이란 뜻일 뿐 → <span class="hl3">피싱 사이트도 자물쇠를 붙일 수 있다.</span> 자물쇠 유무보다 <b>도메인 철자</b>를 확인.</div>
+
+        <h3>② 그 주소엔 무엇이 — 서버와 호스팅</h3>
+        <p><b>서버</b> = 내 파일·데이터를 올려 두고 24시간 켜진 컴퓨터. "노트북 닫으니 꺼진" 이유가 이것. → <b>호스팅</b>(늘 켜진 컴퓨터를 빌려 씀)을 쓴다. 서버를 직접 살 필요 없음.</p>
+        <div class="table-wrap"><table><thead><tr><th>예전</th><th>지금(클라우드)</th></tr></thead><tbody>
+          <tr><td>회사가 서버 직접 구입 — 전원·냉방·보안·고장 다 챙김</td><td>아마존·구글 서버 창고에서 <b>필요한 만큼만 빌림</b>. 고장·보안·전원은 그쪽이. 클릭 몇 번이면 24시간 서버 생김.</td></tr>
+        </tbody></table></div>
+        <h4>내부망과 외부망 — "왜 내 노트북에선 되는데 밖에선 안 보이지?"</h4>
+        <div class="grid2">
+          <div class="mini"><h4>내부망(LAN)</h4><p class="fine">집·회사 안 공유기로 묶인 '우리끼리'. 사설 IP(<code>192.168.0.5</code>).</p></div>
+          <div class="mini"><h4>외부망(WAN=인터넷)</h4><p class="fine">그 바깥 전 세계. 밖에서 우리 집은 <b>공유기 하나(공인 IP 하나)</b>로만 보임.</p></div>
+        </div>
+        <div class="notice"><b>문지기 = 공유기(NAT)</b> — 안→밖은 자유, <b>밖→안은 기본 차단</b>(그래서 평소 안전). 내 <code>localhost:3000</code>이 나한테만 보이는 이유. <span class="hl">'세상에 연다' = 내부망의 것을 외부망에서 닿게 만드는 일</span>(클라우드 서버에 올리거나 터널로 연결).</div>
+
+        <h3>③ 어느 문으로 — 포트와 방화벽</h3>
+        <p>서버 한 대는 여러 일(웹·메일·DB)을 동시에 한다 → "이 요청은 어느 창구로"를 정하는 게 <b>포트</b>.</p>
+        <ul>
+          <li>IP='건물 주소', 포트='호실 번호'(0~65535). 웹은 보통 <b>80(HTTP)·443(HTTPS)</b>. <code>localhost:3000</code>의 3000이 포트.</li>
+          <li><b>방화벽</b> = 문 지키는 경비. 필요 없는 문은 닫아 둠.</li>
+        </ul>
+        <div class="notice warn">"내 컴에선 되는데 밖에선 안 열려요"의 흔한 원인 = <b>열려야 할 문(포트)이 방화벽에 막힘</b>. 배포 플랫폼은 대개 알아서 열어 줌 — 개념만 기억.</div>
+
+        <h3>④ 무슨 말로 — HTTP와 HTTPS</h3>
+        <p>브라우저↔서버 공통 언어 = <b>HTTP</b>("이 페이지 줘"→"여기 있어").</p>
+        <pre><code>[요청]  GET /products      ← "products 목록 줘(GET)"
+        Host: mysite.com
+[응답]  200 OK             ← "성공! 여기 있어"  (+ 화면/데이터)</code></pre>
+        <p><b>HTTPS</b> = 이 대화를 암호로 감싼 안전한 버전(주소창 자물쇠). HTTP=엽서(엿봄 가능), HTTPS=밀봉 봉투. 로그인·결제 있으면 필수. 요즘 배포 플랫폼이 자물쇠(SSL)를 자동으로 붙여 줌.</p>
+        <div class="notice teal"><b>참고 — API</b>: 프로그램끼리 정해진 창구로 요청·응답을 주고받는 약속. "AI야, 지도 API 붙여줘"의 그 API가 <b>HTTP 요청이 지나는 창구</b>.</div>
+        <h4>작동 원리 — 자물쇠(공개키)</h4>
+        <p>열쇠가 <b>두 개</b>: <b>공개키</b>=누구나 넣는 우편함 투입구(공개 OK) / <b>개인키</b>=여는 유일한 열쇠(서버만). 누구나 잠글 순 있어도 열 수 있는 건 서버뿐. 접속 초반 공개키로 '임시 열쇠(세션 키)'를 주고받는 첫 인사 = <b>TLS 핸드셰이크</b>. 진짜 사이트 보증은 <b>인증기관(CA)</b>의 서명 인증서로.</p>
+        <h4>작동 원리 — 패킷(TCP/IP)</h4>
+        <p>데이터는 통째로가 아니라 <b>작은 조각(패킷)</b>으로 쪼개져 각자 여행 후 재조립. ①우편(머리표=주소·순번) ②피자(한 조각만 다시) ③내비(막히면 우회 → 일부 고장나도 안 멈춤). 이 공통 규칙이 <b>TCP/IP</b>.</p>
+        <h4>요청 한 번의 여정 (엔터 치면)</h4>
+        <div class="steps">
+          <div class="step">브라우저가 DNS에 묻는다 — "mysite.com IP 어디?" (배송지 검색)</div>
+          <div class="step">IP를 받아 서버에 연결 — 443번 문, HTTPS 자물쇠 (차량 이동)</div>
+          <div class="step">"이 페이지 줘" HTTP 요청 → 서버가 화면·데이터 응답 (물건 받아 옴)</div>
+          <div class="step">브라우저가 응답을 화면으로 그림 (포장 풀어 정리)</div>
+        </div>
+        <p class="fine">목업 데이터는 이 여정 없이 화면 안에 미리 넣은 것, 진짜 서비스는 매번 이 왕복을 돈다. <b>백엔드는 그 왕복의 반대편에서 대답하는 쪽.</b></p>
+
+        <h3>개념 정리 — HTTP 상태 코드 (인터넷의 신호등)</h3>
+        <p>서버는 응답에 세 자리 숫자를 함께 보낸다. <b>맨 앞 숫자만</b> 보면 됨.</p>
+        <div class="table-wrap"><table><thead><tr><th>코드</th><th>뜻</th><th>한마디</th></tr></thead><tbody>
+          <tr><td><b>2xx</b></td><td>성공(초록불)</td><td>200 OK "다 잘됐어"</td></tr>
+          <tr><td><b>3xx</b></td><td>우회(노란불)</td><td>301/302 "저쪽으로 옮겼어"</td></tr>
+          <tr><td><b>4xx</b></td><td>요청(나)의 잘못</td><td>401 "누구세요?"(로그인) · 403 "넌 안 돼"(권한) · 404 "그런 페이지 없어" · 429 "천천히 좀"</td></tr>
+          <tr><td><b>5xx</b></td><td>서버의 잘못</td><td>500 "내가 터졌어"</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>실전 팁</b> — 4xx면 내 요청을 고치고, 5xx면 서버(만든 사람) 문제. AI에게 "500 에러 나" 하고 <b>화면의 에러를 그대로 붙여</b> 주면 원인을 훨씬 잘 찾음. (재미: <code>418 I'm a teapot</code>은 1998 만우절 농담)</div>
+        <div class="notice teal"><b>직접 해보기</b> — 아무 사이트에서 우클릭→검사→<b>Network</b> 탭→새로고침 → 맨 위 줄 <b>Status</b>에 200 같은 숫자. 안 뜰 때 <span class="hl3">빨간 줄(4xx·5xx)</span>을 찾으면 단서. (출처: MDN)</div>
+      </section>
+
+      <section class="section" id="n4-3"><h2>4·3 · 백엔드가 실제로 하는 일 — 요청 받아 처리하고 돌려주기 <span class="dur">00:16</span></h2>
+        <p class="lead">백엔드가 하는 일 한 문장 — <span class="hl">요청을 받아서, 처리하고, 응답을 돌려준다.</span> 정적 화면이 '창고 완성품을 그대로 꺼내 줌'이면, 백엔드는 <b>주문마다 그때그때 만드는 동적 처리</b>.</p>
+        <div class="table-wrap"><table><thead><tr><th>주방 비유</th><th>백엔드</th></tr></thead><tbody>
+          <tr><td>홀(프론트)에서 주문서를 받고</td><td>요청 접수</td></tr>
+          <tr><td>레시피대로 조리하고</td><td>비즈니스 로직(규칙 검사·계산)</td></tr>
+          <tr><td>창고에서 재료를 꺼내고</td><td>데이터베이스 읽기/쓰기</td></tr>
+          <tr><td>완성한 요리를 내보냄</td><td>응답</td></tr>
+        </tbody></table></div>
+        <p class="fine">손님은 주방 안을 못 보고 '주문'과 '나온 요리'만 주고받음 — 백엔드가 자신을 감추는 방식.</p>
+
+        <h3>개념 — 창구(엔드포인트)와 API</h3>
+        <p>백엔드는 통째로 열지 않고 정해진 <b>창구(엔드포인트)</b>만 연다. 창구 하나 = <b>"주소(URL) + 동작"</b> = 기능 하나.</p>
+        <pre><code>GET  /products   → "상품 목록 주세요"
+POST /login      → "이 정보로 로그인 처리해 주세요"</code></pre>
+        <p>이 창구들의 묶음이 <b>API</b>. 관례(REST) 핵심 감 — <span class="hl">주소는 '무엇'(명사), 동작은 메서드로.</span> <code>/getProducts</code>(동사)❌ → <code>/products</code>(명사)⭕. 비전공자에게 필요한 건 완벽한 설계가 아니라 "내 서비스엔 어떤 창구가 필요하지?" 판단.</p>
+
+        <h3>개념 — CRUD (거의 모든 서비스가 하는 네 가지)</h3>
+        <div class="table-wrap"><table><thead><tr><th>C·R·U·D</th><th>동작</th><th>API 짝</th></tr></thead><tbody>
+          <tr><td>Create</td><td>만들기</td><td>POST</td></tr>
+          <tr><td>Read</td><td>읽기</td><td>GET</td></tr>
+          <tr><td>Update</td><td>고치기</td><td>PUT/PATCH</td></tr>
+          <tr><td>Delete</td><td>지우기</td><td>DELETE</td></tr>
+        </tbody></table></div>
+        <p class="fine">인스타 '게시물 올리기·보기·수정·삭제', 쇼핑몰 '상품 등록·조회·수정·삭제' — 겉만 다르고 속은 이 넷의 반복. "어떤 창구 필요?"="이 데이터에 CRUD 중 뭘 허용?"</p>
+
+        <h3>개념 — 공용어 JSON</h3>
+        <pre><code>{ "name": "홍길동", "age": 30, "isMember": true }</code></pre>
+        <p>'이름표: 값' 쌍의 가벼운 텍스트. 사람이 읽기 쉽고 언어를 안 가려서 <b>어떤 프론트·백엔드를 붙여도 알아들음</b> → 사실상 표준. 문법 외울 필요 없이 "이렇게 생긴 걸로 주고받는구나"면 충분.</p>
+
+        <h3>백엔드는 무슨 언어로 짜나</h3>
+        <div class="table-wrap"><table><thead><tr><th>언어</th><th>대표 프레임워크</th></tr></thead><tbody>
+          <tr><td>JavaScript/TypeScript</td><td>Node.js 위 <b>Express</b>(가벼움)·<b>NestJS</b>(구조)</td></tr>
+          <tr><td>Python</td><td>Django(종합)·Flask(가벼움)·<b>FastAPI</b>(요즘 뜨는)</td></tr>
+          <tr><td>그 밖</td><td>Ruby on Rails · Go · Java/Spring</td></tr>
+        </tbody></table></div>
+        <p class="fine">무난한 기본값 — ①JS 풀스택(언어 하나로 통일·자료 많음) ②Python(읽기 쉽고 AI 붙이기 좋음). 어차피 코드는 AI가 짬 → 나는 <b>개념(요청·창구·CRUD·검증)</b>만 잡고 방향 판단.</p>
+
+        <div class="notice key"><b>🔒 보안 — 백엔드의 진짜 가치: "프론트는 못 믿는다"</b><br>백엔드의 가치는 데이터를 나르는 게 아니라 <b>규칙을 지키는 것</b>(재고·최종가격·권한 = 비즈니스 로직). <span class="hl">가격·수량·권한 검증은 반드시 백엔드에서 다시.</span> 프론트는 사용자 컴퓨터에서 도니 얼마든지 조작 가능 — 화면에 "10,000원"이어도 악의적 사용자는 100원으로 바꿔 보낼 수 있다. <b>최종 가격은 서버가 자기 데이터로 다시 계산.</b> (OWASP)</div>
+      </section>
+
+      <section class="section" id="n4-4"><h2>4·4 · 프로토타입과 프로덕트 사이 — AI가 약한 곳 <span class="dur">00:16</span></h2>
+        <p class="lead">바이브 코딩의 흔한 실패 — <b>첫날</b> "하루 만에 화면이!" → <b>다음 주</b> "로그인 풀려·저장 사라져·클라우드 요금 폭탄". AI는 <span class="hl">"돌아가는 코드"는 잘 만들지만 "안전하고 튼튼한 코드"는 놓친다.</span> 명시적으로 요구하지 않으면 보안을 알아서 안 챙김.</p>
+        <div class="notice warn">보안회사 <b>Veracode</b> 실험 — AI 생성 코드의 <b>약 45%에 보안 결함</b>. 모델이 더 똑똑해져도 이 비율은 거의 안 줆(문법은 좋아져도 안전은 그대로). (2025 GenAI Code Security Report)</div>
+
+        <h3>① 보안 — AI 코드의 최대 약점</h3>
+        <p>가장 흔한 구멍 = <b>"입력을 그대로 믿는" 실수.</b> 검색창 이름 칸에 나쁜 사람이 <b>명령어처럼 생긴 문자열</b>을 넣고, 서버가 그대로 실행하면 → DB가 통째로 털리거나 지워짐(SQL 인젝션).</p>
+        <div class="notice teal"><b>규칙 하나</b> — "사용자가 보낸 값은 일단 의심하고 검사한다." 비전공자가 할 일은 <b>프롬프트로 요구</b>하는 것:<br><code>"사용자 입력을 검증하고, 비밀번호는 해시로 저장하고, 모든 통신은 HTTPS로. 흔한 취약점(입력값 주입, XSS)을 막아줘."</code></div>
+        <h4>보안 이야기 — 역사에 남은 유출 사고 (대부분 막을 수 있던 것들)</h4>
+        <div class="table-wrap"><table><thead><tr><th>사고</th><th>내용·교훈</th></tr></thead><tbody>
+          <tr><td>에퀴팩스(2017)</td><td><b>알려진 취약점 방치</b> → 1억 4,300만 명 주민번호·생일·주소 유출</td></tr>
+          <tr><td>소니 PSN(2011)</td><td>약 7,700만 명 정보 유출, 서비스 장기 중단</td></tr>
+          <tr><td>야후 보이스(2012)</td><td>비밀번호를 <b>평문 저장</b>했다 통째로 유출 → "비번은 해시로"의 이유</td></tr>
+          <tr><td>마이스페이스(2008)</td><td>약 3.6억 계정 → 교훈: <b>같은 비번 재사용 금지</b></td></tr>
+          <tr><td>MOVEit(2023)</td><td>파일 전송 프로그램 허점 → 2,700+ 기관·9천만+ 명 노출</td></tr>
+        </tbody></table></div>
+        <p class="fine">공통점 — 입력 함부로 안 믿기·비번은 해시로·알려진 취약점 방치 않기. 큰 회사도 기본을 놓쳐서 뚫린다.</p>
+
+        <h3>② 환경변수 — 비밀은 코드에 적지 않는다</h3>
+        <p>급한 마음에 API 키를 코드에 적어 GitHub에 올림 → 몇 분 만에 봇이 훔쳐 클라우드에서 비싼 작업 → 며칠 뒤 <b>수백만 원 청구서</b>.</p>
+        <div class="notice warn"><b>GitGuardian</b> 집계 — 2025년 공개 GitHub 유출 비밀키·비번 약 <b>2,865만 개</b>(전년비 +34%, 역대 최대). <b>AI 서비스 키 유출 1년 새 +81%</b>. (State of Secrets Sprawl 2026)</div>
+        <pre><code>나쁜 예:  apiKey = "sk-a1b2c3d4..."   ← 그대로 올라가면 순식간 유출
+좋은 예:  apiKey = 환경변수에서 불러오기  ← 실제 값은 코드 밖 .env 에
+          (.env 는 .gitignore 로 깃에 안 올라가게)</code></pre>
+        <div class="notice teal">AI에게 — <code>"API 키·DB 접속정보는 코드에 넣지 말고 환경변수로 빼줘. .env는 깃에 안 올라가게."</code> 한 줄: <span class="hl">코드=공개해도 되는 것 / 환경변수=절대 공개 안 될 것.</span></div>
+
+        <h3>③ 인증 vs 인가 — 표 검사원과 VIP 바운서</h3>
+        <div class="grid2">
+          <div class="mini"><h4>인증(Authentication)</h4><p class="fine">입구 <b>표 검사원</b> — "표 주인 맞아요?"=로그인 확인. 실패=401.</p></div>
+          <div class="mini"><h4>인가(Authorization)</h4><p class="fine">VIP <b>바운서</b> — "이 방 들어갈 권한 있어요?" 없으면 403.</p></div>
+        </div>
+        <p>로그인 성공 → 서버가 <b>토큰</b>(클럽 손목 밴드)을 줌 → 이후 요청마다 밴드만 보이면 통과. <span class="hl3">비밀번호는 절대 그대로 저장 금지</span> — <b>해시</b>(한쪽으로만 계산, 달걀→프라이는 되지만 프라이→달걀 불가)로 저장. AI가 만들어도 "권한 확인(인가) 되어 있나?"·"비번 해시로 저장되나?"는 꼭 되물을 것.</p>
+        <h4>작동 원리 — 해시와 솔트</h4>
+        <ul>
+          <li><b>해시</b> = 비번을 '되돌릴 수 없는 지문'으로. 같은 비번=같은 지문. 서버는 지문만 저장·비교.</li>
+          <li><b>솔트(salt)</b> = 사람마다 다른 무작위 값을 섞음 → 같은 <code>123456</code>도 사람마다 지문이 달라짐.</li>
+          <li><b>bcrypt</b> = 일부러 <b>느리게</b> 계산 → 도둑이 수억 개 대입하기 어려움(느린 게 장점).</li>
+        </ul>
+        <div class="notice teal">AI에게 — <code>"비밀번호는 솔트를 섞어 bcrypt로 해시해서 저장해줘."</code></div>
+        <h4>작동 원리 — 쿠키와 세션 (웹은 원래 건망증이 심하다)</h4>
+        <p>초창기 HTTP는 요청마다 처음 보는 손님 취급(<b>무상태</b>) → 로그인 유지하려 나온 게 쿠키·세션.</p>
+        <div class="grid2">
+          <div class="mini"><h4>쿠키</h4><p class="fine">내 지갑 속 <b>작은 카드</b>. 사이트가 번호를 적어 주면 방문 때마다 보여 줌.</p></div>
+          <div class="mini"><h4>세션</h4><p class="fine">사이트 금고 속 <b>내 서류철</b>. 카드 번호를 보고 "아, 이 사람!" 하며 정보(장바구니·권한)를 꺼냄.</p></div>
+        </div>
+        <p class="fine">흐름 — ①로그인 시 서버가 세션 만들고 고유번호(세션 ID) 발급 → ②쿠키로 브라우저에 줌 → ③요청마다 쿠키 함께 보냄 → ④서버가 번호로 나를 알아봄. <span class="hl3">진짜 정보는 브라우저(쿠키)에 두면 안 됨</span>(조작 가능) — 브라우저엔 의미 없는 번호만, 진짜는 서버 금고에.</p>
+
+        <div class="notice key"><b>정리 — AI는 아주 빠른 신입 개발자.</b> 속도는 놀랍지만 <b>보안·비밀 관리·권한 확인은 감독이 필요</b>. 세 가지 — <span class="hl">입력 검증 · 비밀은 환경변수 · 권한 확인(+비번 해시)</span> — 을 프롬프트로 요구하고 결과를 한 번 더 되묻는 것. 그것이 비전공자의 가장 강력한 품질 관리.</div>
+      </section>
+
+      <section class="section" id="n4-5"><h2>4·5 · 세상에 내보내기 — 배포 <span class="dur">00:16</span></h2>
+        <p class="lead"><b>배포(deploy)</b> = 내 컴퓨터에만 있던 서비스를 <span class="hl">늘 켜진 서버에 올려 누구나 주소로 들어오게</span> 하는 것. 예전엔 며칠 걸리던 전문가의 일, 지금은 비전공자도 클릭 몇 번+AI로 몇 분.</p>
+        <h4>어디에 올리나 — 셋으로 나눠 (식당 비유)</h4>
+        <div class="table-wrap"><table><thead><tr><th>무엇을</th><th>어디에(예)</th><th>식당 비유</th><th>왜 여기</th></tr></thead><tbody>
+          <tr><td>화면(프론트)</td><td>Vercel · Netlify</td><td>전 세계 여러 지점의 홀</td><td>손님 가까이서 빠르게 보여줘야</td></tr>
+          <tr><td>서버(백엔드)</td><td>Render · Railway</td><td>늘 켜진 주방</td><td>요청을 계속 처리해야</td></tr>
+          <tr><td>데이터(DB)</td><td>Supabase 등</td><td>관리형 재료 창고</td><td>안전하게 보관해야</td></tr>
+        </tbody></table></div>
+        <p class="fine">각자 잘하는 게 달라 나눠 맡김. 무료로 시작하면 서버는 <b>Render(무료 티어 유지)</b>가 무난(Railway는 시작 크레딧 소진 후 유료).</p>
+        <h4>GitHub에 올리면 자동 배포</h4>
+        <div class="formula">내 코드 → GitHub 저장소 → 배포 플랫폼(Vercel 등)과 "연결" → 코드 바뀔 때마다 자동 재배포 → 주소(예: 내프로젝트.vercel.app) 생성</div>
+        <p>한 번 연결해두면 다음부턴 <span class="hl">고치고 저장만 해도 세상에 반영</span>. 어젯밤 안 열리던 그 링크가 이제 어디서든 열림.</p>
+        <div class="notice warn"><b>초보가 가장 많이 막히는 세 곳:</b> ① <b>환경변수 빼먹기</b> — <code>.env</code>(비밀값)는 GitHub에 안 올리므로 배포 플랫폼 설정에 따로 넣어야("로컬은 됐는데 배포는 안 돼"의 1위) ② <b>CORS 막힘</b> — 화면(Vercel)과 서버(Render)가 다른 주소면 서버가 "이 화면 요청 허용"을 열어줘야(AI에게 "내 프론트 주소 CORS 허용해줘") ③ <b>무료의 함정</b> — 트래픽 늘면 유료 전환.</div>
+        <div class="notice key"><b>💸 요금 폭탄 방지:</b> 요금 알림 켜기 · 무료 한도 알기 · <span class="hl">비밀 키 지키기</span>(유출 키로 남이 돌린 요금도 내 몫 → 그래서 환경변수). 알고 시작하면 거의 예방 가능.</div>
+      </section>
+
+      <section class="section" id="n4-6"><h2>4·6 · 공짜로 세상에 올리기 — 무료 서버 고르기 <span class="dur">00:14</span></h2>
+        <p class="lead">비전공자도 무료로 웹앱을 띄울 곳이 여럿. 단 <span class="hl3">공짜의 세계는 계속 줄어드는 중</span> — Heroku(2022 종료)·Railway(2023)·Fly.io(2024)·Glitch(2025)가 상시 무료를 거둠(무료 계정의 채굴 악용 탓). <b>가입 직전 공식 요금 페이지 재확인이 안전.</b></p>
+        <div class="table-wrap"><table><thead><tr><th>서비스</th><th>뭘 올리기 좋나</th><th>무료로 주는 것·주의(2026 기준)</th></tr></thead><tbody>
+          <tr><td><b>Cloudflare Pages</b></td><td>정적·프론트</td><td>대역폭 무제한 — 트래픽 걱정 최소</td></tr>
+          <tr><td><b>GitHub Pages</b></td><td>정적 전용</td><td>가장 단순. 코드 저장하던 곳에 그대로 게시</td></tr>
+          <tr><td><b>Vercel(Hobby)</b></td><td>프론트·Next.js</td><td>손이 가장 덜 감. 단 개인·비상업용만</td></tr>
+          <tr><td><b>Netlify</b></td><td>정적·프론트</td><td>Vercel 대안, 상업적 이용 허용</td></tr>
+          <tr><td><b>Render</b></td><td>백엔드 API</td><td>15분 안 쓰면 잠듦(깨는 데 ~1분)</td></tr>
+          <tr><td><b>Supabase</b></td><td>백엔드+DB</td><td>DB·로그인 한 번에. 7일 미사용 시 일시정지(데이터 보존)</td></tr>
+          <tr><td><b>Oracle Always Free</b></td><td>진짜 리눅스 서버(VM)</td><td>상시 무료 VM. 단 카드 필요·설정 어려움</td></tr>
+        </tbody></table></div>
+        <div class="notice teal"><b>이럴 땐 이걸로:</b> 소개 페이지(화면만)→Cloudflare/GitHub Pages · 프레임워크 프론트→Vercel · <span class="hl2">로그인·저장 필요→Supabase 1순위</span>(+API 서버 필요하면 Render) · 진짜 서버 공부→Oracle.</div>
+        <div class="notice warn"><b>3함정:</b> ① <b>잠듦</b>(무료 백엔드는 한동안 안 오면 자고, 첫 방문 ~1분) ② <b>기한·일시정지</b>(무료 DB가 만료·정지될 수 있음 → 중요 데이터는 백업) ③ <b>요금 폭탄</b>(카드 걸린 서비스는 예산 알림·상한). 무료는 "배우고 시연"엔 충분, "24시간 안정 제공"이 오면 유료 검토.</div>
+      </section>
+
+      <section class="section" id="n4-7"><h2>4·7 · 내 컴퓨터를 서버로 — 집에서 돌려보기 <span class="dur">00:12</span></h2>
+        <p class="lead">"내 컴퓨터 켜두면 되잖아?" — 되긴 되지만 <span class="hl">기본적으로는 밖에서 안 닿는다</span>. 집 기기는 공유기가 준 <b>사설 IP(192.168.…)</b>를 쓰고, 밖에선 집이 공유기 하나로만 보임(<b>NAT</b>). 게다가 집 회선 주소는 대개 <b>유동 IP</b>.</p>
+        <h4>전통 방법 — 포트 포워딩 + DDNS (원리엔 좋지만 주의 큼)</h4>
+        <p class="fine">공유기에서 특정 문(포트)을 내 서버로 열고, DDNS로 바뀌는 주소를 따라가게. 단 ① 집 네트워크가 인터넷에 <span class="hl3">직접 노출</span>(전 세계 공격 프로그램이 문 두드림) ② 요즘 많은 회선은 주소를 여러 집이 나눠 쓰는 <b>CGNAT</b>라 포트 포워딩 자체가 안 되는 경우 많음.</p>
+        <h4>요즘 편한 무료 방법 — '터널'</h4>
+        <p><b>터널</b>은 발상을 뒤집음 — 밖에서 들어오게 여는 대신 <span class="hl">내 컴퓨터가 바깥 서비스로 먼저 연결</span>해 그 통로로 손님을 받음. 그래서 포트 개방 불필요·CGNAT 통과.</p>
+        <div class="table-wrap"><table><thead><tr><th>도구</th><th>특징</th><th>언제</th></tr></thead><tbody>
+          <tr><td><b>Cloudflare Tunnel</b></td><td>포트 개방 불필요, 정식 주소·인증서까지, 대역폭 무제한·무료</td><td>가장 든든한 상시용</td></tr>
+          <tr><td><b>ngrok</b></td><td>한 줄 명령으로 즉시 공개 주소(무료는 고정 1개·동시 3개, 첫 방문 경고 페이지)</td><td>잠깐 시연·테스트</td></tr>
+          <tr><td><b>Tailscale Funnel</b></td><td>내 기기끼리 사설망으로 묶고 일부만 공개(무료·고정 주소)</td><td>개인·팀 내부 공유</td></tr>
+        </tbody></table></div>
+        <div class="notice teal"><b>결론:</b> 집 서버(라즈베리파이·홈랩)는 <b>재미있는 공부·취미</b>. 하지만 <span class="hl">첫 진짜 배포는 무료 클라우드(Cloudflare·Vercel·Render·Supabase)가 거의 항상 더 안전하고 손이 덜 감</span>. 원리는 집에서 익히고, 세상에 보여줄 땐 클라우드.</div>
+      </section>
+
+      <section class="section" id="n4-8"><h2>4·8 · 바이브 코딩으로 프론트-백엔드 연결하기 <span class="dur">00:14</span></h2>
+        <p class="lead">조각이 다 모임(화면 + 네트워크·백엔드·보안·배포). 마지막으로 AI로 <b>풀스택(화면+서버)</b>을 이을 때 — 초보가 가장 많이 헤매는 지점.</p>
+        <div class="formula">① 목업 화면 먼저 → ② 백엔드 API 붙이기 → ③ 가짜 데이터를 실제 호출로 교체</div>
+        <p><span class="hl">앱 전체를 한 프롬프트에 통째로 시키는 건 초보에게 거의 항상 실패</span>(AI의 집중력·기억 한계). "데이터 모양 → API → 화면"처럼 <b>작게 쪼개</b> 시키면 실수를 일찍 잡음.</p>
+        <div class="notice warn"><b>연결에서 실제로 겪는 문제 → 처방:</b><br>① <b>계약 불일치(최대 원흉)</b> — 프론트가 기대하는 데이터 모양 ≠ 백엔드가 주는 모양(AI 쓰면 오히려 심해짐, 양쪽에 '얼추 맞는' 걸 따로 만들어 어긋남). 증상: 화면에 <code>undefined</code>. 처방: <span class="hl">주고받을 데이터를 처음부터 문서로(API 명세)</span> 적고 그걸 기준으로 양쪽을 짬<br>② <b>로딩·에러 상태 누락</b> — 모든 호출을 <b>로딩/성공/에러</b> 세 상태로 나눠 각각 화면 준비<br>③ <b>CORS·주소·환경변수</b> — 배포 때 그 문제들이 곧 연결 문제. 백엔드가 내 프론트 주소 허용 + 주소는 환경변수로</div>
+        <div class="notice key"><b>연결을 매끄럽게 하는 프롬프트 전략:</b> <span class="hl2">API 명세를 문서로(근본 해결)</span> — "엔드포인트 목록과 각 요청/응답 예시(JSON)를 명세 문서로 만들고, 앞으로 이 문서 기준으로 프론트·백엔드 짜자" · <b>한 기능씩 끝까지(수직 슬라이스)</b> — "회원가입 하나"를 화면-API-저장까지 완성하고 바로 테스트 · <b>양쪽을 같은 대화·저장소에</b> · <b>매 단계 커밋</b>(AI는 확신에 차서 멀쩡한 걸 망가뜨리기도).</div>
+        <div class="notice"><b>🔒 내보내기 전 보안 점검 프롬프트:</b> <code>"이 코드 전체를 하드코딩된 비밀값·서버 입력 검증 누락·CORS 설정·인증 취약점 관점으로 점검해줘."</code> AI는 보안이 나빠서가 아니라 <span class="hl3">프롬프트에 보안이 없어서</span> "일단 돌아가는" 코드를 만듦(<code>NEXT_PUBLIC_</code>·<code>VITE_</code> 접두사 값은 "브라우저 공개"란 뜻 → 비밀값 금지).</div>
+      </section>
+
+      <section class="section" id="n4-9"><h2>4·9 · 내 서비스에 백엔드 한 겹 붙이기 &amp; 과제 <span class="dur">00:10</span> <span class="tag" style="background:#fee2e2;color:#b91c1c">프로젝트 제출</span></h2>
+        <p class="lead">과제 목표는 하나 — <span class="hl">'백엔드가 실제로 도는 것'을 내 손으로 경험</span>. 게임 과제처럼 두 갈래 중 나에게 맞는 쪽.</p>
+        <div class="grid2">
+          <div class="mini"><h4>갈래 A — 주제 없으면: 튜토리얼로 한 바퀴</h4><p class="fine">데이터가 진짜 저장되는 작은 앱(방명록·할일)을 튜토리얼로. 추천: <b>Supabase 공식 퀵스타트</b>(DB·로그인·배포 한 바퀴). <span class="hl2">그냥 따라만 말고 개선 하나</span>(항목 삭제·검색 추가 등). <b>제출:</b> 작동 링크(또는 시연) + 내가 바꾼 부분 한 줄.</p></div>
+          <div class="mini"><h4>갈래 B — 주제 있으면: 내 서비스에 백엔드 한 겹 + 배포</h4><p class="fine">지난 PRD·목업을 이어 <b>백엔드 기능 하나</b>(예: 글이 저장돼 새로고침·다른 기기에서도 남기)를 붙이고 화면까지 배포. <b>제출:</b> 작동 링크(또는 3분 시연) — <span class="hl">'새로고침해도 데이터가 남는' 장면</span> + 설계 한 장 + 고른 호스팅과 이유 한 줄.</p></div>
+        </div>
+        <h4>B 갈래 — 먼저 설계 한 장('지도')</h4>
+        <div class="table-wrap"><table><thead><tr><th>항목</th><th>내가 채울 것</th></tr></thead><tbody>
+          <tr><td>백엔드가 꼭 필요한 기능</td><td>저장 / 로그인 / 검색 중 무엇?</td></tr>
+          <tr><td>화면만으로 되는 기능</td><td>서버 없이 되는 것은?</td></tr>
+          <tr><td>필요한 창구(엔드포인트)</td><td>목록 주기 / 하나 저장 (CRUD 중 무엇?)</td></tr>
+          <tr><td>다뤄야 할 비밀값</td><td>API 키·비밀번호 등 환경변수로 뺄 것</td></tr>
+          <tr><td>호스팅</td><td>① 집+터널 · ② 무료 클라우드 · ③ Supabase 중?</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>✅ 제출 전 보안 체크(공통):</b> 비밀값을 코드에 직접 안 적고 <b>환경변수</b>로 뺐나 · 가격·수량·권한 <b>검증을 백엔드에서</b> 하나(프론트만 믿지 않기) · (Supabase면) <b>RLS 켜고 정책</b> 넣었나 · 로그인 데이터에 <b>권한 확인(인가)</b> 들어가나 · 무료 티어 한도·요금 알림 아나.</div>
+        <div class="notice warn"><b>⚠️ Supabase 쓴다면 보안은 '자동'이 아님.</b> 브라우저가 공개 키로 DB에 직접 접근하는 구조라 <span class="hl3">RLS(행 수준 보안)를 켜고 규칙을 짜야만 안전</span>. 안 켜면 그 공개 키로 <b>누구나 데이터를 읽고 고치고 지움</b>. AI 코딩 툴로 만든 테이블은 RLS가 꺼진 채 시작되는 경우 많음 → 실제로 수백 앱이 데이터 통째 노출된 사고(CVE-2025-48757). AI에게 <code>"RLS 켜고 정책 넣어줘"</code>를 반드시 요구·확인.</div>
+        <div class="notice teal"><b>📮 제출 방식:</b> LMS 프로젝트 제출란 — 파일(ZIP·PDF·이미지, 최대 5MB) <b>또는</b> URL 중 하나, <span class="hl">제출 후 수정 불가</span>. <b>루브릭 3:</b> ①보안 스스로 점검 ②실제 동작하는 백엔드 포함 ③프론트+백엔드가 적절히 만들어져 동작.</div>
+      </section>
+
+      <!-- ================= 노드 5 · 데이터베이스 ================= -->
+      <section class="section coursehead" id="node-5">
+        <div class="badge">모듈 2 · 2-3강 <span style="opacity:.7">· 데이터베이스 — 고객의 데이터는 어떻게 관리될까</span></div>
+        <h2>2-3강 · 데이터베이스<span style="font-size:.86rem;opacity:.85">(8강 · 진행중)</span></h2>
+        <p class="lead">모두연 「바이브 코딩으로 웹 만들기 2」 모듈 「3.데이터베이스」. 2-2강(백엔드=주방)에 이어 <span class="hl">"만든 데이터를 어디에 어떤 모양으로 남길지"</span>를 다룬다. 넣고 꺼내는 코드(SQL)는 AI가 쓰고, <b>무엇을·어떻게 저장할지, 어떤 DB를 고를지</b>는 내가 정한다. <span class="fine">현재 1~4강 기록 · 5~8강은 열리는 대로 누적.</span></p>
+      </section>
+
+      <section class="section" id="n5-1"><h2>5·1 · 데이터를 저장할 곳이 필요한 이유 <span class="dur">00:12</span></h2>
+        <p class="lead">지난 시간엔 백엔드(눈에 안 보이는 <b>주방</b>)를 봤다. 주방이 주문을 처리하는 건 알았는데 — <span class="hl">만든 데이터는 어디에 두나?</span></p>
+        <h3>메모리(잠깐 기억) vs 데이터베이스(영구 창고)</h3>
+        <p>지금까지 다룬 데이터(목업·화면에 잠깐 뜬 값)는 컴퓨터의 <b>잠깐 기억(메모리)</b>에만 있었다. 그래서 껐다 켜거나 새로고침하면 사라진다. 서비스가 되려면 데이터가 남아 있어야 한다. 그 <span class="hl2">"영구 창고"가 바로 데이터베이스(DB)</span>다. 우리 데이터는 결국 물리적 저장장치 어딘가에 실제로 적힌다 — '재료를 두는 곳'이 여기.</p>
+        <h3>데이터베이스가 뭐냐면 — 도서관, 그리고 마법 장난감 상자</h3>
+        <div class="grid2">
+          <div class="mini"><h4>📚 도서관</h4><p class="fine">책이 수만 권이라도 원하는 책을 금방 찾는다. <b>DB=도서관, 데이터=책, 관리 소프트웨어=사서.</b></p></div>
+          <div class="mini"><h4>🧰 마법 장난감 상자</h4><p class="fine">마구 넣어도 "파란색 자동차만 다 꺼내 줘" 하면 정리해서 딱 그것만 꺼내 준다.</p></div>
+        </div>
+        <div class="notice key"><b>핵심:</b> 데이터베이스는 <span class="hl">그냥 쌓아 두는 곳이 아니라, 원하는 것만 빠르게 찾아 주는 곳</span>이다. <span class="fine">(출처: Stackby, "What is a database: A beginner's guide")</span></div>
+        <h3>그럼 엑셀·메모장이랑 뭐가 다른가?</h3>
+        <p>작을 때는 엑셀로도 된다. 하지만 DB는 세 가지가 다르다.</p>
+        <div class="table-wrap"><table><thead><tr><th>차이</th><th>내용</th></tr></thead><tbody>
+          <tr><td><b>규칙(스키마)이 있다</b></td><td>"이 표에는 이름·가격·분류가 들어간다"처럼 모양을 정해 둠 → 뒤죽박죽 방지. 엑셀과 달리 대부분의 DB는 이 규칙을 <span class="hl">강제</span>한다. <span class="fine">(출처: Servermall, "Simple Database Basics")</span></td></tr>
+          <tr><td><b>수만 건에서도 순식간</b></td><td>엑셀은 커지면 느려지고 멈추지만, DB는 그러라고 만들어졌다.</td></tr>
+          <tr><td><b>동시에 안전하게</b></td><td>여러 사람이 동시에 써도 안전 — 서비스에는 필수.</td></tr>
+        </tbody></table></div>
+        <div class="notice">DB에 넣고 꺼내는 코드(SQL)는 AI가 쓴다. 여러분은 <span class="hl2">"무엇을 어떤 모양으로 저장할지"와 "어떤 DB를 고를지"</span>를 판단하면 된다.</div>
+        <h3>스케일 이야기 — 세상에서 가장 큰 데이터베이스는 얼마나 클까</h3>
+        <div class="table-wrap"><table><thead><tr><th>사례</th><th>규모</th></tr></thead><tbody>
+          <tr><td><b>미국 의회도서관</b></td><td>세계 최대 도서관. 책·사진·지도·녹음·필름 등 <b>1억 7,800만 점 이상</b> 소장(책장 늘어놓으면 약 838마일). 매일 약 1만 5천 점 받아 1만여 점 새로 소장, 디지털 보존만 <b>페타바이트(PB)</b> 단위. <span class="fine">(출처: Library of Congress, "Fascinating Facts", loc.gov)</span></td></tr>
+          <tr><td><b>CERN</b> (유럽입자물리연구소)</td><td>LHC 검출기에서 초당 약 10억 번 입자 충돌 → 이론상 <b>초당 1페타바이트</b>. '트리거'가 의미 있는 극소수(1%도 안 됨)만 골라 저장. 그렇게 걸러도 저장 용량이 2023년 <b>1엑사바이트(=100만 테라바이트)</b>를 넘어섬. <span class="fine">(출처: CERN, home.cern; The Register, 2023)</span></td></tr>
+        </tbody></table></div>
+        <div class="notice teal"><b>💡 큰 데이터의 교훈:</b> <span class="hl">무엇을 저장할지 고르는 일이 저장장치 크기만큼 중요</span>하다(CERN 트리거처럼). 그리고 예전엔 "얼마나 크냐"로 자랑했지만, 요즘은 <b>클라우드</b> 덕분에 비전공자도 이 거대한 기술을 무료로 조금 빌려 쓴다 — 규모의 문제가 아니라, 누구나 쓰는 도구가 된 것.</div>
+        <div class="notice key"><b>🎯 오늘의 핵심 한 문장:</b> 데이터베이스는 서비스의 <span class="hl">'기억'</span>이다. 넣고 꺼내는 코드(SQL)는 AI가 쓰지만, <b>무엇을 어떤 모양으로 저장할지·어떤 DB를 고를지·어떻게 안전하게 지킬지</b>는 여러분이 정한다.</div>
+        <div class="notice teal"><b>📝 오늘의 산출물:</b> "내 서비스가 무엇을 기억해야 하는지"를 그린 <span class="hl2">데이터 설계도 한 장</span>.</div>
+      </section>
+
+      <section class="section" id="n5-2"><h2>5·2 · 왜 종류가 많을까 — 데이터베이스의 역사 <span class="dur">00:12</span></h2>
+        <p class="lead">쇼핑몰 주문 목록을 엑셀에 적던 두 사람이 같은 행을 동시에 고쳤다. 한 사람의 수정이 다른 사람 내용을 덮어쓰며 하루 주문이 꼬였다. <span class="hl">데이터를 함께 쓰고 바뀐 내용을 잃지 않으려는 문제</span>가 데이터베이스를 낳았다.</p>
+        <div class="notice">"DB도 종류가 왜 이렇게 많아?" — <b>프레임워크와 똑같다.</b> 매 시대 병목이 달랐고, 그때마다 새 도구가 나왔다.</div>
+        <h3>반복을 줄이려는 60년 — 연표</h3>
+        <div class="table-wrap"><table><thead><tr><th>시기</th><th>무슨 일</th></tr></thead><tbody>
+          <tr><td><b>1960년대</b></td><td>그냥 <b>파일에 담다.</b> 데이터를 파일에 쭉 적어 둠 → 양이 늘자 원하는 걸 찾기가 너무 번거로워짐.</td></tr>
+          <tr><td><b>1970년</b></td><td>"표로 나누자" — <b>관계형의 탄생.</b> IBM 연구원 <b>에드거 코드(Edgar Codd)</b>가 "데이터를 표(테이블)로 나누고 표끼리 관계로 잇자"는 논문. 같은 정보를 여기저기 중복 안 해도 되게 한 혁신. <span class="fine">(출처: Codd, "A Relational Model of Data for Large Shared Data Banks", 1970)</span></td></tr>
+          <tr><td><b>1974년</b></td><td>질의 언어 <b>SEQUEL</b> 등장(뒤에 SQL로 개명). 50여 년 지난 지금도 거의 그대로 쓰임 = 잘 만들어졌다는 뜻.</td></tr>
+          <tr><td><b>1979년</b></td><td>첫 상용 관계형 DB <b>Oracle</b>. 회사들이 쓰기 시작.</td></tr>
+          <tr><td><b>2000년대</b></td><td>인터넷 폭발, 그리고 <b>NoSQL.</b> 데이터 폭증·형태 제각각 → 엄격한 표만으론 버거워짐 → 더 유연하고 대규모에 강한 NoSQL 등장. <span class="fine">(출처: Dataversity, "A Brief History of Non-Relational Databases")</span></td></tr>
+          <tr><td><b>오늘날</b></td><td>클라우드 데이터베이스 — 켜 두고 관리하는 일까지 클라우드가 대신. 비전공자도 무료로 진짜 DB를 씀.</td></tr>
+        </tbody></table></div>
+        <p class="fine">이름이 많은 건 어렵게 만들려는 게 아니라, 각 시대의 문제를 풀며 쌓여 온 것. (출처: Cockroach Labs, "A brief history of databases")</p>
+
+        <h3>이야기 하나 — 코드의 '표 혁명'과 IBM의 망설임</h3>
+        <p>1970년 당시 데이터는 나뭇가지처럼 얽힌 구조로 저장됐다. 원하는 걸 꺼내려면 그 가지를 타고 들어가는 전용 프로그램을 매번 짜야 했다. 코드는 IBM 연구소에서 이걸 보다 <span class="hl">"그냥 엑셀 같은 표로 두고, 표끼리 관계로 이으면 안 되나?"</span>라는 논문을 냈다(Communications of the ACM, 1970). 데이터의 '생김새'와 '저장 방식'을 분리하자는, 지금 보면 당연하지만 당시엔 파격적인 생각.</p>
+        <div class="notice warn"><b>재미있는 반전:</b> 정작 그 IBM이 처음엔 미지근했다. 이미 <b>IMS</b>라는 기존 DB 제품이 잘 팔리고 있어, 새 아이디어가 효자 상품을 갉아먹을까 봐 망설인 것. 결국 뒤늦게 'System R' 연구를 시작하지만, 이 틈을 노린 회사가 따로 있었다. <span class="hl3">새 기술이 좋아도, 기존에 잘 팔리는 걸 가진 쪽은 주저한다 — 기술사에서 반복되는 장면.</span> <span class="fine">(출처: Wikipedia, "Edgar F. Codd"; Codd, 1970)</span></div>
+
+        <h3>이야기 둘 — 'SQL'은 원래 '시퀄'이었다</h3>
+        <p>IBM의 System R 팀(도널드 체임벌린, 레이먼드 보이스)이 처음 만든 이름은 <b>SEQUEL</b> — "Structured English Query Language(구조화된 영어식 질의 언어)". 영어 문장처럼 읽히게 만들자는 뜻이었다. 그런데 'SEQUEL'이 이미 어느 <b>영국 항공기 회사의 상표</b>로 등록돼 있었다. 변호사 편지를 받은 팀은 모음을 빼고 <b>SQL</b>로 줄였다.</p>
+        <div class="notice teal">오늘날 "에스큐엘"이라 읽기도, "시퀄"이라 읽기도 하는 이유가 여기 있다 — <span class="hl">만든 사람들조차 옛 이름 그대로 "시퀄"이라 부른다.</span> 어느 발음을 들어도 당황하지 말 것. 둘 다 같은 걸 가리키고, 둘 다 맞다. <span class="fine">(출처: Wikipedia, "SQL"; 체임벌린 회고)</span></div>
+
+        <h3>이야기 셋 — 관계형을 만든 IBM보다 빨랐던 신생 회사</h3>
+        <p>IBM이 망설이는 사이, 코드의 논문을 읽고 <span class="hl">"이거 돈이 되겠다"</span>고 확신한 사람 — <b>래리 엘리슨(Larry Ellison)</b>. 1977년 동료들과 작은 회사를 차렸고(SDL → 관계형소프트웨어 → 결국 <b>오라클</b>), 1979년 첫 상용 관계형 DB를 시장에 내놓았다. 관계형을 처음 만든 IBM(SQL/DS는 1981년)보다 <b>2년 앞선</b> 것. 거대 기업이 자기 논문을 붙들고 고민하는 동안, 신생 스타트업이 그 아이디어로 먼저 시장을 차지했다.</p>
+        <div class="notice"><b>재미난 뒷이야기:</b> 첫 제품 버전을 '1'이 아니라 <span class="hl2">'2'</span>라고 붙였다. 갓 나온 소프트웨어를 아무도 안 믿을까 봐, 처음부터 "이미 한 번 개선했다"는 인상을 주려던 것. <span class="fine">(출처: Wikipedia, "Oracle Corporation" / "Oracle Database")</span></div>
+
+        <h3>이야기 넷 — NoSQL의 진짜 뜻은 'No'가 아니라 'Not Only'</h3>
+        <p>2000년대, 구글과 아마존은 전에 없던 고민에 빠진다 — <span class="hl">전 세계가 동시에 접속하는 규모</span>를 어떻게 감당하지? 기존의 반듯한 표 방식만으론 버거웠다. 그래서 각자 새 방식을 논문으로 공개한다(구글 <b>Bigtable</b> 2006, 아마존 <b>Dynamo</b> 2007). 표의 엄격함을 조금 포기하는 대신 엄청난 규모·속도를 얻는 방식.</p>
+        <p>이 흐름에 이름이 붙은 건 <b>2009년</b> 샌프란시스코의 한 개발자 모임 — 짧고 검색하기 좋은 이름으로 <b>"NoSQL"</b>이 정해졌다. 그런데 이 이름이 "SQL을 쓰지 말자"는 오해를 낳아, 나중에 <span class="hl2">"Not Only SQL(SQL만 쓰는 게 아니다)"</span>로 재해석된다. 실제로도 NoSQL은 관계형을 대체한 게 아니라 <b>용도에 따라 나눠 쓰는 또 하나의 선택지</b>가 되었다. <span class="fine">(출처: Wikipedia, "NoSQL"; Martin Fowler, "NosqlDefinition")</span></p>
+        <div class="notice">그래서 오늘날 큰 서비스들은 "SQL이냐 NoSQL이냐"로 싸우지 않는다. <span class="hl">둘 다 필요한 곳에 쓴다.</span></div>
+
+        <h3>개념 정리 — 표냐, 유연한 상자냐 (SQL vs NoSQL)</h3>
+        <p class="fine">문법이 아니라 성격만 알면 된다.</p>
+        <div class="table-wrap"><table><thead><tr><th></th><th>SQL</th><th>NoSQL</th></tr></thead><tbody>
+          <tr><td><b>생김새</b></td><td>엑셀 같은 표</td><td>유연한 문서/덩어리 (모양 자유)</td></tr>
+          <tr><td><b>규칙(스키마)</b></td><td>엄격하게 정해 둠</td><td>느슨하거나 없음</td></tr>
+          <tr><td><b>강한 곳</b></td><td>관계가 분명한 데이터, 정확성(돈·주문)</td><td>대규모·빠르게 변하는 데이터</td></tr>
+          <tr><td><b>대신 포기</b></td><td>유연함이 덜함</td><td>표끼리 잇기(조인)·엄격한 거래 일부</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>정답은 없다.</b> 넷플릭스·우버 같은 큰 서비스도 둘 다 쓴다(용도별로 골라 쓰는 것을 <b>'폴리글랏'</b>이라 부름). 다만 <span class="hl">처음 만드는 서비스라면 SQL이 무난한 기본값</span> — 자료가 많고 관계가 분명한 데이터를 다루기 좋기 때문. <span class="fine">(출처: Coursera, "SQL vs. NoSQL"; MongoDB, "NoSQL vs SQL")</span></div>
+      </section>
+
+      <section class="section" id="n5-3"><h2>5·3 · SQL 구경과 데이터의 모양 <span class="dur">00:14</span></h2>
+        <p class="lead">카페 사장님이 "오늘 <b>케이크 주문만</b> 보고 싶어요"라는데 주문이 수백 건. 눈으로 못 찾는다. <span class="hl">필요한 조건의 데이터만 골라 달라고 DB에 요청하는 말</span> — 그게 SQL이다.</p>
+        <h3>SQL은 거의 영어다 — 알아보는 정도면 충분</h3>
+        <p>겁먹을 것 없다. 한 줄만 보자.</p>
+        <pre><code>SELECT 이름, 가격 FROM 상품 WHERE 분류 = '케이크';</code></pre>
+        <p>풀어 읽으면 — <span class="hl2">"상품 표에서(FROM 상품) 분류가 '케이크'인 것들의(WHERE) 이름과 가격을 줘(SELECT)."</span> 정말 영어 문장에 가깝다.</p>
+        <div class="table-wrap"><table><thead><tr><th>단어</th><th>하는 일</th></tr></thead><tbody>
+          <tr><td><code>SELECT</code></td><td>꺼내 보기 (조회)</td></tr>
+          <tr><td><code>INSERT</code></td><td>새로 넣기</td></tr>
+          <tr><td><code>UPDATE</code></td><td>고치기</td></tr>
+          <tr><td><code>DELETE</code></td><td>지우기</td></tr>
+        </tbody></table></div>
+        <p>이 네 가지를 묶어 <b>CRUD</b>(만들기·읽기·고치기·지우기). <span class="hl">대부분의 서비스는 결국 이 네 동작의 반복</span>이다. 외울 필요 없다 — 실제 SQL은 AI가 써 준다. 여러분은 "아, 이 표에서 뭘 꺼내는(넣는) 거구나"를 <b>알아보는 정도</b>면 충분.</p>
+
+        <h3>표로 생각하기 — 행, 열, 그리고 관계</h3>
+        <p>관계형 데이터베이스는 결국 <b>표</b>다. 엑셀을 떠올리면 된다.</p>
+        <div class="table-wrap"><table><thead><tr><th>용어</th><th>뜻</th><th>예</th></tr></thead><tbody>
+          <tr><td>표 하나</td><td>한 종류</td><td>상품 표</td></tr>
+          <tr><td>행(row)</td><td>한 건</td><td>딸기 케이크 하나</td></tr>
+          <tr><td>열(column)</td><td>항목</td><td>이름·가격·분류</td></tr>
+        </tbody></table></div>
+        <p>그리고 표끼리 <b>관계</b>로 잇는다. 주문 표는 "어떤 상품을 샀는지"를 상품 정보를 통째로 베끼지 않고 <span class="hl">각 상품의 고유 번호(ID)로 가리킨다.</span> 이 "표로 나누고 관계로 잇기"가 바로 <b>관계형(relational)</b>이라는 이름의 뜻.</p>
+
+        <h3>해 보기 — 쇼핑몰 데이터를 '표 몇 개'로 쪼개면</h3>
+        <p>한 덩어리로 뭉치면 이렇게 된다 — "홍길동이 3/2에 초코케이크 2개를 12,000원에 샀고, 홍길동 주소는 …". 주문이 100건이면 <span class="hl3">홍길동 주소가 100번 적힌다.</span> 그래서 성격이 다른 것끼리 표를 나눈다.</p>
+        <div class="table-wrap"><table><thead><tr><th>표</th><th>담는 것</th><th>예시 한 줄</th></tr></thead><tbody>
+          <tr><td>회원</td><td>사람 정보</td><td>1번 · 홍길동 · 서울…</td></tr>
+          <tr><td>상품</td><td>파는 것</td><td>7번 · 초코케이크 · 12,000원</td></tr>
+          <tr><td>주문</td><td>언제 누가 무엇을</td><td>55번 · <b>1번 회원</b> · <b>7번 상품</b> · 2개 · 3/2</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>핵심:</b> 주문 표가 이름·주소를 다시 안 적고 <span class="hl2">"1번 회원"이라고만 가리키는 것.</span> 주소가 바뀌면 회원 표 한 곳만 고치면 끝. 표를 잇는 이 '번호'를 <b>키(key)</b>라 부른다 — 표와 표를 잇는 고리. 직접 설계할 필요 없다. AI에게 <code>"쇼핑몰에 필요한 표들과 관계를 그려줘"</code> 하면 만들어 준다. 내 일은 그림을 읽고 <span class="hl">"내 서비스엔 어떤 표가 더 필요하지?"</span>를 판단하는 것.</div>
+
+        <h3>표는 어떻게 '이어지나' — 1:N과 N:M</h3>
+        <div class="grid2">
+          <div class="mini"><h4>① 일대다(1:N) — 한쪽이 여럿을 가진다</h4><p class="fine">회원 1명은 주문 여러 건, 주문 1건은 한 회원 것. '주문' 표에 "누구의 주문인지"(회원 번호) 칸 하나만 넣으면 끝. 블로그 '글 1 ↔ 댓글 여럿', 유튜브 '채널 1 ↔ 영상 여럿'도 같은 모양.</p></div>
+          <div class="mini"><h4>② 다대다(N:M) — 양쪽 다 여럿</h4><p class="fine">학생 1명이 여러 수업, 수업 1개도 여러 학생. 양쪽 어디에도 다 못 적는다(한 칸에 욱여넣으면 검색이 깨짐). 그래서 <b>연결 표(수강신청 표)</b>를 새로 만들어 학생 번호·수업 번호를 한 줄씩 짝지음 → N:M이 '연결 표를 사이에 둔 두 개의 1:N'으로 풀린다.</p></div>
+        </div>
+        <div class="notice teal"><b>판단 감각 하나면 됨:</b> <span class="hl">"A 하나가 B 여럿을, 동시에 B 하나도 A 여럿을 갖나?"</span> → 그렇다면 N:M(중간 표 필요), 한쪽만 여럿이면 1:N. 이 판단만 해 주면 표 만드는 SQL은 AI가 쓴다.</div>
+
+        <h3>작동 원리 — DB는 왜 그렇게 빠를까 (책 뒤 '찾아보기')</h3>
+        <p>두꺼운 전공책 맨 뒤 '찾아보기'("삼투압 → 245쪽") 덕에 처음부터 한 장씩 안 넘기고 바로 간다. DB의 <b>색인(index)</b>이 정확히 이것 — 자주 찾는 항목(이메일·상품명)에 색인을 만들어 두면 수백만 건에서도 순식간. 색인이 없으면 처음부터 전부 뒤진다(그래서 느려짐).</p>
+        <div class="notice warn"><b>색인은 공짜가 아니다:</b> '값 → 행 위치'를 미리 정리한 구조라 빠르지만, 넣고 고칠 때마다 색인도 갱신해야 하고 공간도 든다. <span class="hl3">아무 데나 다 걸면 오히려 느려진다.</span> 실전 요령 — AI에게 "색인 넣어줘"만 하지 말고, 먼저 <code>"사용자는 자기 주문만 최근순 20개 본다"</code>처럼 <b>실제 화면의 질문</b>을 문장으로 주면 맞는 색인을 제안한다.</div>
+
+        <h3>작동 원리 — 계좌 이체가 '반쪽만' 되면? (ACID) <span class="tag rust">심화</span></h3>
+        <p>A가 B에게 만 원 이체 = ① A에서 빼기 ② B에 넣기. ①하고 ②직전 정전이 나면 <span class="hl3">만 원이 증발</span>한다. DB는 이를 막으려 여러 동작을 하나의 묶음(<b>트랜잭션</b>)으로 처리 — 원칙은 <span class="hl">"전부 되거나, 전부 안 되거나."</span> 이걸 포함한 네 약속이 <b>ACID</b>(1983년 명명).</p>
+        <div class="table-wrap"><table><thead><tr><th>글자</th><th>뜻</th></tr></thead><tbody>
+          <tr><td><b>A</b> 원자성</td><td>반쪽 실행 없음. 전부 아니면 전부 취소</td></tr>
+          <tr><td><b>C</b> 일관성</td><td>규칙에 어긋난 상태로 안 끝남</td></tr>
+          <tr><td><b>I</b> 고립성</td><td>동시에 여럿이 만져도 안 꼬임</td></tr>
+          <tr><td><b>D</b> 지속성</td><td>됐다고 하면 정전에도 남음</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>비전공자 감:</b> 돈·주문·예약처럼 "틀리면 큰일"인 데이터는 이 성질이 강한 <span class="hl2">SQL DB가 안전</span>. 마지막 티켓 한 장을 둘이 동시에 누를 수 있는 곳은 AI에게 <code>"동시에 두 명이 마지막 하나를 요청하는 상황도 테스트하고 안전하게 처리해줘"</code>라고 요구. <span class="hl3">단, ACID는 백업이 아니다</span> — 실수로 지운 건 안 돌려주니 백업은 따로. <span class="fine">(출처: Wikipedia "ACID"; Härder &amp; Reuter, 1983)</span></div>
+
+        <h3>설계 원칙 — 같은 걸 두 번 적지 않기 ('정규화') <span class="tag rust">심화</span></h3>
+        <p>단골 주소가 바뀌었는데 주문 100건에 주소를 매번 적어 뒀다면 100군데를 다 고쳐야 하고, 하나라도 놓치면 데이터가 안 맞는다. 그래서 <span class="hl">"같은 정보는 한 곳에만 적고 나머지는 가리키게"</span> — 손님 정보는 회원 표에 한 번, 주문 표엔 '몇 번 회원'만. 이 정리정돈이 <b>정규화(normalization)</b>, 코드가 꿈꿨던 "중복 없이"가 이것. 과제에서 데이터 모양을 그릴 때 <span class="hl2">"이 정보, 여기저기 똑같이 적히고 있진 않나?"</span> 한 번만 의심하면 된다. <span class="fine">(출처: Wikipedia "Database normalization")</span></p>
+        <div class="notice teal"><b>마이그레이션(migration):</b> 서비스가 자라면 표 구조 자체를 바꿔야 할 때가 온다(칸 추가·표 분리). 이미 데이터가 든 DB 구조를 안전하게 바꾸는 작업 = "DB 구조 변경을 <b>Git처럼 이력으로 관리</b>"(되돌리기도 됨). <span class="hl3">단, 칸을 삭제하는 변경은 그 안의 데이터가 영구히 사라질 수 있다 → 구조 바꾸기 전엔 반드시 백업.</span> <span class="fine">(출처: Prisma, "What are database migrations")</span></div>
+
+        <h3>NoSQL도 한 종류가 아니다 — 네 갈래</h3>
+        <div class="table-wrap"><table><thead><tr><th>종류</th><th>한 줄 설명</th><th>대표</th><th>어떤 곳에</th></tr></thead><tbody>
+          <tr><td>문서(Document)</td><td>JSON처럼 자유로운 덩어리로 저장</td><td>MongoDB</td><td>형태가 자주 바뀌는 데이터, 프로필·카탈로그</td></tr>
+          <tr><td>키-값(Key-Value)</td><td>"이름표 → 값" 아주 단순·초고속</td><td>Redis, DynamoDB</td><td>장바구니·세션·캐시(빠른 임시 저장)</td></tr>
+          <tr><td>컬럼(Column)</td><td>대량 분석에 강한 열 중심</td><td>Cassandra, HBase</td><td>로그·대규모 통계 분석</td></tr>
+          <tr><td>그래프(Graph)</td><td>점과 선으로 '관계'를 저장</td><td>Neo4j</td><td>소셜 네트워크("친구의 친구")</td></tr>
+        </tbody></table></div>
+        <p class="fine">그래프 DB는 "친구의 친구의 친구"처럼 연결을 따라가는 데 최적. 키-값은 너무 단순해서 오히려 엄청 빨라 장바구니 같은 데 쓰인다. (출처: MongoDB, "NoSQL Databases Explained"; AltexSoft)</p>
+        <div class="notice key"><b>그래서 나는 뭘 쓰나 — 한 줄 기준:</b> 표로 잘 정리되고 관계가 분명하면(사용자·주문·상품) → <span class="hl">SQL(관계형)</span> · 형태가 자주 바뀌고 아주 대규모면 → NoSQL. 비전공자 첫 서비스 기본값은 <span class="hl2">SQL, 그중 PostgreSQL</span>이 무난 — 자료가 가장 많고 필요하면 유연한 형식도 지원해 나중에 곤란할 일이 적다. <span class="fine">(출처: TheLinuxCode·DEV, "SQL vs NoSQL 2026")</span></div>
+        <div class="notice"><b>🧩 미니 퀴즈(스스로):</b> ① 사용자·주문·상품이 관계로 얽힌 쇼핑몰 → <span class="hl">SQL</span> · ② "친구의 친구" 소셜 관계 → <span class="hl">그래프(NoSQL)</span> · ③ 잠깐 쓰고 버리는 장바구니(초고속·단순) → <span class="hl">키-값(NoSQL)</span>. 습관 O/X — 사용자가 친 값을 명령문에 그대로 이어붙임(<b>X</b>) · 비번 평문 저장(<b>X</b>) · 정기 백업(<b>O</b>).</div>
+      </section>
+
+      <section class="section" id="n5-4"><h2>5·4 · 회원가입과 로그인 — 사용자를 다루기 <span class="dur">00:14</span></h2>
+        <p class="lead">서비스에 사람이 로그인하기 시작하면 다룰 게 훅 는다 — 회원을 어떻게 저장하고, 로그인 상태를 어떻게 유지하며, 빠르고 안전하게 하느냐. DB 강의에서 이걸 짚는 건 <span class="hl">결국 전부 데이터를 다루는 일</span>이라서다. 원리(인증·인가·쿠키/세션)는 2-2강에서 봤으니, 여기선 <b>데이터·저장 관점</b>으로 잇는다.</p>
+        <h3>회원가입·로그인을 '데이터'로 보면</h3>
+        <p>로그인·회원가입은 화면 기능 같지만 뿌리는 데이터다. 먼저 <b>회원(users) 표</b> 하나가 필요하다.</p>
+        <div class="table-wrap"><table><thead><tr><th>회원(users) 표</th><th>예시 한 줄</th></tr></thead><tbody>
+          <tr><td><code>id · email · password_hash · created_at</code></td><td>1 · hong@example.com · (해시값) · 2026-03-02</td></tr>
+        </tbody></table></div>
+        <p><b>회원가입</b> = 회원 표에 행 하나 넣기(Create). <b>로그인</b> = 그 이메일로 행을 찾아(Read) 비밀번호 대조 → 맞으면 통과, 틀리면 거절. 결국 <span class="hl2">앞서 본 CRUD의 조합</span>이다.</p>
+        <div class="table-wrap"><table><thead><tr><th>꼭 지킬 3가지</th><th>내용</th></tr></thead><tbody>
+          <tr><td><b>비번은 원문 저장 금지</b></td><td>칸에 원문이 아니라 <b>해시(솔트+bcrypt)</b>를. 칸 이름을 <code>password</code>가 아니라 <code>password_hash</code>로 두면 "원문 금지"를 스스로 상기하기 좋다</td></tr>
+          <tr><td><b>이메일은 '유일'하게</b></td><td>같은 이메일로 두 번 가입 안 되게 <code>email</code> 칸에 <b>유일(unique)</b> 제약. 없으면 중복 계정·로그인 혼란</td></tr>
+          <tr><td><b>필요한 것만 모은다</b></td><td>가입에 꼭 필요한 것 외엔 안 받음(최소 수집)</td></tr>
+        </tbody></table></div>
+        <div class="notice warn"><b>⚠️ 인증은 직접 만들지 마세요.</b> 로그인·비밀번호 재설정·소셜 로그인은 함정이 많아 자작하면 사고로 이어지기 쉽다. <span class="hl">검증된 Auth 서비스/라이브러리(예: Supabase Auth)</span>가 안전. AI에게 — <code>"인증은 처음부터 만들지 말고 검증된 Auth를 붙여줘. 비밀번호는 해시로, 이메일은 유일하게."</code> <span class="fine">(출처: OWASP Authentication Cheat Sheet)</span></div>
+
+        <h3>로그인 상태는 어떻게 유지되나 — 세션과 토큰(JWT)</h3>
+        <p>한 번 로그인하면 페이지를 넘겨도 왜 계속 로그인 상태일까? HTTP는 '무상태'라 매 요청이 남남 → 매번 '나 아까 그 사람'을 다시 증명해야 한다. 그 증명을 실어 나르는 게 <b>쿠키</b>(사이트가 브라우저에 건네는 작은 메모, 요청마다 자동 동봉 = '지갑 속 카드'). 이 쿠키에 <b>무엇을 담느냐</b>에서 두 갈래가 갈린다.</p>
+        <div class="grid2">
+          <div class="mini"><h4>갈래 1 — 세션 (서버가 기억)</h4><p class="fine">서버가 로그인 상태를 자기 '세션 저장소'에 적고, 브라우저엔 그걸 가리키는 <b>번호표(세션 ID)</b>만 쿠키로 줌. 서버가 상태를 쥐어 <span class="hl2">로그아웃·강제 차단을 즉시</span>(저장소에서 지우면 번호표는 휴지 조각). 단점 — 서버가 여러 대면 저장소를 함께 나눠 써야 함. <span class="fine">(MDN)</span></p></div>
+          <div class="mini"><h4>갈래 2 — 토큰 (JWT, 서버가 기억 안 함)</h4><p class="fine">로그인하면 사용자 정보·만료 시각을 담아 위조 못 하게 <b>서명(도장)한 증명서(JWT)</b>를 통째로 줌. 이후 요청마다 토큰을 내밀고 서버는 저장소를 안 뒤지고 <b>서명만 확인</b>(그래서 '무상태'). 서버 확장·여러 서비스 연동에 강함. <span class="fine">(Auth0)</span></p></div>
+        </div>
+        <div class="notice warn"><b>JWT 꼭 알 것:</b> 토큰 내용은 암호가 아니라 그냥 <b>인코딩</b> → 가진 사람은 누구나 열어 본다. 서명이 막는 건 '못 바꾸게'이지 '못 보게'가 아니다 → <span class="hl3">민감정보(비밀번호 등)를 토큰에 넣으면 안 됨.</span> 또 한 번 내준 토큰은 <b>즉시 무효화가 어렵다</b>(지울 기록이 서버에 없음) → 보통 만료를 짧게 두고 '리프레시 토큰'으로 조용히 갱신.</div>
+        <div class="notice key"><b>그래서 뭘 쓰나:</b> 단순한 웹앱 + 즉시 로그아웃·차단이 중요 → <b>세션</b>이 더 단순·안전 · 여러 서비스·모바일·큰 확장 → <b>토큰</b>이 유리. <span class="hl">가장 중요한 실용 결론 — 이걸 밑바닥부터 직접 만들지 말 것.</span> MDN조차 "세션 관리를 직접 구현하지 말고 검증된 라이브러리를 쓰라"고 못 박는다. Auth 서비스(Supabase Auth·Clerk·Auth0)가 발급·만료·갱신·저장까지 안전하게 처리. 우리 몫은 "무슨 방식인지 이해하고, 믿을 만한 도구에 맡기는" 판단. <span class="fine">(출처: MDN, "Session management")</span></div>
+
+        <h3>캐시와 Redis — 로그인이 빠른 비결</h3>
+        <p><b>캐시(cache)</b> = 자주 쓰는 데이터를 메모리에 잠깐 두어 빠르게 꺼내 쓰기. 매번 창고(디스크·DB)까지 가는 대신 <span class="hl2">자주 찾는 물건을 계산대 옆 바구니에</span> 올려 두는 셈. 속도가 크게 오르는 대신 원본과 잠깐 어긋날 수 있어 '언제까지 신선한 걸로 볼지(수명, <b>TTL</b>)'를 정해 둔다.</p>
+        <p>로그인에서 캐시가 등장하는 자리가 바로 위의 <b>세션 저장소</b>다. 세션 확인은 거의 모든 요청마다 일어나 '빠름'이 생명 → 앞서 본 <b>Redis(키-값·메모리 기반)</b>가 딱. 조회가 매우 빠르고 <span class="hl">키마다 자동 만료(TTL)</span>를 걸어 '30분 활동 없으면 자동 로그아웃'을 손쉽게 만든다. 그래서 "세션을 여러 서버가 나눠 쓰는 문제"와 "캐시로 속도 얻기"가 같은 도구 Redis 하나로 만난다. <span class="fine">(출처: MDN "HTTP caching"; Redis 공식)</span></p>
+        <div class="notice teal"><b>🔒 보안 메모:</b> 브라우저에서 로그인 증표를 어디에 두느냐도 중요. <code>localStorage</code>는 악성 스크립트(XSS)에 그대로 읽혀 위험 → 보안 표준(OWASP)은 자바스크립트가 못 읽는 <b>httpOnly 쿠키</b>를 권한다. 비전공자는 세 줄만 — <span class="hl2">① 저장·갱신은 Auth 서비스에 맡기고 ② 민감정보는 토큰에 넣지 말고 ③ 저장 위치는 안전한 곳으로.</span> <span class="fine">(출처: OWASP HTML5 Security Cheat Sheet)</span></div>
+      </section>
+
+      <section class="section" id="n5-5"><h2>5·5 · 데이터를 안전하게 — 보안과 백업 <span class="dur">00:14</span></h2>
+        <p class="lead">데이터베이스에 진짜 정보가 쌓이기 시작하면 두 가지 위험이 따라온다 — <span class="hl">누가 훔쳐 가는 것(보안)</span>과 <span class="hl3">실수로 날아가는 것(백업)</span>. 코드는 AI가 쓰지만, 이 위험을 아는 건 내 몫이다.</p>
+
+        <h3>보안 이야기 — "Little Bobby Tables"(SQL 주입)</h3>
+        <p>프로그래머 사이 전설의 만화(xkcd, 2007). 학교에서 엄마에게 전화가 온다 — "아드님 이름을 DB에 넣었더니 <b>학생 기록이 전부 지워졌어요</b>." 아들 이름은 <code>Robert'); DROP TABLE Students;--</code>. 이름 안에 든 <span class="hl2">DB 명령어처럼 생긴 문자</span>를, 프로그램이 이름이 아니라 <b>명령으로 실행</b>해 Students 표를 통째로 삭제(DROP)한 것.</p>
+        <p>이게 그 유명한 <b>SQL 주입(SQL Injection)</b> — 25년 넘게 보안 위협 1위권을 지키는 공격이다. 로그인 창에 특정 문자를 넣어 비밀번호 없이 로그인하는 것도 같은 원리. <span class="fine">(출처: xkcd "Exploits of a Mom" https://xkcd.com/327/ · Malwarebytes "What is SQL injection" · 언어별 방어법 https://bobby-tables.com/)</span></p>
+        <div class="notice key"><b>방어법 — "레시피와 재료를 섞지 않는다":</b> 핵심은 하나, <span class="hl">명령(레시피)과 사용자 입력(재료)을 안 섞기.</span><br>· <b>위험</b> — 사용자가 친 글자를 명령 문장에 그대로 이어 붙임 → DB가 "어디까지 명령이고 어디부터 데이터"인지 헷갈림.<br>· <b>안전</b> — 자리표(<code>?</code>)를 비워 둔 명령을 만들고 입력은 <b>따로</b> 건넴 → DB가 입력을 무조건 '그냥 데이터'로만 취급. 이게 <b>파라미터화 쿼리(prepared statement)</b>, 보안 전문가들의 표준 방어법. <span class="fine">(출처: OWASP "SQL Injection Prevention Cheat Sheet")</span></div>
+        <p>AI에게 — <code>"DB에 넣는 값은 문자열로 이어 붙이지 말고 파라미터화 쿼리로 처리해줘. 사용자 입력을 그대로 신뢰하지 마."</code> 한 문장이 학생 기록을 지킨다.</p>
+        <div class="notice warn"><b>실화 — 기본을 안 지켜 뚫린 사고:</b> 2015년 영국 통신사 <b>TalkTalk</b>이 SQL 주입으로 뚫렸는데 공격자는 <span class="hl3">십대들</span>이었고, 쓰인 구멍은 <span class="hl3">3년 반 전에 이미 패치가 나와 있던 것</span>을 방치한 것. 고객 약 15.7만 명 정보 유출(1.5만여 명은 계좌까지), 사고 비용 약 4,200만 파운드, 규제기관 총평 — "가장 기본적인 보안 조치조차 하지 않았다." · 규모로는 2008년 미국 <b>Heartland</b>가 같은 공격으로 카드 약 1.3억 장 유출(당시 사상 최대). <span class="fine">(출처: 영국 ICO 발표; BBC "TalkTalk hack costs reach £42m" 2016; Wikipedia "Albert Gonzalez")</span></div>
+
+        <h3>개인정보(PII) 다루기 — 모을수록 무거워진다</h3>
+        <p>이름·이메일·비밀번호 같은 개인정보가 쌓이면 <span class="hl2">자산이자 책임</span>이다. 새면 사용자가 다친다. 비전공자가 지킬 기본 네 가지:</p>
+        <div class="table-wrap"><table><thead><tr><th>원칙</th><th>내용</th></tr></thead><tbody>
+          <tr><td><b>최소 수집</b></td><td>목적에 필요한 최소한만. "이메일만 되는데 전화·생년월일까지 받고 있진 않나?" <span class="fine">(개인정보 보호법 제3·16조)</span></td></tr>
+          <tr><td><b>비밀번호는 해시</b></td><td>절대 원문 저장 금지. 그것도 빠른 해시 말고 <b>bcrypt·Argon2</b> 같은 비밀번호 전용. <span class="fine">(OWASP Password Storage)</span></td></tr>
+          <tr><td><b>민감정보는 위탁</b></td><td>주민번호·카드번호는 직접 저장 말고 결제대행사(PG)·인증 서비스에 맡김</td></tr>
+          <tr><td><b>목적 제한</b></td><td>모을 때 밝힌 목적에만 사용. 다른 데 쓰거나 넘기려면 별도 동의</td></tr>
+        </tbody></table></div>
+        <p class="fine">한 줄 — "덜 모으고, 비밀번호는 해시하고, 민감정보는 남에게 맡기고, 목적 밖으로 안 쓴다. <b>모으지 않은 정보는 유출될 수도 없다.</b>" · 실사용자를 받는다면 최소한: ①가입 시 수집·이용 동의(필수/선택 구분) ②개인정보처리방침 한 장 ③제3자 제공 시 5가지 고지(제공받는 자·목적·항목·기간·거부권).</p>
+
+        <h3>데이터를 잃지 않기 — 백업, 그리고 유명한 참사들</h3>
+        <p>해커가 없어도 데이터는 <span class="hl3">실수 한 번</span>으로 사라진다. 그래서 백업(사본을 따로 보관)이 필요하다.</p>
+        <div class="table-wrap"><table><thead><tr><th>사례</th><th>무슨 일</th></tr></thead><tbody>
+          <tr><td>픽사 「토이 스토리 2」(1998 제작 중)</td><td>잘못된 명령으로 영화 파일이 삭제되기 시작 + 백업도 한 달째 고장. <b>재택근무 TD의 2주 전 집 사본</b>이 영화를 살림</td></tr>
+          <tr><td>GitLab(2017)</td><td>엔지니어가 잘못된 서버 데이터 삭제 + 여러 겹 백업이 모두 조용히 고장 → 6시간치 손실</td></tr>
+          <tr><td>Ma.gnolia(2009)</td><td>백업을 <b>원본과 같은 시스템</b>에 뒀다가 함께 사라져 서비스 폐업</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>교훈:</b> ① 백업이 '진짜 되는지' 가끔 확인(픽사·GitLab 둘 다 '있다고 믿었지만' 고장) ② 사본은 <b>다른 곳</b>에 ③ 여러 벌. <span class="hl">요즘 클라우드 DB도 무료 요금제엔 자동 백업이 없는 경우가 많다</span> — 예: Supabase 무료는 직접 백업 필요, 자동 일일 백업은 유료 Pro부터. <span class="fine">(출처: Supabase Docs "Database Backups"; EnvisionIT "Six Horror Stories of Data Loss")</span></div>
+        <div class="notice teal"><b>백업의 황금률 — 3-2-1 (미국 CISA):</b> 백업은 "했다"가 아니라 <span class="hl2">"복구된다"</span>가 중요. <b>3벌</b>(원본1+사본2) · <b>2종</b>(서로 다른 매체, 예: 노트북 디스크+클라우드) · <b>1벌은 off-site</b>(다른 장소 — 화재·도난·랜섬웨어 대비). 예: ①노트북 원본 ②외장하드 사본 ③클라우드 = 자연히 3·2·1 충족. 그리고 <span class="hl3">복구가 진짜 되는지 가끔 확인</span> — 열어본 적 없는 백업은 백업이 아니다. <span class="fine">(출처: CISA "Data Backup Options"; 대용량 장기보관엔 지금도 자기테이프 LTO — CERN도 수백 PB 보관)</span></div>
+      </section>
+
+      <section class="section" id="n5-6"><h2>5·6 · 무료로 쓸 수 있는 DB 고르기 <span class="dur">00:14</span></h2>
+        <p class="lead">가입은 쉬워도 저장 용량·사용량 제한을 놓치면 <span class="hl3">발표 직전에 앱이 멈출</span> 수 있다. 그래서 목적과 제한을 함께 보고 고른다. 핵심 전제 하나 — <span class="hl">무료 티어는 배우기·MVP(초기 버전)용이지 큰 규모 운영용이 아니다.</span></p>
+
+        <h3>무료 DB 비교 <span class="fine">(2026-02 공식 가격 페이지 확인 · 정책은 바뀔 수 있음)</span></h3>
+        <p>먼저 내 서비스가 <b>SQL 표 + 로그인·파일저장을 한 번에</b> 원하는지, 아니면 <b>DB만</b> 필요한지 적어 보고, 한도는 가입 직전에 공식 페이지에서 다시 확인한다.</p>
+        <div class="table-wrap"><table><thead><tr><th>서비스</th><th>종류</th><th>무료/시작 정책</th><th>비전공자에게</th></tr></thead><tbody>
+          <tr><td><b>Supabase</b></td><td>PostgreSQL(SQL)</td><td>Free: 프로젝트당 DB 500MB·스토리지 1GB. 자동 백업 미포함, 1주 미사용 시 일시정지될 수 있음</td><td>로그인·파일까지 한 번에 실습할 때 후보</td></tr>
+          <tr><td><b>Neon</b></td><td>PostgreSQL(SQL)</td><td>Free는 개발·프로토타이핑용, 유휴 컴퓨트가 scale-to-zero</td><td>순수 Postgres·브랜치를 써 볼 때</td></tr>
+          <tr><td><b>Turso</b></td><td>SQLite</td><td>Free: DB 100개·저장소 5GB·월 읽기 5억 행·쓰기 1천만 행·PITR 1일</td><td>가벼운 SQLite 기반을 실험할 때</td></tr>
+          <tr><td><b>PlanetScale</b></td><td>Postgres/Vitess</td><td>시작 요금 개발용 단일 노드 월 $5부터(무료 티어 표엔 제외)</td><td>'무료만'이 조건이면 다른 후보부터</td></tr>
+        </tbody></table></div>
+        <p class="fine">확인 링크(2026-02): supabase.com/pricing · neon.com/pricing · turso.tech/pricing · planetscale.com/pricing. 정책·지역·가입 시점에 따라 한도가 달라질 수 있음. (출처: agentdeals "Database Free Tier Comparison 2026")</p>
+
+        <h3>클라우드 말고, 내 컴퓨터에 직접 설치해서도 무료</h3>
+        <div class="grid2">
+          <div class="mini"><h4>SQLite — 설치도 서버도 없다</h4><p class="fine">DB 전체가 <b>파일 하나</b>. 서버를 안 켜도 앱이 그 파일을 직접 읽고 씀. 작은 앱·프로토타입·모바일이 즐겨 씀(파이썬 등에 기본 내장 = 사실상 설치 없이).</p></div>
+          <div class="mini"><h4>PostgreSQL·MySQL — 진짜 DB를 내 PC에</h4><p class="fine">회사들이 실제로 쓰는 오픈소스 DB를 내 컴퓨터에 무료 설치. 클라우드에서 빌리던 것과 같은 걸 내 손안에서.</p></div>
+        </div>
+        <div class="notice"><b>Docker — 명령 한 줄로 띄우기:</b> 설치가 번거로우면 DB를 '컨테이너'로 띄운다. 내 컴퓨터를 어지럽히지 않고 명령 한 줄로 켜고, 필요 없으면 통째로 지움.</div>
+        <div class="notice key"><b>로컬 vs 클라우드, 언제 뭘?</b> <b>로컬</b> = 완전 무료·오프라인·내 데이터가 내 손안 → 개발·학습·실험 최고(단, 남에게 열려면 배포 필요, 내 PC 꺼지면 멈춤). <b>클라우드</b> = 24시간·안정적 공개 → 실제 서비스. <span class="hl">흔한 흐름 — 내 컴퓨터에서 만들고 → 세상에 낼 때 클라우드로.</span> AI에게 — <code>"개발용은 가벼운 로컬 SQLite로 시작하고, 배포할 때 클라우드 DB로 바꿀 수 있게 해줘."</code></div>
+        <div class="notice warn"><b>무료 티어, 시작 전 확인 5:</b> ① 용량 한도(예: 500MB — 이미지 많으면 금방 참) ② 미사용 시 일시정지(Supabase 1주) ③ 백업 방법(무료면 직접 백업 필요한지) ④ 정책 변경(무료가 사라질 수 있음) ⑤ 트래픽 늘면 유료(요금·용량 알림 켜 두기).</div>
+        <div class="notice"><b>🤖 DB 붙이는 프롬프트:</b> 문법 몰라도 <span class="hl2">무엇을 저장할지 + 조건</span>만 주면 스키마 설계~연결~보안까지 도와준다. <code>① 저장할 것[상품·주문]의 표·열 스키마 제안 ② 무료 SQL(Supabase/Postgres) 기준 만드는 법 ③ 접속키는 코드 말고 환경변수로 ④ 값 넣을 땐 파라미터화 쿼리, 비밀번호는 해시로.</code> (③④는 지난 시간 환경변수·보안 + 오늘 SQL 주입 방어와 이어짐)</div>
+      </section>
+
+      <section class="section" id="n5-7"><h2>5·7 · 실습 — 에이전트로 '내 Todo 앱' 만들기 <span class="dur">00:35</span></h2>
+        <p class="lead">배운 걸 모아 직접 만든다. 내 컴퓨터에서 도는 작은 <b>Todo 앱</b> — 할 일을 추가·확인·완료·삭제하고, 데이터가 무료 DB에 저장돼 <span class="hl">껐다 켜도 남는다.</span> Todo는 <b>저장·조회·수정·삭제(CRUD)의 교과서</b>라 DB 익히기에 딱. 방식은 <b>에이전틱</b> — 목표(PRD)를 주면 에이전트가 계획·설치·구현, 우리는 검토·판단·수정.</p>
+        <div class="grid2">
+          <div class="mini"><h4>길 A — 내 컴퓨터(로컬)</h4><p class="fine">무료 로컬 DB(예: SQLite)에 저장. 인터넷 없이 내 PC에서 완결.</p></div>
+          <div class="mini"><h4>길 B — 클라우드(Supabase)</h4><p class="fine">같은 앱을 클라우드 DB로. 남에게 링크로 보여줄 때.</p></div>
+        </div>
+
+        <h3>1부 — PRD로 시작하고 DB 구조 설계받기</h3>
+        <p>먼저 <b>PRD(만들 것 한 장)</b>부터:</p>
+        <pre><code>[무엇] 내 컴퓨터에서 도는 Todo 앱
+[기본 기능(CRUD)] 추가 / 목록 / 완료 표시 / 삭제
+[저장] 내 컴퓨터의 무료 DB(껐다 켜도 남기)
+[내가 넣고 싶은 기능] ← 1~2개 직접(마감일·태그·오늘만 보기·검색)
+[규칙] 무료 도구만 · 비밀값은 .env로 (로그인은 검증된 라이브러리로)</code></pre>
+        <p>이 PRD를 에이전트에게 주고 <b>DB 구조부터</b> 설계받는다 — <code>"이 PRD로 만들 Todo 앱의 DB 구조(표·열·관계)를 먼저 구조도로 그려 줘. 커스텀 기능(마감일·태그)도 반영. 로컬 무료 DB(SQLite)를 쓸 거야."</code></p>
+        <div class="notice teal"><b>확인 포인트:</b> AI가 표(예: <code>todos</code>, 태그를 넣었다면 <code>tags</code>와 연결표 <code>todo_tags</code>)와 열을 구조도로 보여 준다. 할 일 ↔ 태그는 <b>다대다(N:M)</b>라 연결표로 이어짐 — 5·3에서 배운 '표 사이 관계'대로 잡혔는지 눈으로 확인.</div>
+
+        <h3>2부 — 길 A: 내 컴퓨터에 만들어 돌리기(로컬)</h3>
+        <p>구조에 합의했으면 에이전트에게 실제 구현을 맡긴다 — <code>"이 PRD와 합의한 DB 구조로 Todo 앱을 만들어 줘. 데이터는 로컬 SQLite 파일 하나(todo.db)에 저장, 브라우저에서 localhost로 열리게. .env·todo.db는 .gitignore에. 먼저 전체 계획을 보여주고 각 단계 끝에 뭘 확인하면 되는지 알려 줘."</code></p>
+        <div class="notice"><b>우리가 할 일 셋:</b> ① 계획 한 번 읽기(PRD와 맞는지) ② 위험한 명령은 승인(이 프로젝트 폴더 안인지 확인) ③ 잘 되던 순간마다 <b>Git 커밋</b>(되돌릴 지점). <br><b>통과 기준:</b> 할 일을 추가하면 목록에 뜨고 <span class="hl2">새로고침·앱 재시작 후에도 남는다.</span> DB 뷰어('DB Browser for SQLite' 등)로 <code>todos</code> 표에 행이 실제로 쌓였는지 확인.</div>
+        <div class="table-wrap"><table><thead><tr><th>자주 막히는 증상</th><th>확인 / 해결</th></tr></thead><tbody>
+          <tr><td><code>better-sqlite3</code> 빌드 에러(node-gyp)</td><td>네이티브 모듈이라 빌드 도구 필요. 에러를 그대로 에이전트에 주고 "내 OS 기준 빌드 도구 설치·확인"(맥: Xcode CLT / 윈도우: 빌드 툴·Python). Node는 LTS</td></tr>
+          <tr><td>포트 already in use(EADDRINUSE)</td><td>이전 서버가 떠 있음 → 그 창을 끄거나 다른 포트로</td></tr>
+          <tr><td>추가했는데 새로고침하면 사라짐</td><td>화면에만 있고 DB엔 안 들어감 → "추가한 할 일을 DB에 저장하고 다시 읽어오게 해 줘"</td></tr>
+          <tr><td>코드 고쳤는데 반영 안 됨</td><td>개발 서버를 껐다 켜기(특히 .env 수정 후)</td></tr>
+          <tr><td><code>todo.db</code>를 GitHub에 올려버림</td><td>.gitignore에 추가. 이미 커밋했다면 "git 이력에서도 빼 줘"까지</td></tr>
+        </tbody></table></div>
+        <p class="fine">안 되면 — 에러를 그대로 에이전트에 붙여넣어 고치게(관찰→수정 반복). 계속 못 고치면 마지막으로 되던 지점으로 되돌리고 문제를 잘게 쪼개 다시 시킨다.</p>
+
+        <h3>3부 — 길 B: 클라우드(Supabase)로도</h3>
+        <p>같은 앱을 클라우드 DB로도 만들어 두면 나중에 <b>링크로 공유</b> 가능(로컬은 내 PC에서만 열림) — <code>"같은 Todo 앱을 로컬 SQLite 대신 Supabase(무료 클라우드 Postgres)에 저장하도록 바꿔 줘. 접속 키는 .env로, RLS(행 수준 보안)를 켜서 허용된 접근만 되게."</code></p>
+        <div class="notice warn"><b>확인:</b> Supabase 대시보드 Table Editor에서 <code>todos</code> 표에 행이 쌓이는지 확인. 그리고 <span class="hl3">RLS 꼭 켜기</span> — 안 켜면 공개 키로 누구나 데이터에 접근할 수 있다. (흐름: 로컬에서 익히고 → 배포 땐 연결만 클라우드로)</div>
+      </section>
+
+      <section class="section" id="n5-8"><h2>5·8 · 마무리 — 회고와 핵심 정리 <span class="dur">00:08</span></h2>
+        <p class="lead">노트에 짧게 남겨 볼 회고 4가지:</p>
+        <div class="notice teal">① DB가 <b>도서관/마법 장난감 상자</b>와 어떻게 닮았는지 한 문장으로? · ② <code>SELECT … FROM … WHERE …</code> 한 줄을 <b>내 서비스 예</b>로 풀어 본다면? · ③ "Little Bobby Tables"가 내 서비스에서 안 일어나게 하려면 <b>AI에게 무엇을 요구</b>? · ④ 백업 참사 중 가장 섬뜩했던 것은? 나는 어떻게 예방할까?</div>
+        <h3>핵심 정리 — 2-3강 한눈에</h3>
+        <div class="table-wrap"><table><thead><tr><th>배운 것</th><th>한 문장</th><th>내가 할 수 있는 행동</th></tr></thead><tbody>
+          <tr><td>DB의 역할</td><td>서비스의 '기억' — 데이터를 남기고 빠르게 찾아 줌</td><td>새로고침해도 남아야 할 데이터를 구분</td></tr>
+          <tr><td>역사와 갈래</td><td>파일→SQL→NoSQL(4종)→클라우드로 발전</td><td>표(SQL)와 유연한 상자(NoSQL)의 성격을 앎</td></tr>
+          <tr><td>SQL 알아보기</td><td>SQL은 거의 영어 문장, 코드는 AI가 씀</td><td><code>SELECT…FROM…WHERE…</code>를 말로 풀 수 있음</td></tr>
+          <tr><td>보안·백업</td><td>SQL 주입은 파라미터화로 막고, 데이터는 백업으로 지킴</td><td>AI에게 '파라미터화·해시·자동 백업'을 요구</td></tr>
+          <tr><td>무료 DB 고르기</td><td>무료 티어로 시작하되 한도·백업·정책을 앎</td><td>첫 서비스엔 Supabase(Postgres)를 후보로</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>📚 출처 · 더 찾아보기:</b> <span class="fine">Stackby "What is a database" · Cockroach Labs "A brief history of databases" · MongoDB "NoSQL Databases Explained" · OWASP "SQL Injection Prevention Cheat Sheet" · xkcd #327 "Exploits of a Mom" · bobby-tables.com · EnvisionIT "Six Horror Stories of Data Loss" · agentdeals "Database Free Tier Comparison 2026" · PostgreSQL "Transaction Isolation" · Supabase/Neon/Turso/PlanetScale 가격 페이지(2026-02 확인)</span></div>
+      </section>
+
+      <!-- ================= 노드 6 · AI 에이전트 도구 ================= -->
+      <section class="section coursehead" id="node-6">
+        <div class="badge">모듈 2 · 2-4강 <span style="opacity:.7">· AI 에이전트 도구 — 내 AI를 더 강하게</span></div>
+        <h2>2-4강 · AI 에이전트 도구<span style="font-size:.86rem;opacity:.85">(8강 · 하네스 엔지니어링)</span></h2>
+        <p class="lead">범용 AI를 <span class="hl">'내 서비스 전용 조수'</span>로 바꾸는 법. 핵심 공식은 <b>에이전트 = 모델 + 하네스</b>, 그 하네스를 강하게 만드는 세 무기가 <b>MCP·스킬·규칙</b>. <span class="fine">(출처: 모두의연구소 「바이브 코딩으로 웹 만들기 2」 course 2130 · Anthropic "Building effective agents")</span></p>
+      </section>
+
+      <section class="section" id="n6-1"><h2>6·1 · 어시스턴트에서 에이전트로 — 도구의 정체 <span class="dur">00:10</span></h2>
+        <p class="lead">우리가 쓰던 그 도구, 사실은 <b>'에이전트'</b>였다. 한 문장으로: <span class="hl">목표를 주면 필요한 도구를 스스로 골라 쓰고, 결과를 보며 다음 수를 정하기를 끝까지 반복하는 AI.</span></p>
+        <p>우리는 "1번 클릭, 2번 클릭"이 아니라 <b>"로그인 기능 붙여 줘"</b>처럼 <b>목표만</b> 준다. 세부 단계는 AI가 짠다. 게다가 말로만 답하지 않고 <span class="hl">파일을 고치고·명령을 실행하고·검색하며 실제로 움직인다.</span> 그리고 한 번에 끝내는 대신 <b>해보고 → 결과 확인 → 틀리면 고치기</b>를 목표가 될 때까지 되풀이한다. 코딩뿐 아니라 고객 문의 응대·자료 조사 보고서 작성도 뼈대는 같다.</p>
+        <h3>어시스턴트 vs 에이전트 — 칼로 자르는 게 아니라 '정도의 차이'</h3>
+        <div class="table-wrap"><table><thead><tr><th></th><th>어시스턴트(assistant)</th><th>에이전트(agent)</th></tr></thead><tbody>
+          <tr><td>하는 일</td><td>다음 줄 추천, 질문에 답</td><td>여러 파일 수정·명령 실행·반복</td></tr>
+          <tr><td>단계를 정하는 주체</td><td><b>사람</b></td><td><b>AI가 스스로</b></td></tr>
+          <tr><td>도구 사용</td><td>거의 없음(텍스트 위주)</td><td>파일·터미널·검색 등</td></tr>
+          <tr><td>비유</td><td>곁에서 거드는 조수</td><td>일을 맡아 끝내는 일꾼</td></tr>
+        </tbody></table></div>
+        <p class="fine">'agent'는 라틴어 '행하다(agere)'에서 온 오래된 말("남 대신 행동하는 이"). AI가 지어낸 신조어가 아니다. 러셀·노빅 『AI: 현대적 접근』(1995)은 인공지능을 아예 "스스로 행동하는 에이전트 연구"로 정의했고, 1990년대 비서 프로그램도 '에이전트'라 불렀다. 달라진 건 그 '머리'를 이제 <b>LLM</b>이 맡는다는 것뿐.</p>
+        <div class="notice key"><b>🔑 핵심 공식:</b> <b>에이전트 = 모델(Model) + 하네스(Harness).</b> <span class="hl">모델</span>=언어·코드·이미지를 다루는 지능(Claude·GPT). <span class="hl">하네스</span>=그 지능을 감싸 실제로 일하게 하는 실행환경(읽고→고치고→실행→반복 루프·파일 접근·안전장치). 같은 모델도 하네스에 따라 결과가 크게 달라진다. <b>이 노드가 강하게 만드는 대상이 바로 하네스</b>(MCP·스킬·규칙).</div>
+        <h3>루프 = 에이전트의 심장 (ReAct)</h3>
+        <p>챗봇과 에이전트의 결정적 차이는 <b>반복</b>. 네 단계를 목표가 이뤄질 때까지 돈다 — <span class="hl2">계획(Plan) → 실행(Act) → 관찰(Observe·에러? 됐나?) → 반성(Reflect)</span> → 다시 계획. 프로그래밍의 <code>while</code>문처럼. 이 '생각-행동-관찰'을 연구자들은 <b>ReAct</b>(Reasoning+Acting)라 부른다. 품질관리 PDCA·공군 OODA 루프와 같은 모양 — 오래된 지혜를 기계 속도로 돌리는 것.</p>
+        <div class="notice"><b>🤔 왜 '한 번에 정답'보다 나은가:</b> "로그인이 안 된다" → 에이전트는 바로 코드를 고치지 않고 <span class="hl">먼저 오류 로그를 읽어(Action) 401(인증 실패)인지 설정값 누락인지 관찰(Observation)</span>한 뒤에만 수정법을 고른다. <b>추측을 검증된 증거로 교체</b>하는 것. 그래서 좋은 지시는 "고쳐 줘"가 아니라 <span class="hl">"관련 파일·오류 먼저 확인하고, 수정 뒤 테스트 돌려 결과 보고해 줘"</span>처럼 관찰 지점을 요구한다.</div>
+        <div class="notice warn"><b>⚠️ 2023 봄 AutoGPT 소동의 교훈:</b> GPT-4 직후 "목표 한 줄이면 알아서 끝까지" 프로그램(AutoGPT·BabyAGI)이 GitHub 별 10만↑ 최고속으로 화제. 그러나 <b>언제 멈출지 몰라 무한 반복·요금 폭탄·틀린 목표로 폭주</b>. → 오늘의 에이전트는 완전 자율보다 <span class="hl3">작은 작업 단위·명확한 권한·중간 확인</span>을 더 중시. 멋진 자율성보다 <b>내가 멈추고 검토할 수 있는 흐름</b>이 실전에서 안전하다.</div>
+        <div class="notice key"><b>오늘의 핵심 한 문장:</b> AI 에이전트는 <b>모델 + 하네스</b>. MCP·CLI로 내 데이터·도구에 연결하고, 규칙 파일(AGENTS.md·CLAUDE.md)로 프로젝트 안내를 상시 걸고, 스킬로 반복 작업을 외워 두면 — <span class="hl">범용 AI가 '내 서비스 전용 조수'로 바뀐다.</span> 도구는 바뀌어도 이 개념은 남는다.</div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">Anthropic "Building effective agents" · Russell·Norvig 『AI: 현대적 접근』(1995) · Pattie Maes(1994) · DEV "Every AI Coding CLI in 2026" · CodeRabbit "A brief history of AI coding" · ikangai "The Agentic Loop Explained" · Yao 외 "ReAct" arXiv:2210.03629(2022), ICLR 2023(Princeton+Google)</span></div>
+      </section>
+
+      <section class="section" id="n6-2"><h2>6·2 · MCP — AI를 내 데이터에 꽂는 'USB-C' <span class="dur">00:12</span></h2>
+        <p class="lead">하네스를 강하게 만드는 <b>첫 번째 무기</b>. 문제는 <span class="hl">AI가 '내 것'(내 DB·파일·캘린더·회사 문서)을 모른다</span>는 것.</p>
+        <p>복사·붙여넣기로 때울 순 있지만, 붙일 도구가 많아지면 <b>"AI 3개 × 도구 5개 = 연결 15개"</b>를 일일이 만드는 지옥이 된다(=<b>M×N 문제</b>).</p>
+        <div class="notice key"><b>🔌 MCP = "AI를 위한 USB-C 포트":</b> <b>MCP(Model Context Protocol)</b>는 이 문제를 푸는 <b>표준 규격</b>(Anthropic 2024년 말 공개 → 업계 표준). USB-C가 기기·충전기를 통일했듯, <span class="hl">도구를 한 번 MCP 규격으로 만들면 MCP 지원 AI 아무 데나 꽂힌다.</span> 15개 연결이 <b>M+N=8개</b>로 준다.</div>
+        <p><b>무엇을 할 수 있나:</b> AI가 내 DB를 직접 조회해 답하기 · Figma 디자인을 읽어 그대로 화면 만들기 · 캘린더·Notion·Slack에 접근해 개인 비서처럼 굴기.</p>
+        <h3>어쩌다 '표준'이 됐나 — 경쟁사가 같이 떠받침</h3>
+        <p>Anthropic 2024·11 공개 → <b>OpenAI(2025·3)·구글(2025·4)이 잇따라 채택</b> → 2025 말 중립 재단(Linux Foundation 산하 Agentic AI Foundation)으로 이관. 경쟁사들이 같은 규격을 함께 떠받치는 건 드문 일. <span class="hl2">즉 MCP는 특정 회사 기능이 아니라 업계 공용 약속</span> — 한 번 익히면 도구가 바뀌어도 계속 쓴다.</p>
+        <h3>자주 붙이는 MCP 서버 (공식 레지스트리에서 '앱스토어'처럼 찾음)</h3>
+        <div class="table-wrap"><table><thead><tr><th>MCP 서버</th><th>한 줄 용도</th></tr></thead><tbody>
+          <tr><td>파일시스템</td><td>내 폴더의 파일 읽고 쓰기</td></tr>
+          <tr><td>GitHub</td><td>이슈·코드 읽고 커밋·검색</td></tr>
+          <tr><td>브라우저 자동화(Playwright)</td><td>AI가 실제 브라우저를 열어 클릭·입력·캡처</td></tr>
+          <tr><td>Slack / Notion</td><td>채널 검색·메시지 / 페이지·DB 읽고 쓰기</td></tr>
+          <tr><td>데이터베이스</td><td>DB에 자연어로 조회(<b>읽기 전용 권장</b>) — 내 서비스 DB 연결</td></tr>
+          <tr><td>구글 드라이브·캘린더</td><td>문서 검색·일정 확인/생성</td></tr>
+        </tbody></table></div>
+        <p class="fine">공개적으로 유명한 서버는 아직 손에 꼽지만, 가장 값진 건 <b>회사 내부용 MCP</b>(사내 DB·문서 연결). 공개 안 해도 내 데이터에 AI를 붙이는 것만으로 큰 힘. (레지스트리: registry.modelcontextprotocol.io)</p>
+        <h3>MCP가 건네는 3가지 — 이름만 알아 두기</h3>
+        <div class="table-wrap"><table><thead><tr><th>종류</th><th>뜻</th><th>예</th></tr></thead><tbody>
+          <tr><td>도구(Tools)</td><td>AI가 <b>실행</b>하는 기능</td><td>검색하기, DB 조회하기</td></tr>
+          <tr><td>자원(Resources)</td><td>AI가 <b>읽어들이는</b> 데이터</td><td>파일, 문서, 기록</td></tr>
+          <tr><td>프롬프트(Prompts)</td><td>미리 만든 요청 템플릿</td><td>재사용 요청</td></tr>
+        </tbody></table></div>
+        <p>이게 좋은 이유: ① 연결을 매번 새로 안 만들어도 됨 ② AI가 <span class="hl">실제 최신 데이터</span>를 보니 환각↓ ③ 학습 시점 이후 최신 정보도 사용. <b>구조:</b> host(AI 담은 앱)→client(연결 관리)→server(Notion·DB 등 기능 제공). M×N→M+N.</p>
+        <div class="notice warn"><b>⚠️ 딱 하나 조심:</b> USB-C 비유의 진짜 교훈 — <span class="hl3">플러그 모양이 같다고 권한까지 같은 건 아니다. MCP는 연결 규칙이지 자동 안전 보장이 아니다.</span> 공개 서버 수천 개 중 검증 안 된 것 다수 → <b>공식 서버부터</b>. 붙이는 순간 AI에 내 데이터·계정 접근권을 준다. tool은 실제 행동(삭제·배포까지) 가능하니 <span class="hl2">'읽기'부터 연결하고 쓰기·삭제·배포는 승인 게이트</span>. 최신 데이터를 읽어도 해석이 자동으로 맞는 건 아니므로 중요한 결과는 원본과 대조.</div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">modelcontextprotocol.io "What is MCP" · IBM "What is Model Context Protocol?" · Anthropic "Model Context Protocol"(2024) · TechCrunch(2025) · Merge "MCP integration examples" · Pragmatic Engineer "Building MCP servers" · Descope "What Is MCP" · 공식 MCP 레지스트리</span></div>
+      </section>
+
+      <section class="section" id="n6-3"><h2>6·3 · 스킬(Skill) — 반복 작업을 AI에게 '외워' 두기 <span class="dur">00:12</span></h2>
+        <p class="lead">하네스를 강하게 만드는 <b>두 번째 무기</b>. 문제는 <span class="hl">매번 같은 설명을 다시 하는 것</span>(="우리 브랜드 톤으로", "이 형식으로 보고서") → 지겹고 결과도 그때그때 다름. 이게 <b>재프롬프트(re-prompting) 문제</b>.</p>
+        <p><b>스킬 = 재사용하는 '플레이북'.</b> 자주 하는 작업을 한 번 적어 두고 계속 꺼내 쓰는 설명서. 기술적으로는 <span class="hl">그냥 폴더 하나</span> — 안에 <code>SKILL.md</code>에 "무엇을, 언제 쓰는지"를 적어 두면 AI가 관련된 일을 만났을 때 알아서 꺼내 쓴다.</p>
+        <div class="notice key"><b>💡 켜 둬도 거의 공짜 — 점진 공개(progressive disclosure):</b> AI는 평소 스킬의 <b>이름 + 한 줄 설명(약 30~50 토큰)</b>만 알고 있다가, <span class="hl">정말 필요할 때만 본문을 읽는다.</span> 그래서 수십 개를 켜 둬도 안 느려진다. → <b>description</b>을 잘 쓰는 게 중요(AI가 언제 이 스킬을 꺼낼지 그 한 줄로 판단).</div>
+        <h3>SKILL.md는 실제로 어떻게 생겼나 — 머리말 + 본문</h3>
+        <pre><code>---
+name: tone-polish
+description: 사용자용 안내 문구를 우리 서비스 말투(정중하고 짧게)로 다듬을 때 사용
+---
+
+# 우리 서비스 말투로 다듬기
+1. 한 문장은 40자 이내로 끊는다.
+2. "~해야 합니다"보다 "~해 주세요"처럼 부탁형으로 쓴다.
+3. 전문용어는 괄호로 짧게 풀어 준다.
+4. 마지막에 도움받을 곳(고객센터 링크)을 붙인다.</code></pre>
+        <h3>남들이 이미 만들어 둔 스킬</h3>
+        <p>가장 유명한 건 <b>Anthropic의 '문서 스킬' 4개</b> — pptx·xlsx·docx·pdf. claude.ai에서 "이 자료로 발표 슬라이드 만들어 줘" 하면 뒤에서 이 스킬이 돌아 <span class="hl">마크다운 흉내가 아니라 서식까지 갖춘 진짜 파일</span>을 뽑는다. Claude 문서 생성이 통째로 이 스킬 위에서 돌고 소스도 공개(교본). 그 외 '스킬 만드는 스킬', 'MCP 빌더', 브랜드 가이드 스킬 등. 공식 저장소 <code>github.com/anthropics/skills</code> + 커뮤니티 수백 개.</p>
+        <div class="notice warn"><b>⚠️ 조심:</b> 스킬은 결국 <span class="hl3">'AI에게 주는 지시문 + 실행 코드'</span>라 출처 불명을 함부로 켜면 위험. 내가 만들었거나 공식 저장소 것 위주로, 남의 스킬은 <b>안에 뭐가 들었는지 열어 보고</b> 쓴다.</div>
+        <h3>규칙 파일 (AGENTS.md · CLAUDE.md) — "에이전트를 위한 README"</h3>
+        <p>스킬과 비슷하지만 더 기본. "우리 프로젝트는 이런 규칙이야"를 파일 하나에 적어 둔다. 많은 도구가 대화 시작 때 <b>자동으로 먼저 읽는다</b>(<span class="hl3">단, Claude Code는 CLAUDE.md만 자동으로 읽음</span>). 적으면 유용한 것: <b>프로젝트 개요 · 자주 쓰는 명령(설명보다 명령어 먼저) · 규칙·컨벤션 · 하지 말 것</b>. 2025년 여러 회사가 모여 <code>AGENTS.md</code> 공통 표준을 만듦(수만 프로젝트 채택).</p>
+        <div class="notice key"><b>🧭 헷갈리지 않기 — MCP vs 스킬 vs 규칙 (결정 규칙):</b>
+        <div class="table-wrap"><table><thead><tr><th>내가 원하는 것</th><th>무엇을 쓰나</th></tr></thead><tbody>
+          <tr><td>AI에게 새 능력·연결을 주고 싶다 (내 DB·도구에 붙이기)</td><td><b>MCP</b></td></tr>
+          <tr><td>AI가 항상 이런 식으로 행동하게 하고 싶다</td><td><b>규칙</b> (CLAUDE.md / AGENTS.md)</td></tr>
+          <tr><td>반복하는 다단계 작업을 자동화하고 싶다</td><td><b>스킬(Skill)</b></td></tr>
+        </tbody></table></div>
+        <span class="hl">스킬=꺼내 쓰는 '방법서', 규칙=프로젝트 '상시 안내문', MCP=도구 꽂는 '어댑터'.</span> 경쟁이 아니라 함께 쓴다.</div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">Claude Platform Docs "Agent Skills" · anthropics/skills 저장소 · agents.md 공식 스펙 · Totalum "Claude Code Skills in 2026"</span></div>
+      </section>
+
+      <section class="section" id="n6-4"><h2>6·4 · 하네스 종류 비교 — 어떤 AI 코딩 도구를 고를까 <span class="dur">00:16</span></h2>
+        <p class="lead">도구 고르기 전 <b>내 자리부터</b>. 모델 이름만 보지 말고 네 가지 확인: <span class="hl">①파일 읽고 쓰기 ②터미널·브라우저 도구 ③MCP로 내 자료 연결 ④실행 전후 내가 승인·검토.</span> 처음엔 되돌리기 쉬운 작은 수정으로 시험하는 게 최고의 비교법.</p>
+        <h3>하네스 4부류 — '어디서 돌고, 내가 얼마나 지켜보나'</h3>
+        <div class="table-wrap"><table><thead><tr><th>부류</th><th>특징</th><th>예</th></tr></thead><tbody>
+          <tr><td>터미널/CLI형</td><td>명령창에서. 깊고 강력, 조금 낯섦</td><td>Claude Code, Codex CLI, Antigravity(agy), Aider, OpenCode</td></tr>
+          <tr><td>편집기(IDE)형</td><td>VS Code 등 편집기 안. 눈으로 보며 승인/취소</td><td>Cursor, Devin Desktop(구 Windsurf), Cline</td></tr>
+          <tr><td>브라우저형</td><td>웹에서 클릭 몇 번, 배포까지. 입문 최저 문턱</td><td>Lovable, Bolt, Replit Agent</td></tr>
+          <tr><td>클라우드/비동기형</td><td>"이 이슈 고쳐 줘" 통째로 맡기면 백그라운드→초안</td><td>Devin, Google Jules, OpenAI Codex(클라우드)</td></tr>
+        </tbody></table></div>
+        <p class="fine">앞 셋=내 컴퓨터에서 지켜보며, 마지막=멀리 맡기고 결과만. Devin(클라우드)과 Devin Desktop(구 Windsurf 편집기)은 같은 회사(Cognition). Google Antigravity=Gemini CLI를 이어받은 통합 도구(2026-06 전환, 터미널은 agy).</p>
+        <div class="notice"><b>🤷 "정답 하나는 없다"</b> — 도구마다 성격이 뚜렷해 고르는 사람의 자리·취향을 탄다("코파일럿은 회사가, Claude Code·Cursor는 엔지니어가 직접 고른다"는 우스개). <b>고르는 기준</b>: 터미널 vs 편집기 / 비용 / 확장(MCP·스킬) 필요? / 빠른 시제품 vs 어려운 문제. "다들 최고라는 것" 말고 <span class="hl">내 조건</span>으로.</div>
+        <h3>초보 5가지 판단 기준</h3>
+        <p>① <b>모델을 고를 수 있나</b>(오픈소스 계열이 자유) ② <b>비용 구조</b>(월정액 vs "프로그램 무료+쓴 만큼 API 요금" — 후자는 확 오를 수 있음) ③ <b>오픈소스 여부</b>(접어도 남이 이어받아 살림 — 실제 2026년 한 오픈소스 확장 종료가 이 리스크를 보여 줌) ④ <b>터미널이 편한가</b> ⑤ <b>맡길까 지켜볼까</b>(승인=편집기형 / 통째로=클라우드형). <span class="hl2">실무자도 하나만 안 쓴다 — 어려운 건 터미널, 일상 편집은 편집기, 가끔 클라우드를 섞어 씀.</span></p>
+        <div class="notice warn"><b>🕵️ 역사 — "세계 최초 AI SW 엔지니어" Devin 논쟁(2024·3):</b> Cognition이 Devin을 "첫 AI 엔지니어"로 공개, 프리랜서 일 받는 시연이 화제. 그러나 <span class="hl3">홍보만큼 못 끝냈고 잘 되는 장면만 골라 담았다</span>는 반론 + 독립 테스트 성공률 미달. 교훈: ①화려한 데모는 가려 볼 것("된다"≠"믿고 맡긴다") ②그럼에도 자율 코딩 경쟁에 불을 붙인 촉매. 과대광고와 진짜 발전은 늘 섞여 온다.</div>
+        <div class="notice"><b>🔐 안전·권한:</b> 에이전트는 파일 지우고 명령 실행하고 외부 요청까지 함. 좋은 도구는 위험 행동 전 "해도 될까요?"를 묻지만, 반복되면 사람이 무심코 "예"만 누름(<span class="hl3">사용자가 권한 요청의 약 93%를 그냥 승인</span>). 권한 방식=매번 확인 / 편집만 자동 / 위험한 것만 막고 자동 / 아무것도 안 물음(=폐기 가능한 실험환경만). <b>안전 습관 3:</b> ①중요 폴더에서 '자동 수락' 끄기 ②위험 작업 전 커밋으로 되돌릴 지점 ③<span class="hl">"아무것도 안 물어봄" + "중요한 것 전체 접근"을 동시에 켜지 마라.</span></div>
+        <h3>로컬 모델 · 열린/닫힌 모델 · 비용</h3>
+        <p><b>로컬 모델(Ollama 등):</b> 오픈 모델을 내 컴퓨터에서 직접. <span class="hl2">좋은 점=사생활(입력이 기기 밖으로 안 나감)·무료·오프라인</span>. 아쉬운 점=최신 클라우드보다 뒤처지고 고사양 GPU 필요. 결론=<b>아직 클라우드가 무난</b>, 단 "민감 자료는 로컬, 어려운 작업은 클라우드" 섞어 쓰기.</p>
+        <p><b>열린/닫힌 모델:</b> Anthropic(Claude)=가중치 비공개(반드시 API). OpenAI=절충(최상위 GPT-5.x는 닫고 gpt-oss는 공개). 반전=가장 센 <b>오픈웨이트는 중국</b>(DeepSeek·Qwen·Kimi·GLM). Kimi K3(2026·7, 2.8조 파라미터)는 독립 지표에서 Claude Opus 4.8과 거의 동급, 프런트엔드 코드 아레나 1위. <span class="hl3">단 과장 금물</span> — 최난도 SWE-bench 최상단은 아직 폐쇄 프런티어(Claude Fable 5 등), 오픈 모델 자체 점수는 독립검증 중, '오픈웨이트=공짜'도 아님(GPU 수십 장·공개 예정).</p>
+        <div class="table-wrap"><table><thead><tr><th>모델(2026·7, 100만 토큰당)</th><th>입력</th><th>출력</th><th>가중치 공개</th></tr></thead><tbody>
+          <tr><td>Claude Opus 4.8</td><td>$5</td><td>$25</td><td>아니오</td></tr>
+          <tr><td>Kimi K3</td><td>$3</td><td>$15</td><td>예정(자유 라이선스)</td></tr>
+          <tr><td>DeepSeek V4</td><td>&lt;$0.5</td><td>~$1</td><td>예</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>💰 왜 에이전트는 '비쌀' 수 있나 — 토큰·컨텍스트:</b> 루프를 여러 번 돌며 매번 상황을 다시 읽음 → 보통 채팅의 <b>약 4배</b>, 멀티 에이전트는 <b>약 15배</b> 토큰. 요금=입력 토큰+출력 토큰 따로. 한 호출이 참고하는 총량 한도=<b>컨텍스트 창</b>. i번째 호출이 앞 대화·도구 결과를 <span class="hl">통째로 다시 포함</span>하므로 단계 n이 늘면 입력량이 <b>대략 n²에 가깝게</b> 커짐. → 규율: <span class="hl2">거대한 작업을 통째로 시키지 말고 작게 쪼개기, 필요한 부분만 주고 끝나면 짧은 요약만.</span></div>
+        <div class="notice"><b>🧠 컨텍스트 부패(context rot) · 서브에이전트:</b> 대화가 길어져 창이 차면 아까 정한 걸 잊고·앞뒤 안 맞고·없는 파일명을 지어냄. 팁=<span class="hl">작업 단위로 대화 정리</span>(요약 압축 / 새 대화 리셋, 규칙 파일은 리셋해도 유지). <b>한 가지 일 끝나면 새 대화가 오히려 결과 좋음.</b> 큰 일은 여러 AI로 나눔=<b>서브에이전트</b>(하위 AI가 별도 공간에서 일하고 요약만 가져옴) — 강력하지만 토큰 급증 → "지휘=똑똑한 모델, 잔일=값싼 모델"로 등급 분리. 처음엔 하나로 충분.</div>
+        <p class="fine">이 바닥은 빠르게 바뀐다 — 도구 이름·가격·회사는 선택 직전에 공식 공지·저장소 상태로 확인할 것(비교 글은 출발점, 최신성 보증 아님). 도구 이름 외우기보다 <b>개념(에이전트=모델+하네스, MCP=연결, 스킬=반복 자동화)</b>을 잡으면 새 도구도 바로 판단됨.</p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">Faros AI "Best AI Coding Agents 2026" · DEV "Every AI Coding CLI in 2026" · Anthropic Engineering · ollama.com · Artificial Analysis · OpenRouter "The open weight models that matter"(2026) · Anthropic "multi-agent research system"·"Effective context engineering"</span></div>
+      </section>
+
+      <section class="section" id="n6-5"><h2>6·5 · 스킬 너머 — 확장과 요즘 흐름 <span class="dur">00:18</span></h2>
+        <p class="lead"><span class="hl3">당장 필요하진 않음.</span> 스킬·MCP에 익숙해지면 만나는 '한 걸음 더'. 감만 잡거나 끌리는 것만 골라 읽어도 됨.</p>
+        <h3>Claude 플러그인 — 스킬·도구를 통째로 나누기</h3>
+        <p>스킬·서브에이전트·슬래시 명령(/단축)·자동화 훅·MCP 연결을 <b>한 꾸러미</b>로 묶어 명령 한 줄로 통째 설치. 공식(claude-plugins-official)·커뮤니티 모음, GitHub·내 폴더에서도 설치. <span class="hl2">팀에서 빛남</span> — 잘하는 한 사람 머릿속 세팅("우리 팀 코드리뷰는 이렇게")을 설치 한 번으로 모두의 것. 버전 있어 업데이트·롤백 됨. 많이 켤수록 느려지니 '지금 쓸 것만'.</p>
+        <pre><code>/plugin marketplace add anthropics/claude-plugins-community
+/plugin install &lt;플러그인이름&gt;@claude-community</code></pre>
+        <h3>에이전트 팀을 통째로 얹기</h3>
+        <p>여러 전문 에이전트+스킬+명령을 한꺼번에 얹어 Claude Code를 '지휘자'로. 큰 일이 오면 조사·구현·검증 담당에 나눠 병렬. <b>oh-my-claudecode</b>(팀 우선 오케스트레이션 레이어, 설치하면 수십 개 전문 에이전트가 딸려 옴). <b>oh-my-openagent(omo)</b>=모델 불가지론(Claude·GPT·Gemini를 한 인터페이스 뒤에 묶어 "잔일엔 값싼, 판단엔 똑똑한 모델"). 첫날 도구는 아니나, '하나에게 다 시키기→여러 전문 AI 지휘하기' 흐름의 끝.</p>
+        <h3>명세 주도 개발(spec-driven) — '먼저 적고 시키기'</h3>
+        <p>스킬·AGENTS.md의 공통점=시키기 전에 '무엇을·어떻게'를 먼저 글로. 이걸 프로젝트 전체로 키운 것. 배경: 설명 없이 "만들어 줘"만 하는 바이브 코딩은 빠르지만 <span class="hl3">AI가 의도에서 벗어나거나 없는 기능을 지어냄</span> → 요구사항·설계·할 일을 먼저 문서화하고 AI가 그 문서대로. <b>앞서 과제로 쓴 PRD가 바로 그 명세의 출발점.</b> 도구: GitHub <b>Spec Kit</b>(별 12만↑, '원칙→명세→계획→할 일→구현'), AWS <b>Kiro</b>, 더 가벼운 <b>OpenSpec</b>. 결론=<span class="hl">섞어 쓰기</span>(가벼운 탐색·시제품은 대화로, 오래 유지할 중요한 건 명세로). 진짜 값어치는 '만들기 전에 한 번 더 생각하게' 하는 것.</p>
+        <h3>컴파운드 엔지니어링 · Ralph 루프</h3>
+        <p><b>컴파운드 엔지니어링</b>=일할 때마다 그 경험을 규칙·스킬로 남겨 다음 일이 이전 일 위에 쌓이게(버그 고치면 교훈을 AGENTS.md에, 다음부터 AI가 자동 준수). Every가 이 방식, 동명 플러그인도 인기. 도구 예=Nous Research <b>Hermes</b>(대화창 닫아도 기억 남기고 스스로 스킬 생성 → 오래 쓸수록 똑똑, 모델 교체 가능. "진짜 열쇠는 더 똑똑한 모델이 아니라 더 똑똑한 하네스").</p>
+        <p><b>루프 엔지니어링 · 'Ralph'</b>(개발자 제프리 헌틀리): <span class="hl">같은 지시(스펙)를 계속 다시 주고, 한 번에 한 가지만 하고 커밋</span>을 목표까지 반복. 진행은 대화 기억이 아니라 <b>파일·git</b>에 쌓음(컨텍스트 부패 회피). 2023 AutoGPT의 '무한 반복' 실패를 '멈출 기준(스펙)+파일에 쌓는 진행'으로 다시 푼 것(헌틀리는 이 방식으로 언어 하나를 ~$300로 제작). 이제 Claude Code에 <code>/goal</code> 명령까지. 단 안전장치 없으면 무한 반복·요금 폭발 → 멈출 기준·검토는 사람 몫.</p>
+        <div class="notice key"><b>🔀 요즘 흐름 — MCP에서 '스킬 + CLI'로:</b> MCP는 편하나 공짜 아님 — 연결하면 도구 설명서를 미리 통째로 읽어 <span class="hl3">컨텍스트를 수만 토큰 잡아먹음</span>. 그래서 AI가 원래 아는 <b>CLI</b>를 그냥 쓰게 하는 반작용(예: GitHub는 <code>gh</code> 사용). 한 벤치마크에서 같은 일에 <span class="hl">CLI ~1천 토큰 vs MCP ~4만 토큰</span>(800토큰 스킬이 2.8만 토큰 MCP 설명서보다 나음). 단 Claude Code는 요즘 <b>툴 서치</b>(필요할 때만 불러오기)로 이 부담을 이미 덜어 줌. 결론=<span class="hl2">셋 중 하나가 아니라 스킬·MCP·CLI를 함께</span> — 혼자 작은 건 'CLI+짧은 스킬'이 가볍고, 여럿이 쓰고 권한·기록 챙기면 MCP.</div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">Anthropic "Claude Code plugins"(2026) · oh-my-claudecode·oh-my-openagent 저장소 · GitHub Spec Kit·AWS Kiro·OpenSpec · Every "Compound Engineering" · Nous Research Hermes · Geoffrey Huntley "ralph" · Anthropic "Code execution with MCP"(2025)</span></div>
+      </section>
+
+      <section class="section" id="n6-6"><h2>6·6 · 실습 — 어제 만든 Todo 앱을 'AI가 아는' 앱으로 <span class="dur">00:35</span></h2>
+        <p class="lead">지난 노드에서 만든 Todo 앱을 재료로, 범용 AI를 <span class="hl">'내 앱을 아는 전용 조수'</span>로 바꾼다. 방향=무거운 MCP부터가 아니라 <b>앱에 CLI 갖추기 → 규칙 파일에 사용법 → 스킬로 반복 외우기</b>. 준비물=로컬 Todo 앱 폴더(todo.db) + 에이전트 도구 하나.</p>
+        <h3>1단계 — 앱에 명령줄 사용법(CLI) 붙이기</h3>
+        <p>AI가 다루기 가장 편한 창구는 화면이 아니라 <b>명령줄(CLI)</b>(명령을 쳐서 결과를 글로 받음). 앱을 새로 만들 필요 없이 <span class="hl">기존 로직을 터미널에서 부를 작은 진입점만</span> 얹고, 데이터는 쓰던 <code>todo.db</code> 그대로("같은 데이터를 여는 문을 하나 더"). AI에게: <i>"기존 로직 재사용해 터미널 <code>todo</code> 명령(add·list·done·summary)을 만들어 줘. todo.db 그대로 쓰고 앱 코드는 갈아엎지 말고 얇은 진입점만."</i> summary가 '오늘 완료'를 세려면 완료 시각이 데이터에 있어야 함(없으면 "완료 시각도 기록하게" 함께 부탁).</p>
+        <pre><code>$ node todo.js list
+[x] 1. 발표 자료 초안 작성하기
+[ ] 4. 헬스장 PT 예약 변경 문의하기</code></pre>
+        <p>사용법을 앱 루트의 규칙 파일에 5~10줄로. <span class="hl3">Cursor 등은 AGENTS.md를, Claude Code는 CLAUDE.md만 자동으로 읽음</span>(CLAUDE.md 첫 줄에 <code>@AGENTS.md</code>로 불러와도 됨).</p>
+        <pre><code># Todo 앱
+## 명령
+- 목록: node todo.js list   · 추가: node todo.js add "&lt;내용&gt;"
+- 완료: node todo.js done &lt;번호&gt;   · 오늘 완료 요약: node todo.js summary
+## 하지 말 것
+- todo.db(실데이터)를 직접 지우거나 덮어쓰지 말 것.</code></pre>
+        <h3>2단계 — AI에게 그 CLI를 실제로 돌리게 하기</h3>
+        <p>"오늘 할 일 목록 보여 줘" → 규칙 파일을 읽은 AI가 <b>스스로 <code>node todo.js list</code>를 실행</b>해 출력을 가져옴(복붙 없이). <span class="hl">소스 코드가 아니라 실제 할 일 데이터를 보는 게 핵심.</span> <b>권한을 관찰</b>: 읽기(list·summary)는 승인, 한 번은 일부러 "todo.db 지워 줘" → 승인창 <b>거부</b>하고 '내가 문지기'라는 감. 시키기 전 <code>git commit</code>으로 되돌릴 지점.</p>
+        <h3>3단계 — 반복 작업을 스킬로 외워 두기 <span class="fine">(Claude Code 기준)</span></h3>
+        <p>매번 똑같이 시키는 일("오늘 완료한 것만 커밋 메시지 형식으로")을 <code>.claude/skills/todo-summary/SKILL.md</code>에 저장. <span class="hl2">핵심=스킬이 직접 데이터를 뒤지는 게 아니라 앞서 만든 CLI를 대신 불러 준다</span>는 것. 다른 대화에서 "요약 스킬 써서 정리해 줘" 한마디면 AI가 알아서 꺼내 <code>todo summary</code>를 돌림 = 점진 공개가 실제로 동작(스킬 폴더 처음 만들면 도구 재시작).</p>
+        <div class="notice"><b>덤 — 같은 걸 MCP로 붙이면?</b> 파일시스템 MCP 서버를 등록하면 AI가 앱 폴더를 읽음. 단 <span class="hl3">이 서버는 파일(소스) 읽기엔 좋지만 데이터가 담긴 todo.db는 이진 파일이라 내용까지 세지 못함</span> — "오늘 완료 몇 건"은 결국 앱 명령(todo summary)을 돌려야 나옴. → <b>혼자 작은 앱이면 CLI+스킬이 가볍고, 여럿이 쓰고 권한·기록 챙기면 MCP. 도구가 아니라 상황이 고른다.</b></div>
+        <div class="notice key"><b>✅ 오늘의 결과물:</b> ①앱에 CLI(list·summary 등) + 규칙 파일에 사용법 ②AI가 그 CLI를 직접 실행해 내 데이터 읽음(권한창 한 번 거부·위험 전 커밋) ③SKILL.md 1개(한마디로 발동, 스킬이 CLI 대신 호출) ④(덤) MCP로도 붙여 비교. <span class="hl">범용 AI가 내 앱을 아는 조수로 바뀐 지점은 어디였나?(규칙 파일·CLI 실행·스킬)</span> 그 감각이 핵심.</div>
+
+        <h3>🔧 내 실습 기록 (2026-07-21 · 실제로 해봄)</h3>
+        <p><b>대상:</b> 2-3강 Todo 앱 사본(<code>노드5-todo앱-실습사본</code>) — <code>server.js</code> + <code>todo.db</code>, Node 내장 <code>node:sqlite</code>(v24). 제출본 보존 위해 사본에서 진행.</p>
+        <div class="notice teal"><b>만든 것 3개 (하네스 강화):</b>
+          <div class="table-wrap"><table><thead><tr><th>산출물</th><th>역할</th></tr></thead><tbody>
+            <tr><td><code>cli.js</code></td><td>server.js의 todo.db·로직 재사용한 얇은 진입점. <code>list·add·done·summary</code> 4명령. <span class="hl2">완료시각 <code>completed_at</code> 컬럼 자동 추가</span>(강의 안내대로 — summary '오늘 완료' 집계용)</td></tr>
+            <tr><td><code>CLAUDE.md</code></td><td>앱 루트 규칙 파일. 명령 사용법 + "todo.db 직접 삭제·덮어쓰기 금지" 하지 말 것. (Claude Code는 CLAUDE.md만 자동 로드)</td></tr>
+            <tr><td><code>.claude/skills/todo-summary/SKILL.md</code></td><td>"오늘 완료를 커밋 메시지 형식으로 요약" 스킬. <span class="hl">직접 데이터를 뒤지지 않고 <code>cli.js summary</code>를 대신 호출</span></td></tr>
+          </tbody></table></div>
+        </div>
+        <p><b>실제 실행 출력(실관찰):</b></p>
+        <pre><code>$ node cli.js list
+[ ] 1. 노드5 실습 제출 준비하기  (~2026-07-25)  #공부 #급함
+[x] 2. 우유 사기  #장보기
+
+$ node cli.js add "노드6 스킬 과제 제출하기" --due 2026-07-22 --tag KDT
+추가됨: 3. 노드6 스킬 과제 제출하기  (~2026-07-22)  #KDT
+
+$ node cli.js done 3
+완료 처리: 3번
+
+$ node cli.js summary        # ← todo-summary 스킬이 대신 호출
+# 오늘 완료 (2026-07-21) — 1건
+- [완료] 노드6 스킬 과제 제출하기 (#3)</code></pre>
+        <div class="notice key"><b>🪞 실습 회고:</b> 범용 AI가 '내 앱을 아는 조수'로 바뀐 지점 = <span class="hl">규칙 파일(CLAUDE.md)이 CLI 사용법을 상시 알려주니 AI가 소스가 아니라 <b>실제 데이터</b>를 직접 읽고, 스킬이 그 CLI를 대신 불러</span> 반복을 한마디로 압축한 것. 무거운 MCP 없이 'CLI + 짧은 스킬'로 가벼운 개인 앱을 조수화 — 강의 결론(작은 앱=CLI+스킬)을 그대로 확인.</div>
+      </section>
+
+      <section class="section" id="n6-7"><h2>6·7 · 워크플로 강화하기와 과제 <span class="dur">00:08</span></h2>
+        <p class="lead">범용 채팅창에 화면 구조·DB 이름·확인 순서를 매번 길게 설명하면 일은 되도 반복만 늘어남. 오늘 배운 것은 그 <b>반복을 줄이는 법</b>.</p>
+        <div class="notice key"><b>🧩 한 문장 흐름:</b> <span class="hl">하네스를 하나 고르고(내 조건) → MCP나 앱의 CLI로 내 데이터·도구에 잇고(규칙 파일로 사용법) → 자주 하는 일을 스킬로 외워 두면 → 범용 AI가 내 서비스를 아는 전용 조수로 바뀐다.</span> 단, <b>권한을 준다고 검토 책임까지 넘기는 건 아니다</b> — 처음엔 읽기 전용·작은 작업부터, 실행 결과는 내가 확인.</div>
+        <h3>📝 과제 — 내가 실제로 쓸 스킬 하나, GitHub에 올리기</h3>
+        <p>매번 AI에게 반복해서 시키던 일을 스킬 하나로 만들어 남이 봐도 쓰게 GitHub에 올린다. <b>제출=저장소 링크 하나.</b></p>
+        <p>① <b>후보 고르기</b>("AI한테 또 이걸 설명하네" 싶은 순간 — 팀 린트·컨벤션, 작업 끝 정리, 회의록·안내문 양식 변환) → ② <b>저장소+스킬</b>(예 <code>my-skills</code>, Claude Code면 <code>.claude/skills/&lt;이름&gt;/SKILL.md</code>, 프론트매터 name·description + 본문) → ③ <b>README로 '왜'</b>(무슨 불편이 어떻게 없어졌는지 한 장) → ④ <b>push하고 링크 제출</b>(보너스: 친구가 설명 없이 써도 돌아가면 성공).</p>
+        <div class="notice"><b>제출 전 체크:</b> <span class="fine">□ '매번 반복하던 일'에서 나왔나(스킬의 본질) □ description만 봐도 언제 쓰는지 아나 □ README에 '왜'가 불편→해결로 적혔나 □ 다른 대화에서 한마디로 발동시켜 봤나</span></div>
+        <div class="notice teal"><b>🪞 회고:</b> ① MCP를 'USB-C'에 빗대면, 내 서비스에서 가장 먼저 꽂고 싶은 것은? · ② 매번 반복해서 설명하던 일(=스킬 후보)은? · ③ 새 AI 도구가 쏟아질 때 나를 덜 휩쓸리게 할 기준 하나는?</div>
+        <h3>핵심 정리 — 2-4강 한눈에</h3>
+        <div class="table-wrap"><table><thead><tr><th>배운 것</th><th>한 문장</th><th>내가 할 수 있는 행동</th></tr></thead><tbody>
+          <tr><td>에이전트 구조</td><td>에이전트 = 모델(지능) + 하네스(껍데기)</td><td>도구를 볼 때 '하네스'를 본다</td></tr>
+          <tr><td>MCP</td><td>AI를 내 데이터·도구에 꽂는 'USB-C' 표준</td><td>연결하고 싶은 데이터를 하나 고른다</td></tr>
+          <tr><td>스킬</td><td>반복 작업을 외워 두는 재사용 설명서</td><td>매번 반복하던 지시를 스킬 후보로 적는다</td></tr>
+          <tr><td>규칙 파일</td><td>프로젝트 상시 안내문(AGENTS.md·CLAUDE.md)</td><td>반복 설명을 파일에 한 번 적어 둔다</td></tr>
+          <tr><td>CLI로 잇기</td><td>앱 명령을 규칙 파일로 알리면 AI가 직접 실행</td><td>자주 쓰는 조회를 명령 하나로 만든다</td></tr>
+          <tr><td>도구 선택</td><td>종류 많고 빠르게 바뀌니 '내 조건'으로 고름</td><td>개념을 잡고 유행에 덜 휩쓸린다</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>📚 2-4강 출처 · 더 찾아보기:</b> <span class="fine">MCP: modelcontextprotocol.io · IBM "What is MCP" · Agent Skills: Claude Platform Docs · anthropics/skills · AutoGPT 저장소 · Devin Desktop(Cognition) 문서 · Roo Code 확장 종료(2026-05-15) · Gemini CLI→Antigravity CLI(2026-06, Google Developers Blog) · antigravity.google · Faros AI "Best AI Coding Agents 2026" · DEV "Every AI Coding CLI in 2026" · Claude Code plugins(code.claude.com) · GitHub Spec Kit · Fission-AI OpenSpec · AWS Kiro · oh-my-claudecode(Yeachan-Heo) · oh-my-openagent/omo(code-yeongyu) · Anthropic "Code execution with MCP"·"Advanced tool use" · Every "Compound Engineering" · Nous Research Hermes · Geoffrey Huntley "ralph" · Pragmatic Engineer "loop engineering" · OpenRouter "open weight models that matter"(2026) · Artificial Analysis(Kimi K3) · goose(AAIF)·Pi(earendil)·OpenClaw</span></div>
+      </section>
+
+      <!-- ================= 노드 7 · 메인 퀘스트 ================= -->
+      <section class="section coursehead" id="node-7">
+        <div class="badge">모듈 2 · 2-5강 <span style="opacity:.7">· 메인 퀘스트 — 나만의 프로덕트 만들기</span></div>
+        <h2>2-5강 · 메인 퀘스트 <span style="font-size:.86rem;opacity:.85">(8강 · 배운 조각을 하나로)</span></h2>
+        <p class="lead">지금까지 배운 조각(PRD·하네스·세 겹·저장·배포)을 <span class="hl">하나의 서비스</span>로 꿴다. 목표는 '완성'이 아니라 <b>사용자가 핵심 한 가지를 처음부터 끝까지 하는 '굴러가는 첫 조각'</b>. <span class="fine">(course 2130 「5.메인 퀘스트」 · node-version 4841)</span></p>
+      </section>
+
+      <section class="section" id="n7-1"><h2>7·1 · 메인퀘스트 착수 — 조각을 모아 내 서비스로 <span class="dur">00:15</span></h2>
+        <p class="lead">한꺼번에 다 만들려다 <span class="hl3">기능이 너무 많아서</span> 멈추는 게 초보 프로젝트 최다 실패. 오늘 목표 = <b>완성 아닌 '굴러가는 첫 조각'</b>.</p>
+        <h3>오늘 쓸 다섯 재료</h3>
+        <p>① 무엇을 만들지 한 장(<b>PRD</b>) · ② 어디서 만들지 작업대(<b>하네스</b>) · ③ 화면 그리는 <b>세 겹(HTML·CSS·JS)+목업 데이터</b> · ④ 저장 붙이기(<b>서버+DB / Supabase</b>)와 비밀값 관리 · ⑤ <b>배포</b>. 이 다섯을 한 예시로 처음부터 끝까지 돌린 뒤, 각자 도메인으로 옮긴다.</p>
+        <div class="notice key"><b>🎯 핵심 한 문장:</b> 다 만들려 하지 말고, <span class="hl">범위를 좁히고 → 다섯 단계로 한 걸음씩 → 막히면 되돌리며</span> 굴러가는 첫 조각을 만든다. 완성은 모듈 끝에.</div>
+        <div class="notice"><b>🧠 마인드셋:</b> "첫 버전이 부끄럽지 않다면 너무 늦게 낸 것"(리드 호프먼). 인스타·슬랙도 처음엔 초라했지만 <span class="hl2">일단 내놓고 → 사용자에게 배우며 → 고쳐 나갔다.</span> 머릿속 완벽한 설계보다 손에 잡히는 어설픈 실물이 더 많이 가르친다.</div>
+        <h3>오늘 계속 쓰는 말</h3>
+        <div class="table-wrap"><table><thead><tr><th>용어</th><th>뜻</th></tr></thead><tbody>
+          <tr><td><b>PRD</b></td><td>무엇을·왜 만들지 정리한 기획서 한 장</td></tr>
+          <tr><td><b>MVP</b></td><td>사용자가 핵심 결과 하나를 끝까지 얻는 최소 작동 버전</td></tr>
+          <tr><td><b>목업 데이터</b></td><td>진짜처럼 보이는 가짜 데이터(저장 없이 화면부터)</td></tr>
+          <tr><td><b>CRUD</b></td><td>데이터 만들기·읽기·고치기·지우기</td></tr>
+          <tr><td><b>하네스</b></td><td>AI 코딩 실행·검토 환경(브라우저·편집기·터미널형)</td></tr>
+          <tr><td><b>환경변수(.env)</b></td><td>비밀값을 코드 밖에 보관하는 자리</td></tr>
+          <tr><td><b>커밋</b></td><td>작동 상태에 이름 붙여 복구 지점 만들기</td></tr>
+          <tr><td><b>배포</b></td><td>내 컴퓨터의 것을 인터넷 주소로 내보내기</td></tr>
+        </tbody></table></div>
+        <div class="notice teal"><b>📮 최종 제출물(Main Quest 01, 모듈 마지막 날):</b> ①실행 가능한 웹 서비스(GitHub repo 또는 배포 URL) ②기획 문서 1장(개요·타겟·문제) ③회고록 1장 ④시연 영상 3분 이내.
+        <br><b>평가 루브릭:</b> 도메인 연결성 25% · 기능 완성도 25% · AI 활용도 20%(대화 지우지 말 것) · 회고 깊이 15% · 발표/시연 15%. <span class="hl">착수 순간부터 제출 기준을 보는 게 프로답게 범위 잡는 첫걸음.</span></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">Softvery Solutions "How to Scope MVPs Right" · Reid Hoffman</span></div>
+      </section>
+
+      <section class="section" id="n7-2"><h2>7·2 · 범위 좁히기 — MVP와 '안 만들 것' <span class="dur">00:15</span></h2>
+        <p class="lead"><b>MVP = 완성품 축소판도, 화면만 그럴듯한 시제품도 아니다.</b> 사용자가 의미 있는 <span class="hl">한 가지 일을 처음부터 끝까지</span> 해내는 의도적으로 작은 버전.</p>
+        <div class="notice"><b>🛹 스케이트보드 vs 자동차 타이어:</b> 목표가 "이동"이면 스케이트보드는 훌륭한 MVP(느려도 실제로 굴러감). 자동차 타이어 하나는 MVP 아님(아무 데도 못 감). <b>기능 수가 아니라 사용자 흐름의 완결성</b>이 MVP의 기준.</div>
+        <h3>역사 — 거대 앱도 시작은 초라했다</h3>
+        <p><b>에어비앤비</b>(거실 에어매트리스 3개+허름한 페이지, 예약·리뷰·결제 없음 → "낯선 집에 돈 내고 묵을까" 검증) · <b>드롭박스</b>(제품 없이 3분 영상만 → 대기자 하룻밤 5천→7.5만) · <b>인스타그램</b>(기능 많던 Burbn에서 사진 공유만 남겨 좁힘 → 2년 만에 10억달러). <span class="hl2">하나같이 딱 하나의 핵심만, 초라하지만 끝까지 되게.</span></p>
+        <h3>피벗 — 안 되는 건 빨리 접고 방향 틀기</h3>
+        <p><b>슬랙</b>(게임 Glitch 회사의 사내 채팅 도구가 진짜) · <b>트위터</b>(팟캐스트 회사 Odeo → 140자 글) · <b>인스타</b>(Burbn → 사진). 공통점 = <span class="hl">"내가 부수적으로 만든 것"이 진짜 제품</span>. "어? 이 부분이 진짜 쓸 만한데?" 싶으면 방향을 트는 용기를.</p>
+        <div class="notice key"><b>✂️ 자를 용기 — '안 만들 것' 목록이 비밀 무기:</b> 테스트 = "이 기능 없이 출시해도 사용자가 핵심 문제를 푸나?" → 그렇다면(또는 애매하면) 자른다(버전2로). <b>MoSCoW</b>(꼭Must/있으면좋음Should/나중Could/지금안함Won't) 중 <span class="hl">MVP는 Must만</span>. 특히 <b>Won't 최소 5개</b>를 적어 두면 스코프 크립(기능이 슬금슬금 느는 것)의 유혹을 막는다.</div>
+        <div class="notice warn"><b>⚠️ 스코프 크립 — 기능 더하다 가라앉은 배들:</b> 하나하나는 다 그럴듯해서("고객이 원해서"·"경쟁사에 있어서"·"하루면 된다길래") 진보처럼 느껴진다. 경쟁사 급조 기능→버그투성이, "다 들어드릴게요"→뭐 하나 제대로 못 하는 도구, 윈도우 비스타·초기 아이튠즈. <span class="hl3">성공한 제품은 "무엇을 만들었나"만큼 "무엇을 거절했나"로 정의된다.</span></div>
+        <h3>한 문장 정의 + 범위 워크북</h3>
+        <p>좋은 정의는 해결책이 아니라 <b>문제</b>에 초점: <span class="hl">[누가]가 [어떤 상황/언제]에 [무엇을 못 해서] [어떤 불편]을 겪는다.</span> (예: "동네 카페 단골이 재방문 때 종이 쿠폰을 자주 잃어버려 사장·손님 모두 적립 혜택을 놓친다.") 사용자를 '모두'로 두지 말고 <b>가장 득 볼 한 사람</b>으로. 문장에 "앱으로·자동으로·AI로" 수단이 들면 빼서 문제만.</p>
+        <div class="notice"><b>📝 범위 워크북(오늘 좁혀 적기):</b> 한 문장 설명 · 핵심 흐름 하나(예: 고르기→장바구니→주문) · <b>꼭(Must) 3개</b> · <b>지금은 안 함(Won't) 5개</b> · 완성 기준(done) 한 줄. <span class="hl2">완성 기준·마감을 먼저 정하고 범위를 맞춘다(범위에 마감을 맞추면 끝없이 늘어남).</span></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">Designli · CB Insights "Startup Pivot" · Bolder Apps · Topflight · PMI · Atlassian</span></div>
+      </section>
+
+      <section class="section" id="n7-3"><h2>7·3 · 실전 기록 — 스펙부터 배포·관리자까지 <span class="dur">00:15</span></h2>
+        <p class="lead">에이전트와 대화로 신청 앱을 <b>정원 규칙부터 배포·로그인·관리자까지</b> 끌고 간 전체 그림. 네 걸음: <span class="hl">코드보다 스펙 먼저 → Supabase 직접 연결 → 정적 화면 무료 배포 → 관리자 얹기.</span></p>
+        <h3>1) 스펙부터 — 코드보다 문서 먼저</h3>
+        <p>바로 "만들어 줘" 하면 <span class="hl3">정원 초과 금지 같은 내 규칙이 슬쩍 빠진다.</span> 그래서 스펙 먼저(스펙 주도). PRD가 '무엇을'이면 <b>OpenSpec</b>은 그걸 제안·설계·명세·작업목록으로 정형화하는 심화판(필수 아님).</p>
+        <pre><code>npm install -g @fission-ai/openspec@latest
+openspec init</code></pre>
+        <p class="fine">opsx 워크플로(실험적): <code>/opsx:explore</code>(요구 정리) → <code>/opsx:propose</code>(change 문서 생성) → <code>/opsx:apply</code>(구현) → <code>/opsx:sync</code>(메인 명세 반영) → <code>/opsx:archive</code>(보관). 일을 change(변경 제안) 단위로 다뤄 '왜 바꿨는지'가 남는다. <b>PRD엔 기술 선택 넣지 않되(무엇=사람), 스택은 AI가 고르고 근거를 설계 문서에.</b></p>
+        <h3>2) Supabase를 에이전트에 직접 연결</h3>
+        <p>Supabase = 표(DB)+회원가입·로그인이 함께 오는 백엔드. Claude Code면 <b>MCP</b>로 붙여 에이전트가 표·정책·함수를 직접 생성.</p>
+        <pre><code>claude mcp add --scope project --transport http supabase "https://mcp.supabase.com/mcp?project_ref=&lt;내 ref&gt;"</code></pre>
+        <div class="notice key"><b>🔒 여기서 핵심 두 가지가 실제로:</b> ① <b>정원 초과 방지는 화면이 아니라 DB 안에서</b> — 브라우저에서 '세고 나서 넣기'는 동시 클릭에 뚫림. <span class="hl">'현재 신청 수 &lt; 정원' 조건의 단일 원자적 저장을 DB 함수로</span> 만들어 무조건 거치게(마지막 한 자리에 10명 눌러도 딱 1명). ② <b>RLS(행 수준 보안)</b> — '본인 신청만 조회' 정책으로 로그인해도 남의 것 못 봄.</div>
+        <h3>3) 무료 배포 + 관리자</h3>
+        <p><b>정적 화면 → GitHub Pages</b>(HTML/CSS/JS 한 벌은 서버 없이 정적 호스팅). <span class="hl3">배포물엔 공개 키만</span>(공개 저장소라 비밀 키 넣으면 그대로 노출). <b>관리자 페이지 = 권한을 DB에서 강제</b> — '화면에서 버튼 숨기기'는 보안 아님(누구든 요청 직접 전송). <span class="hl">관리자 명단을 DB에 두고 관리용 함수가 실행 때마다 '관리자냐'를 재확인.</span> 화면은 패널만 보여줄 뿐, 진짜 문지기는 DB.</p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">OpenSpec(github.com/Fission-AI/openspec) · Supabase MCP · Supabase RLS 문서</span></div>
+      </section>
+
+      <section class="section" id="n7-4"><h2>7·4 · 5단계 실습 — 원데이 클래스 신청 <span class="dur">00:35</span></h2>
+        <p class="lead">"정원 10명 클래스에 이름으로 신청, 남은 자리 표시, 차면 '마감'. 새로고침해도 남고, <span class="hl">동시에 눌러도 정원 안 넘김</span>." 로그인·결제·후기는 안 만든다. 이 하나를 다섯 단계로.</p>
+        <div class="table-wrap"><table><thead><tr><th>단계</th><th>하는 일</th><th>통과하면</th></tr></thead><tbody>
+          <tr><td>1. PRD</td><td>만들 것을 한 장으로</td><td>AI에게 줄 설계도</td></tr>
+          <tr><td>2. 작업대</td><td>하네스 고르고 빈 프로젝트</td><td>화면에 프로젝트가 뜬다</td></tr>
+          <tr><td>3. 화면</td><td>눈에 보이게(목업)</td><td>클래스·남은 자리가 진짜처럼</td></tr>
+          <tr><td>4. 저장+정원</td><td>신청 저장·정원 지키기</td><td>신청이 남고 정원 안 넘음</td></tr>
+          <tr><td>5. 한 바퀴+배포</td><td>끝까지 돌리고 내보내기</td><td>누구나 드는 신청 주소</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>🗝️ 핵심 태도:</b> 명령을 <span class="hl">'무엇을'로</span> 준다("어떤 DB 써라"·"이 방식으로 막아라" 같은 how는 AI 몫). 우리는 <b>의도 + 됐는지 확인</b>에 집중. 한 번에 안 나와도 정상 — <b>지시 → 결과 확인 → 안 되면 다시 지시</b>를 몇 바퀴.</div>
+        <p><b>1단계 PRD</b> — <code>mkdir class-signup</code> → <code>cd class-signup</code> → <code>claude</code>(한 줄씩; <code>&amp;&amp;</code>는 터미널마다 달라 한 줄씩이 안전). <code>/plan</code>에 PRD 붙여넣고 <span class="hl2">스택·구조는 AI가 정하게</span>. 누가 쓰는가(로그인 필요? 이름만?)도 여기서 — 이 앱은 이름만으로 완결이라 로그인은 다음 단계로(빠뜨림 아니라 순서). <b>확인:</b> AI 계획에 정원 지키는 방법이 담겼나(빠지면 코드 나오기 전에 짚기=제일 쌈). 통과 시 <code>git init/add/commit</code>.</p>
+        <p><b>2단계 작업대</b> — 하네스 3형(브라우저형=아주 처음 / 편집기형=파일 여러 개 / 터미널형=설치·배포까지 AI가). 이 과정은 <b>Claude Code</b>(터미널형). "빈 프로젝트 세워 줘, 무료로, 실행법·규칙을 CLAUDE.md에". <b>확인:</b> 빈 화면이라도 프로젝트가 한 번 떠야. 안 뜨면 오류를 그대로 붙여넣기.</p>
+        <p><b>3단계 화면(목업)</b> — 저장 없이 예시 값으로 화면부터("제목·일시, 남은 자리 '7/10', 이름칸, 신청 버튼"). <span class="hl">눈에 보이면 방향 판단이 빠름.</span> <b>한 걸음 더 — 디자인:</b> 기본 화면은 '흔한 보라 그라데이션'의 AI 슬롭. Anthropic <b>frontend-design</b> 스킬(<code>/plugin marketplace add anthropics/claude-code</code>)로 주제 맞는 개성 있는 타이포·색·레이아웃.</p>
+        <div class="notice warn"><b>🏔️ 4단계 저장+정원 = 오늘의 진짜 산:</b> "신청하면 남은 자리 줄고 새로고침해도 남게, 차면 '마감', <span class="hl3">여러 명이 동시에 마지막 한 자리를 눌러도 정원 절대 안 넘김</span>." (how는 AI에.) <b>확인 넷:</b> 즉시 반영 / 새로고침 유지 / 마감 / <b>동시 신청 테스트를 AI에게 만들게 해 딱 1건만 성공·정원≤10을 로그로</b>(설명만 믿지 말고 눈으로). 지난 2-3강 트랜잭션·제약이 여기서 실전. 통과 시 즉시 커밋.</div>
+        <p><b>5단계 한 바퀴+배포</b> — 사용자가 되어 끝까지(신청→감소→마감→새로고침 유지) 끊김 없이. "무료 배포처 추천·순서, <span class="hl">재배포·재시작 후에도 데이터 남는 곳으로</span>, 비밀값은 배포 설정에 넣고 코드엔 X". <b>확인:</b> 다른 기기/시크릿 창에서 실제 신청되나, 재배포 후에도 남나(서버에 DB 얹는 무료 배포처는 재시작 시 사라지기도 → Supabase 같은 외부 DB면 걱정 없음). <span class="hl2">배포까지 못 가도 3단계(화면)까지면 오늘 성공.</span></p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모두연 실습(course 2130) · 지난 2-3강 DB(트랜잭션·RLS)</span></div>
+      </section>
+
+      <section class="section" id="n7-5"><h2>7·5 · 로그인 — Supabase 회원가입·로그인 <span class="dur">00:15</span></h2>
+        <p class="lead">'이름만' 다음의 탈것(자전거). '누구나 이름만 신청'→<span class="hl">'로그인한 사람이 신청하고 자기 내역만 보는'</span> 서비스로. 밑바닥부터면 비밀번호 저장·세션·보안이 무거워 → <b>Supabase 같은 BaaS(백엔드 서비스)</b>에 맡긴다(비밀번호 해시·세션·토큰은 Supabase가, 우리는 '무엇을'만). <span class="fine">※ 이 확장은 선택 — MVP가 굴러가면 그대로도 충분.</span></p>
+        <h3>붙이는 순서</h3>
+        <p><b>①</b> supabase.com 무료 프로젝트(DB+인증 함께) → Project URL·공개 키(publishable/anon)를 <code>.env</code>에(코드에 박지 말 것). Claude Code면 공식 Supabase 플러그인/MCP로 AI가 표·인증·정책 생성. <b>②</b> 이메일·비밀번호 회원가입·로그인 화면 연결(Supabase 기본 제공, 로그아웃 버튼도). <b>③</b> 신청을 로그인 사용자와 잇고 <span class="hl">RLS로 자기 신청만 보고 취소</span>(안 켜면 로그인한 아무나 남의 것 조회 → 반드시 켜기). 정원 초과 방지는 그대로.</p>
+        <div class="notice warn"><b>⚠️ 여기서 막히는 함정 넷(+α):</b>
+          <br>· <b>가짜 이메일 거부</b> — <code>test@example.com</code>은 <code>email_address_invalid</code>. 실제 받을 이메일 쓰거나 개발 중 '이메일 확인' 끄기.
+          <br>· <b>가입하자마자 로그인 실패</b> — 기본은 이메일 확인 요구(<code>Email not confirmed</code>), 무료 티어 확인 메일은 시간당 제한. 수업 중엔 대시보드 Authentication에서 <span class="hl3">'Confirm email' 잠시 끄기</span>(배포 전 다시 켜기).
+          <br>· <b>실제 발송엔 커스텀 SMTP</b> — 기본 내장 메일은 팀 멤버 주소로 시간당 두어 통(<code>over_email_send_rate_limit</code>). Resend·SendGrid·SES·Postmark 등 SMTP를 대시보드에.
+          <br>· <b>확인 메일 링크가 localhost로</b> — Authentication의 <b>Site URL·Redirect URLs를 배포 주소로</b>.
+          <br>· <b>RLS 안 켜면 남의 데이터가 다 보임</b> / <b>키 두 개 구분</b> — 공개 키(anon)는 화면에 써도 됨(그래도 .env), <span class="hl3">비밀 키(service_role)는 절대 코드·git·채팅에 X</span>(노출 시 RLS 우회로 DB 전체 열림 → 즉시 재발급).</div>
+        <div class="notice key"><b>💡 정리 — 무엇을 손에 익혔나:</b> '클래스 신청 앱'이 아니라 <span class="hl">다섯 단계 절차(PRD→작업대→화면→저장→한 바퀴+배포)</span>. 그 위에 로그인(Supabase)을 얹었을 뿐. 어떤 서비스를 만들든 이 절차는 그대로 통한다.</div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">Supabase Docs "Password-based Auth"·"Row Level Security"</span></div>
+      </section>
+
+      <section class="section" id="n7-6"><h2>7·6 · 내 도메인으로 — 자유 제작 <span class="dur">00:35</span></h2>
+        <p class="lead">이제 정해진 예시가 아니라 <span class="hl">내가 만들고 싶은 것</span>. 스택·순서·어디까지 갈지 자유. 앞 절차는 필요할 때 꺼내 보는 참고서. 딱 하나만: <b>작게, 한 흐름이 끝까지 굴러가게.</b></p>
+        <div class="notice"><b>🚀 시작해서 제출까지:</b>
+          <br>① <b>한 문장으로</b>("[누가] [무엇을] 할 수 있는 [무엇]", 예: '동네 모임 주최자가 참가 신청을 받는 페이지'). 거창하지 않아도.
+          <br>② <b>AI와 자유롭게</b> — 의도→확인→막히면 다시 지시. 스택·방법은 AI에, 나는 '무엇을·됐는지'만.
+          <br>③ <b>내 규칙 하나는 지키게</b>(있다면 — 정원·선착순·중복금지·하루 한 번이 실제로 지켜지나 눈으로).
+          <br>④ <b>막히면</b> 다음 강의 네 규율.
+          <br>⑤ <b>작동하는 지점에서 제출</b> — 완성 아닌 '굴러가는 첫 조각'. 실행 저장소/배포 주소(로컬만이면 실행법+캡처), 한 문장 정의, AI 대화(효과적 프롬프트 하나 표시), 회고 한 줄(무엇을 잘랐나/어디서 막혀 어떻게 풀었나/다음 한 걸음).</div>
+        <p>어디까지 가든 좋다 — 화면만 떠도, 저장까지 돼도, 배포까지 가도 각자 낸 만큼이 성과. 이게 <b>모듈 최종 제출(Main Quest 01)의 착수분.</b></p>
+      </section>
+
+      <section class="section" id="n7-7"><h2>7·7 · 막혔을 때 — 네 가지 규율 <span class="dur">00:12</span></h2>
+        <p class="lead">"앱 전체 완성해줘" → 파일 20개 바뀌고 실행 안 됨. 더 긴 프롬프트로 밀면 문제 위치만 더 묻힌다. <span class="hl">작게 요청하고, 눈으로 확인하고, 되돌릴 길을 남기는 규율</span>이 속도를 안전한 진척으로 만든다.</p>
+        <div class="notice key"><b>🧭 네 가지 규율:</b>
+          <br><b>① 한 번에 하나만</b> — 프롬프트 하나에 다섯 요구=몇 개는 틀려 디버깅 난망. 고칠 때도 "필요한 것만 바꿔줘". 버그 하나→확인→다음.
+          <br><b>② 작동하면 저장(커밋)</b> — 바뀔 때마다가 아니라 <span class="hl">'작동할 때마다'</span>. 깨지면 마지막 정상 지점으로.
+          <br><b>③ 막히면 되돌리고 리셋</b> — 빙빙 돌면 랜덤 수정 금지(코드 이해불능의 지름길). 5~10번마다 "뭐가 됐고·뭐가 남고·지금 문제는 뭐다" 요약으로 AI 초점 재조정.
+          <br><b>④ 이해 못 한 코드는 배포 X</b> — 시제품은 "다 수락"도 OK, 남에게 내보낼 거면 그 코드가 뭘 하는지 알아야. <span class="hl3">AI 생성 코드의 약 45%가 보안 테스트 실패</span>(Veracode) → "안전한지 봐 줘"는 필수.</div>
+        <div class="notice"><b>🔧 Git 심화 — '저장 버튼'이 아니라 실험을 안전하게 하는 기록 장치:</b> 세 장소 = <b>working tree</b>(펼친 원고) / <b>staging(index)</b>(<code>git add</code>=다음 기록에 포함할 선택) / <b>repository</b>(<code>git commit</code>=확정 체크포인트). 되돌리기 위험도 구분: <code>git restore</code>(작업 트리 미커밋 변경 버림) · <code>git reset --hard</code>(스테이징·작업트리까지 지움=강력·위험) · <span class="hl2"><code>git revert</code>(과거 안 지우고 반대 커밋 추가=공유 브랜치·푸시분 취소에 안전)</span>. <b>reset=내 로컬 책상 정리, revert=공유 역사의 취소 메모.</b> 좋은 체크포인트는 시간('오후 작업') 말고 <span class="hl">행동·관찰 결과</span>("새로고침해도 남는다"). AI에게도 "reset --hard·강제 푸시는 승인 전 실행 말라"고 규율로. 비밀키가 diff에 보이면 커밋 말고 .gitignore·환경변수 먼저(Git은 비밀 자동 차단 안 함). 원격에 올라간 키는 삭제로 안전해지지 않음 → 재발급.</div>
+        <div class="notice"><b>🦆 러버덕 디버깅:</b> 막히면 고무 오리(=AI)에게 "뭘 하려는지·무엇까지 됐고·어디서 막혔는지"를 처음부터 또박또박 글로. <span class="hl">말로 옮기는 순간 당연하다 여긴 전제의 빈틈이 드러난다</span>(자기 설명 효과, 『실용주의 프로그래머』 1999). <b>설명≠관찰</b> 구분("아마 DB 고장"=추측 / "콘솔에 Cannot read undefined"=관찰). 재현 절차+기대값을 적으면 AI에게 검증 가능한 질문이 된다. 도움 청할 땐 코드 전체 대신 <b>목적 한 문장·재현 단계·기대vs실제·오류 전문/관련 조각</b>.</div>
+        <div class="notice warn"><b>🕳️ 둠 루프(doom loop) 주의:</b> "거의 다 됐는데" 버그가 안 잡히고, AI는 "고쳤다"는데 안 고쳐지고, 프롬프트 넣을수록 멀쩡하던 것까지 깨짐 — 운이 아니라 <span class="hl3">구조적</span>(대화 길어져 맥락 오염 + AI엔 의존 지도 없어 증상만 땜질). 탈출: 같은 프롬프트 반복 말고 "한 발 물러서 전체 그림 다시" / 마지막 정상 지점으로 리셋 후 <b>새 대화로 시작</b> / "로그인 고쳐줘" 대신 "폼이 데이터 제대로 보내는지부터". <span class="hl">막힘이 30분 넘으면 더 파기 전에 멈추고 되돌리는 게 대개 더 빠름.</span></div>
+        <div class="notice"><b>💣 초보 지뢰(증상→처방):</b> 검증 없이 믿기→'초안'으로 대하고 "이 코드 뭘 하는지 설명해줘" · 비밀키 커밋→<code>.env</code>+즉시 <code>.gitignore</code>, 노출 시 삭제 아니라 재발급 · 예외·에러 처리 누락→"빈 입력·네트워크 실패·잘못된 값도 처리해줘" · 불필요한 복잡도→"이거 없이 기본 기능만으로 안 돼?". <b>혼자 막힐 때:</b> 에러 그대로 복붙 검색(맨 마지막 줄이 잘 맞음) → 최소 재현 예시(MRE)로 좁혀 커뮤니티에 '잘' 묻기(목표·최소코드·정확한 에러·시도한 것).</div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">vibecoding.app · Andrew Ng · Hunt&Thomas 『The Pragmatic Programmer』(1999) · Product Talk "Doom Loop" · Veracode 2025 GenAI Report · CSA · base44</span></div>
+      </section>
+
+      <section class="section" id="n7-8"><h2>7·8 · 마무리 — 회고와 정리 <span class="dur">00:08</span></h2>
+        <div class="notice teal"><b>🪞 오늘의 회고:</b> ① "자르기"가 가장 아까웠던 기능은? 그래도 자른 이유는? · ② 막혔을 때 나를 가장 도운 규율(한 번에 하나 / 작동하면 저장 / 막히면 리셋 / 이해한 것만 배포)은? · ③ 완성까지 지금 가장 겁나는 부분은?</div>
+        <h3>핵심 정리 — 2-5강 한눈에</h3>
+        <div class="table-wrap"><table><thead><tr><th>배운 것</th><th>한 문장</th><th>내가 할 수 있는 행동</th></tr></thead><tbody>
+          <tr><td>메인퀘스트 방향</td><td>제출물·루브릭을 착수 때 본다</td><td>한 문장 정의·프롬프트·대화를 남긴다</td></tr>
+          <tr><td>조각의 연결</td><td>PRD·화면·저장·도구가 단계로 꿴다</td><td>한 문장에서 출발해 순서대로 잇는다</td></tr>
+          <tr><td>모범 사례 따라하기</td><td>완전히 풀린 보기를 한 바퀴 돌린다</td><td>절차 익힌 뒤 내 도메인으로 옮긴다</td></tr>
+          <tr><td>범위 좁히기</td><td>MVP는 작지만 하나는 끝까지</td><td>Must 3·Won't 5로 못 박는다</td></tr>
+          <tr><td>다섯 단계</td><td>PRD→작업대→화면→저장→배포</td><td>한 단계씩, 멈춰도 되는 지점을 안다</td></tr>
+          <tr><td>막혔을 때 규율</td><td>한 번에 하나·작동 시 저장·막히면 리셋·이해한 것만 배포</td><td>랜덤 수정 대신 요약으로 AI 초점을</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>📚 2-5강 출처:</b> <span class="fine">Softvery Solutions · Topflight · vibecoding.app · Google Cloud(Andrew Ng) · thinslices · Reid Hoffman · Veracode 2025 GenAI Code Security Report · Eric Ries 『The Lean Startup』(2011) · OpenSpec · Supabase Docs · 『The Pragmatic Programmer』</span></div>
+      </section>
+
+      <div class="pager" id="pager"></div>
+    </main>
+  </div>
+  <footer class="footer"><div class="wrap">Ⓒ 모두의연구소 노드 「바이브 코딩으로 웹 만들기」 — 직접 확인·정리한 개인 학습 노트 · KDT 교육 운영 워크스페이스</div></footer>
+  <script>
+  (function(){
+    document.documentElement.classList.add('js');
+    var main=document.querySelector('main');
+    var secs=[].slice.call(main.querySelectorAll('.section'));
+    var links=[].slice.call(document.querySelectorAll('.toc a'));
+    var toc=document.querySelector('.toc');
+    var pager=document.getElementById('pager');
+    var groups=[].slice.call(document.querySelectorAll('.toc .tocgroup'));
+    var names={'0':'적응기 · 아이펠 적응하기','1':'1-1강 · 작업대 마련하기','2':'1-2강 · 세 겹 & 게임','3':'2-1강 · 프레임워크','4':'2-2강 · 백엔드','5':'2-3강 · 데이터베이스','6':'2-4강 · AI 에이전트 도구','7':'2-5강 · 메인 퀘스트'};
+    var order=['0','1','2','3','4','5','6','7'];
+    var current='1';
+    function nodeOf(id){if(!id)return null;if(id.indexOf('node-')===0)return id.slice(5);var m=id.match(/^n(\d)-/);return m?m[1]:null;}
+    function paintToc(){
+      var y=window.scrollY+100,cur=null;
+      secs.forEach(function(s){if(s.classList.contains('shown')&&s.offsetTop<=y)cur=s.id;});
+      links.forEach(function(a){a.classList.remove('active');a.classList.remove('activehead');
+        var h=a.getAttribute('href')||'';if(h.charAt(0)!=='#')return;var tid=h.slice(1);
+        if(a.classList.contains('tochead')){if(nodeOf(tid)===current)a.classList.add('activehead');}
+        else if(tid===cur){a.classList.add('active');}
+      });
+    }
+    function renderPager(){
+      var i=order.indexOf(current),prev=order[i-1],next=order[i+1],html='';
+      html+=prev?'<a class="pgbtn" href="#node-'+prev+'"><span>← 이전</span><b>'+names[prev]+'</b></a>':'<span class="pgbtn ghost"></span>';
+      html+=next?'<a class="pgbtn next" href="#node-'+next+'"><span>다음 →</span><b>'+names[next]+'</b></a>':'<span class="pgbtn ghost"></span>';
+      pager.innerHTML=html;
+    }
+    function show(node){if(order.indexOf(node)<0)node='1';current=node;secs.forEach(function(s){s.classList.toggle('shown',nodeOf(s.id)===node);});groups.forEach(function(g){g.classList.toggle('open',g.getAttribute('data-g')===node);});renderPager();paintToc();}
+    function go(id,scroll){
+      var node=nodeOf(id)||'1';show(node);
+      if(!scroll)return;
+      // 노드 제목(node-*) 클릭은 펼침/전환만 — 스크롤 이동 없음. 하위 섹션(n3-1 등)만 스크롤.
+      if(id&&id.indexOf('node-')!==0){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+    }
+    // 현재 열려 있는 강 헤더를 다시 누르면 그 목차 그룹만 접기/펼치기 (내용 전환 없음)
+    toc.addEventListener('click',function(e){
+      var a=e.target.closest&&e.target.closest('a.tochead');if(!a)return;
+      var node=nodeOf((a.getAttribute('href')||'').slice(1));
+      if(node===current){e.preventDefault();
+        var g=document.querySelector('.tocgroup[data-g="'+node+'"]');
+        if(g)g.classList.toggle('open');}
+    });
+    window.addEventListener('hashchange',function(){go(location.hash.slice(1),true);});
+    window.addEventListener('scroll',paintToc,{passive:true});
+    window.addEventListener('resize',paintToc);
+    go(location.hash.slice(1)||'node-1',false);
+  })();
+  </script>
+</body>
+</html>

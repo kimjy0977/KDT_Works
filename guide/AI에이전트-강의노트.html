@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 에이전트 학습 노트 · 앤트로픽 · 인프런</title>
+  <style>
+
+
+    /* ===== Pretendard (한글+라틴 모던 고딕) ===== */
+    @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+    /* ===== Design tokens ===== */
+    :root{
+      --bg:#f7f6f2; --surface:#ffffff; --sunken:#f2f0ea;
+      --ink:#1b2130; --ink-2:#525b6a; --ink-3:#8c94a2;
+      --line:#e8e4db; --line-soft:#f0ede5;
+      --brand:#0f766e; --brand-ink:#0b5b54; --brand-soft:#e4f3f0; --brand-2:#0e7490;
+      --amber:#b45309; --amber-soft:#fdf3e3; --rose:#be123c; --rose-soft:#fdeef1;
+      --blue:#2563eb; --blue-soft:#eef4ff;
+      --hl-y:#fde68a; --hl-g:#a7f3d0; --hl-p:#fecdd3;
+      --shadow:0 1px 2px rgba(20,28,45,.04), 0 12px 32px -14px rgba(20,28,45,.16);
+      --shadow-sm:0 1px 3px rgba(20,28,45,.07);
+      --r:18px; --r-sm:11px; --r-xs:7px;
+      --wrap:1180px; --gut:clamp(1.05rem,4vw,2.4rem);
+      --sans:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",system-ui,-apple-system,Segoe UI,sans-serif;
+      --mono:"SFMono-Regular",ui-monospace,Consolas,"Liberation Mono",Menlo,monospace;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+      font-size:16.5px;line-height:1.75;letter-spacing:-.003em;word-break:keep-all;
+      -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+    a{color:inherit;text-decoration:none}
+    ::selection{background:#cdeee8}
+    .wrap{width:min(var(--wrap),calc(100% - 2*var(--gut)));margin-inline:auto}
+
+    /* ===== Hero ===== */
+    .hero{position:relative;overflow:hidden;color:#fff;padding:74px 0 58px;
+      background:
+        radial-gradient(130% 150% at 100% -10%, rgba(20,184,166,.38), transparent 55%),
+        linear-gradient(135deg,#0b3a33 0%,#0d5c53 52%,#0e7490 100%)}
+    .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+    .hero h1{font-size:clamp(2.1rem,4.9vw,3.55rem);font-weight:800;line-height:1.1;letter-spacing:-.035em;margin:.42em 0 .32em}
+    .hero p{max-width:74ch;margin:0;font-size:1.03rem;line-height:1.72;color:rgba(255,255,255,.9)}
+    .hero .hl,.hero .hl2,.hero .hl3{color:#0b2b26}
+
+    .pagenav{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+    .page-switch{display:inline-flex;align-items:center;gap:7px;margin-top:0;
+      padding:9px 15px;border-radius:999px;font-weight:700;font-size:.9rem;text-decoration:none;
+      background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2);
+      box-shadow:none;backdrop-filter:blur(4px);transition:background .16s,transform .16s}
+    .page-switch:hover{background:rgba(255,255,255,.22);transform:translateY(-1px)}
+
+    /* ===== Quick cards ===== */
+    .quick{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:34px}
+    .quick a{padding:18px 18px 16px;border-radius:var(--r-sm);text-decoration:none;color:#fff;
+      background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);transition:background .16s,transform .16s}
+    .quick a:hover{background:rgba(255,255,255,.17);transform:translateY(-2px)}
+    .quick b{display:block;font-size:1.02rem;font-weight:800;letter-spacing:-.01em}
+    .quick span{display:block;margin-top:5px;font-size:.82rem;line-height:1.5;color:rgba(255,255,255,.78)}
+
+    /* ===== Layout + TOC ===== */
+    .layout{display:grid;grid-template-columns:288px minmax(0,1fr);gap:38px;padding:38px 0 84px}
+    .toc{position:sticky;top:18px;align-self:start;max-height:calc(100vh - 36px);overflow-y:auto;
+      overscroll-behavior:contain;background:var(--surface);border:1px solid var(--line);
+      border-radius:var(--r);padding:20px 16px;box-shadow:var(--shadow-sm);
+      scrollbar-width:thin;scrollbar-color:#d6d1c7 transparent}
+    .toc::-webkit-scrollbar{width:8px}
+    .toc::-webkit-scrollbar-thumb{background:#ddd8ce;border-radius:8px;border:2px solid var(--surface)}
+    .toc strong{display:block;margin:2px 4px 12px;font-size:1.06rem;font-weight:800;letter-spacing:-.01em}
+    .toc small{display:block;margin:18px 8px 6px;font-size:.7rem;font-weight:800;letter-spacing:.06em;
+      text-transform:uppercase;color:var(--brand)}
+    .toc small.legend{margin:2px 6px 10px;color:var(--ink-3);font-weight:600;letter-spacing:0;text-transform:none;font-size:.72rem}
+    .toc small.legend .toctag{margin-left:0;margin-right:3px}
+
+    .toc a{display:block;text-decoration:none;color:var(--ink-2);padding:6px 10px;border-radius:8px;
+      font-size:.885rem;line-height:1.35;border-left:2px solid transparent;transition:background .13s,color .13s}
+    .toc a:hover{background:var(--sunken);color:var(--ink)}
+    .toc a.active{background:var(--brand-soft);color:var(--brand-ink);font-weight:700;border-left-color:var(--brand)}
+
+    .toc a.tochead{margin-top:3px;font-weight:800;color:var(--ink);letter-spacing:-.01em;font-size:.9rem;
+      display:flex;align-items:baseline;gap:.15em;cursor:pointer}
+    .toc a.tochead:first-of-type{margin-top:2px}
+    .toc a.tochead:hover{background:var(--brand-soft);color:var(--brand-ink)}
+    .toc a.tochead.activehead{background:var(--brand-soft);color:var(--brand-ink);border-left-color:var(--brand)}
+    .toc a.tochead::before{content:"▸";display:inline-block;width:1.05em;flex:0 0 auto;color:var(--brand);
+      font-size:.78em;transition:transform .2s ease;transform-origin:center}
+    .toc a.tochead:has(+ .tocgroup.open)::before{transform:rotate(90deg)}
+
+    .toc .tocgroup{max-height:0;overflow:hidden;opacity:.4;
+      transition:max-height .3s ease, opacity .25s ease, margin .25s ease}
+    .toc .tocgroup.open{max-height:1400px;opacity:1;margin-bottom:6px}
+    .toc .tocgroup a{margin-left:6px;font-size:.85rem;color:var(--ink-3)}
+    .toc .tocgroup a:hover{color:var(--ink)}
+    .toc .tocgroup a.active{color:var(--brand-ink)}
+
+    .toctag{display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.02em;padding:1px 6px;
+      border-radius:6px;margin-left:5px;vertical-align:middle;line-height:1.6}
+    .toctag.q{background:var(--amber-soft);color:var(--amber)}
+    .toctag.p{background:var(--brand-soft);color:var(--brand-ink)}
+
+    /* ===== Pager ===== */
+    .pager{display:flex;gap:12px;margin-top:10px}
+    .pgbtn{flex:1;display:flex;flex-direction:column;gap:3px;padding:15px 18px;background:var(--surface);
+      border:1px solid var(--line);border-radius:var(--r-sm);text-decoration:none;color:var(--ink);
+      box-shadow:var(--shadow-sm);transition:border-color .16s,transform .16s,box-shadow .16s}
+    .pgbtn:hover{border-color:var(--brand);transform:translateY(-2px);box-shadow:var(--shadow)}
+    .pgbtn span{font-size:.74rem;color:var(--ink-3);font-weight:700;letter-spacing:.02em}
+    .pgbtn b{font-size:.94rem;line-height:1.35;letter-spacing:-.01em}
+    .pgbtn.next{text-align:right;align-items:flex-end}
+    .pgbtn.ghost{visibility:hidden;box-shadow:none;border:0;background:none}
+
+    /* ===== Sections (pager: one at a time) ===== */
+    .js main>.section{display:none}
+    .js main>.section.shown{display:block;animation:fade .28s ease}
+    @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    main{min-width:0}
+    .section{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+      padding:clamp(20px,3.5vw,34px);margin-bottom:20px;box-shadow:var(--shadow-sm);scroll-margin-top:16px}
+
+    h2{margin:0 0 6px;font-size:clamp(1.35rem,2.6vw,1.7rem);font-weight:800;letter-spacing:-.02em;line-height:1.25;color:var(--ink)}
+    h2 .dur{font-size:.72rem;font-weight:700;color:var(--brand);background:var(--brand-soft);
+      padding:3px 9px;border-radius:999px;margin-left:9px;vertical-align:middle;letter-spacing:0}
+    .lead{color:var(--ink-2);margin:2px 0 18px;font-size:1.02rem;line-height:1.7}
+    h3{font-size:1.14rem;font-weight:800;letter-spacing:-.015em;margin:28px 0 9px;padding-top:2px}
+    h3::before{content:"";display:inline-block;width:.62em;height:.62em;margin-right:.5em;border-radius:3px;
+      background:var(--brand);vertical-align:middle;transform:translateY(-.08em)}
+    h4{font-size:1.01rem;font-weight:800;margin:18px 0 6px;color:var(--brand-ink)}
+    p{margin:.6em 0}
+    ul,ol{margin:9px 0;padding-left:1.35rem}
+    li{margin:5px 0}li::marker{color:var(--ink-3)}
+
+    code{background:var(--sunken);border:1px solid var(--line);border-radius:6px;padding:1.5px 6px;
+      font-size:.88em;font-family:var(--mono);color:#0b5b54}
+    pre{background:#141b2d;color:#e6ebf5;border-radius:var(--r-sm);padding:17px 19px;overflow:auto;
+      font-size:.86rem;line-height:1.65;margin:14px 0;box-shadow:var(--shadow-sm)}
+    pre code{background:none;border:0;padding:0;color:inherit;font-size:inherit}
+
+    /* Marker highlights */
+    .hl,.hl2,.hl3{padding:.5px 5px;border-radius:5px;font-weight:700;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+    .hl{background:linear-gradient(180deg,transparent 55%,var(--hl-y) 55%)}
+    .hl2{background:linear-gradient(180deg,transparent 55%,var(--hl-g) 55%)}
+    .hl3{background:linear-gradient(180deg,transparent 55%,var(--hl-p) 55%)}
+
+    /* Callouts */
+    .notice{border-left:4px solid var(--blue);background:var(--blue-soft);padding:15px 18px;
+      border-radius:0 var(--r-sm) var(--r-sm) 0;margin:16px 0;font-size:.98rem;line-height:1.7}
+    .notice.warn{border-color:var(--amber);background:var(--amber-soft)}
+    .notice.teal{border-color:var(--brand);background:var(--brand-soft)}
+    .notice.key{border-color:var(--rose);background:var(--rose-soft)}
+    .notice b{font-weight:800}
+
+    /* Tables */
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:var(--r-sm);margin:16px 0;box-shadow:var(--shadow-sm)}
+    table{width:100%;border-collapse:collapse;min-width:520px;background:var(--surface);font-size:.94rem}
+    th,td{padding:12px 15px;border-bottom:1px solid var(--line-soft);text-align:left;vertical-align:top;line-height:1.6}
+    th{background:var(--sunken);color:var(--ink);font-weight:800;font-size:.86rem;letter-spacing:-.01em;
+      position:sticky;top:0}
+    tbody tr:nth-child(even){background:#fbfaf7}
+    tr:last-child td{border-bottom:0}
+
+    /* Tags */
+    .tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:.76rem;font-weight:800;letter-spacing:-.01em;
+      background:var(--blue-soft);color:var(--blue)}
+    .tag.green{background:var(--brand-soft);color:var(--brand-ink)}
+    .tag.amber{background:var(--amber-soft);color:var(--amber)}
+    .tag.teal{background:var(--brand-soft);color:var(--brand-ink)}
+    .tag.rust{background:var(--amber-soft);color:var(--amber)}
+
+    /* Grids + mini cards */
+    .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .mini{border:1px solid var(--line);border-radius:var(--r-sm);padding:17px;background:#fdfcfa}
+    .mini h3,.mini h4{margin:0 0 8px}
+    .mini h3::before{display:none}
+
+    /* Steps */
+    .steps{counter-reset:s}
+    .step{counter-increment:s;position:relative;padding:3px 0 16px 46px;min-height:42px}
+    .step:before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;display:grid;
+      place-items:center;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;font-size:.9rem}
+
+    .formula{font-size:1.02rem;font-weight:800;text-align:center;background:var(--amber-soft);
+      border:1px solid #f3ddb6;border-radius:var(--r-sm);padding:18px;letter-spacing:-.01em}
+    .fine{font-size:.86rem;color:var(--ink-3);line-height:1.65}
+
+    /* Coursehead (module intro) */
+    .coursehead{border:0;color:#fff;position:relative;overflow:hidden;
+      background:radial-gradient(120% 160% at 100% 0%, rgba(20,184,166,.32), transparent 58%),
+                 linear-gradient(135deg,#0c453c,#0e6c62)}
+    .coursehead h2{color:#fff;font-size:clamp(1.5rem,3vw,2rem)}
+    .coursehead .lead{color:rgba(255,255,255,.88)}
+    .coursehead .dur{background:rgba(255,255,255,.18);color:#fff}
+    .badge{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.02em;
+      background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);padding:5px 12px;border-radius:999px;margin-bottom:10px}
+
+    /* Footer */
+    .footer{border-top:1px solid var(--line);margin-top:8px;padding:26px 0 46px;color:var(--ink-3);font-size:.85rem}
+
+    /* Responsive */
+    @media(max-width:920px){
+      .quick{grid-template-columns:1fr}
+      .layout{display:block;padding:26px 0 60px}
+      .toc{position:static;max-height:none;margin-bottom:20px}
+      .grid2,.grid3{grid-template-columns:1fr}
+    }
+    @media(max-width:560px){
+      body{font-size:16px}
+      .hero{padding:52px 0 40px}
+      .section{padding:20px 17px}
+      .pager{flex-direction:column}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *{scroll-behavior:auto!important}
+      .js main>.section.shown{animation:none}
+      .toc .tocgroup{transition:none}
+      .toc a.tochead::before{transition:none}
+    }
+
+    /* Print */
+    @media print{
+      body{background:#fff;font-size:10.5pt;color:#111}
+      .hero{padding:22px 0;background:#fff!important;color:#111;border-bottom:2px solid #111}
+      .hero p{color:#333}.eyebrow{color:#555}
+      .page-switch,.pagenav,.toc,.pager{display:none!important}
+      .quick a{border:1px solid #aaa;background:#fff;color:#111}
+      .quick b,.quick span{color:#111}
+      .layout{display:block;padding:16px 0}
+      .section{box-shadow:none;border:1px solid #bbb;padding:16px;break-inside:avoid}
+      .coursehead{background:#eee!important;color:#111}.coursehead h2,.coursehead .lead,.badge{color:#111}
+      .badge{border-color:#999}
+      h2,h3,h4{color:#111}h3::before{background:#111}
+      pre{background:#f4f4f5;color:#111;border:1px solid #ccc}
+      code{color:#111}
+      .hl,.hl2,.hl3{background:transparent;text-decoration:underline}
+      main>.section{display:block!important}.footer{display:none}
+    }
+
+  
+    .js main>.section.is-active{display:block;animation:fade .28s ease}
+    .dupe{display:none!important}
+    @media print{main>.section.dupe{display:none!important}}
+
+  </style>
+</head>
+<body>
+  <header class="hero"><div class="wrap">
+    <div class="eyebrow">AI 에이전트 · 통합 강의 노트</div>
+    <h1>AI 에이전트 학습 노트</h1>
+    <p>여기저기 흩어져 들은 강의를 <b>출처별로 분리</b>해 전부 기록한 개인 노트입니다. 요약이 아니라 강의 내용을 그대로 담되, 중요한 부분은 <span class="hl">노란 강조</span>·<span class="hl2">초록(안전·핵심)</span>·<span class="hl3">분홍(주의)</span>과 콜아웃으로 눈에 띄게 표시했습니다. 언제든 들어와서 다시 확인하는 용도입니다.</p>
+    <nav class="pagenav" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px"><a class="page-switch" style="margin-top:0" href="KDT-교육-운영-종합안내.html">📋 운영 안내</a><a class="page-switch" style="margin-top:0" href="선행학습-로드맵.html">🧭 선행학습</a><span class="page-switch" style="margin-top:0;background:#fbbf24;color:#172033;box-shadow:none;cursor:default">📝 강의 노트(앤트로픽·인프런)</span><a class="page-switch" style="margin-top:0" href="모두연-노드-강의노트.html">🧩 모두연 노드</a><a class="page-switch" style="margin-top:0" href="https://kjuyoung77.github.io/ModuWorks/" target="_blank" rel="noopener">🗂️ 과제 모음 ↗</a></nav>
+    <div class="quick"><a href="#course-a"><b>Ⓐ 앤트로픽 · AI Fluency</b><span>AI와 협업하는 4D 프레임워크</span></a><a href="#course-b"><b>Ⓑ 인프런 · 오리엔테이션</b><span>AI 에이전트 What·Why·How + ADK · 9강</span></a></div>
+  </div></header>
+
+  <div class="wrap layout">
+    <nav class="toc"><strong>목차</strong>
+      <a class="tochead" data-c="a" href="#course-a">Ⓐ 앤트로픽 · AI FLUENCY</a>
+      <div class="tocgroup" data-c="a">
+      <a href="#a-overview">L1·2. 4D 한눈에</a>
+      <a href="#a-delegation">① Delegation 위임</a>
+      <a href="#a-description">② Description 설명</a>
+      <a href="#a-discernment">③ Discernment 분별</a>
+      <a href="#a-diligence">④ Diligence 성실·책임</a>
+      <a href="#a-learning">L3. 학습 파트너로</a>
+      <a href="#a-career">L4. 커리어 설계에</a>
+      <a href="#a-loop">L5. Human in the Loop</a>
+      </div>
+      <a class="tochead" data-c="b" href="#course-b">Ⓑ 인프런 · 오리엔테이션</a>
+      <div class="tocgroup" data-c="b">
+      <a href="#b-l1">1. 강의소개</a>
+      <a href="#b-l2">2. AI 에이전트란 (What)</a>
+      <a href="#b-l3">3. 왜 AI에이전트일까 (Why)</a>
+      <a href="#b-l4">4. 어떻게 만드나 (How)</a>
+      <a href="#b-l5">5. ADK 개발환경 준비</a>
+      <a href="#b-l6">6. 헬로 ADK</a>
+      <a href="#b-l7">7. ADK 실행하기</a>
+      <a href="#b-l8">8. 여러 도구 에이전트</a>
+      <a href="#b-l9">9. What's Next?</a>
+      </div>
+    </nav>
+
+    <main>
+
+      <!-- ================= COURSE A : ANTHROPIC ================= -->
+      <section class="section coursehead c-anthropic" id="course-a">
+        <div class="badge">COURSE Ⓐ · ANTHROPIC · AI FLUENCY FOR STUDENTS</div>
+        <h2>앤트로픽 · AI Fluency for Students (4D 프레임워크)</h2>
+        <p class="lead">AI를 <b>효과적(effective)·효율적(efficient)·윤리적(ethical)·안전(safe)</b>하게 협업하는 능력. 모델·도구·프롬프트를 넘어서 오래 남는 것 = <b>AI 유창성(Fluency)</b>. 총 5개 레슨.</p>
+        <p class="fine" style="color:rgba(255,255,255,.85);margin:0">※ 이 섹션은 바탕화면에 보관된 <b>실제 강의 트랜스크립트 5종을 직접 대조</b>해 정리했습니다. 저작: Rick Dakan, Joseph Feller &amp; Anthropic (2025) · CC BY-NC-SA 4.0. 각 D는 3개 하위 요소로 이루어집니다.</p>
+      </section>
+
+      <section class="section" id="a-overview"><h2>L1·L2 · 4D 한눈에 — 지도부터 편다</h2>
+        <p class="lead">"AI를 쓰는 것"과 "AI에 유창한 것"은 다르다. 대부분의 AI 가이드는 새 모델·제품이 나오면 낡지만, <span class="hl">AI 유창성은 모델·도구·프롬프트를 넘어 지속된다.</span></p>
+        <p>핵심 질문들: 무엇을 AI에 자동화하고 무엇은 안 할까? 어떤 도구를 고를까? 정확성은 어떻게 검증할까? AI를 썼다고 교사·고용주에게 알릴까, 알린다면 어떻게?</p>
+        <div class="notice key"><b>단순 자동화(automation) vs 증강(augmentation)</b><br>깊이 생각 없이 "AI가 날 대신해 일하게" 하는 게 자동화. AI 유창성은 <span class="hl">내가 이미 하는 좋은 일에 AI를 <b>더하는(augment)</b> 것.</span> 특히 학습에서는 AI가 날 대신하는 게 아니라 <b>내가 더 잘하도록</b> 돕게 한다.</div>
+        <h3>4D — 서로 얽힌 네 능력</h3>
+        <div class="grid2">
+          <div class="mini"><h4>① Delegation (위임)</h4><p class="fine">무엇을 할지, 누가 할지 — 사람 몫·AI 몫·함께할 몫을 나눈다.</p></div>
+          <div class="mini"><h4>② Description (설명)</h4><p class="fine">AI에게 어떻게 말하나. 명령이 아니라 협업자와의 대화.</p></div>
+          <div class="mini"><h4>③ Discernment (분별)</h4><p class="fine">좋은/나쁜 결과를 알아보는 판단력.</p></div>
+          <div class="mini"><h4>④ Diligence (성실·책임)</h4><p class="fine">책임 있게·투명하게·윤리적으로.</p></div>
+        </div>
+        <div class="notice teal"><b>이 강의는 개요:</b> 각 능력의 더 깊은 통찰·실습은 앤트로픽의 <b>「AI Fluency: Framework &amp; Foundations」</b> 코스에 있음. 핵심은 <span class="hl">"책임 있는 human in the loop"</span>가 되는 것.</div>
+      </section>
+
+      <section class="section" id="a-delegation"><h2>① Delegation — 위임</h2>
+        <p class="lead">"무엇을 하려는가, 그리고 누가 해야 하나." <span class="hl">사람이 할 일 / AI가 할 일 / 함께할 일</span>을 나누는 것 — 사려 깊은 협업의 토대.</p>
+        <div class="grid3">
+          <div class="mini"><h4>Problem Awareness<br>(문제 인식)</h4><p class="fine">AI를 켜기 전에 "내가 진짜 뭘 하려는가"를 명확히. 시험공부? → 뭘 해야 하나(단어 복습? 사례 준비?), 성공은 어떤 모습인가. <span class="hl2">이 이해가 작업 내내 나의 북극성(north star).</span></p></div>
+          <div class="mini"><h4>Platform Awareness<br>(플랫폼 인식)</h4><p class="fine">AI는 다 같지 않다. 어떤 건 복잡한 추론에, 어떤 건 학습 지원용으로 특화. 문제 인식이 "할 일"이면 플랫폼 인식은 "최적의 도구·파트너 찾기". (걷기·자전거·버스·운전 중 고르듯)</p></div>
+          <div class="mini"><h4>Task Delegation<br>(작업 분담)</h4><p class="fine">실제로 나와 AI에게 일을 나눈다. <b>사람</b>=창의·판단·현실 맥락, <b>AI</b>=속도·일관성·방대한 정보 처리. 양쪽 강점을 살릴 때 최고 결과.</p></div>
+        </div>
+      </section>
+
+      <section class="section" id="a-description"><h2>② Description — 설명</h2>
+        <p class="lead">AI에게 <b>실제로 말하는 법</b>. 단순 프롬프팅이 아니라 <span class="hl">완벽한 프롬프트 암기가 아닌, 협업자와의 대화</span>에 가깝다.</p>
+        <div class="grid3">
+          <div class="mini"><h4>Product Description<br>(결과물)</h4><p class="fine">최종 결과로 뭘 원하나 — 상세할수록 좋다. "이메일 써줘"가 아니라 길이·핵심 메시지·수신자·문체·형식까지.</p></div>
+          <div class="mini"><h4>Process Description<br>(과정)</h4><p class="fine">AI가 어떻게 접근하길 원하나. 남에게 가르치듯. "단계적으로 생각해", "여러 관점 고려해", "가장 중요한 것부터".</p></div>
+          <div class="mini"><h4>Performance Description<br>(역할·태도)</h4><p class="fine">상호작용 중 AI가 어떻게 행동하길 — "내 아이디어에 반박하는 비판적 편집자", "지지적 브레인스토밍" 등 역할 지정.</p></div>
+        </div>
+      </section>
+
+      <section class="section" id="a-discernment"><h2>③ Discernment — 분별</h2>
+        <p class="lead">Description이 "원하는 걸 설명"이라면, Discernment는 <span class="hl">결과가 좋은지 나쁜지 알아보는 판단력.</span> 오류를 막고, 새로운 창의적 길도 발견한다.</p>
+        <div class="grid3">
+          <div class="mini"><h4>Product Discernment</h4><p class="fine">결과물의 품질 — 정보가 정확한가? 제안이 실제 도움되나? <b>+ 내가 생각 못한 걸 보여줬나?</b> 오류 점검 + 새 관점 열기 둘 다.</p></div>
+          <div class="mini"><h4>Process Discernment</h4><p class="fine">AI가 어떻게 도달했나 — 관련 요소를 다 고려했나? 합리적 가정? 논리적 단계? 추론을 이해하면 좋은 출력은 신뢰하고 문제는 잡는다.</p></div>
+          <div class="mini"><h4>Performance Discernment</h4><p class="fine">상호작용 중 AI가 어떻게 행동했나 — 필요한 방식으로 도왔나? 요청한 역할을 지켰나? 적절히 반박했나? 다음 상호작용 조정에 활용.</p></div>
+        </div>
+        <div class="notice"><b>분별 ≠ 오류 사냥만.</b> AI가 놀랍게 하거나 더 잘 생각하게 도울 때를 <span class="hl">알아보는 것</span>도 분별. 때론 내가 못한 접근·놓친 연결·밝은 관점을 준다.</div>
+        <div class="notice key"><b>Description ↔ Discernment 피드백 루프</b><br>설명 → 결과 판별 → 조정·재설명. 좋은 대화처럼 함께 이해를 쌓아간다. <span class="hl">이 반복 과정이 진짜 AI 유창성이 자라는 곳.</span> "에세이 아이디어 좀 도와줘"가 구조·논증·근거에 대한 정교한 사고로 진화 → AI가 지시 따르는 도구에서 <b>함께 생각하는 파트너</b>로 바뀐다.</div>
+      </section>
+
+      <section class="section" id="a-diligence"><h2>④ Diligence — 성실·책임</h2>
+        <p class="lead">AI 사용에 <b>책임</b>지는 것. 모든 단계에서 중요. 지루한 규정준수가 아니라 <span class="hl">"내가 떳떳하게 뒤에 설 수 있는" 방식으로 쓰는 것.</span></p>
+        <div class="grid3">
+          <div class="mini"><h4>Creation Diligence<br>(생성 책임)</h4><p class="fine">어떤 AI를 쓰고 어떻게 상호작용할지 신중히 — 프라이버시·보안·맥락 적절성 고려.</p></div>
+          <div class="mini"><h4>Transparency Diligence<br>(투명성 책임)</h4><p class="fine">AI를 어떻게 썼는지 정직하게. 교수·팀원·미래 고용주는 알 자격이 있다. 제대로 하면 숨길 게 없고 <span class="hl2">오히려 협업 능력을 보여주는 것.</span></p></div>
+          <div class="mini"><h4>Deployment Diligence<br>(배포 책임)</h4><p class="fine">결과물의 주인은 나. 정확성 검증·적절성 확인·책임. <span class="hl">"AI가 이메일 초안을 써도, 보내는 건 나. AI가 아이디어를 내도, 고르는 건 나."</span></p></div>
+        </div>
+        <div class="notice teal"><b>내 상황 연결:</b> Deployment Diligence = 내 CLAUDE.md의 <b>"완료=산출물로 판정"·비가역 승인 게이트</b>. Transparency = 블로그에 AI 사용 밝히기. Discernment = 블로그 <b>"검증된 사실"</b> 노트.</div>
+      </section>
+
+      <section class="section" id="a-learning"><h2>L3 · 응용 1 — AI를 학습 파트너로</h2>
+        <p class="lead">핵심 구분: <span class="hl3">AI가 날 대신해 일하게</span> vs <span class="hl2">AI로 내가 더 잘 배우게.</span> AI가 대신 생각해주면 실전에서 쓸 비판적 사고 근육을 못 기른다(시험·면접·발표에서 드러남).</p>
+        <h3>4D를 학습에 적용</h3>
+        <ul>
+          <li><b>Delegation:</b> 목표가 "논증적 글쓰기 향상"이면 AI에게 논증을 <span class="hl3">대신 쓰게 하지 말 것.</span> 대신 <b>토론 상대(debate partner)</b>로 써서 반론을 던지게 하고 내 입장을 세운다. 운전대는 내가.</li>
+          <li><b>Description:</b> 대부분 AI는 곧장 답부터 주려 한다(학습엔 도움 안 됨). <span class="hl">"튜터/교수처럼 행동해", "풀지 말고 질문만 해", "표로 계속 갱신해줘"</span>처럼 역할·형식을 지정해 학습에 맞게 조종.</li>
+          <li><b>Discernment:</b> 결과 품질뿐 아니라 <span class="hl2">"내가 실제로 배우고 있나, 그냥 묻어가나"</span>를 정직하게. 기초가 없으면 AI 정확성 판단도 어렵다 → <b>비-AI 출처로 중요한 지식은 검증.</b></li>
+          <li><b>Diligence:</b> 학교가 허용하는 AI·정책 준수(Creation), AI 사용 기록·공개(Transparency), <span class="hl">제출물의 모든 부분을 설명·응용할 수 있어야 함(Deployment).</span> "왜 이렇게 했어?"에 "AI가 정했어서 몰라요"면 진짜 배운 게 아니다.</li>
+        </ul>
+        <div class="notice"><b>학습용 프롬프트 예:</b> "대학 1학년인데 세포 수준 광합성을 이해 중이야. 설명하지 말고, 지난주 배운 것과 연결되는 질문을 던져줘." / "이 로그 문제 풀어주지 말고 시작점만 짚어주고, 같이 풀 쉬운 연습문제 몇 개 줘." <br>패턴: <span class="hl">AI를 대체 선수가 아니라 코치로.</span> 최애 기법 = <b>AI를 "내 학생"으로 만들어 가르치기.</b></div>
+        <div class="notice key"><b>🔍 자가 점검 (gut check):</b> ① 배운 걸 남에게 설명할 수 있나? ② AI 없이 비슷한 문제를 풀 수 있나? ③ 그냥 되는 게 아니라 <b>왜</b> 되는지 아나? <br>막혀서 답답한 그 느낌 = <span class="hl2">뇌가 새 연결을 만드는 중.</span> 쉬운 길이 아니라 진짜 성공으로 이끄는 길.</div>
+      </section>
+
+      <section class="section" id="a-career"><h2>L4 · 응용 2 — AI를 커리어 설계에</h2>
+        <p class="lead">이력서·자소서를 AI로 찍어내면 <span class="hl3">채용담당자가 바로 알아채는 제네릭 콘텐츠</span>가 된다. AI를 <b>결정·콘텐츠를 대신 만드는 서비스</b>가 아니라 <b>사고 파트너</b>로.</p>
+        <div class="notice"><b>커리어 탐색 = 두 부분:</b> ① <b>정보 수집</b>(AI가 강함 — 뭐가 있고, 어떤 스킬을 원하고, 산업이 어떻게 변하는지) + ② <b>개인적 성찰</b>(오직 나만 앎 — 뭐가 나를 살아있게 하고, 어떤 트레이드오프를 받아들이고, 내 가치와 맞는지).</div>
+        <h3>AI를 커리어에 쓰는 법</h3>
+        <div class="table-wrap"><table><thead><tr><th>용도</th><th>예시 질문</th></tr></thead><tbody>
+          <tr><td>산업 리서치·트렌드</td><td>"환경과학+데이터분석을 결합한 지속가능 테크의 신흥 직무는?"</td></tr>
+          <tr><td>스킬 갭 파악</td><td>"UX 디자이너가 되려는데, 부트캠프가 가르치는 것 vs 고용주가 실제 보는 스킬 차이는?"</td></tr>
+          <tr><td>연봉·시장 인사이트</td><td>"도시별 신입 컨설턴트의 실제 연봉 상승 곡선은?"</td></tr>
+          <tr><td>경로·타임라인</td><td>"교직에서 기업 교육 직무로 전환한 다양한 경로를 보여줘"</td></tr>
+          <tr><td>역할 브레인스토밍</td><td>"저널리즘과 비슷한 스킬을 쓰면서 고용 안정성이 더 나은 직업은?"</td></tr>
+          <tr><td>자기 가치 끌어내기</td><td>AI가 <b>나에게 질문</b>하게 해서 내 커리어 목표·가치를 명료화 (스스로도 안 해본 것)</td></tr>
+        </tbody></table></div>
+        <h3>스킬 개발 · 취업</h3>
+        <ul>
+          <li><b>스킬 개발</b> = 학습 파트너와 같은 원리. 구체적으로. "데이터 분석 배우게 도와줘" ❌ → "마케팅 매니저인데 설문 데이터 분석이 필요해. 엑셀 피벗테이블 기초부터 계획 세우고 연습까지 <b>같이 하자</b>" ✅. AI를 <b>코치</b>로.</li>
+          <li><b>취업</b>: AI는 브레인스토밍·코칭·연습·초안까지. 하지만 <span class="hl">최종적으로 "나"를 표현하는 책임은 나.</span> 전이 가능한 스킬 찾기, 면접 연습(특정 팀 면접관 역할극), 자소서 각도 찾기에 활용.</li>
+        </ul>
+        <div class="notice teal"><b>철칙:</b> 내 전문성·커리어 목표가 AI 협업을 <b>이끌어야</b> 한다 — AI는 뭐가 나를 충족시키는지, 어떤 트레이드오프를 감수할지 모른다. <span class="hl">AI 유창성 자체가 이제 값진 커리어 스킬</span>이니 이력서에 넣어라.</div>
+      </section>
+
+      <section class="section" id="a-loop"><h2>L5 · 마무리 — Human in the Loop &amp; 나만의 약속</h2>
+        <p class="lead">"Human in the loop" = 모든 AI 상호작용에서 <span class="hl">결정하고 배를 조종하는 건 사람.</span> 뭘 물을지, 말이 되는지 평가할지, 쓸 만한지 정하는 게 나. 수동적으로 받아들이지 않고 내 판단·창의·옳고 그름을 가져온다.</p>
+        <div class="notice key"><b>✍️ 핵심 실습 — 나만의 AI 협업 원칙(personal commitment) 쓰기</b><br>내 가치를 깊이 생각해 직접 써본다. 길든 짧든:
+          <ul>
+            <li>어떤 <b>human in the loop</b>이 되고 싶은가 (언제 AI를 쓰고, <b>언제 안 쓸지</b>)</li>
+            <li>학습에 AI를 어떻게 쓸지</li>
+            <li>AI 사용을 <b>언제·어떻게 공개</b>할지</li>
+            <li>AI가 있어도 <b>내 스킬을 어떻게 날카롭게 유지</b>할지</li>
+          </ul>
+          <span class="hl">보기 좋은 말이 아니라 진짜로.</span> 이 약속이 AI 사용의 북극성이 된다.</div>
+        <h3>계속 성찰하기</h3>
+        <p>최고의 AI 사용자가 남들이 건너뛰는 것: <b>자기 실천을 끊임없이 성찰.</b> "이 방식이 날 성장시키나? 미래에 필요한 스킬을 기르나, 그냥 과제를 끝내나? AI 역할을 정직하게 밝히나? 내 가치와 맞나?"</p>
+        <div class="notice teal"><b>결론:</b> 새 AI는 계속 나온다. 하지만 <span class="hl">사려 깊게 위임하고, 명확히 설명하고, 비판적으로 분별하고, 성실히 책임지면</span> 무엇이 와도 준비된 것. <b>내 인간다움(내 재능·경험·관점·관계)은 대체 불가.</b> AI는 그걸 더 잘 표현하게 도울 뿐. AI 유창성은 목적지가 아니라 여정.</div>
+      </section>
+
+      <section class="section dupe" id="a-overview-x"><h2>4D 한눈에 — 오늘은 지도만 펼칩니다</h2>
+        <p class="lead">낯선 도시에선 골목부터 걷지 말고 지도를 먼저 편다. 4D가 그 지도.</p>
+        <p><b>AI Fluency(AI 유창성)</b>란 프롬프트 몇 개를 아는 게 아니라, <span class="hl">"지금 나는 어느 구역에 있고 다음에 어디로 가야 하는지"를 스스로 판단하는 상태</span>입니다. 그 지도가 네 가지 능력, 4D예요.</p>
+        <div class="grid2">
+          <div class="mini"><h4>① Delegation (위임)</h4><p class="fine">뭘 AI에 맡기고 뭘 내가 쥘지 정한다. 모든 협업의 출발점.</p></div>
+          <div class="mini"><h4>② Description (설명)</h4><p class="fine">AI가 알아듣게 정확히 전달한다. 프롬프트는 이것의 일부.</p></div>
+          <div class="mini"><h4>③ Discernment (분별)</h4><p class="fine">나온 결과를 곧이곧대로 믿지 않고 비판적으로 판별한다.</p></div>
+          <div class="mini"><h4>④ Diligence (성실·책임)</h4><p class="fine">책임지고 투명하게. 최종 책임은 나. (능력보다 태도)</p></div>
+        </div>
+        <div class="notice key"><b>오늘 꼭 챙길 두 가지</b><br>1) <span class="hl">②Description과 ③Discernment는 한 몸</span> — 설명한다 → 결과 나온다 → 판별한다 → "이걸 안 알려줬네" → 다시 설명한다. 이 <b>설명↔판별 루프</b>를 몇 바퀴 잘 도느냐가 실력을 가른다.<br>2) <span class="hl">4D의 주어는 전부 "나"</span> — AI가 위임·분별하는 게 아니라 내가 한다. 그래서 마지막이 <i>Human in the Loop</i>로 끝난다.</div>
+      </section>
+
+      <section class="section dupe" id="a-delegation-x"><h2>① Delegation — 위임 <span class="tag rust">1강</span></h2>
+        <p class="lead">"뭘 AI에 맡기고, 뭘 내가 할까"를 <b>의식적으로</b> 나누는 능력. 다 던지는 것도, 다 끌어안는 것도 실패.</p>
+        <p>Delegation은 세 가지 인식으로 이루어집니다.</p>
+        <div class="grid3">
+          <div class="mini"><h4>Problem Awareness<br>(문제 인식)</h4><p class="fine">내가 진짜 풀려는 게 뭔가? 목표·성공 기준·제약을 스스로 또렷이 하는 것. 문제를 모르면 위임도 못 한다.</p></div>
+          <div class="mini"><h4>Platform Awareness<br>(플랫폼 인식)</h4><p class="fine">이 일에 AI가 잘 맞나, 어떤 AI·도구가 강점인가? AI의 한계와 능력을 알아야 맡길지 말지 정한다.</p></div>
+          <div class="mini"><h4>Task Delegation<br>(작업 분담)</h4><p class="fine">일을 사람 몫·AI 몫·같이 할 몫으로 실제로 쪼갠다. 어디까지 맡기고 어디서 내가 개입할지 결정.</p></div>
+        </div>
+        <div class="notice teal"><b>내 상황 연결:</b> 하네스에서 "이건 매니저(나)에게, 이건 웹팀에게" 나누는 그 근육이 바로 Delegation.</div>
+      </section>
+
+      <section class="section dupe" id="a-description-x"><h2>② Description — 설명 <span class="tag rust">2강</span></h2>
+        <p class="lead">AI는 눈치가 없다. 내 머릿속 맥락을 모른다. 원하는 걸 <span class="hl">말로 정확히 그려주는 능력</span>. "프롬프트"는 이 D의 일부일 뿐.</p>
+        <p>Description도 세 가지를 말해줘야 합니다.</p>
+        <div class="grid3">
+          <div class="mini"><h4>Product Description<br>(결과물 설명)</h4><p class="fine">무엇을 원하나 — 형식·길이·톤·대상 독자·포함/제외할 것. "무엇을 만들지"의 그림.</p></div>
+          <div class="mini"><h4>Process Description<br>(과정 설명)</h4><p class="fine">어떻게 해주길 원하나 — 단계로 나눠서, 먼저 계획을 보여줘, 질문부터 해 등 작업 방식 지정.</p></div>
+          <div class="mini"><h4>Performance Description<br>(역할·성능 설명)</h4><p class="fine">어떤 역할·태도로 임할지 — "튜터처럼", "비판적으로", "전문가 관점으로" 등 AI의 페르소나 설정.</p></div>
+        </div>
+        <div class="notice"><b>핵심:</b> 좋은 설명 = 결과물(What) + 과정(How) + 역할(Who)을 함께 준다. 한 번에 완벽할 필요는 없다 — 다음 D(분별)와 왕복하며 다듬는다.</div>
+      </section>
+
+      <section class="section dupe" id="a-discernment-x"><h2>③ Discernment — 분별 <span class="tag rust">3강</span></h2>
+        <p class="lead">AI는 <span class="hl3">그럴듯하게 틀린다.</span> 문장은 매끄러운데 사실이 틀리고, 코드는 돌아가는데 헛다리를 짚는다. "이거 진짜 맞아?"를 판별하는 능력.</p>
+        <div class="grid3">
+          <div class="mini"><h4>Product Discernment<br>(결과물 분별)</h4><p class="fine">나온 답·코드·글이 정확한가, 내 목표에 맞나, 빠진 건 없나를 비판적으로 검토.</p></div>
+          <div class="mini"><h4>Process Discernment<br>(과정 분별)</h4><p class="fine">AI가 밟은 추론·단계가 타당한가? 근거 없이 건너뛴 곳은 없나 살핀다.</p></div>
+          <div class="mini"><h4>Performance Discernment<br>(성능 분별)</h4><p class="fine">이 AI·이 방식이 이 일에 적절했나? 더 나은 도구·접근은 없었나 되돌아본다.</p></div>
+        </div>
+        <div class="notice key"><b>Description ↔ Discernment 피드백 루프</b><br>설명(②) → 생성 → 분별(③) → "아 이걸 안 알려줬네" → 다시 설명(②). <span class="hl">이 루프를 잘 도는 사람이 AI를 진짜 잘 쓰는 사람</span>이다. (= 설명→판단→다듬기 반복 = 진짜 유창성)</div>
+        <div class="notice teal"><b>내 상황 연결:</b> 블로그의 <b>"검증된 사실"·정확성 노트</b>가 정확히 이 Discernment 근육.</div>
+      </section>
+
+      <section class="section dupe" id="a-diligence-x"><h2>④ Diligence — 성실·책임 <span class="tag rust">4강</span></h2>
+        <p class="lead">능력이라기보다 <b>태도</b>. 그래서 4D의 마지막. <span class="hl">"AI가 이메일 초안을 써도, 보내는 건 나."</span></p>
+        <div class="grid3">
+          <div class="mini"><h4>생성 책임<br>(Creation Diligence)</h4><p class="fine">어떤 AI를 쓸지 신중히 — 프라이버시·보안·적절성을 따진다.</p></div>
+          <div class="mini"><h4>투명성 책임<br>(Transparency Diligence)</h4><p class="fine">AI를 썼다는 걸 정직하게 밝힌다.</p></div>
+          <div class="mini"><h4>배포 책임<br>(Deployment Diligence)</h4><p class="fine">최종 결과는 내 책임 — 내보내기 전에 내가 확인하고 책임진다.</p></div>
+        </div>
+      </section>
+
+      <section class="section dupe" id="a-apply-x"><h2>응용 2가지 — 학습 · 커리어</h2>
+        <div class="grid2">
+          <div class="mini"><h3>📚 학습 파트너로</h3><p>AI한테 <b>답을 받지 말고</b> 튜터·코치로 쓴다. "설명하지 말고 질문해줘", "풀지 말고 방향만", "네가 내 학생 해봐(가르치면 내가 배움)".</p><p class="fine"><b>자가점검:</b> 남한테 설명 가능? AI 없이 비슷한 문제 풀 수 있어? 왜 되는지 알아?</p></div>
+          <div class="mini"><h3>🧭 커리어 설계에</h3><p>AI = 정보·리서치·코칭(산업 트렌드·스킬갭·연봉·모의면접), 나 = 가치·판단·"나를 표현".</p><p class="fine"><span class="hl3">제네릭 AI 이력서는 티 나서 실패.</span></p></div>
+        </div>
+      </section>
+
+      <section class="section dupe" id="a-loop-x"><h2>마무리 — Human in the Loop <span class="tag rust">5강</span></h2>
+        <p class="lead">매 순간 결정하고 방향 잡는 건 사람. 4D의 결론.</p>
+        <div class="notice"><b>핵심 실습:</b> <span class="hl">"나만의 AI 협업 원칙(personal commitment)"</span>을 직접 써본다 — 언제 AI 쓰고 안 쓸지, 학습에 어떻게, 언제 공개할지, 스킬을 어떻게 유지할지.</div>
+        <h3>왜 나에게 중요하냐 (매니저 코멘트)</h3>
+        <p>Claude 다수 세션·Codex로 Le ju3n 굴리고, 블로그도 AI로 만드는 주영님 그 자체 얘기. 4D가 그걸 잘하는 법이다.</p>
+        <ul>
+          <li><b>Delegation</b> = 하네스에서 "뭘 AI에 맡길지"(매니저·팀 분담)</li>
+          <li><b>Discernment</b> = 블로그 "검증된 사실"(정확성 노트)·웹팀 피드백 판별</li>
+          <li><b>Diligence</b> = "완료=산출물로 판정"·비가역 승인 게이트 (이미 내 CLAUDE.md에 있음)</li>
+        </ul>
+      </section>
+
+      <!-- ================= COURSE B : INFLEARN ================= -->
+      <section class="section coursehead c-inflearn" id="course-b">
+        <div class="badge">COURSE Ⓑ · INFLEARN</div>
+        <h2>인프런 · AI 에이전트 개발 오리엔테이션</h2>
+        <p class="lead">강사 승귤, 총 9강. What·Why·How로 개념을 잡고 Google ADK로 실제 에이전트를 만들어본다. <span class="hl">에이전트는 최종 목표가 아니라 AGI로 가는 과정의 한 단계.</span></p>
+      </section>
+
+      <section class="section" id="b-l1"><h2>1. 강의소개 <span class="dur">01:48</span></h2>
+        <ul>
+          <li>ChatGPT(2022) 이후 AI가 일상 소프트웨어가 됐고, <b>2025년 "AI 에이전트"가 화두</b>가 되며 다들 개발에 뛰어드는 상황.</li>
+          <li>대상: "에이전트라는 말은 들었는데 <b>뭔지·왜 이렇게 뜨는지·어떻게 만드는지</b>" 궁금한 사람.</li>
+          <li>도착점: 구글 <b>ADK</b>로 간단한 에이전트를 만들어 테스트하는 입문 튜토리얼.</li>
+          <li>목차 = <span class="hl">What / Why / How</span> 세 키워드.</li>
+        </ul>
+      </section>
+
+      <section class="section" id="b-l2"><h2>2. AI 에이전트란 <span class="dur">04:03</span> <span class="tag">What</span></h2>
+        <p class="lead">학계에 확정된 정의는 없다 → 선도 3사의 정의로 접근.</p>
+        <div class="table-wrap"><table><thead><tr><th>회사</th><th>정의 요지</th></tr></thead><tbody>
+          <tr><td><b>OpenAI</b></td><td>"사용자를 대신해 <b>독립적으로</b> 작업을 수행하는 시스템." (샘 올트먼: 에이전트 = <b>가상의 동료</b>)</td></tr>
+          <tr><td><b>Anthropic</b></td><td>LLM이 <b>도구 사용·절차를 동적으로 바꾸는 것</b>. + "모든 경우에 에이전트가 필요한 건 아니다. 워크플로우만으로 충분한 경우도 많다."</td></tr>
+          <tr><td><b>Google</b></td><td>"목표를 추구·태스크를 완료하는 소프트웨어. <b>추론·계획·기억</b> 가능, 자율성으로 의사결정·학습·조정." (가장 기술적)</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>강사의 정리:</b> 정의만 보면 헷갈리지만, <span class="hl">내가 할 일을 AI에게 대신 시키고 결과만 확인</span>하고 싶은 게 핵심. ChatGPT는 답만 주고 실행은 내가 함 → 그 다음 단계가 에이전트(자율·자동 실행).</div>
+      </section>
+
+      <section class="section" id="b-l3"><h2>3. 왜 AI에이전트일까 <span class="dur">05:30</span> <span class="tag">Why</span></h2>
+        <p class="lead">OpenAI 에이전트 모드, MS Copilot Studio, Google Agent Spaces, Anthropic MCP 등 제품이 쏟아지는 중. 이유는 <b>OpenAI의 AGI 5단계</b>로 설명된다.</p>
+        <div class="table-wrap"><table><thead><tr><th>단계</th><th>이름</th><th>설명</th></tr></thead><tbody>
+          <tr><td>1</td><td>대화형 AI</td><td>ChatGPT</td></tr>
+          <tr><td>2</td><td>추론형 AI</td><td>thinking 모델</td></tr>
+          <tr><td><b>3</b></td><td><b>자율형 AI</b></td><td><span class="hl">← 에이전트</span>. 며칠 걸리는 일도 수행</td></tr>
+          <tr><td>4</td><td>혁신형 AI</td><td>스스로 발명·개선</td></tr>
+          <tr><td>5</td><td>조직형 AI</td><td>사람 개입 없이 회사 전체 운영</td></tr>
+        </tbody></table></div>
+        <div class="notice teal"><b>결론:</b> 에이전트는 최종 목표가 아니라 <b>AGI로 가는 과정의 3단계</b>. 현재 쓸만한 예 — 코딩 에이전트(Cursor, Claude Code), 고객서비스(Salesforce Agentforce), ChatGPT Agent 등.</div>
+      </section>
+
+      <section class="section" id="b-l4"><h2>4. AI 에이전트를 만들려면? <span class="dur">04:10</span> <span class="tag">How</span></h2>
+        <h3>필요한 재료 4가지</h3>
+        <div class="grid2">
+          <div class="mini"><h4>① 언어모델 (두뇌)</h4><p class="fine">사람의 말/글을 이해하는 LLM. 에이전트의 뇌.</p></div>
+          <div class="mini"><h4>② 추론·계획</h4><p class="fine">프롬프트 설계 또는 모델의 thinking으로 계획 수립.</p></div>
+          <div class="mini"><h4>③ 도구 (tools)</h4><p class="fine">브라우저·터미널 등. 외부 API 연결(MCP로 만들기도).</p></div>
+          <div class="mini"><h4>④ 메모리</h4><p class="fine">멀티턴 대화용. 이전 정보를 저장·활용.</p></div>
+        </div>
+        <h3>동작 루프</h3>
+        <div class="formula">요청 → LLM 추론 → 도구 선택·호출 → 결과를 메모리에 저장 → 반복 → 완료 판단 시 결과물 생성</div>
+        <h3>워크플로우 vs 에이전트</h3>
+        <div class="table-wrap"><table><thead><tr><th></th><th>워크플로우</th><th>에이전트</th></tr></thead><tbody>
+          <tr><td>방식</td><td>규칙대로 실행 (정적)</td><td>LLM이 동적으로 의사결정</td></tr>
+          <tr><td>적합</td><td>패턴화된 업무</td><td>복잡·열린 문제</td></tr>
+          <tr><td>특징</td><td>성능 안정·통제 쉬움</td><td>유연하지만 변동성</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>"이걸 다 직접 만들어야 하나?"</b> → 걱정 X. <span class="hl">ADK가 다 만들어 놨으니 ADK를 쓸 것.</span></div>
+      </section>
+
+      <section class="section" id="b-l5"><h2>5. ADK 개발 환경 준비하기 <span class="dur">04:13</span></h2>
+        <p class="lead"><b>ADK = Agent Development Kit</b> (Google, Python·Java).</p>
+        <h3>ADK가 제공하는 것</h3>
+        <ul>
+          <li>에이전트 타입: <b>LLM 에이전트</b>(기본), <b>워크플로우 에이전트</b>(Sequential·Loop·Parallel)</li>
+          <li>빌트인 도구: Google Search, 코드 실행, Vertex AI·BigQuery(GCP 필요)</li>
+          <li><b>세션</b>(= 채팅방, 저장값=State) / <b>메모리</b>(여러 세션 검색, 단기·장기)</li>
+        </ul>
+        <h3>개발환경 3단계</h3>
+        <div class="steps">
+          <div class="step"><b>API 키 발급</b> — Google <b>AI Studio</b>(aistudio.google.com) → Get API Key. <span class="hl2">기본 무료.</span></div>
+          <div class="step"><b>Google ADK 설치</b> — <code>pip install google-adk</code></div>
+          <div class="step"><b>환경변수 설정</b> — <code>.env</code>에 2개(API 키 + Vertex 사용여부 등).</div>
+        </div>
+      </section>
+
+      <section class="section" id="b-l6"><h2>6. 헬로 ADK <span class="dur">03:02</span></h2>
+        <p class="lead">가장 단순한 인사 에이전트(약 10줄)로 골격 익히기.</p>
+        <div class="notice warn"><b>디렉토리 규칙:</b> <code>hello-agent/</code> 폴더 안에 <code>.env</code> + <span class="hl">파일명은 반드시 <code>agent.py</code></span></div>
+        <pre><code>from google.adk.agents import Agent
+
+def greet_user():
+    return "안녕하세요!"          # 사용자에게 인사하는 도구(tool)
+
+root_agent = Agent(
+    name="hello_agent",
+    model="gemini-2.5-flash-preview-05-20",
+    description="유저와 인사하는 에이전트입니다.",
+    instruction="사용자와 반갑게 인사해 주세요.",   # 시스템 프롬프트 역할
+    tools=[greet_user],                              # 도구는 리스트로 여러 개 가능
+)</code></pre>
+        <p class="fine">※ LLM 에이전트 = "그냥 에이전트"와 같은 말. 위 코드는 강의 흐름에 맞춘 재구성입니다.</p>
+      </section>
+
+      <section class="section" id="b-l7"><h2>7. ADK 실행하기 <span class="dur">07:44</span></h2>
+        <div class="table-wrap"><table><thead><tr><th>명령</th><th>형태</th><th>메모</th></tr></thead><tbody>
+          <tr><td><code>adk web</code></td><td>브라우저 UI</td><td>localhost:<b>8000</b>. 에이전트 <b>상위 디렉토리</b>에서 실행해야 인식. 트레이스 확인</td></tr>
+          <tr><td><code>adk run</code></td><td>콘솔 CLI</td><td>터미널에서 바로 대화</td></tr>
+          <tr><td><code>adk api_server</code></td><td>API 서버</td><td>웹서비스 형태. <b>CURL</b>로 테스트</td></tr>
+        </tbody></table></div>
+        <div class="notice teal"><b>web UI 트레이스</b>에서 <code>functionCall</code>/<code>functionResponse</code>, 이벤트, 응답 지연(latency), State를 눈으로 확인 → 디버깅에 유용.</div>
+      </section>
+
+      <section class="section" id="b-l8"><h2>8. 여러 도구를 사용하는 에이전트 <span class="dur">11:29</span> <span class="tag amber">핵심 실습</span></h2>
+        <p class="lead">멀티툴 에이전트 — 예제는 <b>날씨 + KBO 야구순위</b>.</p>
+        <h3>준비물</h3>
+        <ul>
+          <li><b><code>httpx</code></b> — 비동기 HTTP 클라이언트(requests 대체)</li>
+          <li><b><code>geopy</code></b> — 도시명 → <b>위도·경도</b> 변환</li>
+        </ul>
+        <h3>도구 흐름</h3>
+        <div class="grid2">
+          <div class="mini"><h4>날씨 도구</h4><p class="fine">도시명 → geopy로 위·경도 → <b>Open-Meteo</b> 무료 API(<code>api.open-meteo.com</code>) → 현재 날씨</p></div>
+          <div class="mini"><h4>KBO 순위 도구</h4><p class="fine">다음(Daum) 스포츠 내부 API를 <code>httpx</code>로 호출 → 야구 순위</p></div>
+        </div>
+        <div class="notice warn"><b>포인트:</b> <code>.env</code>를 <b>상위(google-adk) 폴더로 올리면</b> 하위 여러 에이전트가 공유. 도구를 여러 개 등록하면 <span class="hl">LLM이 요청을 보고 알아서 적절한 도구를 골라 호출</span>한다.</div>
+      </section>
+
+      <section class="section" id="b-l9"><h2>9. What's Next? <span class="dur">02:43</span></h2>
+        <div class="table-wrap"><table><thead><tr><th>대상</th><th>강사 코멘트</th></tr></thead><tbody>
+          <tr><td>OpenAI Agent SDK</td><td>다른 프레임워크 선택지</td></tr>
+          <tr><td>LangChain</td><td>기능이 복잡 → 바로 추천은 어려움</td></tr>
+          <tr><td><b>LangGraph</b></td><td><span class="hl2">강력 추천.</span> 다른 프레임워크와 병용 가능</td></tr>
+          <tr><td>MCP</td><td>이미 성숙, 도입 활발 → 지금 봐도 좋음</td></tr>
+          <tr><td>Google A2A</td><td>아직 미성숙, 올해 말 정식 구현체 목표</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>실무 수준</b>까지: 프롬프트 고도화, 기능별 모델 선택, 보안·인증·성능·서버 인프라 + 기존 개발 업무. 시장이 빨리 변해 정보 따라가기도 벅참 — 이 강의는 그 <b>첫걸음</b>.</div>
+      </section>
+
+      <div class="pager" id="pager"></div>
+    </main>
+  </div>
+  <footer class="footer"><div class="wrap">Ⓐ 앤트로픽 AI Fluency · Ⓑ 인프런 「AI 에이전트 개발 오리엔테이션」(승귤) — 직접 확인·정리한 개인 학습 노트 · <a href="모두연-노드-강의노트.html" style="color:#0f766e;font-weight:700">Ⓒ 모두연 노드는 별도 페이지</a> · KDT 교육 운영 워크스페이스</div></footer>
+  <script>
+  (function(){
+    document.documentElement.classList.add('js');
+    var main=document.querySelector('main');
+    var sections=[].slice.call(main.querySelectorAll('.section')).filter(function(s){return s.parentNode===main&&!s.classList.contains('dupe');});
+    var pager=document.getElementById('pager');
+    var links=[].slice.call(document.querySelectorAll('.toc a'));
+    var groups=[].slice.call(document.querySelectorAll('.toc .tocgroup'));
+    var toc=document.querySelector('.toc');
+    var order=['a','b'];
+    var cname={a:'Ⓐ 앤트로픽 · AI Fluency',b:'Ⓑ 인프런 · 오리엔테이션'};
+    var current='a';
+    function courseOf(id){if(!id)return null;return id.indexOf('course-')===0?id.slice(7):id.charAt(0);}
+    function paintToc(){
+      var y=window.scrollY+100,cur=null;
+      sections.forEach(function(s){if(s.classList.contains('is-active')&&s.offsetTop<=y)cur=s.id;});
+      links.forEach(function(a){a.classList.remove('active');a.classList.remove('activehead');
+        var h=a.getAttribute('href')||'';if(h.charAt(0)!=='#')return;var tid=h.slice(1);
+        if(a.classList.contains('tochead')){if(courseOf(tid)===current)a.classList.add('activehead');}
+        else if(tid===cur){a.classList.add('active');
+          var ar=a.getBoundingClientRect(),tr=toc.getBoundingClientRect();
+          if(ar.top<tr.top||ar.bottom>tr.bottom){a.scrollIntoView({block:'nearest'});}
+        }
+      });
+    }
+    function renderPager(){
+      var i=order.indexOf(current),prev=order[i-1],next=order[i+1],html='';
+      html+=prev?'<a class="pgbtn" href="#course-'+prev+'"><span>← 이전 강의</span><b>'+cname[prev]+'</b></a>':'<span class="pgbtn ghost"></span>';
+      html+=next?'<a class="pgbtn next" href="#course-'+next+'"><span>다음 강의 →</span><b>'+cname[next]+'</b></a>':'<span class="pgbtn ghost"></span>';
+      pager.innerHTML=html;
+    }
+    function show(c){if(order.indexOf(c)<0)c='a';current=c;sections.forEach(function(s){s.classList.toggle('is-active',courseOf(s.id)===c);});groups.forEach(function(g){g.classList.toggle('open',g.getAttribute('data-c')===c);});renderPager();paintToc();}
+    function go(id,scroll){
+      var c=courseOf(id)||'a';show(c);
+      if(!scroll)return;
+      // 코스 제목(course-*) 클릭은 펼침/전환만 — 스크롤 이동 없음. 하위 강의만 스크롤.
+      if(id&&id.indexOf('course-')!==0){var el=document.getElementById(id);if(el&&el.classList.contains('is-active'))el.scrollIntoView({behavior:'smooth',block:'start'});}
+    }
+    // 현재 열린 강의 헤더를 다시 누르면 목차 그룹만 접기/펼치기
+    toc.addEventListener('click',function(e){
+      var a=e.target.closest&&e.target.closest('a.tochead');if(!a)return;
+      var c=courseOf((a.getAttribute('href')||'').slice(1));
+      if(c===current){e.preventDefault();
+        var g=document.querySelector('.tocgroup[data-c="'+c+'"]');
+        if(g)g.classList.toggle('open');}
+    });
+    window.addEventListener('hashchange',function(){go(location.hash.slice(1),true);});
+    window.addEventListener('scroll',paintToc,{passive:true});
+    window.addEventListener('resize',paintToc);
+    go(location.hash.slice(1),false);
+  })();
+  </script>
+</body>
+</html>
