@@ -245,7 +245,7 @@
     <h1>모두연 강의 학습 노트</h1>
     <p>수강하는 <b>강(講)</b>이 열릴 때마다 여기에 <b>모듈·강별로 누적</b>합니다. 요약이 아니라 강의 내용을 그대로 담되, 중요한 부분은 <span class="hl">노란 강조</span>·<span class="hl2">초록(안전·핵심)</span>·<span class="hl3">분홍(주의)</span>과 콜아웃으로 표시했습니다. 관통 메시지: <span class="hl">"명령을 친 사실이 아니라, 출력으로 확인한다."</span></p>
     <nav class="pagenav" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px"><a class="page-switch" style="margin-top:0" href="KDT-교육-운영-종합안내.html">📋 운영 안내</a><a class="page-switch" style="margin-top:0" href="선행학습-로드맵.html">🧭 선행학습</a><a class="page-switch" style="margin-top:0" href="AI에이전트-강의노트.html">📝 강의 노트(앤트로픽·인프런)</a><span class="page-switch" style="margin-top:0;background:#fbbf24;color:#172033;box-shadow:none;cursor:default">🧩 모두연 강의노트</span><a class="page-switch" style="margin-top:0" href="https://kimjy0977.github.io/KDT_Works/" target="_blank" rel="noopener">🗂️ 과제 모음 ↗</a></nav>
-    <div class="quick"><a href="#node-0"><b>적응기 · 아이펠 적응하기</b><span>온보딩 — 협업툴·아이펠·퀘스트·CT (5강)</span></a><a href="#node-1"><b>바이브코딩으로 웹 만들기</b><span>작업대·세 겹&amp;게임·프레임워크·백엔드·DB·에이전트·메인퀘스트 (1~7강)</span></a></div>
+    <div class="quick"><a href="#node-0"><b>적응기 · 아이펠 적응하기</b><span>온보딩 — 협업툴·아이펠·퀘스트·CT (5강)</span></a><a href="#node-1"><b>바이브코딩으로 웹 만들기</b><span>작업대·세 겹&amp;게임·프레임워크·백엔드·DB·에이전트·메인퀘스트 (1~7강)</span></a><a href="#node-8"><b>AI의 이해와 사용</b><span>AI는 어떻게 배우나 — 학습원리·데이터·MNIST·파인튜닝 (7강)</span></a></div>
   </div></header>
 
   <div class="wrap layout">
@@ -336,6 +336,13 @@
       <a href="#n7-6">7·6 내 도메인으로 — 자유 제작</a>
       <a href="#n7-7">7·7 막혔을 때 — 네 가지 규율</a>
       <a href="#n7-8">7·8 마무리 — 회고와 정리</a>
+      </div>
+
+      <small>강좌 · AI의 이해와 사용</small>
+      <a class="tochead" href="#node-8">AI는 어떻게 배우나 (7강)</a>
+      <div class="tocgroup" data-g="8">
+      <a href="#n8-1">1강 인공지능의 학습이란?</a>
+      <a href="#n8-2">2강 데이터를 숫자로 바꾸기</a>
       </div>
     </nav>
 
@@ -2022,6 +2029,100 @@ openspec init</code></pre>
         <div class="notice"><b>📚 7강 출처:</b> <span class="fine">Softvery Solutions · Topflight · vibecoding.app · Google Cloud(Andrew Ng) · thinslices · Reid Hoffman · Veracode 2025 GenAI Code Security Report · Eric Ries 『The Lean Startup』(2011) · OpenSpec · Supabase Docs · 『The Pragmatic Programmer』</span></div>
       </section>
 
+      <!-- ================= AI의 이해와 사용 · AI는 어떻게 배우나 ================= -->
+      <section class="section coursehead" id="node-8">
+        <div class="badge">AI의 이해와 사용_Agt1 <span style="opacity:.7">· 바이브코딩과 별개 강좌</span></div>
+        <h2>AI는 어떻게 배우나 <span style="font-size:.86rem;opacity:.85">(7강)</span></h2>
+        <p class="lead">AI 시대가 오기까지 이 기술이 어떻게 실현됐는지 그 핵심 원리를 살펴보는 강좌. 회귀 → 분류 → 파인튜닝을 직접 돌려보며 <b>결과를 가르는 건 화려한 모델이 아니라 데이터</b>임을 몸으로 익힌다.</p>
+      </section>
+
+      <section class="section" id="n8-1"><h2>1강 · 인공지능의 학습이란? <span class="dur">이론</span></h2>
+        <p class="lead">규칙을 짜는 기계에서, 배우는 기계로 — 오늘의 한 문장이자 강좌 전체의 관점 전환.</p>
+
+        <h3>먼저 '인공지능'이라는 큰 그림</h3>
+        <p>인공지능(AI)은 생각보다 넓은 말이다. 사람이 규칙을 하나하나 손으로 짜 넣어 굴리던 방식(예전의 체스 프로그램·전문가 시스템)도 인공지능이었고, 데이터를 보고 스스로 배우는 방식도 인공지능이다. 다만 <span class="hl">오늘날 우리가 열광하는 것들 — 사진 인식·글쓰기·번역 — 은 거의 다 후자, '데이터로 배우는' 쪽</span>에서 나왔다.</p>
+        <p>이 갈래는 겹겹이 포개진다. 가장 넓은 원이 인공지능, 그 안에 데이터로 배우는 <b>머신러닝</b>(기계학습), 다시 그 안에 여러 층 신경망을 쌓는 <b>딥러닝</b>. 요즘의 생성형 AI(챗봇·그림 모델)도 대개 이 딥러닝 위에 선다.</p>
+        <div class="notice teal"><b>겹겹 구조(넓은 것 → 좁은 것):</b> 인공지능(AI) ⊃ 머신러닝(데이터로 배움) ⊃ 딥러닝(여러 층 신경망) ⊃ 생성형 AI(챗봇·이미지 생성)</div>
+
+        <h3>왜 규칙 대신 '데이터로' 배우게 하나</h3>
+        <p>개와 고양이를 구분하는 규칙을 직접 써 본다고 하자. "귀가 뾰족하면 고양이"라 적으면 폴드귀 고양이가 반례가 되고, "수염이 있으면"이라 하면 개도 수염이 있다. <span class="hl3">예외가 예외를 부르며 규칙은 끝없이 늘어난다.</span> 손글씨 '7'을 픽셀 규칙으로 정의하는 것도, 스팸을 규칙으로 거르는 것도 마찬가지다 — '무료'·'당첨'을 막으면 '무 료'·'당.첨'으로 비틀어 빠져나간다. 술래잡기다.</p>
+        <p>그래서 방향을 뒤집는다. <span class="hl2">규칙을 사람이 다 적는 대신, 예시(데이터)를 잔뜩 주고 기계가 규칙을 스스로 찾게 하는 것 — 이것이 인공지능의 "학습"이다.</span></p>
+        <div class="notice"><b>오늘 강좌가 실제로 하는 것:</b> 언어모델에 국한하지 않고 <b>회귀 → 분류 → 파인튜닝</b> 세 가지를 직접 돌려 본다. 그 과정에서 반복 확인할 한 가지 — <span class="hl">결과를 가르는 건 화려한 모델이 아니라 데이터</span>.</div>
+        <div class="notice teal"><b>[CS 교양] '기계학습'이라는 말의 출발:</b> 1959년 아서 새뮤얼(Arthur Samuel)이 기계학습을 <i>"명시적으로 프로그래밍하지 않고도 컴퓨터가 배우게 하는 연구 분야"</i>라는 취지로 설명한 것으로 자주 인용된다. 핵심은 관점의 전환 — 규칙을 손으로 쓰는 방식에서, 데이터로 패턴을 얻는 방식으로.</div>
+
+        <h3>그런데 "배운다"는 게 뭘까 — 세 걸음의 역사</h3>
+        <p>사람처럼 의미를 깨닫는 것으로 받아들이면 곤란하다. 그 정체는 세 인물의 이야기로 풀린다.</p>
+        <div class="table-wrap"><table><thead><tr><th>연도 · 인물</th><th>기여</th><th>오늘로 이어짐</th></tr></thead><tbody>
+          <tr><td><b>1951 · 클로드 섀넌</b></td><td>사람에게 소설 한 대목을 한 글자씩 맞히게 하는 예측 게임(상대는 아내 베티). 언어는 통계적으로 예측 가능하고, 얼마나 잘 예측하느냐가 곧 그 언어의 정보량임을 보임</td><td>거대 언어 모델의 <b>"다음 토큰 예측"</b> — 70여 년 전 게임의 기계 버전</td></tr>
+          <tr><td><b>1958 · 로젠블랫(퍼셉트론)</b></td><td>예측해 보고, 틀리면 그 틀린 정도만큼 내부 숫자(가중치)를 살짝 고친다. 맞히면 그대로, 틀리면 조정. 다만 한 겹뿐이라 복잡한 패턴은 못 배움</td><td>학습의 기본 원리</td></tr>
+          <tr><td><b>1986 · 러멜하트·힌턴·윌리엄스</b></td><td>역전파(backpropagation). 여러 겹 숫자에게 "네가 최종 오차에 얼마나 기여했는지"를 뒤에서 앞으로 되짚어 알려 주고 그만큼 고치게 함</td><td>GPT 포함 <b>거의 모든 신경망</b>의 학습 방식</td></tr>
+        </tbody></table></div>
+
+        <h3>학습 = 이 고리의 반복</h3>
+        <div class="formula">데이터 예시들 → 예측 → 틀린 정도(오차) 계산 → 내부 숫자(가중치) 조정 → 다시 처음</div>
+        <p>문서 검토 업무에 빗대면: 신입 검토자가 계약서 1,000건과 선배의 수정 이력을 본다. 처음엔 위험 조항을 놓치지만, 피드백을 받으며 "이 표현 뒤에는 책임 제한이 숨어 있다"는 감을 익힌다. 모델도 똑같이 예측하고, 틀린 정도로 내부 숫자를 조정한다. <span class="hl">차이는 그 '감'이 말과 숫자 사이의 거대한 확률 패턴이라는 점.</span></p>
+
+        <h3>학습의 결과물 = 규칙집이 아니라 '파라미터에 압축된 패턴'</h3>
+        <p>여기서 "외운다"와 "일반화한다"가 갈린다. 우리가 원하는 건 새 입력에도 그럴듯하게 대응하는 <b>일반화</b>이지만, 일반화는 어디까지나 추정이다. <span class="hl3">그래서 모델은 자신 있게 틀릴 수 있다 — 이 문장이 앞으로 AI를 다룰 때 모든 판단의 출발점.</span></p>
+
+        <h3>한 걸음 확대 — 경사하강(gradient descent)</h3>
+        <p>어떤 예시에서 모델이 5를 예측했는데 정답이 7이면 오차는 +2. 학습은 이 오차를 줄이는 방향으로 가중치를 아주 조금 밀어 다음엔 5.3, 그다음 5.6…처럼 정답에 다가가게 한다. <span class="hl2">오차를 '언덕'으로 보면, 가장 낮은 골짜기(오차 최소)를 향해 한 걸음씩 내려가는 셈</span> — 그래서 경사하강이라 부른다.</p>
+
+        <h3>오늘의 무대 = 지도학습(supervised learning)</h3>
+        <p>오늘 다룰 세 실습은 모두 <b>정답이 달린 예시</b>로 배운다 — 매출이 적힌 카페 기록, 정답 숫자가 붙은 손글씨, 개/고양이 라벨이 붙은 사진. 이렇게 "입력과 정답의 쌍"으로 배우는 방식이 지도학습이다. 정답 없이 패턴만 묶는 <b>비지도학습</b>, 시행착오와 보상으로 배우는 <b>강화학습</b>도 있지만, 가장 기본이자 오늘의 무대는 지도학습.</p>
+
+        <div class="notice key"><b>🎯 1강 한 문장:</b> 규칙을 짜는 게 아니라, <span class="hl">예측하고 틀리고 고치기를 반복해 스스로 감(패턴)을 잡는 것 — 그게 학습</span>이다.</div>
+      </section>
+
+      <section class="section" id="n8-2"><h2>2강 · 데이터를 숫자로 바꾸기 <span class="dur">이론</span></h2>
+        <p class="lead">"데이터로 배운다"고 했지만, 그 데이터는 애초에 어떻게 기계 안으로 들어갈까? 기계가 만질 수 있는 건 오직 숫자뿐이다.</p>
+
+        <h3>모든 학습의 첫 단계 = 대상을 숫자로</h3>
+        <p>글자도 그림도 기계는 직접 다루지 못한다. 그래서 무엇을 학습시키든 첫 단계는 늘 같다 — <span class="hl">대상을 숫자로 바꾸는 일</span>.</p>
+        <div class="table-wrap"><table><thead><tr><th>종류</th><th>어떻게 숫자가 되나</th><th>용어</th></tr></thead><tbody>
+          <tr><td>글</td><td>문장을 의미를 지닌 작은 조각으로 자름</td><td><b>토큰</b>(token)</td></tr>
+          <tr><td>글</td><td>각 토큰을 여러 숫자의 묶음으로. 비슷한 맥락에서 쓰이는 단어일수록 비슷한 값이 되게 맞춤("이웃을 보면 그 단어의 뜻을 안다")</td><td><b>벡터 → 임베딩</b>(뜻을 담은 벡터)</td></tr>
+          <tr><td>흑백 손글씨</td><td>28×28 = 784개의 밝기 숫자</td><td>(MNIST)</td></tr>
+          <tr><td>컬러 사진</td><td>가로×세로×3(빨강·초록·파랑)의 숫자 덩어리</td><td><b>텐서</b>(tensor)</td></tr>
+        </tbody></table></div>
+        <p class="fine">임베딩 = 뜻을 담은 벡터. 텐서 = 벡터와 행렬을 한데 아우른, 숫자를 여러 방향으로 쌓아 올린 덩어리.</p>
+
+        <h3>벡터 = 공간 속의 점(또는 화살표)</h3>
+        <p>벡터는 순서 있는 숫자의 묶음. 숫자 2개면 평면 위의 점 (x, y), 3개면 3차원 공간의 점이다. 원점에서 그 점까지 화살표를 그으면 "방향과 크기를 가진 양"으로도 보인다. 실제 모델은 수백~수천 개를 쓰므로 그림으론 못 그리지만 직관은 그대로다.</p>
+        <p>점으로 놓고 나면 두 점의 "비슷함"을 두 가지로 잰다:</p>
+        <div class="table-wrap"><table><thead><tr><th>방식</th><th>뜻</th><th>예 · 비유</th></tr></thead><tbody>
+          <tr><td><b>거리</b></td><td>두 점이 얼마나 바짝 붙어 있나</td><td>A=(2,3)·B=(2,4)는 거리 1로 가까워 비슷, C=(9,1)은 멂 → 다름. 지도의 서울-인천 vs 서울-부산</td></tr>
+          <tr><td><b>방향(각도)</b></td><td>크기는 달라도 같은 쪽을 가리키면 "결이 같다"</td><td>뒤 강의의 <b>문서 검색</b>에서 다시 만남</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>숫자를 여러 개(여러 차원) 쓰는 이유:</b> 한 축으론 "일이냐 쉼이냐" 정도만 담지만, 축을 늘리면 "얼마나 공식적인지", "얼마나 시간과 관련되는지" 같은 특징을 동시에 담아 관계를 훨씬 풍부하게 표현한다. <span class="hl">핵심은 점의 절대 위치가 아니라 점들 사이의 관계가 뜻을 만든다는 것.</span></div>
+
+        <h3>한 숫자에서 사진까지 — '텐서 사다리'</h3>
+        <p>숫자를 늘어놓는 방향을 하나씩 늘리면 낮은 칸에서 높은 칸으로 사다리를 오르듯 이어진다.</p>
+        <div class="table-wrap"><table><thead><tr><th>차원</th><th>이름</th><th>정체</th><th>예</th></tr></thead><tbody>
+          <tr><td>0차</td><td>스칼라</td><td>숫자 1개</td><td>매출 '7'</td></tr>
+          <tr><td>1차</td><td>벡터</td><td>숫자 한 줄</td><td>[방문객, 요일, 날씨]</td></tr>
+          <tr><td>2차</td><td>행렬</td><td>숫자 격자</td><td>흑백 사진 한 장(세로×가로 밝기)</td></tr>
+          <tr><td>3차+</td><td>텐서</td><td>격자를 여러 장 쌓음</td><td>컬러 사진=R/G/B 3장(높이×너비×3), 여러 장이면(배치) 차원 하나 더</td></tr>
+        </tbody></table></div>
+        <p><span class="hl2">즉 텐서는 "숫자를 몇 방향으로 늘어놓았나"를 일반화한 말</span>(0차 스칼라·1차 벡터·2차 행렬을 모두 포함). 손글씨 한 장은 28×28 행렬(=784개 숫자), 컬러 사진은 높이×너비×3 텐서로 모델에 들어간다.</p>
+
+        <h3>손글씨 하나가 숫자가 되는 모습</h3>
+        <p>숫자 '7'을 아주 거칠게 8×8로 줄여 각 칸의 밝기(0=검정 배경, 255에 가까울수록 밝은 획)를 적으면:</p>
+        <pre><code>0    0    0    0    0    0    0    0
+0  200  220  230  230  220  200    0
+0    0    0    0    0  210  190    0
+0    0    0    0  200  210    0    0
+0    0    0  200  210    0    0    0
+0    0  190  210    0    0    0    0
+0    0  200  180    0    0    0    0
+0    0    0    0    0    0    0    0</code></pre>
+        <p>가로획 하나와 비스듬히 내려오는 획이 큰 숫자로 나타난다. <span class="hl3">모델이 "보는" 것은 그림이 아니라 정확히 이 숫자들이다.</span> 실제 MNIST는 28×28=784칸이지만 원리는 같다 — 학습은 이 숫자 배열에서 "7다움"의 패턴을 찾는 일.</p>
+
+        <div class="notice key"><b>🎯 2강 한 문장:</b> 글이든 그림이든 결국 다 숫자 덩어리(텐서)가 되고, <span class="hl">뜻을 만드는 건 그 숫자들 사이의 관계</span>다. 그렇게 숫자로 바뀐 데이터가 신경망의 층으로 들어가 "예측 → 오차 → 조정"을 겪는다.</div>
+        <p class="fine">※ 원문 말미에 접힌 상세 토글 "🔎 신경망 한 층 안에서는 무슨 일이 벌어질까"가 있음 — 추후 펼쳐 보강 예정.</p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모두의연구소 KDT 「AI의 이해와 사용_Agt1」 · 1강 「AI는 어떻게 배우나」 (LMS learn.modulabs.co.kr · camp136/courses/2136). 인물: 아서 새뮤얼(1959)·클로드 섀넌(1951)·로젠블랫 퍼셉트론(1958)·역전파(러멜하트·힌턴·윌리엄스 1986). 신경망 그림: Glosser.ca, Wikimedia Commons, CC BY-SA 3.0.</span></div>
+      </section>
+
       <div class="pager" id="pager"></div>
     </main>
   </div>
@@ -2035,8 +2136,8 @@ openspec init</code></pre>
     var toc=document.querySelector('.toc');
     var pager=document.getElementById('pager');
     var groups=[].slice.call(document.querySelectorAll('.toc .tocgroup'));
-    var names={'0':'적응기 · 아이펠 적응하기','1':'1강 · 작업대 마련하기','2':'2강 · 세 겹 & 게임','3':'3강 · 프레임워크','4':'4강 · 백엔드','5':'5강 · 데이터베이스','6':'6강 · AI 에이전트 도구','7':'7강 · 메인 퀘스트'};
-    var order=['0','1','2','3','4','5','6','7'];
+    var names={'0':'적응기 · 아이펠 적응하기','1':'1강 · 작업대 마련하기','2':'2강 · 세 겹 & 게임','3':'3강 · 프레임워크','4':'4강 · 백엔드','5':'5강 · 데이터베이스','6':'6강 · AI 에이전트 도구','7':'7강 · 메인 퀘스트','8':'AI의 이해와 사용 · AI는 어떻게 배우나'};
+    var order=['0','1','2','3','4','5','6','7','8'];
     var current='1';
     function nodeOf(id){if(!id)return null;if(id.indexOf('node-')===0)return id.slice(5);var m=id.match(/^n(\d)-/);return m?m[1]:null;}
     function paintToc(){
