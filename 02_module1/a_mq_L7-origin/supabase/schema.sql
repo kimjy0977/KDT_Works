@@ -1,3 +1,6 @@
+-- ⚠️ 2026-07-24: 이 테이블들은 이후 접두사로 개명됨(a_mq_origin_* / c_lab_todo_* / d_hw_atlas_*).
+-- 아래는 초기 세팅 SQL(옛 이름 기록). 현재 스키마 정본 = 라이브 DB(kdt_works). 재실행 시 개명 반영 필요.
+
 -- ORIGIN v2 — 스키마 + 보안(RLS)
 -- Supabase SQL Editor에 그대로 붙여 실행. (v1보다 확장됨: EN 컬럼·profiles·essays)
 

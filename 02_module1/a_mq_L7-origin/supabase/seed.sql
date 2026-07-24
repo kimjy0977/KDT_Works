@@ -1,3 +1,6 @@
+-- ⚠️ 2026-07-24: 이 테이블들은 이후 접두사로 개명됨(a_mq_origin_* / c_lab_todo_* / d_hw_atlas_*).
+-- 아래는 초기 세팅 SQL(옛 이름 기록). 현재 스키마 정본 = 라이브 DB(kdt_works). 재실행 시 개명 반영 필요.
+
 -- ORIGIN v2 — 콘텐츠 시드 (7사조 · 37작품 · 6칼럼 · 한/영)
 -- schema.sql 실행 후 SQL Editor에 붙여 실행. 문자열은 dollar-quote($o$)로 안전.
 -- 작품 id는 고정(칼럼 임베드 [[work:ID]]가 참조).
