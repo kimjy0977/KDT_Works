@@ -72,7 +72,7 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 // ⚠️ publishable(anon) 키는 '브라우저 공개용'이라 여기 둬도 안전합니다.
 //    진짜 보호는 DB의 RLS(행 수준 보안). secret 키였다면 절대 여기 두면 안 됨(.env로).
-// 노드 버킷(kdt-nodes = world-atlas 프로젝트)로 이전 · lab_ 접두사 테이블 사용
+// 노드 버킷(kdt_works 프로젝트)로 이전 · c_lab_todo_ 접두사 테이블 사용
 const SUPABASE_URL = 'https://gfpbvtcaxozcvoqfhxps.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_rdSZJSTgLwHslFTTnnnchA_39UC1P36';
 const sb = createClient(SUPABASE_URL, SUPABASE_KEY);

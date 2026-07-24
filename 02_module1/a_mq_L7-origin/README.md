@@ -6,7 +6,7 @@
 KDT AI 에이전트 과정 · 바이브코딩2 「메인 퀘스트 — 나만의 웹 서비스 만들기」 제출물.
 기획 문서는 [PRD.md](./PRD.md) 참조.
 
-**🔗 라이브 배포: https://modu-works-main-quest.vercel.app**
+**🔗 라이브 배포: https://kdt-origin.vercel.app**
 
 ---
 

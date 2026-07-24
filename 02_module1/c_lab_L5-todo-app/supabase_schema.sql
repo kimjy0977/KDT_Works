@@ -1,5 +1,5 @@
 ﻿-- ============================================================
--- 노드5 실습 3부 · Todo 앱 스키마 (kdt-nodes 프로젝트로 이관 · lab_ 접두사)
+-- 노드5 실습 3부 · Todo 앱 스키마 (kdt_works 프로젝트 · c_lab_todo_ 접두사)
 -- 실습(lab) 테이블: 과제(atlas)의 countries/comments 등과 한 DB에서 이름으로 구분.
 -- ============================================================
 create table if not exists public.lab_todos (
