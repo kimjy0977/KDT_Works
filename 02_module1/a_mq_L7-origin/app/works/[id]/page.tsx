@@ -33,7 +33,7 @@ export default async function WorkDetail({
   let initialSaved = false;
   if (user) {
     const { data } = await supabase
-      .from("board_items")
+      .from("a_mq_origin_board_items")
       .select("id")
       .eq("user_id", user.id)
       .eq("work_id", workId)

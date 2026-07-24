@@ -32,8 +32,8 @@ export default async function BoardPage() {
   }
 
   const { data } = await supabase
-    .from("board_items")
-    .select("*, work:works(*, movement:movements(*))")
+    .from("a_mq_origin_board_items")
+    .select("*, work:a_mq_origin_works(*, movement:a_mq_origin_movements(*))")
     .eq("user_id", user.id)
     .order("created_at", { ascending: false });
 

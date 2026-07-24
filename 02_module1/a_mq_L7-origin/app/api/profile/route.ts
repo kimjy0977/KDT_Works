@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     : [];
   const role = typeof body.role === "string" ? body.role.slice(0, 40) : null;
 
-  const { error } = await supabase.from("profiles").upsert(
+  const { error } = await supabase.from("a_mq_origin_profiles").upsert(
     {
       id: user.id,
       interests,

@@ -37,13 +37,13 @@ export async function POST() {
 
   const [{ data: boardData }, { data: prof }] = await Promise.all([
     supabase
-      .from("board_items")
+      .from("a_mq_origin_board_items")
       .select(
-        "note, work:works(title, title_en, creator, year, movement:movements(name_ko, name_en))"
+        "note, work:a_mq_origin_works(title, title_en, creator, year, movement:a_mq_origin_movements(name_ko, name_en))"
       )
       .eq("user_id", user.id)
       .order("created_at", { ascending: false }),
-    supabase.from("profiles").select("role").eq("id", user.id).maybeSingle(),
+    supabase.from("a_mq_origin_profiles").select("role").eq("id", user.id).maybeSingle(),
   ]);
 
   const items = (boardData ?? []) as unknown as Row[];

@@ -23,7 +23,7 @@ export async function POST(req: Request) {
   const supabase = await createClient();
 
   const [{ data: workData }, { data: userData }] = await Promise.all([
-    supabase.from("works").select("*, movement:movements(*)").eq("id", workId).single(),
+    supabase.from("a_mq_origin_works").select("*, movement:a_mq_origin_movements(*)").eq("id", workId).single(),
     supabase.auth.getUser(),
   ]);
   const work = workData as WorkWithMovement | null;
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
   let role: string | null = null;
   if (userData.user) {
     const { data: prof } = await supabase
-      .from("profiles")
+      .from("a_mq_origin_profiles")
       .select("role")
       .eq("id", userData.user.id)
       .maybeSingle();

@@ -14,8 +14,8 @@ export type MovementWithWorks = Movement & { works: Work[] };
 export async function getArchive(): Promise<MovementWithWorks[]> {
   const supabase = await createClient();
   const [{ data: movements }, { data: works }] = await Promise.all([
-    supabase.from("movements").select("*").order("sort"),
-    supabase.from("works").select("*").order("id"),
+    supabase.from("a_mq_origin_movements").select("*").order("sort"),
+    supabase.from("a_mq_origin_works").select("*").order("id"),
   ]);
 
   return (movements ?? []).map((m: Movement) => ({
@@ -32,8 +32,8 @@ export async function getWorkFull(id: number): Promise<{
 } | null> {
   const supabase = await createClient();
   const { data } = await supabase
-    .from("works")
-    .select("*, movement:movements(*)")
+    .from("a_mq_origin_works")
+    .select("*, movement:a_mq_origin_movements(*)")
     .eq("id", id)
     .single();
   const work = data as WorkWithMovement | null;
@@ -41,14 +41,14 @@ export async function getWorkFull(id: number): Promise<{
 
   const [{ data: related }, { data: essays }] = await Promise.all([
     supabase
-      .from("works")
+      .from("a_mq_origin_works")
       .select("*")
       .eq("movement_id", work.movement_id)
       .neq("id", work.id)
       .order("id")
       .limit(6),
     supabase
-      .from("essays")
+      .from("a_mq_origin_essays")
       .select("*")
       .eq("movement_slug", work.movement.slug)
       .order("sort"),
@@ -63,14 +63,14 @@ export async function getWorkFull(id: number): Promise<{
 
 export async function getEssays(): Promise<Essay[]> {
   const supabase = await createClient();
-  const { data } = await supabase.from("essays").select("*").order("sort");
+  const { data } = await supabase.from("a_mq_origin_essays").select("*").order("sort");
   return (data ?? []) as Essay[];
 }
 
 export async function getFeaturedEssays(limit = 3): Promise<Essay[]> {
   const supabase = await createClient();
   const { data } = await supabase
-    .from("essays")
+    .from("a_mq_origin_essays")
     .select("*")
     .eq("featured", true)
     .order("sort")
@@ -81,7 +81,7 @@ export async function getFeaturedEssays(limit = 3): Promise<Essay[]> {
 export async function getEssay(slug: string): Promise<Essay | null> {
   const supabase = await createClient();
   const { data } = await supabase
-    .from("essays")
+    .from("a_mq_origin_essays")
     .select("*")
     .eq("slug", slug)
     .single();
@@ -92,7 +92,7 @@ export async function getEssay(slug: string): Promise<Essay | null> {
 export async function getWorksByIds(ids: number[]): Promise<Work[]> {
   if (ids.length === 0) return [];
   const supabase = await createClient();
-  const { data } = await supabase.from("works").select("*").in("id", ids);
+  const { data } = await supabase.from("a_mq_origin_works").select("*").in("id", ids);
   return (data ?? []) as Work[];
 }
 
@@ -104,7 +104,7 @@ export async function getMyProfile(): Promise<Profile | null> {
   } = await supabase.auth.getUser();
   if (!user) return null;
   const { data } = await supabase
-    .from("profiles")
+    .from("a_mq_origin_profiles")
     .select("*")
     .eq("id", user.id)
     .maybeSingle();

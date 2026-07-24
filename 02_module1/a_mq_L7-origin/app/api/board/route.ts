@@ -25,7 +25,7 @@ export async function POST(req: Request) {
   if (!workId) return NextResponse.json({ error: "invalid workId" }, { status: 400 });
 
   const { error } = await supabase
-    .from("board_items")
+    .from("a_mq_origin_board_items")
     .upsert(
       { user_id: user.id, work_id: workId },
       { onConflict: "user_id,work_id", ignoreDuplicates: true }
@@ -45,7 +45,7 @@ export async function PATCH(req: Request) {
   const note = typeof body.note === "string" ? body.note.slice(0, 2000) : null;
 
   const { error } = await supabase
-    .from("board_items")
+    .from("a_mq_origin_board_items")
     .update({ note })
     .eq("user_id", user.id)
     .eq("work_id", workId);
@@ -63,7 +63,7 @@ export async function DELETE(req: Request) {
   if (!workId) return NextResponse.json({ error: "invalid workId" }, { status: 400 });
 
   const { error } = await supabase
-    .from("board_items")
+    .from("a_mq_origin_board_items")
     .delete()
     .eq("user_id", user.id)
     .eq("work_id", workId);
