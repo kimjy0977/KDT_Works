@@ -343,6 +343,11 @@
       <div class="tocgroup" data-g="8">
       <a href="#n8-1">1강 인공지능의 학습이란?</a>
       <a href="#n8-2">2강 데이터를 숫자로 바꾸기</a>
+      <a href="#n8-3">3강 가장 작은 학습을 코드로<span class="toctag p">실습</span></a>
+      <a href="#n8-4">4강 softmax와 MNIST 분류<span class="toctag p">실습</span></a>
+      <a href="#n8-5">5강 파인튜닝(전이학습)<span class="toctag p">실습</span></a>
+      <a href="#n8-6">6강 왜 내 노트북으론 벅찰까</a>
+      <a href="#n8-7">7강 결국 데이터가 전부다</a>
       </div>
     </nav>
 
@@ -2121,6 +2126,140 @@ openspec init</code></pre>
         <div class="notice key"><b>🎯 2강 한 문장:</b> 글이든 그림이든 결국 다 숫자 덩어리(텐서)가 되고, <span class="hl">뜻을 만드는 건 그 숫자들 사이의 관계</span>다. 그렇게 숫자로 바뀐 데이터가 신경망의 층으로 들어가 "예측 → 오차 → 조정"을 겪는다.</div>
         <p class="fine">※ 원문 말미에 접힌 상세 토글 "🔎 신경망 한 층 안에서는 무슨 일이 벌어질까"가 있음 — 추후 펼쳐 보강 예정.</p>
         <div class="notice"><b>📚 출처:</b> <span class="fine">모두의연구소 KDT 「AI의 이해와 사용_Agt1」 · 1강 「AI는 어떻게 배우나」 (LMS learn.modulabs.co.kr · camp136/courses/2136). 인물: 아서 새뮤얼(1959)·클로드 섀넌(1951)·로젠블랫 퍼셉트론(1958)·역전파(러멜하트·힌턴·윌리엄스 1986). 신경망 그림: Glosser.ca, Wikimedia Commons, CC BY-SA 3.0.</span></div>
+      </section>
+
+      <section class="section" id="n8-3"><h2>3강 · 가장 작은 학습을 코드로 보기 <span class="dur">실습</span></h2>
+        <p class="lead">"예측 → 오차 → 조정"을 말로만 들으면 추상적이다. 파라미터가 <b>weight 하나·bias 하나</b>뿐인 가장 단순한 모델을 직접 돌려 눈으로 확인한다.</p>
+        <div class="notice"><b>왜 이걸 보나:</b> 0/1을 가르던 로젠블랫 퍼셉트론과 친척뻘이지만, 여기선 계단함수 없이 <b>연속값을 예측하는 선형 모델</b>이라 더 간단하다(원리는 동일). <span class="hl">"데이터로 학습된다"가 마법이 아니라, 오차를 줄이는 방향으로 숫자를 조금씩 미는 계산임</span>을 눈으로 보려는 것. 이 그림을 봐 두면 뒤의 파인튜닝 판단이 또렷해진다.</div>
+
+        <h3>torch, 두 개념만</h3>
+        <p>torch(PyTorch)는 딥러닝에서 가장 널리 쓰는 파이썬 라이브러리. 지금 필요한 건 딱 둘:</p>
+        <div class="table-wrap"><table><thead><tr><th>개념</th><th>하는 일</th></tr></thead><tbody>
+          <tr><td><b>텐서</b>(tensor)</td><td>앞에서 본 숫자 배열(벡터·행렬을 아우름). 같은 코드가 CPU·GPU에서 그대로 돌고, 데이터를 어느 <b>device</b>에 올리느냐만 바꾸면 됨</td></tr>
+          <tr><td><b>autograd</b>(자동 미분)</td><td>계산 과정을 속으로 기억했다가 <code>loss.backward()</code> 한 줄이면 "각 파라미터가 오차에 얼마나 기여했는지"(기울기/gradient)를 알아서 계산 — <b>역전파를 torch가 대신 밟아줌</b></td></tr>
+        </tbody></table></div>
+
+        <h3>카페 매출 예제 — 데이터만 보고 규칙 찾기</h3>
+        <p>작은 카페. 하루 방문객 수로 그날 매출을 예측하고 싶은데 가진 건 지난 30일치 (방문객, 매출) 기록뿐. 둘 사이에 대략 직선 관계가 있을 것 같지만 정확한 식은 모른다. <span class="hl2">이 관계식을 데이터만 보고 모델이 찾게 한다.</span></p>
+        <div class="steps">
+          <div class="step"><b>데이터 만들기</b> — 숨은 규칙 <code>매출 = 2 × 방문객 + 1</code>에 날마다 다른 잡음을 섞어 30일치 생성(모델은 이 규칙을 모름). 실행하면 계산 장치(CPU/GPU)만 한 줄 출력.</div>
+          <div class="step"><b>눈으로 보기</b> — 30일치 점이 흩어져 그려짐(가로=방문객, 세로=매출). 대략 우상향 직선 추세.</div>
+          <div class="step"><b>학습</b>(핵심) — weight·bias를 엉뚱한 값 0에서 출발시켜 <b>예측 → 오차 → 조정을 600번 반복</b>(경사하강). 결과: <code>학습된 규칙: 매출 = 2.07 × 방문객 + 0.79</code></div>
+          <div class="step"><b>결과 그리기</b> — 데이터+학습된 직선, 그리고 오차(loss) 곡선 두 그래프.</div>
+        </div>
+        <div class="notice teal"><b>그래프 읽기:</b> 빨간 직선이 점들 한가운데를 지나고, loss가 급히 떨어졌다 평평해진다. <b>기울기 ≈2.07</b> = "방문객 100명 늘면 매출 약 207만원 증가", <b>절편 ≈0.8</b> = 방문객 0명에도 잡히는 기본 매출 약 80만원(배달·포장처럼 방문 무관 매출). <span class="fine">절편이 정답에서 더 흔들리는 건, 방문객 0 지점이 데이터 중심(평균)에서 멀어 잡음에 더 민감하기 때문.</span></div>
+        <div class="notice key"><b>🎯 이것이 "데이터로 학습한다"의 전부.</b> 아무도 숫자를 알려주지 않았는데 30일치 데이터만 보고 오차를 줄이며 관계를 찾아냈다. <span class="hl">거대 언어 모델도 다르지 않다 — 다른 건 오직 규모</span>(weight·bias가 2개가 아니라 수십억~수천억, 예측 대상이 숫자 하나가 아니라 다음 토큰의 확률분포). 방식은 똑같이 "예측 → 오차 → 조정".</div>
+        <p class="fine">실무에선 이 갱신 루프를 <code>torch.nn.Linear</code>·<code>torch.optim.SGD</code>로 짧게 줄인다. 손으로 편 건 경사하강이 실제로 뭘 하는지 한 번 보기 위해서. <b>이 작은 학습을 웹 전체 규모로 돌린 것이 모델의 사전학습(pretraining).</b></p>
+      </section>
+
+      <section class="section" id="n8-4"><h2>4강 · softmax와 MNIST로 분류하기 <span class="dur">실습</span></h2>
+        <p class="lead">카페는 "매출"이라는 연속 숫자를 맞히는 <b>회귀</b>. 그런데 세상 많은 문제는 "어느 쪽인가"를 고르는 <b>분류</b>다(이 손글씨가 0~9 중 뭔지, 이 메일이 스팸인지, 개인지 고양이인지).</p>
+
+        <h3>분류의 출력 = 후보마다의 확률, 그걸 만드는 softmax</h3>
+        <p>분류에서 모델 출력은 "정답 하나"가 아니라 후보마다 매긴 확률("3일 확률 88%, 8일 9%, 5일 2%…"). <span class="hl">여러 후보 점수를 모두 0~1이고 합이 1인 확률로 바꿔 주는 장치가 softmax.</span> 가장 높은 확률을 답으로 고르되, 확률값 자체가 "얼마나 확신하는지"를 알려준다.</p>
+        <div class="notice"><b>언어모델과 똑같은 장치:</b> LLM이 "다음에 올 단어"를 고를 때 쓰는 게 바로 이 softmax. LLM은 다음 토큰 후보 <b>수만 개</b>에, 숫자 분류기는 <b>0~9 열 개</b>에 확률을 매겨 고를 뿐 원리는 같다.</div>
+
+        <h3>softmax 계산을 눈으로</h3>
+        <p>후보가 셋이고 모델이 매긴 raw 점수(<b>로짓</b>)가 <code>[2.0, 1.0, 0.1]</code>이라 하자. 두 단계로 확률이 된다:</p>
+        <div class="formula">로짓 [2.0, 1.0, 0.1] → ① exp: [7.39, 2.72, 1.11] → ② 합(11.2)으로 나눔: [0.66, 0.24, 0.10] (합=1)</div>
+        <p>여기서 <b>exp</b>는 밑이 e(≈2.72)인 지수함수 — 값을 모두 양수로 만들면서 큰 값과 작은 값의 차이를 더 벌린다. 가장 큰 로짓(2.0)이 가장 큰 확률(0.66)이 되고 작은 점수에도 확률이 조금 남는다. <span class="hl2">이 확률이 곧 "얼마나 확신하는가"(0.66이면 애매, 0.99면 강한 확신) → "확률이 낮으면 사람에게 넘긴다" 같은 기준을 세울 수 있다.</span></p>
+        <div class="notice teal"><b>[CS 교양] 왜 'softmax'?</b> 그냥 max는 가장 큰 하나만 1, 나머지는 0으로 딱 잘라버린다(hard). softmax는 큰 값에 큰 확률을 주되 나머지에도 조금씩 남겨 <b>부드럽게(soft)</b> 고른다 → soft + max.</div>
+
+        <h3>연습 대상 = MNIST</h3>
+        <p>손으로 쓴 숫자 0~9를 모은 <b>7만 장</b>짜리 데이터셋. 기계학습의 "Hello World". 모델은 이 그림을 28×28 숫자 격자로 받아 어느 숫자인지 확률로 답한다. <span class="fine">(이미지: Josef Steppan, Wikimedia Commons, CC BY-SA 4.0)</span></p>
+
+        <h3>🧑‍💻 코딩 에이전트에게 시켜 보기</h3>
+        <p>이번엔 <span class="hl">우리가 코드를 주지 않는다.</span> 코딩 에이전트(또는 Colab의 AI)에게 아래 프롬프트를 붙여넣어 실행시키고 결과를 관찰. 우리 역할은 코드 암기가 아니라 <b>무엇을 시키고 무엇을 확인할지 아는 것.</b></p>
+        <pre><code>PyTorch로 MNIST 손글씨 숫자(0~9) 분류기를 만들어 주세요.
+1. 데이터를 불러와 학습용/시험용으로 나눕니다.
+2. 간단한 신경망을 학습시킵니다. 손실 함수는 표준 분류 방식(CrossEntropyLoss)을
+   쓰고, softmax 확률은 예측을 보여줄 때만 적용해 주세요(출력층에 softmax를 얹고
+   CrossEntropyLoss를 또 쓰면 이중 적용이 되니 피해 주세요).
+3. 시험 정확도를 출력하고, 시험 이미지 한 장에 대한 10개 클래스의 softmax 확률을
+   함께 보여 주세요.
+4. 그런 다음, 학습 데이터를 10%만 사용해 똑같이 다시 학습시키고 정확도를 비교해 주세요.
+CPU에서도 몇 분 안에 끝나도록 가볍게 만들어 주세요.</code></pre>
+        <div class="notice warn"><b>관찰 체크리스트:</b> ① softmax 출력 10개를 더하면 1이 되나? 정답 숫자의 확률이 가장 높나? ② 전체 데이터 정확도는?(간단한 신경망이면 96%대, 구성·시간 늘리면 98%대) ③ <span class="hl3">데이터를 10%로 줄이면 정확도가 떨어짐 — 모델이 나빠서가 아니라 볼 예시가 줄어서. 바로 오늘의 핵심: 데이터가 결과를 가른다.</span></div>
+      </section>
+
+      <section class="section" id="n8-5"><h2>5강 · 남이 배운 것을 물려받는 파인튜닝 <span class="dur">실습</span></h2>
+        <p class="lead">MNIST는 밑바닥부터 배워도 금방이다. 하지만 개/고양이 구분은 "귀·털·눈·질감" 같은 복잡한 시각 특징이 필요하고, 밑바닥부터 배우려면 엄청난 사진과 계산이 든다. 우리에겐 사진 몇백 장뿐일 수도.</p>
+
+        <h3>그래서 '남이 배운 것'을 물려받는다</h3>
+        <p>수백만 장으로 미리 학습된 모델(예: 층 18개짜리 작은 <b>ResNet18</b> — 18은 층 수)은 이미 "선·모서리·질감·형태"를 보는 눈을 갖고 있다. <span class="hl2">이 눈은 그대로 두고 마지막 판단 부분만 내 문제(개/고양이)에 맞게 조금 더 학습시키는 것 = 파인튜닝(fine-tuning), 넓게는 전이학습(transfer learning).</span> 적은 데이터로도 잘 되는 이유가 "사전학습된 특징을 재사용"하기 때문. (카페의 "예측 → 오차 → 조정"을 이미 똑똑한 모델 위에서 마지막 부분만 다시 도는 셈.)</p>
+
+        <h3>무엇이 전이될까 — 층마다 보는 것이 다르다</h3>
+        <p>신경망은 층을 지날수록 점점 복잡한 것을 본다.</p>
+        <div class="table-wrap"><table><thead><tr><th>위치</th><th>보는 것</th><th>파인튜닝 때</th></tr></thead><tbody>
+          <tr><td>앞쪽 층</td><td>선·모서리·색 (보편적 패턴)</td><td rowspan="2">그대로 <b>얼림(freeze)</b> — 물려받음</td></tr>
+          <tr><td>중간 층</td><td>질감·무늬</td></tr>
+          <tr><td>뒤쪽 층</td><td>눈·귀·형태 (구체적)</td><td rowspan="2"><b>새로 배움</b></td></tr>
+          <tr><td>판단</td><td>개 / 고양이</td></tr>
+        </tbody></table></div>
+        <p class="fine">개든 고양이든 자동차든 '이미지'이기만 하면 앞쪽의 '선·모서리를 보는 눈'은 똑같이 쓸모 있다 → 앞쪽을 얼리고 뒤쪽 판단 층부터만 새로 배워 데이터·계산을 아낀다.</p>
+
+        <h3>🧑‍💻 코딩 에이전트에게 시켜 보기</h3>
+        <pre><code>torchvision의 사전학습된 ResNet18을 불러와 개 vs 고양이 이미지 분류로
+파인튜닝해 주세요.
+1. 인증(로그인·토큰) 없이 바로 받아지는 소규모 공개 이미지 데이터셋을 사용해
+   학습/시험으로 나눕니다(예: torchvision 내장 OxfordIIITPet의 고양이/개 라벨).
+   Kaggle처럼 인증이 필요한 데이터는 피해 주세요.
+2. 사전학습 가중치를 불러오고, 마지막 분류 층만 개/고양이 2개로 바꿔 학습합니다.
+3. 시험 정확도를 출력해 주세요.
+4. 비교로, 사전학습 없이(가중치 랜덤에서) 밑바닥부터 학습한 정확도도 같이 보여 주세요.
+GPU가 있으면 쓰고, 데이터는 시간이 오래 걸리지 않게 일부만 사용해 주세요.</code></pre>
+        <div class="notice warn"><b>관찰 체크리스트:</b> ① 사전학습을 물려받은 쪽 vs 밑바닥부터 배운 쪽 정확도 차이는?(<span class="hl">특히 데이터가 적을 때 사전학습 쪽이 크게 앞섬</span>) ② 학습 시간이 카페·MNIST보다 얼마나 길어졌나? ③ GPU 없이 개인 노트북에서 돌리면 매우 느리거나 멈출 수 있음 — 왜 그런지는 6강에서.</div>
+      </section>
+
+      <section class="section" id="n8-6"><h2>6강 · 왜 내 노트북으론 벅찰까 <span class="dur">이론</span></h2>
+        <p class="lead">파인튜닝쯤 오면 "내 노트북으론 벅차다"가 느껴진다. 이유는 <b>학습되는 숫자(파라미터)의 개수와 그에 따르는 연산량</b>이 문제마다 하늘과 땅 차이이기 때문.</p>
+        <div class="table-wrap"><table><thead><tr><th>오늘의 학습</th><th>파라미터(학습되는 숫자)</th><th>어디서 도나</th></tr></thead><tbody>
+          <tr><td>카페 선형모델</td><td>2개 (w, b)</td><td>노트북에서 즉시</td></tr>
+          <tr><td>MNIST 분류기</td><td>수만 ~ 수십만</td><td>노트북 CPU로도 몇 분</td></tr>
+          <tr><td>ResNet18 파인튜닝</td><td>약 1,100만</td><td>GPU 권장(Colab 등)</td></tr>
+          <tr><td>대형 언어모델(LLM)</td><td>수십억 ~ 수천억</td><td>GPU 수백~수천 대, 데이터센터</td></tr>
+        </tbody></table></div>
+        <p>학습은 매 스텝 "예측 → 오차 → 조정"을 하는데, 그 계산 대부분이 <b>방대한 행렬 곱셈</b>이다. 파라미터·데이터가 많아질수록 곱셈 횟수가 폭발한다.</p>
+
+        <h3>그래서 GPU를 쓴다</h3>
+        <div class="table-wrap"><table><thead><tr><th></th><th>구조</th><th>강점</th></tr></thead><tbody>
+          <tr><td><b>CPU</b></td><td>큰 코어 몇 개 · 순서대로</td><td>복잡한 일을 순서대로 빠르게</td></tr>
+          <tr><td><b>GPU</b></td><td>작은 코어 수천 개 · 한꺼번에</td><td>단순 계산을 대규모 병렬 → CPU보다 수십~수백 배</td></tr>
+        </tbody></table></div>
+        <p>행렬 곱셈처럼 "같은 계산을 엄청나게 많이 병렬로" 해야 하는 학습에 GPU가 딱 맞는다. <span class="fine">병렬이 잘 되는 이유: 행렬 곱셈 안의 수많은 곱셈이 서로 독립이라 순서 없이 한꺼번에 계산 가능.</span> 노트북엔 이런 GPU가 없어 <b>Colab 무료 GPU·클라우드</b>를 빌린다(에이전트에게 "GPU 런타임에서 돌려 줘"라고 부탁하는 이유).</p>
+        <div class="notice"><b>규모의 현실:</b> LLM을 처음부터 사전학습하려면 고성능 GPU 수천 대를 수 주간 돌리고 수백만~수억 달러가 든다. <span class="hl">그래서 현실의 실무는 대부분 직접 훈련하지 않는다 — 이미 학습된 모델을 파인튜닝하거나 API로 부른다.</span> 오늘 파인튜닝을 체험한 이유가 여기 있다. <span class="fine">감각: 수천억 파라미터를 1초에 하나씩 세기만 해도 수천 년.</span></div>
+
+        <h3>🖥️ Colab CLI로 GPU 손에 넣기</h3>
+        <p>GPU 없는 노트북에서 실습을 돌리는 가장 손쉬운 길이 <b>구글 코랩</b>. 브라우저로 노트북을 열면 GPU 한 대를 무료로 빌려준다. 2026년 6월 구글이 터미널용 도구 <b>Colab CLI</b>(공식 패키지 <code>google-colab-cli</code>)를 추가 — 브라우저 탭 없이 명령어 한 줄로 GPU 런타임을 띄우고 코드를 돌리고 끝나면 정리까지.</p>
+        <pre><code>pip install google-colab-cli      # 설치 (uv tool install google-colab-cli 도 가능)
+colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동 반납</code></pre>
+        <p class="fine">무료 요금제는 보통 T4 GPU, 더 강한 A100·H100이나 TPU는 유료(Pro/Pro+).</p>
+        <div class="notice teal"><b>오늘 실습 방식과 딱 맞물림:</b> Colab CLI는 <b>AI 에이전트가 직접 쓰도록 설계</b>돼 Claude Code·Codex 같은 코딩 에이전트가 이 명령을 대신 실행할 수 있다. 덕분에 "에이전트에게 프롬프트로 시킨다"가 말뿐이 아니라 <span class="hl2">에이전트가 실제 GPU에서 코드를 돌리고 정확도를 받아오는 데까지 이어진다.</span> 훈련 코드를 직접 안 써도, 원리를 아는 사람이 "무엇을·어디서·어떻게 돌릴지"만 지시하면 된다.</div>
+      </section>
+
+      <section class="section" id="n8-7"><h2>7강 · 결국 데이터가 전부다 <span class="dur">정리·회고</span></h2>
+        <p class="lead">오늘 우리는 인공지능이 "배운다"는 것을 세 번 직접 봤다.</p>
+        <div class="table-wrap"><table><thead><tr><th>실습</th><th>무엇을</th><th>어떻게</th></tr></thead><tbody>
+          <tr><td>회귀(카페 매출)</td><td>연속된 숫자 예측</td><td>예측 → 오차 → 조정으로 직선 규칙을 데이터에서 찾음</td></tr>
+          <tr><td>분류(MNIST)</td><td>어느 숫자인지</td><td>softmax로 후보마다 확률을 매겨 하나 고름</td></tr>
+          <tr><td>파인튜닝(개/고양이)</td><td>내 문제에 맞춤</td><td>남이 사전학습한 특징을 물려받아 적은 데이터로</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>🎯 셋을 관통하는 한 문장:</b> <span class="hl">모델 구조보다 데이터가 결과를 가른다.</span> 데이터를 10%로 줄이면 정확도가 떨어졌고, 사전학습된 특징을 물려받으면 적은 데이터로도 잘 됐다. 그래서 <b>AI를 다루는 사람의 진짜 일은 "좋은 모델 고르기"보다 좋은 데이터를 모으고 검증하는 것</b>에 가깝다.</div>
+        <p>앞으로 직접 학습을 돌릴 일은 많지 않다. 하지만 오늘 원리를 봤기에, 코딩 에이전트에게 <b>무엇을 시키고</b>(무슨 데이터로, 어떤 학습을) <b>나온 결과의 무엇을 의심할지</b>(데이터가 충분한가, 정확도가 왜 이런가) 판단할 수 있다. <span class="hl2">다음 시간엔 언어모델의 속 — 토큰과 컨텍스트, 그리고 트랜스포머.</span></p>
+
+        <h3>🎯 핵심 정리</h3>
+        <div class="table-wrap"><table><thead><tr><th>핵심 질문</th><th>오늘의 답</th></tr></thead><tbody>
+          <tr><td>인공지능이 "배운다"는 건?</td><td>규칙을 손으로 짜는 대신, 데이터에서 예측 → 오차 → 조정을 반복해 패턴을 찾는 것</td></tr>
+          <tr><td>회귀 vs 분류?</td><td>회귀는 연속된 값(매출)을, 분류는 어느 범주인지(softmax 확률)를 예측</td></tr>
+          <tr><td>softmax는?</td><td>여러 후보 점수를 합이 1인 확률로 바꿔, 확신 정도와 함께 하나를 고르게 함</td></tr>
+          <tr><td>파인튜닝은 왜?</td><td>사전학습된 특징을 물려받아 적은 데이터·적은 계산으로 내 문제에 맞추려고</td></tr>
+          <tr><td>왜 GPU가 필요?</td><td>학습은 방대한 행렬 곱셈이고, GPU는 이를 대규모 병렬 처리해 훨씬 빠름</td></tr>
+          <tr><td>AI 활용가의 진짜 일은?</td><td>모델 고르기보다, 좋은 데이터를 모으고 결과를 의심·검증하는 것</td></tr>
+        </tbody></table></div>
+
+        <div class="notice"><b>🤔 오늘의 회고 — 세 줄을 자기 노트에:</b><br>· <b>머리</b> — "규칙을 짜는 대신 데이터로 배운다"를 오늘 본 예 하나로 내 말로 설명해 보기<br>· <b>손</b> — MNIST/개·고양이 실습에서 데이터를 줄였을 때 정확도가 어떻게 바뀌었나, 관찰한 숫자 적기<br>· <b>마음</b> — 내 분야에서 "규칙으로는 벅차지만 예시(데이터)는 모을 수 있는" 문제 하나 떠올리기</div>
+
+        <div class="notice"><b>📚 출처 · 더 찾아보기:</b> <span class="fine">기계학습 정의 Arthur Samuel(1959) · 학습의 뿌리 Rosenblatt(1958) 퍼셉트론; Rumelhart·Hinton·Williams(1986) "Learning representations by back-propagating errors", Nature · MNIST LeCun·Cortes·Burges · ResNet He·Zhang·Ren·Sun(2015) "Deep Residual Learning" arXiv:1512.03385 · 전이학습 PyTorch Tutorial · 임베딩 Mikolov et al.(2013) word2vec arXiv:1301.3781 · Colab CLI Google(2026) google-colab-cli. 강좌: 모두의연구소 KDT 「AI의 이해와 사용_Agt1」.</span></div>
       </section>
 
       <div class="pager" id="pager"></div>
