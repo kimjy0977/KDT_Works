@@ -254,9 +254,9 @@ async function initAuth(){
 }
 async function loadAll(){
   const [marks, mine, favs, vc, vs] = await Promise.all([
-    sb.from('country_marks').select('code,kind'),
-    sb.from('country_marks').select('code,kind').eq('user_id', me),
-    sb.from('favorites').select('code').eq('user_id', me),
+    sb.from('d_hw_atlas_country_marks').select('code,kind'),
+    sb.from('d_hw_atlas_country_marks').select('code,kind').eq('user_id', me),
+    sb.from('d_hw_atlas_favorites').select('code').eq('user_id', me),
     getViewCounts(),
     getVisitStats()
   ]);
@@ -270,16 +270,16 @@ async function loadAll(){
 }
 async function toggleFav(code){
   if(!sb){ alert(t('beNeed')); return; }
-  if(FAVS.has(code)){ await sb.from('favorites').delete().match({user_id:me, code}); FAVS.delete(code); }
-  else { await sb.from('favorites').insert({user_id:me, code}); FAVS.add(code); }
+  if(FAVS.has(code)){ await sb.from('d_hw_atlas_favorites').delete().match({user_id:me, code}); FAVS.delete(code); }
+  else { await sb.from('d_hw_atlas_favorites').insert({user_id:me, code}); FAVS.add(code); }
   render();
 }
 async function toggleMark(code, kind){
   if(!sb){ alert(t('beNeed')); return; }
   const key = code+"|"+kind, on = MY.has(key);
   MARKS[code] = MARKS[code] || {visited:0,wish:0};
-  if(on){ await sb.from('country_marks').delete().match({user_id:me, code, kind}); MY.delete(key); MARKS[code][kind]=Math.max(0,MARKS[code][kind]-1); }
-  else  { await sb.from('country_marks').insert({user_id:me, code, kind}); MY.add(key); MARKS[code][kind]++; }
+  if(on){ await sb.from('d_hw_atlas_country_marks').delete().match({user_id:me, code, kind}); MY.delete(key); MARKS[code][kind]=Math.max(0,MARKS[code][kind]-1); }
+  else  { await sb.from('d_hw_atlas_country_marks').insert({user_id:me, code, kind}); MY.add(key); MARKS[code][kind]++; }
   render();
 }
 

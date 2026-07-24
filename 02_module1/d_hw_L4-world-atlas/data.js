@@ -273,7 +273,7 @@ async function logView(code, uid){
   const key = 'pv_' + (code || 'home');
   if(sessionStorage.getItem(key)) return;
   sessionStorage.setItem(key, '1');
-  try{ await sb.from('page_views').insert({ code: code || null, user_id: uid }); }catch(e){}
+  try{ await sb.from('d_hw_atlas_page_views').insert({ code: code || null, user_id: uid }); }catch(e){}
 }
 async function getVisitStats(){
   if(!sb) return null;

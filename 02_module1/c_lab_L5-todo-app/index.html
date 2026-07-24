@@ -84,7 +84,7 @@ const showErr = m => { const e=$('err'); e.textContent='⚠️ '+m; e.style.disp
 
 async function load(){
   const { data, error } = await sb
-    .from('lab_todos')
+    .from('c_lab_todo_todos')
     .select('id,title,is_done,due_date,created_at, lab_todo_tags(lab_tags(name))')
     .order('is_done', {ascending:true})
     .order('due_date', {ascending:true, nullsFirst:false})
@@ -134,26 +134,26 @@ $('form').onsubmit=async e=>{
   const title=$('title').value.trim(); if(!title) return;
   const tagNames=$('tags').value.split(',').map(s=>s.trim()).filter(Boolean);
   // 1) 할 일 추가
-  const { data:todo, error:e1 } = await sb.from('lab_todos')
+  const { data:todo, error:e1 } = await sb.from('c_lab_todo_todos')
     .insert({title, due_date:$('due').value||null}).select('id').single();
   if(e1){ showErr('추가 실패: '+e1.message); return; }
   // 2) 태그 upsert(중복이면 무시) → 3) 연결표에 짝 저장 (다대다)
   for(const name of tagNames){
-    const { data:tag, error:e2 } = await sb.from('lab_tags')
+    const { data:tag, error:e2 } = await sb.from('c_lab_todo_tags')
       .upsert({name},{onConflict:'name'}).select('id').single();
     if(e2){ showErr('태그 실패: '+e2.message); continue; }
-    await sb.from('lab_todo_tags').upsert({todo_id:todo.id, tag_id:tag.id});
+    await sb.from('c_lab_todo_todo_tags').upsert({todo_id:todo.id, tag_id:tag.id});
   }
   e.target.reset(); $('title').focus();
   load();
 };
 
 async function toggle(id,is_done){
-  const { error }=await sb.from('lab_todos').update({is_done}).eq('id',id);
+  const { error }=await sb.from('c_lab_todo_todos').update({is_done}).eq('id',id);
   if(error){ showErr('수정 실패: '+error.message); return; } load();
 }
 async function remove(id){
-  const { error }=await sb.from('lab_todos').delete().eq('id',id);
+  const { error }=await sb.from('c_lab_todo_todos').delete().eq('id',id);
   if(error){ showErr('삭제 실패: '+error.message); return; } load();
 }
 

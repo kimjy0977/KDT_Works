@@ -472,9 +472,9 @@ async function initAuth(){
 }
 async function loadMarks(){
   const [all, mine, fav, vc] = await Promise.all([
-    sb.from('country_marks').select('kind').eq('code', code),
-    sb.from('country_marks').select('kind').eq('code', code).eq('user_id', me),
-    sb.from('favorites').select('code').eq('code', code).eq('user_id', me),
+    sb.from('d_hw_atlas_country_marks').select('kind').eq('code', code),
+    sb.from('d_hw_atlas_country_marks').select('kind').eq('code', code).eq('user_id', me),
+    sb.from('d_hw_atlas_favorites').select('code').eq('code', code).eq('user_id', me),
     getViewCounts()
   ]);
   const cnt = {visited:0, wish:0}; (all.data||[]).forEach(r => cnt[r.kind]!==undefined && cnt[r.kind]++);
@@ -491,15 +491,15 @@ async function loadMarks(){
 async function toggleMark(kind){
   if(!sb){ alert(t('beNeed')); return; }
   const on = document.getElementById(kind==='visited'?'bVisited':'bWish').classList.contains('on');
-  if(on){ await sb.from('country_marks').delete().match({user_id:me, code, kind}); }
-  else  { await sb.from('country_marks').insert({user_id:me, code, kind}); }
+  if(on){ await sb.from('d_hw_atlas_country_marks').delete().match({user_id:me, code, kind}); }
+  else  { await sb.from('d_hw_atlas_country_marks').insert({user_id:me, code, kind}); }
   loadMarks();
 }
 async function toggleFav(){
   if(!sb){ alert(t('beNeed')); return; }
   const on = document.getElementById('bFav').classList.contains('on');
-  if(on){ await sb.from('favorites').delete().match({user_id:me, code}); }
-  else  { await sb.from('favorites').insert({user_id:me, code}); }
+  if(on){ await sb.from('d_hw_atlas_favorites').delete().match({user_id:me, code}); }
+  else  { await sb.from('d_hw_atlas_favorites').insert({user_id:me, code}); }
   loadMarks();
 }
 function renderCommentList(dbData){
@@ -518,21 +518,21 @@ function renderCommentList(dbData){
     </div>`).join("");
 }
 async function loadComments(){
-  const { data, error } = await sb.from('comments').select('*').eq('code', code).order('created_at', {ascending:false});
+  const { data, error } = await sb.from('d_hw_atlas_comments').select('*').eq('code', code).order('created_at', {ascending:false});
   renderCommentList(error ? [] : data);   // 에러여도 시드 댓글은 표시
 }
 async function postComment(){
   const nick = (document.getElementById('cmtNick').value||"").trim(), body = (document.getElementById('cmtBody').value||"").trim();
   if(!nick || !body){ alert(t('cmtNeedBoth')); return; }
   localStorage.setItem('nick', nick);
-  const { error } = await sb.from('comments').insert({ code, user_id:me, nickname:nick.slice(0,20), body:body.slice(0,300) });
+  const { error } = await sb.from('d_hw_atlas_comments').insert({ code, user_id:me, nickname:nick.slice(0,20), body:body.slice(0,300) });
   if(error){ alert((LANG==='en'?"Failed: ":"등록 실패: ") + error.message); return; }
   document.getElementById('cmtBody').value = "";
   loadComments();
 }
 async function delComment(id){
   if(!confirm(t('cmtDelConfirm'))) return;
-  const { error } = await sb.from('comments').delete().eq('id', id);
+  const { error } = await sb.from('d_hw_atlas_comments').delete().eq('id', id);
   if(error){ alert((LANG==='en'?"Delete failed: ":"삭제 실패: ") + error.message); return; }
   loadComments();
 }
