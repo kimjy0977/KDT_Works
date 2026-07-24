@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>♟️ 오프닝 트레이너</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 640px; margin: 40px auto; padding: 0 16px; color: #222; }
+    h1 { font-size: 24px; }
+    .sub { color: #888; font-size: 14px; margin-top: -8px; }
+    form { display: grid; gap: 8px; margin: 24px 0; }
+    input { padding: 10px; font-size: 14px; border: 1px solid #ccc; border-radius: 6px; }
+    button { padding: 10px; font-size: 14px; cursor: pointer; border: 0; border-radius: 6px; background: #2b6; color: #fff; font-weight: 600; }
+    button:hover { background: #2a5; }
+    .card { border: 1px solid #e5e5e5; border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
+    .card b { font-size: 16px; }
+    .moves { font-family: ui-monospace, monospace; color: #555; margin-left: 8px; }
+    .note { color: #999; font-size: 13px; margin-top: 4px; }
+    .empty { color: #aaa; }
+  </style>
+</head>
+<body>
+  <h1>♟️ 오프닝 트레이너</h1>
+  <p class="sub">체스 오프닝을 기록하는 나만의 백엔드 (모듈1 도메인개발)</p>
+
+  <form id="form">
+    <input id="name" placeholder="오프닝 이름 (예: 시칠리안 디펜스)" required>
+    <input id="moves" placeholder="수순 (예: 1.e4 c5)" required>
+    <input id="note" placeholder="메모 (선택)">
+    <button type="submit">+ 오프닝 추가</button>
+  </form>
+
+  <div id="list"></div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    async function load() {
+      const res = await fetch('/openings');
+      const items = await res.json();
+      $('list').innerHTML = items.length
+        ? items.map(o =>
+            `<div class="card"><b>${o.name}</b><span class="moves">${o.moves}</span>`
+            + (o.note ? `<div class="note">${o.note}</div>` : '')
+            + `</div>`
+          ).join('')
+        : '<p class="empty">아직 없어요. 위에서 첫 오프닝을 추가해보세요.</p>';
+    }
+
+    $('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await fetch('/openings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: $('name').value,
+          moves: $('moves').value,
+          note: $('note').value,
+        }),
+      });
+      e.target.reset();
+      $('name').focus();
+      load();
+    });
+
+    load();
+  </script>
+</body>
+</html>
