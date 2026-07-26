@@ -3,148 +3,218 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>김주영 KDT 학습 허브</title>
+<title>김주영 · KDT 학습 허브</title>
 <style>
-  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
-  :root{--bg:#f7f6f2;--surface:#fff;--ink:#1b2130;--ink2:#525b6a;--ink3:#8c94a2;--line:#e8e4db;
-    --brand:#0f766e;--brand-ink:#0b5b54;--brand-soft:#e4f3f0;
-    --sans:'Pretendard','Noto Sans KR',system-ui,sans-serif}
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400;0,500;0,600;1,400&family=Public+Sans:wght@300;400;500;600;700&family=Nanum+Myeongjo:wght@400;700;800&display=swap');
+
+  :root{
+    --paper:#FBFAF7; --paper-2:#F3F1EA; --panel:#F6F4EE;
+    --ink:#1A1813; --ink-2:#575249; --ink-3:#8B8578;
+    --rule:#E4E0D5; --rule-2:#CFC9BA;
+    --accent:#7A1F2B; --accent-2:#9A2B32;
+    --serif:'Libre Bodoni','Nanum Myeongjo',Georgia,'Noto Serif KR',serif;
+    --kserif:'Nanum Myeongjo','Libre Bodoni',serif;
+    --sans:'Public Sans','Pretendard','Noto Sans KR',system-ui,-apple-system,sans-serif;
+    --measure:66ch;
+  }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.7;
-    word-break:keep-all;-webkit-font-smoothing:antialiased}
-  .hero{color:#fff;padding:56px 0 44px;background:
-    radial-gradient(130% 150% at 100% -10%,rgba(20,184,166,.38),transparent 55%),
-    linear-gradient(135deg,#0b3a33,#0d5c53 52%,#0e7490)}
-  .wrap{max-width:940px;margin:auto;padding:0 24px}
-  .idbar{display:flex;align-items:center;gap:13px;margin-bottom:20px}
-  .idbar .mono{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;flex:0 0 auto;
-    background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);
-    font-weight:800;letter-spacing:.02em;font-size:1.05rem;color:#fff}
-  .idbar .eyebrow{margin:0}
-  .idlinks{margin-top:4px}
-  .idlinks a{color:rgba(255,255,255,.9);font-size:.86rem;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.4)}
-  .idlinks a:hover{border-bottom-color:#fff}
-  .eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.78)}
-  h1{font-weight:800;font-size:clamp(2rem,5vw,3.1rem);letter-spacing:-.03em;line-height:1.1;margin:6px 0 0}
-  .lede{color:rgba(255,255,255,.9);font-size:1.02rem;max-width:68ch;margin:14px 0 0}
-  .back{display:inline-block;margin-top:22px;padding:9px 15px;border-radius:999px;font-weight:700;font-size:.9rem;
-    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;text-decoration:none}
-  .back:hover{background:rgba(255,255,255,.22)}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+    font-size:17px;line-height:1.72;letter-spacing:-.003em;word-break:keep-all;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    font-feature-settings:"tnum" 0,"kern" 1,"liga" 1}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:#e7d8bb}
+  .wrap{width:min(1120px,calc(100% - 48px));margin-inline:auto}
 
-  /* 진행 현황 스트립 */
-  .progress{background:var(--surface);border-bottom:1px solid var(--line)}
-  .progress .wrap{display:flex;flex-wrap:wrap;gap:12px;padding:18px 24px}
-  .pstat{flex:1;min-width:150px;padding:12px 15px;background:var(--brand-soft);border-radius:12px}
-  .pstat b{display:block;font-size:.98rem;font-weight:800;color:var(--brand-ink)}
-  .pstat span{display:block;margin-top:3px;font-size:.8rem;color:var(--ink2);line-height:1.45}
-  .pstat.pending{background:#f2f0ea}
-  .pstat.pending b{color:var(--ink2)}
+  /* ── Masthead ── */
+  .mast{padding:20px 0 0}
+  .mast .row{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+  .mast .brand{font-family:var(--serif);font-weight:600;font-size:1.12rem;letter-spacing:.01em}
+  .mast .brand em{font-style:italic;font-weight:400}
+  .mast .meta{font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+  .mast .meta a{color:var(--ink-2);border-bottom:1px solid var(--rule-2);padding-bottom:1px}
+  .mast .meta a:hover{color:var(--accent);border-color:var(--accent)}
+  .rule-thick{height:2px;background:var(--ink);margin-top:14px}
+  .rule-hair{height:1px;background:var(--rule);margin-top:3px}
 
-  main{max-width:940px;margin:auto;padding:24px 24px 72px}
-  .secttl{margin:30px 0 12px;font-size:1.06rem;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
-  .secttl:first-of-type{margin-top:6px}
-  .note{border-left:4px solid var(--brand);background:var(--brand-soft);border-radius:0 10px 10px 0;
-    padding:14px 18px;margin:0 0 16px;font-size:.94rem;color:var(--ink)}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .c{display:block;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);
-    border-radius:16px;padding:22px;transition:.16s;box-shadow:0 1px 3px rgba(20,28,45,.05)}
-  .c:hover{border-color:var(--brand);transform:translateY(-3px)}
-  .c.feat{border-color:var(--brand);background:linear-gradient(180deg,var(--brand-soft),var(--surface))}
-  .c .ic{font-size:1.7rem;line-height:1}
-  .c h2{font-size:1.24rem;font-weight:800;letter-spacing:-.01em;margin:12px 0 0}
-  .c p{color:var(--ink2);font-size:.9rem;margin:8px 0 0;line-height:1.6}
-  .c .go{margin-top:14px;font-weight:700;font-size:.84rem;color:var(--brand)}
-  footer{border-top:1px solid var(--line);color:var(--ink3);font-size:.84rem}
-  footer .wrap{padding:24px 24px 44px;line-height:1.7}
-  footer a{color:var(--brand);font-weight:700;text-decoration:none}
-  @media(max-width:620px){.grid{grid-template-columns:1fr}}
+  /* ── Hero ── */
+  .hero{padding:clamp(46px,8vw,92px) 0 clamp(40px,6vw,72px);
+    display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+  .kicker{font-size:.72rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);
+    display:flex;align-items:center;gap:12px}
+  .kicker::after{content:"";flex:1;height:1px;background:var(--rule-2);max-width:120px}
+  .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(3rem,9vw,6.2rem);line-height:.96;
+    letter-spacing:-.025em;margin:.34em 0 0;max-width:15ch}
+  .hero .lede{font-size:clamp(1.05rem,1.7vw,1.28rem);line-height:1.62;color:var(--ink-2);
+    max-width:52ch;margin:1.4em 0 0}
+  .hero .lede::first-letter{initial-letter:2;font-family:var(--serif);font-weight:600;color:var(--accent);margin-right:.08em}
+  .hero .by{margin-top:28px;font-size:.86rem;color:var(--ink-3);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .hero .by .sig{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--ink);letter-spacing:.01em}
+  .hero .by a{color:var(--ink-2);border-bottom:1px solid var(--rule-2)}
+  .hero .by a:hover{color:var(--accent);border-color:var(--accent)}
+
+  /* ── Stat line ── */
+  .stats{border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);
+    display:grid;grid-template-columns:repeat(4,1fr)}
+  .stat{padding:18px 22px;border-left:1px solid var(--rule)}
+  .stat:first-child{border-left:0;padding-left:0}
+  .stat .k{display:block;font-size:.64rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+  .stat .v{display:block;margin-top:5px;font-family:var(--serif);font-size:1.32rem;font-weight:500;letter-spacing:-.01em;font-feature-settings:"tnum" 1}
+  .stat .v.muted{color:var(--ink-3)}
+
+  /* ── Contents ── */
+  .contents{padding:clamp(40px,6vw,74px) 0 20px}
+  .sec-label{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:6px}
+  .sec-label .t{font-family:var(--serif);font-style:italic;font-size:1.5rem;font-weight:400}
+  .sec-label .n{font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+
+  .chapter{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:clamp(16px,3vw,40px);
+    padding:26px 0;border-top:1px solid var(--rule);transition:border-color .2s}
+  .chapter:last-child{border-bottom:1px solid var(--rule)}
+  .chapter:hover{border-top-color:var(--ink)}
+  .chapter .num{font-family:var(--serif);font-size:clamp(1.4rem,3vw,2.1rem);font-weight:400;color:var(--rule-2);
+    line-height:1;transition:color .2s;font-feature-settings:"tnum" 1;min-width:1.6em}
+  .chapter:hover .num{color:var(--accent)}
+  .ch-kicker{font-size:.66rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:block}
+  .ch-title{font-family:var(--serif);font-size:clamp(1.5rem,3.2vw,2.35rem);font-weight:500;letter-spacing:-.02em;
+    line-height:1.08;margin:7px 0 0}
+  .ch-title .kr{font-family:var(--kserif)}
+  .ch-desc{font-size:.95rem;color:var(--ink-2);margin:9px 0 0;max-width:56ch;line-height:1.6}
+  .ch-go{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;
+    align-self:center;transition:color .2s}
+  .chapter:hover .ch-go{color:var(--accent)}
+  .ch-go .arw{display:inline-block;transition:transform .2s}
+  .chapter:hover .ch-go .arw{transform:translateX(4px)}
+
+  .group-head{margin:clamp(34px,5vw,58px) 0 0}
+  .group-head:first-of-type{margin-top:0}
+
+  /* ── Colophon ── */
+  .colophon{margin-top:clamp(48px,7vw,88px);border-top:2px solid var(--ink);padding:26px 0 60px}
+  .colophon .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:baseline}
+  .colophon .sig{font-family:var(--serif);font-style:italic;font-size:1.15rem}
+  .colophon .note{font-size:.8rem;color:var(--ink-3);max-width:48ch;line-height:1.65}
+  .colophon a{color:var(--accent);border-bottom:1px solid transparent}
+  .colophon a:hover{border-color:var(--accent)}
+
+  @media(max-width:680px){
+    .stats{grid-template-columns:1fr 1fr}
+    .stat{border-top:1px solid var(--rule)}
+    .stat:first-child,.stat:nth-child(2){border-top:0}
+    .stat:nth-child(odd){padding-left:0;border-left:0}
+    .chapter{grid-template-columns:auto 1fr;gap:16px}
+    .ch-go{display:none}
+  }
 </style>
 </head>
 <body>
-  <header class="hero"><div class="wrap">
-    <div class="idbar">
-      <span class="mono" aria-label="김주영">JY</span>
+
+  <header class="wrap mast">
+    <div class="row">
+      <div class="brand">김주영 <em>· KDT</em></div>
+      <div class="meta">AI 에이전트 1기 · 2026 · <a href="https://github.com/kimjy0977" target="_blank" rel="noopener">GitHub</a></div>
+    </div>
+    <div class="rule-thick"></div>
+    <div class="rule-hair"></div>
+  </header>
+
+  <section class="wrap hero">
+    <div class="kicker">학습 허브 · Learning Hub</div>
+    <h1>기록하는 순간, 배움이 남는다</h1>
+    <p class="lede">강의에서 배운 것도, 출결·공결 같은 운영 규칙도, 학습 환경도 — 숨김없이 공개로 기록하는 곳. 나에게도, 함께 듣는 그루에게도, 퍼실에게도 열려 있습니다.</p>
+    <div class="by"><span class="sig">김주영</span> 아이펠 KDT AI 에이전트 1기 · <a href="https://github.com/kimjy0977" target="_blank" rel="noopener">github.com/kimjy0977</a></div>
+  </section>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><span class="k">현재</span><span class="v">과정 3일차~</span></div>
+      <div class="stat"><span class="k">모듈</span><span class="v">1–2 진행</span></div>
+      <div class="stat"><span class="k">메인 퀘스트</span><span class="v">ORIGIN 제출</span></div>
+      <div class="stat"><span class="k">출석률</span><span class="v muted">— 🟨</span></div>
+    </div>
+  </div>
+
+  <main class="wrap contents">
+    <div class="sec-label"><span class="t">목차</span><span class="n">Contents</span></div>
+
+    <a class="chapter" href="회고.html">
+      <span class="num">01</span>
       <div>
-        <div class="eyebrow">김주영 · 아이펠 KDT AI 에이전트 1기</div>
-        <div class="idlinks"><a href="https://github.com/kimjy0977" target="_blank" rel="noopener">GitHub ↗</a></div>
+        <span class="ch-kicker">블로그 챌린지</span>
+        <h2 class="ch-title kr">회고 로그</h2>
+        <p class="ch-desc">날짜별 복습·회고. 배운 것, 막힌 것, 그루에게 공유할 것. 최근: 07–10 Git 온보딩.</p>
       </div>
-    </div>
-    <h1>김주영의 KDT 학습 허브</h1>
-    <p class="lede">강의에서 배운 것도, 출결·공결 같은 운영 규칙도, 학습 환경도 — 숨김없이 공개로 기록하는 허브. 나에게도, 함께 듣는 그루에게도, 퍼실에게도 열려 있습니다.</p>
-    <a class="back" href="../">🗂️ 과제 아카이브로 →</a>
-  </div></header>
+      <span class="ch-go">읽기 <span class="arw">→</span></span>
+    </a>
 
-  <section class="progress"><div class="wrap">
-    <div class="pstat"><b>과정 3일차~</b><span>2026-07-08 개강</span></div>
-    <div class="pstat"><b>모듈 1~2 진행</b><span>바이브코딩 웹 / AI 이해와 사용</span></div>
-    <div class="pstat"><b>메인 퀘스트 제출</b><span>ORIGIN — 영감의 계보</span></div>
-    <div class="pstat pending"><b>출석률 🟨</b><span>LMS 데이터 연동 예정</span></div>
-  </div></section>
+    <a class="chapter" href="모두연-노드-강의노트.html">
+      <span class="num">02</span>
+      <div>
+        <span class="ch-kicker">학습 노트</span>
+        <h2 class="ch-title kr">모두연 강의 학습 노트</h2>
+        <p class="ch-desc">바이브코딩으로 웹 만들기 — 적응기 + 1~7강. 강의 내용을 그대로 담은 누적 노트.</p>
+      </div>
+      <span class="ch-go">읽기 <span class="arw">→</span></span>
+    </a>
 
-  <main>
-    <!-- ③ 블로그 챌린지 · 회고 -->
-    <h2 class="secttl">✍️ 블로그 챌린지 · 회고</h2>
-    <div class="note">학습한 내용을 회고(복습)하거나 아이디어를 정리해 기록으로 남깁니다. 꾸준한 기록이 곧 성장의 데이터.</div>
-    <div class="grid">
-      <a class="c feat" href="회고.html">
-        <div class="ic">✍️</div><h2>회고 로그</h2>
-        <p>날짜별 복습·회고. 최근: 07-10 Git 온보딩. 계속 누적됩니다.</p>
-        <div class="go">열기 →</div>
-      </a>
-    </div>
+    <a class="chapter" href="AI에이전트-강의노트.html">
+      <span class="num">03</span>
+      <div>
+        <span class="ch-kicker">학습 노트</span>
+        <h2 class="ch-title kr">강의 노트 · 앤트로픽 · 인프런</h2>
+        <p class="ch-desc">앤트로픽 AI Fluency + 인프런 AI 에이전트 오리엔테이션 정리.</p>
+      </div>
+      <span class="ch-go">읽기 <span class="arw">→</span></span>
+    </a>
 
-    <!-- ④ 학습 노트 (기존 2 보존) -->
-    <h2 class="secttl">📝 학습 노트</h2>
-    <div class="grid">
-      <a class="c" href="모두연-노드-강의노트.html">
-        <div class="ic">🧩</div><h2>모두연 강의 학습 노트</h2>
-        <p>바이브코딩으로 웹 만들기 — 적응기 + 1~7강. 강의 내용을 그대로 담은 누적 노트.</p>
-        <div class="go">열기 →</div>
-      </a>
-      <a class="c" href="AI에이전트-강의노트.html">
-        <div class="ic">📝</div><h2>강의 노트 (앤트로픽·인프런)</h2>
-        <p>앤트로픽 AI Fluency + 인프런 AI 에이전트 오리엔테이션 정리.</p>
-        <div class="go">열기 →</div>
-      </a>
-    </div>
+    <a class="chapter" href="KDT-교육-운영-종합안내.html">
+      <span class="num">04</span>
+      <div>
+        <span class="ch-kicker">운영 · 정책 · 환경</span>
+        <h2 class="ch-title kr">교육 운영 종합안내</h2>
+        <p class="ch-desc">출결·공결·훈련장려금·수료/졸업 기준·취업지원까지 — 과정을 굴리는 규칙을 한 문서로.</p>
+      </div>
+      <span class="ch-go">읽기 <span class="arw">→</span></span>
+    </a>
 
-    <!-- ⑤ 운영·정책·환경 지식 (승격) -->
-    <h2 class="secttl">📋 운영 · 정책 · 환경</h2>
-    <div class="note">출결·공결·훈련장려금·수료 규칙과 학습 환경까지 — 과정을 굴리는 규칙을 내가 알아가며 정리합니다.</div>
-    <div class="grid">
-      <a class="c" href="KDT-교육-운영-종합안내.html">
-        <div class="ic">📋</div><h2>교육 운영 종합안내</h2>
-        <p>출결·공결·훈련장려금·수료/졸업 기준·취업지원까지 한 문서로.</p>
-        <div class="go">열기 →</div>
-      </a>
-    </div>
+    <a class="chapter" href="선행학습-로드맵.html">
+      <span class="num">05</span>
+      <div>
+        <span class="ch-kicker">준비 · 참고</span>
+        <h2 class="ch-title kr">선행학습 로드맵</h2>
+        <p class="ch-desc">과정 첫날 기준, 무엇을 미리 익혀두면 좋은지 정리한 가이드.</p>
+      </div>
+      <span class="ch-go">읽기 <span class="arw">→</span></span>
+    </a>
 
-    <!-- ⑥⑦ 준비·참고 -->
-    <h2 class="secttl">🧭 준비 · 참고</h2>
-    <div class="grid">
-      <a class="c" href="선행학습-로드맵.html">
-        <div class="ic">🧭</div><h2>선행학습 로드맵</h2>
-        <p>과정 첫날 기준, 무엇을 미리 익혀두면 좋은지 정리한 가이드.</p>
-        <div class="go">열기 →</div>
-      </a>
-      <a class="c" href="용어집.html">
-        <div class="ic">📖</div><h2>용어집</h2>
-        <p>막힌 용어를 한 줄 정의로 쌓는 기록. 그루도 빠르게 찾아볼 수 있게.</p>
-        <div class="go">열기 →</div>
-      </a>
-    </div>
+    <a class="chapter" href="용어집.html">
+      <span class="num">06</span>
+      <div>
+        <span class="ch-kicker">준비 · 참고</span>
+        <h2 class="ch-title kr">용어집</h2>
+        <p class="ch-desc">막힌 용어를 한 줄 정의로 쌓는 기록. 그루도 빠르게 찾아볼 수 있게.</p>
+      </div>
+      <span class="ch-go">읽기 <span class="arw">→</span></span>
+    </a>
 
-    <!-- ⑧ 과제 아카이브 -->
-    <h2 class="secttl">🗂️ 과제 아카이브</h2>
-    <div class="grid">
-      <a class="c" href="../">
-        <div class="ic">🗂️</div><h2>과제 아카이브 갤러리 →</h2>
-        <p>메인 퀘스트·실습·과제 산출물 모음(별도 허브).</p>
-        <div class="go">열기 →</div>
-      </a>
+    <a class="chapter" href="../">
+      <span class="num">07</span>
+      <div>
+        <span class="ch-kicker">아카이브</span>
+        <h2 class="ch-title kr">과제 아카이브 갤러리</h2>
+        <p class="ch-desc">메인 퀘스트·실습·과제 산출물 모음. 별도 허브로 이동합니다.</p>
+      </div>
+      <span class="ch-go">이동 <span class="arw">↗</span></span>
+    </a>
+
+    <div class="colophon">
+      <div class="row">
+        <span class="sig">김주영이 기록·운영합니다</span>
+        <span class="note">KDT AI 에이전트 1기 학습 허브 · 나 · 그루 · 퍼실에게 열린 공개 기록 · <a href="../">과제 아카이브 →</a></span>
+      </div>
     </div>
   </main>
 
-  <footer><div class="wrap">김주영이 기록·운영하는 KDT AI 에이전트 1기 학습 허브 · 나 · 그루 · 퍼실에게 열린 공개 기록 · <a href="../">과제 아카이브</a></div></footer>
 </body>
 </html>
