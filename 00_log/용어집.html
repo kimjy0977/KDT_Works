@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>용어집 · 김주영 KDT 허브</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+  :root{--bg:#f7f6f2;--surface:#fff;--ink:#1b2130;--ink2:#525b6a;--ink3:#8c94a2;--line:#e8e4db;
+    --brand:#0f766e;--brand-ink:#0b5b54;--brand-soft:#e4f3f0;--hl-y:#fde68a;
+    --sans:'Pretendard','Noto Sans KR',system-ui,sans-serif}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.7;word-break:keep-all;-webkit-font-smoothing:antialiased}
+  .hero{color:#fff;padding:56px 0 40px;background:radial-gradient(130% 150% at 100% -10%,rgba(20,184,166,.38),transparent 55%),linear-gradient(135deg,#0b3a33,#0d5c53 52%,#0e7490)}
+  .wrap{max-width:900px;margin:auto;padding:0 24px}
+  .eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+  h1{font-weight:800;font-size:clamp(1.9rem,5vw,2.8rem);letter-spacing:-.03em;margin:12px 0 0}
+  .lede{color:rgba(255,255,255,.9);margin:12px 0 0;max-width:64ch}
+  .back{display:inline-block;margin-top:20px;padding:9px 15px;border-radius:999px;font-weight:700;font-size:.9rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;text-decoration:none}
+  .back:hover{background:rgba(255,255,255,.22)}
+  main{max-width:900px;margin:auto;padding:36px 24px 72px}
+  .note{border-left:4px solid var(--brand);background:var(--brand-soft);border-radius:0 10px 10px 0;padding:14px 18px;margin:0 0 26px;font-size:.94rem}
+  table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top;font-size:.95rem}
+  th{background:var(--brand-soft);color:var(--brand-ink);font-weight:800;font-size:.82rem;letter-spacing:.02em}
+  tr:last-child td{border-bottom:0}
+  td:first-child{font-weight:700;white-space:nowrap}
+  td small{color:var(--ink3);font-weight:500}
+  code{background:#f2f0ea;padding:1px 6px;border-radius:6px;font-size:.88em}
+  .hl{background:var(--hl-y);padding:0 2px;border-radius:3px}
+  @media(max-width:560px){th:last-child,td:last-child{display:none}}
+</style></head><body>
+  <header class="hero"><div class="wrap">
+    <div class="eyebrow">Glossary · 용어집</div>
+    <h1>모르는 용어 → 한 줄 정의</h1>
+    <p class="lede">수업·바이브코딩 중 막힌 용어를 즉시 한 줄로 정의해 쌓는 기록. 나도, 함께 듣는 그루도 빠르게 찾아볼 수 있게.</p>
+    <a class="back" href="./">← 허브로</a>
+  </div></header>
+  <main>
+    <div class="note">막힐 때마다 즉시 1줄 정의화하는 습관의 결과물입니다. 계속 누적됩니다.</div>
+    <table>
+      <thead><tr><th>용어</th><th>한 줄 정의</th><th>처음 만난 곳</th></tr></thead>
+      <tbody>
+        <tr><td>마크업 언어<br><small>markup language</small></td><td>글자에 <span class="hl">태그를 붙여</span> 구조·의미를 표시하는 언어 (HTML이 대표)</td><td>2일차 강의 (7/9)</td></tr>
+        <tr><td>태그<br><small>tag</small></td><td><code>&lt;h1&gt;</code>처럼 꺾쇠로 감싼 표시. 요소의 시작·끝을 나타냄</td><td>2일차 강의</td></tr>
+        <tr><td>HTML 요소<br><small>element</small></td><td>여는 태그 + 내용 + 닫는 태그로 이루어진 <span class="hl">한 덩어리</span> (예: <code>&lt;p&gt;문단&lt;/p&gt;</code>)</td><td>2일차 강의</td></tr>
+        <tr><td>마크다운<br><small>Markdown</small></td><td><code>#</code>·<code>-</code>·<code>**</code> 같은 <span class="hl">가벼운 기호로</span> 서식을 주는 문법</td><td>2일차 강의</td></tr>
+      </tbody>
+    </table>
+  </main>
+</body></html>
