@@ -361,6 +361,7 @@
       <a href="#n9-4">4강 두 길이 트랜스포머에서 합류</a>
       <a href="#n9-5">5강 트랜스포머가 세상을 먹다</a>
       <a href="#n9-6">6강 토큰과 컨텍스트를 본다<span class="toctag p">실습</span></a>
+      <a href="#n9-7">7강 토큰 예산표·컨텍스트 설계<span class="toctag p">실습</span></a>
       </div>
     </nav>
 
@@ -2287,7 +2288,7 @@ colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동
           <tr><td>4</td><td>두 길이 트랜스포머에서 합류하다</td><td>✅ 정리됨</td></tr>
           <tr><td>5</td><td>트랜스포머가 세상을 먹다</td><td>✅ 정리됨</td></tr>
           <tr><td>6</td><td>그래서 활용가는 토큰과 컨텍스트를 본다</td><td>✅ 정리됨</td></tr>
-          <tr><td>7</td><td>토큰 예산표와 컨텍스트를 직접 설계한다</td><td>대기(순차 잠금)</td></tr>
+          <tr><td>7</td><td>토큰 예산표와 컨텍스트를 직접 설계한다</td><td>✅ 정리됨</td></tr>
           <tr><td>8</td><td>역사에서 활용까지 한 줄로 꿰기</td><td>대기(순차 잠금)</td></tr>
         </tbody></table></div>
       </section>
@@ -2469,6 +2470,45 @@ colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동
           <tr><td>요약 후 투입</td><td>긴 회의록·리포트를 여러 단계 판단에</td><td>요약서 빠진 정보는 뒤에서 복구 어려움</td></tr>
         </tbody></table></div>
         <div class="notice"><b>📚 출처:</b> <span class="fine">모듈2 노드2 「트랜스포머」 6강. Lost in the Middle(arXiv:2307.03172) · RAG(arXiv:2005.11401) · OpenAI Tokenizer/Models·Google Long context 문서. ※구체 토큰수·한도·가격은 시점마다 변하니 요청 직전 재확인.</span></div>
+      </section>
+
+      <section class="section" id="n9-7"><h2>7강 · 토큰 예산표와 컨텍스트를 직접 설계한다 <span class="dur">실습</span></h2>
+        <p class="lead">개념을 내 업무로. 산출물은 코드가 아니라 <b>두 장의 표</b> — 비용이 어디서 생기는지 보는 <b>토큰 예산표</b>, 무엇을 넣고 뺄지 정하는 <b>컨텍스트 설계 캔버스</b>.</p>
+
+        <h3>비용은 어디서 생기나</h3>
+        <p>AI 비용 = <b>입력 토큰 + 출력 토큰 + 호출 횟수 + 모델 등급 + 부가 처리(검색·이미지·음성)</b>. 이 중 <span class="hl">직접 다룰 수 있는 건 앞 세 가지</span>. (구체 가격은 시점마다 변하니 외우지 말고 공식 가격표 확인 — 오늘은 '위치'만.)</p>
+        <div class="table-wrap"><table><thead><tr><th>토큰 예산 워크북 항목</th><th>줄일 수 있나</th><th>줄이면 위험한가</th></tr></thead><tbody>
+          <tr><td>요청 목적 / 매번 넣는 고정 지시 / 매번 넣는 자료</td><td rowspan="3" style="vertical-align:middle">항목별로<br>표시</td><td rowspan="3" style="vertical-align:middle">항목별로<br>표시</td></tr>
+          <tr><td>사용자가 입력하는 내용 / 기대 출력 길이</td></tr>
+          <tr><td>하루 예상 호출 횟수 / 반드시 남겨야 할 근거</td></tr>
+        </tbody></table></div>
+        <p class="fine">정리 문장: "이 업무에서 <b>토큰을 줄여도 되는 부분은 ○○</b>이고, <b>줄이면 위험한 부분은 ○○</b>입니다. 이유는 ○○." — 이 한 문장이 비용 최적화와 품질 책임을 동시에 붙잡는다.</p>
+
+        <h3>병목 찾는 계산식 (가격 몰라도 위치는 보인다)</h3>
+        <div class="notice"><code>월 입력비용 ≈ 요청당 입력토큰 × 월 호출수 × 입력단가</code><br><code>월 출력비용 ≈ 요청당 출력토큰 × 월 호출수 × 출력단가</code><br><code>총비용 ≈ 입력 + 출력 + 부가처리</code><br>→ 입력 길고 출력 짧으면 <b>문서 선별·검색·요약</b>을, 입력 짧고 출력 길면 <b>출력 형식·상세도 제한</b>을, 호출 많으면 <b>캐시·라우팅·배치</b>를 본다.</div>
+
+        <h3>🔍 "비용 줄이자" 제안을 판단하기</h3>
+        <p>에이전트가 "상담 로그 원문 대신 3줄 요약만, 출력도 5문장으로 제한하세요"라고 하면 겉으론 맞아 보인다. 도메인 아는 사람이 물어야 할 것:</p>
+        <div class="table-wrap"><table><thead><tr><th>점검 질문</th><th>왜</th></tr></thead><tbody>
+          <tr><td>3줄 요약에서 법적 리스크 단서가 빠지지 않나</td><td>비용 절감이 책임 문제를 만들 수 있음</td></tr>
+          <tr><td>요약을 누가 만들고 검증하나</td><td>앞 단계 오류가 뒤 단계 답을 오염</td></tr>
+          <tr><td>5문장이 의사결정에 충분한가</td><td>짧은 답=검토 가능한 답 보장 아님</td></tr>
+          <tr><td>근거 원문으로 되돌아갈 수 있나</td><td>감사·설명·수정이 필요할 수 있음</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>🎯 핵심:</b> 비용 최적화는 "토큰을 줄이기"가 아니라 <span class="hl">"위험하지 않은 토큰부터 줄이기"</span>.</div>
+
+        <h3>🧾 코딩 에이전트에 '컨텍스트 설계'를 시키는 지시</h3>
+        <p>"챗봇 만들어줘"가 아니라 "컨텍스트가 길어질 때 비용·누락을 관리하는 구조로 만들어줘". 요구사항 예: ①입력·고정지시·출력길이 나눠 <b>토큰 예산표</b> ②전체 투입 vs 조각 검색 비교 ③결론마다 근거 문장 번호 ④위험한 압축 지점 표시 ⑤<span class="hl2">구현 코드 전에 '설계 판단표'를 먼저 보여줄 것.</span> ← 이 한 줄이 핵심(구현 전에 위험을 먼저 보게 함).</p>
+        <div class="table-wrap"><table><thead><tr><th>설계안 검토 체크</th><th>좋은 신호</th><th>위험 신호</th></tr></thead><tbody>
+          <tr><td>토큰 예산</td><td>입력·출력·호출 나눠 봄</td><td>"긴 컨텍스트 모델 쓰면 됨"으로 끝</td></tr>
+          <tr><td>근거 보존</td><td>결론마다 자료 ID·문장 번호</td><td>요약만 남기고 원문 추적 없음</td></tr>
+          <tr><td>중요 기준 배치</td><td>판단 기준을 프롬프트 앞쪽에</td><td>자료 덩어리 뒤에 핵심 지시가 묻힘</td></tr>
+          <tr><td>실패 대응</td><td>모름·근거부족·충돌 자료를 처리</td><td>항상 답을 만들도록 설계</td></tr>
+          <tr><td>도메인 책임</td><td>위험한 압축은 사람이 승인</td><td>비용 명목으로 핵심 근거 삭제</td></tr>
+        </tbody></table></div>
+
+        <div class="notice teal"><b>🎮 압축이 아니라 구조화:</b> "이 자료 잘 분석해서 중요한 내용 자세히 알려줘"(원문) → <b>역할/목표/우선순위(1·2·3)/근거 사용(자료·문장 번호)/출력 형식([쟁점][근거][위험도][추가 질문])/길이 제한(항목별 3문장, 단 근거 문장은 생략 금지)</b>로 구조화. <span class="hl">구조화 버전이 원문보다 길어도 낭비가 아님 — 검토 가능한 답을 만들기 때문.</span></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈2 노드2 「트랜스포머」 7강(실습). 산출물=토큰 예산표·컨텍스트 설계 캔버스. ※가격·한도는 요청 직전 공식 가격표 재확인.</span></div>
       </section>
 
       <div class="pager" id="pager"></div>
