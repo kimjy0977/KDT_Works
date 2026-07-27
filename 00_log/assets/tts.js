@@ -138,8 +138,8 @@
         if (h2.nextSibling) h2.parentNode.insertBefore(bar, h2.nextSibling);
         else h2.parentNode.appendChild(bar);
       }
-      // 블록별 ▶ (문단·콜아웃·목록)
-      var blocks = sec.querySelectorAll(":scope > p, :scope > .notice, :scope > ul > li, :scope > ol > li");
+      // 블록별 ▶ (문단·콜아웃만 — 줄/목록 단위는 "선택 읽기"로 충분, 칩 과밀 방지)
+      var blocks = sec.querySelectorAll(":scope > p, :scope > .notice");
       Array.prototype.forEach.call(blocks, function (el) {
         if (el.classList && el.classList.contains("tts-secbar")) return;
         var txt = clean(el.textContent);
