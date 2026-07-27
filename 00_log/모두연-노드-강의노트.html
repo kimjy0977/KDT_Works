@@ -358,6 +358,7 @@
       <a href="#n9-1">1강 지금 이 모델은 어디서 왔을까</a>
       <a href="#n9-2">2강 이미지가 먼저 연 길</a>
       <a href="#n9-3">3강 언어가 부딪힌 또 다른 벽<span class="toctag p">실습</span></a>
+      <a href="#n9-4">4강 두 길이 트랜스포머에서 합류</a>
       </div>
     </nav>
 
@@ -2281,7 +2282,7 @@ colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동
           <tr><td>1</td><td>지금 이 모델은 어디서 왔을까</td><td>✅ 정리됨</td></tr>
           <tr><td>2</td><td>이미지가 먼저 연 길</td><td>✅ 정리됨</td></tr>
           <tr><td>3</td><td>언어가 부딪힌 또 다른 벽</td><td>✅ 정리됨</td></tr>
-          <tr><td>4</td><td>두 길이 트랜스포머에서 합류하다</td><td>대기(순차 잠금)</td></tr>
+          <tr><td>4</td><td>두 길이 트랜스포머에서 합류하다</td><td>✅ 정리됨</td></tr>
           <tr><td>5</td><td>트랜스포머가 세상을 먹다</td><td>대기(순차 잠금)</td></tr>
           <tr><td>6</td><td>그래서 활용가는 토큰과 컨텍스트를 본다</td><td>대기(순차 잠금)</td></tr>
           <tr><td>7</td><td>토큰 예산표와 컨텍스트를 직접 설계한다</td><td>대기(순차 잠금)</td></tr>
@@ -2359,6 +2360,36 @@ colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동
         <p>질문을 바꿈: 왜 원문 전체를 벡터 하나로 압축하나? <span class="hl2">디코더가 번역 단어를 만들 때마다 원문을 다시 들여다보게 하자.</span> 인코더의 <b>단어별 은닉 상태를 전부 남겨두고</b>, 디코더는 매 단어마다 원문의 모든 단어를 되돌아보며 <b>지금 중요한 단어에 가중치</b>를 준다('학교' 번역 차례엔 'school'에 큰 가중치). → 고정벡터 병목이 깨지고 긴 문장 번역 품질이 되살아남.<span class="fine"> (arXiv:1409.0473 · 1508.04025)</span></p>
         <div class="notice key"><b>➡️ 다음 벽으로:</b> attention은 원래 순차적 RNN의 <b>보조</b> 장치였는데, 정작 성능의 주역은 attention이고 RNN의 순차성은 병렬화를 막는 걸림돌이었다. 그래서 대담한 질문 — <span class="hl">"순차 처리를 통째로 걷어내고 attention 하나만으로 문장을 처리하면?"</span> 이 질문이 <b>트랜스포머</b>의 문을 연다(4강).</div>
         <div class="notice"><b>📚 출처:</b> <span class="fine">모듈2 노드2 「트랜스포머」 3강. word2vec(arXiv:1301.3781) · 꼬맨틀(뉴스젤리) · RNN/LSTM(Neural Computation 1997) · seq2seq(arXiv:1409.3215) · attention(arXiv:1409.0473 · 1508.04025).</span></div>
+      </section>
+
+      <section class="section" id="n9-4"><h2>4강 · 두 길이 트랜스포머에서 합류하다 <span class="dur">이론</span></h2>
+        <p class="lead">2017년 <b>「Attention Is All You Need」</b>(Vaswani 외 8인) — 순환(RNN)도 합성곱(CNN)도 다 버리고 <span class="hl">오직 어텐션만으로</span> 문장을 다루는 <b>트랜스포머</b>가 등장. 이미지·언어 두 길이 '어텐션'이라는 공통 열쇠로 합류한다.</p>
+
+        <h3>왜 결정적이었나 — 성능보다 '계산 방식'</h3>
+        <p>RNN은 세 번째 단어를 처리하려면 두 번째 계산이 끝나길 기다려야 했다(순서가 족쇄). 트랜스포머는 <span class="hl2">모든 토큰이 서로를 동시에 바라봐 한 문장을 통째로 GPU에 올려 병렬 계산</span>. 순차의 벽이 사라지자 더 큰 데이터·모델이 가능해짐. 원 논문은 GPU 8장·3.5일 학습으로 기계번역 점수(BLEU) 당시 최고 도달 — 지금 <b>LLM</b>의 첫 단추.<span class="fine"> (arXiv:1706.03762)</span></p>
+
+        <h3>어텐션 = 도서관에서 책 찾기 (Q·K·V)</h3>
+        <p>어텐션은 한 토큰이 다른 토큰들을 둘러보며 "나를 이해하려면 누구를 참고할까"를 스스로 정하는 것 = <b>토큰들 사이 관계 가중치 계산</b>(사람의 집중력이 아니라). 예: "이의신청 기간이 지나면 처분은 <b>확정</b>된다"에서 '확정'을 만들 때 '이의신청 기간'은 강하게, '지나면'은 조건으로 끌어옴. 이 저울질을 세 벡터가 나눠 맡는다:</p>
+        <div class="table-wrap"><table><thead><tr><th>구성</th><th>도서관 비유</th><th>역할</th></tr></thead><tbody>
+          <tr><td><b>Query (Q)</b></td><td>내가 든 질문 카드</td><td>지금 토큰이 묻는 것 — "나를 이해하려면 뭐가 필요?"</td></tr>
+          <tr><td><b>Key (K)</b></td><td>책마다 붙은 색인표</td><td>다른 토큰이 내미는 단서 — "나는 이런 정보와 관련"</td></tr>
+          <tr><td><b>Value (V)</b></td><td>실제 책의 내용</td><td>참고하기로 정한 토큰에서 실제로 가져오는 정보</td></tr>
+        </tbody></table></div>
+        <p>내 질문 카드(Q)를 모든 색인표(K)와 맞춰 <b>잘 맞는 책일수록 그 내용(V)을 많이 가져와 섞는다.</b> '은행에 예금'의 은행과 '강가 은행나무'의 은행은 같은 글자지만 주변 단서(예금 / 강가·나무)가 달라 다른 문맥으로 갈라진다. Q·K·V는 토큰 표현에서 <b>학습된 선형변환(행렬 곱)</b>으로 뽑아낸다.</p>
+
+        <h3>한 줄 요약 · 멀티헤드 · 위치 인코딩</h3>
+        <div class="table-wrap"><table><thead><tr><th>개념</th><th>핵심</th></tr></thead><tbody>
+          <tr><td><b>어텐션 계산</b></td><td>모든 Q를 모든 K와 맞대 점수표 → <b>softmax로 비율</b> → 비율대로 V를 섞어 문맥 반영한 새 표현. 점수 과대벌어짐 방지로 <b>벡터 길이의 제곱근</b>으로 눌러줌(scaled dot-product)</td></tr>
+          <tr><td><b>멀티헤드</b></td><td>같은 문장을 여러 관점(주어-동사 짝·예외 문구·문체)으로 동시에 보려고 어텐션을 <b>여러 벌 병렬</b>로 둠. 한 벌 = <b>헤드(head)</b></td></tr>
+          <tr><td><b>causal mask</b></td><td>디코더가 <b>아직 안 만든 미래 토큰</b>의 점수를 −∞로 눌러 softmax에서 0 → 정답 미리 훔쳐보기 방지</td></tr>
+          <tr><td><b>KV cache</b></td><td>생성 시 앞 토큰의 K·V를 매번 다시 계산 않고 <b>저장해 재사용</b>. 문장 길수록 메모리·대역폭 부담 → 헤드가 K/V를 얼마나 나눠쓰나로 <b>MHA·MQA·GQA</b> 설계 갈림</td></tr>
+          <tr><td><b>위치 인코딩</b></td><td>어텐션은 순서를 모름("학생이 교사를"='교사가 학생을"). 그래서 <b>위치 정보를 따로 주입</b>(파형·회전[RoPE]·거리감쇠). 방식이 <span class="hl">다룰 수 있는 문장 길이(컨텍스트)를 좌우</span></td></tr>
+        </tbody></table></div>
+        <div class="notice teal"><b>💡 정확히:</b> 어텐션이 내놓는 건 <b>문맥이 반영된 표현의 갱신</b>이지 "다음 토큰의 확률"이 아니다. 다음 토큰 확률은 갱신된 표현을 받아 <b>맨 끝 출력층</b>이 (softmax로) 계산한다.</div>
+
+        <h3>두 길이 여기서 만난다</h3>
+        <p>이미지(CNN)는 픽셀의 국소 패턴을 층층이 쌓아 시각을 정복했고, 언어(RNN·seq2seq)는 순서대로 읽다 병목에 막혀 어텐션으로 뚫었다. <span class="hl2">언어가 벽을 넘으려 집어 든 '어텐션'이라는 열쇠가 이미지 자물쇠에도 들어맞았다</span> — 그것이 트랜스포머의 진짜 사건. 이 구조는 끝이 아니라 출발점: 어떻게 쌓고 학습시키냐에 따라 <b>문장 이해에 특화(BERT)</b>와 <b>다음 토큰 이어쓰기에 특화(GPT)</b>로 갈라진다(→ 5강).</p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈2 노드2 「트랜스포머」 4강. Attention Is All You Need(arXiv:1706.03762, Vaswani et al. 2017) · Transformer 구조도(Wikimedia, CC BY-SA).</span></div>
       </section>
 
       <div class="pager" id="pager"></div>
