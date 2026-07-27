@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>용어집 · Glossary · 김주영 KDT 허브</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400;0,500;0,600;1,400&family=Public+Sans:wght@300;400;500;600;700&family=Nanum+Myeongjo:wght@400;700;800&display=swap');
+  @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+  @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap');
   :root{
     --paper:#FBFAF7; --paper-2:#F3F1EA;
     --ink:#1A1813; --ink-2:#575249; --ink-3:#8B8578;
     --rule:#E4E0D5; --rule-2:#CFC9BA; --accent:#7A1F2B;
-    --serif:'Libre Bodoni','Nanum Myeongjo',Georgia,'Noto Serif KR',serif;
-    --kserif:'Nanum Myeongjo','Libre Bodoni',serif;
+    --serif:'Pretendard','Public Sans','Noto Sans KR',system-ui,sans-serif;
+    --kserif:'Pretendard','Noto Sans KR',system-ui,sans-serif;
     --sans:'Public Sans','Pretendard','Noto Sans KR',system-ui,-apple-system,sans-serif;
   }
   *{box-sizing:border-box}
@@ -34,7 +35,7 @@
   .kicker{font-size:.72rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);
     display:flex;align-items:center;gap:12px}
   .kicker::after{content:"";flex:1;height:1px;background:var(--rule-2);max-width:120px}
-  .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(1.85rem,1.15rem + 1.9vw,2.7rem);line-height:1.08;
+  .hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(1.85rem,1.15rem + 1.9vw,2.7rem);line-height:1.08;
     letter-spacing:-.02em;margin:.36em 0 0}
   .hero .lede{font-size:1.08rem;color:var(--ink-2);max-width:54ch;margin:1.15em 0 0;line-height:1.64}
   .backline{margin-top:26px}
