@@ -397,6 +397,17 @@
       <a href="#n9-7">7강 토큰 예산표·컨텍스트 설계<span class="toctag p">실습</span></a>
       <a href="#n9-8">8강 역사에서 활용까지 한 줄로</a>
       </div>
+      <a class="tochead" href="#node-15">노드3 · LLM과 로컬 실행 (8강)</a>
+      <div class="tocgroup" data-g="15">
+      <a href="#n15-1">1강 내 노트북에서도 LLM이 돌아갈까</a>
+      <a href="#n15-2">2강 거대한 모델을 노트북에 밀어 넣기</a>
+      <a href="#n15-3">3강 직접 모델 돌려보기<span class="toctag p">실습</span></a>
+      <a href="#n15-4">4강 로컬과 API 나란히</a>
+      <a href="#n15-5">5강 데이터는 어디에 남는가</a>
+      <a href="#n15-6">6강 비용은 어디서 발생하는가</a>
+      <a href="#n15-7">7강 통제권은 누구에게</a>
+      <a href="#n15-8">8강 실행 위치 결정문<span class="toctag q">과제</span></a>
+      </div>
     </nav>
 
     <main>
@@ -2567,6 +2578,85 @@ colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동
         <div class="notice"><b>📚 출처·더 찾아보기:</b> <span class="fine">모듈2 노드2 「트랜스포머 — AI는 어떻게 언어를 배웠나」 8강(정리·회고). Attention Is All You Need(1706.03762) · Lost in the Middle(2307.03172) · RAG(2005.11401) · ViT(2010.11929) · Whisper(2212.04356) · Decision Transformer(2106.01345) · DiT(2212.09748)·SD3(2403.03206)·CogVideoX(2408.06072) · AlphaFold(Nature 2021)·RT-2(2307.15818) · 한국어 참고: ratsgo NLPBOOK, FFighting(ResNet), greeksharifa(ViT). ※컨텍스트 길이·가격은 요청 직전 공식 문서 재확인.</span></div>
       </section>
 
+      <!-- ================= 모듈2 노드3 · LLM과 로컬 실행 ================= -->
+      <section class="section coursehead" id="node-15">
+        <div class="badge">모듈2 노드3 · LLM과 로컬 실행 <span style="opacity:.7">· 클라우드 API vs 로컬 (8강)</span></div>
+        <h2>LLM과 로컬 실행 — 클라우드 API vs 로컬 <span style="font-size:.86rem;opacity:.85">(8강)</span></h2>
+        <p class="lead">수백만 달러로 만든 모델을 왜 60만 원짜리 그래픽카드에서 돌릴 수 있나. <span class="hl">양자화</span>로 14GB를 4GB대로 줄이고, 직접 돌려 한계를 재고, 마지막에 <b>데이터·비용·주권</b> 세 축으로 "이 일을 로컬에서 할까 API로 할까"를 판단하는 흐름.</p>
+        <div class="table-wrap"><table><thead><tr><th>강</th><th>제목</th><th>상태</th></tr></thead><tbody>
+          <tr><td>1</td><td>내 노트북에서도 LLM이 돌아갈까</td><td>✅ 정리됨</td></tr>
+          <tr><td>2</td><td>거대한 모델을 노트북에 밀어 넣기</td><td>✅ 정리됨</td></tr>
+          <tr><td>3</td><td>이제 직접 내 컴퓨터에서 모델을 돌려봅니다</td><td>⏳ 대기(잠금)</td></tr>
+          <tr><td>4</td><td>로컬과 API를 나란히 놓고 봅니다</td><td>⏳ 대기(잠금)</td></tr>
+          <tr><td>5</td><td>데이터는 어디에 남는가</td><td>⏳ 대기(잠금)</td></tr>
+          <tr><td>6</td><td>비용은 어디서 발생하는가</td><td>⏳ 대기(잠금)</td></tr>
+          <tr><td>7</td><td>통제권은 누구에게 남는가</td><td>⏳ 대기(잠금)</td></tr>
+          <tr><td>8</td><td>내 도메인의 실행 위치 결정문</td><td>⏳ 대기(잠금)</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>ℹ️ 기록 상태:</b> <span class="fine">노드가 순차 잠금이라 현재 1·2강만 열려 정리했다. 3~8강은 잠금 해제(수강) 시 이어서 누적. LMS camp136 · course 2136 · node-version 4891 직접 확인 — 수강완료 처리 없이 노트만.</span></div>
+      </section>
+
+      <section class="section" id="n15-1"><h2>1강 · 내 노트북에서도 LLM이 돌아갈까 <span class="dur">이론</span></h2>
+        <p class="lead">수백만 달러짜리 모델이 어떻게 60만 원짜리 그래픽카드에 들어갈까? 열쇠는 <span class="hl">"모델을 만드는 일"과 "쓰는 일"의 비용 구조가 완전히 다르다</span>는 것.</p>
+        <h3>학습 vs 추론 — 아홉 배의 차이</h3>
+        <p>학습은 파라미터를 조금씩 조정하려고 중간값(활성값)·그래디언트·옵티마이저 상태를 전부 붙들어야 한다. 반면 <b>추론</b>은 이미 정해진 숫자로 행렬곱 한 번 하고 다음 토큰을 뱉을 뿐이다.</p>
+        <div class="table-wrap"><table><thead><tr><th></th><th>파라미터당 바이트</th><th>7B 모델</th></tr></thead><tbody>
+          <tr><td><b>학습</b></td><td>FP16 2B + FP32 마스터 4B + Adam 8B + 그래디언트 4B = <b>18B↑</b> (+활성값)</td><td>126GB 위</td></tr>
+          <tr><td><b>추론</b></td><td>FP16 가중치 2B + KV cache</td><td>14GB 남짓</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>🎯 핵심:</b> 같은 모델인데 필요 메모리가 <span class="hl">아홉 배 가까이</span> 차이. 학습은 데이터센터의 일, 추론은 노트북의 일이 될 수 있는 이유. 우리는 남이 만든 숫자 뭉치를 <b>읽기만</b> 하면 된다.</div>
+        <h3>남은 벽 하나 — 파라미터는 전부 메모리에</h3>
+        <p>추론이 공짜란 뜻은 아니다. 토큰 하나를 만들 때마다 모든 층을 통과하니 <b>가중치 전부가 메모리에 올라가 있어야</b> 한다. 7B를 FP16(2B/param)로 저장하면 약 <b>14GB</b>(실측 Llama 3.1 8B = 14.96GB). 노트북 GPU는 8~16GB → 겨우 들어가거나 안 들어간다. 70B면 140GB, 다른 세계.</p>
+        <div class="notice"><b>🧭 오늘의 흐름:</b> <span class="fine">① 양자화로 14GB→4GB대 ② 직접 돌려보기 ③ 한계 체감(속도·품질·컨텍스트) ④ 데이터·비용·주권 3축으로 로컬/API 판단.</span></div>
+      </section>
+
+      <section class="section" id="n15-2"><h2>2강 · 거대한 모델을 노트북에 밀어 넣기 <span class="dur">이론</span></h2>
+        <p class="lead">14GB를 4GB대로 줄이는 기술 <b>양자화(quantization)</b> — 연속적인 실숫값을 몇 개의 눈금으로 반올림해 저장한다.</p>
+        <h3>눈금을 성기게</h3>
+        <p>FP16은 눈금 65,536개짜리 자, 4비트는 눈금 <b>16개</b>짜리 자. 값을 가까운 눈금으로 끌어와 저장하면 오차가 생기지만 공간은 <span class="hl">2바이트 → 0.5바이트, 정확히 1/4</span>. 70억 개 전부에 오차를 심는데도 버티는 이유: ① 출력이 수많은 곱·합이라 오차가 상쇄되고 ② 맨 끝 <b>softmax</b>가 점수의 절대값이 아니라 <b>순위</b>만 보기 때문(조금 흔들려도 1등은 안 바뀜).</p>
+        <h3>영리하게 깎기 — K-quant와 혼합 정밀도</h3>
+        <ul>
+          <li><b>K-quant</b>: 전체에 하나의 자를 대지 않고 256개 슈퍼블록 → 32개 블록으로 쪼개 블록마다 스케일. 좁은 범위 블록은 눈금 16개를 촘촘히.</li>
+          <li><b>혼합 정밀도</b>: 손해가 큰 자리(어텐션 Value 행렬·피드포워드 아래 사영)만 6비트, 나머지는 4비트.</li>
+          <li>그래서 <code>Q4_K_M</code> = Q4(기본 4비트)·K(K-quant)·M(medium 혼합) → 실효 ~4.8비트/param. 파일은 <code>GGUF</code> 포맷(가중치·메타·토크나이저 한 파일).</li>
+        </ul>
+        <div class="table-wrap"><table><thead><tr><th>Llama 3.1 8B</th><th>FP16</th><th>Q4_K_M</th><th>변화</th></tr></thead><tbody>
+          <tr><td>파일 크기</td><td>14.96 GB</td><td>4.57 GB</td><td>69% 감소</td></tr>
+          <tr><td>벤치 평균</td><td>69.47</td><td>69.15</td><td>0.46% 하락</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>🎯 핵심:</b> 파일은 1/3 아래로 줄었는데 성능 손실은 <span class="hl">0.5% 미만</span>. 이 비율이 Q4_K_M을 사실상 표준으로 만들었다.</div>
+        <h3>진짜 함정 — KV cache</h3>
+        <p>필요 메모리 ≈ <b>파라미터(B) × 0.5GB + KV cache + 오버헤드(~0.75GB)</b>. 8B면 가중치 4GB지만, <b>KV cache</b>(속도 위해 이미 처리한 토큰의 Key·Value 저장)가 <span class="hl">컨텍스트 길이에 정비례</span>해 불어난다.</p>
+        <div class="table-wrap"><table><thead><tr><th>컨텍스트</th><th>KV cache</th><th>가중치 4.6GB 합</th></tr></thead><tbody>
+          <tr><td>4K</td><td>0.52 GB</td><td>~5.1 GB</td></tr>
+          <tr><td>32K</td><td>4.19 GB</td><td>~8.8 GB</td></tr>
+          <tr><td>128K</td><td>16.78 GB</td><td>~21.4 GB</td></tr>
+        </tbody></table></div>
+        <div class="notice warn"><b>⚠️ 자주 넘어지는 곳:</b> 4.6GB 파일 보고 "8GB 카드면 되겠다" 했다가, 긴 문서 몇 편 넣는 순간 32K 캐시로 8.8GB → 초과분이 CPU로 밀려나(오프로딩) 속도가 <b>자릿수 단위로</b> 급감하거나 OOM. <span class="hl">가중치 크기만 보면 반드시 틀린다.</span> 완화: GQA 구조·캐시 양자화(<code>--cache-type-k q8_0</code>)·필요 없는 컨텍스트 안 열기.</div>
+        <h3>메모리 사다리와 MoE</h3>
+        <p>4비트 기준 대략: <b>8GB</b>=8B 짧게 · <b>16GB</b>=8B 여유·20B MoE · <b>24GB</b>=30~35B(소비자용 단맛) · <b>48GB↑</b>=70B. 애플 실리콘은 통합 메모리라 RAM 자체가 예산(Metal 권장 ~2/3~3/4).</p>
+        <p><b>MoE(Mixture of Experts)</b>: 피드포워드를 여러 전문가로 쪼개 토큰마다 일부만 통과. <span class="hl">메모리는 큰 모델, 속도는 작은 모델</span>. 예: gpt-oss-20b = 총 21B·활성 3.6B → 16GB에서 가볍게. 단 KV cache는 안 깎아준다.</p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈2 노드3 「LLM과 로컬 실행」 1·2강. Llama 3.1 8B 양자화 평가(arXiv:2601.14277) · llama.cpp(K-quant·GGUF) · KV cache/VRAM(Digital Applied, LocalLLM.in) · gpt-oss-20b 모델 카드(arXiv:2508.10925). ※수치·가격은 요청 직전 재확인.</span></div>
+      </section>
+
+      <section class="section" id="n15-3"><h2>3강 · 이제 직접 내 컴퓨터에서 모델을 돌려봅니다 <span class="dur">실습</span></h2>
+        <p class="lead">⏳ 순차 잠금 — 아직 수강 전이라 잠겨 있다. 잠금 해제(수강) 시 이어서 정리 예정.</p></section>
+
+      <section class="section" id="n15-4"><h2>4강 · 로컬과 API를 나란히 놓고 봅니다 <span class="dur">이론</span></h2>
+        <p class="lead">⏳ 순차 잠금 — 수강 시 이어서 정리.</p></section>
+
+      <section class="section" id="n15-5"><h2>5강 · 데이터는 어디에 남는가 <span class="dur">이론</span></h2>
+        <p class="lead">⏳ 순차 잠금 — 수강 시 이어서 정리. (판단 3축 중 <b>데이터</b>.)</p></section>
+
+      <section class="section" id="n15-6"><h2>6강 · 비용은 어디서 발생하는가 <span class="dur">이론</span></h2>
+        <p class="lead">⏳ 순차 잠금 — 수강 시 이어서 정리. (판단 3축 중 <b>비용</b>.)</p></section>
+
+      <section class="section" id="n15-7"><h2>7강 · 통제권은 누구에게 남는가 <span class="dur">이론</span></h2>
+        <p class="lead">⏳ 순차 잠금 — 수강 시 이어서 정리. (판단 3축 중 <b>주권</b>.)</p></section>
+
+      <section class="section" id="n15-8"><h2>8강 · 내 도메인의 실행 위치 결정문 <span class="dur">과제</span></h2>
+        <p class="lead">⏳ 순차 잠금 — 수강 시 이어서 정리. (데이터·비용·주권으로 내 에이전트의 실행 위치를 결정.)</p></section>
+
       <div class="pager" id="pager"></div>
     </main>
   </div>
@@ -2580,8 +2670,8 @@ colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동
     var toc=document.querySelector('.toc');
     var pager=document.getElementById('pager');
     var groups=[].slice.call(document.querySelectorAll('.toc .tocgroup'));
-    var names={'10':'협업 툴 소개','11':'아이펠이란?','12':'퀘스트란?','13':'코딩 0줄로 여는 첫날','14':'Computational Thinking','1':'작업대 마련하기','2':'세 겹 & 게임','3':'프레임워크','4':'백엔드','5':'데이터베이스','6':'AI 에이전트 도구','7':'메인 퀘스트','8':'AI는 어떻게 배우나','9':'트랜스포머 (AI는 어떻게 언어를 배웠나)'};
-    var order=['10','11','12','13','14','1','2','3','4','5','6','7','8','9'];
+    var names={'10':'협업 툴 소개','11':'아이펠이란?','12':'퀘스트란?','13':'코딩 0줄로 여는 첫날','14':'Computational Thinking','1':'작업대 마련하기','2':'세 겹 & 게임','3':'프레임워크','4':'백엔드','5':'데이터베이스','6':'AI 에이전트 도구','7':'메인 퀘스트','8':'AI는 어떻게 배우나','9':'트랜스포머 (AI는 어떻게 언어를 배웠나)','15':'LLM과 로컬 실행'};
+    var order=['10','11','12','13','14','1','2','3','4','5','6','7','8','9','15'];
     var current='1';
     function nodeOf(id){if(!id)return null;if(id.indexOf('node-')===0)return id.slice(5);var m=id.match(/^n(\d+)-/);return m?m[1]:null;}
     function paintToc(){
