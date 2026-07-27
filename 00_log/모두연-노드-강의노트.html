@@ -247,7 +247,7 @@
     <h1>모두연 강의 학습 노트</h1>
     <p>수강하는 <b>강(講)</b>이 열릴 때마다 여기에 <b>모듈·강별로 누적</b>합니다. 요약이 아니라 강의 내용을 그대로 담되, 중요한 부분은 <span class="hl">노란 강조</span>·<span class="hl2">초록(안전·핵심)</span>·<span class="hl3">분홍(주의)</span>과 콜아웃으로 표시했습니다. 관통 메시지: <span class="hl">"명령을 친 사실이 아니라, 출력으로 확인한다."</span></p>
     <nav class="pagenav" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px"><a class="page-switch" style="margin-top:0" href="KDT-교육-운영-종합안내.html">📋 운영 안내</a><a class="page-switch" style="margin-top:0" href="선행학습-로드맵.html">🧭 선행학습</a><a class="page-switch" style="margin-top:0" href="AI에이전트-강의노트.html">📝 강의 노트(앤트로픽·인프런)</a><span class="page-switch" style="margin-top:0;background:var(--brand-soft);color:var(--brand-ink);border-color:var(--brand);box-shadow:none;cursor:default">🧩 모두연 강의노트</span><a class="page-switch" style="margin-top:0" href="https://kimjy0977.github.io/KDT_Works/" target="_blank" rel="noopener">🗂️ 과제 모음 ↗</a></nav>
-    <div class="quick"><a href="#node-0"><b>적응기 · 아이펠 적응하기</b><span>온보딩 — 협업툴·아이펠·퀘스트·CT (5강)</span></a><a href="#node-1"><b>바이브코딩으로 웹 만들기</b><span>작업대·세 겹&amp;게임·프레임워크·백엔드·DB·에이전트·메인퀘스트 (1~7강)</span></a><a href="#node-8"><b>모듈2 · AI의 이해와 사용</b><span>AI는 어떻게 배우나 — 학습원리·데이터·MNIST·파인튜닝 (7강)</span></a></div>
+    <div class="quick"><a href="#node-0"><b>적응기 · 아이펠 적응하기</b><span>온보딩 — 협업툴·아이펠·퀘스트·CT (5강)</span></a><a href="#node-1"><b>바이브코딩으로 웹 만들기</b><span>작업대·세 겹&amp;게임·프레임워크·백엔드·DB·에이전트·메인퀘스트 (1~7강)</span></a><a href="#node-8"><b>모듈2-1 · AI는 어떻게 배우나</b><span>학습원리·데이터·MNIST·파인튜닝 (7강)</span></a><a href="#node-9"><b>모듈2-2 · 트랜스포머</b><span>AI는 어떻게 언어를 배웠나 — 이미지·언어 두 길의 합류 (8강)</span></a></div>
   </div></header>
 
   <div class="wrap layout">
@@ -350,6 +350,12 @@
       <a href="#n8-5">5강 파인튜닝(전이학습)<span class="toctag p">실습</span></a>
       <a href="#n8-6">6강 왜 내 노트북으론 벅찰까</a>
       <a href="#n8-7">7강 결국 데이터가 전부다</a>
+      </div>
+
+      <small>모듈2 · 트랜스포머 (노드2)</small>
+      <a class="tochead" href="#node-9">AI는 어떻게 언어를 배웠나 (8강)</a>
+      <div class="tocgroup" data-g="9">
+      <a href="#n9-1">1강 지금 이 모델은 어디서 왔을까</a>
       </div>
     </nav>
 
@@ -2264,6 +2270,41 @@ colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동
         <div class="notice"><b>📚 출처 · 더 찾아보기:</b> <span class="fine">기계학습 정의 Arthur Samuel(1959) · 학습의 뿌리 Rosenblatt(1958) 퍼셉트론; Rumelhart·Hinton·Williams(1986) "Learning representations by back-propagating errors", Nature · MNIST LeCun·Cortes·Burges · ResNet He·Zhang·Ren·Sun(2015) "Deep Residual Learning" arXiv:1512.03385 · 전이학습 PyTorch Tutorial · 임베딩 Mikolov et al.(2013) word2vec arXiv:1301.3781 · Colab CLI Google(2026) google-colab-cli. 강좌: 모두의연구소 KDT 「AI의 이해와 사용_Agt1」.</span></div>
       </section>
 
+      <!-- ================= 모듈2 노드2 · 트랜스포머 ================= -->
+      <section class="section coursehead" id="node-9">
+        <div class="badge">모듈2 노드2 · 트랜스포머 <span style="opacity:.7">· AI는 어떻게 언어를 배웠나 (8강)</span></div>
+        <h2>트랜스포머 — AI는 어떻게 언어를 배웠나 <span style="font-size:.86rem;opacity:.85">(8강)</span></h2>
+        <p class="lead">트랜스포머가 AI 시대에 얼마나 큰 영향을 미쳤는지를, <b>이미지</b>를 다루던 사람들과 <b>언어</b>를 다루던 사람들이 각자 벽에 부딪혔다 한 지점에서 만난 역사로 따라간다.</p>
+        <div class="table-wrap" style="color:#172033"><table><thead><tr><th>강</th><th>제목</th><th>상태</th></tr></thead><tbody>
+          <tr><td>1</td><td>지금 이 모델은 어디서 왔을까</td><td>✅ 정리됨</td></tr>
+          <tr><td>2</td><td>이미지가 먼저 연 길</td><td>대기(순차 잠금)</td></tr>
+          <tr><td>3</td><td>언어가 부딪힌 또 다른 벽</td><td>대기(순차 잠금)</td></tr>
+          <tr><td>4</td><td>두 길이 트랜스포머에서 합류하다</td><td>대기(순차 잠금)</td></tr>
+          <tr><td>5</td><td>트랜스포머가 세상을 먹다</td><td>대기(순차 잠금)</td></tr>
+          <tr><td>6</td><td>그래서 활용가는 토큰과 컨텍스트를 본다</td><td>대기(순차 잠금)</td></tr>
+          <tr><td>7</td><td>토큰 예산표와 컨텍스트를 직접 설계한다</td><td>대기(순차 잠금)</td></tr>
+          <tr><td>8</td><td>역사에서 활용까지 한 줄로 꿰기</td><td>대기(순차 잠금)</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section class="section" id="n9-1"><h2>1강 · 지금 이 모델은 어디서 왔을까 <span class="dur">이론</span></h2>
+        <p class="lead">지금 매일 쓰는 언어 모델은 갑자기 등장한 듯 보이지만, <b>이미지</b>를 다루던 사람들과 <b>언어</b>를 다루던 사람들이 서로 다른 골목에서 수십 년 같은 벽에 부딪히다 <span class="hl">한 지점에서 만난</span> 결과물이다. 오늘은 그 여정을 처음부터 따라간다.</p>
+
+        <h3>출발점 — 아주 현실적인 곤란</h3>
+        <p>80쪽짜리 문서(사내 규정집·논문 등)를 통째로 AI에 붙여 넣고 "요약해줘"라고 시켜 본 적이 있을 것이다. 그런데 결과가 어딘가 흐릿하다 — 앞부분은 잘 반영되는데 <b>중간은 뭉개지고</b>, 문서에 분명 있던 핵심 조항을 슬쩍 빠뜨린다. 게다가 <span class="hl3">길게 넣을수록 응답은 느려지고 비용은 커진다.</span> 분명 더 많은 정보를 줬는데 왜 답은 더 좋아지지 않을까?</p>
+        <div class="notice key"><b>🎯 이 곤란의 정체:</b> AI가 멍청해서가 아니다. 모델은 글자를 <b>토큰</b>이라는 작은 조각으로 쪼개고, 한 번에 들여다볼 수 있는 <b>창(컨텍스트)의 크기가 정해져</b> 있다. 그 창 안에서 어떤 조각에 얼마나 <b>주의(attention)</b>를 배분하느냐가 문제다. 즉 정보를 <span class="hl">"얼마나 넣느냐"가 아니라 "어떻게 배치하고 무엇에 집중시키느냐"</span>의 문제. (이 감각은 이 노드를 끝까지 따라가면 손에 잡힌다.)</div>
+
+        <h3>트랜스포머 = 두 분야가 같은 열쇠로 만난 것</h3>
+        <p>트랜스포머는 하늘에서 뚝 떨어진 발명품이 아니다. <span class="hl2">서로 다른 두 분야가 각자의 막다른 벽에 부딪혔다가, 같은 열쇠 하나로 동시에 벽을 뚫으며 하나로 합류한 결과물</span>이다.</p>
+        <div class="table-wrap"><table><thead><tr><th>분야</th><th>목표</th><th>부딪힌 벽</th></tr></thead><tbody>
+          <tr><td><b>이미지</b></td><td>사진 속 고양이를 알아보기</td><td>"어떻게 신경망을 <b>더 깊게</b> 쌓을까" — <b>깊이의 벽</b></td></tr>
+          <tr><td><b>언어</b></td><td>문장을 이해시키기</td><td>"어떻게 <b>앞 단어를 잊지 않고</b> 긴 문장을 처리할까" — <b>순차의 벽</b></td></tr>
+        </tbody></table></div>
+        <p class="fine">얼핏 전혀 다른 두 벽 같지만 뿌리가 닮았다. 이 노드는 <b>먼저 이미지가 연 길</b>(깊이의 벽을 어떻게 발견·돌파했나)을 걷고 나서, 언어 쪽이 만난 <b>순차의 벽</b>이 놀랄 만큼 같은 모양임을 확인하는 순서로 간다.</p>
+
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모두의연구소 KDT 「AI의 이해와 사용_Agt1」 · 모듈2 노드2 「트랜스포머 — AI는 어떻게 언어를 배웠나」 1강 「지금 이 모델은 어디서 왔을까」 (LMS learn.modulabs.co.kr · camp136/courses/2136 · node-version 4890). 2~8강은 순차 잠금(대기중) — 잠금 해제 시 이어서 누적 예정.</span></div>
+      </section>
+
       <div class="pager" id="pager"></div>
     </main>
   </div>
@@ -2277,8 +2318,8 @@ colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동
     var toc=document.querySelector('.toc');
     var pager=document.getElementById('pager');
     var groups=[].slice.call(document.querySelectorAll('.toc .tocgroup'));
-    var names={'0':'적응기 · 아이펠 적응하기','1':'1강 · 작업대 마련하기','2':'2강 · 세 겹 & 게임','3':'3강 · 프레임워크','4':'4강 · 백엔드','5':'5강 · 데이터베이스','6':'6강 · AI 에이전트 도구','7':'7강 · 메인 퀘스트','8':'AI의 이해와 사용 · AI는 어떻게 배우나'};
-    var order=['0','1','2','3','4','5','6','7','8'];
+    var names={'0':'적응기 · 아이펠 적응하기','1':'1강 · 작업대 마련하기','2':'2강 · 세 겹 & 게임','3':'3강 · 프레임워크','4':'4강 · 백엔드','5':'5강 · 데이터베이스','6':'6강 · AI 에이전트 도구','7':'7강 · 메인 퀘스트','8':'모듈2-1 · AI는 어떻게 배우나','9':'모듈2-2 · 트랜스포머 (AI는 어떻게 언어를 배웠나)'};
+    var order=['0','1','2','3','4','5','6','7','8','9'];
     var current='1';
     function nodeOf(id){if(!id)return null;if(id.indexOf('node-')===0)return id.slice(5);var m=id.match(/^n(\d)-/);return m?m[1]:null;}
     function paintToc(){
