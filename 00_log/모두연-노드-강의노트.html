@@ -362,6 +362,7 @@
       <a href="#n9-5">5강 트랜스포머가 세상을 먹다</a>
       <a href="#n9-6">6강 토큰과 컨텍스트를 본다<span class="toctag p">실습</span></a>
       <a href="#n9-7">7강 토큰 예산표·컨텍스트 설계<span class="toctag p">실습</span></a>
+      <a href="#n9-8">8강 역사에서 활용까지 한 줄로</a>
       </div>
     </nav>
 
@@ -2289,7 +2290,7 @@ colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동
           <tr><td>5</td><td>트랜스포머가 세상을 먹다</td><td>✅ 정리됨</td></tr>
           <tr><td>6</td><td>그래서 활용가는 토큰과 컨텍스트를 본다</td><td>✅ 정리됨</td></tr>
           <tr><td>7</td><td>토큰 예산표와 컨텍스트를 직접 설계한다</td><td>✅ 정리됨</td></tr>
-          <tr><td>8</td><td>역사에서 활용까지 한 줄로 꿰기</td><td>대기(순차 잠금)</td></tr>
+          <tr><td>8</td><td>역사에서 활용까지 한 줄로 꿰기</td><td>✅ 정리됨</td></tr>
         </tbody></table></div>
       </section>
 
@@ -2509,6 +2510,32 @@ colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동
 
         <div class="notice teal"><b>🎮 압축이 아니라 구조화:</b> "이 자료 잘 분석해서 중요한 내용 자세히 알려줘"(원문) → <b>역할/목표/우선순위(1·2·3)/근거 사용(자료·문장 번호)/출력 형식([쟁점][근거][위험도][추가 질문])/길이 제한(항목별 3문장, 단 근거 문장은 생략 금지)</b>로 구조화. <span class="hl">구조화 버전이 원문보다 길어도 낭비가 아님 — 검토 가능한 답을 만들기 때문.</span></div>
         <div class="notice"><b>📚 출처:</b> <span class="fine">모듈2 노드2 「트랜스포머」 7강(실습). 산출물=토큰 예산표·컨텍스트 설계 캔버스. ※가격·한도는 요청 직전 공식 가격표 재확인.</span></div>
+      </section>
+
+      <section class="section" id="n9-8"><h2>8강 · 역사에서 활용까지 한 줄로 꿰기 <span class="dur">정리·회고</span></h2>
+        <p class="lead">긴 역사를 한 문장으로: <span class="hl">CNN·초기 언어모델이 각자 벽에 부딪힘 → 어텐션 → 트랜스포머 → 거대 언어모델. 그리고 바로 그 어텐션 구조가 토큰·컨텍스트라는 비용·한계를 만들었다.</span> 그래서 활용가의 일은 더 긴 입력을 넣는 게 아니라, <b>필요한 문맥을 검토 가능한 구조로 배치</b>하는 것.</p>
+        <p>수식 없이 봤어도 얕게 본 게 아니다. 활용가에게 필요한 핵심은 내부 계산 재현이 아니라 <b>"왜 입력 설계가 답의 품질·비용을 좌우하는지 설명할 수 있는 것"</b>. 어텐션이 왜 토큰 수의 제곱 비용을 만드는지, 왜 중요한 정보가 중간에 묻히면 놓치기 쉬운지 말할 수 있으면 — 코딩 에이전트가 만든 구조를 <b>판단</b>할 수 있다.</p>
+
+        <h3>⚠️ 활용가가 기억할 한계</h3>
+        <p>트랜스포머는 문맥을 보는 구조일 뿐, <span class="hl3">사실 확인 능력이나 책임 판단을 보장하지 않는다.</span> 공식 문서를 넣어도 잘못 인용할 수 있고, 근거가 충돌하면 그럴듯한 절충안을 만든다 → 컨텍스트 설계엔 <b>항상 검증 장치</b>가 붙어야 함.</p>
+        <div class="table-wrap"><table><thead><tr><th>한계</th><th>대응</th></tr></thead><tbody>
+          <tr><td>긴 문서 중 일부를 놓칠 수 있음</td><td>결론마다 근거 위치를 요구하고 샘플 검수</td></tr>
+          <tr><td>토큰 비용이 누적됨</td><td>입력·출력 예산표를 만들고 반복 지시를 압축</td></tr>
+          <tr><td>요약이 근거를 삭제할 수 있음</td><td>위험 정보는 원문 링크·ID를 보존</td></tr>
+          <tr><td>모델별 토큰화가 다름</td><td>사용하는 모델의 공식 문서·도구로 확인</td></tr>
+        </tbody></table></div>
+
+        <h3>🎯 핵심 정리</h3>
+        <div class="table-wrap"><table><thead><tr><th>질문</th><th>가져갈 판단</th></tr></thead><tbody>
+          <tr><td>트랜스포머를 왜 알아야 하나</td><td>AI가 문맥을 어떻게 참고하는지 알아야 입력 설계·실패 원인을 설명</td></tr>
+          <tr><td>토큰은 왜 중요한가</td><td>비용·지연·컨텍스트 한계가 글자 수보다 <b>토큰 수</b>에 가깝게 움직임</td></tr>
+          <tr><td>어텐션은 왜 비용이 되나</td><td>모든 토큰이 서로 참고 → 계산이 <b>토큰 수의 제곱</b>에 가깝게 증가</td></tr>
+          <tr><td>컨텍스트 윈도우는?</td><td>한 번에 펼치는 작업대 — 크기보다 <b>배치·선별</b>이 중요</td></tr>
+          <tr><td>활용가의 역할은?</td><td>에이전트가 만든 구조에서 토큰 예산·근거 보존·위험한 압축을 <b>판단</b></td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>🧭 한 문장으로 닫기:</b> <span class="hl">토큰은 비용을 만들고, 컨텍스트는 한계를 만든다. 트랜스포머를 잘 쓰는 일은 더 긴 입력을 넣는 일이 아니라, 필요한 문맥을 검토 가능한 구조로 배치하는 일이다.</span></div>
+        <div class="notice"><b>🤔 회고 3줄:</b> <span class="fine">·머리 — 트랜스포머 구조가 왜 곧 비용·한계가 되는지 한 문장으로 · 손 — 오늘 만든 토큰 예산표·컨텍스트 캔버스에서 가장 중요했던 칸 · 마음 — "비용 줄이자" 제안을 받을 때 어떤 근거만은 지키겠다 마음먹었나.</span></div>
+        <div class="notice"><b>📚 출처·더 찾아보기:</b> <span class="fine">모듈2 노드2 「트랜스포머 — AI는 어떻게 언어를 배웠나」 8강(정리·회고). Attention Is All You Need(1706.03762) · Lost in the Middle(2307.03172) · RAG(2005.11401) · ViT(2010.11929) · Whisper(2212.04356) · Decision Transformer(2106.01345) · DiT(2212.09748)·SD3(2403.03206)·CogVideoX(2408.06072) · AlphaFold(Nature 2021)·RT-2(2307.15818) · 한국어 참고: ratsgo NLPBOOK, FFighting(ResNet), greeksharifa(ViT). ※컨텍스트 길이·가격은 요청 직전 공식 문서 재확인.</span></div>
       </section>
 
       <div class="pager" id="pager"></div>
