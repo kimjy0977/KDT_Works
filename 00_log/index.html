@@ -3,128 +3,149 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>김주영 · KDT 학습 허브</title>
+<title>김주영 KDT · 학습 허브</title>
 <style>
   @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
-  @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&display=swap');
 
   :root{
-    --paper:#FBFAF7; --paper-2:#F3F1EA; --panel:#F6F4EE;
-    --ink:#1A1813; --ink-2:#575249; --ink-3:#8B8578;
-    --rule:#E4E0D5; --rule-2:#CFC9BA;
-    --accent:#7A1F2B; --accent-2:#9A2B32;
-    --serif:'Pretendard','Public Sans','Noto Sans KR',system-ui,sans-serif;
-    --kserif:'Pretendard','Noto Sans KR',system-ui,sans-serif;
-    --sans:'Public Sans','Pretendard','Noto Sans KR',system-ui,-apple-system,sans-serif;
-    --measure:66ch;
+    --paper:#FBFAF7; --paper-2:#F4F1EA; --panel:#F7F4EE;
+    --ink:#171512; --ink-2:#565049; --ink-3:#8C8579;
+    --rule:#E5E1D6; --rule-2:#D2CCBE;
+    --accent:#CE1225; --accent-ink:#9E0E1C; --accent-soft:#FBE7E8;
+    --sans:'Pretendard','Public Sans','Noto Sans KR',system-ui,-apple-system,sans-serif;
+    --grotesk:'Public Sans','Pretendard',system-ui,sans-serif;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
-    font-size:17px;line-height:1.72;letter-spacing:-.003em;word-break:keep-all;
-    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-    font-feature-settings:"tnum" 0,"kern" 1,"liga" 1}
+    font-size:16.5px;line-height:1.7;letter-spacing:-.003em;word-break:keep-all;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-feature-settings:"tnum" 0}
   a{color:inherit;text-decoration:none}
-  ::selection{background:#e7d8bb}
-  .wrap{width:min(1120px,calc(100% - 48px));margin-inline:auto}
+  ::selection{background:var(--accent-soft)}
+  .wrap{width:min(1160px,calc(100% - 48px));margin-inline:auto}
+  .lab{font-family:var(--grotesk);font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
 
   /* ── Masthead ── */
-  .mast{padding:20px 0 0}
-  .mast .row{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
-  .mast .brand{font-family:var(--serif);font-weight:600;font-size:1.12rem;letter-spacing:.01em}
-  .mast .brand em{font-style:italic;font-weight:400}
-  .mast .meta{font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
-  .mast .meta a{color:var(--ink-2);border-bottom:1px solid var(--rule-2);padding-bottom:1px}
-  .mast .meta a:hover{color:var(--accent);border-color:var(--accent)}
-  .rule-thick{height:2px;background:var(--ink);margin-top:14px}
-  .rule-hair{height:1px;background:var(--rule);margin-top:3px}
+  .mast{padding:26px 0 0}
+  .mast .top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+  .wordmark{font-family:var(--grotesk);font-weight:800;font-size:clamp(2.1rem,1.2rem + 3vw,3.5rem);
+    line-height:.9;letter-spacing:-.04em;color:var(--ink)}
+  .wordmark b{color:var(--accent)}
+  .util{display:flex;gap:18px;padding-top:8px;flex-wrap:wrap;justify-content:flex-end}
+  .util a{font-family:var(--grotesk);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+  .util a:hover{color:var(--accent)}
+  .tagline{margin-top:12px;font-size:.92rem;color:var(--ink-2);max-width:60ch}
+  .tagline em{color:var(--accent);font-style:normal;font-weight:600}
+  .rule-hair{height:1px;background:var(--rule);margin-top:16px}
+  .rule-ink{height:3px;background:var(--ink);margin-top:16px}
 
-  /* ── Hero ── */
-  .hero{padding:clamp(32px,4.2vw,54px) 0 clamp(26px,3.4vw,42px);
-    display:grid;grid-template-columns:minmax(0,1fr);gap:0}
-  .kicker{font-size:.7rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);
-    display:flex;align-items:center;gap:12px}
-  .kicker::after{content:"";flex:1;height:1px;background:var(--rule-2);max-width:120px}
-  .hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(2rem,1.1rem + 2.3vw,3rem);line-height:1.05;
-    letter-spacing:-.02em;margin:.42em 0 0;max-width:22ch}
-  .hero .lede{font-size:1.1rem;line-height:1.66;color:var(--ink-2);
-    max-width:54ch;margin:1.25em 0 0}
-  .hero .lede::first-letter{initial-letter:2;font-family:var(--serif);font-weight:600;color:var(--accent);margin-right:.08em}
-  .hero .by{margin-top:28px;font-size:.86rem;color:var(--ink-3);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-  .hero .by .sig{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--ink);letter-spacing:.01em}
-  .hero .by a{color:var(--ink-2);border-bottom:1px solid var(--rule-2)}
-  .hero .by a:hover{color:var(--accent);border-color:var(--accent)}
+  /* ── Hero statement ── */
+  .hero{padding:clamp(38px,5vw,64px) 0 clamp(30px,4vw,48px)}
+  .kicker{display:flex;align-items:center;gap:12px;color:var(--accent)}
+  .kicker::after{content:"";flex:1;height:2px;background:var(--accent);max-width:64px}
+  .hero h1{font-family:var(--grotesk);font-weight:800;font-size:clamp(2rem,1rem + 2.7vw,3.2rem);
+    line-height:1.04;letter-spacing:-.035em;margin:.4em 0 0;max-width:20ch}
+  .hero .lede{font-size:1.08rem;line-height:1.62;color:var(--ink-2);max-width:56ch;margin:1.1em 0 0}
 
   /* ── Stat line ── */
   .stats{border-top:1px solid var(--ink);border-bottom:1px solid var(--rule);
-    display:grid;grid-template-columns:repeat(4,1fr)}
-  .stat{padding:18px 22px;border-left:1px solid var(--rule)}
+    display:grid;grid-template-columns:repeat(4,1fr);margin-top:6px}
+  .stat{padding:16px 20px;border-left:1px solid var(--rule)}
   .stat:first-child{border-left:0;padding-left:0}
-  .stat .k{display:block;font-size:.64rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
-  .stat .v{display:block;margin-top:5px;font-family:var(--serif);font-size:1.1rem;font-weight:500;letter-spacing:-.01em;font-feature-settings:"tnum" 1}
+  .stat .k{display:block;font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);font-family:var(--grotesk)}
+  .stat .v{display:block;margin-top:5px;font-weight:700;font-size:1.05rem;letter-spacing:-.01em;font-feature-settings:"tnum" 1}
   .stat .v.muted{color:var(--ink-3)}
 
-  /* ── Contents ── */
-  .contents{padding:clamp(40px,6vw,74px) 0 20px}
-  .sec-label{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:6px}
-  .sec-label .t{font-family:var(--serif);font-style:italic;font-size:1.22rem;font-weight:400}
-  .sec-label .n{font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+  /* ── Body: 2 columns ── */
+  .cols{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(30px,5vw,64px);
+    padding:clamp(34px,5vw,58px) 0 20px;align-items:start}
 
-  .chapter{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:clamp(16px,3vw,40px);
-    padding:26px 0;border-top:1px solid var(--rule);transition:border-color .2s}
-  .chapter:last-child{border-bottom:1px solid var(--rule)}
-  .chapter:hover{border-top-color:var(--ink)}
-  .chapter .num{font-family:var(--serif);font-size:clamp(1.1rem,1rem + .45vw,1.4rem);font-weight:400;color:var(--rule-2);
-    line-height:1;transition:color .2s;font-feature-settings:"tnum" 1;min-width:1.7em}
-  .chapter:hover .num{color:var(--accent)}
-  .ch-kicker{font-size:.66rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:block}
-  .ch-title{font-family:var(--serif);font-size:clamp(1.2rem,1.08rem + .5vw,1.5rem);font-weight:600;letter-spacing:-.015em;
-    line-height:1.12;margin:6px 0 0}
-  .ch-title .kr{font-family:var(--kserif)}
-  .ch-desc{font-size:.95rem;color:var(--ink-2);margin:9px 0 0;max-width:56ch;line-height:1.6}
-  .ch-go{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;
-    align-self:center;transition:color .2s}
-  .chapter:hover .ch-go{color:var(--accent)}
-  .ch-go .arw{display:inline-block;transition:transform .2s}
-  .chapter:hover .ch-go .arw{transform:translateX(4px)}
+  .seclabel{display:flex;align-items:baseline;gap:10px;margin:34px 0 2px}
+  .seclabel:first-child{margin-top:0}
+  .seclabel .t{font-family:var(--grotesk);font-weight:800;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+  .seclabel .dash{flex:1;height:2px;background:var(--accent)}
+  .seclabel .en{font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-family:var(--grotesk)}
 
-  .group-head{margin:clamp(34px,5vw,58px) 0 0}
-  .group-head:first-of-type{margin-top:0}
+  .row{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:clamp(14px,2.5vw,28px);
+    padding:22px 0;border-top:1px solid var(--rule);transition:.18s}
+  .row:hover{border-top-color:var(--accent)}
+  .row .num{font-family:var(--grotesk);font-weight:800;font-size:1.15rem;color:var(--rule-2);
+    font-feature-settings:"tnum" 1;min-width:1.9em;transition:color .18s}
+  .row:hover .num{color:var(--accent)}
+  .row h2{font-family:var(--grotesk);font-weight:700;font-size:clamp(1.15rem,1.05rem + .4vw,1.4rem);
+    letter-spacing:-.02em;line-height:1.15;margin:0}
+  .row p{color:var(--ink-2);font-size:.92rem;margin:6px 0 0;max-width:54ch;line-height:1.55}
+  .row .go{font-family:var(--grotesk);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-3);white-space:nowrap;align-self:center;transition:color .18s}
+  .row:hover .go{color:var(--accent)}
+  .row .go .arw{display:inline-block;transition:transform .18s}
+  .row:hover .go .arw{transform:translateX(4px)}
+
+  /* ── Sidebar ── */
+  aside{position:sticky;top:20px}
+  .box{border-top:3px solid var(--ink);padding:14px 0 26px;margin-bottom:6px}
+  .box .h{font-family:var(--grotesk);font-weight:800;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;
+    display:flex;align-items:center;gap:8px;margin-bottom:14px}
+  .box .h::after{content:"—";color:var(--accent)}
+  .side-item{display:block;padding:11px 0;border-top:1px solid var(--rule)}
+  .side-item:first-of-type{border-top:0}
+  .side-item .sk{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-family:var(--grotesk)}
+  .side-item .st{display:block;font-weight:600;font-size:.95rem;margin-top:3px;letter-spacing:-.01em}
+  .side-item p{margin:3px 0 0;font-size:.82rem;color:var(--ink-2);line-height:1.5}
+  a.side-item:hover .st{color:var(--accent)}
+  .about{font-size:.86rem;color:var(--ink-2);line-height:1.6}
+  .about b{color:var(--ink)}
+  .connect a{display:flex;justify-content:space-between;padding:11px 0;border-top:1px solid var(--rule);font-weight:600;font-size:.92rem}
+  .connect a:first-of-type{border-top:0}
+  .connect a .ar{color:var(--ink-3)}
+  .connect a:hover{color:var(--accent)}
+  .connect a:hover .ar{color:var(--accent)}
 
   /* ── Colophon ── */
-  .colophon{margin-top:clamp(48px,7vw,88px);border-top:2px solid var(--ink);padding:26px 0 60px}
-  .colophon .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:baseline}
-  .colophon .sig{font-family:var(--serif);font-style:italic;font-size:1.15rem}
-  .colophon .note{font-size:.8rem;color:var(--ink-3);max-width:48ch;line-height:1.65}
-  .colophon a{color:var(--accent);border-bottom:1px solid transparent}
-  .colophon a:hover{border-color:var(--accent)}
+  .colophon{border-top:3px solid var(--ink);margin-top:30px;padding:22px 0 60px;
+    display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:baseline}
+  .colophon .sig{font-family:var(--grotesk);font-weight:800;letter-spacing:-.01em;font-size:1rem}
+  .colophon .sig b{color:var(--accent)}
+  .colophon .note{font-size:.8rem;color:var(--ink-3);max-width:46ch;line-height:1.6}
+  .colophon a{color:var(--accent)}
 
-  @media(max-width:680px){
+  @media(max-width:860px){
+    .cols{grid-template-columns:1fr;gap:10px}
+    aside{position:static;margin-top:20px}
+  }
+  @media(max-width:600px){
     .stats{grid-template-columns:1fr 1fr}
     .stat{border-top:1px solid var(--rule)}
     .stat:first-child,.stat:nth-child(2){border-top:0}
     .stat:nth-child(odd){padding-left:0;border-left:0}
-    .chapter{grid-template-columns:auto 1fr;gap:16px}
-    .ch-go{display:none}
+    .row{grid-template-columns:auto 1fr;gap:14px}
+    .row .go{display:none}
+    .mast .top{flex-direction:column;gap:10px}
+    .util{justify-content:flex-start}
   }
 </style>
 </head>
 <body>
 
   <header class="wrap mast">
-    <div class="row">
-      <div class="brand">김주영 <em>· KDT</em></div>
-      <div class="meta">AI 에이전트 1기 · 2026 · <a href="https://github.com/kimjy0977" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="top">
+      <div class="wordmark">김주영 <b>KDT</b></div>
+      <nav class="util">
+        <a href="#contents">목차</a>
+        <a href="../">아카이브</a>
+        <a href="https://github.com/kimjy0977" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
     </div>
-    <div class="rule-thick"></div>
+    <p class="tagline">김주영의 KDT AI 에이전트 1기 학습 허브 — 강의에서 배운 것도, <em>출결·공결 같은 운영 규칙</em>도, 학습 환경도 숨김없이 공개로 기록합니다.</p>
+    <div class="rule-ink"></div>
     <div class="rule-hair"></div>
   </header>
 
   <section class="wrap hero">
-    <div class="kicker">학습 허브 · Learning Hub</div>
-    <h1>기록하는 순간, 배움이 남는다</h1>
-    <p class="lede">강의에서 배운 것도, 출결·공결 같은 운영 규칙도, 학습 환경도 — 숨김없이 공개로 기록하는 곳. 나에게도, 함께 듣는 그루에게도, 퍼실에게도 열려 있습니다.</p>
-    <div class="by"><span class="sig">김주영</span> 아이펠 KDT AI 에이전트 1기 · <a href="https://github.com/kimjy0977" target="_blank" rel="noopener">github.com/kimjy0977</a></div>
+    <div class="lab kicker">학습 허브 · Learning Hub</div>
+    <h1>기록하는 순간, 배움이 남는다.</h1>
+    <p class="lede">나에게도, 함께 듣는 그루에게도, 퍼실에게도 열려 있습니다. 이 과정에서 알아가는 모든 것 — 강의·운영·정책·환경 — 을 한자리에.</p>
   </section>
 
   <div class="wrap">
@@ -136,86 +157,78 @@
     </div>
   </div>
 
-  <main class="wrap contents">
-    <div class="sec-label"><span class="t">목차</span><span class="n">Contents</span></div>
+  <div class="wrap cols" id="contents">
+    <main>
+      <div class="seclabel"><span class="t">블로그 챌린지</span><span class="dash"></span><span class="en">Retrospect</span></div>
+      <a class="row" href="회고.html">
+        <span class="num">01</span>
+        <div><h2>회고 로그</h2><p>날짜별 복습·회고. 배운 것·막힌 것·그루에게 공유할 것. 최근: 07–10 Git 온보딩.</p></div>
+        <span class="go">읽기 <span class="arw">→</span></span>
+      </a>
 
-    <a class="chapter" href="회고.html">
-      <span class="num">01</span>
-      <div>
-        <span class="ch-kicker">블로그 챌린지</span>
-        <h2 class="ch-title kr">회고 로그</h2>
-        <p class="ch-desc">날짜별 복습·회고. 배운 것, 막힌 것, 그루에게 공유할 것. 최근: 07–10 Git 온보딩.</p>
-      </div>
-      <span class="ch-go">읽기 <span class="arw">→</span></span>
-    </a>
+      <div class="seclabel"><span class="t">학습 노트</span><span class="dash"></span><span class="en">Notes</span></div>
+      <a class="row" href="모두연-노드-강의노트.html">
+        <span class="num">02</span>
+        <div><h2>모두연 강의 학습 노트</h2><p>바이브코딩으로 웹 만들기 — 적응기 + 1~7강. 강의 내용을 그대로 담은 누적 노트.</p></div>
+        <span class="go">읽기 <span class="arw">→</span></span>
+      </a>
+      <a class="row" href="AI에이전트-강의노트.html">
+        <span class="num">03</span>
+        <div><h2>강의 노트 · 앤트로픽 · 인프런</h2><p>앤트로픽 AI Fluency + 인프런 AI 에이전트 오리엔테이션 정리.</p></div>
+        <span class="go">읽기 <span class="arw">→</span></span>
+      </a>
 
-    <a class="chapter" href="모두연-노드-강의노트.html">
-      <span class="num">02</span>
-      <div>
-        <span class="ch-kicker">학습 노트</span>
-        <h2 class="ch-title kr">모두연 강의 학습 노트</h2>
-        <p class="ch-desc">바이브코딩으로 웹 만들기 — 적응기 + 1~7강. 강의 내용을 그대로 담은 누적 노트.</p>
-      </div>
-      <span class="ch-go">읽기 <span class="arw">→</span></span>
-    </a>
+      <div class="seclabel"><span class="t">운영 · 정책 · 환경</span><span class="dash"></span><span class="en">Operations</span></div>
+      <a class="row" href="KDT-교육-운영-종합안내.html">
+        <span class="num">04</span>
+        <div><h2>교육 운영 종합안내</h2><p>출결·공결·훈련장려금·수료/졸업 기준·취업지원까지 — 과정을 굴리는 규칙을 한 문서로.</p></div>
+        <span class="go">읽기 <span class="arw">→</span></span>
+      </a>
 
-    <a class="chapter" href="AI에이전트-강의노트.html">
-      <span class="num">03</span>
-      <div>
-        <span class="ch-kicker">학습 노트</span>
-        <h2 class="ch-title kr">강의 노트 · 앤트로픽 · 인프런</h2>
-        <p class="ch-desc">앤트로픽 AI Fluency + 인프런 AI 에이전트 오리엔테이션 정리.</p>
-      </div>
-      <span class="ch-go">읽기 <span class="arw">→</span></span>
-    </a>
+      <div class="seclabel"><span class="t">준비 · 참고</span><span class="dash"></span><span class="en">Reference</span></div>
+      <a class="row" href="선행학습-로드맵.html">
+        <span class="num">05</span>
+        <div><h2>선행학습 로드맵</h2><p>과정 첫날 기준, 무엇을 미리 익혀두면 좋은지 정리한 가이드.</p></div>
+        <span class="go">읽기 <span class="arw">→</span></span>
+      </a>
+      <a class="row" href="용어집.html">
+        <span class="num">06</span>
+        <div><h2>용어집</h2><p>막힌 용어를 한 줄 정의로 쌓는 기록. 그루도 빠르게 찾아볼 수 있게.</p></div>
+        <span class="go">읽기 <span class="arw">→</span></span>
+      </a>
 
-    <a class="chapter" href="KDT-교육-운영-종합안내.html">
-      <span class="num">04</span>
-      <div>
-        <span class="ch-kicker">운영 · 정책 · 환경</span>
-        <h2 class="ch-title kr">교육 운영 종합안내</h2>
-        <p class="ch-desc">출결·공결·훈련장려금·수료/졸업 기준·취업지원까지 — 과정을 굴리는 규칙을 한 문서로.</p>
-      </div>
-      <span class="ch-go">읽기 <span class="arw">→</span></span>
-    </a>
+      <div class="seclabel"><span class="t">아카이브</span><span class="dash"></span><span class="en">Archive</span></div>
+      <a class="row" href="../">
+        <span class="num">07</span>
+        <div><h2>과제 아카이브 갤러리</h2><p>메인 퀘스트·실습·과제 산출물 모음. 별도 허브로 이동합니다.</p></div>
+        <span class="go">이동 <span class="arw">↗</span></span>
+      </a>
+    </main>
 
-    <a class="chapter" href="선행학습-로드맵.html">
-      <span class="num">05</span>
-      <div>
-        <span class="ch-kicker">준비 · 참고</span>
-        <h2 class="ch-title kr">선행학습 로드맵</h2>
-        <p class="ch-desc">과정 첫날 기준, 무엇을 미리 익혀두면 좋은지 정리한 가이드.</p>
+    <aside>
+      <div class="box">
+        <div class="h">최근</div>
+        <a class="side-item" href="회고.html"><span class="sk">회고 · 07-10</span><span class="st">Git으로 작업을 고정하다</span><p>온보딩 세팅 5단계 완주 — 과정 3일차.</p></a>
+        <a class="side-item" href="AI에이전트-강의노트.html"><span class="sk">강의 노트</span><span class="st">모듈2 · AI의 이해와 사용</span><p>node-8 「AI는 어떻게 배우나」 정리.</p></a>
       </div>
-      <span class="ch-go">읽기 <span class="arw">→</span></span>
-    </a>
 
-    <a class="chapter" href="용어집.html">
-      <span class="num">06</span>
-      <div>
-        <span class="ch-kicker">준비 · 참고</span>
-        <h2 class="ch-title kr">용어집</h2>
-        <p class="ch-desc">막힌 용어를 한 줄 정의로 쌓는 기록. 그루도 빠르게 찾아볼 수 있게.</p>
+      <div class="box connect">
+        <div class="h">연결</div>
+        <a href="https://github.com/kimjy0977" target="_blank" rel="noopener">GitHub · kimjy0977 <span class="ar">↗</span></a>
+        <a href="../">과제 아카이브 <span class="ar">→</span></a>
       </div>
-      <span class="ch-go">읽기 <span class="arw">→</span></span>
-    </a>
 
-    <a class="chapter" href="../">
-      <span class="num">07</span>
-      <div>
-        <span class="ch-kicker">아카이브</span>
-        <h2 class="ch-title kr">과제 아카이브 갤러리</h2>
-        <p class="ch-desc">메인 퀘스트·실습·과제 산출물 모음. 별도 허브로 이동합니다.</p>
+      <div class="box">
+        <div class="h">이 허브</div>
+        <p class="about"><b>김주영이 기록·운영</b>합니다. 익명 정보 블로그가 아니라, 한 수강생이 6개월 과정을 공개로 기록하는 공간 — 복습·회고, 운영·정책 정리, 학습 환경까지.</p>
       </div>
-      <span class="ch-go">이동 <span class="arw">↗</span></span>
-    </a>
+    </aside>
+  </div>
 
-    <div class="colophon">
-      <div class="row">
-        <span class="sig">김주영이 기록·운영합니다</span>
-        <span class="note">KDT AI 에이전트 1기 학습 허브 · 나 · 그루 · 퍼실에게 열린 공개 기록 · <a href="../">과제 아카이브 →</a></span>
-      </div>
-    </div>
-  </main>
+  <div class="wrap colophon">
+    <span class="sig">김주영 <b>KDT</b></span>
+    <span class="note">KDT AI 에이전트 1기 학습 허브 · 나 · 그루 · 퍼실에게 열린 공개 기록 · <a href="../">과제 아카이브 →</a></span>
+  </div>
 
 </body>
 </html>
