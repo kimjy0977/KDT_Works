@@ -356,6 +356,8 @@
       <a class="tochead" href="#node-9">AI는 어떻게 언어를 배웠나 (8강)</a>
       <div class="tocgroup" data-g="9">
       <a href="#n9-1">1강 지금 이 모델은 어디서 왔을까</a>
+      <a href="#n9-2">2강 이미지가 먼저 연 길</a>
+      <a href="#n9-3">3강 언어가 부딪힌 또 다른 벽<span class="toctag p">실습</span></a>
       </div>
     </nav>
 
@@ -2277,8 +2279,8 @@ colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동
         <p class="lead">트랜스포머가 AI 시대에 얼마나 큰 영향을 미쳤는지를, <b>이미지</b>를 다루던 사람들과 <b>언어</b>를 다루던 사람들이 각자 벽에 부딪혔다 한 지점에서 만난 역사로 따라간다.</p>
         <div class="table-wrap" style="color:#172033"><table><thead><tr><th>강</th><th>제목</th><th>상태</th></tr></thead><tbody>
           <tr><td>1</td><td>지금 이 모델은 어디서 왔을까</td><td>✅ 정리됨</td></tr>
-          <tr><td>2</td><td>이미지가 먼저 연 길</td><td>대기(순차 잠금)</td></tr>
-          <tr><td>3</td><td>언어가 부딪힌 또 다른 벽</td><td>대기(순차 잠금)</td></tr>
+          <tr><td>2</td><td>이미지가 먼저 연 길</td><td>✅ 정리됨</td></tr>
+          <tr><td>3</td><td>언어가 부딪힌 또 다른 벽</td><td>✅ 정리됨</td></tr>
           <tr><td>4</td><td>두 길이 트랜스포머에서 합류하다</td><td>대기(순차 잠금)</td></tr>
           <tr><td>5</td><td>트랜스포머가 세상을 먹다</td><td>대기(순차 잠금)</td></tr>
           <tr><td>6</td><td>그래서 활용가는 토큰과 컨텍스트를 본다</td><td>대기(순차 잠금)</td></tr>
@@ -2303,6 +2305,60 @@ colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동
         <p class="fine">얼핏 전혀 다른 두 벽 같지만 뿌리가 닮았다. 이 노드는 <b>먼저 이미지가 연 길</b>(깊이의 벽을 어떻게 발견·돌파했나)을 걷고 나서, 언어 쪽이 만난 <b>순차의 벽</b>이 놀랄 만큼 같은 모양임을 확인하는 순서로 간다.</p>
 
         <div class="notice"><b>📚 출처:</b> <span class="fine">모두의연구소 KDT 「AI의 이해와 사용_Agt1」 · 모듈2 노드2 「트랜스포머 — AI는 어떻게 언어를 배웠나」 1강 「지금 이 모델은 어디서 왔을까」 (LMS learn.modulabs.co.kr · camp136/courses/2136 · node-version 4890). 2~8강은 순차 잠금(대기중) — 잠금 해제 시 이어서 누적 예정.</span></div>
+      </section>
+
+      <section class="section" id="n9-2"><h2>2강 · 이미지가 먼저 연 길 <span class="dur">이론</span></h2>
+        <p class="lead">언어보다 <b>이미지</b>가 먼저 "깊이의 벽"에 부딪혔고, 먼저 뚫었다. CNN → 딥러닝 부활 → 더 깊게 → <b>깊이의 벽(기울기 소실)</b> → <b>ResNet 지름길</b>로 돌파까지의 역사.</p>
+
+        <h3>1998 — CNN, 특징을 사람이 아니라 데이터가 배우게</h3>
+        <p>1990년대 후반, 수표에 손으로 쓴 숫자를 기계가 읽게 하려던 실무 요구에서 출발. 당시 상식은 "사람이 <b>특징(모서리·곡선)을 손으로 설계</b>해 뽑고 단순 분류기에 넘긴다"였는데, 손글씨가 제각각이라 규칙이 쉽게 무너졌다. 발상 전환 = <span class="hl">특징을 사람이 정하지 말고 픽셀에서 신경망이 스스로 배우게 하자.</span> 작은 <b>필터</b>를 이미지 위에 미끄러뜨리며 무늬를 훑고 같은 필터를 전체에 재사용(파라미터↓, 위치 무관 인식) → 이것이 <b>합성곱 신경망(CNN)</b>. 수표 판독기로 상용화까지 됨.<span class="fine"> (LeCun, Gradient-based learning applied to document recognition, Proc. IEEE 1998)</span></p>
+        <div class="notice">시대를 너무 앞섰다 — 신경망 학습엔 방대한 데이터+계산력이 필요한데 둘 다 부족해 한동안 <b>잊힘</b>.</div>
+
+        <h3>2012 — 딥러닝 부활의 방아쇠 (AlexNet)</h3>
+        <p>14년 뒤 두 가지가 바뀜: ① 인터넷에 쌓인 <b>라벨 이미지 수백만 장</b>(ImageNet)과 매년 분류 대회(ILSVRC) ② 게임용 <b>GPU</b>가 신경망의 대량 병렬 계산에 딱 맞음. 2012년 한 팀이 이 둘을 CNN에 결합 → <b>top-5 오류율 15.3%</b>(2위 기존방식 26.2%, 전년 우승 25%대)로 격차 10%p 이상. <span class="hl2">"특징을 사람이 짜 넣던 시대의 끝, 데이터가 특징을 길러내는 시대의 시작."</span><span class="fine"> (AlexNet, ImageNet Classification with Deep CNNs, NeurIPS 2012)</span></p>
+        <div class="table-wrap"><table><thead><tr><th>재료</th><th>하는 일</th></tr></thead><tbody>
+          <tr><td><b>ReLU</b></td><td>층 결과가 음수면 0, 양수면 그대로. 이 작은 꺾임이 없으면 층을 쌓아도 전체가 하나의 직선으로 뭉개짐</td></tr>
+          <tr><td><b>dropout</b></td><td>학습 때마다 <b>뉴런</b> 일부를 무작위로 꺼 버림 → 특정 뉴런에 답을 새겨 외우는 걸 막아 <b>과적합</b> 방지 (과적합=훈련데이터는 잘 맞고 새 데이터엔 무너짐)</td></tr>
+          <tr><td><b>GPU 2장</b></td><td>파라미터 6천만 개 학습을 감당</td></tr>
+        </tbody></table></div>
+
+        <h3>더 깊게 → 깊이의 벽</h3>
+        <p>방아쇠가 당겨지자 모두 "<b>더 깊게 쌓자</b>"로 달림(낮은 층=단순 무늬, 높은 층=복잡 개념 조합). 2014년 <b>VGG</b>(3×3 필터만 규칙적으로 19층, top-5 ≈7.3%) · <b>GoogLeNet</b>(서로 다른 필터를 병렬로 묶은 모듈 22층, 6.7%). 2년 만에 15.3%→절반 이하.</p>
+        <div class="notice key"><b>🧱 깊이의 벽:</b> 층을 어느 선 이상 쌓으면 <span class="hl3">더 깊은 신경망이 오히려 성적이 나빠짐 — 그것도 훈련 데이터에서마저</span>(과적합이 아님, 학습 자체가 안 됨). 범인 = <b>기울기 소실(vanishing gradient)</b>: 오차 신호를 뒤→앞으로 되짚을 때 층마다 기울기(대개 1보다 작음)가 곱해져, 수십·수백 번 곱하면 앞쪽 층엔 "무엇을 고쳐라"는 신호가 0에 수렴해 도착하지 못함.</div>
+
+        <h3>돌파 — ResNet의 지름길(skip connection)</h3>
+        <p>발상은 간단했다. 신호가 층마다 약해진다면 <span class="hl">몇 개 층을 건너뛰어 곧장 흐르는 지름길</span>을 놓자 = <b>skip connection</b>. 이 구조가 <b>ResNet</b>(Res=residual 잔차). 층에게 "출력 H(x)를 통째로 만들라" 대신 "입력 x는 지름길로 흘리고, <b>정답에서 x를 뺀 나머지 F(x)만</b> 만들라" → 최종 출력 = <b>F(x) + x</b>.</p>
+        <div class="table-wrap"><table><thead><tr><th>왜 벽을 뚫나</th><th>설명</th></tr></thead><tbody>
+          <tr><td>① 학습신호 고속도로</td><td>지름길로 그대로 더한 값은 되짚을 때 기울기가 <b>1</b> → 곱셈에 안 깎이고 앞쪽까지 온전히 감</td></tr>
+          <tr><td>② 항등변환이 쉬움</td><td>필요 없는 층은 <b>F(x)=0</b>만 만들면 출력이 0+x=x로 저절로 통과 → 마구 쌓아도 성능이 안 나빠짐</td></tr>
+        </tbody></table></div>
+        <p>이 지름길 하나로 <b>152층</b>이 안정적으로 학습됐고 2015년 <b>top-5 3.57%</b> — 사람의 오류율(약 5%)마저 넘음.<span class="fine"> (Deep Residual Learning, arXiv:1512.03385)</span></p>
+        <div class="table-wrap"><table><thead><tr><th>1998</th><th>2012</th><th>2014</th><th>2015</th></tr></thead><tbody>
+          <tr><td>손글씨 판독·잠듦</td><td>부활 방아쇠 15.3%</td><td>더 깊게 6.7%</td><td>깊이의 벽 돌파 3.57%</td></tr>
+        </tbody></table></div>
+        <div class="notice teal"><b>💡 기억할 것은 연도가 아니라 '문제의 모양':</b> 신호가 <b>긴 사슬</b>을 거치며 흐려졌고 → <b>지름길</b>로 곧장 흐르게 하자 벽이 뚫렸다. 곧 볼 <b>언어</b>도 "앞 단어 기억이 뒤로 갈수록 흐려지는" <span class="hl">뿌리가 똑 닮은 벽</span>을 만나고, 첫 해법도 "정보가 곧장 흐르는 통로를 터 준다"는 같은 발상이다. 단 언어엔 벽이 하나 더 남아 있었고, 그 열쇠가 <b>어텐션</b>.</div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모두연 KDT 「AI의 이해와 사용_Agt1」 모듈2 노드2 「트랜스포머」 2강. CNN(LeCun 1998) · AlexNet(NeurIPS 2012) · VGG(arXiv:1409.1556) · GoogLeNet(arXiv:1409.4842) · ResNet(arXiv:1512.03385).</span></div>
+      </section>
+
+      <section class="section" id="n9-3"><h2>3강 · 언어가 부딪힌 또 다른 벽 <span class="dur">이론 · 실습</span></h2>
+        <p class="lead">이미지가 <b>깊이의 벽</b>이었다면, 언어는 단어가 하나씩 순서대로 흐르는 데이터라 <b>순서의 벽</b>에 부딪혔다. 임베딩 → RNN → LSTM → seq2seq → 어텐션까지, 뿌리가 이미지와 닮은 이야기.</p>
+
+        <h3>단어를 숫자로 — 임베딩(word2vec)</h3>
+        <p>신경망은 글자를 못 먹고 <b>벡터</b>만 먹는다. 그런데 '왕'=1, '여왕'=2처럼 번호만 매기면 의미 관계가 사라진다. <b>word2vec</b>(2013)의 발상: <span class="hl">단어의 뜻은 "어떤 이웃과 함께 등장하는가"에 담겨 있다</span> → 주변 단어 맞히기를 수억 번 시키면 비슷한 자리에 오는 단어는 비슷한 벡터가 됨. 그 공간에선 <b>'왕 − 남자 + 여자' ≈ '여왕'</b>. 이렇게 만든 단어 벡터 = <b>임베딩(embedding)</b>, 언어 신경망의 표준 입력.<span class="fine"> (arXiv:1301.3781)</span></p>
+        <div class="notice teal"><b>🎮 꼬맨틀</b> — 정답 단어와의 벡터 거리를 -100~100으로 알려주는 한국어 게임(FastText 벡터). '바다'에 '해변·파도'가 가까운 건 당연한데, 뜻은 무관해 보여도 <b>같은 문맥에서 자주 쓰인 단어</b>가 높게 튀어나온다 → 벡터가 배운 건 사전 정의가 아니라 <span class="hl">쓰임의 이웃 관계</span>.</div>
+        <div class="notice"><b>🧪 손으로 (코드 실습):</b> 코딩 에이전트에게 "sentence-transformers <code>paraphrase-multilingual-MiniLM-L12-v2</code>로 단어를 벡터화 → 정답과 후보들의 <b>코사인 유사도</b>로 순위" 요청(CPU로도 돌게). 예: 정답 '바다' → 해변 76.7 · 파도 76.5 · 항구 73.3 … <b>버그 55.2</b>(우유·고양이보다 높음=쓰임 이웃). 후보를 내 도메인 용어로 바꿔 뭉치는지 보면 실무 적용 감이 잡힘.</div>
+
+        <h3>순서의 벽 — RNN과 기울기 소실(시간 축)</h3>
+        <p>사람이 문장 읽는 걸 흉내 낸 <b>RNN(순환 신경망)</b>: 단어를 앞→뒤로 하나씩 읽되, 지금까지 읽은 요약(<b>은닉 상태</b>=작업 기억)을 다음 단어로 넘긴다. 문제는 <span class="hl3">문장이 길어지면 앞 단어 정보가 은닉 상태를 여러 번 거치며 흐려져 뒤엔 거의 안 남는다</span>('나는' 주어가 스무 단어 뒤 동사까지 못 감). 은닉 상태를 한 단계씩 넘기는 건 층을 하나씩 쌓는 것과 수학적으로 같아, <b>이미지의 기울기 소실이 이번엔 시간 축을 따라 나타난 것</b> — 순서의 벽과 깊이의 벽은 한 뿌리.</p>
+        <div class="notice"><b>LSTM(1997):</b> 은닉 상태 옆에 <b>셀 상태</b>(장기 기억 통로)를 두고, 정보의 입·출·삭제를 <b>게이트</b>(입력/망각/출력)로 조절. 셀 상태 통로는 곱셈으로 뒤섞는 변형이 거의 없어 신호가 멀리까지 온전히 감 → <span class="hl">이미지의 skip connection과 "통로 하나 터 준다"는 발상이 닮음.</span> 단, 한 단어씩 처리하는 <b>순차성</b>은 그대로라 병렬 계산 불가 — 두고두고 발목.<span class="fine"> (Neural Computation 1997)</span></p>
+
+        <h3>번역과 고정벡터 병목 — seq2seq</h3>
+        <p>RNN/LSTM으로 문장을 읽게 되자 <b>번역</b>에 도전 → <b>인코더-디코더(seq2seq)</b>: 인코더가 원문을 다 읽어 <b>문맥 벡터 하나</b>에 압축 → 디코더가 그 벡터만으로 번역문을 한 단어씩 풂.<span class="fine"> (arXiv:1409.3215)</span> 문제 = <span class="hl3">고정벡터 병목</span>: 열 단어든 쉰 단어든 <b>크기 고정된 벡터 하나</b>를 통과해야 해 긴 문장은 앞부분이 뭉개짐(3분 연설을 한 문장으로 요약해 넘기라는 통역사).</p>
+
+        <h3>병목을 깬 열쇠 — 어텐션(attention)</h3>
+        <p>질문을 바꿈: 왜 원문 전체를 벡터 하나로 압축하나? <span class="hl2">디코더가 번역 단어를 만들 때마다 원문을 다시 들여다보게 하자.</span> 인코더의 <b>단어별 은닉 상태를 전부 남겨두고</b>, 디코더는 매 단어마다 원문의 모든 단어를 되돌아보며 <b>지금 중요한 단어에 가중치</b>를 준다('학교' 번역 차례엔 'school'에 큰 가중치). → 고정벡터 병목이 깨지고 긴 문장 번역 품질이 되살아남.<span class="fine"> (arXiv:1409.0473 · 1508.04025)</span></p>
+        <div class="notice key"><b>➡️ 다음 벽으로:</b> attention은 원래 순차적 RNN의 <b>보조</b> 장치였는데, 정작 성능의 주역은 attention이고 RNN의 순차성은 병렬화를 막는 걸림돌이었다. 그래서 대담한 질문 — <span class="hl">"순차 처리를 통째로 걷어내고 attention 하나만으로 문장을 처리하면?"</span> 이 질문이 <b>트랜스포머</b>의 문을 연다(4강).</div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈2 노드2 「트랜스포머」 3강. word2vec(arXiv:1301.3781) · 꼬맨틀(뉴스젤리) · RNN/LSTM(Neural Computation 1997) · seq2seq(arXiv:1409.3215) · attention(arXiv:1409.0473 · 1508.04025).</span></div>
       </section>
 
       <div class="pager" id="pager"></div>
