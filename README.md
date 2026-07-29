@@ -4,7 +4,7 @@
 
 ## 🔗 바로가기
 - **갤러리(허브):** https://kimjy0977.github.io/KDT_Works/
-- **학습로그·가이드:** [선행학습 로드맵](https://kimjy0977.github.io/KDT_Works/00_log/선행학습-로드맵.html) · [강의노트(앤트로픽·인프런)](https://kimjy0977.github.io/KDT_Works/00_log/AI에이전트-강의노트.html) · [모두연 노드 강의노트](https://kimjy0977.github.io/KDT_Works/00_log/모두연-노드-강의노트.html) · [운영 안내](https://kimjy0977.github.io/KDT_Works/00_log/KDT-교육-운영-종합안내.html)
+- **학습로그·가이드:** [선행학습 로드맵](https://kimjy0977.github.io/KDT_Works/00_log/선행학습.html) · [강의노트(앤트로픽·인프런)](https://kimjy0977.github.io/KDT_Works/00_log/강의노트-앤트로픽.html) · [모두연 노드 강의노트](https://kimjy0977.github.io/KDT_Works/00_log/강의노트-모두연.html) · [운영 안내](https://kimjy0977.github.io/KDT_Works/00_log/운영안내.html)
 
 ## 구조 (모듈 우선 · 접두사 정렬)
 `a_mq` 메인퀘 · `b_q` 퀘스트 · `c_lab` 실습 · `d_hw` 과제
