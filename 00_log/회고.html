@@ -3,330 +3,306 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>회고 · 블로그 챌린지 · 김주영 KDT 허브</title>
+<title>회고 · 블로그 챌린지 · 김주영 KDT</title>
 <style>
   @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
-  @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&display=swap');
   :root{
-    --paper:#FBFAF7; --paper-2:#F3F1EA; --panel:#F6F4EE;
-    --ink:#1A1813; --ink-2:#575249; --ink-3:#8B8578;
-    --rule:#E4E0D5; --rule-2:#CFC9BA; --accent:#CE1225;
-    --serif:'Pretendard','Public Sans','Noto Sans KR',system-ui,sans-serif;
-    --kserif:'Pretendard','Noto Sans KR',system-ui,sans-serif;
-    --sans:'Public Sans','Pretendard','Noto Sans KR',system-ui,-apple-system,sans-serif;
+    --paper:#FBFAF7; --paper-2:#F4F1EA; --ink:#171512; --ink-2:#565049; --ink-3:#8C8579;
+    --rule:#E5E1D6; --rule-2:#D2CCBE; --accent:#CE1225; --accent-soft:#FBE7E8;
+    --sans:'Pretendard','Public Sans','Noto Sans KR',system-ui,-apple-system,sans-serif;
+    --grotesk:'Public Sans','Pretendard',system-ui,sans-serif;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
-    font-size:17px;line-height:1.72;letter-spacing:-.003em;word-break:keep-all;-webkit-font-smoothing:antialiased}
+    font-size:16.5px;line-height:1.7;letter-spacing:-.003em;word-break:keep-all;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
-  ::selection{background:#e7d8bb}
-  .wrap{width:min(880px,calc(100% - 48px));margin-inline:auto}
+  ::selection{background:var(--accent-soft)}
+  .wrap{width:min(1120px,calc(100% - 48px));margin-inline:auto}
+  .wrap.read{width:min(760px,calc(100% - 44px))}
+  .lab{font-family:var(--grotesk);font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
 
-  .mast{padding:20px 0 0}
-  .mast .row{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
-  .mast .brand{font-family:var(--serif);font-weight:600;font-size:1.08rem}
-  .mast .brand em{font-style:italic;font-weight:400}
-  .mast .meta{font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
-  .mast .meta a{color:var(--ink-2);border-bottom:1px solid var(--rule-2)}
-  .mast .meta a:hover{color:var(--accent);border-color:var(--accent)}
-  .rule-thick{height:2px;background:var(--ink);margin-top:14px}
+  .mast{padding:26px 0 0}
+  .mast .top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+  .wordmark{font-family:var(--grotesk);font-weight:800;font-size:clamp(1.5rem,1rem + 1.6vw,2rem);line-height:.9;letter-spacing:-.04em}
+  .wordmark b{color:var(--accent)}
+  .util{display:flex;gap:18px;padding-top:6px;flex-wrap:wrap;justify-content:flex-end}
+  .util a{font-family:var(--grotesk);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+  .util a:hover{color:var(--accent)}
+  .util a.home{color:var(--accent)}
+  .rule-ink{height:3px;background:var(--ink);margin-top:16px}
   .rule-hair{height:1px;background:var(--rule);margin-top:3px}
 
-  .hero{padding:clamp(40px,7vw,80px) 0 clamp(30px,4vw,48px)}
-  .kicker{font-size:.72rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);
-    display:flex;align-items:center;gap:12px}
-  .kicker::after{content:"";flex:1;height:1px;background:var(--rule-2);max-width:120px}
-  .hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(1.85rem,1.15rem + 1.9vw,2.7rem);line-height:1.08;
-    letter-spacing:-.02em;margin:.36em 0 0;max-width:18ch}
-  .hero .lede{font-size:1.08rem;color:var(--ink-2);max-width:54ch;margin:1.15em 0 0;line-height:1.64}
-  .backline{margin-top:26px}
-  .backline a{font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
-    border-bottom:1px solid var(--rule-2);padding-bottom:2px}
+  .hero{padding:clamp(38px,6vw,68px) 0 clamp(24px,4vw,40px)}
+  .kicker{display:flex;align-items:center;gap:12px;color:var(--accent)}
+  .kicker::after{content:"";flex:1;height:2px;background:var(--accent);max-width:72px}
+  .hero h1{font-family:var(--grotesk);font-weight:800;font-size:clamp(1.9rem,1rem + 2.6vw,3rem);line-height:1.06;letter-spacing:-.035em;margin:.4em 0 0;max-width:20ch}
+  .hero .lede{font-size:1.06rem;line-height:1.62;color:var(--ink-2);max-width:56ch;margin:1.05em 0 0}
+  .hero .lede em{color:var(--accent);font-style:normal;font-weight:600}
+  .backline{margin-top:24px}
+  .backline a{font-family:var(--grotesk);font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--rule-2);padding-bottom:2px}
   .backline a:hover{color:var(--accent);border-color:var(--accent)}
 
-  main{padding-bottom:40px}
-  .entry{border-top:1px solid var(--ink);padding:34px 0 8px}
-  .entry-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
-  .entry-date{font-family:var(--serif);font-size:1.05rem;font-weight:500;letter-spacing:.04em;font-feature-settings:"tnum" 1}
-  .entry-day{font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
-  .entry-title{font-family:var(--kserif);font-size:clamp(1.35rem,1.2rem + .7vw,1.8rem);font-weight:600;letter-spacing:-.015em;
-    line-height:1.16;margin:11px 0 18px}
-  .block{margin:0 0 20px}
-  .block-label{display:block;font-size:.66rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--ink-3);padding-bottom:8px;margin-bottom:10px;border-bottom:1px solid var(--rule)}
-  .block ul{margin:0;padding-left:20px}
-  .block li{margin:7px 0;line-height:1.62}
-  .block li b{font-weight:700}
-  .pull{font-family:var(--serif);font-size:1.05rem;line-height:1.5;color:var(--ink);
-    border-left:2px solid var(--accent);padding-left:16px;margin:4px 0}
-  code{font-family:'Public Sans',monospace;background:var(--paper-2);padding:1px 6px;border-radius:3px;font-size:.86em;letter-spacing:0}
-  .done{color:var(--accent);font-weight:700}
-  .brief{color:var(--ink-2)}
+  /* 목록 */
+  .list{padding:6px 0 20px}
+  .ep-row{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:clamp(14px,2.5vw,28px);padding:24px 0;border-top:1px solid var(--rule);transition:.18s}
+  .ep-row:first-of-type{border-top:1px solid var(--ink)}
+  .ep-row:hover{border-top-color:var(--accent)}
+  .ep-row .num{font-family:var(--grotesk);font-weight:800;font-size:1.15rem;color:var(--rule-2);min-width:1.9em;transition:color .18s}
+  .ep-row:hover .num{color:var(--accent)}
+  .ep-row .meta{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:5px}
+  .ep-row .date{font-family:var(--grotesk);font-weight:700;font-size:.72rem;letter-spacing:.06em;color:var(--ink-3)}
+  .ep-row .tag{font-family:var(--grotesk);font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .ep-row h2{font-family:var(--grotesk);font-weight:700;font-size:clamp(1.15rem,1.05rem + .4vw,1.4rem);letter-spacing:-.02em;line-height:1.18;margin:0}
+  .ep-row p{color:var(--ink-2);font-size:.9rem;margin:6px 0 0;max-width:56ch;line-height:1.55}
+  .ep-row .go{font-family:var(--grotesk);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap;align-self:center;transition:color .18s}
+  .ep-row:hover .go{color:var(--accent)}
+  .ep-row .go .arw{display:inline-block;transition:transform .18s}
+  .ep-row:hover .go .arw{transform:translateX(4px)}
 
-  .comments{border-top:2px solid var(--ink);margin-top:20px;padding:26px 0 60px}
-  .comments h3{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin:0 0 12px}
-  .comments .placeholder{font-size:.92rem;color:var(--ink-2)}
+  /* 에피소드 뷰 */
+  .view{display:none}
+  .view.on{display:block;animation:fade .3s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .article-head{border-top:3px solid var(--ink);padding-top:22px;margin-top:4px}
+  .article-head .meta{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+  .article-head .date{font-family:var(--grotesk);font-weight:700;font-size:.82rem;letter-spacing:.05em;color:var(--ink-2)}
+  .article-head .tag{font-family:var(--grotesk);font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+  .article-head h1{font-family:var(--grotesk);font-weight:800;font-size:clamp(1.7rem,1.1rem + 1.8vw,2.5rem);line-height:1.1;letter-spacing:-.03em;margin:.35em 0 0}
+  .lede-em{font-size:1.12rem;line-height:1.66;color:var(--ink-2);margin:1.1em 0 0}
+  .sec{margin:38px 0 0}
+  .sec-label{display:flex;align-items:baseline;gap:10px;margin:0 0 14px}
+  .sec-label .t{font-family:var(--grotesk);font-weight:800;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+  .sec-label .dash{flex:1;height:2px;background:var(--accent)}
+  .sec-label .en{font-family:var(--grotesk);font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .sec p{margin:0 0 1.05em;font-size:1.04rem;line-height:1.78;color:var(--ink-2)}
+  .sec p:last-child{margin-bottom:0}
+  .sec p b{color:var(--ink);font-weight:700}
+  .pull{font-family:var(--grotesk);font-weight:700;font-size:clamp(1.2rem,1rem + .8vw,1.55rem);line-height:1.32;letter-spacing:-.02em;color:var(--ink);border-left:3px solid var(--accent);padding:2px 0 2px 20px;margin:24px 0}
+  code{font-family:'Public Sans',monospace;background:var(--paper-2);padding:1px 6px;border-radius:3px;font-size:.86em}
+  .done{color:var(--accent);font-weight:700}
+  .epnav{border-top:1px solid var(--rule);margin-top:44px;padding:22px 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--grotesk);font-size:.74rem;font-weight:700;letter-spacing:.04em}
+  .epnav a{color:var(--ink-2)} .epnav a:hover{color:var(--accent)} .epnav .center a{color:var(--accent)}
+  .epnav span{color:var(--rule-2)}
+
+  .comments{border-top:2px solid var(--ink);margin-top:8px;padding:26px 0 60px}
+  .comments h3{font-family:var(--grotesk);font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin:0 0 12px}
+  .colophon{border-top:3px solid var(--ink);margin-top:26px;padding:22px 0 60px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:baseline}
+  .colophon .sig{font-family:var(--grotesk);font-weight:800;font-size:1rem}.colophon .sig b{color:var(--accent)}
+  .colophon .note{font-size:.8rem;color:var(--ink-3);max-width:48ch;line-height:1.6}.colophon a{color:var(--accent)}
+  @media(max-width:600px){.ep-row{grid-template-columns:auto 1fr;gap:14px}.ep-row .go{display:none}.mast .top{flex-direction:column;gap:10px}.util{justify-content:flex-start}}
 </style>
 </head>
 <body>
+
   <header class="wrap mast">
-    <div class="row">
-      <div class="brand">김주영 <em>· KDT</em></div>
-      <div class="meta">회고 · Blog Challenge</div>
+    <div class="top">
+      <div class="wordmark">김주영 <b>KDT</b></div>
+      <nav class="util">
+        <a class="home" href="./">← 홈</a>
+        <a href="강의노트-모두연.html">학습 노트</a>
+        <a href="../">아카이브</a>
+        <a href="https://github.com/kimjy0977" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
     </div>
-    <div class="rule-thick"></div><div class="rule-hair"></div>
+    <div class="rule-ink"></div><div class="rule-hair"></div>
   </header>
 
-  <section class="wrap hero">
-    <div class="kicker">블로그 챌린지 · Retrospect</div>
-    <h1>배운 것을 되짚는 기록</h1>
-    <p class="lede">매일의 학습을 복습·회고로 남깁니다. 배운 것, 막힌 것, 그루에게 공유할 것 — 꾸준한 기록이 곧 성장의 데이터.</p>
-    <div class="backline"><a href="./">← 허브 목차로</a></div>
-  </section>
-
-  <main class="wrap">
-
-    <article class="entry">
-      <div class="entry-head"><span class="entry-date">2026 · 07 · 25</span><span class="entry-day">모듈2 · 노드2 · 트랜스포머</span></div>
-      <h2 class="entry-title">트랜스포머 — 정보를 "얼마나"가 아니라 "어떻게 배치하느냐"</h2>
-      <div class="block">
-        <span class="block-label">배운 것</span>
-        <ul>
-          <li>이미지(CNN)를 다루던 사람과 언어(RNN)를 다루던 사람이 각자 벽에 부딪히다 <b>어텐션(attention)</b>이라는 한 열쇠로 합류한 역사 (「Attention Is All You Need」)</li>
-          <li><b>토큰과 컨텍스트</b> — 트랜스포머가 BERT·GPT·ViT로 퍼지며 세상을 먹은 흐름</li>
-          <li>긴 문서를 넣을수록 오히려 답이 흐려지는 <code>Lost in the Middle</code>, 그리고 RAG</li>
-        </ul>
-      </div>
-      <div class="block">
-        <span class="block-label">어려웠던 것 · 역경</span>
-        <ul><li>어텐션 개념이 처음엔 너무 추상적이었다. <b>왜 문서를 길게 넣을수록 답이 나빠지는지</b> 직관이 안 잡혀 한참 헤맸다.</li></ul>
-      </div>
-      <div class="block">
-        <span class="block-label">한 활동</span>
-        <ul><li>토큰 예산표와 컨텍스트 설계 캔버스를 직접 만들어봤다(실습).</li></ul>
-      </div>
-      <div class="block">
-        <span class="block-label">얻은 것 · 깨달음</span>
-        <p class="pull">정보를 "얼마나 넣느냐"가 아니라, "어떻게 배치하고 무엇에 집중시키느냐"의 문제다.</p>
-        <ul><li>AI에게 일을 시키는 감각이 생겼다. 프롬프트에서 핵심을 앞·뒤에 배치하는 이유를 이제 안다.</li></ul>
-      </div>
-    </article>
-
-    <article class="entry">
-      <div class="entry-head"><span class="entry-date">2026 · 07 · 23</span><span class="entry-day">모듈2 · 노드1 · AI는 어떻게 배우나</span></div>
-      <h2 class="entry-title">AI는 마법이 아니다 — 결국 데이터가 전부</h2>
-      <div class="block">
-        <span class="block-label">배운 것</span>
-        <ul>
-          <li>학습 원리: <span class="hl">회귀 → 분류 → 파인튜닝</span></li>
-          <li>데이터를 숫자로 바꾸기, MNIST 손글씨 분류, <code>softmax</code>, 전이학습(파인튜닝)</li>
-          <li>왜 내 노트북으론 벅찬가 — GPU와 Colab</li>
-        </ul>
-      </div>
-      <div class="block">
-        <span class="block-label">어려웠던 것 · 역경</span>
-        <ul><li>수식과 "학습"이라는 개념이 처음엔 손에 안 잡혔다. 직접 돌려보다 <b>연산이 벅차</b> GPU의 필요성을 몸으로 느꼈다.</li></ul>
-      </div>
-      <div class="block">
-        <span class="block-label">한 활동</span>
-        <ul><li>가장 작은 학습을 코드로 돌려보고, MNIST 분류를 실습했다.</li></ul>
-      </div>
-      <div class="block">
-        <span class="block-label">얻은 것 · 깨달음</span>
-        <ul><li>AI가 마법이 아니라 <b>데이터 + 연산</b>의 결과라는 것.</li><li><span class="hl">화려한 모델보다 데이터가 결과를 가른다</span>는 깨달음.</li></ul>
-      </div>
-    </article>
-
-    <article class="entry">
-      <div class="entry-head"><span class="entry-date">2026 · 07 · 21</span><span class="entry-day">모듈1 · 메인 퀘스트</span></div>
-      <h2 class="entry-title">조각을 모아 하나의 서비스로 — ORIGIN을 배포하다</h2>
-      <div class="block">
-        <span class="block-label">배운 것</span>
-        <ul><li>지금까지 배운 조각(PRD·하네스·세 겹·저장·배포)을 하나로 꿰는 법. 목표는 "완성"이 아니라 <span class="hl">핵심 하나를 처음부터 끝까지 굴리는 것</span>.</li></ul>
-      </div>
-      <div class="block">
-        <span class="block-label">한 활동</span>
-        <ul>
-          <li><b>ORIGIN — 영감의 계보</b>를 만들었다: 디자인 원류를 모은 아카이브(37작품·AI 큐레이터·타임라인·검색).</li>
-          <li><code>Next.js</code> + <code>Supabase</code>(Auth·RLS) + <code>Claude API</code>로 짓고 Vercel에 배포, 구글폼 제출까지.</li>
-        </ul>
-      </div>
-      <div class="block">
-        <span class="block-label">어려웠던 것 · 역경</span>
-        <ul><li>처음부터 끝까지 굴러가는 서비스를 <b>혼자 완성</b>하는 게 가장 부담이었다.</li><li>오픈 리다이렉트(보안)·API 비용(rate limit)·RLS 같은 실전 이슈에 부딪혔고, 감사 지적을 여러 번 시정했다.</li></ul>
-      </div>
-      <div class="block">
-        <span class="block-label">얻은 것 · 깨달음</span>
-        <ul><li>인증·DB·AI를 실제로 붙여 <b>배포까지</b> 해봤다는 자신감.</li><li>"완성"보다 "굴러가는 첫 조각"의 의미를 몸으로 익혔다.</li></ul>
-      </div>
-    </article>
-
-    <article class="entry">
-      <div class="entry-head"><span class="entry-date">2026 · 07 · 18</span><span class="entry-day">모듈1 · AI 에이전트 도구</span></div>
-      <h2 class="entry-title">어시스턴트에서 에이전트로 — MCP와 스킬</h2>
-      <div class="block">
-        <span class="block-label">배운 것</span>
-        <ul>
-          <li>어시스턴트와 <b>에이전트</b>의 차이</li>
-          <li><b>MCP</b> — AI를 내 데이터에 꽂는 USB-C</li>
-          <li><b>스킬</b> — 반복 작업을 AI에게 외워두기 · 하네스 종류</li>
-        </ul>
-      </div>
-      <div class="block">
-        <span class="block-label">어려웠던 것</span>
-        <ul><li>MCP·스킬·하네스 같은 새 개념이 한꺼번에 쏟아져 스스로 정리하는 시간이 필요했다.</li></ul>
-      </div>
-      <div class="block">
-        <span class="block-label">한 활동</span>
-        <ul><li>Todo 앱을 'AI가 아는' 앱으로 바꾸는 실습, 워크플로 강화 과제.</li></ul>
-      </div>
-      <div class="block">
-        <span class="block-label">얻은 것 · 깨달음</span>
-        <ul><li>AI를 단순 답변기가 아니라 <span class="hl">도구를 쓰는 주체</span>로 확장하는 감각.</li></ul>
-      </div>
-    </article>
-
-    <article class="entry">
-      <div class="entry-head"><span class="entry-date">2026 · 07 · 16</span><span class="entry-day">모듈1 · 백엔드 & 데이터베이스</span></div>
-      <h2 class="entry-title">화면 뒤에서 일어나는 일들 — 서버와 데이터</h2>
-      <div class="block">
-        <span class="block-label">배운 것</span>
-        <ul>
-          <li>화면 뒤 서버가 필요한 이유, 네트워크 기본, API가 하는 일, 프론트–백엔드 연결, 배포</li>
-          <li>DB의 종류와 역사, SQL, 회원가입·로그인, 보안·백업, 무료 DB(Supabase)</li>
-        </ul>
-      </div>
-      <div class="block">
-        <span class="block-label">어려웠던 것 · 역경</span>
-        <ul><li>서버·네트워크·DB가 눈에 안 보여 처음엔 추상적이었다. 특히 회원가입/로그인/보안 흐름이 복잡했다.</li></ul>
-      </div>
-      <div class="block">
-        <span class="block-label">한 활동</span>
-        <ul><li>백엔드 붙이기 과제, 에이전트로 Todo 앱 만들기(실습), <b>세계 국가 도감(world-atlas)</b> 제작.</li></ul>
-      </div>
-      <div class="block">
-        <span class="block-label">얻은 것 · 깨달음</span>
-        <ul><li>프론트만 보던 시야가 "화면 뒤"까지 넓어졌다. 데이터가 어떻게 저장·관리·보호되는지 이해했다.</li></ul>
-      </div>
-    </article>
-
-    <article class="entry">
-      <div class="entry-head"><span class="entry-date">2026 · 07 · 14</span><span class="entry-day">모듈1 · 세 겹 & 게임 · 프레임워크</span></div>
-      <h2 class="entry-title">웹의 세 겹, 그리고 AI로 게임을 만들다</h2>
-      <div class="block">
-        <span class="block-label">배운 것</span>
-        <ul>
-          <li>HTML·CSS·JS <b>세 겹</b>의 역할, 멀티스레딩 같은 CS 지식</li>
-          <li>프레임워크가 왜 이렇게 많고 무엇을 푸는지</li>
-        </ul>
-      </div>
-      <div class="block">
-        <span class="block-label">한 활동</span>
-        <ul><li>바이브코딩으로 게임을 만들었다(소울던전·틀린그림찾기). AI와 PRD를 만들어 <b>기획 → 구현</b> 루프를 돌렸다.</li></ul>
-      </div>
-      <div class="block">
-        <span class="block-label">어려웠던 것</span>
-        <ul><li>세 겹의 경계와 역할 구분, 프레임워크가 왜 이렇게 많은지 처음엔 혼란스러웠다.</li></ul>
-      </div>
-      <div class="block">
-        <span class="block-label">얻은 것 · 깨달음</span>
-        <ul><li>웹이 어떻게 이뤄지는지 뼈대가 잡혔다.</li><li><span class="hl">코드를 직접 안 짜도 AI와 함께 기획·구현하는</span> 바이브코딩 루프에 익숙해졌다.</li></ul>
-      </div>
-    </article>
-
-    <article class="entry">
-      <div class="entry-head"><span class="entry-date">2026 · 07 · 11</span><span class="entry-day">적응기 · 코딩 0줄 & 컴퓨팅 사고</span></div>
-      <h2 class="entry-title">"늦게 시작한 게 약점일까" — 관점을 바꾼 첫 주</h2>
-      <div class="block">
-        <span class="block-label">배운 것</span>
-        <ul>
-          <li>코드 0줄로 AI 도구만으로 첫 결과물 만들기</li>
-          <li>도메인 전문성이 AI 시대에 <b>약점이 아니라 출발점</b>이라는 재프레이밍</li>
-          <li>Computational Thinking — <b>분해 · 패턴화 · 추상화 · 알고리즘</b> 네 손동작</li>
-        </ul>
-      </div>
-      <div class="block">
-        <span class="block-label">어려웠던 것 · 역경</span>
-        <ul><li>"코드도 모르는 내가 지금 시작해도 되나", "너무 늦은 건 아닐까" — <b>첫날의 두려움</b>이 컸다.</li></ul>
-      </div>
-      <div class="block">
-        <span class="block-label">한 활동</span>
-        <ul><li>내 문제를 네 조각으로 쪼개는 과제, ChatGPT에 내 분야를 들켜보기.</li></ul>
-      </div>
-      <div class="block">
-        <span class="block-label">얻은 것 · 깨달음</span>
-        <p class="pull">도메인 전문성은 채워야 할 약점이 아니라, AI가 대신 못 만드는 가장 큰 자산이다.</p>
-        <ul><li>큰 일을 통째로 던지면 아무것도 안 돌아온다. <span class="hl">잘게 쪼개 정확히 시켜야</span> 한다는 사고법을 얻었다.</li></ul>
-      </div>
-    </article>
-
-    <article class="entry">
-      <div class="entry-head"><span class="entry-date">2026 · 07 · 10</span><span class="entry-day">과정 3일차</span></div>
-      <h2 class="entry-title">Git으로 작업을 고정하다 — 온보딩 세팅 완주</h2>
-
-      <div class="block">
-        <span class="block-label">오늘 배운 것</span>
-        <ul>
-          <li><b>Git / GitHub 개념</b> — 버전관리, <code>add·commit·push·pull</code>, branch(이름표)·merge·충돌, 로컬 vs 원격, clone, SSH 인증</li>
-          <li><b>SSH</b> — 내 컴퓨터가 GitHub에 신원을 증명하는 열쇠(아파트 출입증)</li>
-        </ul>
-        <p class="pull">"AI는 생성하고, Git은 고정한다."</p>
-      </div>
-
-      <div class="block">
-        <span class="block-label">오늘 한 것 — 온보딩 세팅 5단계 <span class="done">완료</span></span>
-        <ul>
-          <li>Claude Desktop 로그인 · Git 설치 확인(v2.54.0)</li>
-          <li>GitHub 가입(<code>github.com/kimjy0977</code>)</li>
-          <li>SSH 키 생성 → GitHub 등록 → 인증 성공</li>
-          <li><code>git-practice</code> repo 첫 commit → SSH push 성공</li>
-        </ul>
-      </div>
-
-      <div class="block">
-        <span class="block-label">이해한 것</span>
-        <ul>
-          <li>commit은 로컬 저장, <b>push해야</b> GitHub에 커밋 기록이 넘어간다</li>
-          <li>add = 올릴 것 고르기(준비), commit = 확정, push = 원격에 올리기</li>
-        </ul>
-      </div>
-
-      <div class="block">
-        <span class="block-label">내일(4일차) 예상</span>
-        <ul><li>바이브 코딩 본격 실습 / 웹 기초(HTML·CSS·JS) / GitHub 협업(clone·PR)</li></ul>
-      </div>
-    </article>
-
-    <article class="entry">
-      <div class="entry-head"><span class="entry-date">2026 · 07 · 09</span><span class="entry-day">과정 2일차</span></div>
-      <h2 class="entry-title">온보딩 첫날 — 환경 준비</h2>
-      <div class="block">
-        <p class="brief">아이펠 적응·협업툴·마크업 기초 용어 학습(<a href="용어집.html" style="color:var(--accent);border-bottom:1px solid var(--rule-2)">용어집</a>에 정리). 본격 회고는 3일차부터 누적.</p>
-      </div>
-    </article>
-
-    <!-- 새 회고는 이 위(최신 맨 위)에 <article class="entry"> 블록으로 추가 -->
-
-    <section class="comments">
-      <h3>그루 · 퍼실 피드백</h3>
-      <p class="placeholder">GitHub 계정으로 이 회고에 댓글·반응을 남길 수 있습니다.</p>
-      <script src="https://giscus.app/client.js"
-        data-repo="kimjy0977/KDT_Works"
-        data-repo-id="R_kgDOTX9UrQ"
-        data-category="General"
-        data-category-id="DIC_kwDOTX9Urc4DCFwN"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="light"
-        data-lang="ko"
-        crossorigin="anonymous"
-        async>
-      </script>
+  <!-- ===== 목록 뷰 ===== -->
+  <div class="view on" id="list">
+    <section class="wrap hero">
+      <div class="lab kicker">블로그 챌린지 · Retrospect</div>
+      <h1>배운 것을 되짚는 기록</h1>
+      <p class="lede">에피소드 하나하나를 눌러 들어가면, 그날 무엇을 했고 무엇이 남았는지 — 정리가 아니라 <em>그때의 내 생각</em>을 그대로 적어둡니다. 활동에서 시작해 배운 것·막힌 것·깨달음으로.</p>
+      <div class="backline"><a href="./">← 허브 목차로</a></div>
     </section>
-  </main>
+    <main class="wrap list">
+      <a class="ep-row" href="#ep-09"><span class="num">09</span><div><div class="meta"><span class="date">2026 · 07 · 25</span><span class="tag">모듈2 · 3강 트랜스포머</span></div><h2>트랜스포머 — 정보를 "얼마나"가 아니라 "어떻게 배치하느냐"</h2><p>토큰과 어텐션 앞에서 한참 헤매다, 프롬프트를 대하는 감각 자체가 바뀐 날.</p></div><span class="go">읽기 <span class="arw">→</span></span></a>
+      <a class="ep-row" href="#ep-08"><span class="num">08</span><div><div class="meta"><span class="date">2026 · 07 · 23</span><span class="tag">모듈2 · 1강 AI는 어떻게 배우나</span></div><h2>AI는 마법이 아니다 — 결국 데이터가 전부</h2><p>직접 학습을 돌려보다 연산에 막히고, "화려한 모델보다 데이터"를 몸으로 이해했다.</p></div><span class="go">읽기 <span class="arw">→</span></span></a>
+      <a class="ep-row" href="#ep-07"><span class="num">07</span><div><div class="meta"><span class="date">2026 · 07 · 21</span><span class="tag">모듈1 · 메인 퀘스트</span></div><h2>조각을 모아 하나의 서비스로 — ORIGIN을 배포하다</h2><p>배운 조각을 처음부터 끝까지 혼자 굴려 배포한, 가장 부담스럽고 가장 뿌듯했던 과제.</p></div><span class="go">읽기 <span class="arw">→</span></span></a>
+      <a class="ep-row" href="#ep-06"><span class="num">06</span><div><div class="meta"><span class="date">2026 · 07 · 18</span><span class="tag">모듈1 · AI 에이전트 도구</span></div><h2>어시스턴트에서 에이전트로 — MCP와 스킬</h2><p>AI를 답변기가 아니라 도구를 쓰는 주체로 넓혀 본 시간.</p></div><span class="go">읽기 <span class="arw">→</span></span></a>
+      <a class="ep-row" href="#ep-05"><span class="num">05</span><div><div class="meta"><span class="date">2026 · 07 · 16</span><span class="tag">모듈1 · 백엔드 & DB</span></div><h2>화면 뒤에서 일어나는 일들 — 서버와 데이터</h2><p>보이지 않던 서버·네트워크·DB가 손에 잡히기 시작한 주.</p></div><span class="go">읽기 <span class="arw">→</span></span></a>
+      <a class="ep-row" href="#ep-04"><span class="num">04</span><div><div class="meta"><span class="date">2026 · 07 · 14</span><span class="tag">모듈1 · 세 겹 & 게임</span></div><h2>웹의 세 겹, 그리고 AI로 게임을 만들다</h2><p>코드를 직접 안 짜도 AI와 기획·구현 루프를 도는 감각을 익혔다.</p></div><span class="go">읽기 <span class="arw">→</span></span></a>
+      <a class="ep-row" href="#ep-03"><span class="num">03</span><div><div class="meta"><span class="date">2026 · 07 · 11</span><span class="tag">적응기 · 코딩 0줄 & CT</span></div><h2>"늦게 시작한 게 약점일까" — 관점을 바꾼 첫 주</h2><p>두려움에서 시작해, 도메인 전문성이 약점이 아니라 자산이라는 재프레이밍에 도착했다.</p></div><span class="go">읽기 <span class="arw">→</span></span></a>
+      <a class="ep-row" href="#ep-02"><span class="num">02</span><div><div class="meta"><span class="date">2026 · 07 · 10</span><span class="tag">적응기 · 과정 3일차</span></div><h2>Git으로 작업을 고정하다 — 온보딩 세팅 완주</h2><p>"AI는 생성하고 Git은 고정한다"를 온보딩 5단계로 몸에 익힌 날.</p></div><span class="go">읽기 <span class="arw">→</span></span></a>
+      <a class="ep-row" href="#ep-01"><span class="num">01</span><div><div class="meta"><span class="date">2026 · 07 · 09</span><span class="tag">적응기 · 과정 2일차</span></div><h2>온보딩 첫날 — 환경 준비</h2><p>아이펠 적응·협업툴·기초 용어. 본격 회고의 출발선.</p></div><span class="go">읽기 <span class="arw">→</span></span></a>
+    </main>
+    <div class="wrap colophon">
+      <span class="sig">김주영 <b>KDT</b></span>
+      <span class="note">KDT AI 에이전트 1기 · 블로그 챌린지 회고 · 나 · 그루 · 퍼실에게 열린 공개 기록 · <a href="./">허브로 →</a></span>
+    </div>
+  </div>
+
+  <!-- ===== 09 트랜스포머 ===== -->
+  <article class="view wrap read" id="ep-09">
+    <div class="article-head"><div class="meta"><span class="date">2026 · 07 · 25</span><span class="tag">회고 09 · 모듈2 · 3강 트랜스포머</span></div>
+      <h1>트랜스포머 — 정보를 "얼마나"가 아니라 "어떻게 배치하느냐"</h1>
+      <p class="lede-em">이번 강을 듣기 전까지 나는 프롬프트를 그냥 "많이, 자세히 적으면 좋은 것"쯤으로 여겼다. 그 생각이 뒤집힌 한 주였다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">한 활동</span><span class="dash"></span><span class="en">What I did</span></div>
+      <p>강의를 따라가며 <b>토큰 예산표</b>와 <b>컨텍스트 설계 캔버스</b>를 직접 만들어봤다. 처음엔 "이걸 왜 손으로 그려보라는 거지" 싶었는데, 막상 한정된 토큰 안에 무엇을 넣고 무엇을 뺄지 직접 배치해보니 감이 달라졌다. 넣고 싶은 걸 다 넣으면 예산이 순식간에 바닥났고, 그제야 "고르는 일"이 곧 프롬프트라는 걸 체감했다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">배운 것</span><span class="dash"></span><span class="en">Learned</span></div>
+      <p>가장 인상 깊었던 건 <b>역사</b>였다. 이미지를 다루던 사람들(CNN)과 언어를 다루던 사람들(RNN)이 각자 벽에 부딪히고 있었는데, <b>어텐션(attention)</b>이라는 한 열쇠가 두 길을 하나로 합류시켰다는 이야기(「Attention Is All You Need」). 서로 다른 분야가 같은 아이디어로 만나 세상을 바꾸는 장면이 오래 남았다.</p>
+      <p>그 뒤로 트랜스포머가 <code>BERT</code>·<code>GPT</code>·<code>ViT</code>로 퍼지며 판을 먹은 흐름, <b>토큰과 컨텍스트</b>가 무엇인지, 긴 문서를 넣을수록 오히려 답이 흐려지는 <code>Lost in the Middle</code>과 그걸 보완하는 RAG까지 하나로 이어졌다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">어려웠던 것</span><span class="dash"></span><span class="en">The hard part</span></div>
+      <p>솔직히 어텐션은 처음에 너무 추상적이었다. 특히 <b>문서를 길게 넣을수록 답이 나빠진다</b>는 게 직관에 반해서 한참 헤맸다. 많이 주면 더 잘 알아야 하는 거 아닌가? 그 지점에서 며칠 붙들려 있었다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">남은 것 · 깨달음</span><span class="dash"></span><span class="en">What stayed</span></div>
+      <p class="pull">정보를 "얼마나 넣느냐"가 아니라, "어떻게 배치하고 무엇에 집중시키느냐"의 문제였다.</p>
+      <p>이 한 문장으로 앞의 혼란이 정리됐다. 모델은 준 것을 똑같이 중요하게 보지 않는다 — 그래서 핵심을 앞과 뒤에 두는 이유가 이제 이해된다. 앞으로 프롬프트를 쓸 때 "더 적을까"가 아니라 "어디에 둘까"를 먼저 생각하게 될 것 같다.</p></div>
+    <nav class="epnav"><a href="#ep-08">← 이전 · AI는 마법이 아니다</a><span class="center"><a href="#list">회고 목록</a></span><span></span></nav>
+  </article>
+
+  <!-- ===== 08 AI는 마법이 아니다 ===== -->
+  <article class="view wrap read" id="ep-08">
+    <div class="article-head"><div class="meta"><span class="date">2026 · 07 · 23</span><span class="tag">회고 08 · 모듈2 · 1강 AI는 어떻게 배우나</span></div>
+      <h1>AI는 마법이 아니다 — 결국 데이터가 전부</h1>
+      <p class="lede-em">막연히 "똑똑한 무언가"로만 보던 AI가, 이번 강을 지나며 훨씬 담백한 것으로 바뀌었다. 마법이 아니라 데이터와 연산이었다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">한 활동</span><span class="dash"></span><span class="en">What I did</span></div>
+      <p>가장 작은 학습을 직접 코드로 돌려봤고, 그 유명한 <b>MNIST 손글씨 분류</b>를 실습했다. 숫자 이미지를 넣으면 "이건 7이야" 하고 맞히는 걸 내 손으로 돌려보니, 말로만 듣던 "학습"이 비로소 눈앞에서 움직였다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">배운 것</span><span class="dash"></span><span class="en">Learned</span></div>
+      <p>학습의 큰 줄기를 <b>회귀 → 분류 → 파인튜닝</b> 순으로 훑었다. 데이터를 숫자로 바꾸는 것에서 시작해, 여러 후보 중 하나를 고르는 <code>softmax</code>, 이미 배운 모델을 내 목적에 맞게 더 가르치는 <b>전이학습</b>까지. 조각들이 "데이터를 넣어 규칙을 찾게 한다"는 하나의 이야기로 이어졌다.</p>
+      <p>왜 내 노트북으로는 이게 벅찬지 — <b>GPU</b>와 Colab이 왜 필요한지도, 머리가 아니라 눈으로 보였다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">어려웠던 것</span><span class="dash"></span><span class="en">The hard part</span></div>
+      <p>수식과 "학습"이라는 개념이 처음엔 손에 잘 안 잡혔다. 직접 연산을 돌려보다가 <b>내 컴퓨터가 버거워하는 순간</b>을 만났는데, 역설적으로 그때 GPU의 필요성이 몸으로 이해됐다. 막히는 지점이 곧 이해의 계기가 됐다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">남은 것 · 깨달음</span><span class="dash"></span><span class="en">What stayed</span></div>
+      <p class="pull">AI는 마법이 아니라 데이터와 연산의 결과다. 화려한 모델보다 데이터가 결과를 가른다.</p>
+      <p>어떤 모델이 대단하다는 말을 들어도, 이제 먼저 "그 뒤에 어떤 데이터가 있었지?"를 떠올리게 된다. 도구를 신비화하지 않고 재료를 보는 눈 — 비전공자인 나에게 오히려 이 관점이 더 실용적이다.</p></div>
+    <nav class="epnav"><a href="#ep-07">← 이전 · ORIGIN을 배포하다</a><span class="center"><a href="#list">회고 목록</a></span><a href="#ep-09">다음 · 트랜스포머 →</a></nav>
+  </article>
+
+  <!-- ===== 07 ORIGIN ===== -->
+  <article class="view wrap read" id="ep-07">
+    <div class="article-head"><div class="meta"><span class="date">2026 · 07 · 21</span><span class="tag">회고 07 · 모듈1 · 메인 퀘스트</span></div>
+      <h1>조각을 모아 하나의 서비스로 — ORIGIN을 배포하다</h1>
+      <p class="lede-em">그동안 배운 것들이 흩어진 조각처럼 느껴졌는데, 이번 퀘스트에서 처음으로 그 조각들이 하나로 꿰어졌다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">한 활동</span><span class="dash"></span><span class="en">What I did</span></div>
+      <p><b>ORIGIN — 영감의 계보</b>를 만들었다. 디자인 원류를 모은 아카이브(37작품·AI 큐레이터·타임라인·검색)를 <code>Next.js</code> + <code>Supabase</code>(Auth·RLS) + <code>Claude API</code>로 짓고, Vercel에 배포해 구글폼 제출까지 마쳤다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">배운 것</span><span class="dash"></span><span class="en">Learned</span></div>
+      <p>지금까지 배운 조각 — PRD·하네스·세 겹·저장·배포 — 을 하나로 꿰는 법을 배웠다. 목표는 "완성"이 아니라 <b>핵심 하나를 처음부터 끝까지 굴려보는 것</b>이라는 걸, 만들면서 이해했다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">어려웠던 것</span><span class="dash"></span><span class="en">The hard part</span></div>
+      <p>처음부터 끝까지 굴러가는 서비스를 <b>혼자 완성</b>한다는 게 가장 부담스러웠다. 오픈 리다이렉트 같은 보안 이슈, API 비용(rate limit), RLS 설정 — 실전에서만 만나는 벽에 부딪혔고, 감사 지적을 여러 번 받아 고쳤다. 그 과정이 힘들었지만 가장 많이 배운 지점이기도 하다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">남은 것 · 깨달음</span><span class="dash"></span><span class="en">What stayed</span></div>
+      <p class="pull">"완성"보다 "굴러가는 첫 조각"이 먼저다.</p>
+      <p>인증·DB·AI를 실제로 붙여 배포까지 해봤다는 자신감이 남았다. 완벽하지 않아도 일단 끝까지 굴러가는 걸 만들면, 그다음은 고쳐나가면 된다는 감각.</p></div>
+    <nav class="epnav"><a href="#ep-06">← 이전 · MCP와 스킬</a><span class="center"><a href="#list">회고 목록</a></span><a href="#ep-08">다음 · AI는 마법이 아니다 →</a></nav>
+  </article>
+
+  <!-- ===== 06 MCP와 스킬 ===== -->
+  <article class="view wrap read" id="ep-06">
+    <div class="article-head"><div class="meta"><span class="date">2026 · 07 · 18</span><span class="tag">회고 06 · 모듈1 · AI 에이전트 도구</span></div>
+      <h1>어시스턴트에서 에이전트로 — MCP와 스킬</h1>
+      <p class="lede-em">AI에게 "물어보는" 단계에서, AI가 "직접 도구를 쓰는" 단계로 넘어가는 문을 본 주.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">한 활동</span><span class="dash"></span><span class="en">What I did</span></div>
+      <p>Todo 앱을 <b>'AI가 아는' 앱</b>으로 바꾸는 실습을 하고, 워크플로를 강화하는 과제를 했다. 내가 쓰던 앱에 AI가 직접 손을 대는 걸 보니 감각이 달라졌다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">배운 것</span><span class="dash"></span><span class="en">Learned</span></div>
+      <p>어시스턴트와 <b>에이전트</b>의 차이, AI를 내 데이터에 꽂는 USB-C 같은 <b>MCP</b>, 반복 작업을 AI에게 외워두는 <b>스킬</b>과 하네스의 종류를 배웠다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">어려웠던 것</span><span class="dash"></span><span class="en">The hard part</span></div>
+      <p>MCP·스킬·하네스 같은 새 개념이 한꺼번에 쏟아져서, 강의를 듣고도 스스로 정리하는 시간이 따로 필요했다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">남은 것 · 깨달음</span><span class="dash"></span><span class="en">What stayed</span></div>
+      <p>AI를 단순 답변기가 아니라 <b>도구를 쓰는 주체</b>로 확장하는 감각이 남았다. "무엇을 물어볼까"에서 "무엇을 맡길까"로 질문이 바뀌었다.</p></div>
+    <nav class="epnav"><a href="#ep-05">← 이전 · 서버와 데이터</a><span class="center"><a href="#list">회고 목록</a></span><a href="#ep-07">다음 · ORIGIN을 배포하다 →</a></nav>
+  </article>
+
+  <!-- ===== 05 서버와 데이터 ===== -->
+  <article class="view wrap read" id="ep-05">
+    <div class="article-head"><div class="meta"><span class="date">2026 · 07 · 16</span><span class="tag">회고 05 · 모듈1 · 백엔드 & DB</span></div>
+      <h1>화면 뒤에서 일어나는 일들 — 서버와 데이터</h1>
+      <p class="lede-em">지금까지는 눈에 보이는 화면만 만졌는데, 이번 주엔 그 화면 뒤가 궁금해졌고 조금 보이기 시작했다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">한 활동</span><span class="dash"></span><span class="en">What I did</span></div>
+      <p>백엔드 붙이기 과제를 하고, 에이전트로 Todo 앱을 만들었으며(실습), <b>세계 국가 도감(world-atlas)</b>을 직접 제작했다. 실제로 데이터가 저장되고 불러와지는 걸 만들어보니 "화면 뒤"가 실감났다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">배운 것</span><span class="dash"></span><span class="en">Learned</span></div>
+      <p>화면 뒤에 서버가 왜 필요한지, 네트워크의 기본, API가 하는 일, 프론트–백엔드 연결과 배포를 배웠다. 이어서 DB의 종류와 역사, SQL, 회원가입·로그인, 보안·백업, 무료 DB(Supabase)까지.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">어려웠던 것</span><span class="dash"></span><span class="en">The hard part</span></div>
+      <p>서버·네트워크·DB는 눈에 안 보여서 처음엔 계속 추상적이었다. 특히 회원가입/로그인/보안으로 이어지는 흐름이 복잡해서 여러 번 되짚어야 했다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">남은 것 · 깨달음</span><span class="dash"></span><span class="en">What stayed</span></div>
+      <p>프론트만 보던 시야가 <b>화면 뒤까지</b> 넓어졌다. 데이터가 어디에 어떻게 저장·관리·보호되는지 한 겹 더 이해하게 됐다.</p></div>
+    <nav class="epnav"><a href="#ep-04">← 이전 · 웹의 세 겹</a><span class="center"><a href="#list">회고 목록</a></span><a href="#ep-06">다음 · MCP와 스킬 →</a></nav>
+  </article>
+
+  <!-- ===== 04 세 겹 & 게임 ===== -->
+  <article class="view wrap read" id="ep-04">
+    <div class="article-head"><div class="meta"><span class="date">2026 · 07 · 14</span><span class="tag">회고 04 · 모듈1 · 세 겹 & 게임</span></div>
+      <h1>웹의 세 겹, 그리고 AI로 게임을 만들다</h1>
+      <p class="lede-em">웹페이지가 사실은 세 겹으로 이뤄졌다는 걸 알고 나니, 화면을 보는 눈이 달라졌다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">한 활동</span><span class="dash"></span><span class="en">What I did</span></div>
+      <p>바이브코딩으로 게임을 만들었다 — 소울던전과 틀린그림찾기. AI와 함께 PRD를 만들어 <b>기획 → 구현</b> 루프를 직접 돌려봤다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">배운 것</span><span class="dash"></span><span class="en">Learned</span></div>
+      <p>HTML·CSS·JS <b>세 겹</b>의 역할, 멀티스레딩 같은 CS 교양, 그리고 프레임워크가 왜 이렇게 많고 무엇을 푸는지를 배웠다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">어려웠던 것</span><span class="dash"></span><span class="en">The hard part</span></div>
+      <p>세 겹의 경계와 역할을 구분하는 것, 프레임워크가 왜 이렇게 많은지가 처음엔 혼란스러웠다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">남은 것 · 깨달음</span><span class="dash"></span><span class="en">What stayed</span></div>
+      <p>웹이 어떻게 이뤄지는지 뼈대가 잡혔고, <b>코드를 직접 안 짜도 AI와 함께 기획·구현하는</b> 바이브코딩 루프에 익숙해졌다.</p></div>
+    <nav class="epnav"><a href="#ep-03">← 이전 · 관점을 바꾼 첫 주</a><span class="center"><a href="#list">회고 목록</a></span><a href="#ep-05">다음 · 서버와 데이터 →</a></nav>
+  </article>
+
+  <!-- ===== 03 늦게 시작한 게 약점일까 ===== -->
+  <article class="view wrap read" id="ep-03">
+    <div class="article-head"><div class="meta"><span class="date">2026 · 07 · 11</span><span class="tag">회고 03 · 적응기 · 코딩 0줄 & CT</span></div>
+      <h1>"늦게 시작한 게 약점일까" — 관점을 바꾼 첫 주</h1>
+      <p class="lede-em">시작할 때 가장 컸던 감정은 두려움이었다. 그런데 첫 주가 끝날 무렵, 그 두려움의 방향이 반대로 돌아섰다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">한 활동</span><span class="dash"></span><span class="en">What I did</span></div>
+      <p>내 문제를 네 조각으로 쪼개는 과제를 했고, ChatGPT에 내 분야를 들켜보는 활동을 했다. 코드 한 줄 없이도 AI 도구만으로 첫 결과물이 나오는 걸 경험했다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">배운 것</span><span class="dash"></span><span class="en">Learned</span></div>
+      <p>코드 0줄로 여는 첫날, 도메인 전문성이 AI 시대에 <b>약점이 아니라 출발점</b>이라는 재프레이밍, 그리고 Computational Thinking의 네 손동작 — <b>분해 · 패턴화 · 추상화 · 알고리즘</b>.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">어려웠던 것</span><span class="dash"></span><span class="en">The hard part</span></div>
+      <p>"코드도 모르는 내가 지금 시작해도 되나", "너무 늦은 건 아닐까" — <b>첫날의 두려움</b>이 가장 컸다. 사실 그게 이 과정을 시작하며 가장 넘기 힘든 벽이었다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">남은 것 · 깨달음</span><span class="dash"></span><span class="en">What stayed</span></div>
+      <p class="pull">도메인 전문성은 채워야 할 약점이 아니라, AI가 대신 못 만드는 가장 큰 자산이다.</p>
+      <p>그리고 큰 일을 통째로 던지면 아무것도 안 돌아온다는 것 — <b>잘게 쪼개 정확히 시켜야</b> 한다는 사고법을 얻었다. 이 두 가지가 이후 모든 과제의 밑바탕이 됐다.</p></div>
+    <nav class="epnav"><a href="#ep-02">← 이전 · Git으로 작업을 고정하다</a><span class="center"><a href="#list">회고 목록</a></span><a href="#ep-04">다음 · 웹의 세 겹 →</a></nav>
+  </article>
+
+  <!-- ===== 02 Git 온보딩 ===== -->
+  <article class="view wrap read" id="ep-02">
+    <div class="article-head"><div class="meta"><span class="date">2026 · 07 · 10</span><span class="tag">회고 02 · 적응기 · 과정 3일차</span></div>
+      <h1>Git으로 작업을 고정하다 — 온보딩 세팅 완주</h1>
+      <p class="lede-em">AI가 만들어주는 건 순식간인데, 그걸 어떻게 "남기고 되돌리느냐"는 또 다른 문제였다. Git이 그 답이었다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">한 활동</span><span class="dash"></span><span class="en">What I did</span></div>
+      <p>온보딩 세팅 5단계를 <span class="done">완주</span>했다 — Claude Desktop 로그인·Git 설치 확인(v2.54.0), GitHub 가입(<code>github.com/kimjy0977</code>), SSH 키 생성 → 등록 → 인증 성공, <code>git-practice</code> repo 첫 commit → SSH push 성공.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">배운 것</span><span class="dash"></span><span class="en">Learned</span></div>
+      <p><b>Git / GitHub</b> 개념 — 버전관리, <code>add·commit·push·pull</code>, branch(이름표)·merge·충돌, 로컬 vs 원격, clone, SSH 인증. 그리고 <b>SSH</b>가 내 컴퓨터의 신원을 증명하는 열쇠(아파트 출입증 같은)라는 것.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">어려웠던 것</span><span class="dash"></span><span class="en">The hard part</span></div>
+      <p>commit과 push의 차이가 헷갈렸다. commit은 로컬 저장이고, <b>push해야</b> 비로소 GitHub에 기록이 넘어간다는 것 — add(고르기) → commit(확정) → push(올리기)의 순서를 몸에 익히는 데 시간이 걸렸다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">남은 것 · 깨달음</span><span class="dash"></span><span class="en">What stayed</span></div>
+      <p class="pull">AI는 생성하고, Git은 고정한다.</p>
+      <p>이 한 줄이 이후 모든 작업의 기준이 됐다. 무언가 잘 굴러가는 순간마다 commit·push로 못을 박아두는 습관이 여기서 시작됐다.</p></div>
+    <nav class="epnav"><a href="#ep-01">← 이전 · 온보딩 첫날</a><span class="center"><a href="#list">회고 목록</a></span><a href="#ep-03">다음 · 관점을 바꾼 첫 주 →</a></nav>
+  </article>
+
+  <!-- ===== 01 온보딩 첫날 ===== -->
+  <article class="view wrap read" id="ep-01">
+    <div class="article-head"><div class="meta"><span class="date">2026 · 07 · 09</span><span class="tag">회고 01 · 적응기 · 과정 2일차</span></div>
+      <h1>온보딩 첫날 — 환경 준비</h1>
+      <p class="lede-em">아직 무언가를 만든 날은 아니었다. 하지만 모든 것의 출발선에 선 날이었다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">한 활동</span><span class="dash"></span><span class="en">What I did</span></div>
+      <p>아이펠에 적응하고, 협업 도구를 세팅하고, 마크업 기초 용어를 익혔다. 자세한 용어 정리는 <a href="용어집.html" style="color:var(--accent);border-bottom:1px solid var(--rule-2)">용어집</a>에 따로 쌓아두기 시작했다.</p></div>
+    <div class="sec"><div class="sec-label"><span class="t">남은 것 · 깨달음</span><span class="dash"></span><span class="en">What stayed</span></div>
+      <p>본격적인 회고는 3일차부터 누적하기로 했다. 첫날의 기록은 짧지만, "여기서부터 시작했다"는 표시로 남겨둔다.</p></div>
+    <nav class="epnav"><span></span><span class="center"><a href="#list">회고 목록</a></span><a href="#ep-02">다음 · Git으로 작업을 고정하다 →</a></nav>
+  </article>
+
+  <div class="wrap read comments">
+    <h3>그루 · 퍼실 피드백</h3>
+    <script src="https://giscus.app/client.js"
+      data-repo="kimjy0977/KDT_Works" data-repo-id="R_kgDOTX9UrQ"
+      data-category="General" data-category-id="DIC_kwDOTX9Urc4DCFwN"
+      data-mapping="pathname" data-strict="0" data-reactions-enabled="1"
+      data-emit-metadata="0" data-input-position="top" data-theme="light"
+      data-lang="ko" crossorigin="anonymous" async>
+    </script>
+  </div>
+
+  <script>
+    var views = [].slice.call(document.querySelectorAll('.view'));
+    function route(){
+      var h = location.hash.replace('#','');
+      var target = (h.indexOf('ep-')===0 && document.getElementById(h)) ? document.getElementById(h) : document.getElementById('list');
+      views.forEach(function(v){ v.classList.toggle('on', v===target); });
+      window.scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', route);
+    route();
+  </script>
+
 </body>
 </html>
