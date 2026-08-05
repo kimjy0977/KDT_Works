@@ -6,7 +6,13 @@
 <title>KDT_Works · KDT 과제 모음</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap');
-  :root{--bg:#0e1020;--fg:#eceaf5;--muted:#9a97b8;--faint:#6f6c8f;--line:#26264a;--card:#171833;--accent:#ffd76a;--node:#7cc4ff;--main:#c4a5ff;--sans:'Noto Sans KR',sans-serif;--disp:'Space Grotesk','Noto Sans KR',sans-serif}
+  :root{--bg:#0e1020;--fg:#eceaf5;--muted:#9a97b8;--faint:#6f6c8f;--line:#26264a;--card:#171833;--accent:#ffd76a;--node:#7cc4ff;--main:#c4a5ff;--hover:#15162e;--sans:'Noto Sans KR',sans-serif;--disp:'Space Grotesk','Noto Sans KR',sans-serif}
+  html[data-theme="light"]{--bg:#FAF9F5;--fg:#181A2B;--muted:#56546B;--faint:#8A889E;--line:#E5E3EE;--card:#F0EFF6;--accent:#8A6A0C;--node:#2A66AE;--main:#6A49BD;--hover:#F0EEF6}
+  .themebtn{position:fixed;top:14px;right:14px;z-index:60;width:38px;height:38px;border-radius:999px;
+    display:inline-flex;align-items:center;justify-content:center;font-size:1.02rem;line-height:1;
+    background:var(--card);color:var(--fg);border:1px solid var(--line);cursor:pointer;
+    box-shadow:0 1px 5px rgba(0,0,0,.25);transition:.15s}
+  .themebtn:hover{border-color:var(--accent);transform:translateY(-1px)}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
   .wrap{max-width:1000px;margin:auto;padding:0 24px}
@@ -31,7 +37,7 @@
   .list{border-top:1px solid var(--line)}
   .row{display:grid;grid-template-columns:172px minmax(0,1fr) 96px;gap:22px;align-items:start;
        padding:20px 6px;border-bottom:1px solid var(--line);text-decoration:none;color:inherit;transition:.15s}
-  .row:hover{background:#15162e}
+  .row:hover{background:var(--hover)}
   .row:hover .go{color:var(--accent)}
   .row.node:hover{border-color:var(--node)}
   .row.node:hover .go{color:var(--node)}
@@ -68,8 +74,10 @@
     .go{text-align:left;padding-top:2px}
   }
 </style>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('kdt-theme')||'dark';}catch(e){}</script>
 </head>
 <body>
+  <button id="themebtn" class="themebtn" type="button" aria-label="다크/라이트 전환">☀️</button>
   <header><div class="wrap">
     <div class="eyebrow">KDT_Works</div>
     <h1>KDT 과제 모음</h1>
@@ -291,6 +299,10 @@
         });
       });
     })();
+    (function(){var K='kdt-theme',R=document.documentElement,b=document.getElementById('themebtn');
+    function ic(){b.textContent=(R.dataset.theme==='dark')?'☀️':'🌙';}
+    ic();
+    b.addEventListener('click',function(){var t=(R.dataset.theme==='dark')?'light':'dark';R.dataset.theme=t;try{localStorage.setItem(K,t);}catch(e){}ic();});})();
   </script>
 </body>
 </html>
