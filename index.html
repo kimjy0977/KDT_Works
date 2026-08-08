@@ -18,6 +18,10 @@
   .wrap{max-width:1000px;margin:auto;padding:0 24px}
   header{padding:72px 0 30px}
   .eyebrow{font-family:var(--disp);font-weight:700;font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent)}
+  .eyebrow-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .gnav{display:flex;gap:16px}
+  .gnav a{font-family:var(--disp);font-weight:700;font-size:.72rem;letter-spacing:.05em;color:var(--muted);text-decoration:none;transition:.15s;white-space:nowrap}
+  .gnav a:hover{color:var(--accent)}
   h1{font-weight:900;font-size:clamp(2.3rem,7vw,3.7rem);line-height:1.03;letter-spacing:-.03em;margin:22px 0 0}
   .sub{color:var(--muted);font-size:1.02rem;max-width:60ch;margin:18px 0 0;line-height:1.75}
 
@@ -35,8 +39,13 @@
 
   /* 리스트 */
   .list{border-top:1px solid var(--line)}
-  .row{display:grid;grid-template-columns:172px minmax(0,1fr) 96px;gap:22px;align-items:start;
-       padding:20px 6px;border-bottom:1px solid var(--line);text-decoration:none;color:inherit;transition:.15s}
+  .row{display:grid;grid-template-columns:118px 138px minmax(0,1fr) 84px;gap:16px;align-items:start;
+       padding:18px 6px;border-bottom:1px solid var(--line);text-decoration:none;color:inherit;transition:.15s}
+  .thumbcell{display:flex;flex-direction:column;gap:6px;align-items:center;padding-top:2px}
+  .thumb{width:118px;height:78px;border-radius:9px;object-fit:cover;object-position:top left;border:1px solid var(--line);background:var(--card);display:block}
+  .thumb.ph{display:flex;align-items:center;justify-content:center;font-size:1.95rem}
+  .ttype{font-family:var(--disp);font-size:.58rem;font-weight:700;letter-spacing:.06em;color:var(--faint);text-transform:uppercase;white-space:nowrap}
+  .row:hover .thumb{border-color:var(--accent)}
   .row:hover{background:var(--hover)}
   .row:hover .go{color:var(--accent)}
   .row.node:hover{border-color:var(--node)}
@@ -79,7 +88,10 @@
 <body>
   <button id="themebtn" class="themebtn" type="button" aria-label="다크/라이트 전환">☀️</button>
   <header><div class="wrap">
-    <div class="eyebrow">KDT_Works</div>
+    <div class="eyebrow-row">
+      <div class="eyebrow">KDT_Works</div>
+      <nav class="gnav"><a href="./00_log/">📔 학습 허브</a><a href="https://github.com/kimjy0977/KDT_Works" target="_blank" rel="noopener">GitHub ↗</a></nav>
+    </div>
     <h1>KDT 과제 모음</h1>
     <p class="sub">아이펠 KDT AI 에이전트 과정에서 만든 <b>메인 퀘스트</b>·<b>퀘스트</b>·<b>과제</b>·<b>실습</b> 모음입니다. 탭으로 골라 보고, 각 항목을 눌러 실행·열람하세요.</p>
     <nav class="tabs">
@@ -297,6 +309,30 @@
           });
           window.scrollTo({top:0,behavior:'smooth'});
         });
+      });
+    })();
+    (function(){
+      var map=[
+        ['kdt-origin.vercel','origin','라이브'],['b_q_git-setup','git-setup','문서'],
+        ['computational-thinking','computational-thinking','문서'],['b_q_B-git-teaching','git-teaching','문서'],
+        ['C1-spot-the-difference','spot-diff','게임'],['b_q_C2-code-review','code-review','리뷰'],
+        ['b_q_A-transformer-preso',null,'발표'],['d_hw_L2-soul-dungeon','soul-dungeon','게임'],
+        ['d_hw_L4-world-atlas','world-atlas','앱'],['d_hw_L6-agent-skills','agent-skills','문서'],
+        ['pose_tool.ipynb','pose','노트북'],['c_lab_L5-todo-app','todo','앱'],
+        ['c_lab_L6-agent-practice','agent-practice','앱'],['opening-trainer','opening-trainer','앱']
+      ];
+      function ph(e){var d=document.createElement('div');d.className='thumb ph';d.textContent=e;return d;}
+      document.querySelectorAll('a.row').forEach(function(row){
+        var href=row.getAttribute('href')||'';
+        var m=null; for(var i=0;i<map.length;i++){ if(href.indexOf(map[i][0])>-1){m=map[i];break;} }
+        var cell=document.createElement('div'); cell.className='thumbcell';
+        var thumb;
+        if(m&&m[1]){ thumb=document.createElement('img'); thumb.className='thumb'; thumb.src='assets/thumbs/'+m[1]+'.png'; thumb.alt=''; thumb.loading='lazy';
+          thumb.onerror=function(){this.replaceWith(ph(m&&m[2]==='발표'?'📊':'📄'));}; }
+        else { thumb=ph(m?'📊':'📄'); }
+        cell.appendChild(thumb);
+        var t=document.createElement('span'); t.className='ttype'; t.textContent=(m?m[2]:'문서'); cell.appendChild(t);
+        row.insertBefore(cell,row.firstChild);
       });
     })();
     (function(){var K='kdt-theme',R=document.documentElement,b=document.getElementById('themebtn');
