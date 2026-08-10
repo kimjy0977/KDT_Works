@@ -240,6 +240,16 @@
           <span class="go">Colab에서 열기 ↗</span>
         </a>
 
+        <a class="row node" href="./03_module2/d_hw_N7-room-3d/">
+          <div class="rmeta"><span class="rdate">2026.08.10</span><span class="rnode">모듈2 · 노드7 · 9강</span><span class="rcat">3D 공간</span></div>
+          <div class="rmain">
+            <h3><span class="ico">🧊</span> 폰 영상으로 만든 3D 방 <span class="en">Room 3D · Gaussian Splat</span></h3>
+            <p>폰으로 찍은 영상 하나에서 3차원 공간을 복원해 웹에서 회전·확대하는 가우시안 스플랫 뷰어.</p>
+            <div class="tags"><span class="tag">Gaussian Splat</span><span class="tag">map-anything</span><span class="tag">three.js</span><span class="tag">WebGL</span></div>
+          </div>
+          <span class="go">열기 →</span>
+        </a>
+
       </div>
     </section>
 
@@ -319,7 +329,8 @@
         ['b_q_A-transformer-preso',null,'발표'],['d_hw_L2-soul-dungeon','soul-dungeon','게임'],
         ['d_hw_L4-world-atlas','world-atlas','앱'],['d_hw_L6-agent-skills','agent-skills','문서'],
         ['pose_tool.ipynb','pose','노트북'],['c_lab_L5-todo-app','todo','앱'],
-        ['c_lab_L6-agent-practice','agent-practice','앱'],['opening-trainer','opening-trainer','앱']
+        ['c_lab_L6-agent-practice','agent-practice','앱'],['opening-trainer','opening-trainer','앱'],
+        ['d_hw_N7-room-3d',null,'3D']
       ];
       function ph(e){var d=document.createElement('div');d.className='thumb ph';d.textContent=e;return d;}
       document.querySelectorAll('a.row').forEach(function(row){
@@ -327,9 +338,10 @@
         var m=null; for(var i=0;i<map.length;i++){ if(href.indexOf(map[i][0])>-1){m=map[i];break;} }
         var cell=document.createElement('div'); cell.className='thumbcell';
         var thumb;
+        var pe={'발표':'📊','3D':'🧊','노트북':'📓'}, phe=(m&&pe[m[2]])||'📄';
         if(m&&m[1]){ thumb=document.createElement('img'); thumb.className='thumb'; thumb.src='assets/thumbs/'+m[1]+'.png'; thumb.alt=''; thumb.loading='lazy';
-          thumb.onerror=function(){this.replaceWith(ph(m&&m[2]==='발표'?'📊':'📄'));}; }
-        else { thumb=ph(m?'📊':'📄'); }
+          thumb.onerror=function(){this.replaceWith(ph(phe));}; }
+        else { thumb=ph(phe); }
         cell.appendChild(thumb);
         var t=document.createElement('span'); t.className='ttype'; t.textContent=(m?m[2]:'문서'); cell.appendChild(t);
         row.insertBefore(cell,row.firstChild);
