@@ -442,6 +442,18 @@
       <a href="#n18-7">7강 회의록을 자동으로 정리해 봅니다<span class="toctag p">실습</span></a>
       <a href="#n18-8">8강 중간을 남겨야 되짚을 수 있습니다</a>
       </div>
+            <a class="tochead" href="#node-19">노드7 · [프로젝트] 폰 영상으로 3D 공간 만들기</a>
+      <div class="tocgroup" data-g="19">
+      <a href="#n19-1">1강 셔터가 닫힐 때 사라지는 것</a>
+      <a href="#n19-2">2강 무엇에 담고 무엇이라 부르나</a>
+      <a href="#n19-3">3강 방을 찍어 점으로<span class="toctag p">실습</span></a>
+      <a href="#n19-4">4강 점을 알갱이로<span class="toctag p">실습</span></a>
+      <a href="#n19-5">5강 줄여서 내 주소에<span class="toctag p">실습</span></a>
+      <a href="#n19-6">6강 서른 해 동안 난 길들</a>
+      <a href="#n19-7">7강 안 될 때와 더 낫게</a>
+      <a href="#n19-8">8강 [과제] 공개 공간을 골라 올립니다<span class="toctag q">과제</span></a>
+      <a href="#n19-9">9강 도구는 바뀌고 고르는 눈은 남습니다</a>
+      </div>
     </nav>
 
     <main>
@@ -2974,6 +2986,110 @@ colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동
         <div class="notice"><b>📚 출처:</b> <span class="fine">모듈2 노드6 「여러 입력을 처리하는 모델들」 1~8강. CLIP(arXiv:2103.00020), GPT-4o System Card·Gemma 4(Google), supertonic(TTS), STT 시간정렬. ※모델·수치는 확인 시점 기준.</span></div>
       </section>
 
+      <!-- ================= 모듈2 · 노드7 · [프로젝트] 폰 영상으로 3D 공간 만들기 ================= -->
+      <section class="section coursehead" id="node-19">
+        <div class="badge">모듈2 · 노드7 · [프로젝트] 폰 영상으로 3D 공간 만들기 <span style="opacity:.7">· 가우시안 스플랫</span></div>
+        <h2>폰 영상 하나로 3D 공간 만들기 <span style="font-size:.86rem;opacity:.85">(10강)</span></h2>
+        <p class="lead">사진은 셔터가 닫힐 때 <span class="hl">'거리'를 버린다</span>(3D→2D로 눌리며 RGB만 남음). 오늘은 폰 영상 한 개로 그 거리를 되찾아 <b>3D 방을 웹에 올린다</b>. 코드는 에이전트가 쓰고, 나는 <b>낱말(시키는 말·판단하는 말)</b>로 결과를 골라낸다.</p>
+        <div class="table-wrap"><table><thead><tr><th>강</th><th>제목</th><th>상태</th></tr></thead><tbody>
+          <tr><td>1</td><td>셔터가 닫힐 때 사라지는 것</td><td>✅ 정리됨</td></tr>
+          <tr><td>2</td><td>무엇에 담고 무엇이라 부르나</td><td>✅ 정리됨</td></tr>
+          <tr><td>3</td><td>방을 찍어 점으로</td><td>✅ 정리됨</td></tr>
+          <tr><td>4</td><td>점을 알갱이로</td><td>✅ 정리됨</td></tr>
+          <tr><td>5</td><td>줄여서 내 주소에</td><td>✅ 정리됨</td></tr>
+          <tr><td>6</td><td>서른 해 동안 난 길들</td><td>✅ 정리됨</td></tr>
+          <tr><td>7</td><td>안 될 때와 더 낫게</td><td>✅ 정리됨</td></tr>
+          <tr><td>8</td><td>[과제] 공개할 수 있는 공간을 골라 올립니다</td><td>✅ 제출완료</td></tr>
+          <tr><td>9</td><td>도구는 바뀌고 고르는 눈은 남습니다</td><td>✅ 정리됨</td></tr>
+          <tr><td>—</td><td>프로젝트 제출</td><td>✅ 완료</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>ℹ️ 기록 상태:</b> <span class="fine">전 강 수강완료 + 프로젝트 직접 완수. LMS camp136·course 2136·node-version 5005·steps 25120~25128. 내 산출물: <code>github.com/kimjy0977/KDT_Works</code> → <code>03_module2/d_hw_N6-room-3d/</code>, 라이브 <code>kimjy0977.github.io/KDT_Works/03_module2/d_hw_N6-room-3d/</code>.</span></div>
+      </section>
+
+      <section class="section" id="n19-1"><h2>1강 · 셔터가 닫힐 때 사라지는 것 <span class="dur">이론</span></h2>
+        <p class="lead">셔터가 열리는 순간, 눈앞의 3차원 공간(컵 30cm·모니터 1m·벽 3m)이 렌즈를 지나 <span class="hl">납작한 격자에 눌린다</span>. 칸마다 남는 건 빨강·초록·파랑 세 숫자(빛의 세기)뿐 — <b>거리는 어디에도 안 적힌다.</b></p>
+        <p>컵 화소나 벽 화소나 파일 안에선 동등한 세 숫자. 3D가 2D로 눌리며 사라진 게 정확히 <b>'거리'</b>다. <span class="hl">오늘 하는 일 = 버려진 그 거리를 되찾기.</span></p>
+        <div class="notice key"><b>🎯 오늘 갈 길 네 걸음:</b> <b>찍는다 → 점이 된다 → 알갱이가 된다 → 줄여서 올린다.</b> 폰으로 방 15~20초 → 사진 24장 → 3D 점 300만 → 점마다 부피·투명도 주어 '알갱이'로 → 웹 크기로 줄여 내 주소에. <span class="hl">코드는 에이전트가 쓰고, 나는 낱말로 판단</span>(시키는 말은 틀려도 다시 시키면 되지만, 판단하는 말을 모르면 잘못 나온 걸 잘 나온 걸로 보고 지나감).</div>
+      </section>
+
+      <section class="section" id="n19-2"><h2>2강 · 무엇에 담고 무엇이라 부르나 <span class="dur">이론</span></h2>
+        <p class="lead">점 300만 개가 나와도 점만으론 화면이 안 찬다. 무엇으로 바꿔 그릴지, 그 이름이 무엇인지 먼저 정한다(<span class="hl">이름이 곧 검색어이자 에이전트 지시어</span>).</p>
+        <div class="table-wrap"><table><thead><tr><th>3D 담는 그릇</th><th>강한 쪽</th><th>약한 쪽</th></tr></thead><tbody>
+          <tr><td>메시(mesh)</td><td>가볍고 고치기 쉬움·GPU가 이것에 맞춰짐</td><td>털·연기·유리 등 흐린 경계</td></tr>
+          <tr><td>포인트 클라우드</td><td>측정 장비가 그대로 내줌</td><td>점은 크기 없어 가까이 가면 뒤가 비침</td></tr>
+          <tr><td>복셀(voxel)</td><td>속까지 담음·칸 계산 단순</td><td>한 변 2배면 크기 8배</td></tr>
+          <tr><td><b>가우시안 스플랫</b></td><td>사진 같은 새 각도를 빠르게 생성 <b>(오늘 결과물)</b></td><td>—</td></tr>
+        </tbody></table></div>
+        <p><b>축이 둘</b>: '무엇에 담나'(위 표)와 '무엇을 하나'. 후자의 주인공 = <b>새 시점 합성(novel view synthesis)</b> — 찍은 적 없는 각도를 그때그때 만들기. 반대편 끝 = <b>사진에서 3D 지어내기(image-to-3D)</b> — 없던 뒷면까지 만듦(맞는지 물어볼 상대가 없어짐).</p>
+        <div class="notice"><b>🕰 역사:</b> <span class="fine">2020 <b>NeRF</b>(장면을 저장 말고 신경망에 "외우게" — 좌표3+각도2 = 숫자 5개 입력) → 2023 <b>3D Gaussian Splatting</b>. 발표 3년 뒤 <b>도구는 스플랫으로 넘어감</b>(폰 스캔 앱 기본, glTF 표준 확장 등록). 단 NeRF의 사고 틀(빛의 장·앞에서부터 색·불투명도 쌓기)은 스플랫이 계승.</span></div>
+        <div class="notice key"><b>🎯 알갱이 하나의 값(오늘 이론의 한복판):</b> <b>자리 3</b>(★사진이 안 줌 — 셔터가 버린 것) · <b>색 3</b>(사진이 줌) · <b>불투명도·크기·회전</b>(우리가 규칙으로 정함) · <b>구면 조화 45</b>(각도별 색, 비워둠). "이 알갱이가 공간 어디에 있나"만은 규칙으로 못 정함 → 그래서 방을 찍어 <b>자리 3칸부터 받아온다</b>.</div>
+      </section>
+
+      <section class="section" id="n19-3"><h2>3강 · 방을 찍어 점으로 <span class="dur">실습</span></h2>
+        <p class="lead">15~20초 영상 하나가 재료 전부. 끝나면 색 있는 <b>3D 점 300만 개 + 카메라 위치 24개</b>가 손에 들어온다.</p>
+        <div class="notice key"><b>🎯 시차(parallax)가 거리의 근거:</b> 렌즈가 자리를 옮기면 가까운 건 많이 밀리고 먼 건 조금 밀린다(차창 밖 가로수 vs 산). 그 밀린 양 차이 = 거리. <span class="hl">제자리에서 몸만 돌리면 렌즈가 안 움직여 시차가 안 쌓인다</span> — 거리 복원 실패(가장 흔한 실패).</div>
+        <p><b>촬영 4규칙:</b> ①걸어 다니며(방 한 바퀴 돌듯) ②15~20초(뒤에서 24장만 뽑음) ③천천히(번지면 매칭 실패) ④1080p(4K는 100MB 넘음). 특징점 많은 방이 유리.</p>
+        <div class="notice"><b>🛠 에이전트에게:</b> <span class="fine">전용 지침 스킬(room-3d)을 <code>.claude/skills/</code>에 깔고 시작. 모델 <code>facebook/map-anything-apache</code>(Apache-2.0), 코랩 무료 T4. <b>계산능력 7.5 GPU는 반드시 fp16</b>(bf16은 메모리 터짐 — 8장까진 통과하고 본실행서 터져 원인 못 찾음). outlier(창밖·거울) 제거, 카메라이동폭/장면대각선 <b>0.1 넘어야</b> 정상.</span></div>
+      </section>
+
+      <section class="section" id="n19-4"><h2>4강 · 점을 알갱이로 <span class="dur">실습</span></h2>
+        <p class="lead">점 하나엔 숫자 6개(자리3+색3)뿐. 크기가 없어 가까이 가면 틈으로 뒤가 비친다 → 점마다 부피·투명도를 줘 <b>알갱이</b>로 바꾼다.</p>
+        <div class="table-wrap"><table><thead><tr><th>62칸</th><th>개수</th><th>답이 어디서</th></tr></thead><tbody>
+          <tr><td>자리 / 기본 색</td><td>3 / 3</td><td>점이 줌</td></tr>
+          <tr><td>불투명도 / 크기 / 회전</td><td>1 / 3 / 4</td><td>우리가 정함(판단·규칙·안 돌림)</td></tr>
+          <tr><td>법선 / 각도별 색</td><td>3 / 45</td><td>아무 데서도 안 옴(0 / 형식에서 뺌)</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>🎯 값 정하는 규칙:</b> 각도별 색 45칸을 헤더에서 빼면 <b>17칸 = 알갱이당 68바이트</b>(넣으면 파일 3.6배). 불투명도 = 시그모이드 통과 시 0.9 되는 값 = <code>log(0.9/0.1)≈2.2</code>(로짓). 회전 = 안 돌린 사원수 (1,0,0,0), 법선 0(공에 가깝게). 크기 <b>r = K·(가장 긴 변)/√N</b>, K=1.4 시작. <span class="hl">이웃점 거리 기준은 안 됨</span>(깊이지도 옆 화소라 점 줄여도 이웃이 그대로). 좌표는 y·z 부호 뒤집기(모델 Y-down ↔ three.js Y-up).</div>
+      </section>
+
+      <section class="section" id="n19-5"><h2>5강 · 줄여서 내 주소에 <span class="dur">실습</span></h2>
+        <p class="lead">알갱이 320만 개 <code>.ply</code> = 217MB. <span class="hl">깃허브는 파일 하나 100MiB(≈105MB) 한계</span> — 줄이기는 취향이 아니라 통과해야 하는 관문.</p>
+        <p>명령 한 줄로 14배 압축: <code>npx @playcanvas/splat-transform -w input.ply output.sog</code> → <b>.sog 약 15MB</b>. 로딩도 3분→12초(빈 화면이냐 아니냐가 링크 열리냐 닫히냐를 가름). GitHub Pages = 코드 올리면 그대로 웹주소(서버·빌드 불필요).</p>
+        <div class="notice"><b>🧭 두 축은 다르다:</b> <span class="fine"><b>기다림</b>(파일 크기 → 로딩)과 <b>부드러움</b>(알갱이 개수 → 렌더 부담)은 별개. 형식 변환은 로딩만 14배 줄이고 알갱이 수는 그대로. 순서 = <b>형식 먼저 바꾸고, 그래도 크면 점을 줄인다</b>(점 줄이면 화면 성겨지니 K도 함께 올림).</span></div>
+      </section>
+
+      <section class="section" id="n19-6"><h2>6강 · 서른 해 동안 난 길들 <span class="dur">이론</span></h2>
+        <p class="lead">사진 24장이 점 320만+카메라 24로 풀리는 데 <b>10.6초</b>. 처음부터 이랬던 건 아니고, 30년간 사람들이 낸 길 중 <span class="hl">가장 나중에 난 길</span>이다. 갈래마다 물을 것 셋: 무엇이 막혔나 · 어떻게 풀었나 · <b>무엇을 대신 내줬나</b>.</p>
+        <div class="table-wrap"><table><thead><tr><th>길</th><th>핵심</th><th>대가</th></tr></thead><tbody>
+          <tr><td>SfM (특징점)</td><td>특징점 뽑아 카메라 위치부터 복원</td><td>—</td></tr>
+          <tr><td>MVS·사진측량</td><td>사진만으로 형태·크기 측정</td><td>계산 폭증·흰벽·유리에 취약</td></tr>
+          <tr><td>SLAM</td><td>실시간(로봇·헤드셋): 위치+지도 동시</td><td>—</td></tr>
+          <tr><td>라이다 검출</td><td>VoxelNet→SECOND→PointPillars→CenterPoint→점유예측</td><td>—</td></tr>
+          <tr><td><b>피드포워드</b></td><td>DUSt3R→MASt3R→VGGT→<b>MapAnything</b>: 위 걸음들을 <b>한 모델</b>로</td><td>학습기억 의존·덩치·라이선스</td></tr>
+        </tbody></table></div>
+        <div class="notice warn"><b>⚠️ 피드포워드의 대가 3:</b> <span class="fine">①<b>본 적 있는 것에 기댐</b> — 흰 벽 깊이는 잰 게 아니라 "대개 이렇더라"로 채운 것(되찾은 것과 지어낸 것이 한 파일에 섞임). ②<b>덩치</b> — 가중치 4.91GB, T4에선 96장이 천장. ③<b>라이선스</b> — 같은 이름도 판별로 갈림(<code>-apache</code> 지켜 받은 이유).</span></div>
+      </section>
+
+      <section class="section" id="n19-7"><h2>7강 · 안 될 때와 더 낫게 <span class="dur">이론</span></h2>
+        <p class="lead">화면을 크게 돌리면 <b>검은 자리</b>가 남는다. 카메라가 그쪽을 안 지나가서 <span class="hl">값이 아예 없는 것</span>(잘못 그린 게 아니라 그릴 게 없음). 소파 뒤·천장 구석·걸어 들어온 쪽 벽이 대표적. 메우는 가장 빠른 길 = 그쪽을 지나가며 한 번 더 찍기.</p>
+        <div class="table-wrap"><table><thead><tr><th>증상</th><th>원인·조치</th></tr></thead><tbody>
+          <tr><td>검은 점이 박힘</td><td>알갱이가 작음 → K 올림</td></tr>
+          <tr><td>구멍이 숭숭</td><td>점이 성김 → 점 늘리거나 K 올림</td></tr>
+          <tr><td>각도 틀면 앞뒤 뒤집힘</td><td>정렬 순서(sort) 어긋남</td></tr>
+          <tr><td>천장이 발밑에</td><td>y·z 부호 안 뒤집음</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>🧭 더 낫게 하는 3길:</b> <span class="fine">①<b>재서 채우기</b>(우리 방식, 한 번 계산·빠름) vs <b>배우게 하기</b>(원 3DGS: 그려보고→사진과 견주고→값 고침, 알갱이 쪼개고/지움 densify·prune, 안 지나간 곳도 어느정도 메움, 구면조화 45칸 채움) ②그쪽 <b>재촬영</b> ③<b>안 보인 자리(unseen region) 지어내기</b>(image-to-3D, 제일 어려움 — 참고할 화소가 한 장도 없어 맞는지 물을 상대가 없음).</span></div>
+      </section>
+
+      <section class="section" id="n19-8"><h2>8강 · [과제] 공개할 수 있는 공간을 골라 올립니다 <span class="dur">과제</span></h2>
+        <p class="lead">자기 방을 올리면 링크 보낼 때마다 망설여진다. 과제는 <span class="hl">밖에서 '공개해도 되는 공간'을 하나 골라</span> 같은 길로 올리고 주소를 제출하는 일. 페이지는 그대로, 바뀌는 건 <b>찍는 자리와 그 자리를 고르는 판단</b>.</p>
+        <p><b>고르는 두 조건(동시 충족):</b> ①남에게 보여도 되는 곳(얼굴·번호판·문패·서류·손님 프레임에 들면 그대로 공개됨 / 미술관·공연장 등 촬영제한 확인) ②시차 쌓이는 곳(벽·물건 가까움+무늬 많음 / 전망대 먼 풍경은 시차 사라져 실패).</p>
+        <div class="notice key"><b>📝 제출·채점:</b> 제출 = <b>Pages 주소 + 저장소 주소 2줄</b>(보내기 전 주소 뒤 <code>/파일명.sog</code> 붙여 직접 내려오는지 확인). 채점 3: ①열리고 남에게 보낼 수 있나(얼굴·문패 없나, 고른 근거 README 한 줄) ②<b>눈 아닌 숫자</b>로 판정(카메라 퍼짐·알갱이당 바이트·형식별 크기와 개수 README에) ③안 나온 자리 설명(시차·정렬 낱말로).</div>
+        <div class="notice warn"><b>⚠️ 내 제출 메모:</b> <span class="fine">나는 <b>내 방</b>으로 파이프라인을 완주해 배포함(책장·지도·운동화 — 얼굴·문패·서류 없음). 단 8강 취지는 '밖의 공개 공간'이라, 엄밀히는 외부 공간 촬영본이 정석. 방 버전으로도 파이프라인·판단은 동일하게 시연됨. README에 숫자(카메라비율 0.577·68바이트/알갱이·크기) 기재 완료. → 상세 [[project-game-dev-state]] 계열 아카이브 <code>03_module2/d_hw_N6-room-3d</code>.</span></div>
+      </section>
+
+      <section class="section" id="n19-9"><h2>9강 · 도구는 바뀌고 고르는 눈은 남습니다 <span class="dur">정리</span></h2>
+        <p class="lead">주소의 페이지는 <b>파일 이름 하나만 가리킨다</b> → 더 나은 파일이 생기면 그것만 갈아 끼우면 됨(폰 앱·학습판·물체 지운 것, 형식만 맞으면). <span class="hl">페이지는 다시 안 만든다.</span></p>
+        <div class="table-wrap"><table><thead><tr><th>들고 나가는 것</th><th>확인</th></tr></thead><tbody>
+          <tr><td>내 주소에서 도는 방</td><td>링크로 폰에서 열리고, 크게 틀어도 앞뒤 안 뒤집힘</td></tr>
+          <tr><td>판단하는 말</td><td>검은 얼룩 이유·알갱이 바이트·무엇이 느린지 설명 가능</td></tr>
+          <tr><td>시키는 말</td><td>0차 구면조화·사원수·시그모이드·INRIA 형식·알갱이 반지름을 지시문에</td></tr>
+        </tbody></table></div>
+        <div class="notice warn"><b>⚠️ 두 무대의 차이:</b> <span class="fine"><b>콜랩</b>=세션 끝나면 사라짐(영상·프레임·점·중간파일 다 휘발 → 다시 하려면 영상부터. <code>colab stop</code>·런타임 끊기 안 하면 기계 계속 물고 있음). <b>공개 주소</b>=지우기 전까지 영속, 주소 아는 사람은 다 들어옴(프라이버시).</span></div>
+        <div class="notice key"><b>🎯 도구 바뀌어도 남는 눈 3:</b> ①웹에 올릴 건 <b>크기부터</b>(바이트/알갱이 곱셈, 크기≠개수) ②<b>유명한 것 ≠ 쓸 수 있는 것</b>(조건 문서 열어 읽기 — 판별·코드/가중치·지역·승인관문) ③남의 숫자는 <b>조건과 함께</b> 읽고 자기 건 자기 기계에서 잼(문턱 없음, 조건 맞춘 두 값의 차이만 의미).</div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈2 노드7 「폰 영상으로 3D 공간 만들기」 1~9강 + 프로젝트 제출. NeRF·3D Gaussian Splatting, MapAnything(arXiv:2509.13414)·DUSt3R·MASt3R·VGGT, SfM/MVS/SLAM, splat-transform(.sog)·three.js·Spark. ※모델·수치는 확인 시점 기준.</span></div>
+      </section>
+
       <div class="pager" id="pager"></div>
     </main>
   </div>
@@ -2987,8 +3103,8 @@ colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동
     var toc=document.querySelector('.toc');
     var pager=document.getElementById('pager');
     var groups=[].slice.call(document.querySelectorAll('.toc .tocgroup'));
-    var names={'10':'협업 툴 소개','11':'아이펠이란?','12':'퀘스트란?','13':'코딩 0줄로 여는 첫날','14':'Computational Thinking','1':'작업대 마련하기','2':'세 겹 & 게임','3':'프레임워크','4':'백엔드','5':'데이터베이스','6':'AI 에이전트 도구','7':'메인 퀘스트','8':'AI는 어떻게 배우나','9':'트랜스포머 (AI는 어떻게 언어를 배웠나)','15':'LLM과 로컬 실행','16':'AI는 문서와 사진에서 무엇을 꺼낼까?','17':'[프로젝트] 이미지 생성 어플리케이션 만들기','18':'여러 입력을 처리하는 모델들 (멀티모달)'};
-    var order=['10','11','12','13','14','1','2','3','4','5','6','7','8','9','15','16','17','18'];
+    var names={'10':'협업 툴 소개','11':'아이펠이란?','12':'퀘스트란?','13':'코딩 0줄로 여는 첫날','14':'Computational Thinking','1':'작업대 마련하기','2':'세 겹 & 게임','3':'프레임워크','4':'백엔드','5':'데이터베이스','6':'AI 에이전트 도구','7':'메인 퀘스트','8':'AI는 어떻게 배우나','9':'트랜스포머 (AI는 어떻게 언어를 배웠나)','15':'LLM과 로컬 실행','16':'AI는 문서와 사진에서 무엇을 꺼낼까?','17':'[프로젝트] 이미지 생성 어플리케이션 만들기','18':'여러 입력을 처리하는 모델들 (멀티모달)','19':'[프로젝트] 폰 영상으로 3D 공간 만들기'};
+    var order=['10','11','12','13','14','1','2','3','4','5','6','7','8','9','15','16','17','18','19'];
     var current='1';
     function nodeOf(id){if(!id)return null;if(id.indexOf('node-')===0)return id.slice(5);var m=id.match(/^n(\d+)-/);return m?m[1]:null;}
     function paintToc(){
