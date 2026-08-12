@@ -58,12 +58,23 @@
   .note{font-size:.9rem;color:var(--ink-3);margin:0 0 8px;line-height:1.6}
 
   @media(max-width:620px){.term{grid-template-columns:1fr;gap:8px}}
+  .sitenav{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+  .sitenav a{font-family:var(--grotesk,'Public Sans','Pretendard',sans-serif);font-size:.86rem;font-weight:700;letter-spacing:.01em;color:var(--ink-2,#565049);white-space:nowrap;text-decoration:none;transition:color .15s}
+  .sitenav a:hover{color:var(--accent,#CE1225)}
 </style>
 </head>
 <body>
   <header class="wrap mast">
     <div class="row">
       <div class="brand">김주영 <em>· KDT</em></div>
+      <nav class="sitenav">
+        <a href="./">홈</a>
+        <a href="회고.html">회고</a>
+        <a href="강의노트-모두연.html">강의노트</a>
+        <a href="운영안내.html">운영안내</a>
+        <a href="../">과제모음</a>
+        <a href="https://github.com/kimjy0977" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
       <div class="meta">용어집 · Glossary</div>
     </div>
     <div class="rule-thick"></div><div class="rule-hair"></div>
