@@ -34,7 +34,7 @@
     -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-feature-settings:"tnum" 0}
   a{color:inherit;text-decoration:none}
   ::selection{background:var(--accent-soft)}
-  .wrap{width:min(1160px,calc(100% - 48px));margin-inline:auto}
+  .wrap{width:min(1120px,calc(100% - 48px));margin-inline:auto}
   .lab{font-family:var(--grotesk);font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
 
   /* ── Masthead ── */
@@ -43,9 +43,10 @@
   .wordmark{font-family:var(--grotesk);font-weight:800;font-size:clamp(2.1rem,1.2rem + 3vw,3.5rem);
     line-height:.9;letter-spacing:-.04em;color:var(--ink)}
   .wordmark b{color:var(--accent)}
-  .util{display:flex;gap:18px;padding-top:8px;flex-wrap:wrap;justify-content:flex-end}
-  .util a{font-family:var(--grotesk);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+  .util{display:flex;gap:22px;padding-top:6px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+  .util a{font-family:var(--grotesk);font-size:.86rem;font-weight:700;letter-spacing:.01em;color:var(--ink-2);white-space:nowrap;transition:color .15s}
   .util a:hover{color:var(--accent)}
+  .util a.here{color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:2px}
   .tagline{margin-top:12px;font-size:.92rem;color:var(--ink-2);max-width:60ch}
   .tagline em{color:var(--accent);font-style:normal;font-weight:600}
   .rule-hair{height:1px;background:var(--rule);margin-top:16px}
@@ -145,8 +146,11 @@
     <div class="top">
       <div class="wordmark">김주영 <b>KDT</b></div>
       <nav class="util">
-        <a href="#contents">목차</a>
-        <a href="../">아카이브</a>
+        <a class="here" href="./">홈</a>
+        <a href="회고.html">회고</a>
+        <a href="강의노트-모두연.html">강의노트</a>
+        <a href="운영안내.html">운영안내</a>
+        <a href="../">과제모음</a>
         <a href="https://github.com/kimjy0977" target="_blank" rel="noopener">GitHub ↗</a>
       </nav>
     </div>
@@ -164,7 +168,7 @@
   <div class="wrap">
     <div class="stats">
       <div class="stat"><span class="k">현재</span><span class="v">과정 5주차</span></div>
-      <div class="stat"><span class="k">노드 진도</span><span class="v">모듈2 · 노드6</span></div>
+      <div class="stat"><span class="k">노드 진도</span><span class="v">모듈2 · 노드7</span></div>
       <div class="stat"><span class="k">메인 퀘스트</span><span class="v">ORIGIN 제출</span></div>
       <div class="stat"><span class="k">출석률</span><span class="v muted">고용24 🟨</span></div>
     </div>
@@ -182,7 +186,7 @@
       <div class="seclabel"><span class="t">학습 노트</span><span class="dash"></span><span class="en">Notes</span></div>
       <a class="row" href="강의노트-모두연.html">
         <span class="num">02</span>
-        <div><h2>모두연 강의 학습 노트</h2><p>적응기·모듈1·모듈2 노드1~3 강의 내용을 담은 누적 노트.</p></div>
+        <div><h2>모두연 강의 학습 노트</h2><p>적응기·모듈1·모듈2 노드1~7 강의 내용을 담은 누적 노트.</p></div>
         <span class="go">읽기 <span class="arw">→</span></span>
       </a>
       <a class="row" href="강의노트-앤트로픽.html">
@@ -222,7 +226,7 @@
       <div class="box">
         <div class="h">최근</div>
         <a class="side-item" href="회고.html#ep-09"><span class="sk">회고 · 07-25</span><span class="st">트랜스포머와 입력 설계</span><p>토큰과 어텐션을 거쳐 프롬프트를 보는 감각이 바뀐 날.</p></a>
-        <a class="side-item" href="강의노트-모두연.html#m2n3"><span class="sk">강의 노트</span><span class="st">모듈2 · 노드1~3</span><p>AI 학습·트랜스포머·LLM과 로컬 실행.</p></a>
+        <a class="side-item" href="강의노트-모두연.html#m2n7"><span class="sk">강의 노트</span><span class="st">모듈2 · 노드1~7</span><p>AI 학습·트랜스포머·LLM·문서/이미지·멀티모달·3D까지.</p></a>
       </div>
 
       <div class="box connect">
