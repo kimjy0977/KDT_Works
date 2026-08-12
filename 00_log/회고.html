@@ -27,10 +27,10 @@
   .mast .top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
   .wordmark{font-family:var(--grotesk);font-weight:800;font-size:clamp(1.5rem,1rem + 1.6vw,2rem);line-height:.9;letter-spacing:-.04em}
   .wordmark b{color:var(--accent)}
-  .util{display:flex;gap:18px;padding-top:6px;flex-wrap:wrap;justify-content:flex-end}
-  .util a{font-family:var(--grotesk);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
-  .util a:hover{color:var(--accent)}
-  .util a.home{color:var(--accent)}
+  .util{display:flex;gap:22px;padding-top:6px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+  .util a{font-family:var(--grotesk,'Public Sans','Pretendard',sans-serif);font-size:.86rem;font-weight:700;letter-spacing:.01em;color:var(--ink-2,#565049);white-space:nowrap;text-decoration:none;transition:color .15s}
+  .util a:hover{color:var(--accent,#CE1225)}
+  .util a.here{color:var(--accent,#CE1225);border-bottom:2px solid var(--accent,#CE1225);padding-bottom:2px}
   .rule-ink{height:3px;background:var(--ink);margin-top:16px}
   .rule-hair{height:1px;background:var(--rule);margin-top:3px}
 
@@ -100,9 +100,11 @@
     <div class="top">
       <div class="wordmark">김주영 <b>KDT</b></div>
       <nav class="util">
-        <a class="home" href="./">← 홈</a>
-        <a href="강의노트-모두연.html">학습 노트</a>
-        <a href="../">아카이브</a>
+        <a href="./">홈</a>
+        <a class="here" href="회고.html">회고</a>
+        <a href="강의노트-모두연.html">강의노트</a>
+        <a href="운영안내.html">운영안내</a>
+        <a href="../">과제모음</a>
         <a href="https://github.com/kimjy0977" target="_blank" rel="noopener">GitHub ↗</a>
       </nav>
     </div>
