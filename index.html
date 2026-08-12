@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KDT_Works · KDT 과제 모음</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap');
-  :root{--bg:#0e1020;--fg:#eceaf5;--muted:#9a97b8;--faint:#6f6c8f;--line:#26264a;--card:#171833;--accent:#ffd76a;--node:#7cc4ff;--main:#c4a5ff;--hover:#15162e;--sans:'Noto Sans KR',sans-serif;--disp:'Space Grotesk','Noto Sans KR',sans-serif}
-  html[data-theme="light"]{--bg:#FAF9F5;--fg:#181A2B;--muted:#56546B;--faint:#8A889E;--line:#E5E3EE;--card:#F0EFF6;--accent:#8A6A0C;--node:#2A66AE;--main:#6A49BD;--hover:#F0EEF6}
+  @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+  @import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;800&display=swap');
+  :root{--bg:#FBFAF7;--fg:#171512;--muted:#565049;--faint:#8C8579;--line:#E5E1D6;--card:#F7F4EE;--accent:#CE1225;--node:#CE1225;--main:#CE1225;--hover:#F4F1EA;--sans:'Pretendard','Public Sans','Noto Sans KR',system-ui,sans-serif;--disp:'Public Sans','Pretendard',system-ui,sans-serif}
+  html[data-theme="dark"]{--bg:#14130F;--fg:#F3F0E9;--muted:#B7B1A4;--faint:#807A6C;--line:#2C2822;--card:#1A1814;--accent:#FF5B63;--node:#FF5B63;--main:#FF5B63;--hover:#1B1915}
   .themebtn{position:fixed;top:14px;right:14px;z-index:60;width:38px;height:38px;border-radius:999px;
     display:inline-flex;align-items:center;justify-content:center;font-size:1.02rem;line-height:1;
     background:var(--card);color:var(--fg);border:1px solid var(--line);cursor:pointer;
@@ -15,13 +16,19 @@
   .themebtn:hover{border-color:var(--accent);transform:translateY(-1px)}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:1000px;margin:auto;padding:0 24px}
-  header{padding:72px 0 30px}
-  .eyebrow{font-family:var(--disp);font-weight:700;font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent)}
-  .eyebrow-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  .gnav{display:flex;gap:16px}
-  .gnav a{font-family:var(--disp);font-weight:700;font-size:.72rem;letter-spacing:.05em;color:var(--muted);text-decoration:none;transition:.15s;white-space:nowrap}
-  .gnav a:hover{color:var(--accent)}
+  .wrap{max-width:1120px;margin:auto;padding:0 24px}
+  header{padding:34px 0 30px}
+  .mast{padding:24px 0 0}
+  .mast .top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+  .wordmark{font-family:var(--disp);font-weight:800;font-size:clamp(1.8rem,1rem + 2.6vw,3rem);line-height:.9;letter-spacing:-.04em;color:var(--fg)}
+  .wordmark b{color:var(--accent)}
+  .util{display:flex;gap:22px;padding-top:6px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+  .util a{font-family:var(--disp);font-size:.86rem;font-weight:700;letter-spacing:.01em;color:var(--muted);white-space:nowrap;text-decoration:none;transition:color .15s}
+  .util a:hover{color:var(--accent)}
+  .util a.here{color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:2px}
+  .rule-hair{height:1px;background:var(--line);margin-top:16px}
+  .rule-ink{height:3px;background:var(--fg);margin-top:16px}
+  .eyebrow{font-family:var(--disp);font-weight:700;font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
   h1{font-weight:900;font-size:clamp(2.3rem,7vw,3.7rem);line-height:1.03;letter-spacing:-.03em;margin:22px 0 0}
   .sub{color:var(--muted);font-size:1.02rem;max-width:60ch;margin:18px 0 0;line-height:1.75}
 
@@ -83,15 +90,26 @@
     .go{text-align:left;padding-top:2px}
   }
 </style>
-<script>try{document.documentElement.dataset.theme=localStorage.getItem('kdt-theme')||'dark';}catch(e){}</script>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem('kdt-theme')||'light';}catch(e){}</script>
 </head>
 <body>
-  <button id="themebtn" class="themebtn" type="button" aria-label="다크/라이트 전환">☀️</button>
-  <header><div class="wrap">
-    <div class="eyebrow-row">
-      <div class="eyebrow">KDT_Works</div>
-      <nav class="gnav"><a href="./00_log/">📔 학습 허브</a><a href="https://github.com/kimjy0977/KDT_Works" target="_blank" rel="noopener">GitHub ↗</a></nav>
+  <button id="themebtn" class="themebtn" type="button" aria-label="다크/라이트 전환">🌙</button>
+  <header class="wrap mast">
+    <div class="top">
+      <div class="wordmark">김주영 <b>KDT</b></div>
+      <nav class="util">
+        <a href="./00_log/">홈</a>
+        <a href="./00_log/회고.html">회고</a>
+        <a href="./00_log/강의노트-모두연.html">강의노트</a>
+        <a href="./00_log/운영안내.html">운영안내</a>
+        <a class="here" href="./">과제모음</a>
+        <a href="https://github.com/kimjy0977/KDT_Works" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
     </div>
+    <div class="rule-ink"></div><div class="rule-hair"></div>
+  </header>
+  <header><div class="wrap">
+    <div class="eyebrow">KDT_Works</div>
     <h1>KDT 과제 모음</h1>
     <p class="sub">아이펠 KDT AI 에이전트 과정에서 만든 <b>메인 퀘스트</b>·<b>퀘스트</b>·<b>과제</b>·<b>실습</b> 모음입니다. 탭으로 골라 보고, 각 항목을 눌러 실행·열람하세요.</p>
     <nav class="tabs">
