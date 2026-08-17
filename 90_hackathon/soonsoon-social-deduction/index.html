@@ -29,7 +29,7 @@
   header.case{position:relative; padding:clamp(22px,5vw,40px) 0 clamp(14px,2vw,20px); overflow:hidden}
   header.case::before{content:""; position:absolute; top:-160px; left:50%; transform:translateX(-50%); width:520px; height:340px; pointer-events:none; background:radial-gradient(ellipse at center, rgba(240,180,41,.16), rgba(240,180,41,0) 65%); filter:blur(6px)}
   .kase{position:relative; z-index:1}
-  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--amber-bright); margin:0 0 14px}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--amber-bright); margin:0 0 14px}
   .eyebrow .dot{color:var(--faint)}
   h1{font-size:clamp(32px,7vw,58px); line-height:1; margin:0; font-weight:800; letter-spacing:-.03em; text-wrap:balance}
   h1 .q{color:var(--amber-bright)}
@@ -58,7 +58,7 @@
 
   section{margin-top:clamp(24px,4vw,36px)}
   section:first-child{margin-top:20px}
-  .lab{font-family:var(--mono); font-size:12px; letter-spacing:.15em; text-transform:uppercase; color:var(--faint); margin:0 0 6px}
+  .lab{font-family:var(--mono); font-size:12px; letter-spacing:.02em; text-transform:uppercase; color:var(--faint); margin:0 0 6px}
   .lab .no{color:var(--amber-bright)}
   h2{font-size:clamp(19px,3.2vw,25px); margin:0 0 13px; font-weight:750; letter-spacing:-.02em; text-wrap:balance}
   p{margin:0 0 13px}
@@ -79,7 +79,7 @@
   .ref .ic{font-size:25px; width:46px; height:46px; display:grid; place-items:center; background:var(--panel2); border:1px solid var(--line); border-radius:11px}
   .ref h3{margin:0 0 4px; font-size:17px; font-weight:750}
   .ref h3 .en{font-family:var(--mono); font-size:11.5px; color:var(--faint); margin-left:8px}
-  .ref .fam{font-family:var(--mono); font-size:10.5px; color:var(--amber-bright); letter-spacing:.06em; text-transform:uppercase}
+  .ref .fam{font-family:var(--mono); font-size:10.5px; color:var(--amber-bright); letter-spacing:.02em; text-transform:uppercase}
   .ref p{margin:5px 0 8px; font-size:14.5px}
   .ref .core{font-size:13px; color:var(--muted)}
   .ref .core b{color:var(--amber-bright)}
@@ -92,7 +92,7 @@
   .tw{overflow-x:auto; border:1px solid var(--line); border-radius:14px; background:var(--panel)}
   table{border-collapse:collapse; width:100%; min-width:480px; font-size:14.5px}
   th,td{text-align:left; padding:12px 16px; border-bottom:1px solid var(--line); vertical-align:top}
-  thead th{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--amber-bright); background:var(--panel2); font-weight:600}
+  thead th{font-family:var(--mono); font-size:11px; letter-spacing:.02em; text-transform:uppercase; color:var(--amber-bright); background:var(--panel2); font-weight:600}
   tbody tr:last-child td{border-bottom:none}
   tbody tr.hot td{background:var(--amber-wash)}
   td .arr,td .w{color:var(--faint); font-family:var(--mono)}
@@ -113,7 +113,7 @@
   @media(max-width:620px){.cols{grid-template-columns:1fr}}
   .cols3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:13px}
   @media(max-width:820px){.cols3{grid-template-columns:1fr}}
-  .colcard h3{margin:0 0 12px; font-size:12.5px; font-family:var(--mono); letter-spacing:.12em; text-transform:uppercase}
+  .colcard h3{margin:0 0 12px; font-size:12.5px; font-family:var(--mono); letter-spacing:.02em; text-transform:uppercase}
   .colcard.now{border-color:rgba(240,180,41,.4)} .colcard.now h3{color:var(--amber-bright)} .colcard.next h3{color:var(--muted)}
   .risk{border-left:3px solid var(--red); background:var(--panel); border-radius:0 12px 12px 0; padding:15px 18px}
   .risk + .risk{margin-top:10px}
@@ -128,7 +128,7 @@
 
   .study{display:flex; flex-direction:column; gap:14px}
   .study a{color:var(--amber-bright)}
-  .grp .gh{font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--amber-bright); margin:0 0 6px}
+  .grp .gh{font-family:var(--mono); font-size:12px; letter-spacing:.02em; text-transform:uppercase; color:var(--amber-bright); margin:0 0 6px}
 
   footer{margin-top:44px; padding-top:18px; border-top:1px solid var(--line); font-family:var(--mono); font-size:12px; color:var(--faint); letter-spacing:.03em}
   a{color:var(--amber-bright)}
@@ -143,7 +143,7 @@
       <h1><span class="q">《</span>순순히 따라와라<span class="q">》</span></h1>
       <p class="define">SPUM 2D 공간에서 <strong>AI 용의자들을 자연어로 심문·대질</strong>해 숨은 스파이를 밝히는 브라우저 추리게임 — <strong>SPUM(엔진)</strong>과 <strong>SAM(AI 페르소나·기억)</strong>을 한 화면에서 증명하는 쇼케이스.</p>
       <div class="stampline">
-        <span class="stamp hot">v0.12 · 팀 논의용</span>
+        <span class="stamp hot">v0.13 · 팀 논의용</span>
         <span class="stamp">화요일 미팅</span>
         <span class="stamp">작성 · 김주영(팀장)</span>
         <button id="themeToggle" class="tbtn" type="button" aria-pressed="true" aria-label="라이트/다크 모드 전환"><span class="ticon" aria-hidden="true">☾</span><span class="tlabel">다크 모드</span></button>
@@ -236,8 +236,8 @@
       <div class="card" style="margin-top:12px;border-color:rgba(240,180,41,.4)"><p style="margin:0" class="sub">⚑ <strong>오해 주의 — 우리가 '광고'를 만드는 게 아니다.</strong> 그들의 목적을 파악해 <strong>잘 만든 데모(재료)</strong>를 주면, 회사가 <span class="am">"이것도 되네·저것도 되네"</span> 하며 블로그·유튜브·투자설명에 골라 씀. <strong>우리 몫 = 가져다 쓸 만한 재료를 잘 만드는 것.</strong></p></div>
       <p class="lab" style="margin-top:24px"><span class="no">B1·</span> SPUM · SAM 쉽게 이해 (팀 공유용)</p>
       <div class="cols">
-        <div class="card"><h3 style="color:var(--amber-bright);font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 8px">SPUM = 몸·무대 🎮</h3><p style="margin:0" class="sub">픽셀 캐릭터·맵·움직임을 <strong>레고처럼 쉽게 조립</strong>하는 2D 웹 게임 엔진(원래 유니티 2D 캐릭터 <strong>1위</strong> 에셋). 게임에서 <span class="am">눈에 보이는 것</span> 담당.</p></div>
-        <div class="card"><h3 style="color:var(--cyan);font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 8px">SAM = 두뇌 🧠</h3><p style="margin:0" class="sub">캐릭터에 <strong>AI 머리</strong>를 꽂아주는 중계기(LLM 프록시). 말 걸면 <span class="am">성격대로 답하고 기억</span>. 챗지피티 같은 두뇌를 게임에 연결 = <span class="am">생각·대화</span> 담당.</p></div>
+        <div class="card"><h3 style="color:var(--amber-bright);font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;text-transform:uppercase;margin:0 0 8px">SPUM = 몸·무대 🎮</h3><p style="margin:0" class="sub">픽셀 캐릭터·맵·움직임을 <strong>레고처럼 쉽게 조립</strong>하는 2D 웹 게임 엔진(원래 유니티 2D 캐릭터 <strong>1위</strong> 에셋). 게임에서 <span class="am">눈에 보이는 것</span> 담당.</p></div>
+        <div class="card"><h3 style="color:var(--cyan);font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;text-transform:uppercase;margin:0 0 8px">SAM = 두뇌 🧠</h3><p style="margin:0" class="sub">캐릭터에 <strong>AI 머리</strong>를 꽂아주는 중계기(LLM 프록시). 말 걸면 <span class="am">성격대로 답하고 기억</span>. 챗지피티 같은 두뇌를 게임에 연결 = <span class="am">생각·대화</span> 담당.</p></div>
       </div>
       <p class="src">= 회사가 파는 것: "이 둘로 <strong>AI가 사는 게임을 빠르게</strong> 만든다." <strong>우리 데모 = 그 증거.</strong></p>
       <div class="card" style="margin-top:13px"><ul class="clean">
@@ -518,7 +518,7 @@ SAM( 시스템: 성격 + (스파이면 "<span style="color:var(--red)">X를 숨�
     </section>
   </div>
 
-  <footer>순순히 따라와라 · 기획 + 레퍼런스 통합본 v0.12 · 탭 재배치 · 라이트기본/다크토글 · 팀 논의용 · 확정 아님</footer>
+  <footer>순순히 따라와라 · 기획 + 레퍼런스 통합본 v0.13 · 탭 재배치 · 라이트기본/다크토글 · 팀 논의용 · 확정 아님</footer>
 
 </div>
 
