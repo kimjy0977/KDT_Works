@@ -143,12 +143,12 @@
       <h1><span class="q">《</span>순순히 따라와라<span class="q">》</span></h1>
       <p class="define">SPUM 2D 공간에서 <strong>AI 용의자들을 자연어로 심문·대질</strong>해 숨은 스파이를 밝히는 브라우저 추리게임 — <strong>SPUM(엔진)</strong>과 <strong>SAM(AI 페르소나·기억)</strong>을 한 화면에서 증명하는 쇼케이스.</p>
       <div class="stampline">
-        <span class="stamp hot">v0.15 · 팀 논의용</span>
+        <span class="stamp hot">v0.16 · 팀 논의용</span>
         <span class="stamp">화요일 미팅</span>
         <span class="stamp">작성 · 김주영(팀장)</span>
         <button id="themeToggle" class="tbtn" type="button" aria-pressed="true" aria-label="라이트/다크 모드 전환"><span class="ticon" aria-hidden="true">☾</span><span class="tlabel">다크 모드</span></button>
       </div>
-      <p class="howto">📑 <b>6개 탭(A→F)</b>을 순서대로 넘기며 보세요 — 위의 탭을 눌러 이동, 모바일은 <b>좌우로 스크롤</b>. &nbsp;A 게임 이해 · B 기획 · C 게임 설계 · D 근거 · E 실행 · F 스터디</p>
+      <p class="howto">📑 <b>6개 탭(A→F)</b>을 순서대로 넘기며 보세요 — 위의 탭을 눌러 이동, 모바일은 <b>좌우로 스크롤</b>. &nbsp;A 게임 이해 · B 기획 · C 게임 설계 · D 근거 · E 실행 · F 스터디<br><b>발표는 A·B 중심</b>, C~F는 백업·심화입니다.</p>
     </div>
   </header>
 
@@ -206,6 +206,17 @@
         <div class="line"><span class="who n">용의자 B</span><span class="beat">…아, 그, 잠깐 물 마시러 나갔던 것 같기도 하고.</span></div>
         <div class="catch">⚑ "밤새 안 나갔다" ↔ "나갔던 것 같다" = <strong style="color:var(--strong)">모순!</strong> NPC가 앞 대화를 기억해서 성립 — 이게 핵심 재미.</div>
       </div>
+    </section>
+    <section>
+      <p class="lab"><span class="no">A6</span> 한 판은 이렇게 흘러갑니다 (예시)</p>
+      <div class="card"><ol class="days">
+        <li><span class="day-t">시작:</span> 눈보라 산장, 금고의 기밀 파일이 사라졌다. 용의자 5명 중 <strong>1명이 스파이</strong> — 누군지 아무도 모름(매 판 랜덤).</li>
+        <li><span class="day-t">심문:</span> 서재로 가 집사에게 "10시에 어디 있었나요?" → "주방에요." 주방으로 가 요리사에게 물으니 → "집사요? 못 봤는데요."</li>
+        <li><span class="day-t">모순 포착:</span> 두 진술이 어긋난다. 다시 집사를 추궁하자 <strong>말을 바꾼다</strong>(AI가 앞말 기억 + 거짓말).</li>
+        <li><span class="day-t">지목:</span> "스파이는 집사다" — 1회 지목.</li>
+        <li><span class="day-t">결과:</span> 진실표와 대조 → 맞으면 <span class="am">검거(승)</span>, 틀리면 스파이 도주(패). 전원 진실 공개.</li>
+      </ol></div>
+      <p class="src">▸ 이 흐름을 C탭(게임 설계)의 캐릭터·루프·공간으로 실제 구현.</p>
     </section>
   </div>
 
@@ -271,7 +282,7 @@
           <tr><td>간단한 퀘스트/이벤트 <span class="sub" style="font-size:.85em">(§4 명시)</span></td><td><strong>사건 해결</strong> = 우리의 퀘스트(범인 지목)</td></tr>
           <tr><td>SAM 상호작용 <span class="tag bonus">보너스</span></td><td>용의자끼리 <strong>대질·변호</strong></td></tr>
           <tr><td>"스크립트로 불가능" 증명</td><td>같은 상황, <strong>다른 접근 → 다른 결과</strong></td></tr>
-          <tr><td>도입 유도</td><td><strong>튜토리얼 1급</strong> + "NPC 추가는 config 한 줄"</td></tr>
+          <tr><td>도입 유도</td><td><strong>튜토리얼 1급</strong> + "NPC 추가는 config(설정값) 한 줄"</td></tr>
         </tbody>
       </table></div>
     </section>
@@ -362,6 +373,19 @@
       </table></div>
       <p class="src">▸ 근거: 과제정의서 제약·성공기준. 키 노출·라이선스 누락은 "돌아가는 데모"와 무관하게 감점 포인트.</p>
     </section>
+    <section>
+      <p class="lab"><span class="no">E6</span> Day1(화) 기술 스파이크 체크리스트 — 미팅 직후 바로</p>
+      <p class="sub">본격 제작 전 "이게 진짜 되나"부터 3개 확인. <strong>하나라도 막히면 그 기능 범위를 그날 조정.</strong></p>
+      <div class="tw" style="margin-top:12px"><table>
+        <thead><tr><th>확인할 것</th><th>어떻게</th><th>통과 기준</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① SPUM 화면 렌더</strong></td><td>제공 SPUM 엔진으로 픽셀 캐릭터 1명 + 방 1칸을 브라우저에 띄우기</td><td>localhost에서 캐릭터가 <strong>보이고 움직임</strong></td></tr>
+          <tr><td><strong>② SAM API 첫 호출</strong></td><td>SAM 키(.env)로 "안녕" 보내고 응답 받기 (sam-public 문서대로)</td><td>AI 응답 텍스트가 <strong>돌아옴</strong> · 속도 체감</td></tr>
+          <tr><td><strong>③ spum-world 예제</strong></td><td>packages/spum-world의 AI·대화 모듈 예제를 그대로 실행</td><td>NPC에 <strong>말 걸어 답이 나옴</strong></td></tr>
+        </tbody>
+      </table></div>
+      <p class="src">★ 3개 다 통과 = "이 조합 된다" 확정 → 오후엔 NPC 1명 대화+기억으로. 막히면: ①=렌더 방식 축소 · ②=키/네트워크 점검 · ③=예제 없으면 직접 배선. <strong style="color:var(--strong)">파츠 교체·표정 변화 되는지도 이때 확인</strong>(E3 리스크①).</p>
+    </section>
   </div>
 
   <!-- ===== PANEL D ===== -->
@@ -404,6 +428,7 @@
     <section>
       <p class="lab"><span class="no">C2</span> 랜덤 역할 시스템 (성격 = 고정 · 역할 = 랜덤)</p>
       <p class="sub">인물은 <strong>성격만</strong> 정의(역할 없음). 여러 배우가 있는 극단에서 이번 공연에 몇 명만 캐스팅되듯, 풀에서 뽑고 <span class="am">스파이는 그때 랜덤</span>으로 정해짐. 스토리를 짜는 게 아니라 <strong style="color:var(--strong)">데이터(진실표)를 판마다 새로</strong> 생성.</p>
+      <p class="src" style="margin-top:2px">▸ 아래 코드는 <strong style="color:var(--strong)">개발 트랙용</strong> — 콘텐츠·발표 팀원은 "인물은 성격만 정하고, 스파이는 매 판 랜덤" 개념만 알면 됩니다.</p>
       <div class="card" style="margin-top:12px"><pre style="font-family:var(--mono);font-size:12.5px;line-height:1.7;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0;overflow-x:auto;color:var(--text)">// 캐릭터 = 성격만 고정. "역할" 칸 없음.
 캐릭터 = { 이름, 국적, 성격, 개인비밀, 공략법 }
 
@@ -477,6 +502,7 @@ NPC_프롬프트(c) = c.성격 + c.개인비밀 + 대화기록
 
   <!-- ===== PANEL F ===== -->
   <div class="panel" role="tabpanel" id="p-f" aria-labelledby="t-f" hidden>
+    <p class="howto" style="margin:14px 0 0">🔎 이 탭은 <b>설계 근거·심화용</b> — 화요일 발표엔 필수 아님. "왜 이 구조가 타당한가"를 따질 때 참고하세요.</p>
     <section>
       <p class="lab"><span class="no">D1</span> 우리 설계 결정 3가지 (근거)</p>
       <p class="sub">레퍼런스 8개를 실제 메커니즘까지 조사해, 우리 구조(공간분리 + 관전 + 3일)의 타당성을 확보함.</p>
@@ -506,6 +532,7 @@ NPC_프롬프트(c) = c.성격 + c.개인비밀 + 대화기록
 
     <section>
       <p class="lab"><span class="no">D3</span> NPC 데이터 · 프롬프트 조립 (결합안)</p>
+      <p class="src" style="margin-top:2px">▸ 개발 트랙용 — 요지 한 줄: <strong style="color:var(--strong)">말 걸 때만 AI를 1번 부르고, 성격·기억·지금 상황을 합쳐 물어본다.</strong></p>
       <div class="card"><pre style="font-family:var(--mono);font-size:12.5px;line-height:1.7;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0;overflow-x:auto;color:var(--text)">NPC = { 성격(고정), roomId(현재 방), memory[](요약 누적), 역할(스파이? 랜덤) }
 
 // 플레이어가 말 걸 때 <span style="color:var(--amber-bright)">1회만</span> SAM 호출:
@@ -518,7 +545,7 @@ SAM( 시스템: 성격 + (스파이면 "<span style="color:var(--red)">X를 숨�
     </section>
   </div>
 
-  <footer>순순히 따라와라 · 기획 + 레퍼런스 통합본 v0.15 · 역할=3트랙 · 라이트기본/다크토글 · 팀 논의용 · 확정 아님</footer>
+  <footer>순순히 따라와라 · 기획 + 레퍼런스 통합본 v0.16 · 한판예시·스파이크체크·트랙 · 라이트기본/다크토글 · 팀 논의용 · 확정 아님</footer>
 
 </div>
 
