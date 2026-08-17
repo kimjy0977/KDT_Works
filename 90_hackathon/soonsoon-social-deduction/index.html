@@ -143,7 +143,7 @@
       <h1><span class="q">《</span>순순히 따라와라<span class="q">》</span></h1>
       <p class="define">SPUM 2D 공간에서 <strong>AI 용의자들을 자연어로 심문·대질</strong>해 숨은 스파이를 밝히는 브라우저 추리게임 — <strong>SPUM(엔진)</strong>과 <strong>SAM(AI 페르소나·기억)</strong>을 한 화면에서 증명하는 쇼케이스.</p>
       <div class="stampline">
-        <span class="stamp hot">v0.14 · 팀 논의용</span>
+        <span class="stamp hot">v0.15 · 팀 논의용</span>
         <span class="stamp">화요일 미팅</span>
         <span class="stamp">작성 · 김주영(팀장)</span>
         <button id="themeToggle" class="tbtn" type="button" aria-pressed="true" aria-label="라이트/다크 모드 전환"><span class="ticon" aria-hidden="true">☾</span><span class="tlabel">다크 모드</span></button>
@@ -314,23 +314,23 @@
     <section>
       <p class="lab"><span class="no">E1</span> 일정 — 실작업 3일(화·수·목), 금 발표</p>
       <div class="card"><ol class="days">
-        <li><span class="day-t">화 · 스파이크 + "1명이 말한다":</span> 오전 = 기술 검증 3개(SPUM 렌더 / SAM API 호출 / spum-world 예제). 오후 = 방 1~2개 + NPC 1명 대화 + 기억. <span class="sub">// P3=세계관·페르소나·진실표, P4=README·MIT·serve.sh 뼈대</span></li>
+        <li><span class="day-t">화 · 스파이크 + "1명이 말한다":</span> 오전 = 기술 검증 3개(SPUM 렌더 / SAM API 호출 / spum-world 예제). 오후 = 방 1~2개 + NPC 1명 대화 + 기억. <span class="sub">// ②콘텐츠=세계관·페르소나·진실표, ③문서=README·MIT·serve.sh 뼈대</span></li>
         <li><span class="day-t">수 · "돌아가는 한 판":</span> config로 4~8명(데모 3~5) 확장 + 방 분리 배치 + 플레이어 참가(시민) + 투표·지목→결말 = 플레이 가능 + 킬러 장면. <span class="sub">// P3 아트 입힘</span></li>
         <li><span class="day-t">목 · 폴리시 + 발표:</span> (되면) 관전 맵/카메라 · 플레이어=스파이 + 타이핑 연출·인젝션 방어 + 문서 마감 + 데모 리허설 + 정직한 한계</li>
       </ol><p class="src" style="margin-top:14px">★최소선 = <strong style="color:var(--strong)">수요일 끝에 "돌아가는 한 판"</strong>. 밀리면 폴리시 버리고 루프·문서만.</p></div>
     </section>
     <section>
-      <p class="lab"><span class="no">E2</span> 역할 분담 (4명)</p>
-      <div class="tw"><table>
-        <thead><tr><th></th><th>역할</th><th>하는 일</th></tr></thead>
+      <p class="lab"><span class="no">E2</span> 역할 분담 — 인원수 말고 "트랙"으로</p>
+      <p class="sub">코드 코어는 서로 꽉 물려 있어 <strong>실제 1~2명 분량</strong>. 4명이 각자 환경에서 코드를 나눠 만들면 <span class="am">병합 충돌·서로 대기</span>로 오히려 느려짐. → 코드는 소수, 나머지는 <strong>코드 밖에서 병렬</strong>.</p>
+      <div class="tw" style="margin-top:12px"><table>
+        <thead><tr><th>트랙</th><th>인원</th><th>하는 일</th></tr></thead>
         <tbody>
-          <tr><td class="w">P1</td><td><strong>엔진·통합</strong></td><td>SPUM 셋업·씬·NPC 배치·대화 UI·게임상태</td></tr>
-          <tr><td class="w">P2</td><td><strong>AI·프롬프트</strong></td><td>SAM 연동·페르소나·진실표·기억·인젝션 방어</td></tr>
-          <tr><td class="w">P3</td><td><strong>시나리오·아트</strong></td><td>세계관·용의자 페르소나·픽셀 캐릭터/맵 (주영님)</td></tr>
-          <tr><td class="w">P4</td><td><strong>문서·QA·발표</strong></td><td>README/튜토리얼·평가 시나리오·발표·한계</td></tr>
+          <tr><td><strong>① 코드 코어</strong></td><td>1~2명 <span class="sub" style="font-size:.85em">(개발 가능자)</span></td><td>SPUM 렌더 · SAM 대화·기억 · 게임 루프 · 지목·승패 · 인젝션 방어. <strong>한 레포·한 환경</strong>에서 짝코딩 or 1명 드라이버.</td></tr>
+          <tr><td><strong>② 콘텐츠</strong></td><td>1명 <span class="sub" style="font-size:.85em">(주영님)</span></td><td>용의자 페르소나 · 진실표 · 세계관 · 픽셀 캐릭터/맵. <span class="am">코드가 아니라 데이터·에셋</span>으로 넘김 → 충돌 0.</td></tr>
+          <tr><td><strong>③ 문서·QA·발표</strong></td><td>1명</td><td>README/기술블로그 · 데모 대본 · 플레이테스트 · 발표 · 정직한 한계. <strong>코드 안 건드림</strong> → 충돌 0.</td></tr>
         </tbody>
       </table></div>
-      <p class="src">★P1+P2 = 크리티컬 패스. P3·P4는 병렬 준비 → 합류.</p>
+      <p class="src">★ "코드 만지는 사람 최대 2명" 원칙. <strong style="color:var(--strong)">누가 실제로 코딩 되는지 화요일 확인</strong> — 개발 경험 없으면 억지로 코드에 넣지 말고 콘텐츠·테스트·발표로. 역할 = 머릿수 아니라 <span class="am">실제 스킬</span>.</p>
     </section>
     <section>
       <p class="lab"><span class="no">E3</span> 먼저 확인할 것 — 리스크</p>
@@ -344,7 +344,7 @@
       <div class="card"><ol class="agenda">
         <li><strong>세계관 확정</strong> — 저택? 우주선? 파티? (톤)</li>
         <li><strong>용의자 페르소나 초안(데모용 3~5명)</strong> — 성격·비밀·거짓말 패턴</li>
-        <li><strong>역할 분담</strong> — P1~P4 배정</li>
+        <li><strong>역할 분담</strong> — 3트랙 배정 · <strong>누가 코딩 되는지</strong> 확인</li>
         <li><strong>스파이크 담당</strong> — SPUM 파츠교체 + SAM API (C3 ①②)</li>
         <li><strong>"공간을 얹는다" 합의</strong> — 순수 채팅 아님 · 방 분리(roomId)</li>
       </ol></div>
@@ -354,10 +354,10 @@
       <div class="tw"><table>
         <thead><tr><th>요건</th><th>어떻게</th><th>담당</th></tr></thead>
         <tbody>
-          <tr><td>SAM 키 <span class="w">.env</span> · <strong>커밋 금지</strong></td><td>.gitignore 등록 · 코드 하드코딩 X</td><td>P2</td></tr>
-          <tr><td><span class="w">bash serve.sh</span> 로 구동</td><td>설치 없이 localhost 실행 스크립트</td><td>P1</td></tr>
-          <tr><td><strong>MIT 라이선스</strong></td><td>LICENSE 파일 추가</td><td>P4</td></tr>
-          <tr><td>상용 데이터 X (자유 창작)</td><td>에셋·설정 = 자체 제작/제공분만</td><td>P3</td></tr>
+          <tr><td>SAM 키 <span class="w">.env</span> · <strong>커밋 금지</strong></td><td>.gitignore 등록 · 코드 하드코딩 X</td><td>①코드</td></tr>
+          <tr><td><span class="w">bash serve.sh</span> 로 구동</td><td>설치 없이 localhost 실행 스크립트</td><td>①코드</td></tr>
+          <tr><td><strong>MIT 라이선스</strong></td><td>LICENSE 파일 추가</td><td>③문서</td></tr>
+          <tr><td>상용 데이터 X (자유 창작)</td><td>에셋·설정 = 자체 제작/제공분만</td><td>②콘텐츠</td></tr>
         </tbody>
       </table></div>
       <p class="src">▸ 근거: 과제정의서 제약·성공기준. 키 노출·라이선스 누락은 "돌아가는 데모"와 무관하게 감점 포인트.</p>
@@ -518,7 +518,7 @@ SAM( 시스템: 성격 + (스파이면 "<span style="color:var(--red)">X를 숨�
     </section>
   </div>
 
-  <footer>순순히 따라와라 · 기획 + 레퍼런스 통합본 v0.14 · 한글 고딕 · 라이트기본/다크토글 · 팀 논의용 · 확정 아님</footer>
+  <footer>순순히 따라와라 · 기획 + 레퍼런스 통합본 v0.15 · 역할=3트랙 · 라이트기본/다크토글 · 팀 논의용 · 확정 아님</footer>
 
 </div>
 
