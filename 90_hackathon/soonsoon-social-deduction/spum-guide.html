@@ -1,11 +1,11 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<title>SPUM Studio ?ъ슜?ㅻ챸??(踰덊샇濡?蹂대뒗 ?붾㈃ 媛?대뱶)</title>
+<title>SPUM Studio 사용설명서 (번호로 보는 화면 가이드)</title>
 <style>
   :root, :root[data-theme-ui="dark"]{
     --ink:#0E1116; --panel:#151A21; --panel2:#1B222C; --line:#2A3340;
@@ -47,7 +47,7 @@
   .card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:clamp(16px,3vw,22px)}
   .src{font-family:var(--mono); font-size:12px; color:var(--faint); margin-top:12px; letter-spacing:.02em; line-height:1.6}
 
-  /* ===== 洹몃┝ + 踰덊샇 留덉빱 ===== */
+  /* ===== 그림 + 번호 마커 ===== */
   figure.fig{margin:14px 0 0; position:relative; display:block; border:1px solid var(--line); border-radius:14px; overflow:hidden; background:#0b0e13}
   figure.fig img{display:block; width:100%; height:auto}
   .mk{position:absolute; transform:translate(-50%,-50%); width:clamp(20px,2.2vw,27px); height:clamp(20px,2.2vw,27px); border-radius:50%;
@@ -56,7 +56,7 @@
       display:flex; align-items:center; justify-content:center; box-shadow:0 1px 5px rgba(0,0,0,.6); z-index:2}
   figcaption{font-family:var(--mono); font-size:11.5px; color:var(--faint); padding:8px 12px; border-top:1px solid var(--line); background:var(--panel)}
 
-  /* ===== 踰덊샇 ?ㅻ챸 由ъ뒪??===== */
+  /* ===== 번호 설명 리스트 ===== */
   ol.leg{list-style:none; counter-reset:leg; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:9px}
   ol.leg li{position:relative; padding-left:38px; min-height:26px}
   ol.leg li::before{counter-increment:leg; content:counter(leg); position:absolute; left:0; top:0;
@@ -66,11 +66,11 @@
   ol.leg li .en{font-family:var(--mono); color:var(--faint); font-size:.86em}
 
   .rel{font-family:var(--mono); font-size:10.5px; font-weight:700; padding:1px 6px; border-radius:6px; white-space:nowrap; letter-spacing:.02em; display:inline-block; border:1px solid transparent; vertical-align:middle}
-  .r5{color:#3B82F6; background:rgba(59,130,246,.15); border-color:rgba(59,130,246,.34)}   /* ?뚮옉 */
-  .r4{color:#14B8B0; background:rgba(20,184,176,.15); border-color:rgba(20,184,176,.34)}   /* 泥?줉 */
-  .r3{color:#E0A000; background:rgba(224,160,0,.16);  border-color:rgba(224,160,0,.36)}    /* ?⑷툑 */
-  .r2{color:#F0791C; background:rgba(240,121,28,.15); border-color:rgba(240,121,28,.34)}   /* 二쇳솴 */
-  .r1{color:#F2564E; background:rgba(242,86,78,.15);  border-color:rgba(242,86,78,.34)}    /* 鍮④컯 */
+  .r5{color:#3B82F6; background:rgba(59,130,246,.15); border-color:rgba(59,130,246,.34)}   /* 파랑 */
+  .r4{color:#14B8B0; background:rgba(20,184,176,.15); border-color:rgba(20,184,176,.34)}   /* 청록 */
+  .r3{color:#E0A000; background:rgba(224,160,0,.16);  border-color:rgba(224,160,0,.36)}    /* 황금 */
+  .r2{color:#F0791C; background:rgba(240,121,28,.15); border-color:rgba(240,121,28,.34)}   /* 주황 */
+  .r1{color:#F2564E; background:rgba(242,86,78,.15);  border-color:rgba(242,86,78,.34)}    /* 빨강 */
   :root[data-theme-ui="light"] .r5{color:#1E5FD0}
   :root[data-theme-ui="light"] .r4{color:#0E8A86}
   :root[data-theme-ui="light"] .r3{color:#8A6200}
@@ -89,69 +89,69 @@
   footer{margin-top:44px; padding-top:18px; border-top:1px solid var(--line); font-family:var(--mono); font-size:12px; color:var(--faint); letter-spacing:.02em; line-height:1.7}
   ul.clean{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px}
   ul.clean li{position:relative; padding-left:22px}
-  ul.clean li::before{content:"??; position:absolute; left:4px; top:-1px; color:var(--amber-bright); font-family:var(--mono); font-weight:700}
+  ul.clean li::before{content:"›"; position:absolute; left:4px; top:-1px; color:var(--amber-bright); font-family:var(--mono); font-weight:700}
 </style>
 
 <div class="wrap">
   <header class="case">
-    <p class="eyebrow">SPUM Studio ?ъ슜?ㅻ챸??쨌 ?쒖닚???곕씪???/p>
-    <h1>?㎥ SPUM Studio, 踰덊샇濡?蹂대뒗 ?붾㈃ 媛?대뱶</h1>
-    <p class="define">媛??먮뵒???붾㈃??<strong>?ㅼ젣濡?罹≪쿂</strong>?댁꽌, ?ъ쭊 ?꾩뿉 <strong>?졻몼??踰덊샇</strong>瑜??밴퀬 ?꾨옒 ?ㅻ챸??<strong>媛숈? 踰덊샇</strong>濡??ъ븯?듬땲?? "?좎씠 Appearance援щ굹 ???꾨옒 1踰??쎌쑝硫??섎꽕" ?앹쑝濡?諛붾줈 留ㅼ묶?쇱슂. 媛???ぉ??<strong>?좊ː??5?④퀎</strong>瑜?遺숈??듬땲??</p>
+    <p class="eyebrow">SPUM Studio 사용설명서 · 순순히 따라와라</p>
+    <h1>🧩 SPUM Studio, 번호로 보는 화면 가이드</h1>
+    <p class="define">각 에디터 화면을 <strong>실제로 캡처</strong>해서, 사진 위에 <strong>①②③ 번호</strong>를 얹고 아래 설명도 <strong>같은 번호</strong>로 달았습니다. "①이 Appearance구나 → 아래 1번 읽으면 되네" 식으로 바로 매칭돼요. 각 항목엔 <strong>신뢰도 5단계</strong>를 붙였습니다.</p>
     <div class="stampline">
-      <span class="stamp hot">v2 쨌 踰덊샇 留ㅻ돱??/span>
+      <span class="stamp hot">v2 · 번호 매뉴얼</span>
       <span class="stamp">spum.soonsoon.ai/studio</span>
       <span class="stamp">SPUM Studio v1.5.0</span>
-      <button id="themeToggle" class="tbtn" type="button" aria-pressed="true"><span class="ticon">??/span><span class="tlabel">?ㅽ겕 紐⑤뱶</span></button>
+      <button id="themeToggle" class="tbtn" type="button" aria-pressed="true"><span class="ticon">☾</span><span class="tlabel">다크 모드</span></button>
     </div>
     <div class="card" style="margin-top:16px">
-      <p style="margin:0 0 8px" class="sub"><strong>?좊ː???깃툒 (?뚮옉=?믪쓬 ??鍮④컯=??쓬)</strong></p>
+      <p style="margin:0 0 8px" class="sub"><strong>신뢰도 등급 (파랑=높음 → 빨강=낮음)</strong></p>
       <div class="legend">
-        <span class="rel r5">?끸쁾?끸쁾??吏곸젒 ?뺤씤</span>
-        <span class="rel r4">?끸쁾?끸쁾??嫄곗쓽 ?뺤떎</span>
-        <span class="rel r3">?끸쁾?끸쁿??異붿젙</span>
-        <span class="rel r2">?끸쁾?녳쁿??遺덊솗??/span>
-        <span class="rel r1">?끸쁿?녳쁿??誘명솗??/span>
+        <span class="rel r5">★★★★★ 직접 확인</span>
+        <span class="rel r4">★★★★☆ 거의 확실</span>
+        <span class="rel r3">★★★☆☆ 추정</span>
+        <span class="rel r2">★★☆☆☆ 불확실</span>
+        <span class="rel r1">★☆☆☆☆ 미확인</span>
       </div>
-      <p class="src">?끸쁾?끸쁾??= ?붾㈃?먯꽌 吏곸젒 遊?쨌 ?끸쁿?녳쁿??= ???대뇬嫄곕굹 ?곗씠???놁쓬. ?뚮윭???ㅽ뻾(??붋룸??샕룸같??源뚯? ????嫄???쾶 留ㅺ?.</p>
+      <p class="src">★★★★★ = 화면에서 직접 봄 · ★☆☆☆☆ = 안 해봤거나 데이터 없음. 눌러서 실행(대화·미션·배포)까지 안 한 건 낮게 매김.</p>
     </div>
   </header>
 
   <nav class="toc">
-    <a href="#overview">0 쨌 Home(?꾩껜)</a>
-    <a href="#cast">1 쨌 Cast</a>
-    <a href="#object">2 쨌 Object</a>
-    <a href="#map">3 쨌 Map</a>
-    <a href="#world">4 쨌 World</a>
-    <a href="#ourgame">?곕━ 寃뚯엫</a>
-    <a href="#unknown">誘명솗??/a>
+    <a href="#overview">0 · Home(전체)</a>
+    <a href="#cast">1 · Cast</a>
+    <a href="#object">2 · Object</a>
+    <a href="#map">3 · Map</a>
+    <a href="#world">4 · World</a>
+    <a href="#ourgame">우리 게임</a>
+    <a href="#unknown">미확인</a>
   </nav>
 
-  <!-- 0 쨌 媛쒖슂 -->
+  <!-- 0 · 개요 -->
   <section id="overview">
-    <p class="snum">0 쨌 ?쒖옉 ?붾㈃</p>
-    <h2>Home Dashboard <span class="en">???꾩껜 吏??/span></h2>
-    <p class="sub">濡쒓렇?명븯硫??섏삤??泥??붾㈃. 移대뱶???곹엺 <strong>01~06 踰덊샇媛 怨??쒖옉 ?쒖꽌</strong>?덉슂. <span class="rel r5">?끸쁾?끸쁾??/span></p>
+    <p class="snum">0 · 시작 화면</p>
+    <h2>Home Dashboard <span class="en">— 전체 지도</span></h2>
+    <p class="sub">로그인하면 나오는 첫 화면. 카드에 적힌 <strong>01~06 번호가 곧 제작 순서</strong>예요. <span class="rel r5">★★★★★</span></p>
     <figure class="fig">
-      <img src="img/dashboard.jpg" alt="SPUM Studio Home Dashboard ?꾩껜 ?붾㈃">
+      <img src="img/dashboard.jpg" alt="SPUM Studio Home Dashboard 전체 화면">
       <span class="mk" style="left:3.5%; top:35%">1</span>
       <span class="mk" style="left:90%; top:15.5%">2</span>
       <span class="mk" style="left:16%; top:61%">3</span>
     </figure>
-    <figcaption style="border:0;padding:8px 2px;background:none">??SPUM Studio 泥??붾㈃(釉뚮씪?곗? ?ы븿). 移대뱶??01~06 = ?쒖옉 ?쒖꽌.</figcaption>
+    <figcaption style="border:0;padding:8px 2px;background:none">▲ SPUM Studio 첫 화면(브라우저 포함). 카드의 01~06 = 제작 순서.</figcaption>
     <ol class="leg">
-      <li><b>?쇱そ ?몃줈 硫붾돱</b> ??Home 쨌 World 쨌 Map 쨌 Object 쨌 Cast. ?먮뵒?곕? ?ш린???ㅺ컩?덈떎. <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>?ㅻⅨ履????щ젅??/b> ??<span class="en">SSAM</span>=AI ?ъ슜???⑥? ?? <span class="en">STORAGE</span>=????⑸웾. AI瑜??곕㈃ SSAM???녹쓬. <span class="rel r4">?끸쁾?끸쁾??/span> <span class="sub">(?쒖떆留?遊? 怨쇨툑?뺤콉 誘명솗??</span></li>
-      <li><b>?쒖옉 ?쒖꽌 移대뱶 01~06</b> ???쟏bject(????ㅻ툕?앺듃) ???좲ap(怨듦컙) ???줓ast(罹먮┃?? ???즋orld(寃뚯엫 議곕┰) ???짻PUM Link(怨듭쑀) ???쩢PUM Frame(?꾨쿋??. <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><b>왼쪽 세로 메뉴</b> — Home · World · Map · Object · Cast. 에디터를 여기서 오갑니다. <span class="rel r5">★★★★★</span></li>
+      <li><b>오른쪽 위 크레딧</b> — <span class="en">SSAM</span>=AI 사용량 남은 양, <span class="en">STORAGE</span>=저장 용량. AI를 쓰면 SSAM이 닳음. <span class="rel r4">★★★★☆</span> <span class="sub">(표시만 봄, 과금정책 미확인)</span></li>
+      <li><b>제작 순서 카드 01~06</b> — ①Object(타일/오브젝트) → ②Map(공간) → ③Cast(캐릭터) → ④World(게임 조립) → ⑤SPUM Link(공유) → ⑥SPUM Frame(임베드). <span class="rel r5">★★★★★</span></li>
     </ol>
   </section>
 
-  <!-- 1 쨌 Cast -->
+  <!-- 1 · Cast -->
   <section id="cast">
-    <p class="snum">1 쨌 罹먮┃??/p>
-    <h2>Cast Editor <span class="en">???щ엺(罹먮┃?? 留뚮뱾湲?/span></h2>
-    <p class="sub">?명삎쨌?λ퉬쨌?깃꺽쨌?ㅽ꺈??留뚮뱶??怨? ?꾨옒 ?ъ쭊? <strong>Stats ??/strong>???대┛ ?곹깭?덉슂. <span class="rel r5">?끸쁾?끸쁾??/span></p>
+    <p class="snum">1 · 캐릭터</p>
+    <h2>Cast Editor <span class="en">— 사람(캐릭터) 만들기</span></h2>
+    <p class="sub">외형·장비·성격·스탯을 만드는 곳. 아래 사진은 <strong>Stats 탭</strong>이 열린 상태예요. <span class="rel r5">★★★★★</span></p>
     <figure class="fig">
-      <img src="img/cast-editor.jpg" alt="SPUM Cast Editor ?꾩껜 ?붾㈃ (Stats ??">
+      <img src="img/cast-editor.jpg" alt="SPUM Cast Editor 전체 화면 (Stats 탭)">
       <span class="mk" style="left:22.5%; top:9.5%">1</span>
       <span class="mk" style="left:29.8%; top:9.5%">2</span>
       <span class="mk" style="left:37%; top:9.5%">3</span>
@@ -165,111 +165,111 @@
       <span class="mk" style="left:65.5%; top:62%">11</span>
       <span class="mk" style="left:83.5%; top:9.5%">12</span>
     </figure>
-    <figcaption style="border:0;padding:8px 2px;background:none">??Cast Editor 쨌 Stats ?? ?곷떒 1~5 = ??5醫? 6~12 = ?붾㈃ ?곸뿭.</figcaption>
+    <figcaption style="border:0;padding:8px 2px;background:none">▲ Cast Editor · Stats 탭. 상단 1~5 = 탭 5종, 6~12 = 화면 영역.</figcaption>
     <ol class="leg">
-      <li><b>Appearance <span class="en">(?명삎)</span></b> ???뚯툩(紐???癒몃━/?ш뎄/媛묒샆/??諛붿?)쨌?뚯툩?㈑룹깋?? ?щ엺 ?명삎? ?ш린?? <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>Stats <span class="en">(?λ젰쨌?깃꺽)</span></b> ??吏湲??대┛ ?붾㈃. 湲곕낯?뺣낫쨌?섎Ⅴ?뚮굹쨌?λ젰移? <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>Animation</b> ??IDLE쨌MOVE쨌ATK쨌DMG쨌DEATH ?숈옉 誘몃━蹂닿린. <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>Export</b> ???ㅽ봽?쇱씠?몄떆??PNG / PNG+JSON / GIF)쨌?댁떆肄붾뱶濡??대낫?닿린. <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>Manage</b> ??罹먮┃??愿由??? <span class="rel r3">?끸쁾?끸쁿??/span> <span class="sub">(??쭔 遊? ?댁슜 ???댁뼱遊?</span></li>
-      <li><b>Characters 紐⑸줉(?쇱そ)</b> ??留뚮뱺 罹먮┃??紐⑸줉 + <b>竊?/b>濡???罹먮┃?? ?대쫫/?좎쭨 ?뺣젹. <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>A. Basic Info</b> ???대쫫쨌?섏씠쨌?깅퀎쨌MBTI쨌醫낆”쨌?뚮쭏쨌吏곸뾽쨌留먰닾. 媛?移?AI踰꾪듉 + <b>AI Auto Generate</b>. <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>B. Persona</b> ???깃꺽 ?ㅼ썙???깆떎?쑣룻샇湲곗떖留롮???쨌諛곌꼍쨌?듭떖?ㅼ썙?? <b>AI Generate</b>. <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>C. Abilities</b> ???λ젰 ?덉씠??STR/AGI/INT/SPR/CMD/CHM)쨌?깃툒(COMMON~LEGENDARY)쨌Total 390/800. <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>D. Derived Stats</b> ??HP/MP/ATK/DEF/SPD/CRIT ???먮룞 怨꾩궛 ?뚯깮 ?ㅽ꺈. <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>誘몃━蹂닿린</b> ??罹먮┃???뚮뜑 + ?섎떒 IDLE/MOVE/ATK/DMG/DEATH ?ъ깮 踰꾪듉. <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>AI Assistant</b> ??"?뗢뿃 罹먮┃??留뚮뱾?댁쨾" 梨꾪똿?쇰줈 ?먮룞 ?쒖옉. <b>吏湲??ㅼ젣 ?ㅽ뻾?섎뒗 嫄?Cast肉?</b> <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><b>Appearance <span class="en">(외형)</span></b> — 파츠(몸/눈/머리/투구/갑옷/옷/바지)·파츠팩·색상. 사람 외형은 여기서. <span class="rel r5">★★★★★</span></li>
+      <li><b>Stats <span class="en">(능력·성격)</span></b> — 지금 열린 화면. 기본정보·페르소나·능력치. <span class="rel r5">★★★★★</span></li>
+      <li><b>Animation</b> — IDLE·MOVE·ATK·DMG·DEATH 동작 미리보기. <span class="rel r5">★★★★★</span></li>
+      <li><b>Export</b> — 스프라이트시트(PNG / PNG+JSON / GIF)·해시코드로 내보내기. <span class="rel r5">★★★★★</span></li>
+      <li><b>Manage</b> — 캐릭터 관리 탭. <span class="rel r3">★★★☆☆</span> <span class="sub">(탭만 봄, 내용 안 열어봄)</span></li>
+      <li><b>Characters 목록(왼쪽)</b> — 만든 캐릭터 목록 + <b>＋</b>로 새 캐릭터, 이름/날짜 정렬. <span class="rel r5">★★★★★</span></li>
+      <li><b>A. Basic Info</b> — 이름·나이·성별·MBTI·종족·테마·직업·말투. 각 칸 AI버튼 + <b>AI Auto Generate</b>. <span class="rel r5">★★★★★</span></li>
+      <li><b>B. Persona</b> — 성격 키워드(성실한·호기심많은…)·배경·핵심키워드. <b>AI Generate</b>. <span class="rel r5">★★★★★</span></li>
+      <li><b>C. Abilities</b> — 능력 레이더(STR/AGI/INT/SPR/CMD/CHM)·등급(COMMON~LEGENDARY)·Total 390/800. <span class="rel r5">★★★★★</span></li>
+      <li><b>D. Derived Stats</b> — HP/MP/ATK/DEF/SPD/CRIT 등 자동 계산 파생 스탯. <span class="rel r5">★★★★★</span></li>
+      <li><b>미리보기</b> — 캐릭터 렌더 + 하단 IDLE/MOVE/ATK/DMG/DEATH 재생 버튼. <span class="rel r5">★★★★★</span></li>
+      <li><b>AI Assistant</b> — "○○ 캐릭터 만들어줘" 채팅으로 자동 제작. <b>지금 실제 실행되는 건 Cast뿐.</b> <span class="rel r5">★★★★★</span></li>
     </ol>
     <div class="card" style="margin-top:14px">
-      <p style="margin:0" class="sub"><strong>?곕━ 寃뚯엫?먯꽑</strong> ??<b>1(Appearance)</b>濡??곗뼱?섏슦???щ엺 ?명삎, <b>8(Persona)</b>濡??깃꺽쨌留먰닾留?援?쟻쨌吏곸뾽? ?몄씠利덈씪 ?앸왂), <b>2</b>???ㅽ꺈? ?異? ?꾩슂?섎㈃ <b>4(Export)</b>濡??대낫?닿린.</p>
+      <p style="margin:0" class="sub"><strong>우리 게임에선</strong> → <b>1(Appearance)</b>로 셰어하우스 사람 외형, <b>8(Persona)</b>로 성격·말투만(국적·직업은 노이즈라 생략), <b>2</b>의 스탯은 대충, 필요하면 <b>4(Export)</b>로 내보내기.</p>
     </div>
   </section>
 
-  <!-- 2 쨌 Object -->
+  <!-- 2 · Object -->
   <section id="object">
-    <p class="snum">2 쨌 ????ㅻ툕?앺듃</p>
-    <h2>Object Editor <span class="en">??留????"?뚮쭏" 留뚮뱾湲?/span></h2>
-    <p class="sub"><strong>?듭떖:</strong> ?ш릿 諛붾떏쨌踰승룹냼?덉쓽 <strong>洹몃┝(????ъ쭏)</strong>??留뚮뱶??怨? <strong>留?諛곗튂(?덉씠?꾩썐)???ш린??????/strong> ??洹멸굔 Map. <span class="rel r4">?끸쁾?끸쁾??/span> <span class="sub">(?щ쭑쨌?붾뵒 ?앹꽦臾쇱쓽 臾?諛곗튂媛 ?숈씪 = ?띿뒪泥섎쭔 援먯껜 愿李?</span></p>
-    <div class="todo">?벝 <b>Object Editor ?꾩껜 罹≪쿂 ?湲?/b> ??二쇱쁺?섏씠 ?붾㈃ 罹≪쿂??二쇱떆硫?踰덊샇 ?뱀뼱 梨꾩썎?덈떎. ?꾨옒??寃利앸맂 ?쒖꽌.</div>
+    <p class="snum">2 · 타일/오브젝트</p>
+    <h2>Object Editor <span class="en">— 맵 타일 "테마" 만들기</span></h2>
+    <p class="sub"><strong>핵심:</strong> 여긴 바닥·벽·소품의 <strong>그림(타일 재질)</strong>을 만드는 곳. <strong>맵 배치(레이아웃)는 여기서 안 함</strong> — 그건 Map. <span class="rel r4">★★★★☆</span> <span class="sub">(사막·잔디 생성물의 물 배치가 동일 = 텍스처만 교체 관찰)</span></p>
+    <div class="todo">📸 <b>Object Editor 전체 캡처 대기</b> — 주영님이 화면 캡처해 주시면 번호 얹어 채웁니다. 아래는 검증된 순서.</div>
     <ol class="leg">
-      <li><b>Concept</b> ??留뚮뱾 ?뚮쭏 媛쒕뀗 ?곴린(?? "?꾨뒔??吏??명뀒由ъ뼱"). <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>AI Prompt / Reference</b> ???몃? ?꾨＼?꾪듃쨌李멸퀬 ?대?吏. <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>Generate <span class="en">(gpt-image-2)</span></b> ??AI媛 ??쇱뀑 ?대?吏 ?앹꽦. <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>Slice</b> ???앹꽦 ?대?吏瑜?寃⑹옄 ?濡??섎씪 ??쇳솕. <span class="rel r5">?끸쁾?끸쁾??/span> <span class="sub">(踰꾪듉 遊? 吏곸젒 ???섎씪遊?</span></li>
-      <li><b>????띿꽦</b> ??TYPE(Floor/Wall)쨌MOVE(Walk/Block)쨌ACTION쨌SIZE. <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>?쎌? ?몄쭛</b> ???쑣룹??곌컻쨌梨꾩슦湲걔룹깋/?붾젅?몃줈 吏곸젒 ?섏젙. <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>AI 梨꾪똿 ?먮룞?ㅽ뻾 X</b> ??Object??梨쀬쑝濡??먮룞 ????"以鍮?以?), 吏곸젒 留뚮뱾?댁빞. <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><b>Concept</b> — 만들 테마 개념 적기(예: "아늑한 집 인테리어"). <span class="rel r5">★★★★★</span></li>
+      <li><b>AI Prompt / Reference</b> — 세부 프롬프트·참고 이미지. <span class="rel r5">★★★★★</span></li>
+      <li><b>Generate <span class="en">(gpt-image-2)</span></b> — AI가 타일셋 이미지 생성. <span class="rel r5">★★★★★</span></li>
+      <li><b>Slice</b> — 생성 이미지를 격자 셀로 잘라 타일화. <span class="rel r5">★★★★★</span> <span class="sub">(버튼 봄, 직접 안 잘라봄)</span></li>
+      <li><b>타일 속성</b> — TYPE(Floor/Wall)·MOVE(Walk/Block)·ACTION·SIZE. <span class="rel r5">★★★★★</span></li>
+      <li><b>픽셀 편집</b> — 펜·지우개·채우기·색/팔레트로 직접 수정. <span class="rel r5">★★★★★</span></li>
+      <li><b>AI 채팅 자동실행 X</b> — Object는 챗으로 자동 안 됨("준비 중"), 직접 만들어야. <span class="rel r5">★★★★★</span></li>
     </ol>
   </section>
 
-  <!-- 3 쨌 Map -->
+  <!-- 3 · Map -->
   <section id="map">
-    <p class="snum">3 쨌 怨듦컙</p>
-    <h2>Map Editor <span class="en">???뚮쭏 ??쇰줈 諛?諛곗튂</span></h2>
-    <p class="sub">Object?먯꽌 留뚮뱺 ?뚮쭏 ??쇰줈 <strong>?덈꺼(怨듦컙)??吏곸젒 洹몃━??怨?</strong> ?곕━ ?곗뼱?섏슦??諛⑹씠 ?ш린??留뚮뱾?댁쭚. <span class="rel r5">?끸쁾?끸쁾??/span></p>
-    <div class="todo">?벝 <b>Map Editor ?꾩껜 罹≪쿂 ?湲?/b> ??罹≪쿂 二쇱떆硫?踰덊샇 ?뱀뼱 梨꾩썎?덈떎. ?꾨옒???대쾲??吏곸젒 ?뺤씤???쒖꽌.</div>
+    <p class="snum">3 · 공간</p>
+    <h2>Map Editor <span class="en">— 테마 타일로 방 배치</span></h2>
+    <p class="sub">Object에서 만든 테마 타일로 <strong>레벨(공간)을 직접 그리는 곳.</strong> 우리 셰어하우스 방이 여기서 만들어짐. <span class="rel r5">★★★★★</span></p>
+    <div class="todo">📸 <b>Map Editor 전체 캡처 대기</b> — 캡처 주시면 번호 얹어 채웁니다. 아래는 이번에 직접 확인한 순서.</div>
     <ol class="leg">
-      <li><b>Maps 紐⑸줉(?쇱そ)</b> ??留뚮뱺 留?紐⑸줉 + <b>竊?/b>濡???留? <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>?ш린 吏??/b> ???곷떒 40횞30 ???낅젰 ??Apply. <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>?뚮쭏 ?좏깮</b> ???ㅻⅨ履?<span class="en">MAP THEME TILES</span> ?대┃ ???쇱씠釉뚮윭由ъ꽌 ?뚮쭏 ?좏깮 ??"brush ready". <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>?꾧뎄諛?媛?대뜲 ?몃줈)</b> ???좏깮쨌?대룞쨌釉뚮윭?쑣룹??곌컻쨌梨꾩슦湲걔룹궗媛곹삎쨌?ㅽ룷?대뱶쨌?섎룎由ш린쨌以? <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>???怨좊Ⅴ湲?/b> ??SRC ??쇳뙋??諛붾떏/踰?????대┃(=釉뚮윭??吏??. <span class="rel r3">?끸쁾?끸쁿??/span> <span class="sub">(移??숈옉? ?꾩쭅 ?뚯뒪??????</span></li>
-      <li><b>移좏븯湲?/b> ??罹붾쾭?ㅼ뿉 ?쒕옒洹? ?ш컖??諛?踰???踰덉뿉, 梨꾩슦湲?諛붾떏 ??踰덉뿉. <span class="rel r3">?끸쁾?끸쁿??/span></li>
-      <li><b>Navigation</b> ??踰?Block(鍮④컯)쨌諛붾떏=Walk(珥덈줉) ?대룞?먯젙 移좏븯湲? <span class="rel r4">?끸쁾?끸쁾??/span> <span class="sub">(?⑤꼸 遊? 移??숈옉 誘멸?利?</span></li>
-      <li><b>Layers</b> ?????덉씠??媛援?쨌Character쨌???덉씠??諛붾떏). <span class="rel r4">?끸쁾?끸쁾??/span></li>
+      <li><b>Maps 목록(왼쪽)</b> — 만든 맵 목록 + <b>＋</b>로 새 맵. <span class="rel r5">★★★★★</span></li>
+      <li><b>크기 지정</b> — 상단 40×30 등 입력 → Apply. <span class="rel r5">★★★★★</span></li>
+      <li><b>테마 선택</b> — 오른쪽 <span class="en">MAP THEME TILES</span> 클릭 → 라이브러리서 테마 선택 → "brush ready". <span class="rel r5">★★★★★</span></li>
+      <li><b>도구바(가운데 세로)</b> — 선택·이동·브러시·지우개·채우기·사각형·스포이드·되돌리기·줌. <span class="rel r5">★★★★★</span></li>
+      <li><b>타일 고르기</b> — SRC 타일판서 바닥/벽 타일 클릭(=브러시 지정). <span class="rel r3">★★★☆☆</span> <span class="sub">(칠 동작은 아직 테스트 안 함)</span></li>
+      <li><b>칠하기</b> — 캔버스에 드래그. 사각형=방 벽 한 번에, 채우기=바닥 한 번에. <span class="rel r3">★★★☆☆</span></li>
+      <li><b>Navigation</b> — 벽=Block(빨강)·바닥=Walk(초록) 이동판정 칠하기. <span class="rel r4">★★★★☆</span> <span class="sub">(패널 봄, 칠 동작 미검증)</span></li>
+      <li><b>Layers</b> — 앞 레이어(가구)·Character·뒤 레이어(바닥). <span class="rel r4">★★★★☆</span></li>
     </ol>
   </section>
 
-  <!-- 4 쨌 World -->
+  <!-- 4 · World -->
   <section id="world">
-    <p class="snum">4 쨌 寃뚯엫 議곕┰</p>
-    <h2>World Editor <span class="en">??留?罹먮┃?곕줈 ?뚮젅???붾뱶</span></h2>
-    <p class="sub">留??꾩뿉 罹먮┃?곕? <strong>AI NPC</strong>濡?諛곗튂?섍퀬, ??붋룸??샕룹뒪?좊━瑜?遺숈뿬 ?뚮젅??媛?ν븳 ?붾뱶濡?留뚮벀. <span class="rel r5">?끸쁾?끸쁾??/span></p>
-    <div class="todo">?벝 <b>World Editor ?꾩껜 罹≪쿂 ?湲?/b> ??罹≪쿂 二쇱떆硫?踰덊샇 ?뱀뼱 梨꾩썎?덈떎. ?꾨옒??吏곸젒 ?뺤씤遺??ㅽ뻾源뚯???誘멸?利??쒓린).</div>
+    <p class="snum">4 · 게임 조립</p>
+    <h2>World Editor <span class="en">— 맵+캐릭터로 플레이 월드</span></h2>
+    <p class="sub">맵 위에 캐릭터를 <strong>AI NPC</strong>로 배치하고, 대화·미션·스토리를 붙여 플레이 가능한 월드로 만듦. <span class="rel r5">★★★★★</span></p>
+    <div class="todo">📸 <b>World Editor 전체 캡처 대기</b> — 캡처 주시면 번호 얹어 채웁니다. 아래는 직접 확인분(실행까지는 미검증 표기).</div>
     <ol class="leg">
-      <li><b>?ㅻ툕?앺듃 ?⑤꼸(?쇱そ)</b> ??Map쨌Characters쨌Props쨌Events쨌Spawn Points 諛곗튂. <span class="rel r5">?끸쁾?끸쁾??/span></li>
-      <li><b>罹먮┃?곕퀎 AI ?곗씠??/b> ??Personality(mbti/??븷/?깃꺽/留먰닾) + AI + <b>硫붾え由?湲곗뼲)</b> + Status. <span class="rel r5">?끸쁾?끸쁾??/span> <span class="sub">(?꾨뱶 議댁옱 ?뺤씤, 而ㅼ뒪? 二쇱엯? 誘명솗??</span></li>
-      <li><b>梨꾪똿 = ?щЦ</b> ??"罹먮┃?곗뿉寃?吏??硫붿떆吏"濡?NPC?먭쾶 留?嫄멸린(?꾩껜/媛쒕퀎). <span class="rel r5">?끸쁾?끸쁾??/span> <span class="sub">(?낅젰李??뺤씤, ?ㅼ젣 ?묐떟 ?덉쭏 <span class="rel r3">?끸쁾?끸쁿??/span>)</span></li>
-      <li><b>誘몄뀡</b> ???붾뱶 紐⑺몴쨌誘몄뀡쨌topic 愿由? <span class="rel r4">?끸쁾?끸쁾??/span> <span class="sub">(?⑤꼸 遊? ???뚮젮遊?</span></li>
-      <li><b>?ㅽ넗由?<span class="en">(Reverse Story Bake)</span></b> ??scene/node/thread ?먮룞 ?앹꽦쨌留먰뭾???ъ깮. <span class="rel r4">?끸쁾?끸쁾??/span></li>
-      <li><b>?쒕??덉씠??/b> ??AI ?먯쑉?됰룞 + Event Log(INTENT쨌Cost). <span class="rel r4">?끸쁾?끸쁾??/span></li>
-      <li><b>Play / SPUM Link / Frame</b> ???ㅽ뻾쨌怨듭쑀쨌?꾨쿋?? <span class="rel r4">?끸쁾?끸쁾??/span> <span class="sub">(踰꾪듉留? 諛고룷 ???대큵)</span></li>
+      <li><b>오브젝트 패널(왼쪽)</b> — Map·Characters·Props·Events·Spawn Points 배치. <span class="rel r5">★★★★★</span></li>
+      <li><b>캐릭터별 AI 데이터</b> — Personality(mbti/역할/성격/말투) + AI + <b>메모리(기억)</b> + Status. <span class="rel r5">★★★★★</span> <span class="sub">(필드 존재 확인, 커스텀 주입은 미확인)</span></li>
+      <li><b>채팅 = 심문</b> — "캐릭터에게 지시/메시지"로 NPC에게 말 걸기(전체/개별). <span class="rel r5">★★★★★</span> <span class="sub">(입력창 확인, 실제 응답 품질 <span class="rel r3">★★★☆☆</span>)</span></li>
+      <li><b>미션</b> — 월드 목표·미션·topic 관리. <span class="rel r4">★★★★☆</span> <span class="sub">(패널 봄, 안 돌려봄)</span></li>
+      <li><b>스토리 <span class="en">(Reverse Story Bake)</span></b> — scene/node/thread 자동 생성·말풍선 재생. <span class="rel r4">★★★★☆</span></li>
+      <li><b>시뮬레이션</b> — AI 자율행동 + Event Log(INTENT·Cost). <span class="rel r4">★★★★☆</span></li>
+      <li><b>Play / SPUM Link / Frame</b> — 실행·공유·임베드. <span class="rel r4">★★★★☆</span> <span class="sub">(버튼만, 배포 안 해봄)</span></li>
     </ol>
   </section>
 
-  <!-- ?곕━ 寃뚯엫 留ㅽ븨 -->
+  <!-- 우리 게임 매핑 -->
   <section id="ourgame">
-    <p class="snum">?곕━ 寃뚯엫??萸??곕굹</p>
-    <h2>?뚮늻媛 ??耳?댄겕 癒뱀뿀??????SPUM Studio</h2>
+    <p class="snum">우리 게임에 뭘 쓰나</p>
+    <h2>「누가 내 케이크 먹었어?」 ↔ SPUM Studio</h2>
     <div class="tw"><table>
-      <thead><tr><th>?곕━ 寃뚯엫 ?붿냼</th><th>SPUM Studio</th><th>?좊ː??/th></tr></thead>
+      <thead><tr><th>우리 게임 요소</th><th>SPUM Studio</th><th>신뢰도</th></tr></thead>
       <tbody>
-        <tr><td>?⑹쓽???щ엺) ?쒖옉</td><td>Cast Editor</td><td><span class="rel r5">?끸쁾?끸쁾??/span></td></tr>
-        <tr><td>?깃꺽쨌留먰닾</td><td>Cast/World Persona</td><td><span class="rel r5">?끸쁾?끸쁾??/span></td></tr>
-        <tr><td>怨듦컙(諛?</td><td>Object(???+Map(諛곗튂)</td><td><span class="rel r5">?끸쁾?끸쁾??/span></td></tr>
-        <tr><td>?щЦ(???</td><td>World 梨꾪똿</td><td><span class="rel r3">?끸쁾?끸쁿??/span></td></tr>
-        <tr><td>湲곗뼲(?뚮━諛붿씠)</td><td>罹먮┃??硫붾え由?/td><td><span class="rel r2">?끸쁾?녳쁿??/span></td></tr>
-        <tr><td>寃뚯엫 猷??⑥? ?꾨몣쨌?뱁뙣쨌諛?</td><td>誘몄뀡? ?먮뒗 肄붾뱶?</td><td><span class="rel r1">?끸쁿?녳쁿??/span></td></tr>
-        <tr><td>釉뚮씪?곗? 諛고룷</td><td>SPUM Link/Frame</td><td><span class="rel r3">?끸쁾?끸쁿??/span></td></tr>
+        <tr><td>용의자(사람) 제작</td><td>Cast Editor</td><td><span class="rel r5">★★★★★</span></td></tr>
+        <tr><td>성격·말투</td><td>Cast/World Persona</td><td><span class="rel r5">★★★★★</span></td></tr>
+        <tr><td>공간(방)</td><td>Object(타일)+Map(배치)</td><td><span class="rel r5">★★★★★</span></td></tr>
+        <tr><td>심문(대화)</td><td>World 채팅</td><td><span class="rel r3">★★★☆☆</span></td></tr>
+        <tr><td>기억(알리바이)</td><td>캐릭터 메모리</td><td><span class="rel r2">★★☆☆☆</span></td></tr>
+        <tr><td>게임 룰(숨은 도둑·승패·밤)</td><td>미션? 또는 코드?</td><td><span class="rel r1">★☆☆☆☆</span></td></tr>
+        <tr><td>브라우저 배포</td><td>SPUM Link/Frame</td><td><span class="rel r3">★★★☆☆</span></td></tr>
       </tbody>
     </table></div>
   </section>
 
-  <!-- 誘명솗??-->
+  <!-- 미확인 -->
   <section id="unknown">
-    <p class="snum">?붿쭅??誘명솗??紐⑸줉</p>
-    <h2>???대킄??紐⑤Ⅴ??寃?/h2>
+    <p class="snum">솔직한 미확인 목록</p>
+    <h2>안 해봐서 모르는 것</h2>
     <div class="card" style="border-color:rgba(224,69,62,.35)"><ul class="clean">
-      <li>World 梨꾪똿??<strong>?ㅼ젣 AI ?묐떟 ?덉쭏쨌湲곗뼲 ?좎?</strong> ?????뚮젮遊? <span class="rel r1">?끸쁿?녳쁿??/span></li>
-      <li>罹먮┃??硫붾え由ъ뿉 <strong>而ㅼ뒪? ?뚮━諛붿씠 二쇱엯</strong> 媛???щ? ?????대큵. <span class="rel r1">?끸쁿?녳쁿??/span></li>
-      <li>誘몄뀡/?ㅽ넗由щ줈 <strong>?⑥? ??븷쨌?뱁뙣 ?먯젙</strong> 援ы쁽 媛???щ? ?????대큵. <span class="rel r1">?끸쁿?녳쁿??/span></li>
-      <li><strong>SPUM Link 諛고룷 寃곌낵臾?/strong> ?뺥깭 ?????대큵. <span class="rel r2">?끸쁾?녳쁿??/span></li>
-      <li>SAM <strong>?щ젅???뚯쭊쨌臾대즺 ?쒕룄</strong> ??誘명솗?? <span class="rel r1">?끸쁿?녳쁿??/span></li>
+      <li>World 채팅의 <strong>실제 AI 응답 품질·기억 유지</strong> — 안 돌려봄. <span class="rel r1">★☆☆☆☆</span></li>
+      <li>캐릭터 메모리에 <strong>커스텀 알리바이 주입</strong> 가능 여부 — 안 해봄. <span class="rel r1">★☆☆☆☆</span></li>
+      <li>미션/스토리로 <strong>숨은 역할·승패 판정</strong> 구현 가능 여부 — 안 해봄. <span class="rel r1">★☆☆☆☆</span></li>
+      <li><strong>SPUM Link 배포 결과물</strong> 형태 — 안 해봄. <span class="rel r2">★★☆☆☆</span></li>
+      <li>SAM <strong>크레딧 소진·무료 한도</strong> — 미확인. <span class="rel r1">★☆☆☆☆</span></li>
     </ul></div>
-    <p class="src">????紐⑸줉 = ?붿슂??? ?뚯쓽 ?뺤씤 由ъ뒪?? "?ㅽ뒠?붿삤濡?寃뚯엫 猷곌퉴吏 ?섎굹 vs 肄붾뱶 ?꾩슂"媛 理쒕? 愿臾?</p>
+    <p class="src">★ 이 목록 = 화요일 팀 회의 확인 리스트. "스튜디오로 게임 룰까지 되나 vs 코드 필요"가 최대 관문.</p>
   </section>
 
-  <footer>SPUM Studio ?ъ슜?ㅻ챸??v2 쨌 踰덊샇 留ㅻ돱??쨌 ?ㅼ젣 ?붾㈃ 罹≪쿂 + ?좊ː??5?④퀎(?뚮옉=?믪쓬/鍮④컯=??쓬) 쨌 Object/Map/World 罹≪쿂 異붽? ?덉젙 쨌 ?쒖닚???곕씪???/footer>
+  <footer>SPUM Studio 사용설명서 v2 · 번호 매뉴얼 · 실제 화면 캡처 + 신뢰도 5단계(파랑=높음/빨강=낮음) · Object/Map/World 캡처 추가 예정 · 순순히 따라와라</footer>
 </div>
 
 <script>
@@ -283,8 +283,8 @@
         var toLight = root.getAttribute('data-theme-ui') !== 'light';
         root.setAttribute('data-theme-ui', toLight ? 'light' : 'dark');
         tbtn.setAttribute('aria-pressed', toLight ? 'true' : 'false');
-        if(ic){ ic.textContent = toLight ? '?? : '?'; }
-        if(lb){ lb.textContent = toLight ? '?ㅽ겕 紐⑤뱶' : '?쇱씠??紐⑤뱶'; }
+        if(ic){ ic.textContent = toLight ? '☾' : '☀'; }
+        if(lb){ lb.textContent = toLight ? '다크 모드' : '라이트 모드'; }
       });
     }
   })();
