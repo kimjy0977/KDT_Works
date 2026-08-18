@@ -143,7 +143,7 @@
       <h1><span class="q">《</span>순순히 따라와라<span class="q">》</span></h1>
       <p class="define">SPUM 2D 공간에서 <strong>AI 용의자들을 자연어로 심문·대질</strong>해 숨은 스파이를 밝히는 브라우저 추리게임 — <strong>SPUM(엔진)</strong>과 <strong>SAM(AI 페르소나·기억)</strong>을 한 화면에서 증명하는 쇼케이스.</p>
       <div class="stampline">
-        <span class="stamp hot">v0.17 · 팀 논의용</span>
+        <span class="stamp hot">v0.18 · 팀 논의용</span>
         <span class="stamp">화요일 미팅</span>
         <span class="stamp">작성 · 김주영(팀장)</span>
         <button id="themeToggle" class="tbtn" type="button" aria-pressed="true" aria-label="라이트/다크 모드 전환"><span class="ticon" aria-hidden="true">☾</span><span class="tlabel">다크 모드</span></button>
@@ -393,12 +393,11 @@
   <div class="panel" role="tabpanel" id="p-d" aria-labelledby="t-d" hidden>
     <section>
       <p class="lab"><span class="no">F1</span> 화요일 전에 팀이 볼 것</p>
-      <div class="card study">
-        <div class="grp"><p class="gh">A · 직접 해봐 (감 잡기)</p><p style="margin:0" class="sub">마피아 게임 룰 영상 1개(처음이면 감 잡기) · <a href="https://www.playsuckup.com/">Suck Up!</a>(AI와 자유 대화 체험) · Vaudeville(AI 용의자 심문)</p></div>
-        <div class="grp"><p class="gh">B · 코드 뜯어볼 오픈소스 (1순위)</p><p style="margin:0" class="sub">★<a href="https://github.com/a16z-infra/ai-town">AI Town</a>(브라우저·픽셀·AI 기억·상호작용, 우리랑 판박이) · <a href="https://github.com/joonspk-research/generative_agents">Generative Agents</a> · <a href="https://github.com/dandacompany/deskrpg">DeskRPG</a> · <a href="https://github.com/tensor2023/OpenPixel-RPG">OpenPixel-RPG</a></p></div>
-        <div class="grp"><p class="gh">C · AI가 마피아를 하는 사례 (그룹 본질)</p><p style="margin:0" class="sub">★<a href="https://arxiv.org/abs/2407.13943">Werewolf Arena (Google)</a> — 밤/낮·토론·투표 LLM 인랑 · <a href="https://arxiv.org/abs/2304.03442">Generative Agents (Stanford)</a> — 성격·기억 창발</p></div>
-        <div class="grp"><p class="gh">D · 업계 분위기</p><p style="margin:0" class="sub"><a href="https://www.nvidia.com/en-us/geforce/news/nvidia-ace-autonomous-ai-companions-pubg-naraka-bladepoint/">NVIDIA ACE 데모</a> · <a href="https://inworld.ai/">Inworld</a> / <a href="https://convai.com/">Convai</a>(= SAM 같은 NPC 두뇌)</p></div>
-        <div class="grp"><p class="gh">E · ★우리가 실제 쓸 것 (최우선 정독)</p><p style="margin:0" class="sub"><code>packages/spum-world/</code>(SPUM AI·대화·자율행동 모듈) · <code>sam-public/</code>(SAM API·CLI 문서)</p></div>
+      <p class="sub">위에서부터 <strong>중요한 순서</strong> — 아래로 갈수록 <span class="am">안 봐도 되는 참고 자료</span>. 버리진 않고 밑에 모아둠.</p>
+      <div class="card study" style="margin-top:12px">
+        <div class="grp"><p class="gh" style="color:var(--amber-bright)">① 팀 전원 — 감 잡기 (쉬움)</p><p style="margin:0" class="sub">유튜브 <strong>"마피아 게임 룰"</strong> 영상 1개 · <a href="https://www.playsuckup.com/">Suck Up!</a>(AI와 자유 대화 <strong>직접 체험</strong>) · "Vaudeville" 플레이 영상(AI 용의자 심문)</p></div>
+        <div class="grp"><p class="gh" style="color:var(--cyan)">② 개발 트랙 필수 — 우리가 실제 쓸 것</p><p style="margin:0" class="sub"><code>packages/spum-world/</code>(SPUM AI·대화 모듈) · <code>sam-public/</code>(SAM API·CLI 문서). <strong>이 둘만 반드시.</strong></p></div>
+        <div class="grp"><p class="gh" style="color:var(--faint)">③ 참고 (심화 · 안 봐도 됨) — 개발·설계 트랙만</p><p style="margin:0" class="sub"><strong>코드(GitHub):</strong> <a href="https://github.com/a16z-infra/ai-town">AI Town</a>(우리랑 판박이 — 구조 훑기용) · <a href="https://github.com/dandacompany/deskrpg">DeskRPG</a> · <a href="https://github.com/tensor2023/OpenPixel-RPG">OpenPixel-RPG</a><br><strong>논문:</strong> <a href="https://arxiv.org/abs/2407.13943">Werewolf Arena</a> · <a href="https://arxiv.org/abs/2304.03442">Generative Agents</a> <span class="sub">— 핵심은 이미 D탭(근거)에 정리됨</span><br><strong>업계:</strong> <a href="https://www.nvidia.com/en-us/geforce/news/nvidia-ace-autonomous-ai-companions-pubg-naraka-bladepoint/">NVIDIA ACE</a> · <a href="https://inworld.ai/">Inworld</a>/<a href="https://convai.com/">Convai</a></p></div>
       </div>
     </section>
   </div>
@@ -598,7 +597,7 @@ SAM( 시스템: 성격 + (스파이면 "<span style="color:var(--red)">X를 숨�
     </section>
   </div>
 
-  <footer>순순히 따라와라 · 기획 + 레퍼런스 통합본 v0.17 · 캐릭터 상세(G) · 라이트기본/다크토글 · 팀 논의용 · 확정 아님</footer>
+  <footer>순순히 따라와라 · 기획 + 레퍼런스 통합본 v0.18 · 스터디 우선순위 정리 · 라이트기본/다크토글 · 팀 논의용 · 확정 아님</footer>
 
 </div>
 
