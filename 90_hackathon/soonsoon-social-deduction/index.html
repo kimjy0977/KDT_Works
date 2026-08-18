@@ -95,6 +95,17 @@
   a{color:var(--amber-bright)}
   footer{margin-top:48px; padding-top:18px; border-top:1px solid var(--line); font-family:var(--mono); font-size:12px; color:var(--faint); letter-spacing:.02em}
   @media(prefers-reduced-motion:no-preference){header.case{animation:rise .6s cubic-bezier(.2,.7,.2,1) both} @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}}
+  .tabs{position:sticky; top:0; z-index:20; display:flex; gap:5px; background:var(--ink); border-bottom:1px solid var(--line); padding:9px 0; margin-top:16px; overflow-x:auto; scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{font-family:var(--mono); font-size:13px; letter-spacing:.02em; color:var(--muted); background:transparent; border:1px solid var(--line); border-radius:10px; padding:9px 15px; cursor:pointer; white-space:nowrap; transition:color .15s,background .15s,border-color .15s}
+  .tab:hover{color:var(--text); border-color:var(--faint)}
+  .tab[aria-selected="true"]{color:var(--on-amber); background:var(--amber); border-color:var(--amber); font-weight:700}
+  .tab:focus-visible{outline:2px solid var(--amber-bright); outline-offset:2px}
+  .panel{animation:fade .35s ease both}
+  .panel[hidden]{display:none}
+  @media(prefers-reduced-motion:reduce){.panel{animation:none}}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .panel > section:first-child{margin-top:22px}
 </style>
 
 <div class="wrap">
@@ -106,14 +117,22 @@
       <p class="define">셰어하우스의 귀여운 크리처들 중, 밤마다 케이크를 훔쳐먹는 <strong>도둑</strong>을 대화·추리로 찾아내는 브라우저 게임. <strong>SPUM(엔진)</strong>·<strong>SAM(AI 성격·기억)</strong>을 자랑하는 순순팩토리 쇼케이스.</p>
       <div class="stampline">
         <span class="stamp hot">v1 · 팀 논의용</span>
-        <span class="stamp">단일 스크롤 · 위→아래로 읽기</span>
+        <span class="stamp">탭 6개 · 데모↔완성 비교</span>
         <button id="themeToggle" class="tbtn" type="button" aria-pressed="true" aria-label="라이트/다크 모드 전환"><span class="ticon" aria-hidden="true">☾</span><span class="tlabel">다크 모드</span></button>
       </div>
     </div>
   </header>
 
-  <hr class="div">
+  <div class="tabs" role="tablist" aria-label="파트">
+    <button class="tab" role="tab" id="t-a" aria-controls="p-a" aria-selected="true">💡 A · 왜</button>
+    <button class="tab" role="tab" id="t-b" aria-controls="p-b" aria-selected="false">🎮 B · 게임 소개</button>
+    <button class="tab" role="tab" id="t-c" aria-controls="p-c" aria-selected="false">🎭 C · 크리처</button>
+    <button class="tab" role="tab" id="t-d" aria-controls="p-d" aria-selected="false">🎲 D · 룰 &amp; 흐름</button>
+    <button class="tab" role="tab" id="t-e" aria-controls="p-e" aria-selected="false">⚡ E · 실행</button>
+    <button class="tab" role="tab" id="t-f" aria-controls="p-f" aria-selected="false">🔎 F · 근거</button>
+  </div>
 
+  <div class="panel" role="tabpanel" id="p-a" aria-labelledby="t-a">
   <!-- 1. 왜 -->
   <section id="s1">
     <p class="snum">01 · 왜 이걸 만드나</p>
@@ -128,6 +147,9 @@
     <p class="src">한 줄: <strong>가볍게 · 성격만 · 크리처로</strong> — 안 무겁고, 안 복잡하고, 안 뻔하게.</p>
   </section>
 
+  </div>
+
+  <div class="panel" role="tabpanel" id="p-b" aria-labelledby="t-b" hidden>
   <!-- 2. 어떤 게임 -->
   <section id="s2">
     <p class="snum">02 · 어떤 게임인가</p>
@@ -158,6 +180,9 @@
     <p class="src">배경은 딱 이 정도만 — 화려한 세계관·플롯은 필요 없어요. "고립된 공간 + 도난 + 다들 뭔가 숨김"이면 심문이 성립.</p>
   </section>
 
+  </div>
+
+  <div class="panel" role="tabpanel" id="p-c" aria-labelledby="t-c" hidden>
   <!-- 4. 크리처 -->
   <section id="s4">
     <p class="snum">04 · 누가 등장하나 (크리처)</p>
@@ -177,6 +202,9 @@
     <p class="src">★ 레드헤링은 <strong>AI 전용 · 가벼운 한 줄</strong>이면 충분(없으면 도둑만 수상해 너무 쉬움). <strong>사람 플레이어는 레드헤링 불필요</strong> — 즉흥으로 둘러대니까.</p>
   </section>
 
+  </div>
+
+  <div class="panel" role="tabpanel" id="p-d" aria-labelledby="t-d" hidden>
   <!-- 5. 룰 -->
   <section id="s5">
     <p class="snum">05 · 게임 룰 (마피아류 정밀조사 반영)</p>
@@ -192,24 +220,56 @@
         <tr><td>🙂 <strong>일반 룸메</strong></td><td>시민</td><td>진실만 말함 = 모순 대조군</td></tr>
       </tbody>
     </table></div>
-    <p class="snum" style="margin-top:20px">두 벌 룰</p>
-    <div class="cols">
-      <div class="card colcard now"><h3>MVP (3일) · 원나잇 축약</h3><ul class="clean">
-        <li>크리처 4~5(전부 AI) · 도둑 1 랜덤</li>
-        <li>밤 1회 자동 도난 → 아침 공지</li>
-        <li><span class="am">심문(핵심)</span> → 지목 1회 → 승패</li>
-        <li>한 판 <strong>3~5분</strong></li>
-      </ul></div>
-      <div class="card colcard next"><h3>확장 · 밤/낮 다회</h3><ul class="clean">
-        <li>크리처 6~8 · 지킴이·탐정 추가</li>
-        <li>밤(훔침·보호·조사) → 아침 회의 → 심문</li>
-        <li>추방 시 <strong>유령으로 힌트</strong>(제거 X)</li>
-        <li>밤/낮 3~5회 → 최종 지목</li>
-      </ul></div>
-    </div>
-    <p class="src">★ 사회자 = <strong>전부 시스템+SAM 자동화</strong>(밤 행동·공지·힌트·판정). 최종 지목만 플레이어 권한. 근거 게임: 원나잇 · 스파이폴/아발론 · BotC/Among Us.</p>
+    <p class="snum" style="margin-top:20px">🎯 데모 ↔ 🌟 완성 버전 — 한눈에 비교</p>
+    <div class="tw"><table>
+      <thead><tr><th>항목</th><th>🎯 데모 (3일 · 우리가 만들 것)</th><th>🌟 완성 버전 (비전)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>인원</strong></td><td>사람1 + AI 다수 / 전부 AI(관전)</td><td>사람:AI 비율 커스텀(사람2+AI6…) = 멀티플레이어</td></tr>
+        <tr><td><strong>역할</strong></td><td>도둑 + 룸메 (+선택 탐정)</td><td>도둑 · 지킴이 · 탐정 · 거짓증인 (풀 역할)</td></tr>
+        <tr><td><strong>페이즈</strong></td><td>원나잇 — 1밤 → 심문 → 지목 1회</td><td>밤/낮 다회 반복</td></tr>
+        <tr><td><strong>케이크</strong></td><td>1개 · 1밤</td><td>3개 · 밤마다 먹기/스킵 <strong>레이스</strong></td></tr>
+        <tr><td><strong>공간</strong></td><td>방 2~3개 + 단서 스팟 몇 개</td><td>풀 맵 · 실시간 이동 · 관전 카메라</td></tr>
+        <tr><td><strong>탈락</strong></td><td>없음</td><td>추방 → 유령으로 힌트 (제거 X)</td></tr>
+        <tr><td><strong>승리</strong></td><td>도둑 지목 성공=승 / 실패=패</td><td>룸메=도둑 지목 / 도둑=케이크 3개 완식</td></tr>
+        <tr><td><strong>플레이타임</strong></td><td>3~5분</td><td>10~20분+ (여러 밤)</td></tr>
+      </tbody>
+    </table></div>
+    <p class="src">★ 데모부터 만들되 <strong>좌석 human/ai 스위치 · 역할·케이크를 데이터로</strong> 짜두면, 완성 버전은 "숫자·역할만 늘려" 확장됨. 사회자 = <strong>전부 시스템+SAM 자동화</strong>(밤 행동·공지·힌트·판정), 최종 지목만 플레이어. 근거 게임: 원나잇 · 스파이폴/아발론 · BotC/Among Us.</p>
   </section>
 
+  <!-- 5.5 게임 흐름 -->
+  <section id="s5b">
+    <p class="snum">05+ · 게임 흐름 (타임라인 · 근거 엔진)</p>
+    <h2>밤 시뮬이 먼저 돌고, AI는 그 위에서 말한다</h2>
+    <p class="lead">AI가 아무 말이나 지어내면 모순이 가짜가 돼요. 그래서 <strong>시스템이 "밤에 실제로 무슨 일이 있었는지"를 먼저 정하고</strong>(고정 데이터 = 진실표), AI는 <strong>자기 기억에서만</strong> 말합니다. 결백 = 사실대로, 도둑 = 자기 행동만 거짓말. → 그래서 모순·목격이 논리적으로 성립.</p>
+
+    <p class="snum" style="margin-top:20px">밤의 진실 (시스템만 앎 · 예: 도둑 = 살살이)</p>
+    <div class="tw"><table>
+      <thead><tr><th>크리처</th><th>실제 밤 행동</th><th>말할 것</th></tr></thead>
+      <tbody>
+        <tr class="hot"><td>🦊 살살이 <strong>(도둑)</strong></td><td>2시 주방行 · 케이크 훔침</td><td>"방에서 잤어" ← <strong>거짓</strong></td></tr>
+        <tr><td>🐱 새침이</td><td>2시 화장실 가다 <strong>살살이 목격</strong></td><td>"살살이가 주방 가더라" ← 사실</td></tr>
+        <tr><td>🦥 꾸벅이</td><td>1시 주방行(물)</td><td>"물 마시러 갔어" ← 사실(=레드헤링)</td></tr>
+        <tr><td>🐹 오물오물</td><td>방에서 잠</td><td>"잤어" ← 사실</td></tr>
+      </tbody>
+    </table></div>
+    <p class="src">흔적(물리단서): 냉장고 앞 = 여우털 + 크림 포크. 플레이어는 <strong>심문(말) + 조사(현장)</strong> 교차검증으로 도둑을 좁힘. (꾸벅이도 주방 갔지만 목격자·물리단서 없음 → 소거)</p>
+
+    <p class="snum" style="margin-top:20px">한 판 타임라인 (케이크 3개 레이스)</p>
+    <div class="card"><ol class="days">
+      <li><span class="day-t">세팅:</span> 케이크 3개(각자 이름표) · 도둑 랜덤 · 밤 시뮬 생성.</li>
+      <li><span class="day-t">🌙 밤:</span> 도둑이 케이크 1개 <strong>먹기 or 스킵</strong> 선택 — 먹으면 흔적↑·빨리 이김 / 스킵하면 안전·느림. 크리처 이동 → 목격·단서 발생.</li>
+      <li><span class="day-t">🌅 아침:</span> 시스템 공지 "케이크 하나 또 사라짐!"(또는 "간밤엔 무사"). 남은 케이크 카운트.</li>
+      <li><span class="day-t">☀️ 낮:</span> <span class="am">조사</span>(냉장고·방 단서) + <span class="am">심문</span>(AI 성격·기억·거짓말) → 모순·목격 대조.</li>
+      <li><span class="day-t">🗳 지목:</span> 도둑 1마리 지목(하루 1회).</li>
+      <li><span class="day-t">판정·반복:</span> <strong>맞으면 룸메 승</strong> / <strong>도둑이 케이크 3개 다 먹으면 도둑 승</strong> / 아니면 다음 밤으로.</li>
+    </ol></div>
+    <p class="src">★ 데모(MVP)는 밤 1회·케이크 1개·지목 1회로 축약(3~5분). 케이크 3개 레이스·여러 밤은 완성판. 진실표+대화기록+단서는 파일 저장 → 재개 가능.</p>
+  </section>
+
+  </div>
+
+  <div class="panel" role="tabpanel" id="p-e" aria-labelledby="t-e" hidden>
   <!-- 6. 실행 -->
   <section id="s6">
     <p class="snum">06 · 어떻게 만드나 (3일)</p>
@@ -229,6 +289,9 @@
     <p class="src">★ 4명이 코드를 각자 나눠 만들면 병합 충돌로 느려짐 → <strong>코드는 최대 2명</strong>, 나머지는 코드 밖 병렬. <strong>누가 코딩 되는지 화요일 확인.</strong> 제출 요건: SAM키 .env(커밋금지) · bash serve.sh · MIT 라이선스.</p>
   </section>
 
+  </div>
+
+  <div class="panel" role="tabpanel" id="p-f" aria-labelledby="t-f" hidden>
   <!-- 7. 근거 -->
   <section id="s7">
     <p class="snum">07 · 근거 (참고)</p>
@@ -246,7 +309,9 @@
     <p class="src">엔진·AI = 회사 제공 <strong>SPUM(몸·무대) + SAM(두뇌)</strong>. 우리는 이 둘로 "AI가 사는 게임을 쉽게 만든다"를 증명하는 데모를 만든다.</p>
   </section>
 
-  <footer>누가 내 케이크 먹었어? · 순순히 따라와라 · 한 장 스크롤 기획서 v1 · 라이트기본/다크토글 · 팀 논의용 · 확정 아님</footer>
+  </div>
+
+  <footer>누가 내 케이크 먹었어? · 순순히 따라와라 · 기획서(탭 · 데모↔완성) v2 · 라이트기본/다크토글 · 팀 논의용 · 확정 아님</footer>
 
 </div>
 
@@ -265,6 +330,22 @@
         if(lb){ lb.textContent = toLight ? '다크 모드' : '라이트 모드'; }
       });
     }
+
+    // tabs
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+    var panels = tabs.map(function(t){ return document.getElementById(t.getAttribute('aria-controls')); });
+    function activate(i, focus){
+      tabs.forEach(function(t, j){ var on = j === i; t.setAttribute('aria-selected', on ? 'true' : 'false'); t.tabIndex = on ? 0 : -1; if(panels[j]){ panels[j].hidden = !on; } });
+      if(focus){ tabs[i].focus(); }
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+    tabs.forEach(function(t, i){
+      t.addEventListener('click', function(){ activate(i, false); });
+      t.addEventListener('keydown', function(e){
+        if(e.key === 'ArrowRight' || e.key === 'ArrowDown'){ e.preventDefault(); activate((i+1)%tabs.length, true); }
+        else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp'){ e.preventDefault(); activate((i-1+tabs.length)%tabs.length, true); }
+      });
+    });
   })();
 </script>
 
