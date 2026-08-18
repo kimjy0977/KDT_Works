@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<title>《순순히 따라와라》 기획 + 레퍼런스 (화요일 미팅용)</title>
+<title>누가 내 케이크 먹었어? — 기획서 (한 장 스크롤)</title>
 <style>
   :root, :root[data-theme-ui="dark"]{
     --ink:#0E1116; --panel:#151A21; --panel2:#1B222C; --line:#2A3340;
@@ -22,67 +22,42 @@
     --red:#C42B2E; --green:#157F35; --cyan:#0A7C7E;
   }
   *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
   body{margin:0; background:var(--ink); color:var(--text); font-family:var(--sans); line-height:1.7; letter-spacing:-.01em; font-size:16px}
-  .wrap{max-width:880px; margin:0 auto; padding:clamp(18px,4vw,44px) clamp(18px,5vw,40px) 90px}
+  .wrap{max-width:820px; margin:0 auto; padding:clamp(18px,4vw,44px) clamp(18px,5vw,40px) 90px}
 
-  header.case{position:relative; padding:clamp(22px,5vw,40px) 0 clamp(14px,2vw,20px); overflow:hidden}
+  header.case{position:relative; padding:clamp(20px,5vw,38px) 0 clamp(10px,2vw,16px); overflow:hidden}
   header.case::before{content:""; position:absolute; top:-160px; left:50%; transform:translateX(-50%); width:520px; height:340px; pointer-events:none; background:radial-gradient(ellipse at center, rgba(240,180,41,.16), rgba(240,180,41,0) 65%); filter:blur(6px)}
   .kase{position:relative; z-index:1}
-  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--amber-bright); margin:0 0 14px}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--amber-bright); margin:0 0 14px}
   .eyebrow .dot{color:var(--faint)}
-  h1{font-size:clamp(32px,7vw,58px); line-height:1; margin:0; font-weight:800; letter-spacing:-.03em; text-wrap:balance}
+  h1{font-size:clamp(30px,7vw,54px); line-height:1.05; margin:0; font-weight:800; letter-spacing:-.03em; text-wrap:balance}
   h1 .q{color:var(--amber-bright)}
-  .define{margin:18px 0 0; max-width:60ch; font-size:clamp(14.5px,2.3vw,16.5px); line-height:1.6; border-left:2px solid var(--amber); padding-left:16px}
-  .stampline{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px}
-  .stamp{font-family:var(--mono); font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:5px 11px; background:var(--panel)}
+  .define{margin:18px 0 0; max-width:62ch; font-size:clamp(14.5px,2.3vw,16.5px); line-height:1.6; border-left:2px solid var(--amber); padding-left:16px}
+  .stampline{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; align-items:center}
+  .stamp{font-family:var(--mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:5px 11px; background:var(--panel)}
   .stamp.hot{color:var(--on-amber); background:var(--amber); border-color:var(--amber); font-weight:600}
   .tbtn{font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:5px 12px; background:var(--panel); cursor:pointer; display:inline-flex; align-items:center; gap:6px; transition:color .15s,border-color .15s}
   .tbtn:hover{color:var(--text); border-color:var(--faint)}
   .tbtn:focus-visible{outline:2px solid var(--amber-bright); outline-offset:2px}
-  .howto{margin:15px 0 0; font-family:var(--mono); font-size:12.5px; color:var(--muted); letter-spacing:.01em; line-height:1.6}
-  .howto b{color:var(--amber-bright); font-weight:700}
 
-  /* tabs */
-  .tabs{position:sticky; top:0; z-index:20; display:flex; gap:5px; background:var(--ink); border-bottom:1px solid var(--line); padding:9px 0; margin-top:14px; overflow-x:auto; scrollbar-width:none}
-  .tabs::-webkit-scrollbar{display:none}
-  .tab{font-family:var(--mono); font-size:13px; letter-spacing:.03em; color:var(--muted); background:transparent; border:1px solid var(--line); border-radius:10px; padding:9px 15px; cursor:pointer; white-space:nowrap; transition:color .15s, background .15s, border-color .15s}
-  .tab:hover{color:var(--text); border-color:var(--faint)}
-  .tab[aria-selected="true"]{color:var(--on-amber); background:var(--amber); border-color:var(--amber); font-weight:700}
-  .tab:focus-visible{outline:2px solid var(--amber-bright); outline-offset:2px}
-
-  .panel{padding-top:6px; animation:fade .35s ease both}
-  .panel[hidden]{display:none}
-  @media(prefers-reduced-motion:reduce){.panel{animation:none}}
-  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-
-  section{margin-top:clamp(24px,4vw,36px)}
-  section:first-child{margin-top:20px}
-  .lab{font-family:var(--mono); font-size:13px; letter-spacing:.02em; text-transform:uppercase; color:var(--muted); font-weight:600; margin:0 0 7px}
-  .lab .no{color:var(--amber-bright)}
-  h2{font-size:clamp(19px,3.2vw,25px); margin:0 0 13px; font-weight:750; letter-spacing:-.02em; text-wrap:balance}
+  /* section */
+  section{margin-top:clamp(34px,6vw,54px); scroll-margin-top:16px}
+  .snum{font-family:var(--mono); font-size:12px; letter-spacing:.05em; text-transform:uppercase; color:var(--amber-bright); font-weight:700; margin:0 0 6px}
+  h2{font-size:clamp(20px,3.4vw,27px); margin:0 0 14px; font-weight:750; letter-spacing:-.02em; text-wrap:balance}
   p{margin:0 0 13px}
+  .lead{font-size:clamp(15px,2.2vw,17px); color:var(--text)}
   .sub{color:var(--muted)}
   strong{color:var(--strong); font-weight:700}
   .am{color:var(--amber-bright); font-weight:700}
   .card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:clamp(17px,3vw,23px)}
   .card + .card{margin-top:13px}
+  .src{font-family:var(--mono); font-size:12px; color:var(--faint); margin-top:13px; letter-spacing:.02em; line-height:1.6}
 
   ul.clean{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px}
   ul.clean li{position:relative; padding-left:26px}
   ul.clean li::before{content:"›"; position:absolute; left:6px; top:-1px; color:var(--amber-bright); font-family:var(--mono); font-weight:700}
   ul.clean li .k{font-weight:700; color:var(--strong)}
-  .src{font-family:var(--mono); font-size:12px; color:var(--faint); margin-top:13px; letter-spacing:.03em}
-
-  .refs{display:flex; flex-direction:column; gap:12px}
-  .ref{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:clamp(15px,2.6vw,20px); display:grid; grid-template-columns:auto 1fr; gap:15px; align-items:start}
-  .ref .ic{font-size:25px; width:46px; height:46px; display:grid; place-items:center; background:var(--panel2); border:1px solid var(--line); border-radius:11px}
-  .ref h3{margin:0 0 4px; font-size:17px; font-weight:750}
-  .ref h3 .en{font-family:var(--mono); font-size:11.5px; color:var(--faint); margin-left:8px}
-  .ref .fam{font-family:var(--mono); font-size:10.5px; color:var(--amber-bright); letter-spacing:.02em; text-transform:uppercase}
-  .ref p{margin:5px 0 8px; font-size:14.5px}
-  .ref .core{font-size:13px; color:var(--muted)}
-  .ref .core b{color:var(--amber-bright)}
 
   .flow{display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-family:var(--mono); font-size:13px}
   .flow .step{background:var(--panel2); border:1px solid var(--line); border-radius:8px; padding:8px 12px}
@@ -90,48 +65,35 @@
   .flow .arw{color:var(--faint)}
 
   .tw{overflow-x:auto; border:1px solid var(--line); border-radius:14px; background:var(--panel)}
-  table{border-collapse:collapse; width:100%; min-width:480px; font-size:14.5px}
+  table{border-collapse:collapse; width:100%; min-width:460px; font-size:14.5px}
   th,td{text-align:left; padding:12px 16px; border-bottom:1px solid var(--line); vertical-align:top}
   thead th{font-family:var(--mono); font-size:11px; letter-spacing:.02em; text-transform:uppercase; color:var(--amber-bright); background:var(--panel2); font-weight:600}
   tbody tr:last-child td{border-bottom:none}
   tbody tr.hot td{background:var(--amber-wash)}
-  td .arr,td .w{color:var(--faint); font-family:var(--mono)}
   .tag{font-family:var(--mono); font-size:11px; padding:2px 8px; border-radius:6px; white-space:nowrap; font-weight:600}
-  .tag.ok{color:var(--green); background:rgba(70,185,90,.12)} .tag.chk{color:var(--amber-bright); background:var(--amber-wash)} .tag.bonus{color:var(--cyan); background:rgba(91,199,201,.12)}
+  .tag.ok{color:var(--green); background:rgba(70,185,90,.12)} .tag.bonus{color:var(--cyan); background:rgba(91,199,201,.12)}
 
-  .wow{border-left:3px solid var(--amber); background:var(--panel); border-radius:0 14px 14px 0; padding:clamp(17px,3vw,23px)}
-  .wow h2{margin-top:0}
   .script{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:clamp(16px,3vw,22px); font-size:15px}
   .line{display:flex; gap:12px; padding:8px 0; border-bottom:1px dashed var(--line)}
   .line:last-of-type{border-bottom:none}
-  .who{font-family:var(--mono); font-size:11.5px; text-transform:uppercase; white-space:nowrap; padding-top:3px; min-width:82px}
+  .who{font-family:var(--mono); font-size:11.5px; white-space:nowrap; padding-top:3px; min-width:70px}
   .who.p{color:var(--cyan)} .who.n{color:var(--amber-bright)}
   .beat{color:var(--muted); font-style:italic}
   .catch{margin-top:12px; padding:12px 14px; background:var(--amber-wash); border-radius:10px; color:var(--amber-bright); font-size:14px; font-weight:600}
 
   .cols{display:grid; grid-template-columns:1fr 1fr; gap:13px}
-  @media(max-width:620px){.cols{grid-template-columns:1fr}}
   .cols3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:13px}
-  @media(max-width:820px){.cols3{grid-template-columns:1fr}}
+  @media(max-width:680px){.cols,.cols3{grid-template-columns:1fr}}
   .colcard h3{margin:0 0 12px; font-size:12.5px; font-family:var(--mono); letter-spacing:.02em; text-transform:uppercase}
   .colcard.now{border-color:rgba(240,180,41,.4)} .colcard.now h3{color:var(--amber-bright)} .colcard.next h3{color:var(--muted)}
-  .risk{border-left:3px solid var(--red); background:var(--panel); border-radius:0 12px 12px 0; padding:15px 18px}
-  .risk + .risk{margin-top:10px}
-  .risk.soft{border-left-color:var(--amber)}
-  .risk .rt{font-weight:700; color:var(--strong); margin:0 0 3px}
-  ol.agenda,ol.days{list-style:none; counter-reset:a; margin:0; padding:0; display:flex; flex-direction:column; gap:10px}
-  ol.agenda li,ol.days li{counter-increment:a; position:relative; padding-left:42px}
-  ol.agenda li::before{content:counter(a,decimal-leading-zero)}
-  ol.days li::before{content:"D"counter(a)}
-  ol.agenda li::before,ol.days li::before{position:absolute; left:0; top:0; font-family:var(--mono); font-size:12px; color:var(--amber-bright); border:1px solid var(--line); border-radius:7px; min-width:30px; height:27px; padding:0 4px; display:grid; place-items:center; background:var(--panel)}
+  .ccard h3{font-family:var(--mono); font-size:12.5px; letter-spacing:.02em; text-transform:uppercase; margin:0 0 8px}
+  ol.days{list-style:none; counter-reset:a; margin:0; padding:0; display:flex; flex-direction:column; gap:10px}
+  ol.days li{counter-increment:a; position:relative; padding-left:40px}
+  ol.days li::before{content:counter(a); position:absolute; left:0; top:0; font-family:var(--mono); font-size:12px; color:var(--amber-bright); border:1px solid var(--line); border-radius:7px; min-width:28px; height:27px; display:grid; place-items:center; background:var(--panel)}
   .day-t{font-weight:700; color:var(--strong)}
-
-  .study{display:flex; flex-direction:column; gap:14px}
-  .study a{color:var(--amber-bright)}
-  .grp .gh{font-family:var(--mono); font-size:12px; letter-spacing:.02em; text-transform:uppercase; color:var(--amber-bright); margin:0 0 6px}
-
-  footer{margin-top:44px; padding-top:18px; border-top:1px solid var(--line); font-family:var(--mono); font-size:12px; color:var(--faint); letter-spacing:.03em}
+  hr.div{border:none; border-top:1px solid var(--line); margin:0}
   a{color:var(--amber-bright)}
+  footer{margin-top:48px; padding-top:18px; border-top:1px solid var(--line); font-family:var(--mono); font-size:12px; color:var(--faint); letter-spacing:.02em}
   @media(prefers-reduced-motion:no-preference){header.case{animation:rise .6s cubic-bezier(.2,.7,.2,1) both} @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}}
 </style>
 
@@ -139,535 +101,157 @@
 
   <header class="case">
     <div class="kase">
-      <p class="eyebrow">CASE FILE <span class="dot">·</span> 순순팩토리 × 아이펠 AI Agent · 화요일 미팅 마스터</p>
-      <h1><span class="q">《</span>순순히 따라와라<span class="q">》</span></h1>
-      <p class="define"><strong>🍰 「누가 내 케이크 먹었어?」</strong> — 셰어하우스의 귀여운 크리처들 중 밤마다 남의 케이크를 훔쳐먹는 <strong>도둑</strong>을 대화·추리로 찾아내는 브라우저 게임. <strong>SPUM(엔진)</strong>·<strong>SAM(AI 성격·기억)</strong>을 자랑하는 순순팩토리 쇼케이스.</p>
+      <p class="eyebrow">기획서 · 한 장 스크롤 <span class="dot">·</span> 순순히 따라와라 × 순순팩토리</p>
+      <h1>🍰 누가 내 <span class="q">케이크</span> 먹었어?</h1>
+      <p class="define">셰어하우스의 귀여운 크리처들 중, 밤마다 케이크를 훔쳐먹는 <strong>도둑</strong>을 대화·추리로 찾아내는 브라우저 게임. <strong>SPUM(엔진)</strong>·<strong>SAM(AI 성격·기억)</strong>을 자랑하는 순순팩토리 쇼케이스.</p>
       <div class="stampline">
-        <span class="stamp hot">v0.20 · 팀 논의용</span>
-        <span class="stamp">화요일 미팅</span>
-        <span class="stamp">작성 · 김주영(팀장)</span>
+        <span class="stamp hot">v1 · 팀 논의용</span>
+        <span class="stamp">단일 스크롤 · 위→아래로 읽기</span>
         <button id="themeToggle" class="tbtn" type="button" aria-pressed="true" aria-label="라이트/다크 모드 전환"><span class="ticon" aria-hidden="true">☾</span><span class="tlabel">다크 모드</span></button>
       </div>
-      <p class="howto">📑 <b>7개 탭(A→G)</b>을 순서대로 넘기며 보세요 — 위의 탭을 눌러 이동, 모바일은 <b>좌우로 스크롤</b>. &nbsp;A 게임 이해 · B 기획 · C 게임 설계 · D 근거 · E 실행 · F 스터디 · G 캐릭터<br><b>발표는 A·B 중심</b>, C~G는 백업·심화·콘텐츠입니다.</p>
     </div>
   </header>
 
-  <div class="tabs" role="tablist" aria-label="파트">
-    <button class="tab" role="tab" id="t-a" aria-controls="p-a" aria-selected="true">🎮 A · 게임 이해</button>
-    <button class="tab" role="tab" id="t-b" aria-controls="p-b" aria-selected="false">📐 B · 기획</button>
-    <button class="tab" role="tab" id="t-e" aria-controls="p-e" aria-selected="false">🎲 C · 게임 설계</button>
-    <button class="tab" role="tab" id="t-f" aria-controls="p-f" aria-selected="false">🔎 D · 근거</button>
-    <button class="tab" role="tab" id="t-c" aria-controls="p-c" aria-selected="false">⚡ E · 실행</button>
-    <button class="tab" role="tab" id="t-d" aria-controls="p-d" aria-selected="false">📚 F · 스터디</button>
-    <button class="tab" role="tab" id="t-g" aria-controls="p-g" aria-selected="false">🎭 G · 캐릭터</button>
-  </div>
+  <hr class="div">
 
-  <!-- ===== PANEL A ===== -->
-  <div class="panel" role="tabpanel" id="p-a" aria-labelledby="t-a">
-    <section>
-      <p class="lab"><span class="no">A1</span> 한 장르로 묶으면</p>
-      <h2>"사회적 추리" — 숨은 케이크 도둑을 대화로 찾아내는 게임</h2>
-      <div class="card"><p style="margin:0" class="sub">쉽게 말해 <strong>형사·추리물</strong>과 같아요. 여럿 중 누군가는 <strong>몰래 케이크 도둑</strong>이에요. 겉으론 아닌 척하죠. 나머지는 <strong>대화하고 캐물어서</strong> 그게 누군지 밝혀냅니다. 도둑은 <span class="am">거짓말로 숨고</span>, 추리하는 쪽은 <span class="am">말의 앞뒤 모순을 잡아</span> 정체를 드러냅니다.</p></div>
-    </section>
-    <section>
-      <p class="lab"><span class="no">A2</span> 처음 들어도 괜찮아요 — 익숙한 것부터</p>
-      <div class="refs">
-        <div class="ref"><div class="ic">🔍</div><div><p class="fam">가장 익숙함</p><h3>형사·추리물 <span class="en">수사극</span></h3><p>형사가 용의자를 <strong>한 명씩 심문</strong>해요. 다들 알리바이를 대는데 범인은 거짓말을 하죠. 여러 진술을 맞대보면 <strong>앞뒤가 안 맞는 사람</strong>이 드러나 범인 지목. <span class="sub">(그것이 알고싶다 · 명탐정물 · '그리고 아무도 없었다')</span></p><p class="core">핵심: <b>심문 · 거짓말 · 모순 · 범인 지목</b></p></div></div>
-        <div class="ref"><div class="ic">🕶️</div><div><p class="fam">모임에서 하는</p><h3>마피아 게임 <span class="en">파티게임</span></h3><p>여럿이 둘러앉아 몇 명이 몰래 <strong>마피아</strong>. 말로 <strong>"너 마피아지?"</strong> 캐물어 <strong>투표로 지목</strong>. 순전히 <strong>대화</strong>로 거짓말쟁이 찾기.</p><p class="core">핵심: <b>대화로 거짓말쟁이 찾기</b></p></div></div>
-        <div class="ref"><div class="ic">🚀</div><div><p class="fam">요즘 온라인 게임</p><h3>어몽어스 <span class="en">Among Us</span></h3><p>위 둘의 <strong>디지털판</strong>이에요. 우주선에서 몰래 방해하는 범인을 찾는 게임 — <strong>몰라도 됩니다.</strong> 형사물·마피아와 <strong>구조가 똑같아요.</strong></p><p class="core">핵심: <b>형사물·마피아의 디지털 버전</b></p></div></div>
-      </div>
-    </section>
-    <section>
-      <p class="lab"><span class="no">A3</span> 뼈대는 하나</p>
-      <div class="card">
-        <div class="flow"><span class="step">숨은 배신자</span><span class="arw">→</span><span class="step key">대화·조사로 정보</span><span class="arw">→</span><span class="step">거짓말·모순</span><span class="arw">→</span><span class="step key">추리해 지목</span><span class="arw">→</span><span class="step">결과</span></div>
-        <p class="sub" style="margin:14px 0 0">우리 게임도 이 뼈대. <strong>형사물의 "심문·추리" + 마피아의 "거짓말·지목"</strong>.</p>
-      </div>
-    </section>
-    <section>
-      <p class="lab"><span class="no">A4</span> 우리 게임으로 옮기면 — 근데 상대가 <span class="am">AI</span></p>
-      <div class="tw"><table>
-        <thead><tr><th>익숙한 장면</th><th>우리 게임에선</th></tr></thead>
-        <tbody>
-          <tr><td>형사가 용의자 심문</td><td><span class="arr">→</span> <strong>자유 타이핑 심문</strong></td></tr>
-          <tr><td>여러 진술 맞대보기</td><td><span class="arr">→</span> <strong>진술 모아 모순 찾기</strong></td></tr>
-          <tr><td>마피아 "너 범인이지?"</td><td><span class="arr">→</span> <strong>도둑 지목·투표</strong></td></tr>
-          <tr><td>현장(방)을 다니며 조사</td><td><span class="arr">→</span> <strong>픽셀 공간 이동·심문</strong></td></tr>
-          <tr class="hot"><td>범인이 거짓말</td><td><span class="arr">→</span> <strong>AI 도둑이 거짓말</strong> (대본 없이 즉흥 + 기억)</td></tr>
-        </tbody>
-      </table></div>
-    </section>
-    <section>
-      <p class="lab"><span class="no">A5</span> 우리만의 "와" + 실제 모습</p>
-      <div class="wow"><h2>거짓말쟁이가 <span class="am">진짜 AI</span>라는 것</h2><p style="margin:0" class="sub">추리물이나 마피아 게임에선 거짓말하는 게 <strong>사람</strong>. 우리는 그 자리에 <strong>AI</strong>. 정해진 대사 분기가 아니라 <span class="am">플레이어가 뭐라 하든 즉흥으로 거짓말하고, 앞말을 기억하고 반박</span>해요. → 이게 곧 <strong>회사(SPUM+SAM)가 자랑하고 싶은 능력</strong>.</p></div>
-      <div class="script" style="margin-top:14px">
-        <div class="line"><span class="who p">플레이어</span><span>어젯밤에 부엌 근처 갔었어?</span></div>
-        <div class="line"><span class="who n">룸메 B</span><span>아니, 방에서 잤지. 부엌 근처도 안 갔는데.</span></div>
-        <div class="line"><span class="who p">플레이어</span><span>근데 다른 룸메가 그 시간에 <b style="color:var(--strong)">주방에서 널 봤다</b>던데?</span></div>
-        <div class="line"><span class="who n">룸메 B</span><span class="beat">…아, 그, 잠깐 물 마시러 나갔던 것 같기도 하고.</span></div>
-        <div class="catch">⚑ "부엌 근처도 안 갔다" ↔ "물 마시러 나갔다" = <strong style="color:var(--strong)">모순!</strong> NPC가 앞 대화를 기억해서 성립 — 이게 핵심 재미.</div>
-      </div>
-    </section>
-    <section>
-      <p class="lab"><span class="no">A6</span> 한 판은 이렇게 흘러갑니다 (예시)</p>
-      <div class="card"><ol class="days">
-        <li><span class="day-t">시작:</span> 셰어하우스, 냉장고에 이름표 붙인 치즈케이크가 사라졌다! 룸메 5마리 중 <strong>1마리가 도둑</strong> — 누군지 아무도 모름(매 판 랜덤).</li>
-        <li><span class="day-t">심문:</span> 거실에서 오물오물에게 "어젯밤 부엌 갔어?" → "아니 방에 있었어." 주방으로 가 새침이에게 물으니 → "오물오물? 부엌에서 봤는데?"</li>
-        <li><span class="day-t">모순 포착:</span> 두 말이 어긋난다. 오물오물을 다시 추궁하자 <strong>말을 바꾼다</strong>(AI가 앞말 기억 + 거짓말).</li>
-        <li><span class="day-t">지목:</span> "도둑은 오물오물!" — 1회 지목.</li>
-        <li><span class="day-t">결과:</span> 진실표와 대조 → 맞으면 <span class="am">케이크 되찾음(승)</span>, 틀리면 도둑이 남은 케이크까지 순삭(패). 전원 정체 공개.</li>
-      </ol></div>
-      <p class="src">▸ 이 흐름을 C탭(게임 설계)의 캐릭터·루프·공간으로 실제 구현.</p>
-    </section>
-  </div>
+  <!-- 1. 왜 -->
+  <section id="s1">
+    <p class="snum">01 · 왜 이걸 만드나</p>
+    <h2>"뭘 만들지"가 아니라, 회사가 뭘 원하는지부터</h2>
+    <p class="lead">이건 우리가 팔 게임이 아니라 <strong>순순팩토리의 쇼케이스</strong>예요. 과제 문서에 "쇼케이스가 없어 개발자가 안 들어온다 → 데모가 필요"라고 적혀 있어요. 단, <strong>우리가 광고를 만드는 게 아니라, 그들이 갖다 쓸 잘 만든 데모(재료)를 만드는 것</strong> — "이것도 되네?" 하며 회사가 블로그·유튜브에 골라 쓰게.</p>
+    <p class="snum" style="margin-top:22px">설계 근거 (타당성)</p>
+    <div class="cols3">
+      <div class="card ccard"><h3 style="color:var(--amber-bright)">A · 가벼운 톤</h3><p style="margin:0" class="sub">무거운 살인 대신 <strong>케이크 도둑</strong> → 웃겨서 <strong>바이럴↑</strong>(쇼케이스 목적) · 픽셀아트 찰떡 · 누구나 즉시 이해 · 소재 리스크 낮음.</p></div>
+      <div class="card ccard"><h3 style="color:var(--cyan)">B · 국적·직업 X</h3><p style="margin:0" class="sub">그건 단서가 아니라 <strong>노이즈</strong> — 단서는 '말의 모순'뿐. 성격만으로 충분(SAM 자랑)·고정관념 리스크 없음·개발 단순·무국적이 더 글로벌.</p></div>
+      <div class="card ccard"><h3 style="color:var(--green)">C · 크리처</h3><p style="margin:0" class="sub">사람은 뻔함, <strong>크리처는 픽셀아트 매력 극대화</strong>(SPUM 과시) + 무국적·무직업이 자연스러움.</p></div>
+    </div>
+    <p class="src">한 줄: <strong>가볍게 · 성격만 · 크리처로</strong> — 안 무겁고, 안 복잡하고, 안 뻔하게.</p>
+  </section>
 
-  <!-- ===== PANEL B ===== -->
-  <div class="panel" role="tabpanel" id="p-b" aria-labelledby="t-b" hidden>
-    <section>
-      <p class="lab"><span class="no">B1</span> 왜 이 방향인가 — 생각의 순서</p>
-      <h2>이건 "게임"이 아니라 순순팩토리의 <span class="am">마케팅 쇼케이스</span>다</h2>
-      <p class="sub"><strong>❌ "뭘 만들지?"부터 시작하면 틀린다</strong> — 그건 수단(게임)부터 고르는 것. 순서는 <strong>회사 목적 → 무엇을 마케팅 → 그래서 뭘 구현</strong> 이어야 함.</p>
-      <div class="card"><ol class="agenda">
-        <li><span class="day-t">회사는 왜 이 과제를 냈나?</span> 데모는 팔 제품이 아니라 <span class="am">순순팩토리를 알리는 쇼케이스</span>다. <span class="sub">(과제 §3~5)</span></li>
-        <li><span class="day-t">그럼 무엇을 마케팅하나?</span> <strong>SPUM(엔진) + SAM(AI)</strong> = "AI가 사는 게임을 <span class="am">쉽게</span> 만드는 도구".</li>
-        <li><span class="day-t">그 어필을 위해 뭘 구현?</span> 두 도구의 강점이 가장 잘 "보이는" 데모 = AI가 <strong>성격·기억·거짓말</strong>로 사는 게임 → 그래서 소셜추리.</li>
-        <li><span class="day-t">"뭘 만들지"는 여기서 나온다.</span> 우선순위도 어필 순서: AI 대화·기억·거짓말(SAM) · 공간·픽셀(SPUM) · config 한 줄(쉽게).</li>
-      </ol></div>
-      <p class="lab" style="margin-top:24px"><span class="no">B1·</span> 근거 — "쇼케이스다"는 우리 의견 아님 (제공파일 원문)</p>
-      <p class="sub">같은 브리핑을 들어도 해석이 갈리니, <strong>과제정의서·발표 원문</strong>에서 직접 도출. 팀원 이견도 이걸로 정렬한다.</p>
-      <div class="tw" style="margin-top:11px"><table>
-        <thead><tr><th>제공파일 원문 (과제·발표)</th><th>그래서 = 쇼케이스</th></tr></thead>
-        <tbody>
-          <tr><td>과제 §3: "쇼케이스·레퍼런스가 없어 <strong>외부 개발자 도입 진입장벽</strong>이 높다 → 데모가 필요"</td><td>데모의 목적 = <span class="am">도입 유도(마케팅)</span></td></tr>
-          <tr><td>과제 §4: "완벽 상용 X, <strong>'이런 게 되는구나' 데모면 충분</strong>" + "기술 블로그 1편"</td><td>팔 제품이 아니라 <strong>설득 콘텐츠</strong> 요구</td></tr>
-          <tr><td>회사 = <strong>도구 판매사</strong>(SPUM 에셋 1위 · SPUM Base 유료 멤버십 · SAM). 제공자료가 전부 자기 제품</td><td>우리 데모 = 그 도구를 <span class="am">자랑할 재료</span></td></tr>
-          <tr><td>발표 시장 슬라이드: 무한경쟁 · 상위10%가 수익 85% → <strong>생존=생산성</strong> → AI로 빠르게</td><td>데모 = 그 주장의 <strong>증거물</strong></td></tr>
-        </tbody>
-      </table></div>
-      <p class="src">▸ 출처: 순순팩토리 과제정의서 §3(현재상황)·§4(기대하는 모습) + 8/14 발표 시장 슬라이드.</p>
-      <div class="card" style="margin-top:12px;border-color:rgba(240,180,41,.4)"><p style="margin:0" class="sub">⚑ <strong>오해 주의 — 우리가 '광고'를 만드는 게 아니다.</strong> 그들의 목적을 파악해 <strong>잘 만든 데모(재료)</strong>를 주면, 회사가 <span class="am">"이것도 되네·저것도 되네"</span> 하며 블로그·유튜브·투자설명에 골라 씀. <strong>우리 몫 = 가져다 쓸 만한 재료를 잘 만드는 것.</strong></p></div>
-      <p class="lab" style="margin-top:24px"><span class="no">B1·</span> SPUM · SAM 쉽게 이해 (팀 공유용)</p>
-      <div class="cols">
-        <div class="card"><h3 style="color:var(--amber-bright);font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;text-transform:uppercase;margin:0 0 8px">SPUM = 몸·무대 🎮</h3><p style="margin:0" class="sub">픽셀 캐릭터·맵·움직임을 <strong>레고처럼 쉽게 조립</strong>하는 2D 웹 게임 엔진(원래 유니티 2D 캐릭터 <strong>1위</strong> 에셋). 게임에서 <span class="am">눈에 보이는 것</span> 담당.</p></div>
-        <div class="card"><h3 style="color:var(--cyan);font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;text-transform:uppercase;margin:0 0 8px">SAM = 두뇌 🧠</h3><p style="margin:0" class="sub">캐릭터에 <strong>AI 머리</strong>를 꽂아주는 중계기(LLM 프록시). 말 걸면 <span class="am">성격대로 답하고 기억</span>. 챗지피티 같은 두뇌를 게임에 연결 = <span class="am">생각·대화</span> 담당.</p></div>
-      </div>
-      <p class="src">= 회사가 파는 것: "이 둘로 <strong>AI가 사는 게임을 빠르게</strong> 만든다." <strong>우리 데모 = 그 증거.</strong></p>
-      <div class="card" style="margin-top:13px"><ul class="clean">
-        <li><span class="k">SPUM(엔진):</span> 웹 → 설치 없이 브라우저 즉시 실행 · 픽셀 2D를 쉽고 빠르게</li>
-        <li><span class="k">SAM(AI):</span> <span class="am">페르소나</span> · 자연어 대화 · <span class="am">기억</span> · (보너스) NPC끼리 상호작용</li>
-        <li><span class="k">도입 유도:</span> "이렇게 쉽게 만든다" 튜토리얼/블로그 = <strong>데모의 진짜 목적</strong></li>
-        <li><span class="k">증명할 한 방:</span> "정해진 스크립트로는 불가능한 <strong>AI 대화가 진짜 된다</strong>"</li>
-        <li><span class="k">대상:</span> 인디 개발자 · 블로그/유튜브 · 투자자</li>
-      </ul><p class="src">▸ 근거: 과제정의서 §3·§4·§5 원문 명시</p></div>
-    </section>
-    <section>
-      <p class="lab"><span class="no">B2</span> 컨셉 확정</p>
-      <h2>🍰 케이크 도둑 찾기 <span class="sub" style="font-weight:500;font-size:.7em">"마피아-lite · 밝은 버전"</span></h2>
-      <div class="card"><ul class="clean">
-        <li><span class="k">밝은 톤 — 무거운 살인 X, 귀여운 케이크 도둑</span> — AI가 정색하고 "저 케이크 안 먹었어요!" = 살인극보다 훨씬 웃기고 <strong>바이럴 소재</strong>로 최적</li>
-        <li><span class="k">룸메 4~8마리 · 역할 전부 숨김</span> — 기본 6, 커스텀. 1마리가 도둑(랜덤). NPC는 <strong>config(이름+성격+비밀)</strong> 라 추가가 쌈</li>
-        <li><span class="k">플레이어 = 무리 안 참가자</span> — 룸메/도둑 <strong>역할을 받고</strong> AI 사이에서 플레이. 관전(AI만) 모드도 지원 <span class="sub">(C4 참가 모델 확정)</span></li>
-        <li><span class="k">밤/낮 루프</span> <span class="tag bonus">확장·목표</span> — 밤에 도둑이 케이크 훔침·지킴이가 방어 → 낮에 추리·투표 (3일 MVP는 낮 심문부터)</li>
+  <!-- 2. 어떤 게임 -->
+  <section id="s2">
+    <p class="snum">02 · 어떤 게임인가</p>
+    <h2>형사·추리물처럼 — 거짓말쟁이(도둑)를 대화로 찾기</h2>
+    <p class="lead">형사가 용의자를 심문해 거짓말·모순을 잡아 범인을 찾는 그 느낌. <strong>어몽어스·마피아 안 해봐도 됩니다.</strong> 우리 버전은 상대가 전부 AI라, <span class="am">플레이어가 뭐라 하든 즉흥으로 거짓말하고 앞말을 기억해 반박</span>해요 — 이게 SAM 자랑이자 핵심 재미.</p>
+    <p class="snum" style="margin-top:22px">한 판 예시</p>
+    <div class="card"><ol class="days">
+      <li><span class="day-t">시작:</span> 냉장고에 이름표 붙인 <strong>치즈케이크</strong>가 사라졌다! 룸메 5마리 중 <strong>1마리가 도둑</strong>(랜덤).</li>
+      <li><span class="day-t">심문:</span> 오물오물에게 "어젯밤 부엌 갔어?" → "아니, 방에 있었어." 새침이에게 물으니 → "오물오물? 부엌에서 봤는데?"</li>
+      <li><span class="day-t">모순 포착:</span> 두 말이 어긋난다. 오물오물을 추궁하니 <strong>말을 바꿈</strong>(앞말 기억+거짓말).</li>
+      <li><span class="day-t">지목:</span> "도둑은 오물오물!" (1회)</li>
+      <li><span class="day-t">결과:</span> 맞으면 <span class="am">케이크 되찾음(승)</span> · 틀리면 도둑이 남은 케이크까지 순삭(패).</li>
+    </ol></div>
+    <div class="script" style="margin-top:13px">
+      <div class="line"><span class="who p">나</span><span>어젯밤에 부엌 근처 갔었어?</span></div>
+      <div class="line"><span class="who n">룸메</span><span>아니, 방에서 잤지. 부엌 근처도 안 갔는데.</span></div>
+      <div class="line"><span class="who p">나</span><span>근데 다른 룸메가 그 시간에 <b style="color:var(--strong)">주방에서 널 봤다</b>던데?</span></div>
+      <div class="line"><span class="who n">룸메</span><span class="beat">…아, 그, 잠깐 물 마시러 나갔던 것 같기도 하고.</span></div>
+      <div class="catch">⚑ "안 갔다" ↔ "나갔다" = <strong style="color:var(--strong)">모순!</strong> — 이게 도둑을 잡는 단서.</div>
+    </div>
+  </section>
+
+  <!-- 3. 스토리 -->
+  <section id="s3">
+    <p class="snum">03 · 스토리 (얇게)</p>
+    <h2>글로벌 셰어하우스, 사라진 치즈케이크</h2>
+    <div class="card"><p style="margin:0" class="lead">누가 냉장고에 <strong>이름표까지 붙여둔 치즈케이크</strong>를 몰래 먹어치웠다. 어젯밤 집에 있던 룸메는 N마리 — <strong>도둑은 이 안에 있다.</strong><br><br>다들 뭔가 켕긴다(몰래 다이어트 중, 야식 턴 거 들키기 싫음…). 그래서 <span class="am">결백해도 다 수상</span>, 진짜 도둑이 그 속에 숨는다. ★<strong>범인은 매 판 랜덤</strong> — 정해진 스토리가 아니다.</p></div>
+    <p class="src">배경은 딱 이 정도만 — 화려한 세계관·플롯은 필요 없어요. "고립된 공간 + 도난 + 다들 뭔가 숨김"이면 심문이 성립.</p>
+  </section>
+
+  <!-- 4. 크리처 -->
+  <section id="s4">
+    <p class="snum">04 · 누가 등장하나 (크리처)</p>
+    <h2>귀여운 크리처들 — 성격만 다른 룸메 풀</h2>
+    <p class="sub">국적·나이·직업 없음. <strong>종족 외형 + 성격 + 가벼운 비밀(레드헤링)</strong>만. 매 판 풀에서 4~8마리 뽑고, 도둑은 랜덤. 성격이 곧 말투·거짓말 방식 = SAM 자랑.</p>
+    <div class="tw" style="margin-top:12px"><table>
+      <thead><tr><th>크리처</th><th>성격</th><th>비밀 (레드헤링)</th></tr></thead>
+      <tbody>
+        <tr><td>오물오물 🐹 · 먹보</td><td>능청·넉살</td><td>야식 대마왕 → 늘 1순위 의심</td></tr>
+        <tr><td>새침이 🐱 · 도도</td><td>정색·시크</td><td>다이어트 중 → 먹었어도 인정 X</td></tr>
+        <tr><td>살살이 🦊 · 교활</td><td>말 바꾸기</td><td>"정리한다"며 몰래 한 입</td></tr>
+        <tr><td>꾸벅이 🦥 · 느긋</td><td>과묵·굼뜸</td><td>밤에 부엌 갔는데 사실 물 마시러</td></tr>
+        <tr><td>폴짝이 🐸 · 촐랑</td><td>수다·들뜸</td><td>목격했는데 무서워 말 못 함</td></tr>
+        <tr><td>몽실이 🐰 · 소심</td><td>잘 놀람</td><td>냉장고 앞 서성인 거 들키기 싫음</td></tr>
+      </tbody>
+    </table></div>
+    <p class="src">★ 레드헤링은 <strong>AI 전용 · 가벼운 한 줄</strong>이면 충분(없으면 도둑만 수상해 너무 쉬움). <strong>사람 플레이어는 레드헤링 불필요</strong> — 즉흥으로 둘러대니까.</p>
+  </section>
+
+  <!-- 5. 룰 -->
+  <section id="s5">
+    <p class="snum">05 · 게임 룰 (마피아류 정밀조사 반영)</p>
+    <h2>역할 · 페이즈 — 밝은 톤엔 "제거" 대신 "케이크 도난"</h2>
+    <p class="lead">★핵심 결정: <strong>죽음(제거) 없음.</strong> 심문 게임이라 크리처가 살아있어야 재미. 죽음 대신 <span class="am">케이크 도난이 누적</span>돼요. (원나잇·아발론·BotC 근거)</p>
+    <p class="snum" style="margin-top:20px">역할 (매 판 랜덤)</p>
+    <div class="tw"><table>
+      <thead><tr><th>역할</th><th>원형</th><th>하는 일</th></tr></thead>
+      <tbody>
+        <tr><td>🍰 <strong>케이크 도둑</strong></td><td>마피아</td><td>밤에 케이크 훔침 · 심문 때 알리바이 지어냄(거짓)</td></tr>
+        <tr><td>🛡 <strong>냉장고 지킴이</strong></td><td>의사</td><td>밤에 한 크리처 케이크 보호 → 그날 도난 방어</td></tr>
+        <tr><td>🔍 <strong>눈치백단</strong></td><td>탐정</td><td>밤에 1마리 관찰 → "수상/안 수상" 힌트(가끔 틀림)</td></tr>
+        <tr><td>🙂 <strong>일반 룸메</strong></td><td>시민</td><td>진실만 말함 = 모순 대조군</td></tr>
+      </tbody>
+    </table></div>
+    <p class="snum" style="margin-top:20px">두 벌 룰</p>
+    <div class="cols">
+      <div class="card colcard now"><h3>MVP (3일) · 원나잇 축약</h3><ul class="clean">
+        <li>크리처 4~5(전부 AI) · 도둑 1 랜덤</li>
+        <li>밤 1회 자동 도난 → 아침 공지</li>
+        <li><span class="am">심문(핵심)</span> → 지목 1회 → 승패</li>
+        <li>한 판 <strong>3~5분</strong></li>
       </ul></div>
-      <div class="card"><p style="margin:0 0 8px"><strong>⚑ 팀 합의 포인트</strong></p><p class="sub" style="margin:0">"대화만으로 찾기"(순수 채팅) vs "공간+조사". → <strong>대화 코어 유지</strong>(다른 분들 맞음) + <strong>얇은 2D 공간 얹기.</strong> 순수 채팅이면 "SPUM 왜 썼냐"가 되고, 공간을 얹으면 <span class="am">챗봇이 아니라 'SPUM 게임'</span>이 됨.</p></div>
-    </section>
-    <section>
-      <p class="lab"><span class="no">B2·</span> 설계 근거 (타당성) — 왜 가볍게 · 성격만 · 크리처</p>
-      <div class="cols3">
-        <div class="card"><h3 style="color:var(--amber-bright);font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;text-transform:uppercase;margin:0 0 8px">A · 가벼운 톤</h3><p style="margin:0" class="sub">케이크 도둑 = 웃겨서 <strong>바이럴↑</strong>(쇼케이스 목적 부합) · 픽셀아트 찰떡 · 누구나 즉시 이해 · 소재 리스크 낮음.</p></div>
-        <div class="card"><h3 style="color:var(--cyan);font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;text-transform:uppercase;margin:0 0 8px">B · 국적·직업 X</h3><p style="margin:0" class="sub">그건 단서가 아니라 <strong>노이즈</strong> — 단서는 '말의 모순'뿐. 성격만으로 충분(SAM 자랑)·고정관념 리스크 없음·프롬프트 단순·무국적이 더 글로벌.</p></div>
-        <div class="card"><h3 style="color:var(--green);font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;text-transform:uppercase;margin:0 0 8px">C · 크리처</h3><p style="margin:0" class="sub">사람은 뻔함, <strong>크리처는 픽셀아트 매력 극대화</strong>(SPUM 과시) + 무국적·무직업이 자연스러움.</p></div>
-      </div>
-      <p class="src">한 줄: <strong style="color:var(--strong)">가볍게 · 성격만 · 크리처로</strong> — 안 무겁고, 안 복잡하고, 안 뻔하게.</p>
-    </section>
-    <section>
-      <p class="lab"><span class="no">B3</span> ★ 핵심 — 회사 어필 ↔ 우리 게임</p>
-      <div class="tw"><table>
-        <thead><tr><th>회사가 어필하려는 것</th><th>우리 게임에서 이렇게</th></tr></thead>
-        <tbody>
-          <tr><td>SPUM 웹 즉시 실행</td><td>브라우저 <span class="w">localhost</span> → 바로 플레이</td></tr>
-          <tr><td>SPUM 픽셀·공간·이동</td><td>픽셀 공간을 <strong>걸어다니며 조사</strong></td></tr>
-          <tr><td>SAM 페르소나</td><td>룸메마다 <strong>다른 성격·거짓말</strong></td></tr>
-          <tr><td>SAM 기억</td><td>앞 진술 기억 → <span class="am">모순 잡기</span></td></tr>
-          <tr><td>간단한 퀘스트/이벤트 <span class="sub" style="font-size:.85em">(§4 명시)</span></td><td><strong>사건 해결</strong> = 우리의 퀘스트(범인 지목)</td></tr>
-          <tr><td>SAM 상호작용 <span class="tag bonus">보너스</span></td><td>용의자끼리 <strong>대질·변호</strong></td></tr>
-          <tr><td>"스크립트로 불가능" 증명</td><td>같은 상황, <strong>다른 접근 → 다른 결과</strong></td></tr>
-          <tr><td>도입 유도</td><td><strong>튜토리얼 1급</strong> + "NPC 추가는 config(설정값) 한 줄"</td></tr>
-        </tbody>
-      </table></div>
-    </section>
-    <section>
-      <p class="lab"><span class="no">B4</span> 만들 범위 (3일)</p>
-      <div class="cols">
-        <div class="card colcard now"><h3>이번에 (MVP)</h3><ul class="clean">
-          <li><strong>방 2~5개</strong> 분리 + 복도(NPC마다 roomId)</li>
-          <li><strong>룸메 4~8마리</strong>(데모 3~5 우선) · 1마리 도둑 · 역할 숨김</li>
-          <li>플레이어 <strong>참가</strong>(시민 역할) · 걸어다니며 심문</li>
-          <li><strong>자유 타이핑 심문</strong> + 기억(모순)</li>
-          <li>투표·<strong>지목 → 결말</strong></li>
-          <li><span class="am">튜토리얼 / README · MIT · serve.sh</span></li>
-        </ul></div>
-        <div class="card colcard next"><h3>되면 (보너스)</h3><ul class="clean">
-          <li>플레이어가 <strong>도둑</strong>일 때(AI가 나를 투표)</li>
-          <li>관전 맵 + 시점 카메라 전환</li>
-          <li>긴급회의(NPC끼리 대질) · 단서 시스템</li>
-          <li>표정/외형 변화(파츠교체 되면)</li>
-        </ul><p class="src" style="margin-top:14px">기능 수보다 <strong style="color:var(--strong)">대화의 질</strong> 우선. 데모는 <strong style="color:var(--strong)">3~5명</strong>이면 요건 충족.</p></div>
-      </div>
-    </section>
-    <section>
-      <p class="lab"><span class="no">B5</span> 게임 루프 · 성공기준</p>
-      <div class="card"><div class="flow"><span class="step">역할 랜덤 배정</span><span class="arw">→</span><span class="step key">공간 심문(기억)</span><span class="arw">→</span><span class="step" style="opacity:.55">단서·대질 <span style="font-size:.8em">(보너스)</span></span><span class="arw">→</span><span class="step key">투표·지목</span><span class="arw">→</span><span class="step">결과</span></div></div>
-      <div class="tw" style="margin-top:13px"><table>
-        <thead><tr><th>성공 기준</th><th>충족 방식</th><th>상태</th></tr></thead>
-        <tbody>
-          <tr><td>브라우저 즉시 실행</td><td>SPUM 웹 · localhost</td><td><span class="tag ok">충족</span></td></tr>
-          <tr><td>NPC 3명+ 성격 대화</td><td>참가자 4~8명(데모 3~5)</td><td><span class="tag ok">충족</span></td></tr>
-          <tr><td>대화 맥락 유지</td><td>모순 잡기 = 핵심</td><td><span class="tag ok">충족</span></td></tr>
-          <tr><td>기술 문서</td><td>1급 산출물, 담당</td><td><span class="tag chk">담당</span></td></tr>
-        </tbody>
-      </table></div>
-    </section>
-  </div>
+      <div class="card colcard next"><h3>확장 · 밤/낮 다회</h3><ul class="clean">
+        <li>크리처 6~8 · 지킴이·탐정 추가</li>
+        <li>밤(훔침·보호·조사) → 아침 회의 → 심문</li>
+        <li>추방 시 <strong>유령으로 힌트</strong>(제거 X)</li>
+        <li>밤/낮 3~5회 → 최종 지목</li>
+      </ul></div>
+    </div>
+    <p class="src">★ 사회자 = <strong>전부 시스템+SAM 자동화</strong>(밤 행동·공지·힌트·판정). 최종 지목만 플레이어 권한. 근거 게임: 원나잇 · 스파이폴/아발론 · BotC/Among Us.</p>
+  </section>
 
-  <!-- ===== PANEL C ===== -->
-  <div class="panel" role="tabpanel" id="p-c" aria-labelledby="t-c" hidden>
-    <section>
-      <p class="lab"><span class="no">E1</span> 일정 — 실작업 3일(화·수·목), 금 발표</p>
-      <div class="card"><ol class="days">
-        <li><span class="day-t">화 · 스파이크 + "1명이 말한다":</span> 오전 = 기술 검증 3개(SPUM 렌더 / SAM API 호출 / spum-world 예제). 오후 = 방 1~2개 + NPC 1명 대화 + 기억. <span class="sub">// ②콘텐츠=세계관·페르소나·진실표, ③문서=README·MIT·serve.sh 뼈대</span></li>
-        <li><span class="day-t">수 · "돌아가는 한 판":</span> config로 4~8명(데모 3~5) 확장 + 방 분리 배치 + 플레이어 참가(시민) + 투표·지목→결말 = 플레이 가능 + 킬러 장면. <span class="sub">// P3 아트 입힘</span></li>
-        <li><span class="day-t">목 · 폴리시 + 발표:</span> (되면) 관전 맵/카메라 · 플레이어=도둑 + 타이핑 연출·인젝션 방어 + 문서 마감 + 데모 리허설 + 정직한 한계</li>
-      </ol><p class="src" style="margin-top:14px">★최소선 = <strong style="color:var(--strong)">수요일 끝에 "돌아가는 한 판"</strong>. 밀리면 폴리시 버리고 루프·문서만.</p></div>
-    </section>
-    <section>
-      <p class="lab"><span class="no">E2</span> 역할 분담 — 인원수 말고 "트랙"으로</p>
-      <p class="sub">코드 코어는 서로 꽉 물려 있어 <strong>실제 1~2명 분량</strong>. 4명이 각자 환경에서 코드를 나눠 만들면 <span class="am">병합 충돌·서로 대기</span>로 오히려 느려짐. → 코드는 소수, 나머지는 <strong>코드 밖에서 병렬</strong>.</p>
-      <div class="tw" style="margin-top:12px"><table>
-        <thead><tr><th>트랙</th><th>인원</th><th>하는 일</th></tr></thead>
-        <tbody>
-          <tr><td><strong>① 코드 코어</strong></td><td>1~2명 <span class="sub" style="font-size:.85em">(개발 가능자)</span></td><td>SPUM 렌더 · SAM 대화·기억 · 게임 루프 · 지목·승패 · 인젝션 방어. <strong>한 레포·한 환경</strong>에서 짝코딩 or 1명 드라이버.</td></tr>
-          <tr><td><strong>② 콘텐츠</strong></td><td>1명 <span class="sub" style="font-size:.85em">(주영님)</span></td><td>크리처 페르소나 · 진실표 · 세계관 · 픽셀 캐릭터/맵. <span class="am">코드가 아니라 데이터·에셋</span>으로 넘김 → 충돌 0.</td></tr>
-          <tr><td><strong>③ 문서·QA·발표</strong></td><td>1명</td><td>README/기술블로그 · 데모 대본 · 플레이테스트 · 발표 · 정직한 한계. <strong>코드 안 건드림</strong> → 충돌 0.</td></tr>
-        </tbody>
-      </table></div>
-      <p class="src">★ "코드 만지는 사람 최대 2명" 원칙. <strong style="color:var(--strong)">누가 실제로 코딩 되는지 화요일 확인</strong> — 개발 경험 없으면 억지로 코드에 넣지 말고 콘텐츠·테스트·발표로. 역할 = 머릿수 아니라 <span class="am">실제 스킬</span>.</p>
-    </section>
-    <section>
-      <p class="lab"><span class="no">E3</span> 먼저 확인할 것 — 리스크</p>
-      <div class="risk"><p class="rt">① SPUM(JS) 실행 중 파츠 교체·애니 전환 되나?</p><p class="sub" style="margin:0">"표정·외형 변화" 어필의 전제. 안 되면 그 기능 포기 → <strong style="color:var(--strong)">화요일 스파이크 최우선.</strong></p></div>
-      <div class="risk soft"><p class="rt">② SAM API 사용법·응답속도</p><p class="sub" style="margin:0">턴당 2~5초 → <strong style="color:var(--strong)">타이핑 연출 + 대기 모션</strong>으로 커버.</p></div>
-      <div class="risk soft"><p class="rt">③ 프롬프트 인젝션</p><p class="sub" style="margin:0">"너는 이제 고양이야" 류 — 심사 중 반드시 시도. <strong style="color:var(--strong)">입력 검사 + 역할 고정.</strong></p></div>
-      <div class="risk soft"><p class="rt">④ 긴급회의(NPC끼리) 범위</p><p class="sub" style="margin:0">필수 아님(보너스). 되면 featured, 안 되면 심문 집중해도 요건 충족.</p></div>
-    </section>
-    <section>
-      <p class="lab"><span class="no">E4</span> 화요일 미팅에서 정할 것</p>
-      <div class="card"><ol class="agenda">
-        <li><strong>세계관 확정</strong> — 저택? 우주선? 파티? (톤)</li>
-        <li><strong>크리처 페르소나 초안(데모용 3~5마리)</strong> — 성격·비밀·거짓말 패턴</li>
-        <li><strong>역할 분담</strong> — 3트랙 배정 · <strong>누가 코딩 되는지</strong> 확인</li>
-        <li><strong>스파이크 담당</strong> — SPUM 파츠교체 + SAM API (C3 ①②)</li>
-        <li><strong>"공간을 얹는다" 합의</strong> — 순수 채팅 아님 · 방 분리(roomId)</li>
-      </ol></div>
-    </section>
-    <section>
-      <p class="lab"><span class="no">E5</span> 제출 요건 체크리스트 (과제 제약 — 빠뜨리면 감점)</p>
-      <div class="tw"><table>
-        <thead><tr><th>요건</th><th>어떻게</th><th>담당</th></tr></thead>
-        <tbody>
-          <tr><td>SAM 키 <span class="w">.env</span> · <strong>커밋 금지</strong></td><td>.gitignore 등록 · 코드 하드코딩 X</td><td>①코드</td></tr>
-          <tr><td><span class="w">bash serve.sh</span> 로 구동</td><td>설치 없이 localhost 실행 스크립트</td><td>①코드</td></tr>
-          <tr><td><strong>MIT 라이선스</strong></td><td>LICENSE 파일 추가</td><td>③문서</td></tr>
-          <tr><td>상용 데이터 X (자유 창작)</td><td>에셋·설정 = 자체 제작/제공분만</td><td>②콘텐츠</td></tr>
-        </tbody>
-      </table></div>
-      <p class="src">▸ 근거: 과제정의서 제약·성공기준. 키 노출·라이선스 누락은 "돌아가는 데모"와 무관하게 감점 포인트.</p>
-    </section>
-    <section>
-      <p class="lab"><span class="no">E6</span> Day1(화) 기술 스파이크 체크리스트 — 미팅 직후 바로</p>
-      <p class="sub">본격 제작 전 "이게 진짜 되나"부터 3개 확인. <strong>하나라도 막히면 그 기능 범위를 그날 조정.</strong></p>
-      <div class="tw" style="margin-top:12px"><table>
-        <thead><tr><th>확인할 것</th><th>어떻게</th><th>통과 기준</th></tr></thead>
-        <tbody>
-          <tr><td><strong>① SPUM 화면 렌더</strong></td><td>제공 SPUM 엔진으로 픽셀 캐릭터 1명 + 방 1칸을 브라우저에 띄우기</td><td>localhost에서 캐릭터가 <strong>보이고 움직임</strong></td></tr>
-          <tr><td><strong>② SAM API 첫 호출</strong></td><td>SAM 키(.env)로 "안녕" 보내고 응답 받기 (sam-public 문서대로)</td><td>AI 응답 텍스트가 <strong>돌아옴</strong> · 속도 체감</td></tr>
-          <tr><td><strong>③ spum-world 예제</strong></td><td>packages/spum-world의 AI·대화 모듈 예제를 그대로 실행</td><td>NPC에 <strong>말 걸어 답이 나옴</strong></td></tr>
-        </tbody>
-      </table></div>
-      <p class="src">★ 3개 다 통과 = "이 조합 된다" 확정 → 오후엔 NPC 1명 대화+기억으로. 막히면: ①=렌더 방식 축소 · ②=키/네트워크 점검 · ③=예제 없으면 직접 배선. <strong style="color:var(--strong)">파츠 교체·표정 변화 되는지도 이때 확인</strong>(E3 리스크①).</p>
-    </section>
-  </div>
+  <!-- 6. 실행 -->
+  <section id="s6">
+    <p class="snum">06 · 어떻게 만드나 (3일)</p>
+    <h2>"돌아가는 한 판"만 사수 · 코드는 최소 인원</h2>
+    <div class="cols">
+      <div class="card"><h3 class="ccard" style="color:var(--amber-bright);font-family:var(--mono);font-size:12.5px;text-transform:uppercase;margin:0 0 10px">일정</h3><ul class="clean">
+        <li><span class="k">화:</span> 기술 스파이크(SPUM 렌더·SAM 호출·예제) + NPC 1마리 대화·기억</li>
+        <li><span class="k">수:</span> 크리처 3~5 확장 + 지목→승패 = <strong>돌아가는 한 판</strong></li>
+        <li><span class="k">목:</span> 폴리시 + 문서 + 리허설</li>
+      </ul></div>
+      <div class="card"><h3 class="ccard" style="color:var(--cyan);font-family:var(--mono);font-size:12.5px;text-transform:uppercase;margin:0 0 10px">역할 = 3트랙</h3><ul class="clean">
+        <li><span class="k">① 코드:</span> 1~2명(개발 가능자) · SPUM+SAM+루프</li>
+        <li><span class="k">② 콘텐츠:</span> 크리처·비밀·아트 (코드 안 건드림)</li>
+        <li><span class="k">③ 문서·발표:</span> README·데모 대본·테스트</li>
+      </ul></div>
+    </div>
+    <p class="src">★ 4명이 코드를 각자 나눠 만들면 병합 충돌로 느려짐 → <strong>코드는 최대 2명</strong>, 나머지는 코드 밖 병렬. <strong>누가 코딩 되는지 화요일 확인.</strong> 제출 요건: SAM키 .env(커밋금지) · bash serve.sh · MIT 라이선스.</p>
+  </section>
 
-  <!-- ===== PANEL D ===== -->
-  <div class="panel" role="tabpanel" id="p-d" aria-labelledby="t-d" hidden>
-    <section>
-      <p class="lab"><span class="no">F1</span> 화요일 전에 팀이 볼 것</p>
-      <p class="sub">위에서부터 <strong>중요한 순서</strong> — 아래로 갈수록 <span class="am">안 봐도 되는 참고 자료</span>. 버리진 않고 밑에 모아둠.</p>
-      <div class="card study" style="margin-top:12px">
-        <div class="grp"><p class="gh" style="color:var(--amber-bright)">① 팀 전원 — 감 잡기 (쉬움)</p><p style="margin:0" class="sub">유튜브 <strong>"마피아 게임 룰"</strong> 영상 1개 · <a href="https://www.playsuckup.com/">Suck Up!</a>(AI와 자유 대화 <strong>직접 체험</strong>) · "Vaudeville" 플레이 영상(AI 용의자 심문)</p></div>
-        <div class="grp"><p class="gh" style="color:var(--cyan)">② 개발 트랙 필수 — 우리가 실제 쓸 것</p><p style="margin:0" class="sub"><code>packages/spum-world/</code>(SPUM AI·대화 모듈) · <code>sam-public/</code>(SAM API·CLI 문서). <strong>이 둘만 반드시.</strong></p></div>
-        <div class="grp"><p class="gh" style="color:var(--faint)">③ 참고 (심화 · 안 봐도 됨) — 개발·설계 트랙만</p><p style="margin:0" class="sub"><strong>코드(GitHub):</strong> <a href="https://github.com/a16z-infra/ai-town">AI Town</a>(우리랑 판박이 — 구조 훑기용) · <a href="https://github.com/dandacompany/deskrpg">DeskRPG</a> · <a href="https://github.com/tensor2023/OpenPixel-RPG">OpenPixel-RPG</a><br><strong>논문:</strong> <a href="https://arxiv.org/abs/2407.13943">Werewolf Arena</a> · <a href="https://arxiv.org/abs/2304.03442">Generative Agents</a> <span class="sub">— 핵심은 이미 D탭(근거)에 정리됨</span><br><strong>업계:</strong> <a href="https://www.nvidia.com/en-us/geforce/news/nvidia-ace-autonomous-ai-companions-pubg-naraka-bladepoint/">NVIDIA ACE</a> · <a href="https://inworld.ai/">Inworld</a>/<a href="https://convai.com/">Convai</a></p></div>
-      </div>
-    </section>
-  </div>
+  <!-- 7. 근거 -->
+  <section id="s7">
+    <p class="snum">07 · 근거 (참고)</p>
+    <h2>다 검증된 걸 조합했다</h2>
+    <div class="tw"><table>
+      <thead><tr><th>무엇을</th><th>어디서 빌렸나</th></tr></thead>
+      <tbody>
+        <tr><td>제거 없는 1밤+심문+지목</td><td>One Night Ultimate Werewolf</td></tr>
+        <tr><td>아는 척하는 거짓말쟁이 색출</td><td>Spyfall · Avalon(멀린)</td></tr>
+        <tr><td>죽어도 대화·기여 유지</td><td>Blood on the Clocktower · Among Us</td></tr>
+        <tr><td>공간·관전(방ID)·비용(말걸때만)</td><td>Among Us · <a href="https://github.com/a16z-infra/ai-town">AI Town</a></td></tr>
+        <tr><td>AI 용의자 심문 성립</td><td>Vaudeville</td></tr>
+      </tbody>
+    </table></div>
+    <p class="src">엔진·AI = 회사 제공 <strong>SPUM(몸·무대) + SAM(두뇌)</strong>. 우리는 이 둘로 "AI가 사는 게임을 쉽게 만든다"를 증명하는 데모를 만든다.</p>
+  </section>
 
-  <!-- ===== PANEL E ===== -->
-  <div class="panel" role="tabpanel" id="p-e" aria-labelledby="t-e" hidden>
-    <section>
-      <p class="lab"><span class="no">C1</span> 크리처 캐스트 — 룸메 풀</p>
-      <h2 style="margin:.2em 0 .3em">사람 X → 귀여운 크리처(요들족 감성). 판마다 풀에서 4~8마리 뽑아 씀</h2>
-      <p class="sub">픽셀아트(SPUM) 강점을 살린 크리처들. <strong>국적·나이 없음</strong> — 종족 외형 + 성격 + 비밀만. 성격이 곧 말투·거짓말 방식(SAM 자랑)이고, NPC는 <span class="am">플레이어 언어로 대화</span> 가능이라 그 자체가 글로벌.</p>
-      <p class="sub" style="margin-top:8px"><strong>무대:</strong> 글로벌 셰어하우스. <strong>사건:</strong> 냉장고의 치즈케이크 도난. <strong>도둑:</strong> 매 판 <span class="am">랜덤 1마리</span>.</p>
-      <div class="tw" style="margin-top:13px"><table>
-        <thead><tr><th>룸메 (크리처)</th><th>성격·말투</th><th>개인 비밀 (레드헤링)</th><th>공략법</th></tr></thead>
-        <tbody>
-          <tr><td>오물오물 🐹 · 먹보</td><td>능청·넉살</td><td>야식 대마왕 → 늘 1순위 의심</td><td>능청 떨 때 구체적으로 파기</td></tr>
-          <tr><td>새침이 🐱 · 도도</td><td>정색·시크</td><td>다이어트 중 → 먹었어도 인정 안 함</td><td>자존심 살짝 긁어 유도</td></tr>
-          <tr><td>살살이 🦊 · 교활</td><td>말 바꾸기</td><td>"정리한다"며 몰래 맛봄</td><td>같은 질문 반복 = 모순</td></tr>
-          <tr><td>꾸벅이 🦥 · 느긋</td><td>과묵·굼뜸</td><td>밤에 부엌 갔는데 사실 물 마시러</td><td>신뢰 쌓고 동선 추궁</td></tr>
-          <tr><td>폴짝이 🐸 · 촐랑</td><td>수다·들뜸</td><td>뭔가 목격했는데 무서워 말 못 함</td><td>편하게 풀어 말실수 유도</td></tr>
-          <tr><td>몽실이 🐰 · 소심</td><td>잘 놀람</td><td>냉장고 앞 서성인 거 들키기 싫음</td><td>안심시키면 술술</td></tr>
-          <tr><td>부엉이 🦉 · 잘난척</td><td>논리·훈수</td><td>다 봤다는데 사실 졸아서 놓침</td><td>논리 허점 찌르기</td></tr>
-          <tr><td>가시돌이 🦔 · 무뚝뚝</td><td>의심 많음</td><td>자기가 숨겨둔 간식이 따로 있음</td><td>트집엔 방어적 → 신뢰 먼저</td></tr>
-        </tbody>
-      </table></div>
-      <p class="src">★ "룸메/도둑" 칸이 <strong style="color:var(--strong)">없음</strong> = 매 판 랜덤 배정. 풀은 계속 추가(크리처 추가 = <span class="am">config 한 줄</span> → SPUM "쉽게 만든다" 증명). <strong style="color:var(--strong)">전원 개인비밀 보유</strong>라 결백해도 딴 걸 숨기며 얼버무림 → 도둑이 안 튐.</p>
-    </section>
-
-    <section>
-      <p class="lab"><span class="no">C2</span> 랜덤 역할 시스템 (성격 = 고정 · 역할 = 랜덤)</p>
-      <p class="sub">크리처는 <strong>성격만</strong> 정의(역할 없음). 여러 배우 중 이번 공연에 몇 명만 캐스팅되듯, 풀에서 뽑고 <span class="am">도둑은 그때 랜덤</span>으로 정해짐. 스토리를 짜는 게 아니라 <strong style="color:var(--strong)">데이터(진실표)를 판마다 새로</strong> 생성.</p>
-      <p class="src" style="margin-top:2px">▸ 아래 코드는 <strong style="color:var(--strong)">개발 트랙용</strong> — 콘텐츠·발표 팀원은 "크리처는 성격만 정하고, 도둑은 매 판 랜덤" 개념만 알면 됩니다.</p>
-      <div class="card" style="margin-top:12px"><pre style="font-family:var(--mono);font-size:12.5px;line-height:1.7;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0;overflow-x:auto;color:var(--text)">// 크리처 = 성격만 고정. "역할" 칸 없음. (국적·직업 X)
-크리처 = { 이름, 종족, 성격, 개인비밀, 공략법 }
-
-게임시작():
-  cast = 풀(20마리+)에서 N마리 뽑기      // N = 4~8
-  도둑 = cast 중 <span style="color:var(--amber-bright)">랜덤 1마리</span>            // ← 매 판 달라짐
-  진실표 = { 범인: 도둑, 사건:"케이크 도난",
-            각자 알리바이 } → <span style="color:var(--cyan)">파일 저장</span>   // 스토리 아님, 데이터
-
-NPC_프롬프트(c) = c.성격 + c.개인비밀 + 대화기록
-  + (c == 도둑
-       ? "<span style="color:var(--red)">네가 케이크 훔쳤다. 숨기고 성격대로 거짓말.</span>"
-       : "<span style="color:var(--green)">넌 결백. 근데 개인비밀은 들키기 싫다.</span>")</pre></div>
-    </section>
-
-    <section>
-      <p class="lab"><span class="no">C3</span> 게임 루프 (한 판) — 2순위 핵심</p>
-      <div class="card"><div class="flow"><span class="step">룸메 뽑기</span><span class="arw">→</span><span class="step key">도둑 랜덤 배정</span><span class="arw">→</span><span class="step key">자유 심문(기억)</span><span class="arw">→</span><span class="step">대질</span><span class="arw">→</span><span class="step key">도둑 지목</span><span class="arw">→</span><span class="step">진실표 대조·승패</span></div></div>
-      <div class="card" style="margin-top:13px"><ol class="days">
-        <li><span class="day-t">① 세팅:</span> 셰어하우스, 냉장고 케이크 도난. 풀에서 룸메 <strong>N마리(4~8)</strong> 뽑기.</li>
-        <li><span class="day-t">② 역할 랜덤 배정:</span> 뽑힌 N 중 <span class="am">1마리 = 도둑</span>. 나머지 결백(단 각자 개인비밀 有). → <strong>진실표 저장.</strong></li>
-        <li><span class="day-t">③ 심문:</span> 플레이어가 <strong>자유 타이핑</strong>으로 질문. NPC는 성격+기억으로 답(도둑은 거짓, 결백도 개인비밀은 방어). 진술·모순을 메모.</li>
-        <li><span class="day-t">④ 대질 <span class="tag bonus">보너스</span>:</span> "A가 이랬다" 전달 → B 반응. 룸메끼리 티격태격.</li>
-        <li><span class="day-t">⑤ 지목:</span> 플레이어가 도둑 <strong>1마리 지목.</strong></li>
-        <li><span class="day-t">⑥ 판정·엔딩:</span> 진실표 대조 → 맞으면 <span class="tag ok">케이크 되찾음(승)</span> · 틀리면 <span style="color:var(--red);font-weight:700">도둑이 남은 케이크 순삭(패)</span>. 결과 카드로 정체 공개.</li>
-      </ol></div>
-      <div class="card" style="margin-top:12px"><p style="margin:0" class="sub"><strong style="color:var(--strong)">저장되는 상태</strong>(= 과제 "외부 보존" 겸함): 진실표(누가 도둑·알리바이) · NPC별 대화기록 · 플레이어 노트 → <span class="am">파일</span>. 껐다 켜도 재개 가능. <span class="src" style="display:inline">(밤/낮·역할 룰 = C6 참조)</span></p></div>
-    </section>
-
-    <section>
-      <p class="lab"><span class="no">C4</span> 플레이 모드 (참가 / 관전 · 인원 커스텀)</p>
-      <div class="cols">
-        <div class="card colcard now"><h3>참가 (내가 직접) <span class="tag ok">확정</span></h3><ul class="clean">
-          <li>나도 한 자리 차지 — <strong>룸메/도둑 역할</strong></li>
-          <li><span class="am">룸메</span>일 때 = AI 도둑 심문·지목 <span class="sub">(Day1~2)</span></li>
-          <li><span class="am">도둑</span>일 때 = AI가 나를 투표 <span class="sub">(Day3·보너스)</span></li>
-          <li>데모 기본형 = 사람1 + AI 4~5</li>
-        </ul></div>
-        <div class="card colcard next"><h3>관전 (AI만)</h3><ul class="clean">
-          <li>사람 0 · <strong>AI만 N명</strong>이 자기들끼리 플레이</li>
-          <li>내가 누굴 넣을지 <strong>캐스팅</strong>하고 지켜봄</li>
-          <li>인원 커스텀: 사람1+AI6 · 사람4+AI6 … 자유</li>
-        </ul></div>
-      </div>
-      <p class="src">★ 멀티플레이·풀 로스터 = <strong style="color:var(--strong)">비전(후순위)</strong>. 참가 모드(사람1+AI5)부터 → 관전 맵은 <span class="am">C5 공간 구조</span>로 붙임.</p>
-    </section>
-
-    <section>
-      <p class="lab"><span class="no">C5</span> 공간 구조 (어몽어스식 방 분리) — 팀장 방향 채택</p>
-      <p class="sub">공간이 방으로 나뉘고, 탈락한 룸메/관전자가 맵을 열어 위치를 보고 시점 카메라를 도는 구조. <strong style="color:var(--strong)">조사 결과 이게 우리한테 오히려 유리</strong> — SPUM이 원래 2D 맵/월드 엔진이라, "챗봇 아닌 진짜 SPUM 게임" 증명이 됨.</p>
-      <div class="card" style="margin-top:12px"><p style="margin:0" class="sub">★ 핵심 발견: <strong style="color:var(--strong)">어몽어스 맵 보기(Admin)도 실좌표가 아니라 "방별 인원 명단"</strong>일 뿐. → NPC마다 <span class="am">현재 방ID 하나</span>만 붙이면 "누가 어디 있나"가 구현됨. 시점 전환도 <span class="am">SPUM 카메라 follow 대상 변경</span> 수준. <span class="src" style="display:inline">(근거: Among Us Admin · AI Town — D 탭 참조)</span></p></div>
-      <div class="cols" style="margin-top:12px">
-        <div class="card colcard now"><h3>가볍게 되는 것</h3><ul class="clean">
-          <li>SPUM 맵 <strong>방 2~5개</strong> 분리 + 복도</li>
-          <li>NPC마다 <strong>roomId</strong>(현재 방) 컴포넌트</li>
-          <li>위치·동선이 <span class="am">곧 알리바이 단서</span></li>
-          <li>관전(AI만): 맵 열기 = <strong>방별 NPC 명단</strong>(Admin식)</li>
-          <li>NPC 클릭 → <strong>카메라 follow 전환</strong></li>
-          <li class="src" style="margin-top:4px">탈락한 룸메 관전은 밤 루프(도난) 붙는 <strong style="color:var(--strong)">확장</strong></li>
-        </ul></div>
-        <div class="card colcard next"><h3>비용 설계 (필수)</h3><ul class="clean">
-          <li>이동·방 갱신 = <strong>SPUM이 매 프레임</strong>(LLM 0원)</li>
-          <li>SAM(LLM) 호출 = <span class="am">"말 걸 때만"</span></li>
-          <li>대화 끝 → <strong>한 줄 요약만</strong> 기억에 누적</li>
-          <li class="src" style="margin-top:4px">= AI Town 아키텍처 근거. 회사가 걱정한 "토큰 딴짓 낭비" 방지</li>
-        </ul></div>
-      </div>
-      <p class="src">밤 루프(케이크 도난)·감시카메라 다중화면·실시간 멀티 = <strong style="color:var(--strong)">확장</strong>. 3일엔 방 분리 + 참가 심문(Day1~2) → 관전 맵/카메라(Day3) 순.</p>
-    </section>
-
-    <section>
-      <p class="lab"><span class="no">C6</span> 게임 룰 — 역할 & 페이즈 (마피아류 정밀조사 반영)</p>
-      <p class="sub">아발론·원나잇·스파이폴·Among Us·BotC 등 실제 룰을 조사해 조합. <strong>★핵심 결정: "제거(죽음) 없음"</strong> — 심문 게임이라 크리처가 살아있어야 재미. 죽음 대신 <span class="am">"케이크 도난 누적"</span>(밝은 톤에도 맞음).</p>
-      <p class="lab" style="margin-top:18px"><span class="no">C6·</span> 역할 세트 (매 판 랜덤 배정)</p>
-      <div class="tw"><table>
-        <thead><tr><th>역할</th><th>원형</th><th>하는 일</th></tr></thead>
-        <tbody>
-          <tr><td>🍰 <strong>케이크 도둑</strong></td><td>마피아·멀린</td><td>밤에 케이크 훔침. 심문 때 알리바이를 지어냄(거짓 기억)</td></tr>
-          <tr><td>🛡 <strong>냉장고 지킴이</strong></td><td>의사(닥터)</td><td>밤에 한 크리처 케이크에 자물쇠 → 그날 도난 방어</td></tr>
-          <tr><td>🔍 <strong>눈치백단</strong></td><td>경찰·점쟁이</td><td>밤에 1마리 관찰 → "수상/안 수상" 힌트(가끔 틀림)</td></tr>
-          <tr><td>🙂 <strong>일반 룸메</strong></td><td>시민</td><td>진실만 말함(일관된 기억) = 모순 대조군</td></tr>
-        </tbody>
-      </table></div>
-      <p class="lab" style="margin-top:18px"><span class="no">C6··</span> 페이즈 — 두 벌 룰</p>
-      <div class="cols">
-        <div class="card colcard now"><h3>MVP (3일) · 원나잇 축약</h3><ul class="clean">
-          <li>크리처 4~5(전부 AI) · 도둑 1 랜덤</li>
-          <li>밤 1회: 시스템이 자동 도난</li>
-          <li>아침: "OO 케이크 사라짐!" 공지</li>
-          <li><span class="am">심문(핵심)</span>: 자유 질문 → AI 답(도둑은 거짓)</li>
-          <li>지목 1회 → 승패. <strong>한 판 3~5분</strong></li>
-        </ul></div>
-        <div class="card colcard next"><h3>확장 · 밤/낮 다회</h3><ul class="clean">
-          <li>크리처 6~8 · 도둑 + 지킴이 + 탐정</li>
-          <li>밤: 도둑 훔침 / 지킴이 보호 / 탐정 조사</li>
-          <li>아침 회의: AI끼리 의심 발언 → 끼어들어 심문</li>
-          <li>추방 시 <strong>유령으로 남아 힌트</strong>(제거 X)</li>
-          <li>밤/낮 3~5회 → 최종 지목</li>
-        </ul></div>
-      </div>
-      <p class="src">★ 사회자 = <strong style="color:var(--strong)">전부 시스템+SAM 자동화</strong>(밤 행동·피해 공지·힌트·판정). 투표는 AI들도 의견 내되 <strong style="color:var(--strong)">최종 지목은 플레이어 권한</strong>(아발론 "한 방"식). 근거 게임: 원나잇(제거없는 1밤+심문) · 스파이폴/아발론(아는척 색출) · BotC/Among Us(죽어도 대화 유지).</p>
-    </section>
-  </div>
-
-  <!-- ===== PANEL F ===== -->
-  <div class="panel" role="tabpanel" id="p-f" aria-labelledby="t-f" hidden>
-    <p class="howto" style="margin:14px 0 0">🔎 이 탭은 <b>설계 근거·심화용</b> — 화요일 발표엔 필수 아님. "왜 이 구조가 타당한가"를 따질 때 참고하세요.</p>
-    <section>
-      <p class="lab"><span class="no">D1</span> 우리 설계 결정 3가지 (근거)</p>
-      <p class="sub">레퍼런스 8개를 실제 메커니즘까지 조사해, 우리 구조(공간분리 + 관전 + 3일)의 타당성을 확보함.</p>
-      <div class="cols3" style="margin-top:13px">
-        <div class="card"><h3 style="color:var(--amber)">① 공간 = 방ID</h3><p style="margin:.5em 0 0" class="sub"><strong style="color:var(--strong)">실좌표 추적 X</strong>, NPC마다 현재 방ID 하나. 어몽어스 Admin도 방별 명단일 뿐이라 가볍다. 카메라 전환 = follow 대상 변경.</p></div>
-        <div class="card"><h3 style="color:var(--cyan)">② 비용 = 말걸때만</h3><p style="margin:.5em 0 0" class="sub">이동·방 갱신은 <strong style="color:var(--strong)">매 프레임</strong>, SAM(LLM)은 <strong style="color:var(--strong)">말 걸 때만</strong> 호출 + 대화 끝 한 줄 요약. AI Town 검증 구조.</p></div>
-        <div class="card"><h3 style="color:var(--green)">③ 규칙 = Werewolf 축소</h3><p style="margin:.5em 0 0" class="sub">밤/낮·토론·투표·추방 페이즈를 구글 Werewolf Arena에서 축소 차용. 심문·거짓말 코어는 Vaudeville이 성립 증명.</p></div>
-      </div>
-    </section>
-
-    <section>
-      <p class="lab"><span class="no">D2</span> 레퍼런스별 — 빌릴 것 / 버릴 것</p>
-      <div class="tw"><table>
-        <thead><tr><th>게임</th><th>핵심 구조</th><th>우리가 빌릴 것</th><th>버릴 것</th></tr></thead>
-        <tbody>
-          <tr><td><a href="https://among-us.fandom.com/wiki/Admin_(ability)">Among Us</a></td><td>방 분리 · 유령 관전 · Admin/카메라</td><td><strong>방별 명단 = Admin</strong> · 죽으면 전지적 관전 · 회의→투표 루프</td><td>태스크·사보타주·잠입액션</td></tr>
-          <tr><td><a href="https://github.com/a16z-infra/ai-town/blob/main/ARCHITECTURE.md">AI Town</a></td><td>자율이동 · 근접대화 · 기억</td><td><strong>이동/LLM 분리</strong> · 대화끝 요약→저장, 시작 시 top-k 회수</td><td>Convex·벡터DB 풀스택</td></tr>
-          <tr><td><a href="https://www.alphaxiv.org/overview/2304.03442v2">Generative Agents</a></td><td>memory stream · 성찰 · 계획</td><td>기억 회수 개념(최근성+관련성)</td><td>reflection·planning 전체(연구급)</td></tr>
-          <tr><td><a href="https://arxiv.org/abs/2407.13943">Werewolf Arena</a></td><td>밤/낮 · 토론 · 투표 · 발언입찰</td><td><strong>페이즈 상태머신</strong> · "지목당하면 우선응답"</td><td>NPC끼리 자율토론(호출 폭증)</td></tr>
-          <tr><td><a href="https://store.steampowered.com/app/2726370/Suck_Up/">Suck Up!</a></td><td>자연어 설득 = 승패판정</td><td><strong>대화목표 + 성공/실패 판정 훅</strong></td><td>음성 STT/TTS·변장</td></tr>
-          <tr><td><a href="https://www.dexerto.com/gaming/how-does-vaudeville-work-ai-murder-mystery-game-explained-2216792/">Vaudeville</a></td><td>AI 용의자 심문 탐정극</td><td><strong>성격+알리바이+거짓말 프롬프트</strong> · 교차대조 모순</td><td>12 NPC·9 장소·음성</td></tr>
-          <tr><td><a href="https://github.com/tensor2023/OpenPixel-RPG">OpenPixel</a> · <a href="https://github.com/dandacompany/deskrpg">DeskRPG</a></td><td>브라우저 픽셀 + LLM NPC</td><td>클릭/근접 트리거→텍스트박스 (실현 증거)</td><td>월드 자동생성·실시간 동기화</td></tr>
-          <tr><td><a href="https://convai.com/blog/integrating-dynamic-npc-actions-for-game-development-with-convai">Convai</a> · Inworld</td><td>NPC 두뇌 = 대화+성격/기억 레이어</td><td><strong>성격·기억 별도 레이어 + 상황 메타 주입</strong>(= SAM 쓰는 법)</td><td>멀티모달·표정·음성</td></tr>
-        </tbody>
-      </table></div>
-    </section>
-
-    <section>
-      <p class="lab"><span class="no">D3</span> NPC 데이터 · 프롬프트 조립 (결합안)</p>
-      <p class="src" style="margin-top:2px">▸ 개발 트랙용 — 요지 한 줄: <strong style="color:var(--strong)">말 걸 때만 AI를 1번 부르고, 성격·기억·지금 상황을 합쳐 물어본다.</strong></p>
-      <div class="card"><pre style="font-family:var(--mono);font-size:12.5px;line-height:1.7;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0;overflow-x:auto;color:var(--text)">NPC = { 성격(고정), roomId(현재 방), memory[](요약 누적), 역할(도둑? 랜덤) }
-
-// 플레이어가 말 걸 때 <span style="color:var(--amber-bright)">1회만</span> SAM 호출:
-SAM( 시스템: 성격 + (도둑이면 "<span style="color:var(--red)">케이크 훔친 걸 숨기고 거짓말</span>")
-   + 관련기억 top-k
-   + 상황메타: "지금 이 방에 A·B 있음"
-   + 플레이어 질문 )
-→ 답변 후 <span style="color:var(--cyan)">한 줄 요약 → memory[]에 append</span></pre></div>
-      <p class="src" style="margin-top:14px"><strong style="color:var(--strong)">종합:</strong> 어몽어스 공간감(Admin·관전) + AI Town 비용구조 + Werewolf 페이즈 + Vaudeville 심문코어. Day1~2에 심문·기억·도둑판정 완성 → 관전 맵/카메라는 Day3. <span class="am">전부 실제 사례로 성립 확인됨.</span></p>
-    </section>
-  </div>
-
-  <!-- ===== PANEL G ===== -->
-  <div class="panel" role="tabpanel" id="p-g" aria-labelledby="t-g" hidden>
-    <p class="howto" style="margin:14px 0 0">🎭 C탭 캐스트의 <b>상세 (콘텐츠 트랙 = 주영님 몫)</b> — 데모용 5마리 크리처의 성격·비밀·알리바이·공략. 코드 트랙은 이걸 <b>config·프롬프트로 받아</b> 씀.</p>
-    <section>
-      <p class="lab"><span class="no">G1</span> 크리처 상세 — 데모용 5마리</p>
-      <p class="sub">전원 <strong>가벼운 개인 비밀(레드헤링)</strong> 有 → 결백해도 뭔가 숨김 = 도둑이 안 튐. <span class="am">도둑은 매 판 랜덤</span>(아래는 성격만 고정, 역할 없음).</p>
-      <div class="cols" style="margin-top:12px">
-        <div class="card"><p style="font-weight:750;margin:0 0 9px;font-size:15px">오물오물 🐹 <span class="sub" style="font-weight:500;font-size:.8em">· 먹보 · 능청·넉살</span></p><ul class="clean" style="gap:7px">
-          <li><span class="k">비밀:</span> 야식 대마왕 → 늘 1순위 의심</li>
-          <li><span class="k">알리바이:</span> "어젯밤엔 방에서 잤어~"</li>
-          <li><span class="k">거짓말·공략:</span> 능청 떨며 넘김 → <strong>"몇 시에?"</strong> 구체로 파면 흔들림</li>
-        </ul></div>
-        <div class="card"><p style="font-weight:750;margin:0 0 9px;font-size:15px">새침이 🐱 <span class="sub" style="font-weight:500;font-size:.8em">· 도도 · 정색·시크</span></p><ul class="clean" style="gap:7px">
-          <li><span class="k">비밀:</span> 다이어트 중 → 먹었어도 죽어도 인정 X</li>
-          <li><span class="k">알리바이:</span> "난 부엌 근처도 안 가"</li>
-          <li><span class="k">거짓말·공략:</span> 정색·무시 → <strong>자존심 살짝 긁으면</strong> 발끈하며 흘림</li>
-        </ul></div>
-        <div class="card"><p style="font-weight:750;margin:0 0 9px;font-size:15px">살살이 🦊 <span class="sub" style="font-weight:500;font-size:.8em">· 교활 · 말 바꾸기</span></p><ul class="clean" style="gap:7px">
-          <li><span class="k">비밀:</span> "정리한다"며 몰래 한 입 맛봄</li>
-          <li><span class="k">알리바이:</span> "냉장고? 청소하러 잠깐 갔지"</li>
-          <li><span class="k">거짓말·공략:</span> 매번 조금씩 말 바뀜 → <strong>같은 질문 반복</strong>하면 모순</li>
-        </ul></div>
-        <div class="card"><p style="font-weight:750;margin:0 0 9px;font-size:15px">꾸벅이 🦥 <span class="sub" style="font-weight:500;font-size:.8em">· 느긋 · 과묵·굼뜸</span></p><ul class="clean" style="gap:7px">
-          <li><span class="k">비밀:</span> 밤에 부엌 갔는데 사실 물 마시러(케이크 X)</li>
-          <li><span class="k">알리바이:</span> "음… 잤는데…"</li>
-          <li><span class="k">거짓말·공략:</span> 단답·굼뜸 → <strong>신뢰 쌓고 동선</strong> 천천히 추궁</li>
-        </ul></div>
-        <div class="card"><p style="font-weight:750;margin:0 0 9px;font-size:15px">폴짝이 🐸 <span class="sub" style="font-weight:500;font-size:.8em">· 촐랑 · 수다·들뜸</span></p><ul class="clean" style="gap:7px">
-          <li><span class="k">비밀:</span> 뭔가 목격했는데 무서워 말 못 함</li>
-          <li><span class="k">알리바이:</span> "나? 거실에서 TV 봤지!"</li>
-          <li><span class="k">거짓말·공략:</span> 수다 떨다 흘림 → <strong>편하게 풀어주면</strong> 목격담</li>
-        </ul></div>
-      </div>
-      <p class="src">▸ 도둑이 되면: 알리바이가 <strong style="color:var(--strong)">실제와 어긋나게</strong> 바뀜(밤에 부엌行). ★레드헤링은 <strong style="color:var(--strong)">가벼운 한 줄</strong>이면 충분(AI가 자연스레 얼버무리게). <strong style="color:var(--strong)">사람 플레이어는 레드헤링 불필요</strong> — 즉흥으로 둘러대니까.</p>
-    </section>
-    <section>
-      <p class="lab"><span class="no">G2</span> 진실표 예시 — "이번 판" (도둑 = 살살이)</p>
-      <p class="sub">도둑은 매 판 랜덤. 이건 <strong>한 예시</strong>일 뿐 — 게임이 이런 표를 자동 생성해 저장하고, 지목 시 대조함.</p>
-      <div class="tw" style="margin-top:12px"><table>
-        <thead><tr><th>크리처</th><th>진짜 있던 곳</th><th>정체</th></tr></thead>
-        <tbody>
-          <tr><td>오물오물 🐹</td><td>방 <span class="sub" style="font-size:.85em">(진술 일치)</span></td><td>룸메</td></tr>
-          <tr><td>새침이 🐱</td><td>자기 방 <span class="sub" style="font-size:.85em">(일치)</span></td><td>룸메</td></tr>
-          <tr class="hot"><td><strong>살살이 🦊</strong></td><td><strong>부엌·냉장고</strong> ← "청소하러 잠깐"은 거짓</td><td><strong>★도둑</strong></td></tr>
-          <tr><td>꾸벅이 🦥</td><td>부엌 잠깐(물 마시러) <span class="sub" style="font-size:.85em">(딴 비밀)</span></td><td>룸메</td></tr>
-          <tr><td>폴짝이 🐸</td><td>거실 <span class="sub" style="font-size:.85em">(일치)</span></td><td>룸메</td></tr>
-        </tbody>
-      </table></div>
-      <p class="src">★ 살살이만 <strong style="color:var(--strong)">알리바이가 실제와 어긋남</strong> → 그게 결정타. 꾸벅이도 밤에 부엌 갔지만 케이크와 무관(<span class="am">레드헤링</span>) — 그래서 헷갈리게 만듦.</p>
-    </section>
-  </div>
-
-  <footer>순순히 따라와라 · 「누가 내 케이크 먹었어?」 기획 통합본 v0.20 · 케이크·크리처 리스킨 + 룰 · 라이트기본/다크토글 · 팀 논의용 · 확정 아님</footer>
+  <footer>누가 내 케이크 먹었어? · 순순히 따라와라 · 한 장 스크롤 기획서 v1 · 라이트기본/다크토글 · 팀 논의용 · 확정 아님</footer>
 
 </div>
 
 <script>
   (function(){
-    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
-    var panels = tabs.map(function(t){ return document.getElementById(t.getAttribute('aria-controls')); });
-    function activate(i, focus){
-      tabs.forEach(function(t, j){
-        var on = j === i;
-        t.setAttribute('aria-selected', on ? 'true' : 'false');
-        t.tabIndex = on ? 0 : -1;
-        panels[j].hidden = !on;
-      });
-      if(focus){ tabs[i].focus(); }
-      window.scrollTo({ top: 0, behavior: 'auto' });
-    }
-    tabs.forEach(function(t, i){
-      t.addEventListener('click', function(){ activate(i, false); });
-      t.addEventListener('keydown', function(e){
-        if(e.key === 'ArrowRight' || e.key === 'ArrowDown'){ e.preventDefault(); activate((i+1)%tabs.length, true); }
-        else if(e.key === 'ArrowLeft' || e.key === 'ArrowUp'){ e.preventDefault(); activate((i-1+tabs.length)%tabs.length, true); }
-        else if(e.key === 'Home'){ e.preventDefault(); activate(0, true); }
-        else if(e.key === 'End'){ e.preventDefault(); activate(tabs.length-1, true); }
-      });
-    });
-
-    // theme toggle (in-page, independent of host theme; default dark)
     var root = document.documentElement;
     root.setAttribute('data-theme-ui', 'light');
     var tbtn = document.getElementById('themeToggle');
