@@ -143,12 +143,12 @@
       <h1><span class="q">《</span>순순히 따라와라<span class="q">》</span></h1>
       <p class="define">SPUM 2D 공간에서 <strong>AI 용의자들을 자연어로 심문·대질</strong>해 숨은 스파이를 밝히는 브라우저 추리게임 — <strong>SPUM(엔진)</strong>과 <strong>SAM(AI 페르소나·기억)</strong>을 한 화면에서 증명하는 쇼케이스.</p>
       <div class="stampline">
-        <span class="stamp hot">v0.16 · 팀 논의용</span>
+        <span class="stamp hot">v0.17 · 팀 논의용</span>
         <span class="stamp">화요일 미팅</span>
         <span class="stamp">작성 · 김주영(팀장)</span>
         <button id="themeToggle" class="tbtn" type="button" aria-pressed="true" aria-label="라이트/다크 모드 전환"><span class="ticon" aria-hidden="true">☾</span><span class="tlabel">다크 모드</span></button>
       </div>
-      <p class="howto">📑 <b>6개 탭(A→F)</b>을 순서대로 넘기며 보세요 — 위의 탭을 눌러 이동, 모바일은 <b>좌우로 스크롤</b>. &nbsp;A 게임 이해 · B 기획 · C 게임 설계 · D 근거 · E 실행 · F 스터디<br><b>발표는 A·B 중심</b>, C~F는 백업·심화입니다.</p>
+      <p class="howto">📑 <b>7개 탭(A→G)</b>을 순서대로 넘기며 보세요 — 위의 탭을 눌러 이동, 모바일은 <b>좌우로 스크롤</b>. &nbsp;A 게임 이해 · B 기획 · C 게임 설계 · D 근거 · E 실행 · F 스터디 · G 캐릭터<br><b>발표는 A·B 중심</b>, C~G는 백업·심화·콘텐츠입니다.</p>
     </div>
   </header>
 
@@ -159,6 +159,7 @@
     <button class="tab" role="tab" id="t-f" aria-controls="p-f" aria-selected="false">🔎 D · 근거</button>
     <button class="tab" role="tab" id="t-c" aria-controls="p-c" aria-selected="false">⚡ E · 실행</button>
     <button class="tab" role="tab" id="t-d" aria-controls="p-d" aria-selected="false">📚 F · 스터디</button>
+    <button class="tab" role="tab" id="t-g" aria-controls="p-g" aria-selected="false">🎭 G · 캐릭터</button>
   </div>
 
   <!-- ===== PANEL A ===== -->
@@ -545,7 +546,59 @@ SAM( 시스템: 성격 + (스파이면 "<span style="color:var(--red)">X를 숨�
     </section>
   </div>
 
-  <footer>순순히 따라와라 · 기획 + 레퍼런스 통합본 v0.16 · 한판예시·스파이크체크·트랙 · 라이트기본/다크토글 · 팀 논의용 · 확정 아님</footer>
+  <!-- ===== PANEL G ===== -->
+  <div class="panel" role="tabpanel" id="p-g" aria-labelledby="t-g" hidden>
+    <p class="howto" style="margin:14px 0 0">🎭 C탭 캐스트의 <b>상세 (콘텐츠 트랙 = 주영님 몫)</b> — 데모용 5명의 성격·비밀·알리바이·공략. 코드 트랙은 이걸 <b>config·프롬프트로 받아</b> 씀.</p>
+    <section>
+      <p class="lab"><span class="no">G1</span> 캐릭터 상세 — 데모용 5명</p>
+      <p class="sub">전원 <strong>개인 비밀</strong>이 있어 결백해도 뭔가 숨김 → 범인이 안 튐. <span class="am">스파이는 매 판 랜덤</span>(아래는 성격만 고정, 역할 없음).</p>
+      <div class="cols" style="margin-top:12px">
+        <div class="card"><p style="font-weight:750;margin:0 0 9px;font-size:15px">제임스 위트모어 🇬🇧 <span class="sub" style="font-weight:500;font-size:.8em">· 주최자 · 침착·논리형</span></p><ul class="clean" style="gap:7px">
+          <li><span class="k">비밀:</span> 회사 파산 직전(빚)</li>
+          <li><span class="k">알리바이:</span> "10시 서재에서 서류 검토"</li>
+          <li><span class="k">거짓말·공략:</span> 논리·숫자로 포장 → <strong>재정·시간 모순</strong> 파면 흔들림</li>
+        </ul></div>
+        <div class="card"><p style="font-weight:750;margin:0 0 9px;font-size:15px">메이린 🇸🇬 <span class="sub" style="font-weight:500;font-size:.8em">· 비서 · 감정·불안형</span></p><ul class="clean" style="gap:7px">
+          <li><span class="k">비밀:</span> 경쟁사와 몰래 접촉(이직 타진)</li>
+          <li><span class="k">알리바이:</span> "주최자 곁에 계속 있었어요"</li>
+          <li><span class="k">거짓말·공략:</span> 과잉 협조·감정적 부인 → <strong>안심시키면</strong> 말실수</li>
+        </ul></div>
+        <div class="card"><p style="font-weight:750;margin:0 0 9px;font-size:15px">디에고 알바레스 🇪🇸 <span class="sub" style="font-weight:500;font-size:.8em">· 파트너 · 능청·궤변형</span></p><ul class="clean" style="gap:7px">
+          <li><span class="k">비밀:</span> 주최자와 돈 다툼(투자 회수 요구)</li>
+          <li><span class="k">알리바이:</span> "바에서 한잔했지"</li>
+          <li><span class="k">거짓말·공략:</span> 농담·화제 전환 → <strong>같은 질문 반복</strong>하면 말 바뀜</li>
+        </ul></div>
+        <div class="card"><p style="font-weight:750;margin:0 0 9px;font-size:15px">소피 로랑 🇫🇷 <span class="sub" style="font-weight:500;font-size:.8em">· 예술가 · 도도·회피형</span></p><ul class="clean" style="gap:7px">
+          <li><span class="k">비밀:</span> 위작을 진품으로 판매</li>
+          <li><span class="k">알리바이:</span> "갤러리 룸에서 작업 중"</li>
+          <li><span class="k">거짓말·공략:</span> 우아하게 무시·회피 → <strong>자존심 세워주면</strong> 유도됨</li>
+        </ul></div>
+        <div class="card"><p style="font-weight:750;margin:0 0 9px;font-size:15px">콰메 오세이 🇬🇭 <span class="sub" style="font-weight:500;font-size:.8em">· 경비 · 무뚝뚝·과묵형</span></p><ul class="clean" style="gap:7px">
+          <li><span class="k">비밀:</span> 사건 시각 자리 비움(잠깐 이탈)</li>
+          <li><span class="k">알리바이:</span> "정문에서 근무 중"</li>
+          <li><span class="k">거짓말·공략:</span> 단답·말 아낌 → <strong>신뢰 쌓고 구체 동선</strong> 추궁</li>
+        </ul></div>
+      </div>
+      <p class="src">▸ 스파이가 되면: 알리바이가 <strong style="color:var(--strong)">실제와 어긋나게</strong> 바뀌고(범행 장소=금고방), 개인비밀 위에 "파일 훔친 것"을 추가로 숨김.</p>
+    </section>
+    <section>
+      <p class="lab"><span class="no">G2</span> 진실표 예시 — "이번 판" (스파이 = 디에고)</p>
+      <p class="sub">스파이는 매 판 랜덤. 이건 <strong>한 예시</strong>일 뿐 — 게임이 이런 표를 자동 생성해 파일로 저장하고, 지목 시 대조함.</p>
+      <div class="tw" style="margin-top:12px"><table>
+        <thead><tr><th>인물</th><th>진짜 있던 곳</th><th>정체</th></tr></thead>
+        <tbody>
+          <tr><td>제임스</td><td>서재 <span class="sub" style="font-size:.85em">(진술 일치)</span></td><td>시민</td></tr>
+          <tr><td>메이린</td><td>주최자 곁 <span class="sub" style="font-size:.85em">(일치)</span></td><td>시민</td></tr>
+          <tr class="hot"><td><strong>디에고</strong></td><td><strong>금고방</strong> ← "바에 있었다"는 거짓</td><td><strong>★스파이</strong></td></tr>
+          <tr><td>소피</td><td>갤러리 룸 <span class="sub" style="font-size:.85em">(일치)</span></td><td>시민</td></tr>
+          <tr><td>콰메</td><td>정문 잠깐 이탈 <span class="sub" style="font-size:.85em">(딴 비밀)</span></td><td>시민</td></tr>
+        </tbody>
+      </table></div>
+      <p class="src">★ 디에고만 <strong style="color:var(--strong)">알리바이가 실제와 어긋남</strong> → 그게 결정타. 콰메도 자리를 비웠지만 파일과 무관(<span class="am">레드헤링</span>) — 그래서 헷갈리게 만듦.</p>
+    </section>
+  </div>
+
+  <footer>순순히 따라와라 · 기획 + 레퍼런스 통합본 v0.17 · 캐릭터 상세(G) · 라이트기본/다크토글 · 팀 논의용 · 확정 아님</footer>
 
 </div>
 
