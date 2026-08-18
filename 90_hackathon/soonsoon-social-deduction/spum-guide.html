@@ -1,0 +1,252 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>SPUM Studio ?ъ슜 媛?대뱶 (吏곸젒 ?뺤씤쨌?좊ː???깃툒)</title>
+<style>
+  :root, :root[data-theme-ui="dark"]{
+    --ink:#0E1116; --panel:#151A21; --panel2:#1B222C; --line:#2A3340;
+    --text:#EAE8E1; --muted:#9BA6B4; --faint:#7E8794; --strong:#FFFFFF;
+    --amber:#F0B429; --amber-bright:#FFC94D; --amber-wash:rgba(240,180,41,.12); --on-amber:#1A1206;
+    --red:#E5595C; --green:#46B95A; --cyan:#5BC7C9; --orange:#E8934A;
+    --mono:ui-monospace,"SFMono-Regular","SF Mono",Menlo,Consolas,"Liberation Mono","Malgun Gothic","Apple SD Gothic Neo","Pretendard",sans-serif;
+    --sans:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;
+  }
+  :root[data-theme-ui="light"]{
+    --ink:#F4F2EC; --panel:#FFFFFF; --panel2:#F0EDE4; --line:#E1DCD0;
+    --text:#232730; --muted:#565E6D; --faint:#767C86; --strong:#14161B;
+    --amber:#F0B429; --amber-bright:#8F5400; --amber-wash:rgba(240,180,41,.20); --on-amber:#1A1206;
+    --red:#C42B2E; --green:#157F35; --cyan:#0A7C7E; --orange:#B8641F;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; background:var(--ink); color:var(--text); font-family:var(--sans); line-height:1.7; letter-spacing:-.01em; font-size:16px}
+  .wrap{max-width:840px; margin:0 auto; padding:clamp(18px,4vw,44px) clamp(18px,5vw,40px) 90px}
+  header.case{padding:clamp(18px,4vw,32px) 0 8px}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--amber-bright); margin:0 0 12px}
+  h1{font-size:clamp(26px,5vw,42px); line-height:1.1; margin:0; font-weight:800; letter-spacing:-.02em; text-wrap:balance}
+  .define{margin:16px 0 0; max-width:64ch; font-size:15px; line-height:1.6; border-left:2px solid var(--amber); padding-left:15px; color:var(--muted)}
+  .stampline{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; align-items:center}
+  .stamp{font-family:var(--mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:5px 11px; background:var(--panel)}
+  .stamp.hot{color:var(--on-amber); background:var(--amber); border-color:var(--amber); font-weight:600}
+  .tbtn{font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:5px 12px; background:var(--panel); cursor:pointer; display:inline-flex; align-items:center; gap:6px}
+  .tbtn:hover{color:var(--text); border-color:var(--faint)}
+
+  nav.toc{position:sticky; top:0; z-index:20; display:flex; flex-wrap:wrap; gap:6px; background:var(--ink); border-bottom:1px solid var(--line); padding:10px 0; margin-top:16px}
+  nav.toc a{font-family:var(--mono); font-size:12.5px; color:var(--muted); text-decoration:none; border:1px solid var(--line); border-radius:9px; padding:6px 11px; white-space:nowrap}
+  nav.toc a:hover{color:var(--text); border-color:var(--faint)}
+
+  section{margin-top:clamp(30px,5vw,46px); scroll-margin-top:60px}
+  .snum{font-family:var(--mono); font-size:12px; letter-spacing:.04em; text-transform:uppercase; color:var(--amber-bright); font-weight:700; margin:0 0 6px}
+  h2{font-size:clamp(19px,3.2vw,25px); margin:0 0 12px; font-weight:750; letter-spacing:-.02em}
+  h3{font-size:16px; margin:0 0 8px; font-weight:700}
+  p{margin:0 0 12px}
+  .sub{color:var(--muted)}
+  strong{color:var(--strong); font-weight:700}
+  .am{color:var(--amber-bright); font-weight:700}
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:clamp(16px,3vw,22px)}
+  .card + .card{margin-top:12px}
+  .src{font-family:var(--mono); font-size:12px; color:var(--faint); margin-top:12px; letter-spacing:.02em; line-height:1.6}
+  ul.clean{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px}
+  ul.clean li{position:relative; padding-left:24px}
+  ul.clean li::before{content:"??; position:absolute; left:5px; top:-1px; color:var(--amber-bright); font-family:var(--mono); font-weight:700}
+  ul.clean li .k{font-weight:700; color:var(--strong)}
+  .tw{overflow-x:auto; border:1px solid var(--line); border-radius:14px; background:var(--panel)}
+  table{border-collapse:collapse; width:100%; min-width:520px; font-size:14px}
+  th,td{text-align:left; padding:11px 14px; border-bottom:1px solid var(--line); vertical-align:top}
+  thead th{font-family:var(--mono); font-size:11px; letter-spacing:.02em; text-transform:uppercase; color:var(--amber-bright); background:var(--panel2); font-weight:600}
+  tbody tr:last-child td{border-bottom:none}
+
+  /* ?좊ː??= ?뚮옉(?믪쓬)?믩묠媛???쓬) 洹몃씪?곗씠??(?뚮옉?믩궓蹂대씪?믩낫?쇄넂遺꾪솉?믩묠媛? */
+  .rel{font-family:var(--mono); font-size:10.5px; font-weight:700; padding:2px 7px; border-radius:6px; white-space:nowrap; letter-spacing:.02em; display:inline-block; border:1px solid transparent}
+  .r5{color:#2F6FED; background:rgba(47,111,237,.14); border-color:rgba(47,111,237,.30)}
+  .r4{color:#6E57DE; background:rgba(110,87,222,.14); border-color:rgba(110,87,222,.30)}
+  .r3{color:#A544C4; background:rgba(165,68,196,.14); border-color:rgba(165,68,196,.30)}
+  .r2{color:#D53F7C; background:rgba(213,63,124,.14); border-color:rgba(213,63,124,.30)}
+  .r1{color:#E0453E; background:rgba(224,69,62,.14); border-color:rgba(224,69,62,.30)}
+  :root[data-theme-ui="light"] .r5{color:#2257C9}
+  :root[data-theme-ui="light"] .r4{color:#5A43C4}
+  :root[data-theme-ui="light"] .r3{color:#8E32AB}
+  :root[data-theme-ui="light"] .r2{color:#BC2E68}
+  :root[data-theme-ui="light"] .r1{color:#C42B2E}
+  .legend{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+  a{color:var(--amber-bright)}
+  footer{margin-top:44px; padding-top:18px; border-top:1px solid var(--line); font-family:var(--mono); font-size:12px; color:var(--faint); letter-spacing:.02em; line-height:1.7}
+</style>
+
+<div class="wrap">
+  <header class="case">
+    <p class="eyebrow">SPUM Studio ?ъ슜 媛?대뱶 쨌 ?쒖닚???곕씪???/p>
+    <h1>?㎥ SPUM Studio ?뺣? 遺꾩꽍 &amp; ?ъ슜踰?/h1>
+    <p class="define">Cast 쨌 Object 쨌 Map 쨌 World 4媛??먮뵒?곕? <strong>吏곸젒 ?묒냽??/strong> ?뺤씤??湲곕뒫쨌?ъ슜踰??뺣━. <strong>???대낯 寃껋? "誘명솗???쇰줈 紐낆떆</strong>?섍퀬, 紐⑤뱺 二쇱옣??<strong>?좊ː??5?④퀎</strong>瑜?遺숈??듬땲??</p>
+    <div class="stampline">
+      <span class="stamp hot">v1 쨌 吏곸젒 ?뺤씤遺?/span>
+      <span class="stamp">spum.soonsoon.ai/studio</span>
+      <span class="stamp">SPUM Studio v1.5.0</span>
+      <button id="themeToggle" class="tbtn" type="button" aria-pressed="true" aria-label="?쇱씠???ㅽ겕 ?꾪솚"><span class="ticon" aria-hidden="true">??/span><span class="tlabel">?ㅽ겕 紐⑤뱶</span></button>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <p style="margin:0 0 8px" class="sub"><strong>?좊ː???깃툒 (紐⑤뱺 ??ぉ???쒓린)</strong></p>
+      <div class="legend">
+        <span class="rel r5">?끸쁾?끸쁾??吏곸젒 ?뺤씤</span>
+        <span class="rel r4">?끸쁾?끸쁾??嫄곗쓽 ?뺤떎</span>
+        <span class="rel r3">?끸쁾?끸쁿??異붿젙</span>
+        <span class="rel r2">?끸쁾?녳쁿??遺덊솗??/span>
+        <span class="rel r1">?끸쁿?녳쁿??誘명솗??/span>
+      </div>
+      <p class="src">?끸쁾?끸쁾??= ?ㅽ겕由곗꺑?먯꽌 吏곸젒 遊?쨌 ?끸쁿?녳쁿??= ???대뇬嫄곕굹 ?곗씠???놁쓬. ?ㅼ젣濡??뚮윭 ?ㅽ뻾(??붋룸??샕룸같??源뚯???????寃껋씠 留롮븘 洹?遺遺꾩? ??쾶 留ㅺ?.</p>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <a href="#overview">媛쒖슂</a>
+    <a href="#cast">Cast</a>
+    <a href="#object">Object</a>
+    <a href="#map">Map</a>
+    <a href="#world">World</a>
+    <a href="#deploy">諛고룷</a>
+    <a href="#ourgame">?곕━ 寃뚯엫 留ㅽ븨</a>
+    <a href="#unknown">誘명솗??紐⑸줉</a>
+  </nav>
+
+  <!-- 媛쒖슂 -->
+  <section id="overview">
+    <p class="snum">媛쒖슂</p>
+    <h2>SPUM Studio = ??湲곕컲 ?쎌? 寃뚯엫 ?쒖옉 ?ㅼ쐞??/h2>
+    <ul class="clean">
+      <li><span class="k">?뱀빋</span> (spum.soonsoon.ai/studio), 濡쒓렇?명삎. 濡쒖뺄???꾨줈?앺듃 ??? <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><span class="k">4媛??먮뵒??쨌 ?쒖옉 ?쒖꽌</span> Object(??셋룹삤釉뚯젥?? ??Map(怨듦컙) ??Cast(罹먮┃?? ??World(寃뚯엫 議곕┰). <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><span class="k">?꾿I ??醫낅쪟 (?룰컝由?二쇱쓽)</span> ??<strong>AI ?댁떆?ㅽ꽩???곗륫 梨? 留먰븯硫??먮룞 ?ㅽ뻾)</strong> ??<strong>吏湲?Cast?먯꽌留?/strong> ?ㅼ젣 ?ㅽ뻾??Object/Map/World??"以鍮?以??대씪 ?덈궡留?. ??<strong>媛??먮뵒???댁옣 AI ?앹꽦湲?/strong> ??Object??Generate(????앹꽦), Cast???섎Ⅴ?뚮굹쨌?ㅽ꺈 ?앹꽦 ?? <span class="rel r5">?끸쁾?끸쁾??/span> <span class="sub">(AI媛 吏곸젒 "?꾩옱 Cast留??ㅽ뻾 媛???대씪 ?덈궡??</span></li>
+      <li><span class="k">SAM(=SSAM)</span> AI ?붿쭊. ?곷떒???щ젅???쒖떆(??44,000+ ?⑥쓬). <span class="rel r4">?끸쁾?끸쁾??/span> <span class="sub">(?쒖떆留?遊? ?뚯쭊쨌怨쇨툑 ?뺤콉 誘명솗??</span></li>
+      <li><span class="k">諛고룷</span> SPUM Link(怨듭쑀 留곹겕) / SPUM Frame(?꾨쿋?? 踰꾪듉 議댁옱. <span class="rel r4">?끸쁾?끸쁾??/span> <span class="sub">(踰꾪듉 ?뺤씤, ?ㅼ젣 諛고룷?????대큵)</span></li>
+    </ul>
+  </section>
+
+  <!-- Cast -->
+  <section id="cast">
+    <p class="snum">1 쨌 Cast Editor</p>
+    <h2>罹먮┃???щ엺) + ?λ퉬 + ?섎Ⅴ?뚮굹 ?쒖옉</h2>
+    <p class="sub">?? <strong>Appearance 쨌 Stats 쨌 Animation 쨌 Export 쨌 Manage</strong> <span class="rel r5">?끸쁾?끸쁾??/span></p>
+    <div class="card"><ul class="clean">
+      <li><span class="k">Appearance</span> ?뚯툩(Body쨌Eyes쨌Hair쨌Helmet쨌Armor쨌Clothing쨌Pants) + ?뚯툩??<strong>ChosunSet쨌Elf쨌Legacy쨌MS_Orc쨌ModernPackVer1쨌PaladinSet</strong>) + ?됀룹궗?댁쫰(S/M/L). <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><span class="k">?낅룞臾??놁쓬 = ?대㉧?몄씠???щ엺)留?/span> ?먰?吏쨌議곗꽑쨌?ㅽ겕쨌紐⑤뜕 ?щ엺? ?섏?留??ъ슦 媛숈? ?숇Ъ? ???? <span class="rel r4">?끸쁾?끸쁾??/span> <span class="sub">(?뚯툩 紐⑸줉 + "?ъ슦 援먯궗" ?붿껌???щ엺 湲곗궗濡??앹꽦??寃껋쑝濡?媛뺥븯寃??쒖궗. 紐⑤뱺 ?⑹쓣 ???ㅼ쭊 嫄??꾨떂)</span></li>
+      <li><span class="k">Stats</span> Basic(Name쨌Age쨌Gender쨌MBTI쨌Race쨌Theme쨌Class쨌Occupation쨌Speech) + <strong>Persona(?깃꺽 ?ㅼ썙?쑣룸같寃승룸쭚??</strong> + Abilities(?덉씠???ㅽ꺈) + Derived(HP쨌ATK쨌DEF ??. 媛???ぉ "AI ?앹꽦" 踰꾪듉. <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><span class="k">Animation</span> IDLE 쨌 MOVE 쨌 ATK 쨌 DMG 쨌 DEATH (?꾪닾??. ?곕━??IDLE/MOVE留??곕㈃ ?? <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><span class="k">Export</span> ?ㅽ봽?쇱씠?몄떆??<strong>PNG / PNG+JSON / GIF</strong> + Hash Code(怨듭쑀). <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><span class="k">AI 梨??ㅽ뻾 媛??/span> "?뗢뿃 罹먮┃??留뚮뱾?댁쨾" ?섎㈃ ?ㅼ젣濡??앹꽦쨌?섏젙쨌?ㅽ꺈쨌?좊땲 ?ㅽ뻾. <span class="rel r5">?끸쁾?끸쁾??/span> <span class="sub">(?앹꽦 寃곌낵 ?붾㈃ 遊? ?ㅻ쭔 寃곌낵 ?덉쭏? 耳?댁뒪留덈떎 ?ㅻ? ???덉쓬)</span></li>
+    </ul></div>
+  </section>
+
+  <!-- Object -->
+  <section id="object">
+    <p class="snum">2 쨌 Object Editor (SMO)</p>
+    <h2>留????"?뚮쭏(?ъ쭏)"瑜?留뚮뱶??怨????덉씠?꾩썐 ?꾨떂</h2>
+    <div class="card"><ul class="clean">
+      <li><span class="k">?낇빑??/span> ?ш릿 <strong>????명듃(?뚮쭏)</strong>瑜?留뚮뱶??怨? 諛붾떏쨌踰승룸Ъ쨌?뚰뭹??<strong>洹몃┝</strong>??留뚮뱾吏, <strong>留?諛곗튂(?덉씠?꾩썐)???ш린??????</strong> <span class="rel r4">?끸쁾?끸쁾??/span> <span class="sub">(?щ쭑쨌?붾뵒쨌?덈젴???앹꽦臾쇱쓽 臾?諛곗튂媛 ?꾨? ?숈씪 = ?덉씠?꾩썐 怨좎젙쨌?띿뒪泥섎쭔 援먯껜瑜?愿李? ?⑤꼸紐낅룄 "Map Theme Settings")</span></li>
+      <li><span class="k">AI ?앹꽦</span> Concept ?곴린 ??AI Prompt ??<strong>Generate(gpt-image-2)</strong> ??AI媛 ??쇱뀑 ?대?吏 ?앹꽦. <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><span class="k">Slice</span> ?앹꽦 ?대?吏瑜??濡??섎씪 ??쇳솕(118 cells ??. <span class="rel r5">?끸쁾?끸쁾??/span> <span class="sub">(踰꾪듉쨌? ??遊? 吏곸젒 ?섎씪蹂댁쭊 ?딆쓬)</span></li>
+      <li><span class="k">????띿꽦</span> TYPE(Floor/Wall) 쨌 <strong>MOVE(Walk/Block)</strong> 쨌 ACTION 쨌 SIZE(32x32). <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><span class="k">?쎌? ?몄쭛</span> ?쑣룹??곌컻쨌梨꾩슦湲걔룹궗媛곹삎 ?꾧뎄 + ???붾젅???덉씠?대줈 吏곸젒 ?섏젙. <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><span class="k">AI 梨??먮룞?ㅽ뻾 X</span> "吏?λ텋 ?寃 留뚮뱾?댁쨾" ???ㅽ뻾 ????"以鍮?以?). 吏곸젒 留뚮뱾?댁빞. <span class="rel r5">?끸쁾?끸쁾??/span> <span class="sub">(+ ?寃? 罹먮┃??臾닿린???먮옒 Cast ?뚭?)</span></li>
+    </ul></div>
+  </section>
+
+  <!-- Map -->
+  <section id="map">
+    <p class="snum">3 쨌 Map Editor</p>
+    <h2>?뚮쭏 ??쇰줈 "怨듦컙(?덉씠?꾩썐)"??吏곸젒 洹몃━湲?/h2>
+    <div class="card"><ul class="clean">
+      <li><span class="k">?덉씠?꾩썐 ?섏씤??/span> ?뚮쭏 ???118媛?????釉뚮윭?쑣룹콈?곌린쨌?ш컖?뺤쑝濡?洹몃━?쒖뿉 諛곗튂. <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><span class="k">?낅꽕鍮꾧쾶?댁뀡</span> <strong>Walk(?뚯빱釉?</strong> / <strong>Block(?μ븷臾?</strong> ??移좏빐 ?대룞 媛??遺덇? 吏??珥덈줉/鍮④컯). <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><span class="k">?덉씠??/span> ???덉씠??쨌 Character 쨌 ???덉씠??(Front/Back). <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><span class="k">留??ш린</span> ?? 40횞30, Apply/Reset. <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><span class="k">AI 梨??먮룞?ㅽ뻾 X</span> ?덉씠?꾩썐? 吏곸젒 洹몃┝(?곕━ 諛?諛곗튂???곕━媛 ?ㅺ퀎). <span class="rel r5">?끸쁾?끸쁾??/span></li>
+    </ul></div>
+    <p class="src">??Object(????щ즺) ??Map(洹???쇰줈 ?곕━ ?덈꺼 諛곗튂). ?곕━ 寃뚯엫 留듭? 諛?2~3媛쒕씪 洹쒕え ?묒쓬.</p>
+  </section>
+
+  <!-- World -->
+  <section id="world">
+    <p class="snum">4 쨌 World Editor (寃뚯엫 議곕┰)</p>
+    <h2>留?+ AI NPC + 誘몄뀡 ???뚮젅??媛?ν븳 ?붾뱶</h2>
+    <div class="card"><ul class="clean">
+      <li><span class="k">援ъ꽦</span> Map + Characters(AI NPC 諛곗튂) + Props + Events + Spawn Points. <span class="rel r5">?끸쁾?끸쁾??/span></li>
+      <li><span class="k">?낆틦由?꽣蹂?AI ?곗씠??/span> Personality(mbti쨌role쨌?깃꺽쨌留먰닾) + <strong>AI</strong> + <strong>硫붾え由?湲곗뼲)</strong> + Status(RPG ?ㅽ꺈) + thought. <span class="rel r5">?끸쁾?끸쁾??/span> <span class="sub">(??룻븘??議댁옱 ?뺤씤. 硫붾え由ъ뿉 而ㅼ뒪? 二쇱엯 媛???щ???誘명솗??</span></li>
+      <li><span class="k">?낆콈??= ?щЦ</span> "罹먮┃?곗뿉寃?吏???먮뒗 硫붿떆吏" ?낅젰李쎌쑝濡?NPC?먭쾶 留?嫄멸린. <span class="rel r5">?끸쁾?끸쁾??/span> <span class="sub">(?낅젰李승룹쟾泥?媛쒕퀎 ????좏깮 ?뺤씤. ?ㅼ젣 ?묐떟? ???뚮젮遊먯꽌 <strong>?묐떟 ?덉쭏쨌?쇨??깆?</strong> <span class="rel r3">?끸쁾?끸쁿??/span>)</span></li>
+      <li><span class="k">誘몄뀡 ?쒖뒪??/span> ?붾뱶 紐⑺몴(goal)쨌吏꾪뻾/?꾨즺 誘몄뀡쨌manager쨌topic. <span class="rel r4">?끸쁾?끸쁾??/span> <span class="sub">(?⑤꼸 遊? 誘몄뀡 留뚮뱾???뚮젮蹂댁쭊 ?딆쓬)</span></li>
+      <li><span class="k">?ㅽ넗由?Reverse Story Bake)</span> scene쨌node쨌thread ?먮룞 ?앹꽦 ??留먰뭾?좎쑝濡??ъ깮. <span class="rel r4">?끸쁾?끸쁾??/span> <span class="sub">(?⑤꼸 遊? ?ㅽ뻾 ???대큵)</span></li>
+      <li><span class="k">?쒕??덉씠??/span> AI ?≫꽣 ?먯쑉?됰룞 + Event Log(INTENT쨌Cost쨌?먮윭). <span class="rel r4">?끸쁾?끸쁾??/span> <span class="sub">(濡쒓렇쨌??遊? 耳쒖꽌 ?뚮젮蹂댁쭊 ?딆쓬)</span></li>
+      <li><span class="k">Play / SPUM Link / Frame</span> ?ㅽ뻾쨌諛고룷쨌?꾨쿋??踰꾪듉. <span class="rel r4">?끸쁾?끸쁾??/span> <span class="sub">(踰꾪듉留?</span></li>
+    </ul></div>
+  </section>
+
+  <!-- 諛고룷 -->
+  <section id="deploy">
+    <p class="snum">諛고룷</p>
+    <h2>SPUM Link / SPUM Frame</h2>
+    <ul class="clean">
+      <li><span class="k">SPUM Link</span> World瑜?留곹겕濡?怨듭쑀 ??釉뚮씪?곗??먯꽌 諛붾줈 ?ㅽ뻾(異붿젙). <span class="rel r3">?끸쁾?끸쁿??/span> <span class="sub">(??쒕낫???ㅻ챸 "SPUM Link濡?怨듭쑀?섍퀬 釉뚮씪?곗??먯꽌 諛붾줈 ?ㅽ뻾" 臾멸뎄 遊? ?ㅼ젣 諛고룷 ???대큵)</span></li>
+      <li><span class="k">SPUM Frame</span> ?덊럹?댁?쨌?몃? ?섏씠吏??<strong>?吏곸씠??諛곕꼫</strong>泥섎읆 ?꾨쿋??embed). <span class="rel r3">?끸쁾?끸쁿??/span> <span class="sub">(?ㅻ챸 臾멸뎄 遊? 誘몄떎??</span></li>
+    </ul>
+    <p class="src">怨쇱젣 ?붽굔 "釉뚮씪?곗? 利됱떆 ?ㅽ뻾"? ??諛고룷濡?異⑹”??媛?μ꽦???믪?留?<strong>吏곸젒 諛고룷???뺤씤 ?꾩슂</strong>.</p>
+  </section>
+
+  <!-- ?곕━ 寃뚯엫 留ㅽ븨 -->
+  <section id="ourgame">
+    <p class="snum">?곕━ 寃뚯엫??萸??곕굹</p>
+    <h2>?뚮늻媛 ??耳?댄겕 癒뱀뿀??????SPUM Studio</h2>
+    <div class="tw"><table>
+      <thead><tr><th>?곕━ 寃뚯엫 ?붿냼</th><th>SPUM Studio</th><th>?좊ː??/th></tr></thead>
+      <tbody>
+        <tr><td>?⑹쓽???щ엺) ?쒖옉</td><td>Cast Editor (紐⑤뜕/?먰?吏 ?щ엺)</td><td><span class="rel r5">?끸쁾?끸쁾??/span></td></tr>
+        <tr><td>?섎Ⅴ?뚮굹쨌留먰닾</td><td>Cast/World Personality ?꾨뱶</td><td><span class="rel r5">?끸쁾?끸쁾??/span> <span class="sub">(議댁옱)</span></td></tr>
+        <tr><td>怨듦컙(諛?</td><td>Object(???+Map(諛곗튂)</td><td><span class="rel r5">?끸쁾?끸쁾??/span></td></tr>
+        <tr><td>?щЦ(???</td><td>World 梨꾪똿</td><td><span class="rel r3">?끸쁾?끸쁿??/span> <span class="sub">(?묐떟 誘멸?利?</span></td></tr>
+        <tr><td>湲곗뼲(?뚮━諛붿씠)</td><td>罹먮┃??硫붾え由???/td><td><span class="rel r2">?끸쁾?녳쁿??/span> <span class="sub">(而ㅼ뒪? 二쇱엯 誘명솗??</span></td></tr>
+        <tr><td>寃뚯엫 猷??⑥? ?꾨몣쨌吏紐㈑룹듅?㉱룸갇 ?쒕?)</td><td>誘몄뀡/?대깽?? ?먮뒗 spum-world 肄붾뱶?</td><td><span class="rel r1">?끸쁿?녳쁿??/span> <span class="sub">(???대큵 ???듭떖 誘명솗??</span></td></tr>
+        <tr><td>釉뚮씪?곗? 諛고룷</td><td>SPUM Link / Frame</td><td><span class="rel r3">?끸쁾?끸쁿??/span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- 誘명솗??紐⑸줉 -->
+  <section id="unknown">
+    <p class="snum">?붿쭅??誘명솗??紐⑸줉</p>
+    <h2>???대킄??紐⑤Ⅴ??寃?(?붿슂???щ즺 諛쏆쑝硫??뺤씤)</h2>
+    <div class="card" style="border-color:rgba(229,89,92,.35)"><ul class="clean">
+      <li>World 梨꾪똿??<strong>?ㅼ젣 AI ?묐떟 ?덉쭏쨌?쇨??굿룰린???좎?</strong> ?????뚮젮遊? <span class="rel r1">?끸쁿?녳쁿??/span></li>
+      <li>罹먮┃??硫붾え由ъ뿉 <strong>而ㅼ뒪? ?뚮━諛붿씠/嫄곗쭞留?二쇱엯</strong> 媛???щ? ?????대큵. <span class="rel r1">?끸쁿?녳쁿??/span></li>
+      <li>誘몄뀡/?대깽???ㅽ넗由щ줈 <strong>?⑥? ??븷쨌?뱁뙣 ?먯젙 媛숈? 寃뚯엫 猷?/strong> 援ы쁽 媛???щ? ?????대큵. <span class="rel r1">?끸쁿?녳쁿??/span></li>
+      <li><strong>SPUM Link 諛고룷 寃곌낵臾?/strong>???ㅼ젣濡??대뼸寃??뚮젅?대릺?붿? ?????대큵. <span class="rel r2">?끸쁾?녳쁿??/span></li>
+      <li>SAM <strong>?щ젅???뚯쭊쨌怨쇨툑쨌臾대즺 ?쒕룄</strong> ?뺤콉 ??誘명솗?? <span class="rel r1">?끸쁿?녳쁿??/span></li>
+      <li>?뚯궗 ?쒓났 <strong>spum-world(肄붾뱶)쨌sam-public</strong> ?????ㅽ뒠?붿삤? ?대뼸寃??ㅻⅨ吏/?꾩슂?쒖? ??誘명솗?? <span class="rel r1">?끸쁿?녳쁿??/span></li>
+    </ul></div>
+    <p class="src">????紐⑸줉???붿슂??? ?뚯쓽 &amp; ?ㅽ뙆?댄겕???뺤씤 由ъ뒪?멸? ?? "?ㅽ뒠?붿삤濡?寃뚯엫 猷곌퉴吏 ?섎굹 vs 肄붾뱶 ?꾩슂"媛 理쒕? 愿臾?</p>
+  </section>
+
+  <footer>SPUM Studio ?ъ슜 媛?대뱶 쨌 ?쒖닚???곕씪???쨌 吏곸젒 ?묒냽 ?뺤씤遺?v1 쨌 ?좊ː??5?④퀎 ?쒓린 쨌 誘명솗?몄? 誘명솗?몄쑝濡?紐낆떆 쨌 ?쇱씠?멸린蹂??ㅽ겕?좉?</footer>
+</div>
+
+<script>
+  (function(){
+    var root = document.documentElement;
+    root.setAttribute('data-theme-ui', 'light');
+    var tbtn = document.getElementById('themeToggle');
+    if(tbtn){
+      var ic = tbtn.querySelector('.ticon'), lb = tbtn.querySelector('.tlabel');
+      tbtn.addEventListener('click', function(){
+        var toLight = root.getAttribute('data-theme-ui') !== 'light';
+        root.setAttribute('data-theme-ui', toLight ? 'light' : 'dark');
+        tbtn.setAttribute('aria-pressed', toLight ? 'true' : 'false');
+        if(ic){ ic.textContent = toLight ? '?? : '?'; }
+        if(lb){ lb.textContent = toLight ? '?ㅽ겕 紐⑤뱶' : '?쇱씠??紐⑤뱶'; }
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
