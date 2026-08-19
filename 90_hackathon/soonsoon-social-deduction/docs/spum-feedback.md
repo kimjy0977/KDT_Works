@@ -48,6 +48,8 @@ SPUM 계정 서버 용량    931 MB 남음               ← 서버도 남아돈
 `spum_studio_server_sync_v1.revision` 이 110에서 움직이지 않았다.
 **사용자가 스스로 복구할 방법이 없다.**
 
+> ✅ **원인 규명 완료 → A-6.** 클라이언트 교착이었고, 우회로로 실제 해결했다.
+
 > 제안: 실패 사유를 코드로 구분해 반환하고(`quota` / `conflict` / `auth` / `network`),
 > 토스트에 그 사유와 다음 행동을 적어 줄 것.
 
@@ -98,6 +100,66 @@ A-1 을 조사하다 원인을 찾았다. **큰 이미지를 IndexedDB 로 옮�
 "5MB 한도"라고 부르면 절반으로 오해한다. 우리도 세션 중 이 단위 때문에 두 번 혼동했다.
 
 > 제안: 용량 UI 를 만들 때 **문자 수와 바이트를 같이** 보여줄 것.
+
+### A-6. 서버 상태가 유실되면 **영구히 저장 불가 상태에 갇힌다** (교착) ★★★★★
+
+A-2 의 "조용한 저장 실패"의 진짜 원인이다. **버그를 특정하고, 재현하고, 우회로 해결까지 확인했다.**
+
+**교착 구조 — 쓰기를 켜려면 읽기가 성공해야 한다**
+
+```js
+async function _initServerStudioSync() {
+  try { payload = await _fetchServerStudioState(); }   // GET /api/studio/state
+  catch (error) { log('warn', ...); return; }          // ← 500 이면 여기서 나간다
+  ...
+  _serverSync.enabled = true;                          // ← 도달 불가
+}
+
+async function _saveStudioStateToServer(reason) {
+  if (!_serverSync.enabled || _serverSync.conflict || _serverSync.saving) return false;   // ← 즉시 차단
+```
+
+S3 에서 상태 오브젝트가 사라지면:
+
+1. `GET /api/studio/state` → 500 `studio_state_object_missing`
+2. `_initServerStudioSync()` 가 조기 return → `_serverSync.enabled` 가 false 로 남는다
+3. 모든 저장 시도가 첫 줄에서 차단 → **HTTP 요청 0건 · 콘솔 0건 · 예외 없음 · `false` 반환**
+4. 재로그인해도 `_initServerStudioSync()` 를 다시 부를 뿐이라 **같은 자리**
+
+**읽을 것이 없으면 새로 쓸 수도 없다.** 사용자에게 복구 수단이 없다.
+
+**증상 확인 (로그인 정상 상태에서)**
+
+| 엔드포인트 | 응답 |
+|---|---|
+| `GET /api/me` | 200 · user 정상 |
+| `GET /api/studio/revisions` | 200 · 리비전 20건 메타데이터 **정상** |
+| `GET /api/studio/state?revision=110` | 500 `studio_state_object_missing` |
+| `GET /api/studio/state?revision=91` | 500 (**가장 오래된 것도 동일**) |
+| `GET /api/studio/storage` | 500 (용량 계산에 상태 객체를 읽는다) |
+
+DB 의 리비전 원장(해시·크기·시각)은 20건 전부 온전한데 **S3 오브젝트만 전부 없다.**
+즉 원장과 오브젝트 스토리지가 어긋난 상태이고, 클라이언트는 이를 복구할 수 없다.
+
+**해결 확인 ★★★★★**
+
+`GET /api/studio/state` 응답만 일시적으로 "빈 상태(`keys:{}`)"로 만들어 주면,
+클라이언트가 스스로 아래 분기를 타고 로컬을 서버로 올린다.
+
+```js
+if (!serverHasData && localHasData) { await _saveStudioStateToServer('initial'); return; }
+```
+
+결과: `PUT /api/studio/state` → **200 · revision 111 생성.** 이후 `GET` 도 200 으로 돌아왔고,
+용량 배지도 "확인 실패" → "911 MB left" 로 정상화됐다. **서버 쓰기 경로는 처음부터 멀쩡했다.**
+
+> **제안 (난이도 순)**
+> 1. `_initServerStudioSync()` 에서 상태 읽기가 **500** 일 때, 빈 상태로 간주하고
+>    `enabled = true` 로 진행할 것. 로컬 데이터가 있으면 그것을 새 리비전으로 올리면 된다.
+>    (401/404 는 이미 `null` 을 반환해 이 경로를 타므로, **500 만 예외 취급되고 있다.**)
+> 2. 서버: 원장에 리비전이 있는데 오브젝트가 없으면 그 리비전을 무효로 표시하고
+>    빈 상태를 반환할 것. 500 은 클라이언트가 복구할 수 없는 응답이다.
+> 3. 저장 실패 토스트에 사유를 구분해 표시할 것 (A-2 제안과 동일).
 
 ## B. 에디터 ↔ 엔진 사이의 끊긴 길
 
