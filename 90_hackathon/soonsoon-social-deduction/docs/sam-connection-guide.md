@@ -419,3 +419,63 @@ claude mcp list
 - **Claude가 SAM 툴을 쓰게 하고 싶다** → 방법 B (현재 계정 문제로 막힘, 비공식)
 - **Claude가 SPUM을 조작하게 하고 싶다** → **방법 C** ✅ 우리가 쓰는 방법
 - **키가 안 먹으면** → 십중팔구 **키가 잘렸습니다.** 복사 버튼으로 다시.
+
+---
+
+### 4-7. Map Editor / Object Editor 실물 조사 (2026-08-19 세션3) ★★★★★
+
+> 화면에서 직접 눌러 확인한 것. 서버 rev 84 시점.
+
+**Map Editor — `MAP STRUCTURE > Layers` 패널**
+
+```
+Navigation   : 장애물(Block) · 워커블(Walk)   ← NAV 체크박스. 켜두면 실제 타일이 안 보인다
+Visual Order : +1 Front  앞 레이어 1
+                0        Character          ← ★ 캐릭터가 순서의 기준점(0)
+               -1 Back   뒤 레이어 1
+```
+
+- **`+ Layer` 로 레이어를 추가할 수 있다.** 새 레이어는 **더 뒤(-2)** 로 붙는다. 직접 만들어 확인함.
+- **`×` 와 `Delete` 는 다르다** — `×` = **레이어 내용 비우기**("back_2 레이어를 비웠습니다"),
+  하단 `Delete` = **레이어 자체 삭제**. 헷갈리면 데이터를 날린다.
+- `기본맵(MAP_mr0oraoy_3ABO)` 은 이미 `back_1 · back_2 · front_1` 을 쓴다
+  → **다중 back 레이어는 정상 사용법이다.** 우리 셰어하우스 맵은 `back_1` 한 장뿐.
+- 타일 위에 서면 정보줄에 `detail 06 · DECORATION · PASSABLE · SPEED 1` — **타일마다 분류·통행·속도가 붙는다.**
+
+**Object Tile Editor — 조각을 만드는 곳**
+
+파이프라인: `Reference Prompt + Preset` → `gpt-image-2 / 품질` → **Generate**
+→ **Slice**(격자로 자르기, `256 cells / 173 resources`) → **Classify**(`gemma-3-4b` 자동 분류) → 리소스
+
+`Object Properties`:
+
+| 필드 | 값 예 | 대응 |
+|---|---|---|
+| NAME / TYPE | `detail 06` / `Decor` | 분류 |
+| **MOVE** | `Walk` | `collision.blocksMovement` |
+| **ACTION** | `None` | **`interaction.kind`** — 상호작용을 여기서 지정 |
+| SIZE / **CELLS** | `32×32` / `1` | **여러 셀을 묶은 리소스가 가능**(`floor 01` = 73 cells) |
+| LAYERS | `1` | 오브젝트가 차지하는 레이어 수 |
+
+> **★ 핵심:** 리소스는 **여러 셀 묶음**이다. 즉 "방 한 칸짜리 조각"을 만들어 맵에 통째로
+> 찍는 워크플로가 Studio 의 정공법이다. 우리 `build-map.mjs` 의 "스탬프"는 이걸 코드로
+> 흉내 낸 것 — **원본 워크플로가 따로 있었다.**
+
+**SMO 데이터 스키마** (`localStorage.sv_studio_smo_v1`, 현재 3개):
+
+```
+{ id, key, name, category,
+  layerHint : "back" | "front",              ← 조각이 어느 레이어로 갈지 스스로 안다
+  size      : { cols, rows },                 ← 여러 칸짜리 조각
+  visual    : { kind:"pixel", pixels[], palette[], tileSize },
+  collision : { blocksMovement, blocksVision },   ← ★ 시야 차단 필드가 존재한다
+  interaction: { kind, prompt },              ← ★ 상호작용이 1급 시민
+  terrain   : { footstep, moveSpeed, staminaCost, damagePerSecond },
+  tags[], mapTheme{...}, builtin }
+```
+
+**맵의 오브젝트 배열** (`spum-world/core/WorldCastSync.js:328` 확인):
+`map.objects[] = { id, name, rect:{x,y,w,h}, collider?, radius? }` — **현재 두 맵 모두 0개.**
+
+**계정 현황 실측:** cast 5명 · map 2개 · SMO 3개 · world 1개 · SSAM 44,159 · 서버 rev 84.
+※ Studio 의 AI Assistant 는 "캐릭터 4개·맵 1개"라고 답한다 — **틀렸다. 화면/데이터를 믿을 것.**
