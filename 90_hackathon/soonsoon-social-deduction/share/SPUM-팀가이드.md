@@ -41,6 +41,61 @@ SPUM 은 **브라우저 `localStorage` 가 원본**이고 서버는 그걸 받�
 우측 상단 배지 → **ACCOUNT → 「다시 로그인」** → 4초. **비밀번호 안 물어봅니다.**
 > 우리는 이 증상을 **"권한 차단"으로 오진**해서 시간을 버렸습니다.
 
+### 🔁 자동 복구 — 콘솔에 한 번 붙여넣기 ★★★★★ *(2026-08-19 직접 검증)*
+
+만료를 **눈으로 확인할 필요 없이** 스크립트가 감지해서 재로그인 버튼을 눌러줍니다.
+F12 → Console 에 붙여넣으세요.
+
+```js
+(() => {
+  const find = () => [...document.querySelectorAll('button,a,[role=button]')]
+    .find(el => (el.textContent || '').replace(/\s+/g, '').includes('다시로그인'));
+  const check = async () => {
+    let me;
+    try { me = await fetch('/api/me', { credentials: 'include' }).then(r => r.json()); }
+    catch { return; }                    // 일시적 네트워크 오류는 무시
+    if (me.user) return;                 // 세션 살아있음
+    const btn = find();
+    if (!btn) return console.warn('[SPUM] 만료됐는데 「다시 로그인」 버튼을 못 찾음');
+    console.log('[SPUM] 세션 만료 감지 → 재로그인 시도');
+    btn.click();                         // SSO 왕복 후 페이지가 새로고침됨
+  };
+  clearInterval(window.__spumKeep);
+  window.__spumKeep = setInterval(check, 60000);
+  check();
+  console.log('[SPUM] 세션 감시 시작 (60초 간격)');
+})();
+```
+
+**검증한 것 ★★★★★**
+- 「다시 로그인」 버튼은 **ACCOUNT 패널을 열지 않아도 DOM 에 이미 존재**합니다 → 스크립트로 바로 찾힙니다
+- 클릭하면 **SSO 왕복(페이지 이동)** 후 `/studio/` 로 돌아오고, `/api/me` 가 정상 복구됩니다
+- **비밀번호를 묻지 않습니다** (회사 SSO 세션이 살아있는 동안)
+
+**⚠️ 한계 — 알고 쓰세요**
+재로그인하면 **페이지가 새로고침되면서 이 스크립트도 같이 사라집니다.**
+즉 **한 번의 만료는 자동으로 넘기지만, 그 다음부터는 다시 붙여넣어야** 합니다.
+새로고침해도 계속 돌게 하려면 아래 둘 중 하나를 쓰세요.
+
+**(A) 북마클릿** — 즐겨찾기에 URL 로 아래를 저장. 만료됐을 때 **한 번 클릭**하면 복구됩니다. ★★★★☆
+```
+javascript:(()=>{const b=[...document.querySelectorAll('button,a,[role=button]')].find(e=>(e.textContent||'').replace(/\s+/g,'').includes('다시로그인'));b?b.click():alert('버튼 없음 - 이미 로그인 상태일 수 있습니다');})()
+```
+
+**(B) Tampermonkey 유저스크립트** — 새로고침돼도 매번 자동 실행됩니다. ★★★☆☆ *(우리는 안 써봤습니다)*
+```js
+// ==UserScript==
+// @name         SPUM 세션 자동 재로그인
+// @match        https://spum.soonsoon.ai/*
+// @grant        none
+// ==/UserScript==
+// 위 콘솔 스니펫 본문을 그대로 여기에 붙여넣으세요.
+```
+
+**⚠️ 작업 중이라면 저장부터.** 재로그인은 페이지를 새로고침하므로,
+저장 안 한 편집 내용이 날아갈 수 있습니다. 중요한 작업 중엔 `saveServerSnapshot()` 먼저 하세요.
+
+
 ### 3. World 내장 AI 는 게임 규칙에 못 씁니다 ★★★★☆
 `talkConfig.systemPrompt` 를 **무시**하고, 캐릭터 메모리를 사실 근거로 **쓰지 않으며**, 없는 내용을 **지어냅니다.**
 대화 모드가 Local FSM 으로 고정돼 시스템 프롬프트 입력란 자체가 없습니다.
