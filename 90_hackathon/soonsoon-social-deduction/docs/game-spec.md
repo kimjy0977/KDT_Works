@@ -104,7 +104,7 @@
 | 브라우저에서 즉시 실행 | `node server.mjs` → `localhost:5173` |
 | NPC 3명 이상 + 성격 대화 | 거주자 5명, 각자 성격·말투·배경 |
 | 대화 맥락 기억/유지 | 캐릭터별 대화 이력 + `memory.recent` 기반 |
-| 기술문서 1편 | 본 문서 + 루트 `README.md` + `docs/worklog.md` |
+| 기술문서 1편 | 본 문서 + 루트 `README.md` + `docs/sam-connection-guide.md` + `docs/worklog.md` |
 | SAM 키 커밋 금지 | 환경변수/로컬 설정에서만 로드 (`proto/README.md`) |
 
 ## 8. 스코프 아웃 (이번 마감에서 안 함)
