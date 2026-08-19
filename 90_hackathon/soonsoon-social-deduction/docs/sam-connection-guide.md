@@ -479,3 +479,29 @@ Visual Order : +1 Front  앞 레이어 1
 
 **계정 현황 실측:** cast 5명 · map 2개 · SMO 3개 · world 1개 · SSAM 44,159 · 서버 rev 84.
 ※ Studio 의 AI Assistant 는 "캐릭터 4개·맵 1개"라고 답한다 — **틀렸다. 화면/데이터를 믿을 것.**
+
+### 4-8. ★ 맵은 타일 테마를 **여러 개** 물 수 있다 ★★★★★
+
+`기본맵` 이 실증한다 — 테마마다 **2048 간격**으로 ID 공간이 할당된다.
+
+```
+map.tilesets[] = [
+  { id:"builtin_tp_tile01",              tileIdBase:    1, columns: 0, tiles:   0 },
+  { id:"theme_SMO_BUILTIN_STONE_WALL",   tileIdBase: 2049, columns:16, tiles: 118 },
+  { id:"theme_SMO_msydcapt_6LLF",        tileIdBase: 4097, columns:16, tiles: 256 },  // ← 2049+2048
+]
+```
+
+**의미:** 기존 테마를 건드리지 않고 **새 테마를 추가**할 수 있다.
+셰어하우스 맵(현재 `2049~2304` 한 테마)에 러그·덮개 조각 테마를 붙이면 `4097~` 대역을 쓴다.
+
+> ⚠ **우리 로컬 렌더러는 아직 테마 하나만 안다.** `TileMapSystem({ tileSet })` 은 타일셋이
+> 단수라, 두 테마를 쓰려면 **테마별로 TileMapSystem 을 나누거나**, 빌드 때 시트 두 장을
+> 한 이미지로 합쳐야 한다. (앞/뒤 타일맵을 이미 나눠 놨으므로 같은 방식으로 확장 가능)
+
+**맵 최상위 필드 전체** (이전에 `layers`·`objects` 만 알고 있었다):
+```
+id · name · description · version · width · height · tileSize · tileSetAssetId ·
+mapThemeId · savedAt · layers[] · objects[] · ruleTiles[] · tilesets[] · spawnPoints[] · meta
+```
+→ `spawnPoints[]` 가 있다. 우리는 스폰을 코드(`build-map.mjs` SPAWNS)로만 관리해 왔다.
