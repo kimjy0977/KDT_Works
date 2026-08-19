@@ -227,6 +227,6 @@ cd proto && node mirror.mjs   # spum.soonsoon.ai/packages/spum-engine 재귀 다
 
 ## 6. 계정/비용
 
-- SPUM/SAM 계정: `yy0977@naver.com` · 플랜 `creator_pro` / SAM `builder`
+- SPUM/SAM 계정: 팀 공용 계정 (이메일·플랜 정보는 `_local/` 참조 — 공개 레포에 적지 않는다)
 - SSAM 잔량: 약 **44,220 / 45,000** (이번 달 $0.70 사용) — 넉넉함
 - SAM MCP(`/mcp`)는 **연결 성공했으나 SPUM 조작 툴이 아님**(웹검색·페이지열기·사용량). 게임과 무관 — 더 파지 말 것.
