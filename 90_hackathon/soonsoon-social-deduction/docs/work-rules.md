@@ -206,3 +206,46 @@ JSON.parse(localStorage.spum_studio_server_sync_v1) // ③ revision 이 멈춰 �
 재로그인·새로고침·용량 확보 모두 시도했으나 해소되지 않았다.
 **추측으로 밀어붙이지 말 것** — 로컬 작업은 레포에 커밋해 두고, 제품 이슈로 기록한다
 (`docs/spum-feedback.md` A-2).
+
+## J. refs 클릭과 슬라이스 기준 (2026-08-19 · 해커톤 세션 5차)
+
+**J-1. ⚠ refs 썸네일을 "구경"만 해도 테마의 슬라이스 기준이 바뀐다 ★★★★☆**
+
+Object Editor 좌하단 refs 스트립에서 카드를 클릭하면 상태바에 `Reference opened in
+Preview canvas` 가 뜬다. **미리보기일 뿐이라고 생각했는데 아니었다.**
+
+증거(백업 2개 대조):
+
+| 시점 | 테마 `sliceBaseAssetId` |
+|---|---|
+| 17:07 백업 (클릭 전) | `""` (비어 있음) |
+| 클릭: refs 3번(= v2 그림) | |
+| 18:16 백업 (클릭 후) | `sha256:bdbc02f3…` = **v2** |
+
+그 사이에 한 일은 **refs 3번 클릭 하나뿐**이다. Slice 버튼은 누르지 않았다.
+
+→ **refs 는 읽기 전용이 아니다.** 어떤 그림이 들어왔는지 확인할 목적이라도
+클릭하기 전에 현재 `sliceBaseAssetId` 를 적어 두고, 끝나면 되돌릴 것.
+
+```js
+// 클릭 전에 반드시
+JSON.parse(localStorage.sv_studio_smo_v1).find(t => t.id === "SMO_...").mapTheme.sliceBaseAssetId
+```
+
+**J-2. 문서의 "적용돼 있다"를 믿지 말고 해시를 직접 읽을 것 ★★★★★**
+
+`handoff.md` 는 "v5 가 Studio 에 적용돼 있다(해시 64자리 일치 확인)"고 적혀 있었으나,
+지금 실제로 읽으면 **어느 테마도 v5 를 기준으로 쓰고 있지 않다.**
+재부팅 후 백업 복원이 되돌렸거나(가능성 높음), 그 사이 다른 조작이 덮었다.
+
+→ **"적용 완료" 기록은 시점 정보다. 작업 시작 전에 매번 다시 읽는다.**
+읽는 법은 J-1 의 한 줄.
+
+**J-3. 테마 소스 삭제는 IndexedDB 확인 후에 하면 안전하다 ★★★★★**
+
+`localStorage` 의 `spum-map-theme-source-state:*` 를 지워도 **원본은
+IndexedDB `spum-map-theme-source-library` 에 남는다**(`spum-feedback.md` A-4).
+실측: 4.36MB 삭제 후에도 테마 5개·타일 수·World 렌더링 전부 이상 없었다.
+
+절차: ① 「내 Studio 데이터 다운로드」 ② 백업에 해당 키가 있는지 `grep` ③ 삭제 ④ 렌더 확인
+
