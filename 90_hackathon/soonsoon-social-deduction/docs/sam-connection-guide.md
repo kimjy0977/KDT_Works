@@ -505,3 +505,69 @@ id · name · description · version · width · height · tileSize · tileSetAs
 mapThemeId · savedAt · layers[] · objects[] · ruleTiles[] · tilesets[] · spawnPoints[] · meta
 ```
 → `spawnPoints[]` 가 있다. 우리는 스폰을 코드(`build-map.mjs` SPAWNS)로만 관리해 왔다.
+
+### 4-9. Object Editor 로 타일 테마 생성 — 실측 절차와 결과 ★★★★★
+
+> 해커톤 세션 3차에서 **실제로 한 바퀴 돌려 본** 기록. 성공/실패 둘 다 적는다.
+
+**절차**
+
+1. Objects 패널 우상단 `button.page-side__add` → 새 SMO 생성(빈 테마, tiles 0)
+2. **에디터는 iframe 안이다** — `document.querySelector('iframe').contentDocument` 로 접근
+   (부모 문서 쿼리로는 컨트롤이 하나도 안 잡힌다. work-rules B-3)
+3. 설정 후 `button.generate-button`(위에서 **두 번째** — `resource-model-row` 안) 클릭
+4. 완료 판정: 버튼 라벨이 `Stop` → `Generate` 로 돌아온다
+5. `button.slice-action` → 셀을 리소스로 묶는다 · `#classifyTilesButton` → 자동 분류
+
+**자동화용 컨트롤 ID** (iframe 내부)
+
+| 대상 | 선택자 | 값 |
+|---|---|---|
+| 타일/테마 이름 | `#tileNameInput` | ※ 테마명 입력란이 따로 있어 잘 안 먹는다 |
+| 태그 | `#themeTagsInput` | |
+| 참조 프롬프트 | `#resourcePromptInput` | textarea |
+| 프리셋 | (id 없음) | `desert · forest · ice · dungeon` |
+| 이미지 모델 | `#resourceModelSelect` | `gpt-image-2 · gpt-image · FLUX.2-pro` |
+| 품질 | `select.resource-quality-select` | `low · medium · high` |
+| 테마 타입 | `#themeTypeSelect` | `map-theme · tile-set · maze-theme` |
+| 격자 / 타일크기 | `#themeGridSelect` / `#themeTileSizeSelect` | `16x16` / `32` |
+| 타일 분류 | `#tileCategorySelect` | `floor · obstacle_blocking · obstacle_slowing · item · decoration` |
+| 통행 | `#tileMovementSelect` | `passable · blocked · slowed · none` |
+| **상호작용** | (id 없음) | **`none · collect · inspect · activate`** |
+
+**생성은 img2img 다.** `Base 16x16 Map Reference`(1024×1024) 를 소스로 쓴다. 그래서 결과가
+항상 16×16 격자로 나온다. 출력: 작업영역 1024×1024 + 결과카드 192×192.
+
+**`mapTheme.tiles[]` 는 셀이 아니라 "리소스"(셀 묶음)다**
+
+```
+{ id:"2", name:"prop 02", category:"decoration", movement:"passable",
+  interaction:"none", role:"object", count:57, cells:[...57개],
+  assetId:"sha256:…", confidence:1, reason:"manual",
+  properties:{ blocksMovement, blocksVision, moveSpeed, terrainType } }
+```
+
+한 번 돌린 결과: **63리소스가 256셀을 나눠 가짐**
+(decoration 22 · obstacle_slowing 32 · floor 5 · obstacle_blocking 4).
+
+**⛔ 결과 — 품질 `low` 로는 "넓게 깔 수 있는" 타일이 안 나온다**
+
+생성물을 `tools/tile-report.mjs` 와 같은 식으로 채점한 결과:
+
+| | 기존 셰어하우스 테마 | 새로 생성(품질 low) |
+|---|---|---|
+| 안전(점수 ≤40) 셀 | 6 | **0** |
+| 최고 점수 | 32.7 | **67.3** (안전 기준의 1.7배) |
+
+**색은 프롬프트대로 나왔다** — hue 216 남색(`#254371`), hue 77 올리브(`#4e5d2c`).
+즉 "무엇을 그릴지"는 전달됐고, **"이어붙게 그려라"가 전달되지 않았다.**
+이미지 모델은 `seamless` · `edge-matching` 같은 **추상 지시를 잘 못 따른다**.
+
+→ 다음 시도는 ① 품질을 올리고 ② 추상어 대신 **구체적 사물**로 요청할 것
+   (예: "flat woven carpet, solid color with subtle even weave, no border, no fringe").
+
+**비용:** 화면 SSAM 배지가 생성 전후 **44,159 로 동일**했다. 이미지 생성이 SSAM 을 안 쓰는 것인지
+배지가 실시간 갱신되지 않는 것인지 **확인 못 함 ★★☆☆☆**. `/api/usage` 류 엔드포인트는 없다.
+
+> 실험용으로 만든 `SMO_mszlwdtk_U91G`(Custom SMO 3)는 아직 어느 맵에도 안 붙였다.
+> 재시도에 재사용하거나, 접으면 지우면 된다.
