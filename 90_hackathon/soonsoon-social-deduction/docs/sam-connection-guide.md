@@ -841,3 +841,30 @@ No characters, no text, no UI, no labels. Warm wooden interior, warm lighting, c
 
 **비용:** 지시 1회에 SAM 호출 5회(캐릭터당 1). 디렉터는 별도로 주기적으로 돈다.
 50초 자율 + 지시 1회 = 약 19호출 / 크레딧 37 소모.
+
+### 4-20. 캐릭터 AI 판단 모드는 `local_fsm` 하나뿐 (소스 확정) ★★★★★
+
+`packages/spum-character/store/CharacterStore.js`:
+```js
+CHARACTER_AI_DECISION_MODES = Object.freeze(['local_fsm'])
+```
+`aiConfig.decisionMode` 에 다른 값을 넣어도 `normalizeCharacterDecisionMode` 가
+되돌린다. **캐릭터 단위 LLM 판단 모드는 존재하지 않는다.**
+
+→ NPC 끼리 주고받는 대화가 필요하면 **우리가 구동해야 한다**(`src/npctalk.js`).
+`aiConfig.model`(gpt-5.4-mini)·`role.goal` 은 **디렉터**가 쓰는 값이지
+캐릭터가 스스로 판단하는 데 쓰이지 않는다.
+
+### 4-21. 캐릭터 스프라이트는 데이터에 없다 — 렌더 결과다 ★★★★★
+
+`sv_studio_characters_v1` 의 캐릭터에는 픽셀이 없다.
+- `appearance` = `{equipment, colors, maskEnabled}` — **조합 레시피**
+- `animation.idle` = 문자열(이름), 이미지 아님
+
+엔진의 `CharacterRenderer` 는 `ImageCache` + `SkeletonData.SPRITE_KEY_MAP` 으로
+**파츠 이미지를 조합해 그린다.** 그런데 `proto/vendor` 에 미러된 PNG 는 **0개**다
+(파츠 아틀라스는 SPUM 서버에 있다).
+
+→ 시트를 얻는 경로는 **Cast Editor 의 Export 뿐**이다. `CharacterStore.js` 에도
+시트를 뽑는 API 는 없다. Export 는 A-4 함정(직전 캐릭터 시트가 내려옴)이 있으므로
+받은 JSON 의 `characterName` 을 건건이 확인할 것.
