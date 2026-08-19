@@ -571,3 +571,34 @@ mapThemeId · savedAt · layers[] · objects[] · ruleTiles[] · tilesets[] · s
 
 > 실험용으로 만든 `SMO_mszlwdtk_U91G`(Custom SMO 3)는 아직 어느 맵에도 안 붙였다.
 > 재시도에 재사용하거나, 접으면 지우면 된다.
+
+#### 4-9-b. 2차 시도 — **성공.** 무엇이 달랐나 ★★★★★
+
+같은 파이프라인에서 **두 가지만** 바꿔 다시 돌렸다.
+
+| | 1차 (실패) | 2차 (성공) |
+|---|---|---|
+| 품질 | `low` | **`high`** |
+| 프롬프트 | "MOSTLY **seamless** … **edge-matching**" (추상) | "Every tile is a **PLAIN FLAT COLOR FIELD** filling the whole square edge to edge. No borders, no frames, no objects, no shadows. Only very subtle fabric weave grain, almost uniform." (구체) |
+| 안전(≤40) | 0장 | **2장** |
+| 최고점 | 67.3 | **27.6** |
+| 자동 분류 | obstacle_slowing 32 · floor 5 | **floor 53 · decoration 1 · 전부 `passable`** |
+
+**핵심 통찰:** 이미지 모델에 `seamless` 를 요구하지 말 것. **"평평한 단색 면"** 을 요구하면
+이어붙임은 **저절로 따라온다**(균일한 칸은 좌우·상하 가장자리가 자동으로 일치한다).
+
+부수 효과로 **자동 분류도 정확해졌다** — 1차엔 러그를 "느려지는 장애물"로 봤는데,
+2차엔 54개 전부 `passable`, 53개가 `floor`. 깨끗한 면이라 분류기도 헷갈리지 않는다.
+
+**결과물 규격:** `192×192 · 셀 12px` — **기존 셰어하우스 시트와 완전히 동일**하다.
+→ 로컬 파이프라인에 그대로 붙일 수 있다. 레포에 `proto/assets/tileset_rug.png` 로 넣어 뒀다.
+
+**시트를 로컬로 빼내는 법** (base64 를 컨텍스트로 통과시키지 말 것 — work-rules B-1):
+```js
+const a = d.createElement('a');
+a.href = 결과이미지.src; a.download = 'sheet.png';
+d.body.appendChild(a); a.click(); a.remove();     // → 사용자 다운로드 폴더
+```
+
+**채점은 로컬에서 재현된다:** `node tools/tile-report.mjs assets/tileset_rug.png`
+브라우저에서 잰 값(안전 2 · 비갈색 2 · 최고 27.6)과 **정확히 일치**했다.
