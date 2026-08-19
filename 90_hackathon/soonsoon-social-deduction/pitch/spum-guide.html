@@ -98,7 +98,7 @@
     <h1>🧩 SPUM Studio, 번호로 보는 화면 가이드</h1>
     <p class="define">각 에디터 화면을 <strong>실제로 캡처</strong>해서, 사진 위에 <strong>①②③ 번호</strong>를 얹고 아래 설명도 <strong>같은 번호</strong>로 달았습니다. "①이 Appearance구나 → 아래 1번 읽으면 되네" 식으로 바로 매칭돼요. 각 항목엔 <strong>신뢰도 5단계</strong>를 붙였습니다.</p>
     <div class="stampline">
-      <span class="stamp hot">v2 · 번호 매뉴얼</span>
+      <span class="stamp hot">v3 · 번호 매뉴얼</span>
       <span class="stamp">spum.soonsoon.ai/studio</span>
       <span class="stamp">SPUM Studio v1.5.0</span>
       <button id="themeToggle" class="tbtn" type="button" aria-pressed="true"><span class="ticon">☾</span><span class="tlabel">다크 모드</span></button>
@@ -213,9 +213,9 @@
       <li><b>크기 지정</b> — 상단 40×30 등 입력 → Apply. <span class="rel r5">★★★★★</span></li>
       <li><b>테마 선택</b> — 오른쪽 <span class="en">MAP THEME TILES</span> 클릭 → 라이브러리서 테마 선택 → "brush ready". <span class="rel r5">★★★★★</span></li>
       <li><b>도구바(가운데 세로)</b> — 선택·이동·브러시·지우개·채우기·사각형·스포이드·되돌리기·줌. <span class="rel r5">★★★★★</span></li>
-      <li><b>타일 고르기</b> — SRC 타일판서 바닥/벽 타일 클릭(=브러시 지정). <span class="rel r3">★★★☆☆</span> <span class="sub">(칠 동작은 아직 테스트 안 함)</span></li>
+      <li><b>타일 고르기</b> — SRC 타일판서 바닥/벽 타일 클릭(=브러시 지정). <span class="rel r5">★★★★★</span> <span class="sub">(8/19 — 손으로 칠하는 대신 코드로 전체 교체 성공)</span></li>
       <li><b>칠하기</b> — 캔버스에 드래그. 사각형=방 벽 한 번에, 채우기=바닥 한 번에. <span class="rel r3">★★★☆☆</span></li>
-      <li><b>Navigation</b> — 벽=Block(빨강)·바닥=Walk(초록) 이동판정 칠하기. <span class="rel r4">★★★★☆</span> <span class="sub">(패널 봄, 칠 동작 미검증)</span></li>
+      <li><b>Navigation</b> — 벽=Block(빨강)·바닥=Walk(초록) 이동판정 칠하기. <span class="rel r5">★★★★★</span> <span class="sub">(8/19 — obstacle·walkable 레이어를 코드로 씀·연결성 검증까지)</span></li>
       <li><b>Layers</b> — 앞 레이어(가구)·Character·뒤 레이어(바닥). <span class="rel r4">★★★★☆</span></li>
     </ol>
   </section>
@@ -247,10 +247,10 @@
         <tr><td>용의자(사람) 제작</td><td>Cast Editor</td><td><span class="rel r5">★★★★★</span></td></tr>
         <tr><td>성격·말투</td><td>Cast/World Persona</td><td><span class="rel r5">★★★★★</span></td></tr>
         <tr><td>공간(방)</td><td>Object(타일)+Map(배치)</td><td><span class="rel r5">★★★★★</span></td></tr>
-        <tr><td>심문(대화)</td><td>World 채팅</td><td><span class="rel r3">★★★☆☆</span></td></tr>
-        <tr><td>기억(알리바이)</td><td>캐릭터 메모리</td><td><span class="rel r2">★★☆☆☆</span></td></tr>
-        <tr><td>게임 룰(숨은 도둑·승패·밤)</td><td>미션? 또는 코드?</td><td><span class="rel r1">★☆☆☆☆</span></td></tr>
-        <tr><td>브라우저 배포</td><td>SPUM Link/Frame</td><td><span class="rel r3">★★★☆☆</span></td></tr>
+        <tr><td>심문(대화)</td><td><strong>SAM 직접 호출</strong> <span class="note">(World 채팅은 못 씀)</span></td><td><span class="rel r5">★★★★★</span></td></tr>
+        <tr><td>기억(알리바이)</td><td><strong>코드(근거 엔진)</strong> <span class="note">7/7 검증</span></td><td><span class="rel r5">★★★★★</span></td></tr>
+        <tr><td>게임 룰(숨은 도둑·승패·밤)</td><td><strong>코드 확정</strong> <span class="note">SPUM Engine 런타임</span></td><td><span class="rel r5">★★★★★</span></td></tr>
+        <tr><td>브라우저 배포</td><td><code>bash serve.sh</code> → localhost <span class="note">(SPUM Link는 스코프 아웃)</span></td><td><span class="rel r5">★★★★★</span></td></tr>
       </tbody>
     </table></div>
   </section>
@@ -258,18 +258,59 @@
   <!-- 미확인 -->
   <section id="unknown">
     <p class="snum">솔직한 미확인 목록</p>
-    <h2>안 해봐서 모르는 것</h2>
-    <div class="card" style="border-color:rgba(224,69,62,.35)"><ul class="clean">
-      <li>World 채팅의 <strong>실제 AI 응답 품질·기억 유지</strong> — 안 돌려봄. <span class="rel r1">★☆☆☆☆</span></li>
-      <li>캐릭터 메모리에 <strong>커스텀 알리바이 주입</strong> 가능 여부 — 안 해봄. <span class="rel r1">★☆☆☆☆</span></li>
-      <li>미션/스토리로 <strong>숨은 역할·승패 판정</strong> 구현 가능 여부 — 안 해봄. <span class="rel r1">★☆☆☆☆</span></li>
-      <li><strong>SPUM Link 배포 결과물</strong> 형태 — 안 해봄. <span class="rel r2">★★☆☆☆</span></li>
-      <li>SAM <strong>크레딧 소진·무료 한도</strong> — 미확인. <span class="rel r1">★☆☆☆☆</span></li>
+    <h2>✅ 그때 몰랐던 것 — 이제 답이 나왔습니다 <span class="rel r5">2026-08-19 갱신</span></h2>
+    <div class="card" style="border-color:rgba(90,200,150,.4)"><ul class="clean">
+      <li>World 채팅의 <strong>실제 AI 응답 품질·기억 유지</strong> →
+        <strong>돌려봤고, 게임 규칙에는 못 씁니다.</strong> <code>talkConfig.systemPrompt</code>를 무시하고,
+        캐릭터 메모리를 사실 근거로 쓰지 않으며, 없는 내용을 지어냅니다. 대화 모드가 Local FSM으로 고정돼
+        시스템 프롬프트 입력란 자체가 없습니다. <span class="rel r5">★★★★★</span>
+        <br>→ <strong>결론: 대화는 SAM 직접 호출로 구현합니다.</strong></li>
+      <li>캐릭터 메모리에 <strong>커스텀 알리바이 주입</strong> →
+        <strong>주입 자체는 됩니다</strong>(<code>memory.recent[]</code>, 최대 20개. 스키마는 연결 가이드 §4-4).
+        다만 위 이유로 World AI가 그걸 근거로 말하지 않습니다. <span class="rel r5">★★★★★</span></li>
+      <li>미션/스토리로 <strong>숨은 역할·승패 판정</strong> →
+        <strong>코드로 합니다.</strong> 범인 랜덤 배정·물리단서·목격·자백 판정은 우리 런타임(<code>proto/</code>)이 담당.
+        근거 엔진 자동검증 <strong>7/7 통과</strong>. <span class="rel r5">★★★★★</span></li>
+      <li><strong>SPUM Link 배포 결과물</strong> → <strong>스코프 아웃.</strong> 이번 마감에서는 안 합니다.
+        과제 요건은 <code>bash serve.sh</code> 로컬 실행이라 배포가 필요 없습니다. <span class="rel r4">★★★★☆</span></li>
+      <li>SAM <strong>크레딧 소진·무료 한도</strong> → <strong>측정했습니다.</strong>
+        대화 <strong>턴당 약 1.7 SSAM</strong>(9턴에 15). 잔량 44,220 / 45,000 — 데모에는 충분히 넉넉합니다.
+        <span class="rel r5">★★★★★</span></li>
     </ul></div>
-    <p class="src">★ 이 목록 = 화요일 팀 회의 확인 리스트. "스튜디오로 게임 룰까지 되나 vs 코드 필요"가 최대 관문.</p>
+    <p class="src">★ 최대 관문이던 <strong>"스튜디오로 게임 룰까지 되나 vs 코드 필요"</strong>는 <strong>코드 필요</strong>로 결론났습니다.
+    SPUM은 <strong>에셋 저작소</strong>(캐릭터·타일·맵), 게임 규칙과 대화는 <strong>SPUM Engine + SAM</strong> 으로 우리가 만듭니다.</p>
+
+    <h2>🔧 그 뒤에 새로 알아낸 것 (8/19)</h2>
+    <div class="card"><ul class="clean">
+      <li><strong>맵은 손으로 안 찍어도 됩니다 — 코드로 통째 교체됩니다.</strong>
+        <code>localStorage.sv_studio_maps_v1</code> 수정 → <code>saveServerSnapshot()</code> → 새로고침.
+        실제로 40×30 맵 전체를 교체해 서버 반영까지 성공했습니다. <span class="rel r5">★★★★★</span>
+        <br>단 <strong>방향이 중요</strong>합니다 — 서버에 직접 PUT하면 다음 새로고침 때 브라우저 로컬이 덮어써서 날아갑니다.</li>
+      <li><strong>타일 ID 공식</strong> = <code>tileIdBase + (row × columns) + col</code>.
+        우리 테마는 <code>tileIdBase 2049</code>·<code>columns 16</code>. <span class="rel r5">★★★★★</span></li>
+      <li><strong>타일셋 셀 크기는 이미지에서 계산</strong>해야 합니다.
+        <code>grid "16x16"</code>은 셀이 16px이라는 뜻이 아니라 <strong>16칸</strong>이라는 뜻 —
+        192px 이미지면 <strong>셀은 12px</strong>. 여기서 한참 헤맸습니다. <span class="rel r5">★★★★★</span></li>
+      <li><strong>세션이 30분쯤에 만료됩니다.</strong> <code>/api/me</code>가 <code>{"user":null}</code>이면 만료.
+        우측 상단 배지 → ACCOUNT → <strong>「다시 로그인」</strong> → 4초. <strong>비밀번호 안 물어봅니다.</strong>
+        <span class="rel r5">★★★★★</span></li>
+      <li><strong>Cast Export는 신뢰하지 마세요.</strong> Generate가 비동기라 <strong>직전 캐릭터 시트가 다운로드</strong>됩니다.
+        받은 뒤 JSON의 <code>characterName</code>으로 반드시 확인. (5명 중 2명만 정상 확보됐던 원인)
+        <span class="rel r5">★★★★★</span></li>
+      <li><strong>캐스트 "배치"만은 코드로 하면 안 됩니다.</strong>
+        <code>world.casts[]</code>를 코드로 만들면 앱이 <em>"없는/중복 배치 N개를 정리했습니다"</em>로 전부 지웁니다.
+        World Editor의 <strong>＋ → "배치"</strong> 버튼으로. <span class="rel r5">★★★★★</span></li>
+      <li><strong>Map Editor에서 타일이 안 보이면</strong> 오른쪽 <em>MAP STRUCTURE → Layers</em>의
+        <strong>NAV 체크박스(장애물·워커블)를 끄세요.</strong> 초록/빨강 오버레이가 타일을 가립니다.
+        <span class="rel r5">★★★★★</span></li>
+      <li><strong>제공 문서는 실제로 못 받습니다.</strong> 과제정의서가 준다고 한
+        <code>AGENTS.md</code>·<code>README.md</code>가 전부 404입니다.
+        <strong>소스가 곧 문서</strong>이고, 회사에 요청해야 할 항목입니다. <span class="rel r5">★★★★★</span></li>
+    </ul></div>
+    <p class="src">★ 상세 절차·스키마 = <code>docs/sam-connection-guide.md</code> §4-5·§4-6 · 함정 전체 = <code>docs/work-rules.md</code></p>
   </section>
 
-  <footer>SPUM Studio 사용설명서 v2 · 번호 매뉴얼 · 실제 화면 캡처 + 신뢰도 5단계(파랑=높음/빨강=낮음) · Object/Map/World 캡처 추가 예정 · 순순히 따라와라</footer>
+  <footer>SPUM Studio 사용설명서 v3 · 번호 매뉴얼 · 실제 화면 캡처 + 신뢰도 5단계(파랑=높음/빨강=낮음) · Object/Map/World 캡처 추가 예정 · 순순히 따라와라</footer>
 </div>
 
 <script>
