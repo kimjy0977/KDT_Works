@@ -92,9 +92,24 @@ World Editor 에서 `+` → "배치" 버튼으로. (생성·수정·외형·맵�
 → `tools/cut-chars.mjs` 로 **테두리 flood-fill** 제거. 색 전역 제거는 안 됨(머리카락이 배경만큼 어둡다).
 
 **5-5. 엔진이 이미 주는 것 — 직접 짜지 말 것:**
-`PathfindingManager.buildFromTileMap()` + `NavAgent.setDestination()` (AI 이동) ·
+`PathfindingManager` + `NavAgent.setDestination()` (AI 이동) ·
 `BubbleRenderer` (말풍선 4종) · spum-world `RelationshipMemory`·`ConversationModel` (관계·대화세션).
 **없는 것:** 시야/안개 시스템, 조명. 자세히는 `docs/engine-capability-audit.md`.
+
+**5-6. ⚠ `update()` 에서 예외가 나면 엔진이 그 컴포넌트를 조용히 끈다.**
+`GameObject._executeUpdate` 가 `catch → c.enabled = false` 한다. 게다가 경고를
+`engine._frameWarnings` 에만 담고 **콘솔에 안 찍는다** → NPC 하나가 말없이 멈춘다.
+증상이 "로직 오류"처럼 보여도 원인은 이것일 수 있다. 의심되면 `comp.enabled` 와
+`engine._frameWarnings` 를 먼저 볼 것.
+
+**5-7. `BubbleRenderer` 는 루트 `index.js` 에서 export 되지 않는다.**
+`lib/domain/ui/index.js` 에서 직접 import 해야 한다. (UI 3종 중 2종만 루트에 노출돼 있다.)
+
+**5-8. `PathfindingManager.buildFromTileMap()` 은 우리 맵에 안 맞는다.**
+타일 속성 `walkable` 을 읽는데 우리 테마엔 그 속성이 없다.
+→ `map.json` 의 `obstacle` 레이어를 `setGrid()` 로 직접 넘긴다(`src/world.js`).
+`NavAgent` 는 `PathfindingManager.getOrCreate(scene)` 으로 **씬을 훑어** 인스턴스를 찾으므로
+씬 어딘가에 하나만 만들어 두면 전원이 공유한다.
 
 ---
 
@@ -114,11 +129,28 @@ bash serve.sh            # → http://localhost:5173/game.html
 
 ---
 
-## 7. 다음 (P1) — 과제 요건 기준 우선순위
+## 7. 코드 지도 (`proto/`)
 
-1. **근접 대화** — 가까이 가서 말 걸기. `BubbleRenderer` 사용. 성공기준 §2·§3 직결
-2. **AI 4명 이동** — `NavAgent`. 엔진이 준다
-3. **게임 루프** — 저녁→밤→아침→토론→투표→판정 (과제 §4)
+| 파일 | 역할 |
+|---|---|
+| `game.html` | 화면 껍데기(캔버스·HUD·대화창 마크업/CSS)만. 로직 없음 |
+| `src/main.js` | 부팅 — 월드 생성 → 대화 시스템 연결 → 루프 시작 → HUD |
+| `src/world.js` | 엔진·타일맵·캐릭터·카메라·길찾기 그리드. `Walker`/`FollowCamera`/`NameTag` |
+| `src/ai.js` | `Wander` — NPC 가 어디로 갈지만 정한다. 이동 자체는 `NavAgent` |
+| `src/cast.js` | 거주자 5명 표시정보 + 배회 목적지(`PLACES`) + 예시 질문 |
+| `src/talk.js` | 근접 감지 → E → 대화창 → `/api/ask` → 말풍선. **캐릭터별 history 로 맥락 유지** |
+| `server.mjs` | 정적 서버 + SAM 프록시(키 미노출). `/api/ask` `/api/cast` `/api/verdict` |
+| `engine.mjs` | 캐릭터 원본 데이터 · 프롬프트 빌더 · `cleanLine` · SAM 호출 |
+
+> **정답(범인·기억)은 서버에만 둔다.** 클라이언트에 넣으면 개발자도구로 다 보여 추리가 성립하지 않는다.
+
+---
+
+## 8. 다음 — 과제 요건 기준 우선순위
+
+1. ~~근접 대화~~ ✅ 완료 (성공기준 §2·§3)
+2. ~~AI 4명 이동~~ ✅ 완료
+3. **게임 루프** — 저녁→밤→아침→토론→투표→판정 (과제 §4). `/api/verdict` 는 이미 있다
 4. **기술 문서** — 성공기준 §4. 1급 산출물
 5. 스프라이트 3명 추가 추출 — 현재 5명 중 고유 2종뿐. 소셜 추리인데 구분이 안 된다
    (`assets/chars/sheets/` 에 새침이·폴짝이 idle 시트 있음 → `Animator` 사용 가능)
