@@ -114,7 +114,7 @@ SPUM 저장 구조가 로컬 `map.json` 과 동일했다(레이어 4개·1200칸
 ├─ game-spec.md          기획/작업정의서 ← 먼저 읽기
 ├─ work-rules.md         작업 규칙서(함정 모음) ← 반드시 읽기
 ├─ handoff.md            이 문서
-├─ reference/            ★회사 원본 자료 (과제정의서 docx · 조사노트) — reference/README.md 참조
+├─ _local/               ⛔비커밋 — 회사 원본·내부자료 (과제정의서 docx 등)
 └─ proto/
    ├─ engine.mjs         캐릭터 데이터 + 프롬프트 빌더 + SAM 호출 (재사용)
    ├─ server.mjs         로컬 서버 + SAM 프록시 (키 미노출)
