@@ -1,6 +1,6 @@
 # 세션 인계 — 「누가 내 케이크 먹었어?」
 
-> 작성 2026-08-19 (세션 1 종료 시점) · 다음 세션은 **이 문서 → `work-rules.md` → `game-spec.md`** 순서로 읽는다.
+> 작성 2026-08-19 (세션 1 종료 시점) · 다음 세션은 **`../CLAUDE.md` 의 읽기 순서**를 따른다(과제정의서 → work-rules → 이 문서 → 엔진감사 → game-spec).
 
 ---
 
@@ -115,8 +115,6 @@ SPUM 저장 구조가 로컬 `map.json` 과 동일했다(레이어 4개·1200칸
 ├─ work-rules.md         작업 규칙서(함정 모음) ← 반드시 읽기
 ├─ handoff.md            이 문서
 ├─ reference/            ★회사 원본 자료 (과제정의서 docx · 조사노트) — reference/README.md 참조
-├─ sam-connection-guide.md   팀 배포용 연결 가이드
-├─ smo-map-placement.md      SMO/맵 구조 회신 문서
 └─ proto/
    ├─ engine.mjs         캐릭터 데이터 + 프롬프트 빌더 + SAM 호출 (재사용)
    ├─ server.mjs         로컬 서버 + SAM 프록시 (키 미노출)
