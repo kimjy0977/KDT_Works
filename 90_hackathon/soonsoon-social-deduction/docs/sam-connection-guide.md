@@ -1,0 +1,338 @@
+# SAM / SPUM 연결 가이드 — 팀 《순순히 따라와라》
+
+> 2026-08-18 작성 · 작성자: 주영 세션(실제 연결 시행착오 기록)
+> **이 문서는 "실제로 해보고 확인한 것"만 적었습니다.** 확인 못 한 건 확인 못 했다고 적었어요.
+
+## 신뢰도 표기
+
+| 등급 | 뜻 |
+|---|---|
+| ★★★★★ | 직접 해봐서 성공/실패를 눈으로 확인 |
+| ★★★★☆ | 공식 문서에 명시됨 |
+| ★★★☆☆ | 정황상 맞을 것 (미검증) |
+| ★★☆☆☆ | 불확실 |
+| ★☆☆☆☆ | 안 해봄 / 근거 없음 |
+
+---
+
+## 0. 먼저 — "연결"이 세 가지입니다 ★★★★★
+
+팀원마다 "연결했다"는 말의 뜻이 달라서 혼선이 있었습니다. **셋은 완전히 다른 것**입니다.
+
+| # | 무엇 | 한 줄 정의 | 되나? |
+|---|---|---|---|
+| **A** | **SAM을 Claude Code의 모델 게이트웨이로** | SAM을 통해 Claude/GPT를 씀 (요금이 SAM 크레딧으로) | ✅ 공식 지원 |
+| **B** | **SAM MCP (`/mcp`)** | Claude가 SAM의 툴을 호출 | ⚠️ 계정 초기화 오류로 막힘 |
+| **C** | **SPUM Studio 직접 조작** | Claude가 캐릭터·맵·월드를 만들고 고침 | ✅ **성공 (이게 우리가 쓰는 방법)** |
+
+> **팀원이 "키 주니까 됐다"고 한 건 십중팔구 A입니다.** A는 "Claude를 SAM으로 돌리는 것"이지, "Claude가 SPUM을 조작하는 것"이 아닙니다. 목적을 먼저 정하세요.
+
+---
+
+## 1. 공통 준비 — API 키 얻기 ★★★★★
+
+### 1-1. 키 종류
+
+`sam.soonsoon.ai` → **API Keys** 메뉴
+
+| 종류 | 설명 |
+|---|---|
+| **Master** | 자동 생성·삭제 불가. 웹 UI 사용량 기록용 |
+| **Service** | SoonSoon 서비스 전용 관리형 키 (**SAC / Chat / SPUM** 3종) |
+| **Custom** | 외부 앱 연동용. 직접 생성. **월 한도 지정 가능** |
+
+**권장: 외부 연동은 Custom 키를 새로 만들어 쓰세요.** 마스터 키는 노출되면 계정 전체가 위험합니다.
+
+### 1-2. ⚠️ 최대 함정 — 키가 잘려 보입니다 ★★★★★
+
+화면에는 `sam-xxxxxxxx••••` 처럼 **앞 12자만** 보입니다.
+**이걸 눈으로 읽어서 타이핑하면 100% 실패합니다.** (우리가 여기서 1시간 넘게 날렸습니다)
+
+**반드시 이렇게:**
+1. 키 줄 오른쪽 **👁 (눈) 아이콘** 클릭 → 전체 표시
+2. 옆의 **📋 (복사) 아이콘** 클릭 → 클립보드에 **전체 키** 복사
+3. 실제 키 길이는 **약 52자** 입니다. 12자면 잘린 것.
+
+---
+
+## 2. 방법 A — SAM을 Claude Code 모델 게이트웨이로 ★★★★☆
+
+> 공식 문서(`sam.soonsoon.ai/api-docs` → **Code Agents (V2)**)에 명시된 방법입니다.
+> 효과: **Claude Code가 SAM을 통해 동작** → 요금이 SAM 크레딧에서 나감.
+
+```bash
+export ANTHROPIC_BASE_URL="https://sam.soonsoon.ai/v2/anthropic"
+export ANTHROPIC_AUTH_TOKEN="sam-여기에전체키"
+export ANTHROPIC_MODEL="claude-sonnet-5"
+export ANTHROPIC_SMALL_FAST_MODEL="claude-sonnet-5"
+
+claude "Reply with exactly: SAM-CLAUDE-OK"
+```
+
+**주의사항 (공식 문서 기재) ★★★★☆**
+- `ANTHROPIC_API_KEY`가 아니라 **`ANTHROPIC_AUTH_TOKEN`** 입니다.
+- 검증된 모델은 **정확히 3개**뿐 — Claude Code용은 **`claude-sonnet-5`**.
+  다른 모델을 넣으면 `MODEL_NOT_NATIVE_ON_SURFACE` 오류. 폴백 없음.
+- **`agent:claude_code` 권한(grant)** 이 계정에 있어야 합니다. 없으면 회사에 요청.
+
+PowerShell이면:
+```powershell
+$env:ANTHROPIC_BASE_URL="https://sam.soonsoon.ai/v2/anthropic"
+$env:ANTHROPIC_AUTH_TOKEN="sam-여기에전체키"
+$env:ANTHROPIC_MODEL="claude-sonnet-5"
+```
+
+**Codex 쓰는 팀원은** `~/.codex/config.toml`에 base `https://sam.soonsoon.ai/v2/openai`, 모델 `openai.gpt-5.6-terra`, `wire_api="responses"`, 그리고 **`web_search="disabled"`** (안 끄면 `HOSTED_TOOL_NOT_BILLABLE` 오류). ★★★★☆
+
+---
+
+## 3. 방법 B — SAM MCP 연결 ★★★★★ (현재 막힘)
+
+### 3-1. 연결 절차
+
+```bash
+claude mcp add --transport http sam-mcp https://sam.soonsoon.ai/mcp --header "Authorization: Bearer sam-여기에전체키" --scope local
+claude mcp list
+```
+
+**PowerShell에서 안전하게 (키를 명령줄에 안 남기는 법):**
+```powershell
+$k = Read-Host
+# ← 빈 줄이 뜨면 그 줄에 키만 붙여넣고 Enter
+$k.Length          # 52 정도 나와야 정상. 12면 잘린 것
+claude mcp add --transport http sam-mcp https://sam.soonsoon.ai/mcp --header "Authorization: Bearer $k" --scope local
+```
+
+### 3-2. ⚠️ 우리가 겪은 함정들 ★★★★★
+
+| 증상 | 원인 | 해결 |
+|---|---|---|
+| `✘ Failed to connect` | **키가 앞 12자만** 들어감 | 복사 버튼으로 전체 키 |
+| `MCP server sam-mcp already exists` | 이미 등록됨 → **새 키가 반영 안 됨** | `claude mcp remove sam-mcp` **먼저** 실행 |
+| 헤더에 `<SPUM_KEY>` 같은 글자가 그대로 | 예시 placeholder를 안 바꿈 | 실제 키로 치환 |
+| `$k = Read-Host sam-xxx` 로 넣음 | 키가 **안내문구** 자리에 들어감 | `$k = Read-Host` 만 치고, **다음 빈 줄**에 키 입력 |
+
+### 3-3. 인증 방식 — Bearer가 맞습니다 ★★★★★
+
+문서에는 API 키가 `X-API-Key`라고 되어 있지만, **`/mcp`는 `Authorization: Bearer`가 정답**입니다. 직접 측정 결과:
+
+| 헤더 | `initialize` 결과 |
+|---|---|
+| `Authorization: Bearer <키>` | **200 OK** ✅ |
+| `X-API-Key: <키>` | 503 ❌ |
+
+### 3-4. 🚧 현재 막힌 지점 ★★★★★
+
+연결은 되는데 **툴 목록에서 막힙니다.**
+
+```
+POST /mcp  initialize  → 200  (서버명 sam-tools v1.0.0, tools capability 있음)
+POST /mcp  tools/list  → 503  {"detail":"Account initialization is temporarily unavailable. Please retry."}
+```
+
+추가로 확인한 것:
+- `GET /v1/models` → **200 (1.5초)** = **키·인증은 완전 정상**
+- `GET /v1/spum/*` → 전부 **30초 지연 후 503** = **계정의 SPUM 초기화가 깨진 상태**
+
+**즉 우리 설정 문제가 아니라 SAM 계정/서버 측 문제입니다.** 재부팅·새로고침·키 교체 전부 시도했으나 안 됩니다.
+그리고 `sam-tools` MCP는 **공식 문서에 아예 없습니다**(문서 전체에서 MCP 언급은 Kiro 관련 한 줄뿐). **비공식/실험 기능으로 보입니다.** ★★★★☆
+
+> **결론: 방법 B는 현재 추천하지 않습니다.** 회사에 문의가 필요한 사안입니다.
+
+### 3-5. 🔐 보안 주의 ★★★★★
+
+- **`--scope project`를 쓰지 마세요.** 레포의 `.mcp.json`에 키가 박혀 **커밋됩니다** (과제 규정: SAM 키 커밋 금지).
+  → `--scope local`(기본) 또는 `user` 사용. 저장 위치는 `~/.claude.json`.
+- **`claude mcp get <이름>` 은 키를 화면에 평문 출력합니다.** (`add`는 `[REDACTED]`로 가리는데 `get`은 안 가림)
+  화면 공유·스크린샷 중이면 조심하세요.
+
+---
+
+## 4. 방법 C — SPUM Studio 직접 조작 ✅ **성공한 방법** ★★★★★
+
+> **"Claude가 SPUM을 다룬다"의 정답은 이것입니다.** MCP 없이 됩니다.
+
+### 4-1. 원리
+
+SPUM Studio는 **자기 서버 API**를 씁니다. 로그인된 브라우저에서 같은 출처로 호출하면 됩니다.
+
+```
+GET /api/me                     로그인 확인
+GET/PUT /api/studio/state       ★ 캐스트·맵·오브젝트·월드 전체
+        /api/studio/storage
+        /api/studio/revisions
+        /api/studio/published-worlds/{id}
+        /api/worlds/
+        /api/sam/v1/generate    ★ Studio가 AI를 대신 프록시 (SAM 계정 문제 우회됨)
+```
+
+**핵심: 콘텐츠는 브라우저 localStorage에 있고 서버로 동기화됩니다.**
+
+| localStorage 키 | 내용 |
+|---|---|
+| `sv_studio_characters_v1` | 캐릭터(캐스트) 배열 |
+| `sv_studio_maps_v1` | 맵 |
+| `sv_studio_smo_v1` | 오브젝트(타일 테마) |
+| `sv_studio_draft_v1` | 월드 |
+
+### 4-2. 작업 순서 ★★★★★
+
+```js
+// 0) 백업 먼저! (Downloads에 json 파일 저장됨)
+window.spumStudioData.export();
+
+// 1) 읽기
+const chars = JSON.parse(localStorage.getItem("sv_studio_characters_v1"));
+
+// 2) 수정 (기존 캐릭터를 템플릿으로 복제해서 만드는 게 안전)
+// ...
+
+// 3) 저장
+localStorage.setItem("sv_studio_characters_v1", JSON.stringify(chars));
+window.spumStudioData.saveServerSnapshot("작업이유");
+```
+
+`window.spumStudioData` 에 있는 것:
+`export`(백업 다운로드) · `import(file)` · `saveServerSnapshot` · `listEmergencyBackups` · `restoreEmergency` · `clearLocal` · `hasLocalData`
+
+### 4-2-a. ⚠️ 방향이 제일 중요 — 서버에 직접 쓰지 마세요 ★★★★★
+
+팀원이 실제로 겪은 사례입니다.
+
+> 서버 API로 오브젝트를 만들어 **서버엔 잘 들어갔는데**(revision 69, 오브젝트 4개),
+> **브라우저를 새로고침하니 브라우저에 남아있던 기존 로컬 데이터(3개)가 서버를 다시 덮어써버림.**
+
+**원인: SPUM Studio는 브라우저 `localStorage`가 원본(source of truth)이고, 서버는 그걸 받아 저장하는 백업/동기화 대상입니다.**
+
+| 방향 | 결과 |
+|---|---|
+| ❌ 서버에 직접 PUT | 다음 새로고침 때 **브라우저 로컬이 서버를 덮어씀** → 작업 소실 |
+| ✅ localStorage에 쓰고 → `saveServerSnapshot()` 호출 | 정상 반영·유지 |
+
+즉 **항상 `로컬 → 서버` 순서**입니다. 반대로 하면 날아갑니다.
+
+### 4-3. ⚠️ 함정 ★★★★★
+
+| 함정 | 내용 |
+|---|---|
+| **캐스트 배치는 코드로 하지 마세요** | 배치 ID를 직접 만들면 앱이 *"없는/중복 캐릭터 배치 N개를 정리했습니다"* 로 **전부 삭제**합니다. → World Editor 좌측 `Characters`의 **`+` → "배치" 버튼**으로 하세요. 한 명씩 누르고 확인(연속 클릭은 리렌더로 씹힘) |
+| **템플릿 복제 시 외형까지 복사됨** | 캐릭터들이 쌍둥이가 됩니다. `appearance.colors`(hair/clothing/pants/eye 헥스)로 구분하세요 |
+| **localStorage가 앱보다 한 박자 늦음** | 코드로 쓴 뒤엔 **페이지 새로고침**해야 앱이 읽습니다 |
+| **세션이 자주 만료됨** | `/api/me`가 `{"user":null}`이면 로그아웃. 다시 로그인 필요 |
+
+### 4-4. 데이터 스키마 (핵심만) ★★★★★
+
+**캐릭터**
+```
+{ id:"CHAR_xxx", name, tags, persona, appearance, animation,
+  aiConfig, talkConfig, memory, stats, meta }
+
+persona   = {occupation, mbti, age, gender, race, class, theme,
+             personality[], traits[], speechStyle, background}
+memory    = {summary, engram, summarizeThreshold,
+             recent[{id,at,type,source,text,mood,activity,partnerId,summarized}]}  // 최대 20개
+talkConfig= {model, systemPrompt}
+```
+
+**맵**
+```
+{ id, name, width, height, tileSize, tileSetAssetId, mapThemeId,
+  layers[], objects[], ruleTiles{}, tilesets, spawnPoints, meta }
+```
+
+**월드** (`sv_studio_draft_v1`)
+```
+{ id:"WORLD_xxx", title, world:{ sceneCharacterIds[], casts[], mapId,
+  ai:{enabled,title,worldGoal,currentTopic,tone,conversationMode:"fsm",...} }, meta }
+
+casts[] 항목 = {characterId, instanceId, spawnTile{col,row}, spawnX, spawnY,
+                role:"npc", runtimeEnabled, id, overrides{}}
+```
+
+---
+
+## 5. ★ 중요 — World 내장 AI 대화의 한계 ★★★★★
+
+실제로 심문을 돌려본 결과입니다. **게임 설계에 직접 영향이 있으니 꼭 읽으세요.**
+
+**되는 것**
+- 페르소나·말투 재현이 아주 좋음 (능글맞은 톤, 발랄한 톤 등)
+- `역할(role)`·`목표(goal)`·`memory` 데이터는 정상 주입됨
+- 비용 저렴 (대화 2턴에 SSAM 약 2)
+
+**안 되는 것**
+- **`talkConfig.systemPrompt`가 무시됩니다.** 범인 캐릭터에게 "방에 있었다고 거짓말해라"라고 지시했는데, 오히려 *"부엌 근처 돌며 냄새 맡고…"* 라고 답했습니다.
+- **memory를 사실 근거로 쓰지 않습니다.** 목격자가 "살살이를 봤다"는 기억을 갖고 있는데도 *"수상한 그림자 하나"* 라고만 답했습니다.
+- **메모리에 없는 내용을 지어냅니다** (발자국·그림자 등).
+- 응답이 1문장 분위기용입니다.
+
+**원인**: 캐스트 AI 패널이 **`Local FSM` 고정**이고 설정이 `model / quality / 역할 / 목표` **4개뿐** — **시스템 프롬프트 입력란 자체가 없습니다.**
+
+> **결론: SPUM의 내장 대화는 "앰비언트 NPC 애드립" 용도입니다.**
+> 규칙 기반 심문(거짓말·모순·자백)이 필요하면 **SAM `/v1/generate`를 직접 호출해서 우리가 구현**해야 합니다.
+> → SPUM = 화면·캐릭터·맵 / 우리 코드 = 게임 규칙·심문. 이 분담을 권장합니다.
+
+---
+
+## 6. 빠른 진단 체크리스트 ★★★★★
+
+연결이 안 될 때 위에서부터 확인하세요.
+
+```bash
+# 1) 인터넷/서버 살아있나
+curl.exe -s -o /dev/null -w "%{http_code}\n" https://sam.soonsoon.ai/docs      # 200 기대
+
+# 2) 키·인증이 유효한가  (← 이게 200이면 키는 정상)
+curl.exe -s -o /dev/null -w "%{http_code}\n" https://sam.soonsoon.ai/v1/models -H "X-API-Key: sam-전체키"
+
+# 3) MCP 등록 상태
+claude mcp list
+```
+
+| 결과 | 해석 |
+|---|---|
+| 1번 실패 | 네트워크 or SAM 서버 다운 |
+| 2번 401 | **키가 잘못됨** (잘린 키일 확률 최상) |
+| 2번 200인데 MCP만 ✘ | **계정 SPUM 초기화 문제** — 회사 문의 |
+| PowerShell에서 `curl` 이상동작 | `curl.exe` 로 쓰세요 (그냥 `curl`은 다른 명령) |
+
+---
+
+## 7. 회사 문의용 문장 (그대로 복사)
+
+> SAM API 키 인증은 정상입니다 (`GET /v1/models` → 200). 그런데 `GET /v1/spum/*` 전 엔드포인트가 약 30초 후 `503 {"detail":"Account initialization is temporarily unavailable. Please retry."}` 로 실패하고, 그 영향으로 `POST /mcp` 의 `tools/list` 도 503이 납니다. 계정의 SPUM 초기화 상태를 확인해 주실 수 있을까요?
+
+문의 경로: SAM 페이지 우측 **RYU 어시스턴트** / 순순팩토리 디스코드 / `soonsoon@soonsoons.com`
+
+---
+
+## 8. 참고 자료 현황 ★★★★★
+
+**중요: SPUM이 두 개입니다. 검색하면 대부분 엉뚱한 쪽이 나옵니다.**
+
+| 대상 | 자료 |
+|---|---|
+| **Unity 에셋 SPUM** | 위키 17페이지·유튜브·블로그 다수 — **우리와 무관** |
+| **SPUM Studio (웹)** | **튜토리얼·문서·영상 0건** |
+
+**그래서 실제로 볼 것:**
+
+| 자료 | 링크 | 가치 |
+|---|---|---|
+| **공개 데모 월드** (로그인 불필요) | `spum.soonsoon.ai/studio/sai-character-world-demo/` | ★ AI 캐스트가 도는 완성 레퍼런스 |
+| **클라이언트 소스 = 사실상 공식 문서** | `spum.soonsoon.ai/packages/`, `/studio/` | 압축 안 됨 + 한국어 주석 |
+| SAM API 문서 | `sam.soonsoon.ai/api-docs` | 인증·모델·에러코드·IDE 연동 |
+| 순순빌리지 AI 마을 사례 | `soonsoon.io/ai-spum-agent-soonsoon-village/` | AI 에이전트 마을 구현기 |
+
+주요 소스 파일: `packages/spum-character/schema/CharacterSchema.js`, `spum-world/core/WorldCastSync.js`, `spum-map/store/MapStore.js`, `studio/ai/AgentChat.js`
+
+**죽은 링크 주의**: `soonsoon.co` 도메인은 사라졌습니다(NXDOMAIN). 검색에 나오는 SPUM 문서 링크 대부분이 무효입니다.
+
+---
+
+## 9. 한 줄 요약
+
+- **Claude를 SAM으로 돌리고 싶다** → 방법 A (공식, 잘 됨)
+- **Claude가 SAM 툴을 쓰게 하고 싶다** → 방법 B (현재 계정 문제로 막힘, 비공식)
+- **Claude가 SPUM을 조작하게 하고 싶다** → **방법 C** ✅ 우리가 쓰는 방법
+- **키가 안 먹으면** → 십중팔구 **키가 잘렸습니다.** 복사 버튼으로 다시.
