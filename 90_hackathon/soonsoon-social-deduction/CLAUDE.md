@@ -17,6 +17,7 @@
 | 3 | `docs/handoff.md` | 지금 어디까지 왔나 |
 | 4 | `docs/engine-capability-audit.md` | 엔진으로 뭐가 되고 뭐가 안 되나 |
 | 5 | `docs/game-spec.md` | 기획 확정본 |
+| 6 | `docs/sam-connection-guide.md` | **SPUM/SAM 정본 레퍼런스** — 스키마·localStorage 키·맵 코드작성 절차(§4-5)·스프라이트 시트 스키마(§4-6)·자료 현황(§8). SPUM 만질 때 여기부터 |
 
 > 전체 작업 이력(실패 포함) = `docs/worklog.md`. 요건 분석·내부 자료 = `_local/내부자료/`.
 
@@ -72,7 +73,7 @@ World Editor 에서 `+` → "배치" 버튼으로. (생성·수정·외형·맵�
 **4-5. 타일셋 셀 크기는 이미지에서 계산.** `grid: "16x16"` 은 셀이 16px 이라는 뜻이 아니다.
 **셀 = 이미지폭 ÷ 16.** 실제로 192px ÷ 16 = **12px**.
 
-**4-6. SPUM 맵 저장구조 = 로컬 `map.json` 과 동일.**
+**4-6. SPUM 맵 저장구조 = 로컬 `map.json` 과 동일.** (상세 스키마·절차 = `docs/sam-connection-guide.md` §4-5)
 레이어 4개(`back_1`/`front_1`/`walkable`/`obstacle`) · 각 1200칸 · `tileIdBase 2049` · `columns 16`.
 → 맵은 **로컬에서 만들어 스크립트로 밀어넣는다.** 에디터 수작업 불필요.
 
