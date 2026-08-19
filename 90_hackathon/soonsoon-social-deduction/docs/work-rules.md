@@ -271,3 +271,54 @@ IndexedDB `spum-map-theme-source-library` 에 남는다**(`spum-feedback.md` A-4
 ⚠ 안전 조건: 빈 상태를 넣어야 `serverHasData=false` 가 되어
 `if (serverHasData && !localHasData) → _replaceStudioData()`(로컬을 서버 것으로 덮어쓰기)가
 **발동하지 않는다.** 서버 상태를 진짜처럼 꾸며 넣으면 로컬이 날아갈 수 있다.
+
+## K. 평면도 한 장을 SPUM 맵으로 (2026-08-19 · 세 번 실패하고 얻음)
+
+**K-1. ⭐ SPUM 은 테마를 맵에 넣을 때 격자 1칸당 타일 1개를 만든다 ★★★★★**
+
+테마가 중복 제거로 973개여도, **맵의 tileset 은 1024개(32x32)를 갖는다.**
+
+```
+tileProperties[4097].sourceCell = {column:1, row:1}
+tileProperties[4098].sourceCell = {column:2, row:1}
+...                                        ← 순수 항등, 1024/1024 전수 확인
+```
+
+→ **`back_1[y*32 + x] = tileIdBase + y*32 + x`.** 이게 전부다.
+
+⚠ **테마의 `tiles[]` 배열 순서로 배치하면 안 된다.** 그건 중복 제거된 목록이라
+격자 위치와 어긋난다. 이걸로 세 번 맵을 깨뜨렸다.
+
+**K-2. 추측하지 말고 SPUM 이 가진 대응표를 읽을 것 ★★★★★**
+
+`map.tilesets[].tileProperties[id].sourceCell` 이 정답을 이미 갖고 있다.
+직접 계산해서 맞추려 하지 말 것. 확인은 한 줄이면 된다.
+
+```js
+JSON.parse(localStorage.sv_studio_maps_v1).find(m=>m.id===MAPID)
+  .tilesets.find(t=>t.themeId===SMOID).tileProperties[4098].sourceCell
+```
+
+**K-3. 통행 판정은 픽셀 색으로 안 된다 — 이 그림체에서는 ★★★★☆**
+
+시도하고 실패한 것: 국소대비 · 밝기 · 색조 · 결 방향(가로/세로) · 어두운 윤곽선 비율.
+**벽 나무와 복도 벽돌·마루가 색으로 겹친다.** 씨앗에서 색으로 번지기도 벽을 뚫고 샜다.
+
+되는 조합(v7b 기준, `tools/wall-mask.mjs`):
+
+```
+벽 = 색조 18~32  AND  분산 44~70  AND  밝기 ≤ 115
+```
+
+- 벽 267칸 · 통행 749칸 · 고립 8칸 · **방 9곳 전부 도달 가능**
+- 침대는 분산 85+ 라 자동으로 빠진다 → NPC 가 침대에 올라갈 수 있다(의도)
+- 가구는 일부만 잡힌다. 벽을 확실히 막는 것을 우선했다
+
+⚠ 임계는 **그림마다 다시 잡아야 한다.** 40~70 은 방 하나를 봉인했고 46~75 는 부엌을 끊었다.
+반드시 `tools/mask-overlay.mjs` 로 겹쳐 보고, 방 도달 검사를 통과시킬 것.
+
+**K-4. 좌표를 확신하려면 격자 라벨 이미지를 만들 것**
+
+`tools/grid-crop.mjs <시트> <출력> <col0> <col1> <row0> <row1> <배율>`
+사분면으로 잘라 좌표를 찍어 보면 방·벽 위치를 정확히 읽을 수 있다.
+눈대중으로 칸을 집으면 틀린다(실제로 카펫을 벽으로 착각해 규칙을 거꾸로 만들었다).
