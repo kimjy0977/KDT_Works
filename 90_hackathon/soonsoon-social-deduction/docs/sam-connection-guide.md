@@ -422,7 +422,7 @@ claude mcp list
 
 ---
 
-### 4-7. Map Editor / Object Editor 실물 조사 (2026-08-19 세션3) ★★★★★
+### 4-7. Map Editor / Object Editor 실물 조사 (2026-08-19 해커톤 세션 3차) ★★★★★
 
 > 화면에서 직접 눌러 확인한 것. 서버 rev 84 시점.
 
