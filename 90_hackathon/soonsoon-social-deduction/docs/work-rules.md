@@ -249,3 +249,25 @@ IndexedDB `spum-map-theme-source-library` 에 남는다**(`spum-feedback.md` A-4
 
 절차: ① 「내 Studio 데이터 다운로드」 ② 백업에 해당 키가 있는지 `grep` ③ 삭제 ④ 렌더 확인
 
+**J-4. 서버 저장이 막혔을 때 복구 절차 ★★★★★ (2026-08-19 실제로 성공)**
+
+증상: 저장 토스트가 실패 · `saveServerSnapshot()` 이 `false` · **HTTP 요청조차 안 나감** ·
+용량 배지 "확인 실패" · `GET /api/studio/state` 가 500 `studio_state_object_missing`.
+
+원인과 근거는 `spum-feedback.md` A-6. 복구는 아래 순서로 한다.
+
+1. **로그인부터 확인.** `fetch('/api/me').then(r=>r.json())` 에 `user` 가 있어야 한다.
+   없으면 재로그인 먼저 (진단 중에 30분 만료로 끊기는 일이 실제로 있었다).
+2. **백업.** ACCOUNT → 「내 Studio 데이터 다운로드」
+3. **읽기만 빈 상태로 가로채고 앱의 상태기계를 태운다.**
+   - `window.fetch` 를 갈아끼워 **GET `/api/studio/state` 하나만** 200 `{ok:true, state:{revision:<현재>, keys:{}}, storage:null}` 로 응답
+   - **PUT 은 절대 가로채지 않는다** — 실제로 올라가는 건 로컬 원본이어야 한다
+   - `spum:auth-expired` → (0.3초) → `spum:auth-user` 순서로 dispatch
+     ⚠ `spum:auth-user` 만 쏘면 안 먹는다. 핸들러가 `_serverBackupSuspended` 가 true 일 때만 동작한다
+   - PUT 응답을 확인하고 **반드시 `window.fetch` 를 원복**
+4. **검증:** 진짜 `GET /api/studio/state` 가 200 · `activeRevision` 이 올라감 ·
+   패치 없이 `saveServerSnapshot('manual')` 이 `true` · 용량 배지에 숫자가 뜸
+
+⚠ 안전 조건: 빈 상태를 넣어야 `serverHasData=false` 가 되어
+`if (serverHasData && !localHasData) → _replaceStudioData()`(로컬을 서버 것으로 덮어쓰기)가
+**발동하지 않는다.** 서버 상태를 진짜처럼 꾸며 넣으면 로컬이 날아갈 수 있다.
