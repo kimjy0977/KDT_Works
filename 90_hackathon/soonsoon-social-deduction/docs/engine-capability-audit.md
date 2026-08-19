@@ -79,3 +79,80 @@
   `BubbleRenderer` 로 말풍선 — 직접 짜려던 걸 엔진이 준다.
 - **유지:** 대화 로직은 **SAM 직접 호출**. spum-world 의 대화 모듈은 *구조*(관계·세션)만 빌려 쓰고,
   생성은 SAM 이 한다. (World 내장 AI는 `systemPrompt` 무시 — `game-spec.md` §6에서 검증됨)
+
+---
+
+## 6. 세션 3 추가 조사 (2026-08-19) — 스프라이트·프롭
+
+> 스프라이트 애니메이션과 맵 완성도를 올리려고 다시 팠다. **소스를 직접 열어 확인한 것만** 적는다.
+
+### 6-1. ❌ `Animator` 로는 스프라이트 시트를 못 돌린다 ★★★★★
+
+`Animator` 는 **스켈레톤 파트 애니메이터**다 — `_animParts`, 쿼터니언 회전, 파트 경로(`_buildPartPath`)
+기반이라 **SPUM 캐릭터 슬롯 파츠 JSON** 을 요구한다. 우리가 가진 것은 프레임 스프라이트 시트다.
+
+```
+새침이_idle.json / 폴짝이_idle.json
+  frameWidth 128 · columns 8 × rows 2 · totalFrames 15 · fps 30 · background "transparent"
+```
+
+### 6-2. ❌ `SpriteRenderer` 는 이미지 일부만 그릴 수 없다 ★★★★★
+
+`SpriteRenderer.js:164` 가 `ctx.drawImage(image, dx, dy, dw, dh)` — **source rect 인자가 없다.**
+`ImageRenderer` 도 같다. 즉 시트에서 한 프레임만 잘라 그리는 기능이 엔진에 **없다.**
+
+→ **결론: 시트 재생 컴포넌트를 직접 만들어야 한다.**
+`Renderer` 를 상속해 `drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh)` 9인자 형태를 쓰면 된다.
+프레임 인덱스 = `floor(t * fps) % totalFrames`, `sx = (i % columns) * frameWidth`,
+`sy = floor(i / columns) * frameHeight`. **[실측] 30줄 안쪽.**
+
+> 이건 엔진 결함이 아니라 **설계 방향**이다. SPUM 은 스켈레톤 파츠 캐릭터가 정공법이고,
+> 시트는 Cast Editor 의 **추출물**(외부 반출용)이다. 다만 추출물을 다시 엔진에 넣는
+> 경로가 비어 있다 — **회사에 전할 만한 피드백.**
+
+### 6-3. ✅ SPUM 맵은 오브젝트(프롭)를 담을 수 있다 ★★★★★
+
+`spum-world/core/WorldCastSync.js:328 runtimeObjectsForMap()` · `WorldObjectModel.js:135`
+확인 결과, 맵 데이터에 **`objects[]` 배열**이 있다.
+
+```
+map.objects[] = { id, name, rect:{ x, y, w, h }, collider?:boolean, radius?:number }
+   → mapObjectToWorldObject() 가 Transform + Collider 컴포넌트를 붙여 GameObject 로 만든다
+   → 배치 좌표는 rect 의 중심 타일 (col + floor(w/2), row + floor(h/2))
+```
+
+**우리 `assets/map.json` 에는 이 배열이 아예 없다.** 냉장고·케이크 접시 같은 프롭을 여기에
+정의하면 상호작용 지점을 데이터로 관리할 수 있다(지금은 부엌 F 키가 보이지 않는 좌표 판정).
+※ Map Editor 에 오브젝트 배치 UI 가 있는지는 **아직 미확인** — Studio 조사 항목.
+
+### 6-4. `spum-world` 는 장르 킷을 갖고 있다 ★★★★☆
+
+`GenreKit.js` — `village-sim` · `rpg` · `platformer` 3종. 각 킷이 컴포넌트 스키마와
+`castToGameObject` 를 제공한다. 컴포넌트 종류(`WorldComponentModel.js`):
+`Transform · Renderer · MapData · MapRenderer · Collider · PhysicsBody · NavAgent ·
+Motion · FSM · Brain · Memory · Dialog · Effects · ObjectInfo · StateInfo`
+
+우리 게임은 이 중 Transform·Renderer·Collider·NavAgent 에 해당하는 것을 **직접 구현**했다.
+`village-sim` 킷을 쓰면 겹치는 부분이 있다 — **다만 Dialog/Brain 은 §5 한계로 못 쓴다.**
+
+### 6-5. `TileMapRenderer` 는 sortingLayer 를 하나만 가진다 ★★★★★
+
+타일맵 하나에 레이어를 여러 장 넣어도 **렌더러가 한 덩어리로 그린다.** 즉 캐릭터를
+레이어 사이에 끼울 수 없다. 캐릭터 앞에 덮개(front)를 그리려면
+**타일맵 GameObject 를 앞/뒤 두 개로 갈라야 한다.**
+
+```js
+buildTileMap("tilemap-back",  backLayers,  -100);   // 바닥·러그·가구
+// 캐릭터 sortingLayer 10 · 이름표 20
+buildTileMap("tilemap-front", frontLayers,   15);   // 캐릭터 앞, 이름표 뒤
+```
+
+### 6-6. ⚠ 우리 타일 시트로는 `front_1` 을 채울 수 없다 (한계 · 정직 기록)
+
+깊이감이 나오려면 **캐릭터가 지나갈 수 있는 칸 위에 걸치는 그림**이 필요하다.
+그런데 우리 시트의 가구는 **불투명한 완성 도면**이고, 가구가 놓인 칸은 전부 `obstacle` 이라
+캐릭터가 애초에 들어가지 못한다 → front 로 올려도 가려질 캐릭터가 없다.
+
+**front_1 이 실제로 효과를 내려면 새 타일이 필요하다** — 문틀 상인방(lintel), 아치,
+키 큰 가구의 윗부분처럼 **반투명하거나 위쪽만 잘린** 조각. 이건 Object Editor 작업이다.
+→ 지금은 레이어 자리만 만들어 두고 비워 뒀다(`front_1` 이 비면 렌더러를 아예 안 만든다).
