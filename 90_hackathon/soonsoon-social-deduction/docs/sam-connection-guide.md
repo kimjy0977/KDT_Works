@@ -683,3 +683,113 @@ const a = d.createElement('a');
 a.href = img.src; a.download = 'floorplan-32.png';
 d.body.appendChild(a); a.click(); a.remove();     // → 사용자 다운로드 폴더
 ```
+
+---
+
+### 4-13. ★ 테마를 맵에 **코드로** 등록하는 법 ★★★★★
+
+Map Theme Library(THEME 버튼)에서 카드를 눌러도 **브러시만 바뀌고 맵 테마는 안 바뀐다**
+(상태줄에 `Theme brush ready: …`). 맵에 붙이려면 `tilesets[]` 를 직접 만들어야 한다.
+
+**SMO 리소스 → 타일셋 슬롯 변환** (핵심)
+```js
+// SMO.mapTheme.tiles[] = 리소스(셀 묶음). cells 의 column/row 는 **1-based**.
+// tilesets[].tiles[] = 슬롯별 배열. slot 은 0-based.
+const G = 32;                                  // 격자
+const slots = new Array(G * G).fill(null);
+for (const res of smo.mapTheme.tiles)
+  for (const c of res.cells || [])
+    slots[(c.row - 1) * G + (c.column - 1)] = res.assetId;
+
+const tileset = {
+  ...기존_tileset을_본뜬다,                     // id/name/kind/imageUrl/source/tileProperties 등
+  id: 'theme_' + smo.id, themeId: smo.id, themeName: smo.name,
+  tileIdBase: 4097,                            // 테마마다 2048 간격 (§4-8)
+  columns: G, tileWidth: 32, tileHeight: 32,
+  tiles: slots.map((assetId, slot) => ({ assetId, slot })).filter(t => t.assetId),
+};
+map.tilesets = [builtin, tileset];
+map.mapThemeId = smo.id;
+```
+**타일 ID = `tileIdBase + slot`.** 평면도를 통짜로 깔 때는 항등 매핑:
+```js
+back_1[y * 맵폭 + (x + OFFX)] = tileIdBase + y * G + x;
+```
+
+**맵 크기 변경:** Map Editor 상단 `[40] × [30] [Apply]`. 데이터로 바꾸려면 `m.width/height` 와
+**모든 레이어의 `data.length` 를 함께** 맞춰야 한다(길이 = width × height).
+
+### 4-14. ⛔ img2img 출력은 **항상 1024×1024** — 소스 비율을 안 따른다 ★★★★★
+
+가로로 긴 맵을 만들려고 1280×960 소스를 올려 봤지만 **결과는 1024×1024** 였다.
+격자만 40×30 으로 바꾸면 `1024/40 = 25.6` 로 안 떨어져 `502 PROVIDER_ERROR: curl edit failed`.
+
+→ **격자는 1024 를 정수로 나누는 값만 쓴다: 16×16(64px) · 32×32(32px) · 64×64(16px).**
+→ 가로로 긴 맵이 필요하면 **맵 크기를 크게 잡고 평면도를 가운데 배치**한다.
+   (예: 맵 44×32 에 평면도 32×32 를 `x=6..37` 에. 좌우 6칸은 집 바깥 = 통행 불가)
+
+### 4-15. 소스 이미지 직접 올리기 (`+ Add Source`) ★★★★★
+
+Studio 에 이미지를 넣는 **유일한 구멍**이다(임포트 기능은 없다). 파일 입력이 iframe 안에 숨어 있어
+`find`/`read_page` 로는 안 잡힌다. GitHub raw 를 경유하면 컨텍스트를 안 쓰고 넣을 수 있다.
+```js
+const blob = await fetch(RAW_URL).then(r => r.blob());
+const file = new File([blob], 'x.png', { type: 'image/png' });
+const d = document.querySelector('iframe').contentDocument;
+[...d.querySelectorAll('button')].find(b => /Add Source/i.test(b.textContent)).click();
+const input = d.querySelector('input[type=file][accept*="image"]');
+const dt = new DataTransfer(); dt.items.add(file);
+input.files = dt.files; input.dispatchEvent(new Event('change', { bubbles: true }));
+```
+⚠ 소스 하나가 **2.7MB** 를 먹는다(§4-11 한도 주의). 재로그인하면 **소스와 프롬프트가 초기화**된다.
+
+### 4-16. ACCOUNT 패널 = 스냅샷·백업 창구 ★★★★★
+
+우측 상단 배지 → ACCOUNT. 여기에 전부 있다.
+- **SNAPSHOTS**: `rev N` 목록(캐릭터/맵/오브젝트/월드 개수 + hash) · 「다시 로드」/「로드」
+- **BACKUP**: 「내 Studio 데이터 다운로드」(JSON) · 「**로컬 데이터 로드하기**」 ← 복구는 이걸로
+- 「다시 로그인」 · 저장소 용량
+
+> ⚠ **서버 스냅샷 복원이 실패할 수 있다** — `revision 로드 실패 · studio_state_object_missing`.
+> 목록은 메타데이터만 남고 실제 객체가 없는 상태. **로컬 백업 JSON 이 유일한 생명줄이다.**
+> 무거운 작업 전후로 「내 Studio 데이터 다운로드」를 눌러 둘 것.
+
+### 4-17. 브라우저 자동화 함정 (오늘 새로 겪은 것) ★★★★★
+
+- **파일 선택창은 프로그램 클릭으로 안 열린다.** 브라우저가 사용자 조작(user activation)을 요구한다.
+  → `computer` 도구의 **실제 마우스 클릭**을 써야 한다.
+- **창이 1024×640 보다 작으면** SPUM 이 "데스크톱 웹으로 접속해 주세요" 모달로 화면을 덮는다.
+- **미리보기 확대 상태**로 스크린샷을 찍으면 전체가 안 보인다. 결과를 판단하려면
+  다운로드해서 원본을 보는 편이 빠르다.
+- 생성 결과 카드(refs)는 **마지막 것이 최신이 아닐 수 있다** — `is-active` 를 확인하고,
+  최신을 보려면 마지막 카드를 눌러 활성화할 것. (이걸 몰라 옛 결과를 보고 잘못 판단했다)
+
+### 4-18. ★ 평면도 프롬프트 — 5회 비교와 최종본 ★★★★★
+
+| 시도 | 프롬프트 성격 | 결과 |
+|---|---|---|
+| v1 | `seamless`, `edge-matching` (추상) | 넓게 깔 타일 0장 |
+| v2 | "평평한 단색 면" + 방 목록 (구체) | 좋음 — 부엌·욕실·색색 침실 |
+| v3 | "큰 거실 / 넓은 복도" 강조 | 중앙이 전부를 먹어 벽 자리 소실 |
+| v4 | 칸 수를 숫자로 지정 | 구조는 잡혔으나 부엌·욕실 소실 · 돌벽 |
+| **v5** | **v2 + "중앙 거실엔 벽이 없다" 한 줄 추가** | **전 조건 충족** |
+
+> **되는 프롬프트에 조건 하나만 더한다.** 추상어는 과잉 반응하고, 수치는 구조만 잡고
+> 내용을 흘린다. 전면 재작성보다 국소 추가가 안전하다.
+
+**v5 전문 (재현용 — 32x32 · 품질 high · 기본 정사각 소스)**
+```
+Top-down floor plan of a cozy shared house interior, pixel art, viewed straight from above.
+THICK solid wooden walls with visible depth separating rooms — walls must read as real
+structures, not thin lines.
+Layout: five separate bedrooms around the edges each with a differently colored rug,
+one kitchen with tiled floor and refrigerator, a bathroom, and WIDE corridors connecting
+everything.
+IN THE MIDDLE: one large OPEN central living room that has NO walls around it —
+it flows directly into the surrounding corridors with no wall segments, stubs or pillars
+enclosing it. It contains only a big red rug with two sofas and a low table at its edges,
+and wide clear walkable floor.
+Each bedroom densely furnished: beds, wardrobes, bookshelves, tables, plants, lamps.
+Vary floor material per room. Asymmetric organic layout, not a grid of identical quadrants.
+No characters, no text, no UI, no labels. Warm wooden interior, warm lighting, cohesive palette.
+```
