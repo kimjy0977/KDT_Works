@@ -602,3 +602,84 @@ d.body.appendChild(a); a.click(); a.remove();     // → 사용자 다운로드 
 
 **채점은 로컬에서 재현된다:** `node tools/tile-report.mjs assets/tileset_rug.png`
 브라우저에서 잰 값(안전 2 · 비갈색 2 · 최고 27.6)과 **정확히 일치**했다.
+
+---
+
+### 4-10. ★ 32×32 격자로 "집 전체 평면도" 만들기 (가장 큰 발견) ★★★★★
+
+16×16 격자로 타일 모음을 만들어 조각내 재조립하면 **원본의 밀도와 벽 구조가 버려진다.**
+격자를 키워 **평면도를 통째로** 생성하면 자르고 붙이는 과정 자체가 사라진다.
+
+**설정** (Object Editor · iframe 내부)
+```
+#themeGridSelect   → 32x32      (기본 16x16)
+#sourceGridSelect  → 32x32
+품질 select        → high        (low 로는 디테일이 뭉개진다)
+#themeTileSizeSelect → 32
+```
+
+**프롬프트의 요점 — "타일 모음"이 아니라 "평면도"를 요구한다**
+```
+Top-down floor plan of a cozy shared house interior, pixel art, viewed straight from above.
+THICK solid wooden walls with visible depth separating rooms — walls must read as real
+structures, not thin lines.
+Layout: five separate bedrooms around the edges each with a differently colored rug,
+one kitchen with tiled floor and refrigerator, one large central living room with a big rug
+and sofas, a bathroom, and WIDE corridors connecting everything.
+Each room densely furnished: beds, wardrobes, bookshelves, tables, plants, lamps.
+Vary floor material per room. Asymmetric organic layout, not a grid of identical quadrants.
+No characters, no text, no UI, no labels.
+```
+
+**결과:** 1024×1024 · 셀 32px. 두꺼운 나무 벽 · 방마다 다른 색 러그 · 부엌(타일 바닥) ·
+욕실 · 중앙 거실 · 복도. **게임 tileSize(32px)와 1:1 이라 확대 없이 선명하다.**
+
+**Slice 결과:** `1024 cells / 887~925 resources` — 거의 모든 셀이 고유하다.
+즉 **재사용 타일셋이 아니라 한 장짜리 그림**이다. 맵에 **항등 매핑**으로 깔면 된다:
+```js
+back_1[y * 32 + x] = tileIdBase + y * 32 + x;
+```
+
+**통행 판정은 우리가 만들어야 한다.** 평면도는 그림이라 어디를 걸을지 모른다.
+→ `tools/floorplan-mask.mjs` — 셀별 **국소 대비(색 분산)** 로 가른다.
+  바닥(나무결·카펫·타일)은 균일해 분산이 낮고, 가구·벽은 윤곽선이 있어 높다.
+  **색으로는 못 가른다** — 빨간 카펫과 빨간 침대가 같은 색이다.
+  임계값 실측: `flat<55` → 597칸 / `flat<65` → 719칸(통로가 넓어짐).
+
+### 4-11. ⛔ `localStorage` 5MB 한도 — 테마 두세 개면 막힌다 ★★★★★
+
+Studio 는 **브라우저 `localStorage`(오리진당 약 5MB)** 에 먼저 쓰고 서버로 올린다.
+32×32 테마 하나가 약 0.4MB, 기본 제공 `SMO_BUILTIN_STONE_WALL` 소스만 **2.67MB**.
+
+**실측:** 사용 4.86MB / 한도 4.98MB / 남은 공간 0.13MB → `QuotaExceededError`.
+서버는 931MB, 브라우저 전체 저장소는 10GB 가 남아도 **소용없다.**
+
+**증상 — 조용히 실패한다:**
+- Slice 는 성공했다고 나오는데 `mapTheme.tiles` 가 **0** (로컬에 못 씀)
+- `saveServerSnapshot()` 이 **HTTP 요청도 없이 `false`** 반환, 콘솔 무음
+- 새로고침하면 서버 상태가 덮어써 작업이 사라진다
+
+**용량 확인·정리**
+```js
+let used = 0; for (const k of Object.keys(localStorage)) used += localStorage.getItem(k).length;
+used / 1048576                                   // MB
+
+// 고아 테마 부속 키 찾기 (참조하는 SMO 가 없는 것)
+const ids = new Set(JSON.parse(localStorage.sv_studio_smo_v1).map(o => o.id));
+Object.keys(localStorage)
+  .filter(k => /^spum-map-theme-(source-state|export-seed):/.test(k))
+  .filter(k => !ids.has(k.split(':')[1]));       // → 지워도 되는 것
+```
+⚠ 삭제 전 `window.spumStudioData.export()` 로 백업할 것.
+
+### 4-12. 생성물 시트를 로컬로 빼내는 법 ★★★★★
+
+base64 를 대화 컨텍스트로 통과시키지 말 것(work-rules B-1). 페이지 안에서 다운로드시킨다.
+```js
+const d = document.querySelector('iframe').contentDocument;
+const img = [...d.querySelectorAll('img')]
+  .find(i => i.naturalWidth === 1024 && i.parentElement.className.includes('canvas-work-area'));
+const a = d.createElement('a');
+a.href = img.src; a.download = 'floorplan-32.png';
+d.body.appendChild(a); a.click(); a.remove();     // → 사용자 다운로드 폴더
+```

@@ -172,3 +172,37 @@ AI 러그 ID(4097~) 187칸이 **섞여 있었다.** 렌더러는 레이어당 `T
 앱 내장 브라우저는 창이 표시되지 않으면 스크린샷이 실패한다("Browser pane is not displayed").
 **실제 크롬으로 `localhost:5173` 을 열면 그냥 보인다.** 이걸 몰라서 한동안 주영님께
 "직접 봐 달라"고 떠넘겼다. 픽셀 비율 검사는 보조 수단이지 육안 확인의 대체가 아니다.
+
+---
+
+## I. SPUM Studio 저장 (2026-08-19 · 작업을 두 번 날리고 얻음)
+
+**I-1. 저장은 세 가지가 동시에 성립해야 된다 — 하나라도 깨지면 조용히 실패한다.**
+① 로그인(`/api/me` 에 user) ② `localStorage` 여유(약 5MB 한도) ③ 동기화 상태 정상.
+어느 것이 깨졌는지 **앱은 알려주지 않는다.** `saveServerSnapshot()` 이 그냥 `false` 다.
+
+**I-2. 무거운 작업(생성·Slice) 전에 용량부터 잰다.**
+```js
+let u = 0; for (const k of Object.keys(localStorage)) u += localStorage.getItem(k).length;
+console.log((u/1048576).toFixed(2) + 'MB / 약 4.98MB');
+```
+32×32 테마 하나가 0.4MB 다. 여유가 0.5MB 미만이면 **만들기 전에 정리**한다.
+
+**I-3. 만들었으면 그 자리에서 저장을 확인한다.**
+`saveServerSnapshot()` 의 반환값이 `true` 인지, `spum_studio_server_sync_v1.revision` 이
+올라갔는지 **둘 다** 본다. 나중에 확인하면 이미 늦다 — 새로고침이 서버 상태로 되돌린다.
+
+**I-4. 진단 순서 (저장이 false 일 때)**
+```js
+await fetch('/api/me').then(r=>r.json())            // ① 로그인
+// ② 용량 (위 I-2)
+JSON.parse(localStorage.spum_studio_server_sync_v1) // ③ revision 이 멈춰 있나
+// ④ fetch 를 가로채 요청이 실제로 나가는지 확인 — 안 나가면 클라이언트 사전 검사에서 막힌 것
+```
+**요청이 안 나가면 서버 문제가 아니다.** 로그인·용량·동기화 셋 중 하나다.
+
+**I-5. 원인을 못 찾으면 거기서 멈추고 보고한다.**
+실제로 위 셋이 다 정상인데도 저장이 안 되는 상태를 만났다(revision 110 고정).
+재로그인·새로고침·용량 확보 모두 시도했으나 해소되지 않았다.
+**추측으로 밀어붙이지 말 것** — 로컬 작업은 레포에 커밋해 두고, 제품 이슈로 기록한다
+(`docs/spum-feedback.md` A-2).
