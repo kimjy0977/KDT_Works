@@ -251,6 +251,76 @@ casts[] 항목 = {characterId, instanceId, spawnTile{col,row}, spawnX, spawnY,
 
 ---
 
+### 4-5. 맵을 코드로 쓰기 — 실제로 성공한 절차 ★★★★★
+
+> 2026-08-19 세션에서 맵 전체를 코드로 교체해 서버 반영까지 성공. 그때 확인한 것들.
+
+**레이어 원소 모양** (§4-4의 `layers[]` 상세):
+```
+layers[] = [{ name:"back_1",  type:"back",     label:"", data:[...] },   // 바닥·가구(불투명)
+            { name:"front_1", type:"front",    label:"", data:[...] },   // 캐릭터 위에 덮을 것
+            { name:"walkable",type:"walkable", label:"", data:[0|1] },
+            { name:"obstacle",type:"obstacle", label:"", data:[0|1] }]
+```
+`data` 길이 = `width * height` (40×30 = 1200). 인덱스 = `y * width + x`.
+
+**타일셋 원소 + 타일 ID 공식** (이게 핵심):
+```
+tilesets[] 원소 = { id:"theme_SMO_xxx", tileIdBase, columns, tileWidth, tileHeight,
+                    tiles:[{assetId:"sha256:...", slot:0}, ...] }
+
+★ 타일 ID = tileIdBase + (row * columns) + col     // row·col 은 0부터
+```
+우리 테마: `tileIdBase 2049` · `columns 16` · 256타일 → ID 범위 2049~2304.
+
+**작업 순서** (§4-2와 동일하되 맵 버전):
+```js
+window.spumStudioData.export();                     // ① 백업
+const arr = JSON.parse(localStorage.getItem("sv_studio_maps_v1"));
+const m = arr.find(x => x.id === "MAP_xxx");
+m.layers.find(l => l.name === "back_1").data = 새배열;   // ② 레이어 교체
+m.meta.updatedAt = new Date().toISOString();
+localStorage.setItem("sv_studio_maps_v1", JSON.stringify(arr));
+window.dispatchEvent(new CustomEvent("spum:studio-storage-write", {detail:{key:"sv_studio_maps_v1"}}));
+await window.spumStudioData.saveServerSnapshot("manual");   // ③ 서버로
+// ④ 새로고침해야 앱이 읽는다
+```
+
+**⚠️ 대용량 페이로드는 압축해서 넣을 것.** 1200칸 × 4레이어를 그대로 붙이면 컨텍스트를 태운다.
+런렝스 인코딩(`52x2114.2x2280...`)하면 3KB로 줄고, 페이지에서 풀면 된다.
+
+**추가 localStorage 키** (§4-1 표에 없던 것 — 용량이 크니 통째로 읽지 말 것):
+| 키 | 내용 | 크기 예 |
+|---|---|---|
+| `spum-map-theme-source-state:{SMO_ID}` | 타일 테마 원본 상태 | **200KB~2.8MB** |
+| `spum-map-theme-export-seed:{SMO_ID}` | 테마 추출 시드 | ~120KB |
+| `sv_studio_thumb_{ID}` | 썸네일(캐릭터·월드) | ~4~9KB |
+| `spum_studio_server_sync_v1` | 서버 동기화 상태 | 작음 |
+
+**UI 위치** (브라우저 자동화할 때):
+- 좌측 레일: Home · World · Map · Object · Cast
+- 로그인 복구: 우측 상단 `로그인 필요` 배지 → ACCOUNT 패널 → 「다시 로그인」
+- Map Editor: 우측 `MAP STRUCTURE > Layers` 의 **NAV 체크박스(장애물·워커블)를 꺼야** 실제 타일이 보인다
+- World Editor: 상단 `Play` 로 시뮬 시작 — **끝나면 `Pause` 로 꺼둘 것**(계속 돌면 낭비)
+
+---
+
+### 4-6. 캐릭터 스프라이트 시트 추출본 스키마 ★★★★★
+
+Cast Editor 추출물은 `{이름}_idle.png` + `{이름}_idle.json` 쌍이다. **배경 투명.**
+
+```
+{ characterId:"CHAR_xxx", characterName:"새침이", state:"idle",
+  clipId:"legacy/00_Idle/0_idle", duration:0.5, fps:30, totalFrames:15,
+  frameWidth:128, frameHeight:128, columns:8, rows:2,
+  sheetWidth:1024, sheetHeight:256, background:"transparent", zoom:0.86 }
+```
+
+→ 엔진 `Animator` 로 재생 가능. **`characterName` 으로 반드시 검증할 것**(A-4: 직전 캐릭터 시트가 내려온다).
+※ 별개로 Cast **초상** PNG(`assets/chars/*.png`)는 **알파가 없다(100% 불투명)** — 배경 제거 필요.
+
+---
+
 ## 5. ★ 중요 — World 내장 AI 대화의 한계 ★★★★★
 
 실제로 심문을 돌려본 결과입니다. **게임 설계에 직접 영향이 있으니 꼭 읽으세요.**
@@ -325,6 +395,19 @@ claude mcp list
 | 순순빌리지 AI 마을 사례 | `soonsoon.io/ai-spum-agent-soonsoon-village/` | AI 에이전트 마을 구현기 |
 
 주요 소스 파일: `packages/spum-character/schema/CharacterSchema.js`, `spum-world/core/WorldCastSync.js`, `spum-map/store/MapStore.js`, `studio/ai/AgentChat.js`
+
+**⚠️ 과제정의서가 준다고 한 문서는 실제로 받을 수 없다 (2026-08-19 확인 ★★★★★)**
+과제정의서 §6 제공자료 표에 *"기술 문서(README, AGENTS.md) — API 레퍼런스 포함"* 이 ✅로 적혀 있으나,
+호스트에서 확인하니 **전부 404**:
+`/AGENTS.md` · `/packages/spum-engine/AGENTS.md` · `/packages/spum-engine/README.md` ·
+`/packages/spum-world/README.md` → 404 (루트 `/README.md` 562B 만 200).
+→ **회사에 요청할 것.** 대표와 디스코드/화상 QA가 가능하다고 명시돼 있다(§9).
+그전까지는 소스가 곧 문서다.
+
+**패키지 미러링 — `spum-world` 는 `mirror.mjs` 가 실패한다 (★★★★★)**
+`mirror.mjs` 는 상대 import 를 따라가는 재귀 미러다. `spum-engine`(65파일)은 잘 되지만
+`spum-world` 는 peer 의존(`spum-engine`·`spum-character`·`spum-map`)이 **bare specifier** 라 초기 fetch에서 멈춘다.
+→ `index.js` 를 먼저 받아 `'./...'` 목록을 뽑고 **curl 로 개별 수신**하면 된다(23파일 확보 완료).
 
 **죽은 링크 주의**: `soonsoon.co` 도메인은 사라졌습니다(NXDOMAIN). 검색에 나오는 SPUM 문서 링크 대부분이 무효입니다.
 
