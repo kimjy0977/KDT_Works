@@ -81,7 +81,8 @@ World Editor 에서 `+` → "배치" 버튼으로. (생성·수정·외형·맵�
 받은 뒤 반드시 JSON 의 `characterName` 으로 검증.
 
 **4-5. 타일셋 셀 크기는 이미지에서 계산.** `grid: "16x16"` 은 셀이 16px 이라는 뜻이 아니다.
-**셀 = 이미지폭 ÷ 16.** 실제로 192px ÷ 16 = **12px**.
+**셀 = 이미지폭 ÷ 격자수.** 옛 테마는 192px ÷ 16 = **12px**, 현재 평면도는 1024px ÷ 32 = **32px**.
+맵의 `tilesets[]` 가 시트마다 `cell` 과 `tileIdBase` 를 알려 준다 — 코드에 박지 말 것.
 
 **4-6. SPUM 맵 저장구조 = 로컬 `map.json` 과 동일.** (상세 스키마·절차 = `docs/sam-connection-guide.md` §4-5)
 레이어 4개(`back_1`/`front_1`/`walkable`/`obstacle`) · 각 1200칸 · `tileIdBase 2049` · `columns 16`.
