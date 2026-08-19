@@ -91,8 +91,8 @@
 | 층 | 사용 |
 |---|---|
 | 캐릭터 제작 | **SPUM Cast Editor** (외형·성격·기억) |
-| 타일 테마 | **SPUM Object Editor** — `셰어하우스 인테리어` (AI 생성, 173타일) |
-| 맵 | **SPUM Map Editor** — `셰어하우스` 40×30 (방5 + 부엌 + 중앙 거실) |
+| 타일 테마 | **SPUM Object Editor** — 초기 `셰어하우스 인테리어`(173타일) → 현재 **AI 평면도**(32×32) |
+| 맵 | **SPUM Map Editor** — `셰어하우스` (방5 + 부엌 + 욕실 + 중앙 거실) ※ 크기는 구현 중 바뀜 → `handoff.md` |
 | 월드 | **SPUM World** — 캐스트 5명 배치 |
 | 대화 AI | **SAM** `/v1/generate` (직접 호출) |
 | **런타임 엔진** | **SPUM Engine** (`packages/spum-engine`) — `Engine·Scene·TileMap·Character·CameraController·InputManager·Collider·Pathfinding` |
