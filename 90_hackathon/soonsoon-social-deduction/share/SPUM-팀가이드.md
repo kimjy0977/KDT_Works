@@ -38,65 +38,9 @@ SPUM 은 **브라우저 `localStorage` 가 원본**이고 서버는 그걸 받�
 
 ### 2. 세션이 30분쯤에 만료됩니다 ★★★★★
 `/api/me` 가 `{"user":null}` 이면 만료입니다.
-우측 상단 배지 → **ACCOUNT → 「다시 로그인」** → 4초. **비밀번호 안 물어봅니다.**
+**우측 상단 배지 → ACCOUNT → 「다시 로그인」 → 4초.** 비밀번호 안 물어봅니다.
 > 우리는 이 증상을 **"권한 차단"으로 오진**해서 시간을 버렸습니다.
-
-### 🔁 자동 복구 — 콘솔에 한 번 붙여넣기 ★★★★★ *(2026-08-19 직접 검증)*
-
-만료를 **눈으로 확인할 필요 없이** 스크립트가 감지해서 재로그인 버튼을 눌러줍니다.
-F12 → Console 에 붙여넣으세요.
-
-```js
-(() => {
-  const find = () => [...document.querySelectorAll('button,a,[role=button]')]
-    .find(el => (el.textContent || '').replace(/\s+/g, '').includes('다시로그인'));
-  const check = async () => {
-    let me;
-    try { me = await fetch('/api/me', { credentials: 'include' }).then(r => r.json()); }
-    catch { return; }                    // 일시적 네트워크 오류는 무시
-    if (me.user) return;                 // 세션 살아있음
-    const btn = find();
-    if (!btn) return console.warn('[SPUM] 만료됐는데 「다시 로그인」 버튼을 못 찾음');
-    console.log('[SPUM] 세션 만료 감지 → 재로그인 시도');
-    btn.click();                         // SSO 왕복 후 페이지가 새로고침됨
-  };
-  clearInterval(window.__spumKeep);
-  window.__spumKeep = setInterval(check, 60000);
-  check();
-  console.log('[SPUM] 세션 감시 시작 (60초 간격)');
-})();
-```
-
-**검증한 것 ★★★★★**
-- ACCOUNT 다이얼로그는 **닫혀 있어도 DOM 에 항상 올라가 있습니다.** 그래서 「다시 로그인」 버튼 노드가
-  **패널을 열지 않아도 존재**합니다. 단 **화면에는 안 보입니다**(크기 0x0, 조상 `<dialog>` 가 숨김 처리).
-  → **사람은 패널을 열어야 누를 수 있지만, 스크립트는 숨어 있는 노드에 `.click()` 해도 통합니다.**
-- 클릭하면 **SSO 왕복(페이지 이동)** 후 `/studio/` 로 돌아오고, `/api/me` 가 정상 복구됩니다
-- **비밀번호를 묻지 않습니다** (회사 SSO 세션이 살아있는 동안)
-
-**⚠️ 한계 — 알고 쓰세요**
-재로그인하면 **페이지가 새로고침되면서 이 스크립트도 같이 사라집니다.**
-즉 **한 번의 만료는 자동으로 넘기지만, 그 다음부터는 다시 붙여넣어야** 합니다.
-새로고침해도 계속 돌게 하려면 아래 둘 중 하나를 쓰세요.
-
-**(A) 북마클릿** — 즐겨찾기에 URL 로 아래를 저장. 만료됐을 때 **한 번 클릭**하면 복구됩니다. ★★★★☆
-```
-javascript:(()=>{const b=[...document.querySelectorAll('button,a,[role=button]')].find(e=>(e.textContent||'').replace(/\s+/g,'').includes('다시로그인'));b?b.click():alert('버튼 없음 - 이미 로그인 상태일 수 있습니다');})()
-```
-
-**(B) Tampermonkey 유저스크립트** — 새로고침돼도 매번 자동 실행됩니다. ★★★☆☆ *(우리는 안 써봤습니다)*
-```js
-// ==UserScript==
-// @name         SPUM 세션 자동 재로그인
-// @match        https://spum.soonsoon.ai/*
-// @grant        none
-// ==/UserScript==
-// 위 콘솔 스니펫 본문을 그대로 여기에 붙여넣으세요.
-```
-
-**⚠️ 작업 중이라면 저장부터.** 재로그인은 페이지를 새로고침하므로,
-저장 안 한 편집 내용이 날아갈 수 있습니다. 중요한 작업 중엔 `saveServerSnapshot()` 먼저 하세요.
-
+> 매번 누르기 귀찮으면 자동화도 됩니다 → **[§3-9 세션 만료 — 복구 방법 4가지](#3-9-세션-만료--복구-방법-4가지-)**
 
 ### 3. World 내장 AI 는 게임 규칙에 못 씁니다 ★★★★☆
 `talkConfig.systemPrompt` 를 **무시**하고, 캐릭터 메모리를 사실 근거로 **쓰지 않으며**, 없는 내용을 **지어냅니다.**
@@ -198,6 +142,79 @@ Generate 가 비동기라 **직전 캐릭터의 시트가 다운로드됩니다.
 **Object Editor** = 바닥·벽·소품의 **그림(타일 재질)** 을 만드는 곳.
 **Map Editor** = 그 타일로 **배치(레이아웃)** 하는 곳.
 제작 순서는 **Object → Map → Cast → World** 입니다.
+
+---
+
+# 3-9. 세션 만료 — 복구 방법 4가지 ★★★★★
+
+`/api/me` 가 `{"user":null}` 이면 만료입니다. **네 가지 다 실제로 되는 방법**이고, 상황에 맞게 고르세요.
+
+| | 방법 | 준비 | 만료 때 할 일 | 새로고침 후에도? |
+|---|---|---|---|---|
+| **A** | **수동 클릭** (가장 확실) | 없음 | 3클릭 · 4초 | ✅ 항상 |
+| **B** | 북마클릿 | 1회 등록 | 1클릭 | ✅ 항상 |
+| **C** | 콘솔 스니펫 | 붙여넣기 | **없음(자동)** | ❌ 1회성 |
+| **D** | Tampermonkey | 확장 설치 | 없음(자동) | ✅ (미검증) |
+
+> **A 가 기본입니다.** 준비가 필요 없고 항상 통합니다. C·D 는 편의 장치일 뿐,
+> 안 되면 언제든 A 로 돌아가면 됩니다.
+
+### 방법 A — 수동 클릭 ★★★★★ *(우리가 실제로 쓴 방법)*
+1. 우측 상단 **`로그인 필요` 배지** 클릭 → ACCOUNT 패널 열림
+2. 패널 우하단 **「다시 로그인」** 클릭
+3. 약 4초 후 복구. **비밀번호 안 물어봅니다**(회사 SSO 세션이 살아있는 동안)
+4. 복구 후 `saveServerSnapshot()` 로 재동기화
+
+### 방법 B — 북마클릿 ★★★★☆
+즐겨찾기에 아래를 **URL 로** 저장해 두고, 만료됐을 때 한 번 클릭합니다. 패널을 열 필요가 없습니다.
+```
+javascript:(()=>{const b=[...document.querySelectorAll('button,a,[role=button]')].find(e=>(e.textContent||'').replace(/\s+/g,'').includes('다시로그인'));b?b.click():alert('버튼 없음 - 이미 로그인 상태일 수 있습니다');})()
+```
+
+### 방법 C — 콘솔 스니펫 (자동 감지) ★★★★★ *(2026-08-19 직접 검증)*
+만료를 **눈으로 확인할 필요 없이** 스크립트가 감지해서 눌러줍니다. F12 → Console 에 붙여넣으세요.
+```js
+(() => {
+  const find = () => [...document.querySelectorAll('button,a,[role=button]')]
+    .find(el => (el.textContent || '').replace(/\s+/g, '').includes('다시로그인'));
+  const check = async () => {
+    let me;
+    try { me = await fetch('/api/me', { credentials: 'include' }).then(r => r.json()); }
+    catch { return; }                    // 일시적 네트워크 오류는 무시
+    if (me.user) return;                 // 세션 살아있음
+    const btn = find();
+    if (!btn) return console.warn('[SPUM] 만료됐는데 「다시 로그인」 버튼을 못 찾음');
+    console.log('[SPUM] 세션 만료 감지 → 재로그인 시도');
+    btn.click();                         // SSO 왕복 후 페이지가 새로고침됨
+  };
+  clearInterval(window.__spumKeep);
+  window.__spumKeep = setInterval(check, 60000);
+  check();
+  console.log('[SPUM] 세션 감시 시작 (60초 간격)');
+})();
+```
+> **⚠️ 1회성입니다.** 재로그인하면 페이지가 새로고침되면서 **이 스크립트도 같이 사라집니다.**
+> 한 번의 만료는 자동으로 넘기지만, 그 다음부터는 다시 붙여넣어야 합니다.
+
+### 방법 D — Tampermonkey 유저스크립트 ★★★☆☆ *(우리는 안 써봤습니다)*
+새로고침돼도 매번 자동 실행됩니다.
+```js
+// ==UserScript==
+// @name         SPUM 세션 자동 재로그인
+// @match        https://spum.soonsoon.ai/*
+// @grant        none
+// ==/UserScript==
+// 방법 C 의 스니펫 본문을 그대로 여기에 붙여넣으세요.
+```
+
+### B·C·D 가 되는 이유 (확인한 것) ★★★★★
+ACCOUNT 다이얼로그는 **닫혀 있어도 DOM 에 항상 올라가 있습니다.** 그래서 「다시 로그인」 버튼 노드가
+**패널을 열지 않아도 존재**합니다. 단 **화면에는 안 보입니다**(크기 0x0, 조상 `<dialog>` 가 숨김).
+→ **사람은 패널을 열어야 누를 수 있고(방법 A), 스크립트는 숨은 노드에 `.click()` 해도 통합니다.**
+클릭하면 SSO 왕복(페이지 이동) 후 `/studio/` 로 돌아오고 `/api/me` 가 복구됩니다.
+
+> **⚠️ 어느 방법이든, 작업 중이면 저장부터.** 재로그인은 페이지를 새로고침하므로
+> 저장 안 한 편집이 날아갈 수 있습니다. 중요한 작업 중엔 `saveServerSnapshot()` 먼저.
 
 ---
 
