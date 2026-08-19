@@ -793,3 +793,51 @@ Each bedroom densely furnished: beds, wardrobes, bookshelves, tables, plants, la
 Vary floor material per room. Asymmetric organic layout, not a grid of identical quadrants.
 No characters, no text, no UI, no labels. Warm wooden interior, warm lighting, cohesive palette.
 ```
+
+### 4-19. ★ World 시뮬레이션은 실제로 대사를 만든다 (2026-08-20 검증) ★★★★★
+
+`game-spec.md` §6 의 "World 내장 AI 는 못 쓴다"는 **대화 자체가 안 된다는 뜻이 아니었다.**
+`talkConfig.systemPrompt` 를 무시한다는 뜻이고, **대사 생성은 잘 된다.**
+
+**켜는 법:** World Editor 상단 `Play` → `sim on actors 5`.
+디렉터 LLM 이 돌기 시작하고 `POST /api/sam/v1/generate` 가 나간다.
+
+**이벤트 두 종류가 나온다.**
+
+`director_card` — 대사가 아니라 **행동 지시**다. NPC 한 명당 하나.
+```json
+{ "type":"director_card", "mode":"director", "participants":["폴짝이"],
+  "message":"mood=들뜬 호기심 activity=1.4 sociability=1.3
+             intention=\"어젯밤 본 단서를 신나게 떠올린다\"" }
+```
+월드 `목적`(어젯밤 케이크 도난) 을 읽어서 **이야기에 맞는 의도**를 만든다.
+
+`conversation_turn` — **실제 대사.** 화면 하단 「캐릭터에게 지시 또는 메시지」에
+입력하면 5명이 각자 자기 말투로 답한다.
+```json
+{ "type":"conversation_turn", "mode":"creator_response",
+  "participants":["폴짝이"], "speaker":"폴짝이",
+  "line":"좋아, 어젯밤 이야기부터 풀어보자! 수상한 냄새가 나거든?",
+  "thought":"창조주 메시지: ...", "emotion":"happy" }
+```
+
+실측 예 (지시: "다들 어젯밤에 뭐 했는지 서로 물어보고 이야기해봐"):
+```
+살살이   좋지, 수상한 밤이었으니 한 사람씩 천천히 캐보자고.
+새침이   흥, 굳이 떠들썩할 건 없지만 어젯밤 일은 정리해보죠.
+오물오물  좋지, 난 부엌 근처였는데 우선 간식부터 먹으며 묻자.
+폴짝이   좋아, 어젯밤 이야기부터 풀어보자! 수상한 냄새가 나거든?
+꾸벅이   으음, 천천히 한 명씩 어젯밤 얘기 들어보면 되겠네.
+```
+**성격·말투가 살아 있다**(새침이 "흥", 꾸벅이 "으음", 오물오물 간식 언급).
+
+⚠ **한계: `mode` 가 전부 `creator_response` 다.** 5명이 각자 **나에게** 답한 것이지
+서로 주고받은 게 아니다. `participants` 도 1명씩이다.
+50초 자율 시뮬에서는 `conversation_turn` 이 **0건**이었다 — 지시를 넣어야 나온다.
+
+**NPC↔NPC 왕복은 `ConversationModel.js` 가 자료구조를 갖고 있다**
+(제안 → 세션 → 턴 → 종료, `thought` 필드 포함). 다만 시뮬레이터가 그 경로를
+자동으로 타지는 않는 것으로 보인다.
+
+**비용:** 지시 1회에 SAM 호출 5회(캐릭터당 1). 디렉터는 별도로 주기적으로 돈다.
+50초 자율 + 지시 1회 = 약 19호출 / 크레딧 37 소모.
