@@ -478,3 +478,23 @@ s.resourceSliceResult.resourceGroups // 그룹마다 role: floor|water|detail|ob
 
 → 문법 검사만으로 끝내지 말고 **실제로 페이지를 띄워 콘솔을 볼 것.** (§7 "만든 즉시 적용해서
 눈으로 확인한다"가 이 경우엔 콘솔 확인이다.) 이름을 새로 넣을 땐 그 파일에서 먼저 `grep` 한다.
+
+**M-6. ✅ SPUM `Play` 는 CDP 실클릭이면 먹는다 — 사람이 누를 필요 없다 ★★★★★**
+
+지난 세션에 `Play` 를 눌러도 **`actors 0`** 이 되어 "사용자 제스처가 필요한 것 같다"고
+적었다. 틀렸다. 원인은 **JS 로 만든 합성 클릭**(`el.click()` / `dispatchEvent`)이었다.
+
+브라우저 도구의 `computer{action:"left_click"}` 은 CDP 로 진짜 입력 이벤트를 보내므로
+`sim on · actors 6` 이 정상적으로 뜬다. 지시 입력도 `type` + `key Return` 으로 그대로 된다.
+
+→ **SPUM 조작은 전부 실클릭 경로로 할 것.** `javascript_tool` 은 *읽기*(로그 요약·상태 확인)
+   전용으로 쓴다. 쓰기·조작에 쓰면 조용히 무시된다.
+
+**M-7. ⚠ 시뮬레이션을 켜 놓고 잊으면 SSAM 이 계속 나간다 ★★★★★**
+
+`Play` 상태면 캐릭터가 대화할 때마다 과금된다. 실측 **6인 9분 = 165 SSAM**
+(자율 대화가 붙으면 분당 250까지 올라간 적 있다 — §4-29).
+
+→ **작업이 끝나면 반드시 `Pause`.** 확인 방법은 두 가지를 같이 본다:
+   버튼이 `Play` 로 돌아왔는지 + Event Log 헤더가 **`sim off`** 인지.
+   하단 상태줄에 `World simulation paused` 가 뜨면 확실하다.
