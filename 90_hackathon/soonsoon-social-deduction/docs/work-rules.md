@@ -322,3 +322,86 @@ JSON.parse(localStorage.sv_studio_maps_v1).find(m=>m.id===MAPID)
 `tools/grid-crop.mjs <시트> <출력> <col0> <col1> <row0> <row1> <배율>`
 사분면으로 잘라 좌표를 찍어 보면 방·벽 위치를 정확히 읽을 수 있다.
 눈대중으로 칸을 집으면 틀린다(실제로 카펫을 벽으로 착각해 규칙을 거꾸로 만들었다).
+
+## L. 캐릭터 시트·자동화 (2026-08-20 · 세션 6차)
+
+**L-1. ⭐ 숨은 탭에서는 시트 생성이 멈춘다 ★★★★★**
+
+Cast Editor 의 `Generate` 가 **`4/15` 같은 숫자에서 멈춘 채 영영 안 끝난다.**
+오류도 없고 콘솔도 조용하다. 프레임 캡처가 렌더링에 의존하는데
+**숨은 탭은 캔버스를 합성하지 않기** 때문이다.
+
+```js
+document.visibilityState   // "visible" 이어야 한다. "hidden" 이면 멈춘다
+```
+
+- `requestAnimationFrame` 을 `setTimeout` 으로 갈아끼워도 **안 된다**(실측).
+- 탭이 하나뿐이어도 **크롬 창 자체가 뒤에 있으면** `hidden` 이다.
+- 해결: 크롬 창을 화면 앞으로. `computer-use` 의 `open_application` 으로 가능하다
+  (브라우저는 read 티어라도 **창 띄우기는 허용**된다).
+- **작업 전에 사용자에게 "창을 덮지 마세요"라고 알릴 것.**
+
+**L-2. ⭐ Export 는 파일명과 내용이 서로 다른 캐릭터를 가리킨다 ★★★★★**
+
+A-4 를 정확히 다시 쓴다. "직전 캐릭터가 내려온다"가 아니라:
+
+| | 따르는 것 |
+|---|---|
+| **파일명** | **다운로드 시점**에 선택된 캐릭터 |
+| **내용** | **생성(Generate) 시점**의 캐릭터 |
+
+실제로 `폴짝이_idle_sheet.json` 안에 **꾸벅이** 시트가 들어 있었다.
+
+→ **`characterName` 을 읽어 저장하는 도구를 쓴다**(`proto/tools/` 에 두는 것이 낫다).
+생성과 다운로드 사이에 **선택을 절대 바꾸지 말 것.**
+
+**L-3. ⭐ 시트 프레임 가장자리에 1px 테두리 선이 있다 ★★★★★**
+
+캐릭터가 프레임의 **67%(68×86 / 128×128)** 만 채우는데, 테두리 때문에
+바운딩박스를 재면 **항상 128×128 이 나온다.** 그대로 그리면 시트 캐릭터가
+초상 캐릭터의 **절반 크기**로 보인다.
+
+```js
+const IN = 3, A = 40;                    // 바깥 3px 무시, 알파 40 기준
+for (let y = IN; y < fh - IN; y++) ...   // 이렇게 재야 68x86 이 나온다
+```
+
+`proto/src/sprite.js` 의 `내용영역()` 이 이 처리를 한다.
+⚠ **"고쳤다"와 "효과가 있다"는 다르다.** 1차 수정 때 bbox 값을 안 찍어 보고
+넘어갔다가 그대로 실패했다. 반드시 값을 출력해 확인할 것.
+
+**L-4. SPUM 은 걷기를 `move`, 우리는 `walk` 이라 부른다**
+
+`loadClips(slug, ["idle","walk"])` 는 `{slug}-walk.png` 를 찾는데
+Export 파일은 `{slug}-move.png` 다. `sprite.js` 의 `파일이름` 맵이 잇는다.
+
+**L-5. React UI 에 값을 넣는 규칙**
+
+- `el.value = x` 는 **무시된다.** 네이티브 setter + `dispatchEvent` 를 써야 한다.
+- **`<select>` 는 되돌려진다.** 값을 넣어도 React 가 원래 값으로 복구한다.
+  → 격자처럼 `<select>` 와 숫자칸이 짝인 경우 **숫자 입력칸에 직접** 넣으면 먹는다.
+- Object Editor 본문은 **iframe 안**이다. `contentWindow` 의 prototype 을 써야 한다
+  (부모의 `HTMLInputElement.prototype` 을 쓰면 안 먹는다).
+
+```js
+const w = document.querySelector("iframe").contentWindow;
+Object.getOwnPropertyDescriptor(w.HTMLInputElement.prototype, "value").set.call(el, v);
+el.dispatchEvent(new (w.Event)("input", { bubbles: true }));
+```
+
+**L-6. `canvas-size-input` 은 격자가 아니라 캔버스 픽셀 크기다**
+
+64×40 을 넣었더니 **64×40 픽셀짜리 캔버스**가 됐고, 생성 후 1024×1024 로 되돌아갔다.
+격자는 `Map Theme Settings` 의 `GRID` 옆 숫자칸이다. 이름이 비슷해 헷갈린다.
+
+**L-7. 새 SMO 는 격자 16×16 · 품질 Low 로 시작한다**
+
+`New SMO` 로 만든 테마는 기본값이 낮다. **생성 전에 둘 다 확인**할 것.
+(격자는 L-5 대로 숫자칸에, 품질은 `<select>` 에 `high`.)
+
+**L-8. `josa()` 는 조사만이 아니라 단어+조사를 돌려준다**
+
+```js
+josa("오물오물", "이/가")   // → "오물오물이"   (조사만 아님)
+```
+앞에 이름을 또 붙이면 `오물오물오물오물이` 가 된다. 실제로 그렇게 냈다.
