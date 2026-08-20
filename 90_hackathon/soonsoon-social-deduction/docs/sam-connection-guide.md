@@ -1027,3 +1027,63 @@ STYLE: pixel art, <분위기>, cohesive palette, straight top-down, no perspecti
 
 ⚠ `60×40` 같은 가로로 긴 맵은 **불가능하다** — img2img 출력이 항상 정사각 1024²(§4-14)라
 잘라내야 하는데, 잘라내면 방이 통째로 날아간다. 대신 격자를 키워 **면적**으로 넓힌다.
+
+---
+
+### 4-27. ★ World 대화는 세 가지 모드가 있다 — 우리는 `baked` 로 쓰고 있었다 ★★★★★
+
+`§4-19` 에서 "World 시뮬레이터도 대사를 만들지만 모든 턴이 `creator_response` 라 서로
+주고받지 않는다"고 적었다. **원인을 찾았다. 모드가 `baked` 였다.**
+
+**월드 설정 → 대화 시스템** (`world.ai` 에 저장)
+
+| 항목 | 값 | 뜻 |
+|---|---|---|
+| **`conversationMode`** | **`fsm` \| `baked` \| `llm`** | FSM(더미 풀) · **베이킹 데이터** · **실시간 LLM** |
+| `llmModel` / `controlModel` | `light` \| `medium` \| `expert` | 대화 모델 · 제어 모델 |
+| `worldGoal` | 문자열 | 월드 목표 |
+| `currentTopic` | 문자열 | 현재 화제 |
+| `autonomy` | `balanced` | 자율성 |
+| `directiveMode` | `character_based` | 지시 방식 |
+| `globalRules` | `[]` | 전역 규칙 |
+| `missionManagerEnabled` / `Interval` | `false` / `7` | 자동 미션 생성 |
+| `timeScale` · tempo · speed | 1 | 행동 템포 · 월드 속도 |
+
+`baked` 는 **베이크 탭에서 미리 구워 둔 대사를 재생**한다. `bakeBuilder` 가 그 설정이다:
+`threadCount 8 · turnsPerThread 4 · thoughtCount 2 · maxLineChars 54 · generationMode "company"`.
+즉 8스레드 × 4턴을 SAM 으로 한 번 생성해 두고 계속 튼다. **유동적일 수가 없다.**
+
+⚠ 함정: `bakeBuilder.sourceText` 가 **"평화의 픽셀월드를 만드는 것입니다"** 로 남아 있었다.
+우리 사건과 무관한 원문으로 구운 대사를 틀고 있었던 것이다. 베이크를 쓸 거면 여기부터 고칠 것.
+
+**`runtime` 표시가 진실을 말해 준다** — 퍼블리시 베이크 패널의 `runtime: dummyconversation
+bakeddata`. 이게 `dummyconversation` 이면 실시간이 아니다.
+
+**`llm` 로 바꾼 뒤 실측 (2026-08-20)**
+- 화면·`sv_studio_draft_v1.world.ai.conversationMode` 둘 다 `llm` 로 바뀜 ★★★★★
+- Play → `sim on · actors 5` 로 시뮬레이션은 돌아감 ★★★★★
+- **그런데 30초 동안 "아직 AI 통신 로그가 없습니다"** — 대사가 안 나온다 ★★★★★
+  → 모드만 바꿔선 부족하다. 트리거(근접·지시·화제)가 더 필요한 것으로 보인다 ★★☆☆☆
+
+**`<select>` 는 JS 로 못 바꾼다**(React 가 되돌림). 클릭해 포커스를 준 뒤 **방향키**로 옮기면
+`change` 가 정상 발생한다. 이번에 이 방법으로 성공했다.
+
+### 4-28. 캐스트 스키마 v2 — 대화에 영향을 주는 필드 ★★★★☆
+
+`sv_studio_characters_v1` (캐릭터 6명)
+
+```
+persona   : occupation · mbti · age · gender · race · class · theme
+            personality[] · traits[] · speechStyle · background
+            creatorResponseLevel (0~100, 기본 50)   ← 창조주 응답 성향
+profiles  : coreStats(RPG 8스탯) · rpg · village{role, affinity, energy, mood, schedule[]}
+appearance: equipment{body,eye,hair,helmet,...}
+```
+
+- **`creatorResponseLevel`** — `§4-19` 의 "모든 턴이 `creator_response`" 와 이름이 겹친다.
+  낮추면 창조주 대신 서로에게 말할 가능성이 있다 ★★☆☆☆ (미검증)
+- **`village.schedule[]`** — 비어 있다. 시간대별 행동을 넣는 자리로 보인다 ★★☆☆☆
+- 캐스트 배치 패널의 `view` = `auto | rpg | village | social` — 어떤 스탯 묶음을 쓸지
+- `mood` = `calm | happy | excited | tired | sad | angry`
+
+⚠ **월드에 캐릭터가 5명뿐이다**(두리번이 없음). 로컬 게임은 6명이다. 무대가 어긋나 있다.
