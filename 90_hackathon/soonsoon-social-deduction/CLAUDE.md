@@ -25,6 +25,7 @@
 | 1 | `_local/회사자료/과제정의서_순순팩토리.docx` | **채점 기준 원본.** ⛔ 비커밋 — 로컬에만 있다 |
 | 2 | `docs/work-rules.md` | SPUM 조작 함정 모음 |
 | 3 | `docs/handoff.md` | 지금 어디까지 왔나 |
+| 3-b | `docs/team-onboarding.md` | **팀원이 새로 합류하면 이것부터.** 환경 세팅 + SPUM 을 코드로 다루는 법 |
 | 4 | `docs/engine-capability-audit.md` | 엔진으로 뭐가 되고 뭐가 안 되나 |
 | 5 | `docs/game-spec.md` | 기획 확정본 |
 | 6 | `docs/sam-connection-guide.md` | **SPUM/SAM 정본 레퍼런스** — 스키마·localStorage 키·맵 코드작성 절차(§4-5)·스프라이트 시트 스키마(§4-6)·자료 현황(§8). SPUM 만질 때 여기부터 |
