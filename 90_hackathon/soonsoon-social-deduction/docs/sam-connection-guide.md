@@ -1572,3 +1572,43 @@ emotion, summary, recentSummary, lastInteractionAt, importantConversationIds[≤
 
 **결론:** Studio 는 *진행자가 있는* 다인 대화극에는 충분하다.
 부족한 것은 자율성과 비밀 정보 관리 두 가지다.
+
+### 4-45. 말풍선 타이핑은 **구현돼 있다** — 상수가 꺼놓고 있을 뿐 ★★★★★
+
+`BubbleRenderer.update()` 에 타이핑 애니메이션이 원래 있다.
+
+```js
+const typingDuration = Math.min(0.4, this._text.length * 0.018);
+```
+
+**0.4초 상한** 때문에 41자면 초당 100자가 넘어 사실상 즉시 표시된다.
+옵션도 직렬화 키도 없어서 설정으로 못 바꾼다.
+
+라이브 Studio 에서 그 식만 `길이 / 11` 로 몽키패치하니 **3.7초**가 되고,
+문장이 도중에 끊긴 말풍선이 실제로 관찰됐다(패치 전에는 원리상 불가능한 프레임).
+
+```js
+// 콘솔에서 즉석 확인용 — 새로고침하면 사라진다. 서버에는 아무것도 안 남는다.
+const u = performance.getEntriesByType('resource').map(e=>e.name)
+  .find(n=>/BubbleRenderer\.js/.test(n));
+const { BubbleRenderer: B } = await import(u);
+// B.prototype.update 를 같은 로직 + `길이/CPS` 로 교체한다 (본문 참조)
+```
+
+→ 데모에서 쓰려면 **매번 콘솔로 다시 넣어야 한다.** 저장되지 않으므로
+   발표 자료에 "SPUM 에서 이렇게 된다"고 쓰면 안 된다. **"이렇게 될 수 있다"** 가 맞다.
+
+### 4-46. `WorldSpeechDirector` — 대화 페이싱 체계는 이미 정교하다 ★★★★☆
+
+`StudioSpumWorldRuntime.js` 의 `WORLD_PERFORMANCE_TIMING.speech`
+(`gapMs 320` · `prepareMs 180` · `turnChainDelayMs 420` · `minMs 2200` · `maxMs 5600`).
+
+- `splitLongSpeech()` — 긴 대사를 3줄 단위로 쪼개 순차 표시(카톡 연속 메시지처럼)
+- `speechChunkDurationMs()` — 유지 시간 `1200 + 글자수 × 65ms`, 길이 비례
+- `applyBubbleAvoidance()` — 말풍선끼리 겹치지 않게 자리를 옮긴다
+
+`createWorldSpeechDirector({ timing })` 로 **주입 가능**하지만 Studio 는 고정 상수를 넘기고,
+그 상수는 `Object.freeze` + export 안 됨 → 사용자 접근 경로 없음(라이브 확인).
+
+> 우리 로컬 게임(`proto/src/typing.js`)은 이 설계를 참고하되 **직접 구현**했다.
+> Studio 런타임을 쓰지 않기 때문이다(아키텍처 = 프로젝트 `CLAUDE.md` §3).
