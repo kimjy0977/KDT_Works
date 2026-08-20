@@ -1451,3 +1451,70 @@ intent: { type:"idle", motivation:"", priority:0,
 
 **부수 확인:** Worlds 목록의 「복제」로 월드를 통째로 복사할 수 있다(캐스트·역할·기억까지).
 실험은 사본에서 하면 원본이 안전하다.
+
+---
+
+### 4-38. ★★ 「소넷 4.6」의 정체 = `expert` 등급 (소스 확정) ★★★★★
+
+`/packages/spum-world/runtime/WorldLLMModels.js` 를 직접 읽어 확정했다.
+
+```js
+export const WORLD_LLM_MODEL_ALIASES = Object.freeze({
+  'claude-haiku': 'light',   'claude-haiku-4-5': 'light',
+  'gpt-5.4-nano': 'light',   'glm-4.7-flash': 'light',
+  'gpt-5.4-mini': 'medium',                      // ← 우리가 쓰던 것
+  'gemini-3.5-flash': 'medium',
+  'claude-sonnet-4.6': 'expert',                 // ← 영상의 그 모델
+  'claude-sonnet-4-6': 'expert',
+  'claude-opus-4.6/4.7/4.8': 'expert',
+  'gpt-5.4': 'expert', 'gpt-5.5': 'expert',
+});
+export const WORLD_LLM_QUALITY_MODELS = { fast:'light', balanced:'medium', rich:'expert' };
+```
+
+**영상의 "이 캐릭터한테 소넷 4.6을 달아놨다" = `expert` 를 골랐다는 뜻이다.**
+그리고 `normalizeWorldLLMModel()` 이 **구체 모델 id 를 등급으로 정규화**한다. 그래서
+SAI 의 `updateAIConfig` 로 `claude-sonnet-4.6` 을 넣어도 값이 남지 않는다(§4-34 의 미스터리 해소).
+
+⚠ **그런데 우리 계정에서는 `expert` 를 고르면 LLM 호출이 통째로 실패한다**
+(`LLM request failed or returned invalid JSON` · SAM 요청 수 0 증가). 모델 접근 권한은
+있다(직접 호출 시 `claude-sonnet-4.6` 200 OK). **SPUM 게이트웨이 쪽 문제로 보이며
+회사 문의 항목이다** ★★★☆☆.
+
+### 4-39. 「상호작용(관계)」 평가가 안 생기는 이유 ★★★★★
+
+`/packages/spum-world/core/RelationshipMemory.js` 기준. 갱신 함수가 셋인데 **역할이 다르다.**
+
+| 함수 | 채우는 것 |
+|---|---|
+| `applyRelationshipDelta` | `trust`·`familiarity`·`tension` **숫자만** |
+| `setRelationshipSummary` | `recentSummary` 만 (**`emotion` 안 건드림**) |
+| **`setRelationshipMetrics`** | **`emotion`(≤10자)·`summary`(≤200자)**·affinity·tension |
+
+화면의 **「불안」「신뢰」 라벨은 `emotion`** 이고, 이건 **`setRelationshipMetrics` 로만** 들어간다.
+즉 **대화를 끝내는 것만으로는 안 채워지고, 평가용 LLM 호출이 따로 성공해야 한다.**
+
+우리 월드가 계속 `0 · 아직 평가 없음` 인 이유 ★★★☆☆
+1. 실행 시간이 짧아 평가 단계까지 못 감
+2. **관계는 짝(partnerId)별로 저장** — 같은 상대와 반복 대화가 쌓여야 한다
+3. 메모리 `reset` 을 눌러 계속 0으로 되돌렸다(아래 4-40)
+
+관계 저장 구조: `memory.relationships[partnerId] = { trust, familiarity, tension, affinity,
+emotion, summary, recentSummary, lastInteractionAt, importantConversationIds[≤24] }`
+
+### 4-40. ⛔ 메모리 패널의 `reset` 은 **캐스트 전체를 되돌린다** ★★★★★
+
+기억만 비우려고 6인 전원에게 Memory 옆 `reset` 을 눌렀다. 결과:
+
+```
+지워진 것  memory                                    (의도한 것)
++ 부작용   aiConfig.role.title/goal 이 옛 값으로 복귀
+           두리번이 aiConfig.enabled = false
+           캐스트 배치 6인 → 5인, 스폰 좌표가 맵 밖(33 · 맵은 32×32)
+결과       actors 0 — 시뮬레이션이 빈 채로 돌아 아무 일도 안 일어남
+```
+
+→ **기억만 지우려면 `reset` 을 쓰지 말 것.** `SUMMARY` 를 덮어쓰고 `RECENT` 항목은
+개별 `×` 로 지운다. 세팅을 다시 하는 편이 빠를 만큼 광범위하게 되돌아간다.
+
+**복구법:** Worlds 목록의 「복제」로 원본을 다시 복사한다(원본은 건드리지 않는 게 이 때문).
