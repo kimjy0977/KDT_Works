@@ -1004,3 +1004,26 @@ STYLE: pixel art, <분위기>, cohesive palette, straight top-down, no perspecti
   https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide
 - OpenAI Cookbook — gpt-image-1.5 Prompting Guide
   https://developers.openai.com/cookbook/examples/multimodal/image-gen-1.5-prompting_guide
+
+---
+
+### 4-26. 격자 64 는 "맵 4배"가 되지만 마스크가 어려워진다 ★★★★★
+
+`4-24`("격자를 키워도 맵이 넓어지지 않는다")의 후속. 넓히는 법은 **격자 + 정수배 확대**다.
+
+| | 셰어하우스 | 우주선 |
+|---|---|---|
+| 격자 | 32 | **64** |
+| 원본 셀 | 32px | 16px |
+| 확대 | 그대로 | **×2 (최근접)** |
+| 타일셋 | 1024² | **2048²** |
+| 맵 | 32×32 타일 | **64×64 타일 (면적 4배)** |
+
+셀이 32px 보다 작으면 `build-world-map.mjs` 가 정수배로 키운다. 픽셀아트라
+최근접 확대해도 뭉개지지 않고, 가구가 캐릭터 대비 **원래 비율을 유지**한다.
+
+⚠ 대가: 셀 16px 이 그림의 바닥 타일 한 장과 같은 크기가 되어 **픽셀 기반 통행 판정이
+무너진다**(work-rules M-1). SPUM Slice 의 role 을 쓸 것(M-2).
+
+⚠ `60×40` 같은 가로로 긴 맵은 **불가능하다** — img2img 출력이 항상 정사각 1024²(§4-14)라
+잘라내야 하는데, 잘라내면 방이 통째로 날아간다. 대신 격자를 키워 **면적**으로 넓힌다.
