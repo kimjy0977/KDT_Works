@@ -155,6 +155,7 @@ bash serve.sh            # → http://localhost:5173/game.html
 | `src/typing.js` | 대사를 **사람 타자 속도로** 한 글자씩 출력 · 「입력 중…」 · 배속(1x/3x/즉시) · 스킵 |
 | `src/action.js` | **「지금 할 수 있는 것」을 한 곳에서 결정** — Space 로 실행 · 하단 도움말에 표시 |
 | `src/moves.js` | **발언 행동**(캐묻기·모순 짚기·의심·감싸기·목격 공개·침묵) → 자연어 문장으로 번역 |
+| `src/notebook.js` | **단서 수첩**(N) — 들은 말에서 「누가·언제·어디」를 뽑아 표로 · 모순 자동 표시 |
 | `server.mjs` | 정적 서버 + SAM 프록시(키 미노출). `/api/ask` `/api/cast` `/api/verdict` |
 | `engine.mjs` | 캐릭터 원본 데이터 · 프롬프트 빌더 · `cleanLine` · SAM 호출 |
 
