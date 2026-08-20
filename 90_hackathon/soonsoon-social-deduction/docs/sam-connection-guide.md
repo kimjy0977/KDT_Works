@@ -1153,3 +1153,136 @@ Conversation end (llm): A ↔ B · complete
 우리는 `company`(회사 소개) + sourceText "평화의 픽셀월드" 로 구워 놓고 있었다.
 베이크를 쓸 거라면 **`story`** 로 바꾸고 sourceText 를 사건 설명으로 갈아야 한다.
 다만 `llm` 모드를 쓰면 베이크 자체가 필요 없다.
+
+---
+
+### 4-31. ★★ Studio World 전체 데이터 모델 — 미확인 기능 일괄 조사 ★★★★★
+
+> 2026-08-20. "확인 못 한 기능"으로 남겨 뒀던 10건을 데이터 층에서 확정한다.
+> UI 라벨보다 `sv_studio_draft_v1` · `sv_studio_characters_v1` 이 정확하다.
+
+#### (1) `world` 최상위
+
+```
+sceneCharacterIds[]  unitPixelScale  ai{}  mapId  mapResourceId
+bakeBuilder{}  casts[]  runtime{bakedData}  publishBake{}
+```
+
+**`events` · `props` · `story` · `missions` 키는 아예 없다.** UI 의 Events(0)·Props(0)·
+스토리 탭은 **아직 데이터가 없는 빈 기능**이다. 스토리 탭은 「스토리 재생/중지」 버튼만
+있고 입력 필드가 없다 → 별도 생성물이 있어야 재생되는 구조로 보인다 ★★☆☆☆.
+
+#### (2) `world.ai` — 월드 AI 전체
+
+| 필드 | 값 | 비고 |
+|---|---|---|
+| `conversationMode` | `fsm \| baked \| llm` | §4-27 |
+| `worldGoal` | 문자열 | 월드 전체 목표 |
+| `currentTopic` | 문자열 | **지시창에 넣은 말이 여기 덮어써진다** (실측) |
+| `tone` | `cozy-mystery` | 프롬프트에 `worldTone` 으로 실림 |
+| `autonomy` | `balanced` | 자율성 |
+| `directiveMode` | `character_based` | 지시 대상 방식 |
+| **`globalRules[]`** | **빈 배열** | 전역 규칙 주입구. UI 노출 위치 못 찾음 ★★☆☆☆ |
+| `missions[]` | 빈 배열 | 미션 매니저가 자동 생성 |
+| `missionManagerEnabled` / `Interval` | `false` / `7` | ON + Play 시 자동 생성 (패널 안내문) |
+| `llmModel`/`controlModel`/`apiKey` | `""` | 비워 두면 SAM 기본값을 쓴다 |
+| `timeScale` | 1 | tempo·speed 와 별개 |
+
+#### (3) ★ 캐릭터 `aiConfig` — **비밀 역할 슬롯이 여기 있다**
+
+```json
+aiConfig: {
+  enabled: true, model: "gpt-5.4-mini", qualityMode: "balanced",
+  role: { title: "셰어하우스 주민(범인)",
+          goal : "자신이 케이크를 먹은 사실을 들키지 않는다" },
+  extraPrompt: "기억에 없는 것은 지어내지 않는다.",
+  decisionMode: "local_fsm",
+  thinkMinMs: 4000, thinkMaxMs: 12000,
+  action: { text: "", weight: 0.5 },
+  state: { currentSituation, userIntent, shortTermGoal, longTermGoal, nextActionHint }
+}
+```
+
+⚠ **앞서 "역할은 Villager 뿐"이라고 적은 것은 오류였다.** 그건 `profiles.village.role`
+(마을 직업)이고, **AI 역할은 `aiConfig.role`** 로 완전히 별개다. 마피아의 비밀 역할은
+이 필드로 표현된다.
+
+★ **`role.goal` 이 대화 화제(topic)로 쓰인다.** 실측: 꾸벅이의 goal `"아는 것이 없음을
+설명한다"` 가 로그에 그대로 topic 으로 찍혔다. **목표를 쓰면 그게 그 캐릭터의 대화
+방향이 된다** — Studio 에서 역할극을 만드는 핵심 손잡이다.
+
+현재 설정 상태(2026-08-20): 살살이=범인 · 폴짝이=목격자 · 오물오물/새침이/꾸벅이=용의자 ·
+**두리번이=빈칸(월드 미배치)**.
+
+#### (4) 캐릭터 `memory` — 기억 구조
+
+```json
+memory: { summary: "어젯밤 11시~새벽 1시 사이의 기억",
+          engram: "", summarizeThreshold: 6,
+          recent: [ { id, at, type:"thought", source:"world_fsm", text,
+                      mood, activity, partnerId, summarized } ],
+          creatorMessages: [], relationships: {} }
+```
+
+- `recent` 는 최대 20개가 쌓이고 `summarizeThreshold: 6` 마다 요약되는 것으로 보인다 ★★★☆☆
+- `type:"thought"` · `source:"world_fsm"` — 행동 판단이 남긴 혼잣말도 기억에 들어간다
+- **알리바이를 심으려면 여기다 넣는다** (`summary` 또는 `recent`)
+
+#### (5) `talkConfig` — **여전히 무시된다**
+
+`talkConfig.systemPrompt` 에 361자가 들어 있으나, `llm` 모드 LLM 요청 필드는
+`speaker/partner/topic/turn/deployMode/baseBehavior/worldTone/relationship/recentCount/
+nearbyObjectCount` 뿐이다. **systemPrompt 가 실리지 않는다.** §4-19 의 결론은 유효하다.
+캐릭터 성격은 `persona` 와 `aiConfig.role` 로 전달된다.
+
+#### (6) `profiles.village.schedule[]` — 빈 배열
+
+시간대별 행동을 넣는 자리로 보이나 **요소 스키마를 확인할 수 없다**(예시 데이터 없음) ★★☆☆☆.
+
+#### (7) `persona.creatorResponseLevel` = 50
+
+전원 기본값. 이름상 창조주 응답 성향이나 **효과 미검증**. 로그에서 `creator_response`
+턴과 `llm` 턴이 섞여 나오는 것과 관련 있을 것으로 추정 ★★☆☆☆.
+
+#### (8) `casts[]` — 배치 인스턴스
+
+```json
+{ characterId, instanceId, spawnTile:{col,row}, spawnX, spawnY,
+  role: "npc", runtimeEnabled: true, overrides: {} }
+```
+
+`overrides` 는 빈 객체 — **배치별로 캐릭터 설정을 덮어쓰는 자리**로 보인다 ★★☆☆☆.
+
+#### (9) SPUM Link / Frame
+
+상단 버튼 2개. `publishBake` 에 `script: "embedded-world"`(선택지 `soonsoon-factory |
+embedded-world | startup-demo`)가 있고 `publish: "SPUM Link / SoonSoon Frame"` 로 표기된다.
+**대외 공개 동작이라 누르지 않았다** — 확인 필요 시 주영님 승인 후 진행.
+
+#### (10) 시뮬레이션 탭 — 비활성(`disabled`)
+
+버튼이 잠겨 있다. 활성 조건 불명 ★☆☆☆☆.
+
+---
+
+### 4-32. Studio 만으로 만드는 마피아 — 되는 것과 안 되는 것 ★★★★★
+
+**되는 것** (전부 실측)
+
+| 요소 | 방법 |
+|---|---|
+| 비밀 역할 | `aiConfig.role.title/goal` |
+| 알리바이 | `memory.summary` / `memory.recent[]` |
+| 자율 토론 | `conversationMode: "llm"` + 지시 한 줄 |
+| 교차 검증·의심 전가 | 저절로 발생 (§4-29 로그) |
+| 단계 진행 | 지시창에 단계 선언 → `currentTopic` 이 갈린다 |
+| 지목 발언 | 지시창에 "각자 한 명 지목하라" |
+
+**구조적으로 없는 것**
+
+1. **은닉 정보가 없다.** Event Log 에 범인의 대사·속마음이 다 보인다
+2. **집계·승패가 없다.** 표를 세는 주체가 없다 — 사람이 눈으로 센다
+3. **플레이어가 캐릭터로 못 들어간다.** Play = 관전 + 지시
+
+→ Studio 산출물은 **"규칙 있는 게임"이 아니라 "자율 추리극"** 이다. 그 자체로 데모 가치가
+있으나, 승패가 필요한 게임은 SPUM **Engine** 층에서 만들어야 한다(우리 로컬 구현).
