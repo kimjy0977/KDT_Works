@@ -938,3 +938,69 @@ THIN walls (about 1/64 of the image wide) so corridors stay wide and walkable.
 | 둘 다 | 격자 64 **+** 밀도 프롬프트 |
 
 ⚠ 격자만 올리고 프롬프트를 그대로 두면 **아무것도 넓어지지 않는다.** 실제로 그렇게 한 번 헛돌았다.
+
+### 4-25. ★ 평면도 프롬프트 정본 — 구조화 템플릿 ★★★★★
+
+지금까지 프롬프트를 감으로 고쳐 왔다. OpenAI 이미지 모델 프롬프트 가이드를 찾아
+**근거 있는 구조**로 다시 썼다. 출처는 이 절 끝.
+
+**핵심 원칙 4가지**
+
+1. **라벨 + 줄바꿈으로 나눈다.** 한 문단으로 길게 쓰지 말 것. 모델은 구조에 보상하고
+   모호함에 벌을 준다.
+2. **순서를 지킨다:** 용도 → 장면 → 대상 → 세부 → 제약 → 스타일
+3. **재질을 구체적으로.** "shiny metal" ✗ → **"brushed steel"** ✓
+4. **금지 목록을 명시적으로 나열한다.** "무엇을 유지하고 무엇을 바꿀지" 둘 다 적는다.
+
+**정본 템플릿** (테마만 바꿔 재사용)
+
+```
+USE CASE: a top-down tile map for a 2D game. Read like an architect's floor plan.
+
+SCENE:
+One entire <장소> seen from directly above, drawn small and far away.
+The whole <장소> fills the image edge to edge.
+
+SUBJECT:
+Sixteen or more small rooms — <방 목록> — linked by long winding corridors.
+In the centre, one open <공용공간> holding a single small <가구>.
+
+DETAILS:
+Each room is about one ninth of the image wide. A bed is a small rectangle.
+Walls are THIN, about one sixty-fourth of the image wide.
+Materials: <구체적 재질 3개>.
+Each room has a differently coloured floor; corridors share one continuous <바닥재>.
+
+FLOOR CONTINUITY (important):
+The floor runs UNBROKEN from every corridor straight into every room.
+At a room entrance the floor colour changes, but the surface stays FLAT and CONTINUOUS —
+no step, no raised lip, no threshold strip, no frame, no trim line across the opening.
+A person could walk from corridor to room without stepping over anything.
+
+CONSTRAINTS — the image must NOT contain:
+- doors of any kind: no door panels, hatches, sliding doors, or frames across an opening
+- free-standing wall stubs, lone pillars, or partial walls that lead nowhere
+- any wall that does not separate two different rooms
+- thresholds, door sills, steps, or trim strips between corridor and room
+- characters, text, UI, labels, watermarks, borders, or a frame around the image
+
+STYLE: pixel art, <분위기>, cohesive palette, straight top-down, no perspective.
+```
+
+**각 블록이 푸는 문제**
+
+| 블록 | 없으면 생기는 문제 |
+|---|---|
+| `USE CASE` | 일러스트처럼 그려서 타일로 못 씀 |
+| `SCENE` + "drawn small" | 방 몇 개를 확대해 그림 (§4-24) |
+| `DETAILS` 의 "one ninth" | 방이 커져 걸을 공간이 안 늘어남 |
+| **`FLOOR CONTINUITY`** | 방 입구에 문턱·테두리가 생겨 **바닥이 끊김** |
+| **`CONSTRAINTS` 문 금지** | 문짝이 벽으로 판정돼 **방에 못 들어감** (§4-22) |
+| **`CONSTRAINTS` 벽 금지** | **어디에도 안 붙은 벽 토막**이 생겨 통로를 막음 |
+| `no borders` | 프레임 테두리 1px 선 (스프라이트에서도 같은 문제, work-rules) |
+
+**출처**
+- OpenAI Cookbook — GPT Image Models Prompting Guide
+  https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide
+- OpenAI Cookbook — gpt-image-1.5 Prompting Guide
+  https://developers.openai.com/cookbook/examples/multimodal/image-gen-1.5-prompting_guide
