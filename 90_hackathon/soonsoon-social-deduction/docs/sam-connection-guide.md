@@ -868,3 +868,35 @@ CHARACTER_AI_DECISION_MODES = Object.freeze(['local_fsm'])
 → 시트를 얻는 경로는 **Cast Editor 의 Export 뿐**이다. `CharacterStore.js` 에도
 시트를 뽑는 API 는 없다. Export 는 A-4 함정(직전 캐릭터 시트가 내려옴)이 있으므로
 받은 JSON 의 `characterName` 을 건건이 확인할 것.
+
+### 4-22. 평면도 프롬프트 — 문을 그리게 하지 말 것 ★★★★★
+
+생성된 방 입구에 **문짝·해치가 그려지면 그 칸은 벽으로 판정된다.**
+우리는 문을 여는 로직이 없으므로 그 방은 영영 못 들어간다.
+
+프롬프트에 다음을 명시할 것:
+
+```
+⚠ NO DOORS ANYWHERE. Every room opening is an EMPTY GAP in the wall — no door panels,
+no hatches, no sliding doors, no airlocks, no frames across the opening. Rooms connect
+through plain open gaps you can walk straight through.
+```
+
+실제로 우주선 1차 생성에서 격실 입구마다 금속 해치가 그려져 통행이 막혔다.
+
+### 4-23. 격자는 1024 를 정수로 나누는 값만 ★★★★★
+
+img2img 출력은 **항상 1024×1024** 다(§4-14). 따라서 쓸 수 있는 격자는:
+
+| 격자 | 셀 | 비고 |
+|---|---|---|
+| 16×16 | 64px | 너무 성김 |
+| 32×32 | 32px | 셰어하우스가 이것 |
+| **64×64** | **16px** | 50×50 요청 시 여기로 올림 — 50 은 20.48px 이라 불가 |
+| 128×128 | 8px | 너무 잘음 |
+
+**50×50, 60×40 같은 값은 그대로 안 된다.** 가로로 긴 맵이 필요하면
+64×64 로 뽑아 중앙 40행만 쓰는 식으로 **로컬에서 잘라야** 한다.
+
+⚠ **새 SMO 는 격자 16×16, 품질 Low 로 시작한다.** 생성 전에 둘 다 확인할 것.
+격자 숫자칸은 React 셀렉트가 되돌리므로 **숫자 입력칸에 직접** 넣는다(64, 64).
