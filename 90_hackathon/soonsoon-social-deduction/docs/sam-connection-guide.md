@@ -1632,3 +1632,24 @@ studio/pages/WorldPage.js    참조는 있으나 input/textarea 바인딩 없음
 ⚠ 그 경로는 §4-40 에서 캐스트를 되돌린 전례가 있으므로 **원본이 아닌 복제본에서** 시도할 것.
 
 → 다음에 Studio 로 다인 상호작용을 만든다면 **여기부터** 시도한다.
+
+### 4-48. SPUM 「Frame」 = 그래픽 배너가 아니라 **월드 임베드 위젯** ★★★★★
+
+World Editor 상단의 `⊞ Frame` 을 누르면 **SoonSoon Frame Builder** 가 열린다
+(`/studio/world-frame-builder/`). 배너 이미지를 그리는 도구로 오해하기 쉬운데 아니다.
+
+```
+하는 일   퍼블리시된 월드를 <iframe> 으로 박아 넣는 코드를 만들어 준다
+설정      SIZE(1200×600) · RATIO(2:1 Hero) · VIEWPORT(zoom·x·y) · RADIUS · 변형 여러 개
+출력      FRAME LINK + <iframe …> 소스코드
+전제      **publishId 가 있어야 한다** — 즉 월드를 대외 공개해야 쓸 수 있다
+관련 코드 studio/pages/world/WorldPublishUrls.js
+          createWorldFrameUrl        → /studio/world-frame/
+          createWorldFrameBuilderUrl → /studio/world-frame-builder/
+```
+
+**쓸모:** 블로그·발표자료·랜딩페이지에 **살아 움직이는 월드**를 그대로 얹을 수 있다.
+정적 스크린샷보다 훨씬 강하다.
+
+⚠ **퍼블리시는 대외 공개**라 되돌리기 어렵다. 주영님 승인 없이 누르지 않는다.
+   우리 타이틀 화면은 그래서 **자체 에셋**(맵 아트 + 그라데이션)으로 먼저 만들었다.
