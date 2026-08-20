@@ -1612,3 +1612,23 @@ const { BubbleRenderer: B } = await import(u);
 
 > 우리 로컬 게임(`proto/src/typing.js`)은 이 설계를 참고하되 **직접 구현**했다.
 > Studio 런타임을 쓰지 않기 때문이다(아키텍처 = 프로젝트 `CLAUDE.md` §3).
+
+### 4-47. ⭐ `world.ai.globalRules[]` — 전 대화 공통 규칙 주입구(UI 없음) ★★★★☆
+
+§4-31 에서 "UI 노출 위치 못 찾음 ★★☆☆☆" 로 남겼던 항목. **소스로 확정했다.**
+
+```
+core/WorldAIState.js         globalRules: _cleanList(ai.globalRules)   ← 정규화
+runtime/WorldLLMConversation.js
+   `globalRules: ${...join(' / ')}`   ← 「③ 월드 톤」 블록으로 프롬프트에 삽입
+studio/pages/WorldPage.js    참조는 있으나 input/textarea 바인딩 없음 ← UI 부재 확정
+```
+
+**모든 LLM 대화 프롬프트에 들어간다.** 즉 §4-41(캐스트 명단이 프롬프트에 없다)의
+정면 해법이 데이터 모델에는 이미 있었다.
+
+**넣는 법(미검증):** `world.ai.globalRules = ["...", "..."]` 를 §4-1 절차
+(로컬 → 이벤트 → `saveServerSnapshot`)로 써야 한다.
+⚠ 그 경로는 §4-40 에서 캐스트를 되돌린 전례가 있으므로 **원본이 아닌 복제본에서** 시도할 것.
+
+→ 다음에 Studio 로 다인 상호작용을 만든다면 **여기부터** 시도한다.
