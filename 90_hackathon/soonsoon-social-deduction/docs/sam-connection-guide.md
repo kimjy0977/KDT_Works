@@ -900,3 +900,41 @@ img2img 출력은 **항상 1024×1024** 다(§4-14). 따라서 쓸 수 있는 �
 
 ⚠ **새 SMO 는 격자 16×16, 품질 Low 로 시작한다.** 생성 전에 둘 다 확인할 것.
 격자 숫자칸은 React 셀렉트가 되돌리므로 **숫자 입력칸에 직접** 넣는다(64, 64).
+
+### 4-24. ★ 격자를 키워도 맵이 넓어지지 않는다 ★★★★★
+
+**가장 흔한 착각이다. 격자 숫자는 "해상도"지 "넓이"가 아니다.**
+
+AI 는 격자와 무관하게 **1024×1024 캔버스에 장면 하나**를 그린다. 격자를 32→64 로 올리면
+**같은 그림을 더 잘게 썰 뿐**이다. 캐릭터만 그대로고 방·가구가 전부 두 배가 된다.
+
+| | 32 격자 | 64 격자 |
+|---|---|---|
+| 방 하나 | 8×8 칸 | **16×16 칸** |
+| 침대 하나 | 2×3 칸 | **4×6 칸** |
+| 캐릭터 | 1.6칸 | 1.6칸 |
+| 체감 | — | **좁은 집을 확대한 것** |
+
+> 사용자 비유: *"천장이 낮아 높여 달랬더니 가구까지 다 커졌다."*
+
+**넓이를 늘리는 진짜 레버는 프롬프트의 밀도다.** 같은 캔버스에 **방을 더 많이, 더 작게**
+그리게 해야 한다.
+
+```
+⚠ SCALE: draw SMALL. This is a whole deck seen from far away, not a few rooms zoomed in.
+Fit MANY compartments into the image — each room should be SMALL, roughly 1/9 of the image width.
+A bunk is a tiny rectangle, a crate is a few pixels. Think blueprint density, not close-up detail.
+
+CONTENT: at least SIXTEEN separate compartments — ... and LONG WINDING CORRIDORS linking them.
+THIN walls (about 1/64 of the image wide) so corridors stay wide and walkable.
+```
+
+정리하면:
+
+| 원하는 것 | 바꿀 것 |
+|---|---|
+| 타일이 잘아지길(그림이 선명) | **격자** 32 → 64 |
+| **걸을 공간이 넓어지길** | **프롬프트 밀도** — 방 8개 → 16~20개, 벽을 얇게 |
+| 둘 다 | 격자 64 **+** 밀도 프롬프트 |
+
+⚠ 격자만 올리고 프롬프트를 그대로 두면 **아무것도 넓어지지 않는다.** 실제로 그렇게 한 번 헛돌았다.
