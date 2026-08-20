@@ -633,3 +633,29 @@ NPC 들이 **"냉장고"·"5호실"** 이라고 말했다.
 브라우저에서 같은 요청을 보내니 `correct:true`. 셸이 한글을 깨뜨린 것이었다(함정 8-2 송신 측).
 
 → 한글이 들어가는 API 검증은 **브라우저 `fetch`** 로 한다.
+
+**M-17. ⭐ SPUM 시트는 **다운로드 없이** 가져올 수 있다 ★★★★★**
+
+Cast Export 의 다운로드 버튼은 비동기라 **직전 캐릭터 시트가 내려오는** 함정이 있고
+(4-4), 받은 파일을 손으로 옮겨야 한다. 그럴 필요가 없었다.
+
+Export 에서 `Generate` 를 누르면 미리보기가 뜨는데, 그 `<img>` 가
+**원본 해상도 그대로의 data URL** 이다.
+
+```js
+document.querySelector('img.export-preview__image').src
+// → "data:image/png;base64,..."  naturalSize 1024×256 (표시 크기는 180×45지만 원본이다)
+```
+
+이걸 로컬 서버로 그대로 POST 하면 파일이 바로 제자리에 꽂힌다(`/api/save-sheet`).
+**어느 캐릭터인지 헷갈릴 여지도 없다** — 지금 화면의 것이 곧 그 캐릭터다.
+
+⚠ 교차 출처(https://spum… → http://localhost)라 서버에 두 가지가 다 필요하다.
+```
+Access-Control-Allow-Origin        일반 CORS
+Access-Control-Allow-Private-Network: true   ← 없으면 Chrome 이 **조용히 멈춘다**
+```
+후자가 없으면 **콘솔에 오류도 안 뜨고** 요청이 pending 으로 남는다. 한참 헤맸다.
+
+**부수 교훈:** 내가 만든 검증 정규식(`^[a-z0-9-]{2,24}$`)이 시험용 slug `_test` 를 막아
+"서버 문제"로 오해했다. 실패하면 **내 검증부터 의심**한다.
