@@ -1087,3 +1087,69 @@ appearance: equipment{body,eye,hair,helmet,...}
 - `mood` = `calm | happy | excited | tired | sad | angry`
 
 ⚠ **월드에 캐릭터가 5명뿐이다**(두리번이 없음). 로컬 게임은 6명이다. 무대가 어긋나 있다.
+
+### 4-29. ★ `llm` 모드는 진짜로 NPC 끼리 대화한다 — 실측 전문 ★★★★★
+
+`§4-27` 에서 모드만 바꿨을 땐 로그가 비어 있었다. **원인은 트리거였다.**
+캔버스 아래 지시 입력창에 한 줄 넣자 즉시 대화가 시작됐다.
+
+```
+다들 거실에 모여서 어젯밤 냉장고 케이크가 없어진 일을 서로 이야기하세요.
+한 명씩 어젯밤 어디 있었는지 말하고, 남의 말에 반응하세요.
+```
+
+**로그 구조** (JSONL 내려받기 가능 — Event Log 우측 `JSONL`)
+
+```
+Conversation start (llm): A ↔ B      ← 짝 단위. 여러 짝이 동시에 돈다
+Conversation log: director_card       ← 디렉터가 화제·짝을 조율한다
+LLM request:  A → B · medium
+LLM response: <대사>
+Conversation turn (llm): A · <대사>   ← turn 0,1,2,3,4 로 이어짐
+Conversation end (llm): A ↔ B · complete
+```
+
+**실제로 나온 대화** (교차 검증이 성립한다)
+
+```
+살살이   에이, 누가 그랬을까 웃기지, 근데 폴짝이 너 어젯밤 복도에서 뭐 못 봤어?
+폴짝이   어머, 있잖아! 내가 열한 시쯤 냉장고 앞에서 포크 짤랑거리는 소린 들었는데,
+         발소리는 살짝살짝이었어!
+살살이   오, 포크까지 챙긴 정성이면 초범은 아닌데, 살짝살짝이면 오물오물 쪽이 더 수상하지 않아?
+폴짝이   어머 맞아, 근데 있잖아! 오물오물은 그때 콧노래였고, 냉장고 앞 그림자는
+         네 방 쪽으로 훅 갔어!
+
+새침이   좋아, 말로 넘기지 말고 어젯밤 네가 몇 번 열었는지부터 말해.
+오물오물 음, 열긴 두 번 열었어어, 근데 케이크는 안 건드렸고 요거트랑 남은 만두만 봤다아.
+새침이   두 번이면 충분히 수상하거든, 몇 시였는지랑 케이크 자리가 비어 있었는지 말해.
+오물오물 으음, 열한 시쯤엔 케이크 있었고, 자정 넘어서 봤을 땐 접시만 남아 있었어어.
+```
+
+**LLM 요청에 실리는 필드** — 우리 로컬 구현보다 풍부하다
+
+```json
+{ "speaker","partner","topic","turn",
+  "deployMode":"off", "baseBehavior":"cooperative", "worldTone":"cozy-mystery",
+  "relationship":{ "trust":0.5,"familiarity":0,"tension":0,"affinity":0,
+                   "emotion":"","summary":"","recentSummary":"",
+                   "lastInteractionAt":0,"importantConversationIds":[] },
+  "recentCount":0, "nearbyObjectCount":0 }
+```
+
+→ **관계 모델(trust·familiarity·tension·affinity)과 대화 요약·중요 대화 id 가 이미 있다.**
+우리 로컬 엔진에는 없는 축이다.
+
+**화제는 짝마다 다르게 배정된다** (director_card 가 정하는 것으로 보임 ★★★☆☆)
+`범인은 누구일까?` · `아는 것이 없음을 설명한다` · `새침한 사람의 일상` · 내가 넣은 지시문.
+
+**비용:** 위 대화 한 판(대사 17턴)에 SSAM 약 250.
+
+### 4-30. 베이크 탭의 `purpose` 가 `company` 였다 ★★★★☆
+
+`presetId` `frame-compact | frame-link-balanced | link-rich | custom` ·
+`detailLevel` `summary | balanced | rich` · `model` `light | medium | expert` ·
+**`purpose` `company | product | story | qa`**
+
+우리는 `company`(회사 소개) + sourceText "평화의 픽셀월드" 로 구워 놓고 있었다.
+베이크를 쓸 거라면 **`story`** 로 바꾸고 sourceText 를 사건 설명으로 갈아야 한다.
+다만 `llm` 모드를 쓰면 베이크 자체가 필요 없다.
