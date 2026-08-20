@@ -467,3 +467,14 @@ s.resourceSliceResult.resourceGroups // 그룹마다 role: floor|water|detail|ob
 뚫고 난 뒤 본체에 못 붙은 작은 통행 칸을 그대로 두면, 스폰이 거기 떨어져
 **게임 시작부터 갇힌다.** 실제로 「부엌」이 그랬다(`build-world-map.mjs` 의
 스폰 연결성 검사가 잡았다 — 이 검사를 빼지 말 것).
+
+**M-5. ⚠ `node --check` 는 ES 모듈 오류를 못 잡는다 ★★★★☆**
+
+`phase.js` 에 파라미터 `world` 를 넣었는데 그 파일엔 이미 `const world = ([tx,ty]) => ...`
+(타일→월드 좌표)가 있었다. **`SyntaxError: Identifier 'world' has already been declared`**.
+
+`node --check src/phase.js` 는 **통과했다.** 기본이 CommonJS 스크립트로 검사하기 때문이다.
+브라우저에서 모듈로 로드하고 나서야 터졌고, 그 사이 `window.__game` 이 통째로 없었다.
+
+→ 문법 검사만으로 끝내지 말고 **실제로 페이지를 띄워 콘솔을 볼 것.** (§7 "만든 즉시 적용해서
+눈으로 확인한다"가 이 경우엔 콘솔 확인이다.) 이름을 새로 넣을 땐 그 파일에서 먼저 `grep` 한다.
