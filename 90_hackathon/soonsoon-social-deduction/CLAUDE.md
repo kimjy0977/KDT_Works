@@ -153,6 +153,7 @@ bash serve.sh            # → http://localhost:5173/game.html
 | `src/talk.js` | 근접 감지 → E → 대화창 → `/api/ask` → 말풍선. **캐릭터별 history 로 맥락 유지** |
 | `src/phase.js` | 게임 루프(저녁→밤→아침→토론→투표→판정) · 밤 시야 · 목격 기록 · 조사(josa) |
 | `src/typing.js` | 대사를 **사람 타자 속도로** 한 글자씩 출력 · 「입력 중…」 · 배속(1x/3x/즉시) · 스킵 |
+| `src/action.js` | **「지금 할 수 있는 것」을 한 곳에서 결정** — Space 로 실행 · 하단 도움말에 표시 |
 | `server.mjs` | 정적 서버 + SAM 프록시(키 미노출). `/api/ask` `/api/cast` `/api/verdict` |
 | `engine.mjs` | 캐릭터 원본 데이터 · 프롬프트 빌더 · `cleanLine` · SAM 호출 |
 
