@@ -698,3 +698,25 @@ max → 맵이 화면을 "덮는다"          (여백 없음)   ← 카메라가
 
 → **자기가 일으킨 변경에는 다시 그리지 않는다.** 플래그 하나로 구분한다.
    외부에서 바뀐 경우에만 라벨을 맞춘다.
+
+**M-21. SPUM Cast Export 자동화 — 되는 순서와 안 되는 것 ★★★★★**
+
+캐릭터 4명분 시트를 뽑으며 정리한 절차. 순서를 지키지 않으면 조용히 실패한다.
+
+```
+① 캐릭터 생성 후 **Animation → Auto Map 을 반드시 한 번** 돌린다
+   신규 캐릭터의 기본 클립이 `ChosunGun_idle0`(조선 총병)이다. 안 돌리면 그게 그대로 나온다
+② Export 탭에서 ANIMATION 을 JS 로 바꾼다 (select 프로토타입 setter + input·change 둘 다)
+③ **`Generate` 는 실클릭이어야 한다** — JS `.click()` 은 "No sheet generated" 로 끝난다
+   (Play 버튼과 같은 패턴. 8-1 계열 함정)
+④ 이미지는 **늦게 붙는다.** 클릭 직후엔 `.export-preview` 가 비어 있고
+   `document.body.innerText` 도 "No sheet generated" 로 보인다. 10초 이상 기다린 뒤 다시 본다
+⑤ 시트 img 는 `document.querySelectorAll('img')` 에서 **naturalWidth 1024** 로 찾는다.
+   클래스명이 상황에 따라 다르다(`export-preview__image` ↔ `export-preview__empty` 로 교체됨)
+```
+
+⚠ **`Generating` 에서 멈추는 경우가 있다.** 여러 캐릭터를 연속으로 뽑으면 재현된다.
+   재클릭해도 안 풀리면 그 캐릭터는 나중에 다시 한다 — 게임은 시트가 없어도 돈다.
+
+⚠ **CDP `Runtime.evaluate` 는 45초 제한**이다. 폴링 루프를 JS 안에 길게 넣으면 통째로 타임아웃난다.
+   전역 변수에 결과를 담고 **짧게 여러 번 조회**한다.
