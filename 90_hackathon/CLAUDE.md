@@ -54,13 +54,17 @@
 
 ## 4. 세션 시작 순서
 
-0. **git 상태 훑기 — 5초** (TH-20260823-INFRA 종결 ⑦)
+0. **세션 선언 + git 상태 훑기 — 10초** (TH-20260823-INFRA 종결 ⑦·③)
    ```bash
-   git worktree list     # ⚠ 파일 트리로는 안 보이는 worktree 가 있다
-   git branch -a         #    실제로 _worktrees/codex-kdt-controls 를 한 달 늦게 발견했다
-   git status --short    #    남의 미커밋 작업이 떠 있으면 건드리지 않는다
+   export KDT_SESSION=hackathon   # ★ 제일 먼저. 안 하면 커밋이 남의 스코프로 검사된다
+   git worktree list              # ⚠ 파일 트리로는 안 보이는 worktree 가 있다
+   git branch -a                  #    _worktrees/codex-kdt-controls 를 한 달 늦게 발견했다
+   git status --short             #    남의 미커밋이 떠 있으면 건드리지 않는다
    ```
-   > 정본이 **git 구조 안에 숨는** 경우가 있다(드리프트 e-14). 파일만 훑어선 못 찾는다.
+   > **`KDT_SESSION` 이 왜 1번인가:** `.kdt-session` 파일은 **공유 clone 에 하나뿐**이라
+   > 세션별로 못 가진다. 내가 그걸 내 것으로 덮어써서 **매니저 커밋이 해커톤으로 판정**됐다
+   > (2026-08-23 실제 발생). 환경변수만이 프로세스별로 다를 수 있다.
+   > 정본이 **git 구조 안에 숨는** 경우도 있다(드리프트 e-14). 파일만 훑어선 못 찾는다.
 
 1. **대상 프로젝트 폴더의 `CLAUDE.md`** — 무엇을 어떻게 만드는가
 2. **그 과제의 과제정의서 원본** — ⛔ **채점 기준이다. 이걸 안 읽고 기능을 제안하면 요건에 없는 걸 만든다.**
