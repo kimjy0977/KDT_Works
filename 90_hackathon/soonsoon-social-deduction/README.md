@@ -15,6 +15,11 @@ bash serve.sh
 
 → http://localhost:5173/game.html
 
+> **처음 클론했다면** `vendor/` 가 비어 있습니다 — SPUM Engine·World 는 회사 코드라
+> 이 레포에 커밋하지 않습니다(MIT 로 재배포하지 않기 위함).
+> `serve.sh` 가 **없으면 알아서 내려받으므로** 따로 할 일은 없습니다(처음 한 번, 네트워크 필요).
+> 수동으로 받으려면: `cd proto && node mirror.mjs spum-engine && node mirror.mjs spum-world`
+
 **Space — 지금 할 수 있는 것.** 상황에 맞는 행동 하나를 화면 아래에 띄우고 그대로 실행합니다.
 (근처에 사람이 있으면 말 걸기 · 밤엔 부엌 안내 / 냉장고 · 토론 중엔 토론창 열기)
 
