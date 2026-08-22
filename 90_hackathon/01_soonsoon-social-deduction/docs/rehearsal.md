@@ -11,7 +11,7 @@
 ## 0. 준비
 
 ```bash
-cd 90_hackathon/soonsoon-social-deduction/proto && bash serve.sh
+cd 90_hackathon/01_soonsoon-social-deduction/proto && bash serve.sh
 ```
 
 | 창 | 주소 | 언제 |

@@ -64,7 +64,7 @@ SAM/SSAM 크레딧은 **로그인한 사람의 실제 계정**에서 빠진다. 
 ## 0. 30초 요약
 
 ```bash
-git clone <이 레포> && cd 90_hackathon/soonsoon-social-deduction
+git clone <이 레포> && cd 90_hackathon/01_soonsoon-social-deduction
 cp .env.example .env          # SAM_API_KEY 를 넣는다
 bash serve.sh                 # → http://localhost:5173/game.html
 ```
@@ -117,7 +117,7 @@ export SAM_API_KEY=sam-...
 
 ```
 90_hackathon/CLAUDE.md                       ← 공통 (페르소나·보안·git·도구 함정)
-90_hackathon/soonsoon-social-deduction/
+90_hackathon/01_soonsoon-social-deduction/
   CLAUDE.md                                  ← 이 과제 전용 (성공기준·아키텍처·함정)
 ```
 
