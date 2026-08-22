@@ -1,0 +1,26 @@
+#!/bin/sh
+# KDT pre-commit — 세션 스코프 밖 스테이지 거부
+# 근거: 토론 TH-20260823-INFRA 수렴v2. 사고 2건(매니저 08-23·튜터 08-19) 재발방지.
+# 배포: .githooks/ 에 커밋 + git config core.hooksPath .githooks  (버전관리·재설치 불필요)
+# ⚠ 한계: --no-verify 로 뚫린다. 실수 방지지 강제력이 아니다(합의된 인식).
+
+DECL=".kdt-session"
+[ -f "$DECL" ] || exit 0                      # 선언 없으면 통과(옵트인)
+SESSION=$(sed -n '1p' "$DECL" | tr -d '\r')
+
+case "$SESSION" in
+  manager)   ALLOW='^(index\.html|README\.md|00_log/|assets/|\.githooks/|\.gitignore|\.kdt-session)' ;;
+  tutor)     ALLOW='^(00_log/|01_onboarding/|02_module1/|03_module2/|99_domain-dev/)' ;;
+  hackathon) ALLOW='^90_hackathon/' ;;
+  *) echo "pre-commit: 알 수 없는 세션 '$SESSION' (.kdt-session 첫 줄 확인)"; exit 1 ;;
+esac
+
+BAD=$(git diff --cached --name-only | grep -vE "$ALLOW" || true)
+if [ -n "$BAD" ]; then
+  echo "[거부] 세션($SESSION) 스코프 밖 파일이 스테이지에 있습니다:"
+  echo "$BAD" | sed 's/^/   /'
+  echo "-> git restore --staged <파일> 로 빼거나, 소유 세션에 인계하세요."
+  echo "-> 의도한 횡단 작업이면: git commit --no-verify (사유를 커밋 메시지에 남길 것)"
+  exit 1
+fi
+exit 0
