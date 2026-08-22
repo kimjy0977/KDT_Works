@@ -42,7 +42,7 @@
 | 5-b | `docs/multiplayer-design.md` | 멀티(사람3+AI3) 설계안 — 규칙 엔진 계약. **구현 전** |
 | 6 | `docs/sam-connection-guide.md` | **SPUM/SAM 정본 레퍼런스** — 스키마·localStorage 키·맵 코드작성 절차(§4-5)·스프라이트 시트 스키마(§4-6)·자료 현황(§8). SPUM 만질 때 여기부터 |
 
-> 전체 작업 이력(실패 포함) = `docs/worklog.md`. 요건 분석·내부 자료 = `_local/내부자료/`.
+> 전체 작업 이력(실패 포함) **정본 = `docs/handoff.md`**(세션별 §0-최신). `docs/worklog.md`는 2차(08-19)에서 멈춘 초기 기록 — 이중관리 드리프트 방지로 채우지 않는다. 요건 분석·내부 자료 = `_local/내부자료/`.
 
 ---
 
@@ -243,7 +243,7 @@ bash serve.sh            # → http://localhost:5173/game.html
   새로 클론해도 `bash serve.sh` 한 번이면 된다. 수동: `node mirror.mjs spum-engine` / `spum-world`.
 - 로스터 10명 중 **9명 사용 가능.** 곰곰이만 그림이 없어 선택이 막혀 있다
   (`assets/chars/gomgom-idle.*` 가 들어오면 **코드 수정 없이** 자동 해제).
-- **폴더 개명 `01_` 은 아직 안 됐다** — 매니저 세션 몫(handoff §9-4 ①).
+- **폴더 개명 `01_` 완료**(2026-08-23 매니저 `8d9b3aa`) — 참조 19곳 갱신·tools 절대경로 해소 포함.
 
 ### 남은 것 (요건 밖 · 여유 있을 때만)
 
