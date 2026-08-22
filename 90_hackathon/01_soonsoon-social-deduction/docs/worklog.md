@@ -106,7 +106,7 @@ Map Editor·World Play 양쪽에서 가구 확인.
 
 ### 2-8. 폴더·환경 정비
 ```
-soonsoon-social-deduction/
+01_soonsoon-social-deduction/
 ├─ CLAUDE.md        세션 하네스 (신규)
 ├─ README.md        과제 제출용 (신규)
 ├─ LICENSE          MIT (요건 §8, 신규)

@@ -75,7 +75,7 @@ Object Editor에서 Preset 변경 시 Reference Prompt가 프리셋 기본값으
 ## E. Git
 
 - KDT_Works는 **매니저 세션과 공유하는 단일 clone**. **push 전 반드시 `git pull`**, 동시 git 작업 금지.
-- 우리 작업 경로는 `90_hackathon/soonsoon-social-deduction/` 안으로 한정.
+- 우리 작업 경로는 `90_hackathon/01_soonsoon-social-deduction/` 안으로 한정.
 - 비가역 작업(force push·history 재작성·개명·삭제)은 주영님 확인 후.
 
 ---
