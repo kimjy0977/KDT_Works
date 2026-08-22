@@ -290,11 +290,11 @@ import { BubbleRenderer } from ".../spum-engine/index.js";                 // �
 
 | 자료 | 내용 |
 |---|---|
-| [화면 가이드 (HTML)](https://github.com/kimjy0977/KDT_Works/blob/main/90_hackathon/soonsoon-social-deduction/pitch/spum-guide.html) | 에디터 화면 캡처에 ①②③ 번호를 얹은 매뉴얼. **처음 여시는 분은 여기부터** (다운로드 후 브라우저로 여세요) |
-| [SPUM/SAM 연결 정본](https://github.com/kimjy0977/KDT_Works/blob/main/90_hackathon/soonsoon-social-deduction/docs/sam-connection-guide.md) | 연결 3종 구분 · 데이터 스키마 · **맵을 코드로 쓰는 절차(§4-5)** · 스프라이트 시트 스키마(§4-6) |
-| [엔진 기능 감사](https://github.com/kimjy0977/KDT_Works/blob/main/90_hackathon/soonsoon-social-deduction/docs/engine-capability-audit.md) | 기획한 기능이 엔진으로 되는지 소스로 확인한 표 |
-| [함정 원본](https://github.com/kimjy0977/KDT_Works/blob/main/90_hackathon/soonsoon-social-deduction/docs/work-rules.md) | 이 문서의 출처 |
-| [전체 폴더](https://github.com/kimjy0977/KDT_Works/tree/main/90_hackathon/soonsoon-social-deduction/share) | 공유 자료 모음 |
+| [화면 가이드 (HTML)](https://github.com/kimjy0977/KDT_Works/blob/main/90_hackathon/01_soonsoon-social-deduction/pitch/spum-guide.html) | 에디터 화면 캡처에 ①②③ 번호를 얹은 매뉴얼. **처음 여시는 분은 여기부터** (다운로드 후 브라우저로 여세요) |
+| [SPUM/SAM 연결 정본](https://github.com/kimjy0977/KDT_Works/blob/main/90_hackathon/01_soonsoon-social-deduction/docs/sam-connection-guide.md) | 연결 3종 구분 · 데이터 스키마 · **맵을 코드로 쓰는 절차(§4-5)** · 스프라이트 시트 스키마(§4-6) |
+| [엔진 기능 감사](https://github.com/kimjy0977/KDT_Works/blob/main/90_hackathon/01_soonsoon-social-deduction/docs/engine-capability-audit.md) | 기획한 기능이 엔진으로 되는지 소스로 확인한 표 |
+| [함정 원본](https://github.com/kimjy0977/KDT_Works/blob/main/90_hackathon/01_soonsoon-social-deduction/docs/work-rules.md) | 이 문서의 출처 |
+| [전체 폴더](https://github.com/kimjy0977/KDT_Works/tree/main/90_hackathon/01_soonsoon-social-deduction/share) | 공유 자료 모음 |
 
 ---
 

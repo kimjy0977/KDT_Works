@@ -769,7 +769,7 @@ SPUM 저장 구조가 로컬 `map.json` 과 동일했다(레이어 4개·1200칸
 ## 3. 자산 위치
 
 ```
-90_hackathon/soonsoon-social-deduction/
+90_hackathon/01_soonsoon-social-deduction/
 ├─ game-spec.md          기획/작업정의서 ← 먼저 읽기
 ├─ work-rules.md         작업 규칙서(함정 모음) ← 반드시 읽기
 ├─ handoff.md            이 문서
