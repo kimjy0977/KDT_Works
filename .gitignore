@@ -1,0 +1,12 @@
+# 비밀 — 이 레포는 PUBLIC 이다. 하위 폴더 어디서 만들든 걸리게 루트에 둔다.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# 회사 제공 원본·개인 사본
+_local/
+
+# 의존성·빌드 산출물
+node_modules/
