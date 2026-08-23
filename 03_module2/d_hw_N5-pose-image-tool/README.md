@@ -5,7 +5,9 @@
 ## 링크
 - **제출 저장소(GitHub):** https://github.com/kimjy0977/pose-image-tool
 - **Colab에서 바로 열기:** https://colab.research.google.com/github/kimjy0977/pose-image-tool/blob/main/pose_tool.ipynb
-- (모듈2 노드5 「원하는 포즈로 만들기」 과제 · 이 폴더는 제출본 아카이브 사본)
+- (모듈2 노드5 「원하는 포즈로 만들기」 과제)
+- **정본 방향:** 채점 대상 = 위 **제출 저장소**(정본) · **이 폴더 = 아카이브 사본.**
+  고칠 일이 생기면 **제출 저장소 먼저**, 그다음 이 사본에 반영한다.
 
 ## 도구 설명
 전신 OpenPose 스켈레톤을 **ControlNet 조건**으로 넣어, **Stable Diffusion 1.5**가 그 자세의 서로 다른 인물(옷차림)을 생성한다. 프롬프트만 바꿔도 **자세는 유지**된다.
