@@ -247,9 +247,34 @@
     .dupe{display:none!important}
     @media print{main>.section.dupe{display:none!important}}
 
-  </style>
+  
+  /* 공통 사이트 마스트헤드 (2026-08-23 이식) */
+.sitemast{max-width:1120px;margin:0 auto;padding:22px 24px 0}
+.sitemast-in{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.wordmark2{font-family:'Public Sans','Pretendard',system-ui,sans-serif;font-weight:800;font-size:clamp(1.6rem,1rem + 2vw,2.4rem);line-height:.9;letter-spacing:-.04em;color:#171512;text-decoration:none}
+.wordmark2 b{color:#CE1225}
+.sitemast .sitenav{display:flex;gap:22px;flex-wrap:wrap;align-items:center;padding-top:6px}
+.sitemast .sitenav a{font-family:'Public Sans','Pretendard',system-ui,sans-serif;font-weight:700;font-size:.86rem;color:#565049;white-space:nowrap;text-decoration:none;transition:color .15s}
+.sitemast .sitenav a:hover{color:#CE1225}
+.sitemast .sitenav a.here{color:#CE1225;border-bottom:2px solid #CE1225;padding-bottom:2px}
+.sitemast-rule{max-width:1120px;height:3px;background:#171512;margin:16px auto 0}
+</style>
 </head>
 <body>
+<header class="sitemast">
+    <div class="sitemast-in">
+      <a class="wordmark2" href="./">김주영 <b>KDT</b></a>
+      <nav class="sitenav">
+        <a href="./">홈</a>
+        <a href="회고.html">회고</a>
+        <a class="here" href="강의노트-모두연.html">강의노트</a>
+        <a href="운영안내.html">운영안내</a>
+        <a href="../">과제모음</a>
+        <a href="https://github.com/kimjy0977" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+    <div class="sitemast-rule"></div>
+  </header>
   <header class="hero"><div class="wrap">
     <div class="eyebrow">AI 에이전트 · 통합 강의 노트</div>
     <h1>AI 에이전트 학습 노트</h1>
