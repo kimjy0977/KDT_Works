@@ -13,3 +13,4 @@ node_modules/
 
 # 작업 선언(로컬 전용·토론 TH-20260823-INFRA)
 .kdt-session
+.kdt-session-*
