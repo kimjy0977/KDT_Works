@@ -490,6 +490,16 @@
       <a href="#m2n8-10">10강 · 공개된 것과 오늘 쓸 수 있는 것</a>
       <a href="#m2n8-11">11강 · 안 갈 데를 아는 것도 지도입니다</a>
       </div>
+      <a class="tochead" href="#m2n9">노드9 · Main Quest</a>
+      <div class="tocgroup" data-g="m2n9">
+      <a href="#m2n9-1">1강 · 도구 학습에서 적용 판단으로</a>
+      <a href="#m2n9-2">2강 · AI를 적용할 업무 유형</a>
+      <a href="#m2n9-3">3강 · 후보 선정</a>
+      <a href="#m2n9-4">4강 · 예시 하나 · 사진 검색기<span class="toctag p">실습</span></a>
+      <a href="#m2n9-5">5강 · 예시 둘 · 스쿼트 보조도구<span class="toctag p">실습</span></a>
+      <a href="#m2n9-6">6강 · 내 업무의 적용 지점 도출<span class="toctag q">과제</span></a>
+      <a href="#m2n9-7">7강 · 핵심 정리</a>
+      </div>
     </nav>
 
     <main>
@@ -3248,6 +3258,102 @@ colab run --gpu T4 train.py       # GPU VM 띄움 → train.py 실행 → 자동
         </tbody></table></div>
         <div class="notice key"><b>🎯 실전 감각:</b> <b>실행 경로가 낡았는지는 저장소 마지막 손질 날짜 한 줄로 미리 짐작</b>할 수 있다. 무료 자원이 늘 잡히지 않는 것도 이 갈래를 다룰 때 필요한 감각이다.</div>
         <div class="notice"><b>📚 출처:</b> <span class="fine">모듈2 노드8 「AI가 새로 연 곳들」 1~11강. Chronos-2·TabICL·TabPFN(표), DNABERT·Geneformer·scGPT·Evo 2(유전체), RFdiffusion·ProteinMPNN·AlphaFold3(단백질), 확산 기반 분자·결정 설계, GNN/Cora, VLA, 검증 가능한 보상·GRPO. ※모델·수치는 확인 시점 기준.</span></div>
+      </section>
+
+
+      <!-- ================= 모듈2 · 노드9 · Main Quest ================= -->
+      <section class="section coursehead" id="m2n9">
+        <div class="badge">모듈2 · 노드9 · Main Quest <span style="opacity:.7">· 도구가 아니라 업무에서</span></div>
+        <h2>Main Quest — 도구 학습에서 적용 판단으로 <span style="font-size:.86rem;opacity:.85">(7강)</span></h2>
+        <p class="lead">모듈2의 마무리. 배운 도구를 <b>내 업무에 붙일 수 있는지 판단</b>하는 단계다. 핵심은 순서를 뒤집는 것 — <span class="hl">도구에서 출발하지 말고 업무의 병목에서 출발한다.</span></p>
+        <div class="table-wrap"><table><thead><tr><th>강</th><th>제목</th><th>상태</th></tr></thead><tbody>
+          <tr><td>1</td><td>도구 학습에서 적용 판단으로</td><td>✅ 정리됨</td></tr>
+          <tr><td>2</td><td>AI를 적용할 업무 유형</td><td>✅ 정리됨</td></tr>
+          <tr><td>3</td><td>후보 선정</td><td>✅ 정리됨</td></tr>
+          <tr><td>4</td><td>예시 하나 · 사진 검색기 제작</td><td>✅ 정리됨</td></tr>
+          <tr><td>5</td><td>예시 둘 · 스쿼트 보조도구 제작</td><td>✅ 정리됨</td></tr>
+          <tr><td>6</td><td>내 업무의 적용 지점 도출</td><td>✅ 정리됨</td></tr>
+          <tr><td>7</td><td>핵심 정리</td><td>✅ 정리됨</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>ℹ️ 기록 상태:</b> <span class="fine">LMS camp136·course 2136·node-version 5028·steps 25271~25277. <b>과정의 마지막 노드</b>("모든 학습이 완료되었습니다"). 2026-08-23 전 강 본문 확인 후 정리.</span></div>
+      </section>
+
+      <section class="section" id="m2n9-1"><h2>1강 · 도구 학습에서 적용 판단으로 <span class="dur">이론</span></h2>
+        <p class="lead">회의에서 "우리도 AI를 좀 써 봐야 하는데"가 나온다. 그다음은 대개 <b>도구 이름</b>으로 간다 — 어떤 모델이 좋다더라, 어디 API가 싸다더라. 몇 주 뒤 시연이 나오고 참석자들이 고개를 끄덕인다. <span class="hl">그리고 아무도 쓰지 않는다.</span></p>
+        <p>무엇이 빠졌는지는 질문 하나로 드러난다 — <b>"이걸로 누가 어떤 일을 하나요?"</b> 답이 없으면 그 프로젝트는 도구에서 출발한 것이다. <b>도구를 정한 뒤에 쓸 자리를 찾으면 업무가 도구에 맞춰지고, 결과는 아무의 업무도 되지 못한다.</b></p>
+        <div class="table-wrap"><table><thead><tr><th></th><th>목적</th><th>필요한 것</th></tr></thead><tbody>
+          <tr><td><b>완성품</b></td><td>쓰이는 것</td><td>화면 완성도와 안정성</td></tr>
+          <tr><td><b>PoC</b></td><td><span class="hl">판단이 서는 것</span></td><td>미리 적은 기준 + 재서 나온 숫자</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>🎯 둘 다 성과다:</b> 기준을 넘으면 <b>구축 대상</b>, 못 넘으면 <b>그 이유가 결과물</b>. PoC에서 중요한 건 화면 완성도가 아니라 <span class="hl">만들기 전에 적어 둔 기준과 만든 뒤에 나온 숫자</span>다. 일의 순서는 넷 — <b>자리를 찾고 · 후보를 좁히고 · 작게 만들어 확인하고 · 판단을 적어 남긴다.</b></div>
+      </section>
+
+      <section class="section" id="m2n9-2"><h2>2강 · AI를 적용할 업무 유형 <span class="dur">이론</span></h2>
+        <p class="lead">업무에서 출발한다는 건 <b>병목을 먼저 찾는다</b>는 뜻이다. 병목을 찾으면 맞는 도구를 고를 수 있고, <span class="hl">지금 도구가 없는 병목도 알아볼 수 있다 — 그것도 결과다.</span></p>
+        <div class="table-wrap"><table><thead><tr><th>유형</th><th>어떤 일</th><th>병목</th></tr></thead><tbody>
+          <tr><td><b>검색</b></td><td>자료는 있는데 찾지 못한다</td><td>붙은 <b>설명</b>이 없다</td></tr>
+          <tr><td><b>검사와 판독</b></td><td>사람이 보고 등급을 정한다</td><td>일관성과 <b>지속 시간</b></td></tr>
+          <tr><td><b>분류와 배분</b></td><td>들어온 것을 나눠 담당자에게</td><td>판단의 <b>총량</b></td></tr>
+          <tr><td><b>입력과 전사</b></td><td>한 형식에서 다른 형식으로</td><td>판단이 아니라 <b>손</b></td></tr>
+        </tbody></table></div>
+        <p><b>검색 예:</b> 현장 점검 사진이 연도별 폴더에 수만 장. 하자 분쟁에 "천장 누수 흔적 사진"을 찾아야 하는데 검색창에 넣을 건 파일명과 날짜뿐이다. <span class="hl">병목은 자료의 양이 아니라 자료에 붙은 설명이 없다는 것</span> — 상자는 다 있고 라벨도 있는데 그 라벨로는 못 찾는다. 붙는 도구는 <b>임베딩 검색</b>(사진과 문장을 같은 좌표계로 보내 질문 문장과 가까운 사진을 찾음).</p>
+        <div class="notice warn"><b>⚠️ 흔한 실수:</b> <span class="fine"><b>검사와 판독에서 도입 근거를 「정확도」로 잡으면 대개 도입할 값이 없다는 결론</b>이 나온다. 숙련자 한 명의 정확도를 넘기는 어렵다. 근거는 <b>지속 시간·동시 처리</b> 쪽에 있다.</span></div>
+      </section>
+
+      <section class="section" id="m2n9-3"><h2>3강 · 후보 선정 <span class="dur">이론</span></h2>
+        <p class="lead">고르는 과정은 <b>표 하나</b>로 남는다. 후보를 행, 재는 항목을 열에. <span class="hl">후보를 어떻게 늘어놓느냐가 그 표에 무엇이 나타나는지를 정한다.</span></p>
+        <p>흔한 구성은 한 회사의 <b>대·중·소 세 등급</b>이다. 이렇게 놓으면 나타나는 건 크기가 만드는 차이뿐 — 큰 것이 정확하고 느리고 무겁다는, <b>재 보기 전에도 알던 결론</b>이다.</p>
+        <div class="notice key"><b>🎯 크기가 아니라 종류로 벌린다 — 갈리는 축 셋:</b> ①<b>실행 위치</b>(내 노트북 / 사내 서버 / 외부 서비스) → 자료가 어디까지 나가는지가 표에 나타난다 ②<b>만들어진 목적</b>(범용 ↔ 전용) → 어느 쪽이 나은지는 <span class="hl">자기 자료로 확인해야 안다</span> ③<b>결과의 형태</b>(점수만 / 근거 자리까지) → 사람이 검토해야 하는 업무라면 <b>정확도보다 중요할 수 있다</b>.</div>
+        <p><b>지금 쓰는 방식을 후보에 넣는다.</b> 담당자의 눈, 엑셀 수식, 사내 검색 기능, 폰 앱. 안 넣으면 <b>새로 만든 게 쓸 만한지 판단할 기준선이 없다.</b> 기준선이 이기는 경우가 자주 있는데, 그때 결론은 "AI가 쓸모없다"가 아니라 <span class="hl">"이 업무에는 지금 방식이 낫다"</span>이고 그것도 PoC의 결과다.</p>
+        <div class="notice warn"><b>⚠️ 순서:</b> <span class="fine"><b>실행 위치와 라이선스로 먼저 걸러낸 뒤</b> 점수를 잰다. 점수와 섞으면 <b>쓸 수 없는 후보가 1위</b>가 된다.</span></div>
+      </section>
+
+      <section class="section" id="m2n9-4"><h2>4강 · 예시 하나 · 사진 검색기 제작 <span class="dur">실습</span></h2>
+        <p class="lead">건물 점검 팀, 사진 수만 장. 파일명은 <code>IMG_4821.jpg</code>. 한 건 찾는 데 반나절, 못 찾으면 없다고 결론 낸다 — <span class="hl">실제로 없는지 못 찾은 것인지는 아무도 모른다.</span> <b>검색 유형</b>이다.</p>
+        <div class="notice key"><b>🎯 성공 기준 (만들기 전에 적는다):</b> ①질의 10건 중 <b>8건에서 상위 5위 안</b>에 온다 ②<b>사진첩에 없는 것을 물으면 결과를 비우고 없다고 답한다.</b> <span class="hl">두 번째가 어려운 부분</span> — 첫 조건만 두면 검색기는 언제나 무언가를 내놓고, 담당자가 그걸 "가장 비슷한 것"으로 읽는지 "찾는 것"으로 읽는지에 따라 <b>하자 판정이 달라진다.</b></div>
+        <p>질의 10건은 실제 업무 문장으로 만들고, 셋은 담당자가 어렵다고 한 것, 하나는 <b>확실히 없는 것</b>을 넣는다. <b>정답 사진은 모델을 돌리기 전에 손으로 적어 둔다</b> — 결과를 본 뒤 정답을 정하면 채점이 성립하지 않는다.</p>
+        <div class="table-wrap"><table><thead><tr><th>단계</th><th>하는 일</th></tr></thead><tbody>
+          <tr><td><b>색인</b>(한 번만)</td><td>사진 전부를 임베딩으로 → 파일 하나에 저장. <b>길이를 1로 맞추면 내적이 그대로 유사도</b></td></tr>
+          <tr><td><b>검색</b></td><td>질의 문장을 같은 모델로 임베딩 → 내적 계산 → 큰 순서로 다섯 장</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>📖 규모 감각:</b> <span class="fine">사진이 <b>수천 장이면 배열 하나와 내적으로 충분</b>하다. 벡터 데이터베이스는 <b>수십만 장부터</b> 필요하다.</span></div>
+      </section>
+
+      <section class="section" id="m2n9-5"><h2>5강 · 예시 둘 · 스쿼트 보조도구 제작 <span class="dur">실습</span></h2>
+        <p class="lead">지도자가 회원의 스쿼트를 본다 — 몇 번 했는지 세고, 충분히 앉았는지 보고, 무릎이 모이는지 본다. 한 명은 괜찮지만 여러 명이면 다르다. <b>검사와 판독 유형</b>이고 <span class="hl">병목은 정확도가 아니라 지속 시간과 동시 처리</span>다(숙련자 한 명의 판정을 도구가 넘기는 어렵다).</p>
+        <div class="notice key"><b>🎯 항목을 늘리지 않는다:</b> 성공 기준은 둘만 — ①반복 횟수가 사람이 센 것과 일치 ②충분히 앉지 않은 반복을 표시. <b>무릎이 모이는지·등이 굽는지는 이 PoC에서 판정하지 않는다.</b> <span class="hl">항목을 늘리면 항목마다 기준이 필요하고, 기준 세울 자료가 없는 항목이 생긴다.</span></div>
+        <div class="table-wrap"><table><thead><tr><th>단계</th><th>하는 일</th></tr></thead><tbody>
+          <tr><td>관절 좌표 추출</td><td>프레임마다 관절 위치(<b>자세 추정 모델</b>). 좌표 + <b>신뢰도</b>가 함께 나옴</td></tr>
+          <tr><td>각도 산출</td><td>엉덩이·무릎·발목 좌표로 무릎 각도(서면 180도 근처, 앉으면 작아짐)</td></tr>
+          <tr><td>반복 판정</td><td>내려갔다 올라오면 한 번</td></tr>
+        </tbody></table></div>
+        <div class="notice warn"><b>⚠️ 경계값은 하나로 두지 않는다:</b> <span class="fine">내려갔다고 볼 각도와 올라왔다고 볼 각도를 <b>다르게</b> 둬야 한다. 하나로 하면 그 경계에서 몸이 흔들릴 때 <b>한 번이 여러 번으로 세어진다.</b></span></div>
+      </section>
+
+      <section class="section" id="m2n9-6"><h2>6강 · 내 업무의 적용 지점 도출 <span class="dur">과제</span></h2>
+        <p class="lead">각자 자기 업무로 옮긴다. <b>지점을 셋 이상</b> 적는다 — 하나만 적으면 그게 최선인지 알 수 없고, <span class="hl">셋을 놓고 봐야 어느 것이 PoC로 확인하기 좋은지 드러난다.</span></p>
+        <p>적을 칸: <b>적은 것 · 업무 유형 · 지금 처리 방식 · 병목 · 하루(주당) 발생량 · 틀렸을 때</b>. 유형이 넷 중 어디에도 안 들어가면 그 이유를 적는다(새 유형이거나, 여러 업무가 섞인 것).</p>
+        <div class="notice warn"><b>⚠️ 「틀렸을 때」 칸을 비우지 말 것:</b> <span class="fine">이 칸이 세 지점 중 무엇을 고를지를 가른다. <b>잘못된 판정이 고객에게 그대로 나가거나 사람에게 영향을 주는 지점은 PoC 대상에서 뒤로 미룬다.</b></span></div>
+        <div class="notice key"><b>🎯 고르는 기준 넷:</b> ①판정 기준이 이미 정해져 있다 ②지난 판정 기록이 남아 <b>채점 자료</b>를 만들 수 있다 ③틀렸을 때 <b>되돌릴 수 있다</b> ④발생량이 충분해 개선 효과가 눈에 보인다. 다 만족하는 게 없으면 <b>가장 많이 만족하는 것 + 못 만족하는 항목을 제약으로 기록.</b></div>
+        <p><b>성공 기준의 근거는 「지금 사람이 하는 수준」</b>이다. 그 수준을 모르면 먼저 재야 한다 — 스무 건을 담당자에게 처리하게 하고 <b>걸린 시간과 오류 수</b>를 세는 정도면 충분하다.</p>
+        <div class="notice"><b>🔧 코딩 에이전트 지시문에 넣을 다섯:</b> <span class="fine">①모델 이름·실행 위치 + <b>자료를 외부로 보내지 말 것</b> ②판정에 쓰는 값을 전부 <b>인자로</b> 받고 코드에 숫자를 박지 말 것 ③결과에 <b>점수·신뢰도를 함께</b> 남기고 반올림하지 말 것 ④중간 산출물을 파일로 남기고 다시 돌려도 덮어쓰지 말 것 ⑤<b>결과를 눈으로 확인할 수 있는 형태로 함께 저장</b>할 것 — 마지막 항목이 검산을 가능하게 한다.</span></div>
+      </section>
+
+      <section class="section" id="m2n9-7"><h2>7강 · 핵심 정리 <span class="dur">정리·회고</span></h2>
+        <div class="table-wrap"><table><thead><tr><th>항목</th><th>한 줄 정리</th></tr></thead><tbody>
+          <tr><td>출발점</td><td>도구가 아니라 <b>업무</b>에서. 도구에서 출발하면 업무가 도구에 맞춰진다</td></tr>
+          <tr><td>업무 유형</td><td>검색 · 검사와 판독 · 분류와 배분 · 입력과 전사. <b>유형마다 병목이 다르다</b></td></tr>
+          <tr><td>적용하지 <b>않을</b> 업무</td><td>판정 기준이 사람마다 다른 일 · <b>되돌릴 수 없는 일</b> · 판정 기록이 없는 일</td></tr>
+          <tr><td>성공 기준</td><td><b>만들기 전에 정량으로</b>. 근거는 지금 사람이 하는 수준</td></tr>
+          <tr><td>후보 구성</td><td>크기가 아니라 <b>종류</b>로 — 실행 위치 · 만들어진 목적 · 결과의 형태</td></tr>
+          <tr><td>기준선</td><td>지금 방식을 후보에 넣는다. <b>이것이 이기면 그것도 결과</b></td></tr>
+          <tr><td>제외 조건</td><td>실행 위치·라이선스로 <b>먼저</b> 거른다. 점수와 섞으면 못 쓸 후보가 1위</td></tr>
+          <tr><td>임계값</td><td>값 아래를 잘라 내는 경계. 걸려면 <b>점수가 순위용이 아니어야</b> 한다</td></tr>
+          <tr><td>신뢰도</td><td>모델의 확신 정도. <b>안 읽으면 「없는 것」에 대한 판정이 나온다</b></td></tr>
+          <tr><td>PoC의 산출물</td><td><span class="hl">작동하는 물건이 아니라 <b>판단</b></span>. 기준을 못 넘은 이유도 결과</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>🎯 회고 네 가지:</b> ①세 지점 중 고른 것과 뺀 것의 차이는? ②성공 기준의 숫자를 어디서 가져왔나 — <b>현행 수준을 실제로 재 보았나?</b> ③실행 위치·라이선스로 제외한 후보가 있었나, 그 후보는 점수로 몇 위였나? ④기준을 못 넘은 항목이 있다면 다음에 무엇을 바꿔 다시 확인할 것인가?</div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈2 노드9 「Main Quest」 1~7강. 예시 모델 SigLIP 2(임베딩 검색)·자세 추정. 참고: Hugging Face Models·Leaderboards, Artificial Analysis. ※모델·수치는 확인 시점 기준.</span></div>
       </section>
 
       <div class="pager" id="pager"></div>
