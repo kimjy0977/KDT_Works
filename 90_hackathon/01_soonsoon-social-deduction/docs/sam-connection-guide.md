@@ -939,6 +939,35 @@ THIN walls (about 1/64 of the image wide) so corridors stay wide and walkable.
 
 ⚠ 격자만 올리고 프롬프트를 그대로 두면 **아무것도 넓어지지 않는다.** 실제로 그렇게 한 번 헛돌았다.
 
+### 4-26. 평면도 생성 실측 — 단가와 남은 문제 (2026-08-25) ★★★★★
+
+**단가: 1장 = 46 SSAM** (gpt-image-2 · quality `low` · 1024×1024).
+대화 한 번이 4.6 SSAM 이므로 **평면도 한 장 ≈ 대화 10번**이다. 생각보다 싸다.
+4·6·8·10인 넉 장을 뽑아도 184 SSAM — 게임 한 판(185)과 같다.
+
+**조작은 전부 iframe 안에서 한다.** Object Editor 는
+`studio/pixeldeidtor/index.html` iframe 이라 바깥 문서에는 `select` 가 하나도 없다.
+
+```js
+const d = document.querySelector("iframe").contentDocument;
+d.getElementById("themeGridSelect").value = "32x32";   // 격자 (4-10)
+d.getElementById("sourceGridSelect").value = "32x32";
+d.getElementById("resourcePromptInput").value = 프롬프트;
+d.getElementById("resourceGenerateButton").click();
+```
+※ `value` 를 그냥 대입하면 프레임워크가 못 알아챈다 —
+  네이티브 setter 로 넣고 `input`·`change` 를 쏴야 한다.
+
+⚠ **창이 좁으면 「데스크톱 웹으로 접속해 주세요」 오버레이가 덮는다.**
+`devicePixelRatio` 가 2.5 면 1536px 화면도 CSS 폭 614px 로 잡혀 걸린다.
+JS 로 조작할 때는 그 오버레이를 `display:none` 처리하면 그만이다 — 경고일 뿐이다.
+
+**⛔ 아직 안 풀린 것: 문짝이 그려진다.**
+정본 프롬프트에 「no door panels」를 넣었는데도 **방 입구마다 나무 문짝이 그려졌다**
+(2026-08-25 4인 집). 문짝 칸은 벽으로 판정되므로 그 방에 못 들어간다(4-22).
+→ 다음에 시도할 것: 「opening」이라는 단어 자체를 빼고 **"rooms have no walls on the
+   corridor side"** 처럼 **구멍이 아니라 벽이 없다**로 표현을 바꿔 본다.
+
 ### 4-25. ★ 평면도 프롬프트 정본 — 구조화 템플릿 ★★★★★
 
 지금까지 프롬프트를 감으로 고쳐 왔다. OpenAI 이미지 모델 프롬프트 가이드를 찾아
