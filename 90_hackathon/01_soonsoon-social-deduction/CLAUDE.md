@@ -195,6 +195,12 @@ bash serve.sh            # → http://localhost:5173/game.html
 | `src/similar.js` | **되풀이 판정**(글자 2-gram). 게임과 측정기가 **같이 쓴다** |
 | `src/groupchat.js` | 전체 토론 UI. **두 판이 공유** — `api`·`문맥`·`참석`·`키단축` 을 갈아 끼운다 |
 | `tools/eval.mjs` | **평가 하네스**(CLI). 대사 품질·지목 캘리브레이션. `--go` 없이는 SAM 안 부름 |
+| `tools/regress.mjs` | **한 판 회귀** — 규칙·배선을 SAM 없이 37항목 확인. 고치고 나면 이걸 먼저 돌린다 |
+| `tools/balance.mjs` | 역할 구성별 시민 승률 (규칙만 4만 판) |
+| `tools/bias-probe.mjs` | 지목 편향 분리 측정 · `--swap`/`--human`/`--saw` 대조군 |
+| `tools/walls.html` | **벽 편집기** — obstacle 레이어를 눌러서 고친다. 저장 전 연결성 검사 |
+| `src/audio.js` | 소리 — 음악·효과음을 **오실레이터로 만든다**(음원 파일 0장) |
+| `src/backoff.js` | 재시도 정책 — 게임과 측정기가 같이 쓴다(N-4) |
 
 **마피아 판 함정 — 고치기 전에 읽을 것 (`docs/work-rules.md` N·O 절이 정본):**
 
