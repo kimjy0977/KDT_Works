@@ -24,8 +24,32 @@ window.spumStudioData.saveServerSnapshot("manual");// ③ 서버로 올리기
 **A-3. 세션은 30분 안팎으로 만료된다 → 자동 복구**
 `/api/me`가 `{"user":null}`이면 만료. 우측 상단 `SSAM … 로그인 필요` 배지 → ACCOUNT 패널 → **「다시 로그인」** → 4초. **비밀번호 안 물어봄**(SSO 살아있으면). 복구 후 `saveServerSnapshot("manual")`로 재동기화.
 
-**A-4. Cast Export(스프라이트 시트)는 신뢰하지 말 것**
-Generate가 비동기라 **직전 캐릭터의 시트가 다운로드된다.** 미리보기로 눈 확인까지 해도 어긋났다. 받은 뒤 반드시 JSON의 `characterName`으로 검증할 것. (5명 중 2명만 정상 확보됨)
+**A-4. Cast Export(스프라이트 시트)는 신뢰하지 말 것 — ★ 막는 법 확정(2026-08-24)**
+Generate가 비동기라 **직전 캐릭터의 시트가 다운로드된다.** 받은 뒤 반드시 JSON의 `characterName`으로 검증할 것.
+
+**왜 그런지 눈으로 봤다.** Export 패널 진행바가 `Generating 12/15` → `Sheet ready` 로 간다.
+캐릭터를 바꿔도 **미리보기와 「Sheet ready」는 이전 캐릭터 것이 그대로 남는다.**
+그 상태에서 다운로드하면 남의 시트가 내 이름으로 내려온다.
+
+**절차 (이대로 하면 안 어긋난다):**
+1. 캐릭터 선택 → **ANIMATION·CUSTOM FRAMES 를 먼저 맞춘다** (idle 15 / move 10)
+2. **`Generate` 를 반드시 다시 누른다.** 캐릭터만 바꾸고 받으면 안 된다
+3. 진행바가 **`Sheet ready`** 가 될 때까지 기다린다
+   ⚠ `Preview is still loading` 중에 누른 Generate 는 **씹힌다**(실제로 겪음)
+4. `PNG + JSON` 다운로드 → JSON 의 `characterName`·`state`·`clipId`·`totalFrames` 확인
+5. **PNG 의 md5 가 다른 시트와 겹치지 않는지** 본다 ← 이걸 안 해서 사고가 났다
+
+**⛔ `Frame grid` 체크는 끈다.** 프레임 경계에 격자선이 구워질 수 있다.
+(껐을 때 경계 열 불투명 픽셀 **0** 으로 확인함)
+
+**실제 사고:** `주춤이` 의 idle 과 move 가 **완전히 같은 PNG**(md5 일치)였다.
+게다가 idle 의 `clipId` 가 `legacy/01_Move/0_move` — **가만히 서 있을 때도 걷는 애니메이션**이
+돌고 있었고, 그 상태로 발표까지 갔다. `characterName` 만 봐서는 못 잡는다.
+**두 시트의 md5 를 비교해야** 잡힌다.
+
+**A-4b. `characterId` 없는 export json 은 의심할 것**
+정상 export 는 `characterId` + `exportDate` 를 담는다. 이게 빠진 파일은 손으로 만들었거나
+복사한 것이다. 실측에서 이 표식이 없던 3개(주춤이·딴청이·또박이) 중 **주춤이가 실제로 깨져 있었다.**
 
 **A-5. 썸네일은 코드로 외형을 바꿔도 갱신 안 된다**
 `localStorage` 패치로 `appearance`를 바꿔도 `sv_studio_thumb_*`는 예전 이미지 그대로. 목록/추출물이 쌍둥이로 보이면 이것 때문.
