@@ -939,35 +939,6 @@ THIN walls (about 1/64 of the image wide) so corridors stay wide and walkable.
 
 ⚠ 격자만 올리고 프롬프트를 그대로 두면 **아무것도 넓어지지 않는다.** 실제로 그렇게 한 번 헛돌았다.
 
-### 4-26. 평면도 생성 실측 — 단가와 남은 문제 (2026-08-25) ★★★★★
-
-**단가: 1장 = 46 SSAM** (gpt-image-2 · quality `low` · 1024×1024).
-대화 한 번이 4.6 SSAM 이므로 **평면도 한 장 ≈ 대화 10번**이다. 생각보다 싸다.
-4·6·8·10인 넉 장을 뽑아도 184 SSAM — 게임 한 판(185)과 같다.
-
-**조작은 전부 iframe 안에서 한다.** Object Editor 는
-`studio/pixeldeidtor/index.html` iframe 이라 바깥 문서에는 `select` 가 하나도 없다.
-
-```js
-const d = document.querySelector("iframe").contentDocument;
-d.getElementById("themeGridSelect").value = "32x32";   // 격자 (4-10)
-d.getElementById("sourceGridSelect").value = "32x32";
-d.getElementById("resourcePromptInput").value = 프롬프트;
-d.getElementById("resourceGenerateButton").click();
-```
-※ `value` 를 그냥 대입하면 프레임워크가 못 알아챈다 —
-  네이티브 setter 로 넣고 `input`·`change` 를 쏴야 한다.
-
-⚠ **창이 좁으면 「데스크톱 웹으로 접속해 주세요」 오버레이가 덮는다.**
-`devicePixelRatio` 가 2.5 면 1536px 화면도 CSS 폭 614px 로 잡혀 걸린다.
-JS 로 조작할 때는 그 오버레이를 `display:none` 처리하면 그만이다 — 경고일 뿐이다.
-
-**⛔ 아직 안 풀린 것: 문짝이 그려진다.**
-정본 프롬프트에 「no door panels」를 넣었는데도 **방 입구마다 나무 문짝이 그려졌다**
-(2026-08-25 4인 집). 문짝 칸은 벽으로 판정되므로 그 방에 못 들어간다(4-22).
-→ 다음에 시도할 것: 「opening」이라는 단어 자체를 빼고 **"rooms have no walls on the
-   corridor side"** 처럼 **구멍이 아니라 벽이 없다**로 표현을 바꿔 본다.
-
 ### 4-25. ★ 평면도 프롬프트 정본 — 구조화 템플릿 ★★★★★
 
 지금까지 프롬프트를 감으로 고쳐 왔다. OpenAI 이미지 모델 프롬프트 가이드를 찾아
@@ -980,6 +951,10 @@ JS 로 조작할 때는 그 오버레이를 `display:none` 처리하면 그만�
 2. **순서를 지킨다:** 용도 → 장면 → 대상 → 세부 → 제약 → 스타일
 3. **재질을 구체적으로.** "shiny metal" ✗ → **"brushed steel"** ✓
 4. **금지 목록을 명시적으로 나열한다.** "무엇을 유지하고 무엇을 바꿀지" 둘 다 적는다.
+
+> ⚠ **이 템플릿은 v1 이다. 지금 쓰는 것은 `proto/tools/floorplan-prompts.mjs` 의 v3 이고,
+> 실측으로 세 군데를 고쳤다 — 문짝 금지문을 긍정 서술로, 방 개수 못 박기, 바닥 무늬 금지.
+> 무엇을 왜 고쳤는지는 §4-49 에 있다.** 여기는 구조(라벨·순서·출처)의 근거로 남긴다.
 
 **정본 템플릿** (테마만 바꿔 재사용)
 
@@ -1682,3 +1657,83 @@ World Editor 상단의 `⊞ Frame` 을 누르면 **SoonSoon Frame Builder** 가 
 
 ⚠ **퍼블리시는 대외 공개**라 되돌리기 어렵다. 주영님 승인 없이 누르지 않는다.
    우리 타이틀 화면은 그래서 **자체 에셋**(맵 아트 + 그라데이션)으로 먼저 만들었다.
+
+
+---
+
+### 4-49. 평면도 생성 실측 — 무대 넉 장을 뽑으며 알아낸 것 (2026-08-25) ★★★★★
+
+무대 4종(산장·심해기지·리조트·저택)을 뽑으며 **9번** 생성했다. 그때 나온 것들.
+
+**단가: 1장 ≈ 115 SSAM** (gpt-image-2 · quality `low` · 1024×1024).
+잔액 8,302 → 7,384, 8장 성공 = 918 / 8.
+⚠ **화면의 SSAM 숫자는 늦게 따라온다.** 생성 직후에 읽으면 46~47 로 보인다 —
+처음엔 그걸 단가로 적었는데 틀렸다. **여러 장 뽑은 뒤 총액으로 나눠야** 맞다.
+
+**refs 는 10장이 최대다.** `N/10 refs` 가 10/10 이 되면 더 못 넣는다. 오래 뽑을 거면 중간에 지운다.
+
+---
+
+#### ⭐ 문짝을 없앤 것 — 부정문을 긍정 서술로
+
+`no door panels, hatches, sliding doors` 로 **세 번** 금지했는데 세 번 다 문이 그려졌다.
+문장을 이렇게 바꾸니 심해기지·리조트에서 **한 짝도 안 나왔다**:
+
+```
+Where a room meets the corridor, the wall simply STOPS and starts again further along.
+Between the two wall ends there is bare floor and nothing else — a gap three times as
+wide as the wall is thick. Looking into that gap you see only floor, flat and continuous.
+Nothing hangs, stands, slides or swings in the gap.
+```
+
+**교훈: 없앨 것을 이름으로 부르면 오히려 불러온다.** 그 자리에 무엇이 있는지를 대신 쓴다.
+
+같이 넣어 효과를 본 것:
+- **방 개수를 낱말로 못 박기** — `Exactly seven enclosed rooms: six crew cabins, and one galley.`
+  (아라비아 숫자보다 낱말을 잘 센다. `수사()` 로 변환한다.)
+- **「부엌은 따로 닫힌 방」** — 안 적으면 거실과 한 공간으로 그려져 부엌 자리를 못 잡는다.
+- **「건물이 화면을 꽉 채운다」** — 마당을 그리면 그것도 균일한 바닥이라 통행칸이 되고,
+  실제로 **부엌이 집 밖 마당에 배치**됐다.
+- **「바닥은 한 가지 색, 무늬 없이」** — 아래 마스크 문제의 근원이다.
+
+#### 🔥 마스크가 무늬에 진다 — 저역통과로 푼다
+
+통행 판정은 셀 안 색 분산으로 한다(바닥은 균일, 벽·가구는 윤곽선이 있어 높다).
+그런데 **체크무늬 부엌 바닥·다마스크 카펫**은 벽만큼 분산이 높다.
+산장 부엌이 통째로 벽 판정을 받아 아무도 못 들어갔다.
+
+→ **픽셀이 아니라 `BLUR`×`BLUR` 로 뭉갠 덩어리로 분산을 잰다**(`--blur`, 기본 4).
+무늬는 잘게 반복되므로 먼저 저역통과시키면 사라지고, 벽·가구의 큰 명암 구조는 남는다.
+⚠ 체크 칸이 `BLUR` 보다 크면 여전히 안 지워진다 — 산장 부엌(8px 체크)이 그랬다.
+   그림 쪽에서 **무늬를 아예 안 그리게** 하는 게 근본 해법이다.
+
+#### 임계값은 그림마다 다르다 — 자동화하지 못했다
+
+| 무대 | flat | lum | blur | 비고 |
+|---|---|---|---|---|
+| 설산 산장 | 38 | 40 | 4 | 부엌(체크무늬)은 통행 불가로 남음 |
+| 심해 연구기지 | 34 | 40 | 4 | 깔끔 |
+| 해변 리조트 | 66 | 40 | 4 | 타일 줄눈이 굵어 값이 높다 |
+| 고딕 저택 | 14 | 15 | 4 | 어두워서 lum 을 크게 낮춰야 한다 |
+
+`tools/floorplan-auto.mjs` 로 훑게 만들었지만 **점수 기준을 세 번 바꿔도 눈보다 못했다**:
+넓이만 보면 주방에 침실이 배치되고, 방 간 거리만 보면 빈 방에 배치되고,
+「방 후보 개수 = N+1」로 보면 그건 맞는데 엉뚱한 조합이 뽑혔다.
+→ **자동 탐색기는 후보를 추리는 데까지만 쓰고, 최종 값은 미리보기를 보고 박는다.**
+   `--preview` 로 낸 그림에서 **방마다 초록 네모가 하나씩** 있는지 확인하는 게 유일한 합격 기준이다.
+
+#### 도구 사용법
+
+```bash
+node tools/floorplan-prompts.mjs 6                      # 그 무대 프롬프트를 찍는다
+node tools/floorplan-auto.mjs  _local/abyss6.png 6 --out=map_6   # 임계값 후보 훑기
+node tools/floorplan-build.mjs _local/abyss6.png 6      --out=map_6 --name="심해 연구기지" --flat=34 --preview=_local/p6.png
+```
+
+**Studio 조작은 전부 iframe 안**(`studio/pixeldeidtor/index.html`). 바깥 문서엔 `select` 가 없다.
+`resourcePromptInput`(textarea) · `resourceGenerateButton` · **`resourceStageImage`**(결과 그림).
+⚠ `themeSourceImage` 는 **테마 원본**이지 생성 결과가 아니다 — 이걸 감시하면 영영 안 바뀐다.
+⚠ `value` 대입은 안 먹는다. 네이티브 setter + `input`/`change` 를 쏴야 한다.
+⚠ **CDP 는 45초에 끊긴다.** 생성을 `await` 하면 도구가 죽는다 — 던져 놓고 짧게 폴링한다.
+⚠ 로그인은 **30분쯤에 만료**된다. 만료되면 생성이 조용히 실패한다
+   (`Reference generation failed: SPUM login session ... required`). 긴 작업 중엔 중간에 확인.
