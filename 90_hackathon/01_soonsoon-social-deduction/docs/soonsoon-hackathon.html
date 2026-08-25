@@ -1,0 +1,446 @@
+<title>순순팩토리 해커톤 결과 공유</title>
+<style>
+  :root{
+    --bg:#fbfaf8; --panel:#fff; --ink:#1b1a19; --dim:#6b6660; --line:#e6e1da;
+    --accent:#c2410c; --accent-soft:#fff2ea; --good:#0f766e; --good-soft:#eefaf8;
+    --warn:#b45309; --warn-soft:#fff8eb; --code:#f4f1ec;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#16151a; --panel:#1e1d23; --ink:#eceaf0; --dim:#9d97a6; --line:#332f3b;
+    --accent:#fb923c; --accent-soft:#2a1d14; --good:#5eead4; --good-soft:#12262a;
+    --warn:#fbbf24; --warn-soft:#2a2210; --code:#26242c;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#16151a; --panel:#1e1d23; --ink:#eceaf0; --dim:#9d97a6; --line:#332f3b;
+    --accent:#fb923c; --accent-soft:#2a1d14; --good:#5eead4; --good-soft:#12262a;
+    --warn:#fbbf24; --warn-soft:#2a2210; --code:#26242c;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.75 -apple-system,"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px 96px}
+  header{padding:56px 0 32px;border-bottom:1px solid var(--line)}
+  .eyebrow{color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.12em}
+  h1{font-size:34px;line-height:1.3;margin:10px 0 12px;letter-spacing:-.02em}
+  .sub{color:var(--dim);font-size:15px}
+  h2{font-size:22px;margin:44px 0 14px;letter-spacing:-.01em}
+  h3{font-size:17px;margin:30px 0 10px}
+  h4{font-size:15px;margin:22px 0 8px;color:var(--dim)}
+  p,li{font-size:15px}
+  section{scroll-margin-top:20px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:16px 0}
+  .note{border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 10px 10px 0;
+    padding:14px 18px;margin:16px 0;font-size:14.5px}
+  .note.good{border-left-color:var(--good);background:var(--good-soft)}
+  .note.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+  .note b{font-weight:700}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{font-size:12.5px;color:var(--dim);font-weight:700;letter-spacing:.04em;white-space:nowrap}
+  td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  code{background:var(--code);padding:2px 6px;border-radius:5px;font-size:13px;
+    font-family:"SFMono-Regular",Consolas,monospace}
+  pre{background:var(--code);padding:14px 16px;border-radius:10px;overflow-x:auto;font-size:13px;line-height:1.6}
+  pre code{background:none;padding:0}
+  .stars{color:var(--accent);letter-spacing:.06em;white-space:nowrap;font-size:13px}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:28px 0 0;border-bottom:1px solid var(--line);padding-bottom:0}
+  .tabs button{appearance:none;border:1px solid var(--line);border-bottom:none;background:transparent;
+    color:var(--dim);padding:11px 18px;border-radius:10px 10px 0 0;cursor:pointer;font:inherit;font-size:15px;
+    font-weight:600;position:relative;top:1px}
+  .tabs button[aria-selected="true"]{background:var(--panel);color:var(--ink);border-color:var(--line)}
+  .tabs button .tag{display:block;font-size:11px;font-weight:500;color:var(--dim);margin-top:1px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-top:none;border-radius:0 0 14px 14px;
+    padding:26px 24px 30px}
+  .panel[hidden]{display:none}
+  .kpi{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+  .kpi div{flex:1 1 130px;background:var(--code);border-radius:10px;padding:12px 14px}
+  .kpi b{display:block;font-size:21px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .kpi span{font-size:12px;color:var(--dim)}
+  .slot{border:2px dashed var(--line);border-radius:12px;padding:26px;text-align:center;color:var(--dim);
+    font-size:14px;margin:16px 0}
+  ul,ol{padding-left:20px} li{margin:5px 0}
+  .muted{color:var(--dim)}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+  footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+  @media (max-width:600px){h1{font-size:26px}.wrap{padding:0 14px 60px}.panel{padding:20px 16px 24px}}
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">주식회사 순순팩토리 · 기업연계 해커톤</div>
+  <h1>SPUM 으로 AI 게임을 만들어 봤습니다</h1>
+  <p class="sub">네 사람이 각자 만든 것과, 만들면서 알게 된 것 · 2026-08</p>
+</header>
+
+<section>
+  <h2>0. 세 줄 요약</h2>
+  <div class="card">
+    <ol>
+      <li><b>넷 다 돌아가는 것을 만들었습니다.</b> 설치 없이 브라우저에서 켜집니다.</li>
+      <li><b>막힌 곳의 대부분은 「문서 한 줄이면 안 막혔을 것」</b>이었습니다.
+          코드를 고쳐 달라는 건 몇 건 안 됩니다.</li>
+      <li><b>AI NPC 를 여럿 굴리면 표가 한 사람에게 몰립니다.</b> 그리고 그건
+          <b>고칠 수 있습니다</b> — 금지가 아니라 <b>잣대를 나눠 주는 방식</b>으로요(§3).</li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <h2>1. 과제와 우리</h2>
+
+  <h3>1-1. 과제가 요구한 것</h3>
+  <div class="scroll"><table>
+    <tr><th style="width:70px">항목</th><th>요건</th></tr>
+    <tr><td>§7-1</td><td>브라우저에서 바로 실행 (설치 없이)</td></tr>
+    <tr><td>§7-2</td><td>NPC <b>3명 이상</b>과 자연어 대화 · 각 응답이 <b>설정된 성격에 맞을 것</b></td></tr>
+    <tr><td>§7-3</td><td><b>대화 맥락 유지</b> — 이전 대화 참조 가능</td></tr>
+    <tr><td>§7-4</td><td>기술 문서 (README 또는 블로그 1편 분량)</td></tr>
+    <tr><td>§8</td><td>SAM 키 커밋 금지 · MIT 라이선스 · 상용 데이터 사용 금지</td></tr>
+  </table></div>
+
+  <div class="note">
+    과제정의서 §1 이 밝힌 동기는 <b>“제품 쇼케이스·레퍼런스가 없어 외부 개발자 진입 장벽이 높다”</b>였습니다.
+    저희는 그 장벽을 실제로 통과해 본 외부 개발자이고, <b>어디에 걸렸는지가 곧 알고 싶어 하신 것</b>이라고
+    보고 §2·§3 을 본론으로 잡았습니다.
+  </div>
+
+  <h3>1-2. 넷이 만든 것</h3>
+  <div class="scroll"><table>
+    <tr><th>이름</th><th>만든 것</th><th>어떤 것</th><th>대화 방식</th></tr>
+    <tr>
+      <td><b>김주영</b></td>
+      <td>「누가 마피아지?」</td>
+      <td>AI NPC 소셜 추리 — 낮 토론 · 밤 사건 · 투표</td>
+      <td>SAM 직접 호출 (서버 프록시)</td>
+    </tr>
+    <tr><td><b>신서연</b></td><td class="muted">— 받는 중</td><td></td><td></td></tr>
+    <tr><td><b>최종우</b></td><td class="muted">— 받는 중</td><td></td><td></td></tr>
+    <tr><td><b>정충원</b></td><td class="muted">— 받는 중 <span class="muted">(게임이 아닌 산출물)</span></td><td></td><td></td></tr>
+  </table></div>
+
+  <h3>1-3. 신뢰도 표기</h3>
+  <p>저희는 전문 게임 개발자가 아닙니다. 몰라서 못 본 것, 잘못 잰 것이 섞일 수 있어
+     <b>어느 정도로 확인한 것인지를 항목마다</b> 붙였습니다.</p>
+  <div class="scroll"><table>
+    <tr><th style="width:110px">표기</th><th>뜻</th></tr>
+    <tr><td class="stars">★★★★★</td><td><b>직접 확인</b> — 여러 번 재현했고 수치·해시 같은 근거가 있습니다</td></tr>
+    <tr><td class="stars">★★★★☆</td><td><b>근거 있음</b> — 소스나 문서로 확인했지만 재현은 한 번입니다</td></tr>
+    <tr><td class="stars">★★★☆☆</td><td><b>추정</b> — 그렇게 보이지만 원인을 갈라내지 못했습니다</td></tr>
+    <tr><td class="stars">★★☆☆☆</td><td><b>불확실</b> — 일부만 확인했고 나머지는 모릅니다</td></tr>
+    <tr><td class="stars">★☆☆☆☆</td><td><b>미확인</b> — 들은 것이거나 짐작입니다</td></tr>
+  </table></div>
+  <p class="muted">★★★★★ 라도 <b>저희 환경 한 곳에서 잰 값</b>입니다. 판단 근거로 쓰시기 전에
+     한 번 재보시길 권합니다. 재현 절차는 얼마든지 드리겠습니다.</p>
+</section>
+
+<section>
+  <h2>2. 공통 — 어디서 막혔나</h2>
+  <p class="muted">아래는 김주영이 실제로 겪고 계측한 것입니다. 다른 팀원 것이 들어오면
+     「나도 겪음」에 이름이 붙습니다 — <b>여러 명이 겪었다는 사실 자체가 가장 강한 신호</b>라고 봅니다.</p>
+
+  <div class="scroll"><table>
+    <tr><th style="width:34px">#</th><th>막힌 것</th><th style="width:88px">신뢰도</th>
+        <th>있었으면 안 막혔을 것</th><th style="width:74px">나도 겪음</th></tr>
+    <tr><td class="num">1</td><td><b>내장 AI 가 <code>systemPrompt</code> 를 무시한다</b><br>
+      <span class="muted">캐릭터 설정이 반영되지 않고, 기억을 근거로 쓰지 않고 지어냅니다.
+      확인 후 대화 전체를 SAM 직접 호출로 재작성 — <b>이 프로젝트 최대의 재작업</b></span></td>
+      <td class="stars">★★★★★</td><td><b>내장 AI 능력 경계 한 페이지</b> — “이건 되고 이건 안 된다”</td><td></td></tr>
+    <tr><td class="num">2</td><td><b>Studio 쓰기 방향</b> — 서버에 직접 PUT 하면 다음 새로고침에 사라짐<br>
+      <span class="muted">작업을 두 번 날렸습니다. 정답은 <code>로컬 → 서버</code> 순서</span></td>
+      <td class="stars">★★★★★</td><td>“쓰기는 반드시 로컬 먼저” 한 줄</td><td></td></tr>
+    <tr><td class="num">3</td><td><b>세션이 30분에 조용히 만료된다</b><br>
+      <span class="muted">저장·생성이 <b>오류 없이</b> 실패합니다. 실패한 줄 모르고 기다립니다</span></td>
+      <td class="stars">★★★★★</td><td>만료 시 <b>명시적 오류</b> (지금은 무음)</td><td></td></tr>
+    <tr><td class="num">4</td><td><b>Cast Export 가 다른 캐릭터의 시트를 내려준다</b><br>
+      <span class="muted">A→B 로 바꿔도 미리보기가 A 인 채 <code>Sheet ready</code> 로 남고, 그대로 받으면
+      <b>A 의 픽셀에 B 의 이름표</b>가 붙습니다. 10명 md5 전수 대조로 발견 —
+      캐릭터 한 명의 에셋이 잘못 들어간 채 발표까지 갔습니다</span></td>
+      <td class="stars">★★★★★</td><td>선택이 바뀌면 시트 상태 무효화 <span class="muted">(코드)</span></td><td></td></tr>
+    <tr><td class="num">5</td><td><b>refs 썸네일을 「보기」만 해도 테마의 슬라이스 기준이 바뀐다</b><br>
+      <span class="muted">클릭만 했는데 <code>sliceBaseAssetId</code> 가 <code>""</code> → <code>sha256:…</code> 로.
+      백업 두 개를 해시로 대조해 확인했습니다</span></td>
+      <td class="stars">★★★★☆</td><td><b>미리보기는 읽기 전용이어야</b> <span class="muted">(코드)</span></td><td></td></tr>
+    <tr><td class="num">6</td><td><b>시뮬레이션을 켜 둔 채 두면 SSAM 이 계속 나간다</b><br>
+      <span class="muted">실측 <b>6인 9분 = 165 SSAM</b>. 꺼졌는지 보려면 두 군데를 봐야 합니다 —
+      버튼 상태 + Event Log 헤더</span></td>
+      <td class="stars">★★★★☆</td><td>유휴 시 자동 정지, 또는 <b>과금 중임을 눈에 띄게</b></td><td></td></tr>
+    <tr><td class="num">7</td><td><b><code>update()</code> 예외가 컴포넌트를 조용히 끈다</b><br>
+      <span class="muted">NPC 하나가 말없이 멈춥니다. 경고가 콘솔에 안 찍히고 내부 배열에만 쌓이는데,
+      <b>그 배열을 읽는 코드가 패키지 전체에 없습니다</b></span></td>
+      <td class="stars">★★★★★</td><td>개발 모드 콘솔 출력 한 줄 <span class="muted">(코드)</span></td><td></td></tr>
+    <tr><td class="num">8</td><td><b>패키지 배포 경로가 없다</b><br>
+      <span class="muted">엔진·월드 107개 파일을 재귀 미러링하는 스크립트를 직접 작성했습니다</span></td>
+      <td class="stars">★★★★★</td><td>npm 또는 오프라인 zip</td><td></td></tr>
+    <tr><td class="num">9</td><td><b>SAM 429 의 경계를 알 수 없다</b><br>
+      <span class="muted">평가 실행 2회에서 429 가 36건·20건. 그런데 순차 25회·동시 8개로는 <b>재현 0건</b></span></td>
+      <td class="stars">★★★★☆</td><td>속도 제한 문서</td><td></td></tr>
+    <tr><td class="num">10</td><td><b>429 응답에 <code>Retry-After</code> 가 없다</b><br>
+      <span class="muted">재시도 간격 없이 121회 → 실패 <b>24.8%</b>. 1500ms + 지수 백오프 → <b>1.0%</b>.
+      각 팀이 시행착오로 알아내야 합니다</span></td>
+      <td class="stars">★★★★★</td><td><b>표준 헤더 한 줄</b></td><td></td></tr>
+    <tr><td class="num">11</td><td><b>실패 시 과금 여부를 알 수 없다</b><br>
+      <span class="muted">200 응답만 <code>usage.scredits</code> 를 줍니다. 429 본문엔 없고,
+      <b>실제로 과금되는지는 저희도 모릅니다</b></span></td>
+      <td class="stars">★★☆☆☆</td><td><code>usage: { charged: false }</code> 정도면 충분</td><td></td></tr>
+    <tr><td class="num">12</td><td><b>비용이 입력 길이에 크게 좌우된다</b><br>
+      <span class="muted">같은 모델 기준 — 짧은 프롬프트 <b>2.13</b> / 실제 게임 프롬프트(2,919자) <b>4.67 SSAM</b></span></td>
+      <td class="stars">★★★★★</td><td>비용 산정식 안내 — <b>대화가 길어질수록 비용이 가속</b>됩니다</td><td></td></tr>
+  </table></div>
+
+  <div class="note">
+    <b>세어 보면 이렇게 갈립니다.</b> 문서 한 줄이면 안 막혔을 것 <b>6</b> ·
+    코드·제품이 움직여야 하는 것 <b>5</b> · 인프라 <b>1</b>.<br>
+    <b>Studio 사용에서 막힌 것은 대부분 「몰라서」</b>였고, SAM 게이트웨이와 엔진 쪽은
+    코드가 움직여야 하는 것들이었습니다. 다만 코드 쪽에도
+    <b><code>Retry-After</code> 한 줄</b>처럼 아주 가벼운 것이 섞여 있습니다.
+  </div>
+
+  <h3>2-1. 하나만 고친다면</h3>
+  <div class="scroll"><table>
+    <tr><th style="width:44px">순위</th><th>항목</th><th>이유</th></tr>
+    <tr><td class="num">1</td><td><b><code>Retry-After</code> 헤더</b></td>
+        <td>비용 대비 효과가 제일 큽니다. 표준 헤더 한 줄이면 <b>모든 클라이언트가 올바르게 기다립니다</b></td></tr>
+    <tr><td class="num">2</td><td><b>내장 AI 능력 경계 한 페이지</b></td>
+        <td>이 한 페이지가 저희에게 <b>며칠</b>을 아껴줬을 것입니다</td></tr>
+    <tr><td class="num">3</td><td><b>Cast Export 상태 무효화</b></td>
+        <td>재현 절차가 확실합니다. <b>조용히 깨지는</b> 종류라 다른 팀도 모르고 당할 수 있습니다</td></tr>
+    <tr><td class="num">4</td><td><b>시뮬레이션 과금 표시</b></td>
+        <td>이건 <b>돈이 새는</b> 항목입니다. 저희는 알고 껐지만 모르고 켜 둔 팀은 그대로 나갔을 겁니다</td></tr>
+  </table></div>
+
+  <h3>2-2. 좋았던 것</h3>
+  <div class="note good">
+    <ul style="margin:0">
+      <li><b>클라이언트 소스가 압축돼 있지 않고 한국어 주석이 달려 있습니다.</b>
+          공식 문서가 없는 상황에서 <b>이것이 사실상 문서 역할</b>을 했습니다.
+          이게 없었으면 저희 프로젝트는 성립하지 않았습니다.</li>
+      <li><b>Slice 가 셀마다 <code>role</code> 을 붙여 줍니다.</b> 픽셀 색으로 벽·바닥을 가르려다
+          실패했는데, 이 기능을 찾아 그대로 통행 판정에 썼습니다.</li>
+      <li><b>공개 데모 월드가 로그인 없이 열립니다</b> — “정상 동작이 어떤 모양인가”의 기준점이 됐습니다.</li>
+      <li><b>맵을 로컬에서 만들어 밀어넣을 수 있습니다</b> — 에디터 수작업이 필요 없었습니다.</li>
+      <li>엔진이 <b>길찾기 · 말풍선 · 관계 기억</b>을 이미 제공합니다. (다만 찾기가 어려웠습니다.)</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>3. 공통 — 만들고 나서 알게 된 것</h2>
+  <p class="muted">버그 신고가 아니라 <b>제품의 성질에 대한 관찰</b>입니다.
+     AI NPC 를 여럿 굴리는 콘텐츠라면 밸런스에 직접 작용한다고 봅니다.</p>
+
+  <h3>3-1. AI 들의 표가 한 사람에게 몰린다 <span class="stars">★★★★★</span></h3>
+  <p>사람 없이 AI 시민 5명에게 <b>동일한 대화록</b>을 주고 투표만 반복시켰습니다.
+     대화록에는 <b>범인 단서가 전혀 없습니다</b> — 근거 있는 판단이라면 표가 흩어져야 합니다.
+     <b>표의 80~93% 가 한 사람에게 몰렸고</b>, 표를 받은 사람은 매번 2~3명뿐이었습니다.</p>
+
+  <h3>3-2. 원인을 <b>두 번 틀리게</b> 짚었습니다 <span class="stars">★★★★★</span></h3>
+  <p>어떻게 틀렸는지를 같이 적어야 저희 결론을 어느 정도로 믿으실지 판단하실 수 있다고 봤습니다.</p>
+  <div class="scroll"><table>
+    <tr><th style="width:56px">차수</th><th>주장</th><th>어떻게 무너졌나</th></tr>
+    <tr><td>1차</td><td>“토론이 오히려 방해가 된다”</td><td>실패의 100% 가 <b>HTTP 429</b> — 대화가 굶은 데이터였습니다</td></tr>
+    <tr><td>2차</td><td>“캐릭터 <b>성격 태그</b>로 찍는다”</td><td><b>대사 한 줄을 옮기자 표가 그대로 따라갔습니다</b></td></tr>
+    <tr><td>3차</td><td>“<b>대화를 주도하는 사람</b>을 의심한다”</td><td>대조 실험으로 확인 (아래)</td></tr>
+  </table></div>
+  <p>성격·구성·나머지 대화록을 전부 고정하고
+     <b>「일단 서로 뭐 했는지부터 얘기해 보자」 한 줄만</b> 다른 캐릭터에게 옮겼습니다.</p>
+  <div class="scroll"><table>
+    <tr><th>그 대사를 누가 말하나</th><th style="width:180px">표가 어디로</th></tr>
+    <tr><td>「먹보 · 눈치 없는」 캐릭터</td><td>그 캐릭터에게 <b>80.0%</b> (16/20)</td></tr>
+    <tr><td>「졸림 · 느긋」 캐릭터 <span class="muted">(대사만 이동)</span></td><td><b>그 캐릭터에게 80.0%</b> (16/20)</td></tr>
+  </table></div>
+  <p><b>표가 성격이 아니라 대사를 따라 통째로 이동했습니다.</b> AI 가 직접 이렇게 말합니다 —</p>
+  <div class="note">「오물오물이 좀 수상한데? <b>5번에서 갑자기 “서로 뭐 했는지부터 얘기해 보자”고 몰아가는</b> 거 봤잖아.」</div>
+
+  <h3>3-3. 금지해 봤고 — 안 됐습니다 <span class="stars">★★★★★</span></h3>
+  <p>지목 규칙에 <i>「먼저 나서서 제안한 사람을 그 이유로 찍지 마라」</i>를 명시했습니다.</p>
+  <div class="scroll"><table>
+    <tr><th></th><th style="width:130px">최다 득표</th><th style="width:150px">근거를 인용한 비율</th></tr>
+    <tr><td>방어 전</td><td><b>80.0%</b></td><td>20%</td></tr>
+    <tr><td>방어 후 (1회차, 14표)</td><td><b>85.7%</b></td><td>71%</td></tr>
+    <tr><td>방어 후 (2회차, 18표)</td><td><b>83.3%</b></td><td>44%</td></tr>
+  </table></div>
+  <p><b>쏠림은 전혀 줄지 않고 근거를 대는 비율만 올랐습니다.</b>
+     근거는 결론을 만든 게 아니라 <b>이미 정해진 결론에 붙는 설명</b>이었습니다.
+     길이 지시(위반 54.5~63.8%)와 되풀이 금지(시도 21.7~35.3%)도 같았습니다.</p>
+
+  <h3>3-4. 그런데 — <b>잣대를 나눠 주니 표가 갈렸습니다</b> <span class="stars">★★★☆☆</span></h3>
+  <div class="note good">
+    <b>「주도한 사람을 의심한다」는 틀린 잣대가 아닙니다.</b> 실제 사람들도 그렇게 몹니다.
+    문제는 AI 들이 <b>쓸 수 있는 잣대가 그것 하나뿐</b>이라 다섯이 같은 답을 냈다는 것입니다.
+    사람이 하는 마피아에서는 <b>말이 없는 사람 · 남을 몰아가는 사람 · 말이 바뀐 사람</b>처럼
+    여러 잣대가 동시에 굴러가고, 그래서 표가 갈립니다.
+  </div>
+  <p>그래서 실제 마피아에서 쓰이는 몰이 근거를 <b>8가지</b> 만들어 <b>사람마다 하나씩 나눠 줬습니다</b> —
+     주도한 사람 · 조용했던 사람 · 말이 바뀐 사람 · 편승한 사람 · 먼저 변명한 사람 ·
+     먼저 남을 지목한 사람 · 누굴 감싼 사람 · 감정이 과했던 사람.</p>
+  <div class="scroll"><table>
+    <tr><th>조건</th><th style="width:210px">최다 득표</th><th style="width:120px">표를 받은 사람</th></tr>
+    <tr><td>모두 같은 잣대 (4회)</td><td>80.0 · 85.7 · 83.3 · 82.4%</td><td>2~3명</td></tr>
+    <tr><td><b>잣대를 나눠 줌</b></td><td><b>57.9%</b></td><td><b>4명</b></td></tr>
+  </table></div>
+  <div class="note">
+    <b>이게 저희가 얻은 제일 쓸모 있는 것입니다.</b><br>
+    LLM 이 한 곳으로 쏠릴 때, <b>못 하게 막는 것보다 「갈 곳」을 여러 개 주는 편이 먹힙니다.</b>
+    금지는 세 번 다 실패했고(길이 · 되풀이 · 편향), <b>분산은 한 번에 통했습니다.</b><br><br>
+    <b>제안</b> — 「AI 캐릭터가 서로를 판단하는 콘텐츠를 만들 때, 금지하지 말고 잣대를 나눠 주세요」
+    정도의 안내 한 페이지가 있으면 다른 팀은 이 시행착오를 안 겪습니다.
+    계측 도구와 대조군 설계는 저희가 드릴 수 있습니다.
+  </div>
+  <div class="note warn">
+    <b>표본을 밝힙니다.</b> §3-1~§3-3 은 각 조건 20회 호출(유효 20 · 20 · 14 · 18표),
+    <b>§3-4 는 1회</b>입니다. 방향은 일관되지만 <b>정밀한 수치로 인용하기엔 작습니다.</b>
+    저희는 전문 개발자가 아니므로 <b>전제부터 틀렸을 가능성</b>도 배제하지 못합니다.
+    회사에서 더 큰 규모로 재보시길 권합니다.
+  </div>
+</section>
+
+<section>
+  <h2>4. 각자 만든 것</h2>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" aria-controls="t-juyoung" id="tab-juyoung">
+      김주영<span class="tag">누가 마피아지?</span></button>
+    <button role="tab" aria-selected="false" aria-controls="t-a" id="tab-a">
+      신서연<span class="tag">받는 중</span></button>
+    <button role="tab" aria-selected="false" aria-controls="t-b" id="tab-b">
+      최종우<span class="tag">받는 중</span></button>
+    <button role="tab" aria-selected="false" aria-controls="t-c" id="tab-c">
+      정충원<span class="tag">받는 중</span></button>
+  </div>
+
+  <div class="panel" role="tabpanel" id="t-juyoung" aria-labelledby="tab-juyoung">
+    <h3>1. 무엇을 만들었나</h3>
+    <p><b>「누가 마피아지?」</b> — 여럿이 한 건물에 살고, 밤마다 한 명이 사라집니다.
+       낮에 모여 토론하고 투표로 마피아를 찾습니다. <b>NPC 전원이 AI</b> 이고,
+       매 판 마피아와 밤의 사건이 새로 생성됩니다.</p>
+    <p class="muted">처음엔 「누가 내 케이크 먹었어?」(냉장고의 케이크를 훔쳐 먹은 범인 찾기)로 시작했다가,
+       추리의 밀도를 높이려고 마피아 규칙으로 바꿨습니다.</p>
+
+    <div class="kpi">
+      <div><b>236</b><span>커밋</span></div>
+      <div><b>10,709</b><span>소스 줄</span></div>
+      <div><b>8,090</b><span>문서 줄</span></div>
+      <div><b>100</b><span>함정 기록</span></div>
+      <div><b>109</b><span>회귀 검사</span></div>
+    </div>
+    <p class="muted">2026-08-17 첫 커밋 ~ 현재. 문서 8,090줄 중 상당량이 「SPUM 을 어떻게 다루는가」인데,
+       <b>만들고 싶어서가 아니라 없어서 만든 것</b>입니다.</p>
+
+    <div class="slot">스크린샷 자리 — 게임 화면 · 무대 고르기 · 토론 창</div>
+
+    <h3>2. 어떻게 만들었나</h3>
+    <ul>
+      <li><b>SPUM 을 어디에 썼나</b> — ① 맵: Object Editor 로 <b>집 전체 평면도</b>를 생성해
+        통행 마스크를 뽑아 타일맵으로 변환 ② 캐릭터: Cast Editor 로 <b>10명 × idle/move</b> 스프라이트 시트
+        ③ 엔진: <code>spum-engine</code> · <code>spum-world</code> 를 <b>직접 구동</b></li>
+      <li><b>대화</b> — SAM 을 <b>서버에서 직접 호출</b>합니다. 내장 AI 는 검증 후 포기했습니다(§2-1).
+        정답(범인·기억)은 서버에만 두고 각 캐릭터에게 <b>자기 기억만</b> 줍니다 — 그래야 추리가 성립합니다.</li>
+      <li><b>실행</b> — <code>bash serve.sh</code> → <code>localhost:5173</code>. Node 외 의존성 없음.</li>
+    </ul>
+    <p><b>지금 상태</b> — 무대 <b>6개</b>(셰어하우스 · 우주선 · 설산 산장 · 심해 연구기지 · 해변 리조트 · 궤도 정거장),
+       인원 <b>4~10명</b>, 역할 4종(마피아 · 경찰 · 의사 · 시민), 유령 채팅, 다시 보기, 초대 코드.</p>
+
+    <h3>3. 어디서 막혔나</h3>
+    <ol>
+      <li><b>내장 AI 로 게임을 굴리려 했는데 설정을 안 지켰다.</b>
+        캐릭터 성격을 넣어도 반영되지 않고 기억을 근거로 안 쓰고 지어냈습니다.
+        추리 게임은 “누가 무엇을 봤는가”가 사실이어야 성립하는데 지어내면 게임이 아닙니다.
+        <span class="muted">→ 항목별로 표를 만들어 하나씩 확인하고서야 알았습니다.</span></li>
+      <li><b>평가를 돌렸더니 “토론이 방해가 된다”는 결론이 나왔다.</b>
+        실제로는 <b>실패의 100% 가 429</b> 였습니다 — 대화가 굶은 채로 나온 숫자였습니다.
+        <span class="muted">→ 실패 응답을 세어 보고 알았습니다. 하마터면 틀린 결론을 회사에 낼 뻔했습니다.</span></li>
+      <li><b>캐릭터 하나가 서 있을 때도 걷는 애니메이션을 재생했다.</b>
+        Cast Export 가 다른 캐릭터의 시트를 내려준 것이었습니다(§2-1 #4).
+        <span class="muted">→ 10명을 md5 전수 대조해서 발견했습니다. 이름만 보는 검증으로는 못 잡습니다.</span></li>
+      <li><b>8·10인 무대를 만들었는데 게임에는 6명만 나왔다.</b>
+        맵도 방 10개, 인원 화면도 「10 / 10」인데 게임에만 6명이었습니다.
+        <span class="muted">→ <b>실제로 플레이해 보고</b> 알았습니다. 코드를 읽어선 안 보였습니다.</span></li>
+    </ol>
+
+    <h3>4. 어떻게 풀었나</h3>
+    <ul>
+      <li><b>1번</b> — 대화를 SAM 직접 호출로 갈아엎고, 정답을 서버에 고정한 뒤 각 캐릭터에게
+        자기 기억만 주는 구조를 직접 짰습니다. <b>이 프로젝트 최대의 재작업</b>이었습니다.</li>
+      <li><b>2번</b> — 재시도 정책(1500ms + 지수 백오프)을 게임과 측정 도구가
+        <b>같은 부품</b>으로 쓰게 했습니다. 실패율 24.8% → 1.0%.</li>
+      <li><b>3번</b> — 에셋 검증을 해시로 바꿨습니다. 지금은 회귀 검사가
+        「idle 과 move 가 같은 파일인 캐릭터가 없다」를 매번 확인합니다.</li>
+      <li><b>4번</b> — <code>world.js</code> 에 <code>.slice(0, 6)</code> 이 남아 있었습니다.
+        6인 고정이던 시절의 잔재입니다. 지웠고, <b>되살아나면 잡는 검사</b>를 넣었습니다.</li>
+    </ul>
+    <div class="note warn">
+      <b>못 푼 것</b> — AI 지목 적중률이 <b>11.8~23.5%</b> 로, 두 번 다 <b>무작위(33.3%)보다 낮았습니다.</b>
+      §3-4 의 잣대 분산으로 쏠림은 줄였지만 <b>적중률 자체는 못 올렸습니다.</b>
+      AI 다수결을 그대로 쓰면 안 된다는 뜻이라고 보고 있습니다.
+    </div>
+
+    <h3>5. 회사에 드리는 피드백</h3>
+    <p>§2 · §3 에 정리했습니다. 저 목록은 전부 이 프로젝트에서 나온 것입니다.
+       특히 <b>§3-4(잣대를 나눠 주면 갈린다)</b> 를 봐 주시면 좋겠습니다 —
+       제품의 핵심 가치에 직접 닿아 있고, 제작자가 스스로 알아내기 어려운 것이라고 봅니다.</p>
+
+    <h3>6. 자유</h3>
+    <p>가장 크게 배운 건 <b>“안 도는 코드를 보고 고장이라 하지 마라”</b> 였습니다.
+       밤에 목격자를 두는 코드가 남아 있길래 「8일 동안 죽어 있던 규칙」이라 부르고
+       되살릴 방법 세 가지를 제안했는데, <b>애초에 빼기로 한 설계</b>였습니다.
+       그 판단이 이미 저희 문서에 적혀 있었는데 안 보고 지나쳤습니다.</p>
+    <p>두 번째는 <b>“측정기는 게임과 같은 부품을 써야 한다”</b> 입니다.
+       측정 도구가 게임과 다른 재시도 정책을 쓰는 바람에 <b>틀린 결론을 한 번 냈습니다.</b></p>
+  </div>
+
+  <div class="panel" role="tabpanel" id="t-a" aria-labelledby="tab-a" hidden>
+    <div class="slot">신서연 님 내용이 들어갈 자리입니다.<br>
+      <span class="muted">왼쪽 「김주영」 탭과 같은 순서(1~6)로 채웁니다.</span></div>
+  </div>
+  <div class="panel" role="tabpanel" id="t-b" aria-labelledby="tab-b" hidden>
+    <div class="slot">최종우 님 내용이 들어갈 자리입니다.<br>
+      <span class="muted">왼쪽 「김주영」 탭과 같은 순서(1~6)로 채웁니다.</span></div>
+  </div>
+  <div class="panel" role="tabpanel" id="t-c" aria-labelledby="tab-c" hidden>
+    <div class="slot">정충원 님 내용이 들어갈 자리입니다.<br>
+      <span class="muted">게임이 아닌 산출물이라 §2 「어떻게 만들었나」의 항목은 달라질 수 있습니다.</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>5. 드릴 수 있는 것</h2>
+  <div class="card">
+    <ul style="margin:0">
+      <li><b>계측 도구</b> (MIT · 실행 즉시 재현) — 게이트웨이 프로브 · 대사 품질 평가 ·
+        <b>편향 분리 측정</b>(원인을 가르는 대조군 포함). 브라우저 없이 SAM 호출만으로 돕니다.
+        <b>20회 호출(≈90 SSAM)이면 편향 측정이 끝납니다.</b></li>
+      <li><b>재현 절차</b> — Cast Export 버그의 클릭 순서, <code>update()</code> 예외의 최소 재현 코드</li>
+      <li><b>함정 기록 문서</b> — 100건. <b>공식 문서로 흡수하셔도 좋습니다.</b> 기꺼이 넘기겠습니다.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  순순팩토리 기업연계 해커톤 · 팀 《순순히 따라와라》 · 2026-08<br>
+  이 문서의 수치는 전부 자체 계측이며, 상세 근거와 측정 방법은 저장소 문서에 그대로 있습니다.
+</footer>
+
+</div>
+
+<script>
+  // 탭 — 키보드로도 넘어가게(←/→). 접근성이 아니라 **발표 자리에서 손이 편하려고** 넣었다.
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  const show = i => {
+    tabs.forEach((t, k) => {
+      const on = k === i;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+    });
+    tabs[i].focus();
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => show(i));
+    t.addEventListener("keydown", e => {
+      if (e.key === "ArrowRight") show((i + 1) % tabs.length);
+      if (e.key === "ArrowLeft") show((i - 1 + tabs.length) % tabs.length);
+    });
+  });
+</script>
