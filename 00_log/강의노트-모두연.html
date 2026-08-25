@@ -4235,8 +4235,8 @@ save_run("with-history.txt", [
     var toc=document.querySelector('.toc');
     var pager=document.getElementById('pager');
     var groups=[].slice.call(document.querySelectorAll('.toc .tocgroup'));
-    var names={'adn1':'협업 툴 소개','adn2':'아이펠이란?','adn3':'퀘스트란?','adn4':'코딩 0줄로 여는 첫날','adn5':'Computational Thinking','m1n1':'작업대 마련하기','m1n2':'세 겹 & 게임','m1n3':'프레임워크','m1n4':'백엔드','m1n5':'데이터베이스','m1n6':'AI 에이전트 도구','m1n7':'메인 퀘스트','m2n1':'AI는 어떻게 배우나','m2n2':'트랜스포머 (AI는 어떻게 언어를 배웠나)','m2n3':'LLM과 로컬 실행','m2n4':'AI는 문서와 사진에서 무엇을 꺼낼까?','m2n5':'[프로젝트] 이미지 생성 어플리케이션 만들기','m2n6':'여러 입력을 처리하는 모델들 (멀티모달)','m2n7':'[프로젝트] 폰 영상으로 3D 공간 만들기'};
-    var order=['adn1','adn2','adn3','adn4','adn5','m1n1','m1n2','m1n3','m1n4','m1n5','m1n6','m1n7','m2n1','m2n2','m2n3','m2n4','m2n5','m2n6','m2n7'];
+    var names={'adn1':'협업 툴 소개','adn2':'아이펠이란?','adn3':'퀘스트란?','adn4':'코딩 0줄로 여는 첫날','adn5':'Computational Thinking','m1n1':'작업대 마련하기','m1n2':'세 겹 & 게임','m1n3':'프레임워크','m1n4':'백엔드','m1n5':'데이터베이스','m1n6':'AI 에이전트 도구','m1n7':'메인 퀘스트','m2n1':'AI는 어떻게 배우나','m2n2':'트랜스포머 (AI는 어떻게 언어를 배웠나)','m2n3':'LLM과 로컬 실행','m2n4':'AI는 문서와 사진에서 무엇을 꺼낼까?','m2n5':'[프로젝트] 이미지 생성 어플리케이션 만들기','m2n6':'여러 입력을 처리하는 모델들 (멀티모달)','m2n7':'[프로젝트] 폰 영상으로 3D 공간 만들기','m2n8':'AI가 새로 연 곳들','m2n9':'Main Quest — 도구 학습에서 적용 판단으로','m3n1':'거대 언어모델과 프롬프트'};
+    var order=['adn1','adn2','adn3','adn4','adn5','m1n1','m1n2','m1n3','m1n4','m1n5','m1n6','m1n7','m2n1','m2n2','m2n3','m2n4','m2n5','m2n6','m2n7','m2n8','m2n9','m3n1'];
     var current='m1n1';
     function nodeOf(id){if(!id)return null;var m=id.match(/^(adn\d+|m\dn\d+)(?:-\d+)?$/);return m?m[1]:null;}
     function paintToc(){
