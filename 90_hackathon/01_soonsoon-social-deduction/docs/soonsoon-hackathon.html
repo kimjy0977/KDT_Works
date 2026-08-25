@@ -230,9 +230,9 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <div class="byline">팀 순순히 따라와라 <span>·</span> 정충원 · 김주영 · 신서연 · 최종우 <span>·</span> 2026-08</div>
     <div class="strip">
       <div><b>4</b><small>각자 만든 것</small></div>
-      <div><b>28</b><small>막힌 곳 · 계측 기록</small></div>
-      <div><b>5</b><small>둘 이상이 겪은 항목</small></div>
-      <div><b>316</b><small>커밋 합계</small></div>
+      <div><b>32</b><small>막힌 곳 · 계측 기록</small></div>
+      <div><b>7</b><small>둘 이상이 겪은 항목</small></div>
+      <div><b>3</b><small>세 사람이 겪은 항목</small></div>
     </div>
   </div>
 </div>
@@ -269,9 +269,9 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <div class="card">
       <ol style="margin:0">
         <li><b>넷 다 돌아가는 것을 만들었습니다.</b> 설치 없이 브라우저에서 켜집니다. <b>같은 기획에서 출발해 셋이 다른 곳에 도착했고</b>, 한 사람은 도중에 규칙을 바꿔야 했습니다.</li>
-        <li><b>막힌 곳 28건 중 9건은 「문서 한 줄이면 안 막혔을 것」</b>이었고,
+        <li><b>막힌 곳 32건 중 9건은 「문서 한 줄이면 안 막혔을 것」</b>이었고,
           나머지 중에도 <code>Retry-After</code> 한 줄처럼 <b>아주 가벼운 것</b>이 섞여 있습니다.
-          <b>둘 이상이 각자 만난 것이 5건</b> — 그게 가장 확실한 신호입니다.</li>
+          <b>둘 이상이 각자 만난 것이 7건, 그중 3건은 세 사람</b> — 그게 가장 확실한 신호입니다.</li>
         <li><b>AI NPC 를 여럿 굴리면 표가 한 사람에게 몰립니다.</b> 그리고 그건 고칠 수 있습니다 —
           금지가 아니라 <b>잣대를 나눠 주는 방식</b>으로요.</li>
       </ol>
@@ -370,7 +370,16 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <td>“금지하지 말고 잣대를 나눠 주세요” — 제작자가 스스로 알아내기 어렵습니다</td><td class="n">05</td></tr>
     </table></div>
 
-    <h4>C · 다음 단계로 열어줄 것 — 자동화 인터페이스</h4>
+    <h4>C · 다음 단계로 열어줄 것</h4>
+    <div class="call">
+      <span class="lab">C0 · 가장 먼저 — 브라우저에서 SAM 을 부를 수 있게</span>
+      <b>지금은 정적 호스팅만으로 완결되는 프론트엔드 게임을 만들 수 없습니다.</b>
+      엔진은 브라우저에서 도는데 <b>그 짝인 대화 API 가 브라우저를 막아 둬서</b>,
+      팀마다 <b>별도 백엔드를 세워 중계</b>해야 했습니다.
+      엔진 로드도 같은 이유로 막혀 <b>65~107개 파일을 복제</b>했습니다.
+      <b>CORS 허용 한 줄이 이 둘을 같이 풉니다</b> — 최소한 자사 도메인과 <code>localhost</code> 만이라도.
+      <span class="muted">근거 §03 #31 · #17</span>
+    </div>
     <div class="scroll"><table>
       <tr><th style="width:70px">단계</th><th style="width:34%">요청</th><th style="width:130px">예상 부담</th><th>효과</th></tr>
       <tr><td class="n">1단계</td><td><b>주요 UI 에 <code>data-testid</code><br>+ 자동화용 인증 수단</b></td>
@@ -418,12 +427,12 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         부팅 시 로컬과 서버가 다르면 <b>서버를 읽지 않고 로컬을 새 리비전으로 얹습니다</b> —
         오래된 로컬을 가진 기기로 열면 낡은 데이터가 최신이 됩니다</span></td>
         <td><span class="stars">★★★★★</span><span class="sub muted">김주영 님 표기<br>정충원 님 실측이 뒷받침</span></td><td>“쓰기는 로컬 먼저” 한 줄 · 다중 기기 경고</td>
-        <td><div class="chips"><span class="chip on">정충원</span><span class="chip on">김주영</span></div></td></tr>
+        <td><div class="chips"><span class="chip on">정충원</span><span class="chip on">김주영</span><span class="chip on">최종우</span></div></td></tr>
       <tr class="dup"><td class="n">3</td><td><b>세션이 조용히 만료된다</b>
         <span class="sub">약 15분에 세션 쿠키 회전 1회, <b>약 30분에 서버가 세션 종료</b>(30초 간격 계측 로그).
         저장·생성이 <b>오류 없이</b> 실패합니다. 자동화는 30분마다 매직링크 재로그인이 필요합니다</span></td>
         <td><span class="stars">★★★★★</span><span class="sub muted">김주영 님 표기<br>정충원 님 실측이 뒷받침</span></td><td>만료 시 <b>명시적 오류</b> · 수명이 긴 토큰</td>
-        <td><div class="chips"><span class="chip on">정충원</span><span class="chip on">김주영</span></div></td></tr>
+        <td><div class="chips"><span class="chip on">정충원</span><span class="chip on">김주영</span><span class="chip on">최종우</span></div></td></tr>
       <tr><td class="n">4</td><td><b>계정당 세션 1개</b>
         <span class="sub">다른 브라우저에서 로그인하면 기존 세션이 즉시 무효화됩니다.
         사람 확인용 브라우저와 자동화가 공존하기 어렵습니다</span></td>
@@ -479,6 +488,23 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <td><b>표기 없음</b><span class="sub muted">신서연 님 표기<br>답변 문서라 등급 없음</span></td>
         <td>기본값이 무엇인지 · <b>바꾸는 법을 문서에</b></td>
         <td><div class="chips"><span class="chip on">신서연</span></div></td></tr>
+      <tr><td class="n">29</td><td><b>Cast Editor export PNG 에 편집용 파란 격자가 구워져 나온다</b>
+        <span class="sub">프레임 경계 안내선이 <b>실제 <code>alpha&gt;0</code> 픽셀</b>
+        (<code>rgba(93,158,255,~0.55)</code>)로 최종 시트에 합성됩니다.
+        에디터 프리뷰에서만 보여야 할 가이드라 <b>그대로 렌더하면 캐릭터마다 얇은 반투명 파란 테두리</b>가 겹칩니다.
+        시트 8개를 전부 후처리로 지웠고, <b>새 시트를 받을 때마다 반복</b>해야 합니다</span></td>
+        <td><span class="stars">★★★☆☆</span><span class="sub muted">최종우 님 표기<br>원본 재현은 못 함</span></td>
+        <td><b>「격자 없이 export」 옵션</b> · 또는 프리뷰에서만 격자 렌더</td>
+        <td><div class="chips"><span class="chip on">최종우</span></div></td></tr>
+      <tr class="dup"><td class="n">30</td><td><b>에셋을 프로그래밍으로 내려받을 경로가 없다</b>
+        <span class="sub">export UI 버튼은 있지만 <b>인증 토큰으로 내려받는 API·CLI 가 없습니다.</b>
+        그래서 양쪽 다 <b>Studio 화면을 자동 조작해 에셋을 긁어냈고</b>,
+        세션 만료(#3)와 겹쳐 <b>취약하고 반복 소모적인 파이프라인</b>이 됐습니다.
+        맵도 정식 export 가 없어 <b>오버레이를 끄고 화면을 캡처</b>해 썼습니다 —
+        해상도·정렬이 에디터 뷰 상태에 종속돼 재현성이 낮습니다</span></td>
+        <td><span class="stars">★★★★☆</span></td>
+        <td><b>REST export API 또는 CLI</b> · 맵은 <b>좌표계·타일크기 메타와 함께</b></td>
+        <td><div class="chips"><span class="chip on">정충원</span><span class="chip on">최종우</span></div></td></tr>
     </table></div>
 
     <h4>B · 생성과 과금</h4>
@@ -501,7 +527,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <span class="sub">200 응답만 <code>usage.scredits</code> 를 줍니다. 클라이언트가 확인할 잔액 조회 경로도 없습니다.
         <b>#9 로 미루어 실패해도 과금되는 것으로 보입니다</b></span></td>
         <td><span class="stars">★★★★☆</span><span class="sub muted">김주영 님 표기<br>정충원 님 실측이 뒷받침</span></td><td><code>usage: { charged: false }</code> 정도면 충분</td>
-        <td><div class="chips"><span class="chip on">정충원</span><span class="chip on">김주영</span></div></td></tr>
+        <td><div class="chips"><span class="chip on">정충원</span><span class="chip on">김주영</span><span class="chip on">최종우</span></div></td></tr>
       <tr><td class="n">12</td><td><b>비용이 입력 길이에 크게 좌우된다</b>
         <span class="sub">같은 모델 기준 — 짧은 프롬프트 <b>2.13</b> / 실제 게임 프롬프트(2,919자) <b>4.67 SSAM</b>.
         대화형 게임은 대화록이 길어질수록 <b>비용이 가속</b>됩니다</span></td>
@@ -528,6 +554,28 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <td><b>표기 없음</b><span class="sub muted">신서연 님 표기<br>답변 문서라 등급 없음</span></td>
         <td>지원 등급 표 · 또는 <b>실패 시 이유를 알려줄 것</b></td>
         <td><div class="chips"><span class="chip on">신서연</span></div></td></tr>
+      <tr><td class="n">31</td><td><b><mark>브라우저에서 SAM 직접 호출이 CORS 로 전면 차단된다</mark></b>
+        <span class="sub">브라우저에서 <code>/v1/generate</code> 를 직접 부르면 preflight 가 거부됩니다.
+        <code>curl -X OPTIONS</code> 로 확인해 보니 <code>localhost</code> 뿐 아니라
+        <b>플랫폼 자체 도메인인 <code>spum.soonsoon.ai</code> origin 까지 거부</b>됐습니다.
+        화면엔 <b>“(오류: 응답 실패)”만</b> 떠서 원인을 알 수 없습니다.
+        <b>엔진은 브라우저에서 도는데 그 짝인 대화 API 가 브라우저를 막아 둔 것</b>이라,
+        <b>정적 호스팅만으로 완결되는 프론트엔드 게임을 만들 수 없습니다</b> —
+        별도 백엔드를 세워 서버-서버로 중계해야 합니다</span></td>
+        <td><span class="stars">★★★★☆</span><span class="sub muted">최종우 님 표기</span></td>
+        <td><b>브라우저發 CORS 허용</b>(최소 자사 도메인·localhost) ·
+          또는 origin 등록형 공개 키 · <b>공식 프록시</b></td>
+        <td><div class="chips"><span class="chip on">최종우</span></div></td></tr>
+      <tr><td class="n">32</td><td><b>응답 포맷이 매 호출 제각각 — 구조화 출력이 없다</b>
+        <span class="sub">행동 묘사를 겹별표 · 홑별표로 섞거나 대사 전체를 따옴표로 감싸는 등
+        형식이 확정적이지 않습니다. 그래서 <b>클라이언트마다 정규식 파서를 만들어 계속 패치</b>하게 됩니다 —
+        방어하는 케이스가 최소 4종(겹별표 · 홑별표 · 전체강조 · 감싼 따옴표)이었습니다.
+        <b>대사 길이도 지시로는 안 지켜집니다</b> — <code>max_tokens</code> 는 있지만
+        <b>토큰이 한글 글자 수와 달라</b> 응답 후 한 번 더 잘라야 했습니다</span></td>
+        <td><span class="stars">★★★★☆</span><span class="sub muted">최종우 님 표기</span></td>
+        <td><b><code>{speech, action}</code> 강제하는 <code>response_format</code></b> ·
+          또는 최소한 plain-text 모드</td>
+        <td><div class="chips"><span class="chip on">최종우</span><span class="chip on">김주영</span></div></td></tr>
     </table></div>
 
     <h4>C · 엔진과 배포</h4>
@@ -539,11 +587,14 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <b>그 배열을 읽는 코드가 패키지 전체에 없습니다</b> — 수집한 오류를 그대로 버립니다</span></td>
         <td><span class="stars">★★★★★</span></td><td>개발 모드 콘솔 출력 한 줄 <span class="muted">(코드)</span></td>
         <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
-      <tr><td class="n">17</td><td><b>패키지 배포 경로가 없다</b>
-        <span class="sub">npm 등에 없어 엔진·월드 <b>107개 파일을 재귀 미러링</b>하는 스크립트를 자작했습니다.
-        버전 고정·재현 가능한 빌드가 안 되고, 팀마다 각자 미러링 도구를 만들게 됩니다</span></td>
-        <td><span class="stars">★★★★★</span></td><td>npm 또는 <b>오프라인 zip</b></td>
-        <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
+      <tr class="dup"><td class="n">17</td><td><b>패키지 배포 경로가 없어 엔진을 통째로 복제해야 한다</b>
+        <span class="sub">한쪽은 엔진·월드 <b>107개 파일을 재귀 미러링</b>, 한쪽은 <b>엔진 65개 파일을 저장소에 벤더링</b>했습니다.
+        <mark>원인이 갈렸습니다 — 단순히 npm 에 없어서가 아니라 <b>CORS 로 원격 로드가 막히기 때문</b></mark>입니다.
+        <code>&lt;script src&gt;</code> 한 줄로 못 쓰고 <b>매번 복제해야 하는 채택 장벽</b>입니다.
+        버전 고정·재현 가능한 빌드도 안 됩니다</span></td>
+        <td><span class="stars">★★★★★</span></td>
+        <td><code>Access-Control-Allow-Origin</code> 붙은 <b>공식 CDN</b> 또는 버전 태그 npm</td>
+        <td><div class="chips"><span class="chip on">김주영</span><span class="chip on">최종우</span></div></td></tr>
       <tr><td class="n">18</td><td><b>Cast Editor 로 뽑은 시트를 엔진에 다시 넣는 경로가 없다</b>
         <span class="sub"><code>Animator</code> 는 스켈레톤 파츠용이라 프레임 시트를 못 돌리고,
         <code>SpriteRenderer</code> 는 <code>drawImage</code> 에 source rect 인자가 없어
@@ -592,13 +643,13 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
 
     <div class="call">
       <span class="lab">세어 보면</span>
-      문서 한 줄이면 안 막혔을 것 <b>9</b> · 코드·제품이 움직여야 하는 것 <b>18</b> · 인프라 <b>1</b>.
+      문서 한 줄이면 안 막혔을 것 <b>9</b> · 코드·제품이 움직여야 하는 것 <b>22</b> · 인프라 <b>1</b>.
       <b>Studio 를 처음 익히는 단계에서 막힌 것은 대부분 「몰라서」</b>였고,
       게이트웨이·엔진 쪽은 코드가 움직여야 합니다.
-      다만 그 열여덟 중에도 <b><code>Retry-After</code> 한 줄</b>처럼 아주 가벼운 것이 섞여 있고,
+      다만 그 스물둘 중에도 <b><code>Retry-After</code> 한 줄</b>처럼 아주 가벼운 것이 섞여 있고,
       <b>#22 규약 불일치처럼 사용자가 알아낼 방법이 아예 없는 것</b>도 있습니다.
-      <span class="muted">※ 앞선 판에서는 이 비율을 「절반」이라 적었는데, 항목이 18 → 28 로 늘면서
-      다시 세니 9/28 이었습니다. 고쳐 적습니다.</span>
+      <span class="muted">※ 앞선 판에서는 이 비율을 「절반」이라 적었는데, 항목이 18 → 32 로 늘면서
+      다시 세니 9/32 였습니다. 넷의 기록을 다 합칠 때마다 다시 셌습니다.</span>
     </div>
   </section>
 
@@ -735,7 +786,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <li>과제정의서를 보고 넷이 <b>「마피아 게임류를 만들자」</b> 로 모였습니다.</li>
         <li>다만 그대로 가면 뻔해서, <b>한 번 꼬아 「케이크 도난 사건」 컨셉</b>을 얹었습니다 —
           밤에 사라지는 것이 사람이 아니라 <b>케이크</b>인 마피아.</li>
-        <li><b>신서연 · 최종우</b> 는 그 컨셉을 <b>그대로 완주</b>했습니다.</li>
+        <li><b>신서연 · 최종우</b> 는 그 컨셉을 <b>그대로 완주</b>했습니다 — 다만 <b>둘의 결과물은 서로 다릅니다.</b> 하나는 심문·증언판, 하나는 탐색·증거 수집으로 갔습니다.</li>
         <li><b>김주영</b> 은 컨셉대로 만들다가 <b>구현 난이도에 막혀 일반 마피아 규칙으로 되돌렸습니다.</b></li>
         <li><b>정충원</b> 은 게임이 아니라 <b>그 게임들을 만드는 도구</b> 쪽으로 갔습니다.</li>
       </ol>
@@ -773,11 +824,12 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
           사실은 코드가 정하고 SAM 은 말만 옮깁니다.</div>
         <div class="mt">커밋 80 · 런타임 의존성 0</div>
       </div>
-      <div class="person wait">
+      <div class="person">
         <div class="nm">최종우</div>
-        <div class="ti muted">받는 중</div>
-        <div class="ds muted">내용이 들어오면 이 자리에 채웁니다.</div>
-        <div class="mt">—</div>
+        <div class="ti">치즈케이크 도난 사건</div>
+        <div class="ds">성 안을 WASD 로 돌아다니며 증거 4개를 조사하고 NPC 3명에게 물어
+          단서 10개를 모으면 체포 엔딩. 대사는 SAM 이 실시간 생성합니다.</div>
+        <div class="mt">3,216줄 · npm 의존성 0</div>
       </div>
     </div>
   </section>
@@ -792,47 +844,47 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <td><b>도구</b> <span class="muted">(제작 자동화)</span></td>
         <td>게임 <span class="muted">(추리·마피아)</span></td>
         <td>게임 <span class="muted">(추리·심문)</span></td>
-        <td class="muted">—</td></tr>
+        <td>게임 <span class="muted">(추리·수색)</span></td></tr>
       <tr><td>SPUM 을 어디에</td>
         <td><b>스튜디오에 자동 주입</b> — 씬 맵 6개</td>
         <td>맵·캐릭터 제작 <b>+ 엔진을 직접 구동</b></td>
         <td><b>웹엔진으로 렌더</b> — 캐릭터·맵·애니메이션</td>
-        <td class="muted">—</td></tr>
+        <td>엔진 직접 구동 <b>+ 길찾기까지</b></td></tr>
       <tr><td>SAM 을 어떻게</td>
         <td>조감도 <b>이미지 생성</b></td>
         <td>서버에서 <b>직접 호출</b> <span class="muted">(내장 AI 포기)</span></td>
         <td><b>말하는 층으로만</b> — 사실은 못 바꿈</td>
-        <td class="muted">—</td></tr>
+        <td><b>서버 프록시 경유</b> <span class="muted">(CORS 때문)</span></td></tr>
       <tr><td>사실을 누가 정하나</td>
         <td class="muted">해당 없음</td>
         <td><b>서버가 고정</b> · 각자에겐 자기 기억만</td>
         <td><b>코드가 정하고 코드가 검사</b></td>
-        <td class="muted">—</td></tr>
+        <td><b>단서 10개 하드코딩</b> · 지급도 코드가</td></tr>
       <tr><td>막힌 지점의 성격</td>
         <td>세션·UI·과금 <span class="muted">(밖에서 몰다 막힘)</span></td>
         <td>엔진·게이트웨이 <span class="muted">(안에서 쓰다 막힘)</span></td>
         <td><b>제품 내부 규약 모순</b> <span class="muted">(붙이다 막힘)</span></td>
-        <td class="muted">—</td></tr>
+        <td><b>CORS · export 경로</b> <span class="muted">(내보내다 막힘)</span></td></tr>
       <tr><td>검증을 어떻게</td>
         <td>주입 후 <b>검증 스크린샷</b></td>
         <td>회귀 검사 109 · <b>★ 5단계</b></td>
         <td>등급 4단계 · <b>재분류 이력 공개</b></td>
-        <td class="muted">—</td></tr>
+        <td>★ 5단계 · <b>유형 표기</b></td></tr>
       <tr><td>시간이 어디로</td>
         <td class="muted">—</td>
         <td>내장 AI 검증 후 <b>대화 전면 재작성</b></td>
         <td><b>Studio 익히는 데 90%</b></td>
-        <td class="muted">—</td></tr>
+        <td><b>CORS 우회에 프록시 서버</b></td></tr>
       <tr><td>공개 여부</td>
         <td><b><code>spum-kit</code> MIT 공개</b></td>
         <td>계측 도구 MIT</td>
         <td>저장소 <code>who-ate-my-cheesecake</code></td>
-        <td class="muted">—</td></tr>
+        <td>저장소 <code>spum-cheesecake-demo</code></td></tr>
       <tr><td>규모</td>
         <td class="n">씬 맵 6개 · 3단계 제안</td>
         <td class="n">커밋 236 · 10,709줄</td>
         <td class="n">커밋 80 · 의존성 0</td>
-        <td class="muted">—</td></tr>
+        <td class="n">3,216줄 · npm 0</td></tr>
     </table></div>
 
     <div class="call cy">
@@ -848,34 +900,57 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
   <section>
     <div class="shead"><em>04</em><h2>둘 이상이 겪은 것</h2></div>
     <p class="sdesc">서로 상의하지 않고 각자 만난 것들입니다.
-      <b>한 사람의 착각일 가능성이 그만큼 낮습니다.</b></p>
+      <b>한 사람의 착각일 가능성이 그만큼 낮습니다.</b> 아래 <b>일곱 건 중 셋은 세 사람이</b> 각자 만났습니다.</p>
     <div class="scroll"><table class="cmp">
-      <tr><th style="width:30%">막힌 것</th><th style="width:78px">정충원</th><th style="width:78px">김주영</th>
-          <th style="width:78px">신서연</th><th>합치니 보인 것</th></tr>
+      <tr><th style="width:24%">막힌 것</th><th style="width:64px">정충원</th><th style="width:64px">김주영</th>
+          <th style="width:64px">신서연</th><th style="width:64px">최종우</th><th>합치니 보인 것</th></tr>
       <tr class="dup"><td>동기화가 서버를 안 읽고 <b>로컬을 얹는다</b>
           <span class="sub muted">통합 §03 #2</span></td>
-        <td><span class="dot"></span></td><td><span class="dot"></span></td><td><span class="dot no"></span></td>
-        <td>한쪽은 <b>작업을 두 번 날렸고</b>, 한쪽은 <b>다중 기기에서 낡은 데이터가 최신이 되는 것</b>을 봤습니다.
-          같은 원인의 서로 다른 얼굴입니다</td></tr>
+        <td><span class="dot"></span></td><td><span class="dot"></span></td>
+        <td><span class="dot no"></span></td><td><span class="dot"></span></td>
+        <td><b>같은 원인의 세 얼굴입니다.</b> 하나는 <b>작업을 두 번 날렸고</b>,
+          하나는 <b>다중 기기에서 낡은 데이터가 최신이 되는 것</b>을 봤고,
+          하나는 <b>콘솔 전용 내부 API 로만 서버 최신본을 받아올 수 있다</b>는 데까지 갔습니다</td></tr>
       <tr class="dup"><td><b>세션이 조용히 만료된다</b>
           <span class="sub muted">통합 §03 #3</span></td>
-        <td><span class="dot"></span></td><td><span class="dot"></span></td><td><span class="dot no"></span></td>
-        <td>한쪽은 「30분쯤」으로 알았고, 한쪽이 <b>30초 간격 계측</b>으로
-          <b>15분 쿠키 회전 · 30분 종료</b>를 확정했습니다</td></tr>
+        <td><span class="dot"></span></td><td><span class="dot"></span></td>
+        <td><span class="dot no"></span></td><td><span class="dot"></span></td>
+        <td>하나는 「30분쯤」으로 알았고, 하나가 <b>30초 간격 계측</b>으로
+          <b>15분 쿠키 회전 · 30분 종료</b>를 확정했습니다.
+          하나는 <b><code>/api/me</code> 60초 폴링 keep-alive 를 페이지에 직접 주입</b>했고
+          <b>페이지를 옮길 때마다 다시 심어야</b> 했습니다</td></tr>
       <tr class="dup"><td><b>실패해도 과금되는가</b>를 알 수 없다
           <span class="sub muted">통합 §03 #9·#11</span></td>
-        <td><span class="dot"></span></td><td><span class="dot"></span></td><td><span class="dot no"></span></td>
-        <td><b>이게 가장 값진 합침입니다.</b> 한쪽은 “실패 응답에 <code>usage</code> 가 없다”까지만 알았는데,
-          한쪽이 <b>504 두 번에 크레딧 249 소모</b>를 실측해 <b>답을 줬습니다</b></td></tr>
+        <td><span class="dot"></span></td><td><span class="dot"></span></td>
+        <td><span class="dot no"></span></td><td><span class="dot"></span></td>
+        <td><b>이게 가장 값진 합침입니다.</b> 하나는 “실패 응답에 <code>usage</code> 가 없다”까지만 알았는데,
+          하나가 <b>504 두 번에 크레딧 249 소모</b>를 실측해 <b>답을 줬습니다</b>.
+          하나는 <b>토큰 사용량 필드가 없어 비용을 예측할 수 없다</b>는 쪽에서 같은 벽을 만났습니다</td></tr>
+      <tr class="dup"><td><b>엔진을 통째로 복제해야 한다</b>
+          <span class="sub muted">통합 §03 #17</span></td>
+        <td><span class="dot no"></span></td><td><span class="dot"></span></td>
+        <td><span class="dot no"></span></td><td><span class="dot"></span></td>
+        <td><b>원인이 여기서 갈렸습니다.</b> 하나는 「npm 에 없어서」로 알고 <b>107개 파일을 미러링</b>했는데,
+          하나가 <b>진짜 이유가 CORS</b> 라는 것을 짚었습니다 —
+          <code>&lt;script src&gt;</code> 로는 원격 로드 자체가 막힙니다</td></tr>
+      <tr class="dup"><td><b>에셋을 코드로 내려받을 길이 없다</b>
+          <span class="sub muted">통합 §03 #30</span></td>
+        <td><span class="dot"></span></td><td><span class="dot no"></span></td>
+        <td><span class="dot no"></span></td><td><span class="dot"></span></td>
+        <td><b>둘 다 Studio 화면을 자동 조작해 긁어냈습니다.</b>
+          그래서 <b>둘 다 UI 개편과 세션 만료에 같이 걸렸습니다</b> —
+          export API 하나면 두 사람의 파이프라인이 같이 안정됐을 항목입니다</td></tr>
       <tr class="dup"><td><b>캐스트를 코드로 주입하면 깨진다</b>
           <span class="sub muted">통합 §03 #19</span></td>
-        <td><span class="dot no"></span></td><td><span class="dot"></span></td><td><span class="dot"></span></td>
-        <td>한쪽은 <b>캐릭터 저장소가 통째로 깨져</b> 원본 5종까지 사라졌고, 한쪽은 <b>배치가 전부 지워졌습니다.</b>
+        <td><span class="dot no"></span></td><td><span class="dot"></span></td>
+        <td><span class="dot"></span></td><td><span class="dot no"></span></td>
+        <td>하나는 <b>캐릭터 저장소가 통째로 깨져</b> 원본 5종까지 사라졌고, 하나는 <b>배치가 전부 지워졌습니다.</b>
           둘 다 각자 <b>“캐스트만은 코드로 하지 말라”</b> 를 자기 규칙으로 적어 뒀습니다</td></tr>
       <tr class="dup"><td><b>1024 정사각형이 강제된다</b>
           <span class="sub muted">통합 §03 #21</span></td>
-        <td><span class="dot no"></span></td><td><span class="dot"></span></td><td><span class="dot"></span></td>
-        <td>한쪽은 <b>참조 이미지를 주면 비율 무관하게 찌그러지는 것</b>을, 한쪽은
+        <td><span class="dot no"></span></td><td><span class="dot"></span></td>
+        <td><span class="dot"></span></td><td><span class="dot no"></span></td>
+        <td>하나는 <b>참조 이미지를 주면 비율 무관하게 찌그러지는 것</b>을, 하나는
           <b>품질을 올려도 1024 가 상한인 것</b>을 봤습니다. <b>같은 벽의 두 얼굴</b>입니다</td></tr>
     </table></div>
     <div class="call">
@@ -890,16 +965,18 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
   <section>
     <div class="shead"><em>05</em><h2>독립적으로 같은 결론에 갔습니다</h2></div>
     <div class="call cy">
-      <span class="lab">상의하지 않았습니다</span>
+      <span class="lab">셋이 상의하지 않았습니다</span>
       <p style="margin:0 0 10px"><b>김주영</b> — “정답(범인·기억)을 <b>서버에 고정</b>하고
         각 캐릭터에게 <b>자기 기억만</b> 준다.”</p>
       <p style="margin:0 0 10px"><b>신서연</b> — “사실 관계는 전부 <b>코드가 정하고 코드가 검사한다.</b>
         SAM 은 이 중 하나도 마음대로 못 바꾼다. SAM 이 하는 일은 그렇게 이미 정해진 사실을,
         그 캐릭터답게 지금 대화 흐름에 맞는 말로 옮기는 것뿐이다.”</p>
-      <p style="margin:0"><b>둘 다 LLM 을 「말하는 층」으로만 두고, 사실은 코드가 쥐었습니다.</b></p>
+      <p style="margin:0 0 10px"><b>최종우</b> — “단서 10개를 하드코딩하고 지급은 <b>코드가 결정적으로 관리</b>.
+        LLM 은 대사 표현만 담당. <b>AI 가 사건 상태를 흔들지 않아 데모가 재현 가능</b>했다.”</p>
+      <p style="margin:0"><b>셋 다 LLM 을 「말하는 층」으로만 두고, 사실은 코드가 쥐었습니다.</b></p>
     </div>
-    <p>둘 다 처음부터 그랬던 게 아닙니다. <b>내장 AI 에 사실 판단을 맡겨 보고 실패한 뒤</b>
-      같은 자리로 돌아왔습니다.</p>
+    <p>처음부터 그랬던 게 아닙니다. <b>내장 AI 나 LLM 에 판단을 맡겨 보고 실패한 뒤</b> 같은 자리로 돌아왔습니다.
+      셋의 표현은 다르지만 <b>“무엇을 LLM 에게 주지 말아야 하는가”에 대한 답이 같습니다.</b></p>
 
     <h3>같은 일이 한 번 더 있었습니다 — 검증 등급</h3>
     <div class="call pl">
@@ -921,7 +998,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <div class="call">
       <span class="lab">이게 회사에 뜻하는 것</span>
       <b>추리·수사처럼 사실이 고정돼야 하는 장르에서는 이 구조가 정석</b>일 가능성이 큽니다.
-      두 팀이 각자 부딪혀 같은 답을 찾았다면, <b>세 번째 팀도 같은 시간을 쓸 것</b>입니다.
+      <b>세 팀이 각자 부딪혀 같은 답을 찾았습니다</b> — 네 번째 팀도 같은 시간을 쓸 것입니다.
       <b>「LLM 에 무엇을 맡기고 무엇을 맡기지 말 것인가」 한 페이지</b>가
       요청 B1(내장 AI 능력 경계)과 함께 가면 좋겠다고 보는 이유입니다.
     </div>
@@ -1493,8 +1570,189 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
 
 <!-- ══════════════ 최종우 ══════════════ -->
 <div class="panel" role="tabpanel" id="p-jw" aria-labelledby="t-jw" hidden>
-  <p class="intro"><b>최종우</b> — 내용을 받는 중입니다.</p>
-  <div class="slot">최종우 님 내용이 들어갈 자리입니다.</div>
+  <p class="intro"><b>최종우</b> — 「치즈케이크 도난 사건」 2D 탑다운 미니 추리 게임.</p>
+
+  <div class="call cy">
+    <span class="lab">결론 먼저</span>
+    실제 SPUM 에셋 · 엔진 · SAM 을 하나로 엮은 브라우저 추리게임이
+    <b>정적 서빙 · 엔진 로드 · SAM 프록시 도달까지 재현 확인</b>됐습니다.
+    가장 크게 막혔던 것은 <b>브라우저에서 SAM 을 직접 못 부르는 CORS 차단</b>이었고
+    별도 프록시 서버를 세워 우회했습니다 — <b>근본 해결은 아닙니다.</b>
+    Studio 세션 만료·에셋 export 의 몇몇 문제는
+    <b>끝까지 근본적으로는 못 풀고 우회로만 버텼습니다.</b>
+  </div>
+
+  <h3>한 줄 정보</h3>
+  <div class="scroll"><table>
+    <tr><th style="width:130px">항목</th><th>내용</th><th style="width:96px">신뢰도</th></tr>
+    <tr><td>저장소</td><td><code>github.com/cjwmanelf/spum-cheesecake-demo</code> <span class="muted">(공개)</span></td>
+      <td><span class="stars">★★★★★</span></td></tr>
+    <tr><td>실행 방법</td><td><code>bash serve.sh</code> → <code>localhost:8791/index.html</code>
+      <span class="muted">(내부적으로 <code>python server.py 8791</code>)</span></td>
+      <td><span class="stars">★★★★★</span></td></tr>
+    <tr><td>소스 줄 수</td><td class="n">3,216줄 — app.js 2,240 / index.html 719 / dashboard.html 179 /
+      server.py 63 / serve.sh 15</td><td><span class="stars">★★★★★</span></td></tr>
+    <tr><td>런타임 의존성</td><td><b>npm 0개</b>(<code>package.json</code> 없음).
+      외부 의존은 SAM API 1개와 <b>벤더링한 엔진 65개 파일</b></td><td><span class="stars">★★★★★</span></td></tr>
+    <tr><td>작업 기간</td><td>git 상 2026-08-19 ~ 08-20.
+      <b>다만 백업하며 기존 레포를 지우고 새로 만들어 이력이 남지 않았습니다</b> —
+      커밋 수도 확인 불가</td><td><span class="stars dim">★☆☆☆☆</span></td></tr>
+  </table></div>
+  <div class="call">
+    <span class="lab">스모크테스트 (직접 돌려 확인)</span>
+    포트 8799 로 띄워 <code>index.html</code> · <code>app.js?v=77</code> · <code>spum-engine/index.js</code>
+    <b>모두 HTTP 200</b>. 프록시에 더미 키로 요청하니 SAM 이
+    <code>{"detail":"invalid_access_token"}</code>(401) 을 돌려줬습니다 —
+    <b>프록시가 SAM 에 실제로 도달한다는 뜻</b>입니다.
+  </div>
+
+  <h3>무엇을 만들었나</h3>
+  <p>2D 탑다운 시점의 <b>미니 추리 게임</b>입니다. 플레이어(순순)를 WASD 로 조작해 성 안을 돌아다니며
+    ① 증거물 오브젝트 <b>4개</b>를 <code>E</code> 로 조사하고
+    ② 다른 캐릭터에게 질문을 걸어 <b>단서 10개</b>를 모으면,
+    필요 개수를 채우는 순간 <b>자동 체포 엔딩 연출</b>이 재생됩니다.</p>
+  <ul>
+    <li><b>핵심 조작</b> — WASD 이동 / <code>E</code> 증거 조사 / <code>Enter</code> 채팅 / 클릭으로 캐릭터 정보 카드</li>
+    <li><b>범인은 토리로 고정</b>이고, NPC 3명(토리 · 강이 · 처니)의 대사를
+      <b>SAM 이 페르소나 기반으로 실시간 생성</b>합니다</li>
+    <li><b>겨냥한 것</b> — “SPUM Studio 실제 에셋 + spum-engine + SAM 대화”가
+      <b>한 화면에서 실제로 돌아가는 완결형 데모</b></li>
+  </ul>
+  <div class="call">
+    <span class="lab">지금 어디까지 도나 — 있는 그대로</span>
+    정적 서빙 · 엔진 로드 · 프록시 도달은 <b>재현 확인</b>(★★★★★).
+    다만 <b>유효 키로 실제 대화가 나오는 라이브 플레이는 확인하지 못했습니다</b>(키 미보유) —
+    코드 경로와 폴백은 소스로만 확인(★★★☆☆).
+    <b>키가 없으면 대화는 캐릭터별 로컬 폴백 대사로 떨어집니다.</b>
+  </div>
+
+  <h3>어떻게 만들었나</h3>
+  <p><b>SPUM 을 쓴 곳</b> — <code>import</code> 구문으로 확인(★★★★★)</p>
+  <ul>
+    <li><b>엔진 구동</b> — <code>Scene · Camera · Renderer · Component · NavAgent ·
+      PathfindingManager · BubbleRenderer</code> 를 실제로 import.
+      <b>길찾기 그리드에 실제 맵 충돌 데이터를 넣어 구동</b>합니다</li>
+    <li><b>맵</b> — Map Editor 에서 <b>NAV 오버레이를 끄고 캡처한</b>
+      <code>map-castle.png</code>(840×720)를 배경으로</li>
+    <li><b>캐릭터</b> — Cast Editor <code>PNG+JSON</code> export 스프라이트 시트를 재생</li>
+    <li><b>스튜디오 자동화</b> — Playwright 로 Studio 를 조작해 에셋 추출
+      <span class="muted">(문서 기재 · 스크립트가 저장소에 없어 코드로는 확인 못 함 ★★☆☆☆)</span></li>
+  </ul>
+  <p><b>SAM 을 부른 방식</b> — 내장 AI 가 아니라 <b>HTTP 직접 호출</b>.
+    단 브라우저에서 직접 부르지 않고 <b>로컬 서버(<code>server.py</code>)의 프록시
+    <code>/api/sam-generate</code> 를 경유</b>합니다. 모델은 <code>claude-haiku</code>.
+    호출 지점은 셋 — 플레이어↔NPC 대화 · 혼잣말 · NPC끼리 대화.
+    <b>왜 프록시인가 — 브라우저 직접 호출이 CORS 로 막혀서입니다.</b></p>
+
+  <h3>어디서 막혔나</h3>
+  <p class="sdesc">본인이 <b>유형 ①~⑤</b>를 항목마다 붙였습니다 —
+    ① 오류 없이 조용히 실패 ② 문서에 없어 소스로 알아냄 ③ 이름과 동작이 다름
+    ④ 두 규약이 어긋남 ⑤ 돈이 샘.</p>
+  <div class="scroll"><table>
+    <tr><th style="width:46px">#</th><th>막힌 것</th><th style="width:66px">유형</th><th style="width:96px">신뢰도</th></tr>
+    <tr><td class="n">3-1</td><td><b>브라우저에서 SAM 직접 호출이 CORS 로 전면 차단</b>
+      <span class="sub">원래 화면엔 <b>“(오류: 응답 실패)”만</b> 떴습니다 — 조용한 실패.
+      <code>localhost</code> 뿐 아니라 <b><code>spum.soonsoon.ai</code> 자체 origin 까지 거부</b>됩니다.
+      <b>브라우저 엔진과 그 짝인 대화 API 의 접근 규약이 서로 어긋나 있습니다</b></span></td>
+      <td class="n">④·①</td><td><span class="stars">★★★★☆</span></td></tr>
+    <tr><td class="n">3-2</td><td><b>엔진에 CORS 허용 배포가 없어 통째로 벤더링</b>
+      <span class="sub">원격에서 직접 로드가 안 돼 <b>엔진 파일 65개를 저장소에 복제</b>했습니다</span></td>
+      <td class="n">④</td><td><span class="stars">★★★★☆</span></td></tr>
+    <tr><td class="n">3-3</td><td><b>SAM 응답 포맷이 매 호출 제각각</b>
+      <span class="sub">말풍선에 <code>**</code> · <code>*</code> · <code>"…"</code> 가 그대로 노출.
+      <b>우회 코드의 존재 자체가 증거</b>입니다 — 겹별표·홑별표를 둘 다 잡는 파서와
+      <b>따옴표 6종</b>을 처리하는 함수가 방어적으로 들어가 있습니다</span></td>
+      <td class="n">①·③</td><td><span class="stars">★★★★☆</span></td></tr>
+    <tr><td class="n">3-4</td><td><b>대사 길이를 글자 수로 보장 못 함</b>
+      <span class="sub">“공백 포함 46자 이내” 지시를 모델이 자주 어깁니다.
+      <code>max_tokens</code> 는 있지만 <b>토큰 ≠ 한글 글자 수</b>라 글자 기준 제한이 안 됩니다.
+      <b>응답 후 한 번 더 강제 절단하는 이중 안전장치</b>가 있는 것이 곧 증거입니다</span></td>
+      <td class="n">③</td><td><span class="stars">★★★★☆</span></td></tr>
+    <tr><td class="n">3-5</td><td><b>Studio(32px) 와 게임 맵(24px) 좌표계 불일치</b>
+      <span class="sub">export 에 좌표계 정보가 안 붙어 Props 를 <b>손으로 환산</b>했습니다</span></td>
+      <td class="n">④</td><td><span class="stars">★★★★☆</span></td></tr>
+    <tr><td class="n">3-6</td><td><b>상태별 시트의 크기·zoom 메타가 실제 아트와 불일치</b>
+      <span class="sub">점프(HAPPY)·엔딩(SORRY) 전환 시 <b>캐릭터가 눈에 띄게 작아 보입니다.</b>
+      프레임 크기·zoom 메타는 같은데 <b>안에 그려진 실제 아트 크기가 상태마다 다릅니다</b></span></td>
+      <td class="n">③</td><td><span class="stars">★★★☆☆</span></td></tr>
+    <tr><td class="n">3-7</td><td><b>Cast Editor export PNG 에 편집용 파란 격자가 구워져 나옴</b>
+      <span class="sub">프레임 경계 안내선이 <b>실제 <code>alpha&gt;0</code> 픽셀</b>
+      (<code>rgba(93,158,255,~0.55)</code>)로 최종 PNG 에 합성됩니다.
+      캐릭터 주변에 얇은 반투명 파란 테두리가 겹쳐 보여 <b>시트 8개를 전부 후처리</b>했습니다</span></td>
+      <td class="n">③</td><td><span class="stars">★★★☆☆</span></td></tr>
+    <tr><td class="n">3-8</td><td><b>Studio 세션 30분 만료 · 자동화용 인증 부재</b>
+      <span class="sub">자동화 브라우저엔 SSO 가 없어 <b>매직링크를 손으로 붙여넣어야만</b> 로그인됩니다.
+      <code>/api/me</code> 를 60초마다 폴링하는 <b>keep-alive 스크립트를 페이지에 직접 주입</b>했고,
+      <b>페이지를 옮길 때마다 다시 심어야</b> 했습니다</span></td>
+      <td class="n">②</td><td><span class="stars dim">★★☆☆☆</span></td></tr>
+    <tr><td class="n">3-9</td><td><b>공개 문서 부재 → 소스·<code>curl</code> 로 역설계</b>
+      <span class="sub">CORS 정책 · 에러 형태 · 모델 alias · 파라미터를
+      공식 레퍼런스가 아니라 <b>실험으로</b> 알아냈습니다. 코드 주석에 역설계 흔적이 남아 있습니다</span></td>
+      <td class="n">②</td><td><span class="stars">★★★☆☆</span></td></tr>
+  </table></div>
+
+  <div class="call">
+    <span class="lab">「돈이 새는 것」에 대해서는 단정하지 않았습니다</span>
+    공유 기억을 매 요청에 넣어 토큰 소모가 커지는 구조는 있지만,
+    <b>요청당 실제 크레딧을 측정하지 않았습니다</b> —
+    <b>“돈이 샌다”고 단정할 측정치가 없어 관찰로만 남깁니다.</b>
+    <span class="muted">(같은 항목을 김주영 쪽에서는 실측했습니다 — 통합 §03 #12·#13)</span>
+  </div>
+
+  <h3>어떻게 풀었나 / 못 풀었나</h3>
+  <div class="scroll"><table>
+    <tr><th style="width:56px">항목</th><th style="width:150px">상태</th><th>어떻게</th></tr>
+    <tr><td class="n">3-1</td><td><b>우회 성공</b></td>
+      <td><code>server.py</code> 프록시. 스모크테스트로 SAM 도달 확인.
+        <b>단 “브라우저만으로”라는 목표는 못 이뤘습니다</b>(서버 필수)</td></tr>
+    <tr><td class="n">3-2</td><td><b>우회 성공</b></td><td>로컬 벤더링 65파일, 엔진 200 응답 확인</td></tr>
+    <tr><td class="n">3-3</td><td>코드로 방어</td><td>split/strip 파서. <b>새 마크업 변형이 나오면 또 손봐야 하는 구조</b>(근본 아님)</td></tr>
+    <tr><td class="n">3-4</td><td>코드로 강제</td><td>절단 함수. <b>지시 준수는 여전히 모델 의존</b>(근본 아님)</td></tr>
+    <tr><td class="n">3-5</td><td>코드로 환산</td><td><code>tile*24+12</code> 로 타일 중심 계산</td></tr>
+    <tr><td class="n">3-6</td><td>코드로 보정</td><td>모드별 배율 상수</td></tr>
+    <tr><td class="n">3-7</td><td>후처리로 제거</td><td>파란 픽셀만 골라 알파 0 으로. <b>새 시트를 받을 때마다 반복</b></td></tr>
+    <tr><td class="n">3-8</td><td><b>못 풀었음</b></td><td>keep-alive 로 버팀. <b>플랫폼 문제라 우리 쪽 해결 불가</b></td></tr>
+    <tr><td class="n">3-9</td><td><b>못 풀었음</b></td><td>자체 인계 노트로 축적만</td></tr>
+  </table></div>
+  <div class="call">
+    <span class="lab">⭐ 끝까지 못 푼 것 — 빼지 않고 적었습니다</span>
+    <ol style="margin:0">
+      <li><b>순수 브라우저(정적) 배포 불가</b> — SAM 프록시 서버가 반드시 필요합니다.
+        <b>프록시는 우회지 근본 해결이 아닙니다.</b></li>
+      <li><b>Studio 세션 30분 만료</b> — 플랫폼 쪽 문제라 우리가 고칠 수 없어 우회로만 버텼습니다.</li>
+      <li><b>SAM 지시 준수</b>(길이 · 행동묘사 다양성) — 모델이 자주 어겨
+        코드 절단·반복 금지 프롬프트로 <b>완화했을 뿐</b>입니다.</li>
+      <li><b>크레딧 최적화</b> — 컨텍스트를 잘라 담아 완화만 했고 <b>실제 비용은 측정 못 했습니다.</b></li>
+    </ol>
+  </div>
+
+  <h3>만들고 나서 알게 된 것</h3>
+  <ul>
+    <li><b>SAM 응답은 포맷이 확정적이지 않습니다.</b> 같은 API 인데 호출마다 마크업 스타일이 달라
+      <b>클라이언트 후처리 파서가 사실상 필수</b>였습니다. 방어하는 케이스가 최소 4종입니다
+      <span class="muted">(겹별표 · 홑별표 · 전체강조 · 감싼 따옴표)</span>.</li>
+    <li><b>“브라우저 엔진”과 “브라우저에서 못 부르는 대화 API”의 조합.</b>
+      엔진은 브라우저에서 도는데 그 짝인 SAM 은 브라우저로부터의 요청을 막아,
+      <b>“정적 프론트엔드로 완결”이라는 기대와 어긋났습니다.</b></li>
+    <li><b>진행도를 LLM 에 맡기지 않은 설계가 안정적이었습니다.</b>
+      단서 10개를 하드코딩하고 지급은 <b>코드가 결정적으로 관리</b> — LLM 은 대사 표현만 담당.
+      <b>AI 가 사건 상태를 흔들지 않아 데모가 재현 가능</b>했습니다.
+      <span class="muted">— 김주영·신서연 님도 각자 같은 결론에 도달했습니다. 「비교」 탭 §05 참조.</span></li>
+  </ul>
+
+  <h3>회사에 드릴 수 있는 것</h3>
+  <div class="card">
+    <ul style="margin:0">
+      <li><b>재사용 가능한 SAM 프록시</b> — <code>server.py</code> 63줄.
+        <b>다른 브라우저 데모도 이걸로 CORS 를 우회할 수 있습니다.</b></li>
+      <li><b>코드 + README + 작업 노트</b> — <code>github.com/cjwmanelf/spum-cheesecake-demo</code></li>
+      <li><b>플랫폼 개선 제안 문서</b> — 별도 정리본(Top 5 우선순위 · 심각도 3단계 · 항목 20건)</li>
+    </ul>
+  </div>
+
+  <div class="slot">
+    <b>스크린샷 없음</b> — 대표님께 시연 영상이 있어 생략하기로 했습니다
+  </div>
 </div>
 
 <footer>
