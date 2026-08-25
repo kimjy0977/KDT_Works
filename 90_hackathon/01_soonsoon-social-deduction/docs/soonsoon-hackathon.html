@@ -302,12 +302,19 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
       생깁니다 — 실제로 한 번 그랬고, 되돌렸습니다. 그래서 §03 표의 「확인 수준」 칸에는
       <b>각자가 자기 기록에 붙인 표기를 그대로</b> 씁니다.
       <div class="scroll" style="margin-top:10px"><table>
-        <tr><th style="width:88px">누구</th><th style="width:34%">쓰는 척도</th><th>표에 어떻게 나오나</th></tr>
-        <tr><td><b>김주영</b></td><td>★ 5단계</td><td>★★★★★ 그대로</td></tr>
+        <tr><th style="width:88px">누구</th><th style="width:26%">쓰는 척도</th>
+            <th style="width:24%">그 척도를 누가 정했나</th><th>표에 어떻게 나오나</th></tr>
+        <tr><td><b>김주영</b></td><td>★ 5단계</td>
+          <td>본인 <span class="muted">— 이 문서의 기준 척도</span></td><td>★★★★★ 그대로</td></tr>
+        <tr><td><b>최종우</b></td><td>★ 5단계 <span class="muted">+ 유형 ①~⑤</span></td>
+          <td><b>저희가 자료를 요청하며 이 척도를 드렸고, 그대로 매겨 주셨습니다</b></td>
+          <td>★★★★★ 그대로</td></tr>
         <tr><td><b>신서연</b></td>
           <td><b>자체 4등급</b><br><span class="muted">해결됨 / 코드만 확인 / 출처만 확인 / 미해결</span></td>
-          <td><b>본인 등급을 글자 그대로</b> 씁니다. ★로 환산하지 않습니다</td></tr>
+          <td><b>본인</b> — 저희가 요청하기 <b>전에</b> 이미 자기 개발 기록으로 정리해 둔 것입니다</td>
+          <td><b>본인 등급을 글자 그대로</b> 씁니다. <b>★로 환산하지 않습니다</b></td></tr>
         <tr><td><b>정충원</b></td><td>없음 <span class="muted">(개선 제안서)</span></td>
+          <td>해당 없음 <span class="muted">— 저희가 요청하기 전에 쓰신 문서입니다</span></td>
           <td><b>「표기 없음」</b> 이라고 적습니다. 저희가 대신 매기지 않습니다</td></tr>
       </table></div>
       <b>둘 이상이 겪은 항목(#2 · #3 · #11 등)의 ★ 는 김주영 몫</b>이고,
@@ -382,7 +389,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
       <b>지금은 정적 호스팅만으로 완결되는 프론트엔드 게임을 만들 수 없습니다.</b>
       엔진은 브라우저에서 도는데 <b>그 짝인 대화 API 가 브라우저를 막아 둬서</b>,
       팀마다 <b>별도 백엔드를 세워 중계</b>해야 했습니다.
-      엔진 로드도 같은 이유로 막혀 <b>65~107개 파일을 복제</b>했습니다.
+      엔진 로드도 같은 이유로 막혀 <b>65~108개 파일을 복제</b>했습니다.
       <b>CORS 허용 한 줄이 이 둘을 같이 풉니다</b> — 최소한 자사 도메인과 <code>localhost</code> 만이라도.
       <span class="muted">근거 §03 #31 · #17</span>
     </div>
@@ -594,7 +601,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <td><span class="stars">★★★★★</span></td><td>개발 모드 콘솔 출력 한 줄 <span class="muted">(코드)</span></td>
         <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
       <tr class="dup"><td class="n">17</td><td><b>패키지 배포 경로가 없어 엔진을 통째로 복제해야 한다</b>
-        <span class="sub">한쪽은 엔진·월드 <b>107개 파일을 재귀 미러링</b>, 한쪽은 <b>엔진 65개 파일을 저장소에 벤더링</b>했습니다.
+        <span class="sub">한쪽은 엔진·월드 <b>108개 파일을 재귀 미러링</b>, 한쪽은 <b>엔진 65개 파일을 저장소에 벤더링</b>했습니다.
         <mark>원인이 갈렸습니다 — 단순히 npm 에 없어서가 아니라 <b>CORS 로 원격 로드가 막히기 때문</b></mark>입니다.
         <code>&lt;script src&gt;</code> 한 줄로 못 쓰고 <b>매번 복제해야 하는 채택 장벽</b>입니다.
         버전 고정·재현 가능한 빌드도 안 됩니다</span></td>
@@ -833,7 +840,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <div class="ti">누가 마피아지?</div>
         <div class="ds">AI NPC 소셜 추리. 밤마다 한 명이 사라지고, 낮에 토론하고 투표로 마피아를 찾습니다.
           무대 6개 · 인원 4~10명 · 역할 4종.</div>
-        <div class="mt">커밋 236 · 소스 10,709줄</div>
+        <div class="mt">커밋 256 · 내 코드 14,810줄</div>
       </div>
       <div class="person">
         <div class="nm">신서연</div>
@@ -856,8 +863,8 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <div class="shead"><em>03</em><h2>무엇이 같고 무엇이 달랐나</h2></div>
     <p class="sdesc">같은 도구를 서로 다르게 썼습니다. 가로로 읽으면 <b>SPUM 을 쓰는 방식이 몇 가지인지</b> 보입니다.</p>
     <div class="scroll"><table class="cmp">
-      <tr><th style="width:126px"></th><th style="width:24%">정충원</th><th style="width:24%">김주영</th>
-          <th style="width:24%">신서연</th><th>최종우</th></tr>
+      <tr><th style="width:118px"></th><th style="width:22%">정충원</th><th style="width:22%">김주영</th>
+          <th style="width:22%">신서연</th><th style="width:22%">최종우</th></tr>
       <tr><td>만든 갈래</td>
         <td><b>도구</b> <span class="muted">(제작 자동화)</span></td>
         <td>게임 <span class="muted">(추리·마피아)</span></td>
@@ -900,7 +907,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <td>저장소 <code>spum-cheesecake-demo</code></td></tr>
       <tr><td>규모</td>
         <td class="n">씬 맵 6개 · 3단계 제안</td>
-        <td class="n">커밋 236 · 10,709줄</td>
+        <td class="n">커밋 256 · 14,810줄</td>
         <td class="n">커밋 80 · 의존성 0</td>
         <td class="n">3,216줄 · npm 0</td></tr>
     </table></div>
@@ -948,7 +955,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
           <span class="sub muted">통합 §03 #17</span></td>
         <td><span class="dot no"></span></td><td><span class="dot"></span></td>
         <td><span class="dot no"></span></td><td><span class="dot"></span></td>
-        <td><b>원인이 여기서 갈렸습니다.</b> 하나는 「npm 에 없어서」로 알고 <b>107개 파일을 미러링</b>했는데,
+        <td><b>원인이 여기서 갈렸습니다.</b> 하나는 「npm 에 없어서」로 알고 <b>108개 파일을 미러링</b>했는데,
           하나가 <b>진짜 이유가 CORS</b> 라는 것을 짚었습니다 —
           <code>&lt;script src&gt;</code> 로는 원격 로드 자체가 막힙니다</td></tr>
       <tr class="dup"><td><b>에셋을 코드로 내려받을 길이 없다</b>
@@ -1054,9 +1061,14 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
       <td><span class="stars">★★★★★</span></td></tr>
     <tr><td>실행 방법</td><td><code>bash serve.sh</code> → <code>localhost:5173</code>
       <span class="muted">· Node 외 의존성 없음</span></td><td><span class="stars">★★★★★</span></td></tr>
-    <tr><td>소스 줄 수</td><td class="n">10,709줄 · 문서 8,090줄 · 함정 기록 100건 · 회귀 검사 109항목</td>
+    <tr><td>소스 줄 수</td><td class="n"><b>14,810줄</b> <span class="muted">(73개 파일 · 회사 엔진 벤더링분 제외)</span><br>
+      src 7,298 · tools 3,606 · 화면 2,221 · 서버 1,576</td>
       <td><span class="stars">★★★★★</span></td></tr>
-    <tr><td>커밋 수</td><td class="n">236</td><td><span class="stars">★★★★★</span></td></tr>
+    <tr><td>문서 · 검사</td><td class="n">문서 8,349줄 · 함정 기록 100건 · 회귀 검사 <b>109/109 통과</b></td>
+      <td><span class="stars">★★★★★</span></td></tr>
+    <tr><td>커밋 수</td><td class="n"><b>256</b>
+      <span class="muted">(폴더 개명 전 경로까지 포함해 셌습니다 — 개명 후 경로만 세면 86 으로 나옵니다)</span></td>
+      <td><span class="stars">★★★★★</span></td></tr>
     <tr><td>작업 기간</td><td>2026-08-17 첫 커밋 ~ 현재</td><td><span class="stars">★★★★★</span></td></tr>
     <tr><td><b>신뢰도 척도</b></td><td><b>★ 5단계</b>
       <span class="muted">— 이 문서의 기준 척도이고, 본인이 매겼습니다</span></td><td class="muted">—</td></tr>
@@ -1084,7 +1096,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <b>구현 난이도에 막혀 일반 마피아 규칙으로 되돌렸습니다.</b>
     <b>신서연 · 최종우 님은 그 컨셉을 그대로 완주하셨습니다</b> — 「비교」 탭에서 나란히 보실 수 있습니다.
   </div>
-  <p class="muted">문서 8,090줄 중 상당량이 「SPUM 을 어떻게 다루는가」인데,
+  <p class="muted">문서 8,349줄 중 상당량이 「SPUM 을 어떻게 다루는가」인데,
     <b>만들고 싶어서가 아니라 없어서 만든 것</b>입니다.</p>
   <figure>
     <img src="img/jy-cast-pick.png"
@@ -1142,7 +1154,10 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <li><b>3번</b> — 에셋 검증을 해시로 바꿨습니다. 회귀 검사가
       「idle 과 move 가 같은 파일인 캐릭터가 없다」를 매번 확인합니다.</li>
     <li><b>4번</b> — <code>world.js</code> 에 <code>.slice(0, 6)</code> 이 남아 있었습니다.
-      6인 고정이던 시절의 잔재입니다. 지웠고, <b>되살아나면 잡는 검사</b>를 넣었습니다.</li>
+      케이크 판이 6인 고정이던 시절의 잔재인데, 마피아 판에 8·10인 무대를 붙인 뒤로도 남아 있었습니다.
+      <b>고른 사람이 있으면 그대로 다 쓰도록</b> 바꿨습니다 —
+      아무도 안 고른 경우의 기본값으로만 6이 남아 있습니다.
+      <b>인원이 다시 6에 묶이면 잡는 검사</b>를 회귀에 넣었습니다.</li>
   </ul>
   <div class="call">
     <span class="lab">못 푼 것</span>
