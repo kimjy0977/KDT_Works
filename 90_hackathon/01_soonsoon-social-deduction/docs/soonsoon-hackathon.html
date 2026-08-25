@@ -8,6 +8,8 @@
    밝은 판이 기본. 청색 편향 회색 + SPUM 위험표시 주황.
    색은 전부 여기서만 정의하고, 컴포넌트는 토큰만 쓴다. */
 :root{
+  --label:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
   --ground:#eef1f5;      /* 페이지 바닥 — 도면 용지 */
   --surface:#ffffff;
   --surface-2:#f6f8fb;
@@ -75,18 +77,18 @@ body{
   box-shadow:3px 3px 0 var(--accent-wash), -3px -3px 0 var(--accent-wash)}
 .jump{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
 .jump::-webkit-scrollbar{display:none}
-.jump a{font:500 12.5px/1 "IBM Plex Mono",monospace;color:var(--ink-3);text-decoration:none;
+.jump a{font:500 12.5px/1 var(--label);color:var(--ink-3);text-decoration:none;
   padding:8px 11px;border-radius:7px;white-space:nowrap;transition:color .15s,background .15s}
 .jump a:hover{color:var(--ink);background:var(--surface-2)}
 
 /* ── 히어로 ── */
 .hero{padding:64px 0 40px}
-.kicker{font:500 12px/1 "IBM Plex Mono",monospace;letter-spacing:.16em;color:var(--accent-ink);
+.kicker{font:500 12px/1 var(--label);letter-spacing:.05em;color:var(--accent-ink);
   text-transform:uppercase}
 h1{font-size:clamp(38px,6.4vw,60px);line-height:1.06;letter-spacing:-.035em;font-weight:700;
   margin:18px 0 0;text-wrap:balance}
 .lede{font-size:18px;line-height:1.68;color:var(--ink-2);max-width:44ch;margin:20px 0 0;font-weight:300}
-.byline{margin-top:26px;font:500 13px/1 "IBM Plex Mono",monospace;color:var(--ink-3);
+.byline{margin-top:26px;font:500 13px/1 var(--label);color:var(--ink-3);
   display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .byline span{color:var(--line-2)}
 
@@ -95,19 +97,19 @@ h1{font-size:clamp(38px,6.4vw,60px);line-height:1.06;letter-spacing:-.035em;font
   background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;
   margin:38px 0 0;box-shadow:var(--shadow)}
 .strip > div{background:var(--surface);padding:18px 20px}
-.strip b{display:block;font:600 27px/1.1 "IBM Plex Mono",monospace;letter-spacing:-.02em;
+.strip b{display:block;font:600 27px/1.1 var(--mono);letter-spacing:-.02em;
   font-variant-numeric:tabular-nums}
 .strip small{display:block;margin-top:7px;font-size:12.5px;color:var(--ink-3);line-height:1.45}
 
 /* ── 섹션 ── */
 section{margin-top:76px;scroll-margin-top:64px}
 .shead{display:flex;align-items:baseline;gap:13px;margin-bottom:6px}
-.shead em{font:500 12px/1 "IBM Plex Mono",monospace;color:var(--accent);font-style:normal;
+.shead em{font:500 12px/1 var(--mono);color:var(--accent);font-style:normal;
   letter-spacing:.1em;padding-top:4px}
 h2{font-size:27px;line-height:1.28;letter-spacing:-.022em;font-weight:700;margin:0;text-wrap:balance}
 .sdesc{color:var(--ink-2);font-size:14.5px;margin:0 0 22px;max-width:62ch;font-weight:300}
 h3{font-size:18px;line-height:1.4;letter-spacing:-.012em;font-weight:600;margin:36px 0 10px;text-wrap:balance}
-h4{font:600 11.5px/1 "IBM Plex Mono",monospace;letter-spacing:.13em;color:var(--accent-ink);
+h4{font:600 11.5px/1 var(--label);letter-spacing:.05em;color:var(--accent-ink);
   text-transform:uppercase;margin:34px 0 10px}
 p{margin:12px 0}
 p,li{font-size:15px}
@@ -124,7 +126,7 @@ a{color:var(--accent-ink);text-underline-offset:3px}
 .call.cy{background:var(--cyan-wash);border-color:color-mix(in srgb,var(--cyan) 26%,transparent)}
 .call.pl{background:var(--plum-wash);border-color:color-mix(in srgb,var(--plum) 26%,transparent)}
 .call ul{margin:6px 0 0}
-.call .lab{display:block;font:600 11px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;
+.call .lab{display:block;font:600 11px/1 var(--label);letter-spacing:.05em;
   text-transform:uppercase;margin-bottom:9px;color:var(--accent-ink)}
 .call.cy .lab{color:var(--cyan)} .call.pl .lab{color:var(--plum)}
 
@@ -134,9 +136,9 @@ a{color:var(--accent-ink);text-underline-offset:3px}
 table{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
 th,td{padding:13px 15px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
 tr:last-child td{border-bottom:none}
-th{font:600 11px/1.3 "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;
+th{font:600 11px/1.3 var(--label);letter-spacing:.03em;text-transform:uppercase;
   color:var(--ink-3);background:var(--surface-2);white-space:nowrap;position:sticky;top:0}
-td.n{font:500 13px/1.6 "IBM Plex Mono",monospace;color:var(--ink-3);
+td.n{font:500 13px/1.6 var(--label);color:var(--ink-3);
   font-variant-numeric:tabular-nums;white-space:nowrap}
 td .sub{display:block;margin-top:5px;color:var(--ink-2);font-size:13.5px;line-height:1.62}
 /* ⭐ 이 문서의 발명 = 「겹침」. 여러 명이 겪은 행은 왼쪽에 주황 띠 */
@@ -145,20 +147,20 @@ tr.dup{background:color-mix(in srgb,var(--accent-wash) 55%,transparent)}
 
 /* ── 사람 칩 ── */
 .chips{display:flex;gap:5px;flex-wrap:wrap}
-.chip{font:500 11.5px/1 "IBM Plex Mono",monospace;padding:5px 8px;border-radius:6px;
+.chip{font:500 11.5px/1 var(--label);padding:5px 8px;border-radius:6px;
   background:var(--surface-2);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
 .chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
 :root[data-theme="dark"] .chip.on{color:#1a0d05}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.on{color:#1a0d05}}
 
 /* ── 별 ── */
-.stars{font:500 12.5px/1 "IBM Plex Mono",monospace;color:var(--accent);letter-spacing:.08em;white-space:nowrap}
+.stars{font:500 12.5px/1 var(--label);color:var(--accent);letter-spacing:.02em;white-space:nowrap}
 .stars.dim{color:var(--ink-3)}
 
-code{font:500 13px/1.5 "IBM Plex Mono",monospace;background:var(--surface-2);
+code{font:500 13px/1.5 var(--mono);background:var(--surface-2);
   border:1px solid var(--line);padding:1px 6px;border-radius:5px}
 pre{background:var(--surface-2);border:1px solid var(--line);padding:16px 18px;border-radius:11px;
-  overflow-x:auto;font:400 13px/1.72 "IBM Plex Mono",monospace;margin:14px 0}
+  overflow-x:auto;font:400 13px/1.72 var(--mono);margin:14px 0}
 pre code{background:none;border:none;padding:0}
 mark{background:color-mix(in srgb,var(--accent) 26%,transparent);color:inherit;padding:1px 4px;border-radius:3px}
 
@@ -166,10 +168,10 @@ mark{background:color-mix(in srgb,var(--accent) 26%,transparent);color:inherit;p
 .people{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:14px;margin:16px 0}
 .person{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:19px 20px;
   box-shadow:var(--shadow);display:flex;flex-direction:column;gap:9px}
-.person .nm{font:600 12px/1 "IBM Plex Mono",monospace;letter-spacing:.1em;color:var(--accent-ink)}
+.person .nm{font:600 12px/1 var(--label);letter-spacing:.04em;color:var(--accent-ink)}
 .person .ti{font-size:16px;font-weight:600;line-height:1.4;letter-spacing:-.01em}
 .person .ds{font-size:13.5px;color:var(--ink-2);line-height:1.62;flex:1}
-.person .mt{font:500 12px/1.5 "IBM Plex Mono",monospace;color:var(--ink-3);
+.person .mt{font:500 12px/1.5 var(--label);color:var(--ink-3);
   padding-top:10px;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
 .person.wait{border-style:dashed;background:transparent;box-shadow:none}
 
@@ -180,7 +182,7 @@ mark{background:color-mix(in srgb,var(--accent) 26%,transparent);color:inherit;p
   transition:border-color .16s,transform .16s,box-shadow .16s;color:var(--ink)}
 .tabs button:hover{border-color:var(--line-2);transform:translateY(-1px)}
 .tabs button .who{display:block;font-weight:600;font-size:15.5px;letter-spacing:-.01em}
-.tabs button .what{display:block;margin-top:4px;font:400 12px/1.4 "IBM Plex Mono",monospace;color:var(--ink-3)}
+.tabs button .what{display:block;margin-top:4px;font:400 12px/1.4 var(--label);color:var(--ink-3)}
 .tabs button[aria-selected="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),var(--shadow)}
 .tabs button[aria-selected="true"] .what{color:var(--accent-ink)}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;
