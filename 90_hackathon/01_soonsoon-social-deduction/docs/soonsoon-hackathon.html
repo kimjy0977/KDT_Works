@@ -237,8 +237,8 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <div class="byline">팀 순순히 따라와라 <span>·</span> 정충원 · 김주영 · 신서연 · 최종우 <span>·</span> 2026-08</div>
     <div class="strip">
       <div><b>4</b><small>각자 만든 것</small></div>
-      <div><b>32</b><small>막힌 곳 · 계측 기록</small></div>
-      <div><b>7</b><small>둘 이상이 겪은 항목</small></div>
+      <div><b>33</b><small>막힌 곳 · 계측 기록</small></div>
+      <div><b>8</b><small>둘 이상이 겪은 항목</small></div>
       <div><b>3</b><small>세 사람이 겪은 항목</small></div>
     </div>
   </div>
@@ -275,9 +275,9 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <div class="card">
       <ol style="margin:0">
         <li><b>넷 다 돌아가는 것을 만들었습니다.</b> 설치 없이 브라우저에서 켜집니다. <b>같은 기획에서 출발해 셋이 다른 곳에 도착했고</b>, 한 사람은 도중에 규칙을 바꿔야 했습니다.</li>
-        <li><b>막힌 곳 32건 중 9건은 「문서 한 줄이면 안 막혔을 것」</b>이었고,
+        <li><b>막힌 곳 33건 중 9건은 「문서 한 줄이면 안 막혔을 것」</b>이었고,
           나머지 중에도 <code>Retry-After</code> 한 줄처럼 <b>아주 가벼운 것</b>이 섞여 있습니다.
-          <b>둘 이상이 각자 만난 것이 7건, 그중 3건은 세 사람</b> — 그게 가장 확실한 신호입니다.</li>
+          <b>둘 이상이 각자 만난 것이 8건, 그중 3건은 세 사람</b> — 그게 가장 확실한 신호입니다.</li>
         <li><b>AI NPC 를 여럿 굴리면 표가 한 사람에게 몰립니다.</b> 그리고 그건 고칠 수 있습니다 —
           금지가 아니라 <b>잣대를 나눠 주는 방식</b>으로요.</li>
       </ol>
@@ -607,6 +607,18 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         시트에서 한 프레임을 잘라 그릴 수 없습니다. 재생 컴포넌트를 직접 작성했습니다</span></td>
         <td><span class="stars">★★★★★</span></td><td>추출물을 <b>다시 엔진에 넣는 경로</b> — 비어 있는 연결입니다</td>
         <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
+      <tr class="dup"><td class="n">33</td><td><b>2D 캐릭터 게임의 기본기가 엔진에 없다</b>
+        <span class="sub">거의 항상 필요한 것들이 빠져 있어 <b>양쪽 다 처음부터 직접 만들었습니다</b> —
+        <b>따라가는 카메라</b>(감쇠 추적·맵 경계 클램핑),
+        <b>클릭한 엔티티 찾기</b>(히트테스트),
+        <b>반경 진입 트리거</b>(없어서 <code>setInterval</code> 로 거리를 폴링했고, 루프 밖이라 프레임 동기화도 부정확),
+        <b>이름표와 말풍선 겹침 정렬</b>.
+        게다가 <b>입력 콜백이 <code>devicePixelRatio</code> 가 곱해진 좌표를 넘기는데 문서에 없어</b>,
+        「캐릭터 클릭 판정」 같은 흔한 기능에서 원인을 직접 부딪혀 찾아야 했습니다</span></td>
+        <td><span class="stars">★★★★☆</span><span class="sub muted">최종우 님 표기</span></td>
+        <td>팔로우 카메라 · <code>scene.pick(x,y)</code> · <code>ProximityTrigger</code> 를 <b>기본 제공</b> ·
+          <b>좌표 공간을 문서에 명시</b></td>
+        <td><div class="chips"><span class="chip on">최종우</span><span class="chip on">김주영</span></div></td></tr>
       <tr><td class="n">22</td><td><b><mark>Studio 저장 규약과 엔진 런타임 규약이 정반대다</mark></b>
         <span class="sub">Studio 가 내보내는 맵의 <code>obstacle</code> 레이어는 <b><code>1 = 장애물</code></b> 인데,
         엔진의 <code>setGrid()</code> 는 같은 값을 <b><code>1 = 걸을 수 있음</code></b> 으로 읽습니다.
@@ -649,13 +661,13 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
 
     <div class="call">
       <span class="lab">세어 보면</span>
-      문서 한 줄이면 안 막혔을 것 <b>9</b> · 코드·제품이 움직여야 하는 것 <b>22</b> · 인프라 <b>1</b>.
+      문서 한 줄이면 안 막혔을 것 <b>9</b> · 코드·제품이 움직여야 하는 것 <b>23</b> · 인프라 <b>1</b>.
       <b>Studio 를 처음 익히는 단계에서 막힌 것은 대부분 「몰라서」</b>였고,
       게이트웨이·엔진 쪽은 코드가 움직여야 합니다.
-      다만 그 스물둘 중에도 <b><code>Retry-After</code> 한 줄</b>처럼 아주 가벼운 것이 섞여 있고,
+      다만 그 스물셋 중에도 <b><code>Retry-After</code> 한 줄</b>처럼 아주 가벼운 것이 섞여 있고,
       <b>#22 규약 불일치처럼 사용자가 알아낼 방법이 아예 없는 것</b>도 있습니다.
-      <span class="muted">※ 앞선 판에서는 이 비율을 「절반」이라 적었는데, 항목이 18 → 32 로 늘면서
-      다시 세니 9/32 였습니다. 넷의 기록을 다 합칠 때마다 다시 셌습니다.</span>
+      <span class="muted">※ 앞선 판에서는 이 비율을 「절반」이라 적었는데, 항목이 18 → 33 으로 늘면서
+      다시 세니 9/33 이었습니다. 넷의 기록을 다 합칠 때마다 다시 셌습니다.</span>
     </div>
   </section>
 
@@ -906,7 +918,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
   <section>
     <div class="shead"><em>04</em><h2>둘 이상이 겪은 것</h2></div>
     <p class="sdesc">서로 상의하지 않고 각자 만난 것들입니다.
-      <b>한 사람의 착각일 가능성이 그만큼 낮습니다.</b> 아래 <b>일곱 건 중 셋은 세 사람이</b> 각자 만났습니다.</p>
+      <b>한 사람의 착각일 가능성이 그만큼 낮습니다.</b> 아래 <b>여덟 건 중 셋은 세 사람이</b> 각자 만났습니다.</p>
     <div class="scroll"><table class="cmp">
       <tr><th style="width:24%">막힌 것</th><th style="width:64px">정충원</th><th style="width:64px">김주영</th>
           <th style="width:64px">신서연</th><th style="width:64px">최종우</th><th>합치니 보인 것</th></tr>
@@ -946,6 +958,13 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <td><b>둘 다 Studio 화면을 자동 조작해 긁어냈습니다.</b>
           그래서 <b>둘 다 UI 개편과 세션 만료에 같이 걸렸습니다</b> —
           export API 하나면 두 사람의 파이프라인이 같이 안정됐을 항목입니다</td></tr>
+      <tr class="dup"><td><b>엔진에 기본기가 없어 직접 만들었다</b>
+          <span class="sub muted">통합 §03 #33</span></td>
+        <td><span class="dot no"></span></td><td><span class="dot"></span></td>
+        <td><span class="dot no"></span></td><td><span class="dot"></span></td>
+        <td>둘 다 <b>따라가는 카메라</b>와 <b>이름표·말풍선 정렬</b>을 처음부터 만들었습니다.
+          한쪽은 <b>히트테스트·근접 트리거</b>까지 직접 짰습니다 —
+          <b>2D 캐릭터 게임이면 거의 항상 쓰는 것들</b>이라 새 팀도 같은 걸 또 만들 것입니다</td></tr>
       <tr class="dup"><td><b>캐스트를 코드로 주입하면 깨진다</b>
           <span class="sub muted">통합 §03 #19</span></td>
         <td><span class="dot no"></span></td><td><span class="dot"></span></td>
@@ -1527,19 +1546,21 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
               SPUM 스튜디오 월드</code></pre>
   <div class="shots">
     <figure>
-      <img src="img/cw-map-final.jpg" alt="AI 가 생성한 산동네 마을 조감도. 픽셀 아트로 그려진 마을 전경.">
-      <figcaption><b>① AI 가 그린 조감도</b> — 자연어 지시로 Object Editor 에서 생성됩니다.</figcaption>
+      <img src="img/cw-map-final.jpg" alt="산동네 마을 완성 맵. 픽셀 아트로 그려진 마을 전경.">
+      <figcaption><b>완성 맵</b> — 자연어 요청 <i>“옛날 산동네 마을과 골목길”</i> 한 번으로
+        <b>생성·주입까지 완료된 32×32 씬 맵</b>입니다.</figcaption>
     </figure>
     <figure>
-      <img src="img/cw-walkmask.jpg" alt="같은 맵 위에 통행 가능 영역이 색으로 덮인 오버레이. 걸을 수 있는 곳과 막힌 곳이 갈려 있다.">
-      <figcaption><b>② 자동 생성된 통행 마스크</b> — 그림에서 <b>걸을 수 있는 칸</b>을 뽑아냅니다.
-        이 판정이 맞아야 다음 단계가 성립합니다.</figcaption>
+      <img src="img/cw-walkmask.jpg" alt="같은 맵 위에 통행 가능 영역이 색으로 덮인 오버레이. 초록·빨강·노랑으로 구역이 갈려 있다.">
+      <figcaption><b>통행 판정 오버레이</b> — 파이프라인이 자동 산출합니다.
+        <b>초록 = 통행 · 빨강 = 막힘 · 노랑 = 자동 연결 통로</b>.</figcaption>
     </figure>
   </div>
   <figure>
     <video src="img/cw-pipeline-demo.mp4" controls preload="metadata" playsinline></video>
-    <figcaption><b>명령 하나가 끝까지 도는 것</b> — 자연어 지시부터 스튜디오 주입·검증까지.
-      <span class="muted">소리 없이 재생됩니다.</span></figcaption>
+    <figcaption><b>데모 영상 — 36초 · 4.5배속.</b>
+      <i>“맵 만들어줘”</i> 명령 하나로 <b>AI 조감도 생성 → 통행 마스크 → 판정 → 스튜디오 주입</b>까지
+      이어지는 <b>전 과정의 실제 녹화</b>입니다.</figcaption>
   </figure>
 
   <ul>
@@ -1567,10 +1588,20 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <li><b>1단계</b> — 핵심 요소에 <code>data-testid</code> + 자동화용 인증 수단
       <span class="muted">(반나절~1일)</span></li>
     <li><b>2단계</b> — 내부 API 사용 허가 + 최소 문서
-      <span class="muted">(이미 있는 것에 대한 허가)</span></li>
+      <span class="muted">(이미 있는 것에 대한 허가)</span>.
+      요청은 셋 — <b>테스터 범위 내 사용 허가</b> · <b>주요 엔드포인트 최소 문서</b>
+      (월드 조회 · 타일 반영 · 엔티티 생성/수정 · 플레이 URL 발급) · <b>파괴적 변경 시 사전 고지</b></li>
     <li><b>3단계</b> — 공식 MCP 서버. <b>선언형</b>(월드가 어떤 상태여야 하는가) 설계를 권장 —
       중간에 실패해도 재적용으로 수렴하므로 에이전트 환경에서 안정적입니다</li>
   </ul>
+  <div class="call">
+    <span class="lab">현재 사용 범위와 약속</span>
+    지금 자동화는 <b>로그인된 브라우저 세션 안에서 스튜디오 앱이 스스로 호출하는 경로를
+    그대로 따라 쓰는 수준</b>입니다 — <b>리버스 엔지니어링한 비공개 경로를 직접 부르지 않습니다.</b>
+    문서화되지 않은 경로로의 확대는 <b>명시적 허가 이후에만</b> 진행하며,
+    사용 범위는 <b>팀 내부 제작에 한정하고 재배포하지 않겠습니다.</b>
+  </div>
+
   <div class="call cy">
     <span class="lab">world_validate 의 중요성</span>
     “플레이 가능한 상태까지” 자동화하려면 에이전트가 <b>스스로 결과를 검증</b>할 수 있어야 합니다.
@@ -1579,13 +1610,60 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     이것이 있고 없고가 자동화 완성도를 크게 좌우합니다.
   </div>
 
+  <h3>순순팩토리 측 기대 효과</h3>
+  <div class="scroll"><table>
+    <tr><th style="width:150px"></th><th>내용</th></tr>
+    <tr><td><b>업계 표준 대응</b></td>
+      <td>주요 게임 제작 환경은 <b>이미 MCP 를 지원</b>합니다.
+        차별화 요소라기보다 <b>점차 기본 사양이 되어가는 항목</b>에 가깝습니다</td></tr>
+    <tr><td><b>개발자 락인</b></td>
+      <td>자동화 파이프라인을 구축한 팀은 도구를 바꾸기 어려워집니다 —
+        <b>유료 전환과 유지율에 직접 기여</b>합니다</td></tr>
+    <tr><td><b>내부 QA 활용</b></td>
+      <td>1단계의 <code>data-testid</code> 와 3단계의 선언형 API 는
+        <b>순순팩토리 자체 회귀 테스트 자동화에도 그대로 재사용</b>됩니다</td></tr>
+    <tr><td><b>사례화</b></td>
+      <td>SPUM 부스트 프로그램 취지와 맞닿아 있어
+        <b>「AI 에이전트로 게임을 제작한 사례」로 홍보 소재화</b>가 가능합니다</td></tr>
+  </table></div>
+
+  <h3>다른 제작 환경은 이미 MCP 를 지원합니다</h3>
+  <p class="sdesc">이 제안이 앞서가는 요구가 아니라 <b>이미 형성된 흐름</b>임을 보이려고 정리한 표입니다.</p>
+  <div class="scroll"><table>
+    <tr><th style="width:150px">플랫폼</th><th style="width:110px">제공 주체</th><th>내용</th></tr>
+    <tr><td><b>메이플스토리 월드</b><br><span class="muted">넥슨코리아</span></td><td><b>회사 공식</b></td>
+      <td>MSW Maker MCP. stdio 방식, <b>별도 인증 없이 자동 연결</b>.
+        VS Code / Claude / Cursor / Codex CLI 지원. <b>공식 크리에이터 문서에 정식 게재</b></td></tr>
+    <tr><td><b>Roblox Studio</b><br><span class="muted">Roblox Corp.</span></td><td><b>회사 공식</b></td>
+      <td>Studio 에 <b>네이티브 MCP 서버 기본 탑재</b></td></tr>
+    <tr><td>Unity</td><td class="muted">외부 개발자</td>
+      <td>회사 미제공. 커뮤니티 구현 다수, <b>대표 저장소가 수천 스타 규모</b></td></tr>
+    <tr><td>Unreal Engine</td><td class="muted">외부 개발자</td>
+      <td>회사 미제공. 커뮤니티 및 상용 플러그인 형태</td></tr>
+    <tr><td>Godot</td><td class="muted">외부 개발자</td>
+      <td>재단 미제공. 커뮤니티 애드온 다수</td></tr>
+  </table></div>
+  <p class="muted">커뮤니티 구현에는 공통된 한계가 있습니다 — <b>품질 편차가 크고</b>,
+    개인 프로젝트라 <b>유지보수가 보장되지 않으며</b>, 엔진이 업데이트되면 깨지고 <b>복구는 사용자 몫</b>입니다.
+    <span class="muted">출처: 메이플스토리 월드 크리에이터 센터 공식 문서, 각 플랫폼 공개 저장소 및 MCP 서버 목록 (2026년 8월 기준).</span></p>
+
   <h3>기여할 수 있는 것</h3>
   <ul>
     <li><b>레퍼런스 구현 — 이미 공개돼 있습니다.</b> MCP 가 제공되면 이 파이프라인의 하부를
       MCP 호출로 교체한 클라이언트 측 레퍼런스와 실사용 예제를 정리해 드리겠습니다</li>
     <li><b>우선 검증</b> — 각 단계 반영 시 가장 먼저 테스트하고 재현 로그와 함께 피드백을 드리겠습니다</li>
     <li><b>도구 설계 협의</b> — 실제 사용 시나리오 기반으로 도구 시그니처와 스키마를 함께 다듬겠습니다</li>
+    <li><b>사례 공유</b> — 제작 과정과 결과물을 <b>순순팩토리 채널에서 활용하실 수 있도록</b> 협조하겠습니다</li>
   </ul>
+  <div class="call">
+    <span class="lab">회신을 부탁드린 것</span>
+    ① 1단계 <code>data-testid</code>·자동화용 인증 <b>가능 여부와 일정</b> ·
+    ② 2단계 <b>내부 API 사용 허가 여부</b> ·
+    ③ 3단계 공식 MCP 서버 <b>로드맵 상 검토 의사</b> ·
+    ④ 필요 시 <b>실무 논의 자리</b>(온라인 30분 내외).
+    <b>전부 어려우시면 1단계만이라도</b> — 그것만으로 자동화 실무의 마찰 대부분이 해소됩니다.
+  </div>
+
   <p class="muted">제안서 원문: <a href="https://spum-proposal.vercel.app/">spum-proposal.vercel.app</a>
     — 업계 MCP 지원 현황 비교, 도구 구성안, 부록 포함</p>
 </div>
@@ -1724,6 +1802,29 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <span class="muted">(같은 항목을 김주영 쪽에서는 실측했습니다 — 통합 §03 #12·#13)</span>
   </div>
 
+  <h3>엔진에 없어서 직접 만든 것</h3>
+  <p class="sdesc">별도 피드백 문서에 정리한 항목들입니다.
+    <b>2D 캐릭터 게임에 거의 항상 필요한 기본기</b>인데 엔진이 안 줘서 처음부터 만들었습니다.</p>
+  <div class="scroll"><table>
+    <tr><th style="width:170px">없던 것</th><th>그래서 어떻게</th></tr>
+    <tr><td><b>팔로우 카메라</b></td>
+      <td>엔진은 Camera 원시 컴포넌트만 줍니다. <b>감쇠 추적 · 맵 경계 클램핑 ·
+        줌/포커스 전환</b>을 갖춘 컨트롤러를 직접 구현했습니다</td></tr>
+    <tr><td><b>클릭 엔티티 히트테스트</b></td>
+      <td>“어느 캐릭터를 클릭했는가”를 판정할 방법이 없어
+        <b>모든 캐릭터와의 거리를 일일이 비교</b>하는 코드를 짰습니다</td></tr>
+    <tr><td><b>근접·트리거 볼륨</b></td>
+      <td>반경 진입 이벤트가 없어 <code>setInterval(500ms)</code> 로 거리를 폴링했습니다 —
+        <b>엔진 업데이트 루프 밖이라 프레임 동기화도 부정확</b>합니다</td></tr>
+    <tr><td><b>이름표 + 말풍선 정렬</b></td>
+      <td>같은 머리 위에 띄우면 <b>서로 겹치는 걸 엔진이 정렬해 주지 않습니다.</b>
+        이름을 위에 두고 말풍선을 밀어 올리는 렌더러를 만들었습니다</td></tr>
+    <tr><td><b>좌표 공간 문서</b></td>
+      <td>입력 콜백이 <b><code>devicePixelRatio</code> 가 곱해진 캔버스 내부 좌표</b>를 넘기는데
+        그 규약이 문서에 없습니다. 결국 엔진 입력 대신
+        <b><code>canvas.addEventListener</code> 로 CSS 픽셀을 직접 받아</b> 우회했습니다</td></tr>
+  </table></div>
+
   <h3>어떻게 풀었나 / 못 풀었나</h3>
   <div class="scroll"><table>
     <tr><th style="width:56px">항목</th><th style="width:150px">상태</th><th>어떻게</th></tr>
@@ -1771,7 +1872,9 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
       <li><b>재사용 가능한 SAM 프록시</b> — <code>server.py</code> 63줄.
         <b>다른 브라우저 데모도 이걸로 CORS 를 우회할 수 있습니다.</b></li>
       <li><b>코드 + README + 작업 노트</b> — <code>github.com/cjwmanelf/spum-cheesecake-demo</code></li>
-      <li><b>플랫폼 개선 제안 문서</b> — 별도 정리본(Top 5 우선순위 · 심각도 3단계 · 항목 20건)</li>
+      <li><b>플랫폼 개선 제안 문서</b> — 별도 정리본.
+        <b>항목 20건</b>을 심각도 3단계(High/Medium/Low)로 나누고 <b>Top 5 우선순위</b>를 붙였습니다.
+        위 「어디서 막혔나」와 「엔진에 없어서 직접 만든 것」이 그 문서에서 온 것입니다</li>
     </ul>
   </div>
 
