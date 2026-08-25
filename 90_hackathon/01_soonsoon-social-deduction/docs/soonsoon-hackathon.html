@@ -204,6 +204,8 @@ figcaption{margin-top:10px;font-size:13.5px;color:var(--ink-2);line-height:1.65}
 figcaption b{color:var(--ink)}
 .shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:20px 0}
 .shots figure{margin:0}
+figure video{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:12px;
+  box-shadow:var(--shadow);background:#000}
 .slot{border:1.5px dashed var(--line-2);border-radius:12px;padding:26px;text-align:center;
   color:var(--ink-3);font-size:14px;margin:18px 0;line-height:1.7}
 
@@ -1398,6 +1400,23 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
  우측에 고블린 궁수 3마리를 배치한 뒤 플레이 가능하게 해줘"
                 ↓   LLM 에이전트   ↓
               SPUM 스튜디오 월드</code></pre>
+  <div class="shots">
+    <figure>
+      <img src="img/cw-map-final.jpg" alt="AI 가 생성한 산동네 마을 조감도. 픽셀 아트로 그려진 마을 전경.">
+      <figcaption><b>① AI 가 그린 조감도</b> — 자연어 지시로 Object Editor 에서 생성됩니다.</figcaption>
+    </figure>
+    <figure>
+      <img src="img/cw-walkmask.jpg" alt="같은 맵 위에 통행 가능 영역이 색으로 덮인 오버레이. 걸을 수 있는 곳과 막힌 곳이 갈려 있다.">
+      <figcaption><b>② 자동 생성된 통행 마스크</b> — 그림에서 <b>걸을 수 있는 칸</b>을 뽑아냅니다.
+        이 판정이 맞아야 다음 단계가 성립합니다.</figcaption>
+    </figure>
+  </div>
+  <figure>
+    <video src="img/cw-pipeline-demo.mp4" controls preload="metadata" playsinline></video>
+    <figcaption><b>명령 하나가 끝까지 도는 것</b> — 자연어 지시부터 스튜디오 주입·검증까지.
+      <span class="muted">소리 없이 재생됩니다.</span></figcaption>
+  </figure>
+
   <ul>
     <li><b>AI 조감도 생성 → 통행 마스크 생성 → 통행 판정 → 스튜디오 주입 → 검증 스크린샷</b>
       6단계가 <b>명령 하나로</b> 이어집니다</li>
