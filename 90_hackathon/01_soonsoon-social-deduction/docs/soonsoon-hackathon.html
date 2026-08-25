@@ -151,6 +151,10 @@ a{color:var(--accent-ink);text-underline-offset:3px}
   background:var(--accent-wash);border:1px solid color-mix(in srgb,var(--accent) 22%,transparent)}
 .call.cy{background:var(--cyan-wash);border-color:color-mix(in srgb,var(--cyan) 26%,transparent)}
 .call.pl{background:var(--plum-wash);border-color:color-mix(in srgb,var(--plum) 26%,transparent)}
+/* 중립 — 안내·전제·한계. 색이 없어야 「회사가 조치할 것」(주황)이 눈에 든다.
+   이게 없을 땐 안내문까지 주황이라 진짜 요청이 24개 속에 묻혔다. */
+.call.nt{background:var(--surface-2);border-color:var(--line)}
+.call.nt .lab{color:var(--ink-3)}
 .call ul{margin:6px 0 0}
 .call .lab{display:block;font:600 11px/1 var(--label);letter-spacing:.05em;margin-bottom:9px;color:var(--accent-ink)}
 .call.cy .lab{color:var(--cyan)} .call.pl .lab{color:var(--plum)}
@@ -333,7 +337,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     </table></div>
     <p class="muted">★★★★★ 라도 <b>저희 환경에서 잰 값</b>입니다. 판단 근거로 쓰시기 전에 한 번 재보시길 권합니다.
       재현 절차는 얼마든지 드리겠습니다.</p>
-    <div class="call">
+    <div class="call nt">
       <span class="lab">⭐ 남의 항목에는 저희가 등급을 매기지 않았습니다</span>
       <b>척도가 사람마다 다릅니다.</b> 억지로 하나로 맞추면 <b>남이 스스로 내려 둔 등급을 저희가 올려 버리는 일</b>이
       생깁니다 — 실제로 한 번 그랬고, 되돌렸습니다. 그래서 §03 표의 「확인 수준」 칸에는
@@ -359,7 +363,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
       각자의 원래 등급과 근거는 <b>이름 탭</b>에 손대지 않은 채 있습니다.
     </div>
 
-    <div class="call">
+    <div class="call nt">
       <span class="lab">과제정의서가 밝힌 동기</span>
       §1 은 <b>“제품 쇼케이스·레퍼런스가 없어 외부 개발자 진입 장벽이 높다”</b>를 들었습니다.
       저희는 그 장벽을 실제로 통과해 본 외부 개발자이고,
@@ -451,7 +455,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
       택할 수밖에 없었던 이유가 이것이고, 직접 만드는 대신 제안서를 드리는 이유이기도 합니다.
     </div>
 
-    <div class="call cy">
+    <div class="call">
       <span class="lab">전부 어려우시다면</span>
       <b>A1(<code>Retry-After</code>)</b> 과 <b>C 1단계(<code>data-testid</code> + 인증)</b> 둘만으로도
       실무 마찰의 대부분이 사라집니다. 둘 다 반나절 수준의 작업이라고 보고 있습니다.
@@ -953,7 +957,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
 
     </div>
 
-    <div class="call">
+    <div class="call nt">
       <span class="lab">세어 보면</span>
       문서 한 줄이면 안 막혔을 것 <b>9</b> · 코드·제품이 움직여야 하는 것 <b>23</b> · 인프라 <b>1</b>.
       <b>Studio 를 처음 익히는 단계에서 막힌 것은 대부분 「몰라서」</b>였고,
@@ -1049,12 +1053,12 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <td class="n">80.0 · 85.7 · 83.3 · 82.4%</td><td class="n">2~3명</td></tr>
       <tr><td><b>잣대를 나눠 줌</b></td><td class="n"><b>57.9%</b></td><td class="n"><b>4명</b></td></tr>
     </table></div>
-    <div class="call">
+    <div class="call pl">
       <span class="lab">저희가 얻은 제일 쓸모 있는 것</span>
       LLM 이 한 곳으로 쏠릴 때, <b>못 하게 막는 것보다 「갈 곳」을 여러 개 주는 편이 먹힙니다.</b>
       금지는 세 번 다 실패했고(길이 · 되풀이 · 편향), <b>분산은 한 번에 통했습니다.</b>
     </div>
-    <div class="call cy">
+    <div class="call nt">
       <span class="lab">표본을 밝힙니다</span>
       위 셋은 각 조건 20회 호출(유효 20 · 20 · 14 · 18표), <b>잣대 분산은 1회</b>입니다.
       방향은 일관되지만 <b>정밀한 수치로 인용하기엔 작습니다.</b>
@@ -1092,7 +1096,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <div class="shead"><em>01</em><h2>출발점은 하나였습니다</h2></div>
     <p class="sdesc">각자 다른 걸 만든 게 아니라, <b>같은 기획을 각자 구현하다 갈라진 것</b>입니다.
       그래서 「어디서 갈라졌나」가 곧 <b>어디가 어려웠나</b> 입니다.</p>
-    <div class="call">
+    <div class="call nt">
       <span class="lab">이렇게 갈라졌습니다</span>
       <ol style="margin:0">
         <li>과제정의서를 보고 넷이 <b>「마피아 게임류를 만들자」</b> 로 모였습니다.</li>
@@ -1103,7 +1107,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <li><b>정충원</b> 은 게임이 아니라 <b>그 게임들을 만드는 도구</b> 쪽으로 갔습니다.</li>
       </ol>
     </div>
-    <div class="call cy">
+    <div class="call">
       <span class="lab">회사가 여기서 볼 것</span>
       <b>같은 기획을 세 사람이 각자 구현했고, 한 사람이 도중에 규칙을 바꿔야 했습니다.</b>
       그 지점이 <b>SPUM 으로 만들 때 실제로 어려운 곳</b>이라고 보셔도 됩니다 —
@@ -1199,7 +1203,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <td class="n">3,216줄 · npm 0</td></tr>
     </table></div>
 
-    <div class="call cy">
+    <div class="call pl">
       <span class="lab">여기서 나온 것</span>
       <b>SPUM 을 쓰는 방식이 최소 세 갈래로 갈립니다</b> —
       ① <b>스튜디오를 밖에서 조종하는</b> 쪽(정충원) ② 에셋만 받아 <b>엔진을 직접 굴리는</b> 쪽(김주영)
@@ -1272,7 +1276,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <td>하나는 <b>참조 이미지를 주면 비율 무관하게 찌그러지는 것</b>을, 하나는
           <b>품질을 올려도 1024 가 상한인 것</b>을 봤습니다. <b>같은 벽의 두 얼굴</b>입니다</td></tr>
     </table></div>
-    <div class="call">
+    <div class="call pl">
       <span class="lab">신뢰도가 올라간 지점</span>
       「실패해도 과금되나」는 김주영 쪽에서 <b>★★☆☆☆(불확실)</b> 이었습니다.
       정충원 쪽 504 실측이 붙으면서 <b>★★★★☆(근거 있음)</b> 로 올라갔고,
@@ -1283,7 +1287,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
 
   <section>
     <div class="shead"><em>05</em><h2>독립적으로 같은 결론에 갔습니다</h2></div>
-    <div class="call cy">
+    <div class="call pl">
       <span class="lab">셋이 상의하지 않았습니다</span>
       <p style="margin:0 0 10px"><b>김주영</b> — “정답(범인·기억)을 <b>서버에 고정</b>하고
         각 캐릭터에게 <b>자기 기억만</b> 준다.”</p>
@@ -1376,7 +1380,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
       넷이 전부 <b>말 없는 폴짝이</b>를 물고 늘어지고 있습니다.</span></figcaption>
   </figure>
 
-  <div class="call">
+  <div class="call nt">
     <span class="lab">원래는 케이크였습니다</span>
     팀 넷이 <b>「마피아 게임류를 만들되 뻔하지 않게 꼰다」</b> 는 기획으로 출발했고,
     그 컨셉이 <b>「누가 내 케이크 먹었어?」</b> — 밤에 사라지는 것이 사람이 아니라 케이크인 마피아였습니다.
@@ -1446,7 +1450,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
       아무도 안 고른 경우의 기본값으로만 6이 남아 있습니다.
       <b>인원이 다시 6에 묶이면 잡는 검사</b>를 회귀에 넣었습니다.</li>
   </ul>
-  <div class="call">
+  <div class="call nt">
     <span class="lab">못 푼 것</span>
     AI 지목 적중률이 <b>11.8~23.5%</b> 로, 두 번 다 <b>무작위(33.3%)보다 낮았습니다.</b>
     잣대 분산으로 쏠림은 줄였지만 <b>적중률 자체는 못 올렸습니다.</b>
@@ -1491,7 +1495,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     범인 · 시각 · 목격자를 추리하는 게임.</p>
   <p>캐릭터 · 맵 · 애니메이션은 <b>SPUM 웹엔진</b>이 그리고, 대사는 미리 써 둔 것 없이
     플레이어가 말을 걸 때마다 <b>SAM(LLM)</b> 이 즉석에서 짓습니다.</p>
-  <div class="call cy">
+  <div class="call pl">
     <span class="lab">핵심 주장</span>
     “몇 시에 누가 어디 있었나, 누가 봤나, 누가 거짓말을 하고 있나” —
     이런 <b>사실 관계는 전부 코드가 정하고 코드가 검사한다.</b>
@@ -1548,14 +1552,14 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <b>출처가 항상 붙습니다</b> — <i>“루비 말로는 코코가 23시에 부엌에 있었대”.</i></p>
 
   <h3>사건은 어디서 일어나나 — 무대가 둘이 아닙니다</h3>
-  <div class="call pl">
+  <div class="call nt">
     <span class="lab">사건 자체 (화면에 안 그려짐)</span>
     <b>6개 시각</b>(21 · 22 · 23 · 00 · 01 · 02시) 동안 집의 <b>8개 방</b>
     (부엌 · 식당 · 거실 · 서재 · 데크 · 운동장 · 텃밭 · 헛간)을 배경으로 일어납니다.
     같은 시각 · 같은 방이면 서로 목격하고, 범행은 <b>범인이 부엌에 혼자 있던 시각</b>에 일어납니다.
     전부 <code>round.mjs</code> 가 관리하는 <b>추상 데이터</b>입니다.
   </div>
-  <div class="call">
+  <div class="call nt">
     <span class="lab">플레이어가 실제로 걸어 다니는 곳</span>
     그 집이 아니라 SPUM Studio <b>“Cozy Supermarket” 월드</b>(마을 상점가)입니다.
     하우스메이트 6명과 동네 사람 4명이 전부 이 무대 위에 있습니다.
@@ -1601,7 +1605,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
  → violations()      통과 (텃밭이 미누의 실제 승인된 위치라서)
  → remember()        없음 (자기 얘기라 이미 아는 사실)</code></pre>
 
-  <div class="call cy">
+  <div class="call nt">
     <span class="lab">SPUM 이 그린 것과 직접 그린 것</span>
     <b>SPUM 엔진</b> — 캐릭터 스프라이트·애니메이션만.
     <code>StudioSpumWorldRuntime</code> 을 CDN 프록시로 로드해 <code>#scene</code> 캔버스에
@@ -1679,7 +1683,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
   </table></div>
 
   <h3>실제로 부딪힌 문제 — 등급을 매겨 관리했습니다</h3>
-  <div class="call">
+  <div class="call nt">
     <span class="lab">「해결됨」은 주장이 아니라 판정입니다</span>
     <i>“게임 속에서 무엇이 진짜인지는 전부 코드가 정하고 코드가 검사한다”</i> 는 원칙을
     <b>이 표 자체에도 그대로 적용했습니다.</b>
@@ -1769,7 +1773,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <tr><td><code>roundtest.mjs</code></td><td>판 생성 로직 4,000회</td><td class="n">실패 0</td></tr>
     <tr><td><code>check-step5.mjs</code></td><td>기억 / 소문 / 증언판 통합</td><td class="n">콘솔 오류 0</td></tr>
   </table></div>
-  <div class="call cy">
+  <div class="call nt">
     <span class="lab">이 표가 증명하지 못하는 것</span>
     <b>구조적 안정성만 검증합니다</b> — 길찾기가 막히지 않는지, 버튼이 눌리는지, 로직이 안 깨지는지.
     <b>“대화가 실제로 자연스럽고 interactive 한지”는 별개 문제</b>이고,
@@ -1809,7 +1813,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
 <div class="panel" role="tabpanel" id="p-cw" aria-labelledby="t-cw" hidden>
   <p class="intro"><b>정충원</b> — SPUM 자동화 파이프라인과 개선 제안서.</p>
 
-  <div class="call">
+  <div class="call nt">
     <span class="lab">이 탭은 성격이 다릅니다</span>
     이 자료는 저희가 요청해서 받은 것이 아니라, <b>정충원 님이 회사에 낼 개선 제안서로 먼저 쓴 것</b>입니다.
     제안서라 <b>신뢰도 표기가 원래 없습니다</b> — §03 표에서 정충원 님 항목이
@@ -1855,7 +1859,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
   <p>스튜디오가 활발히 개발 중인 만큼 UI 가 자주 갱신되는데, 그때마다 DOM 선택자를 처음부터 다시 찾아야 했습니다.
     개발 단계 제품에서는 자연스러운 일이지만, 자동화 측에서는
     <b>기능을 추가하는 시간보다 깨진 선택자를 복구하는 시간이 더 커지는 구조</b>가 됩니다.</p>
-  <div class="call">
+  <div class="call pl">
     <b>문제의 본질은 브라우저 자동화 자체가 아니라 「UI 표현에 의존할 수밖에 없다는 점」</b>입니다.
   </div>
   <p>그 밖에 계측으로 확인한 마찰 지점은 통합 보고 §03 의
@@ -1874,7 +1878,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <li><b>3단계</b> — 공식 MCP 서버. <b>선언형</b>(월드가 어떤 상태여야 하는가) 설계를 권장 —
       중간에 실패해도 재적용으로 수렴하므로 에이전트 환경에서 안정적입니다</li>
   </ul>
-  <div class="call">
+  <div class="call nt">
     <span class="lab">현재 사용 범위와 약속</span>
     지금 자동화는 <b>로그인된 브라우저 세션 안에서 스튜디오 앱이 스스로 호출하는 경로를
     그대로 따라 쓰는 수준</b>입니다 — <b>리버스 엔지니어링한 비공개 경로를 직접 부르지 않습니다.</b>
@@ -1952,7 +1956,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
 <div class="panel" role="tabpanel" id="p-jw" aria-labelledby="t-jw" hidden>
   <p class="intro"><b>최종우</b> — 「치즈케이크 도난 사건」 2D 탑다운 미니 추리 게임.</p>
 
-  <div class="call cy">
+  <div class="call nt">
     <span class="lab">결론 먼저</span>
     실제 SPUM 에셋 · 엔진 · SAM 을 하나로 엮은 브라우저 추리게임이
     <b>정적 서빙 · 엔진 로드 · SAM 프록시 도달까지 재현 확인</b>됐습니다.
@@ -1981,7 +1985,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
       <b>다만 백업하며 기존 레포를 지우고 새로 만들어 이력이 남지 않았습니다</b> —
       커밋 수도 확인 불가</td><td><span class="stars dim">★☆☆☆☆</span></td></tr>
   </table></div>
-  <div class="call">
+  <div class="call nt">
     <span class="lab">스모크테스트 (직접 돌려 확인)</span>
     포트 8799 로 띄워 <code>index.html</code> · <code>app.js?v=77</code> · <code>spum-engine/index.js</code>
     <b>모두 HTTP 200</b>. 프록시에 더미 키로 요청하니 SAM 이
@@ -2001,7 +2005,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <li><b>겨냥한 것</b> — “SPUM Studio 실제 에셋 + spum-engine + SAM 대화”가
       <b>한 화면에서 실제로 돌아가는 완결형 데모</b></li>
   </ul>
-  <div class="call">
+  <div class="call nt">
     <span class="lab">지금 어디까지 도나 — 있는 그대로</span>
     정적 서빙 · 엔진 로드 · 프록시 도달은 <b>재현 확인</b>(★★★★★).
     다만 <b>유효 키로 실제 대화가 나오는 라이브 플레이는 확인하지 못했습니다</b>(키 미보유) —
@@ -2074,7 +2078,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
       <td class="n">②</td><td><span class="stars">★★★☆☆</span></td></tr>
   </table></div>
 
-  <div class="call">
+  <div class="call nt">
     <span class="lab">「돈이 새는 것」에 대해서는 단정하지 않았습니다</span>
     공유 기억을 매 요청에 넣어 토큰 소모가 커지는 구조는 있지만,
     <b>요청당 실제 크레딧을 측정하지 않았습니다</b> —
@@ -2120,7 +2124,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <tr><td class="n">3-8</td><td><b>못 풀었음</b></td><td>keep-alive 로 버팀. <b>플랫폼 문제라 우리 쪽 해결 불가</b></td></tr>
     <tr><td class="n">3-9</td><td><b>못 풀었음</b></td><td>자체 인계 노트로 축적만</td></tr>
   </table></div>
-  <div class="call">
+  <div class="call nt">
     <span class="lab">⭐ 끝까지 못 푼 것 — 빼지 않고 적었습니다</span>
     <ol style="margin:0">
       <li><b>순수 브라우저(정적) 배포 불가</b> — SAM 프록시 서버가 반드시 필요합니다.
