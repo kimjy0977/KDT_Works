@@ -6,11 +6,13 @@
 <style>
 /* ── 토큰 ───────────────────────────────────────────────────────────
    밝은 판이 기본. 청색 편향 회색 + SPUM 위험표시 주황.
-   색은 전부 여기서만 정의하고, 컴포넌트는 토큰만 쓴다. */
+   색은 전부 여기서만 정의하고, 컴포넌트는 토큰만 쓴다.
+   ⚠ `--label` 은 한글이 섞이는 자리용. IBM Plex Mono 에 한글이 없어서
+      모노 + 넓은 자간을 걸면 「외 부  개 발 자」처럼 벌어진다(실측). */
 :root{
   --label:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
-  --ground:#eef1f5;      /* 페이지 바닥 — 도면 용지 */
+  --ground:#eef1f5;
   --surface:#ffffff;
   --surface-2:#f6f8fb;
   --ink:#131822;
@@ -18,13 +20,13 @@
   --ink-3:#7b8698;
   --line:#dde3ec;
   --line-2:#c8d1de;
-  --grid:rgba(19,24,34,.045);   /* 배경 픽셀 격자 */
+  --grid:rgba(19,24,34,.045);
   --accent:#e8590c;             /* 위험표시 주황 — SPUM UI·우리 맵에서 */
   --accent-ink:#b8460a;
   --accent-wash:#fdf0e7;
-  --cyan:#0b7285;               /* 확인·좋았던 것 */
+  --cyan:#0b7285;
   --cyan-wash:#e6f3f5;
-  --plum:#7048a8;               /* 발견 */
+  --plum:#7048a8;
   --plum-wash:#f0ebf8;
   --shadow:0 1px 2px rgba(19,24,34,.05), 0 8px 24px -12px rgba(19,24,34,.18);
 }
@@ -50,6 +52,8 @@
 }
 
 *{box-sizing:border-box}
+/* ⛔ html{scroll-behavior:smooth} 는 쓰지 않는다 — 해시를 달고 들어오면
+   브라우저가 레이아웃 전에 스크롤을 시도해 맨 위에 머문다(실측). 스크립트에서 처리. */
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important;transition-duration:.01ms !important}}
 
@@ -62,54 +66,67 @@ body{
     linear-gradient(90deg, var(--grid) 1px, transparent 1px);
   background-size:32px 32px;
   color:var(--ink);
-  font:400 16px/1.72 "IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font:400 16px/1.72 var(--label);
   -webkit-font-smoothing:antialiased;
 }
-.wrap{max-width:1000px;margin:0 auto;padding:0 22px 110px}
-
-/* ── 상단 고정 바 ── */
-.topbar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--ground) 86%,transparent);
-  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.topbar .in{max-width:1000px;margin:0 auto;padding:11px 22px;display:flex;align-items:center;gap:18px}
-.mark{display:flex;align-items:center;gap:9px;font-weight:600;font-size:13.5px;white-space:nowrap}
-.mark i{width:11px;height:11px;background:var(--accent);border-radius:2px;flex:none;
-  box-shadow:3px 3px 0 var(--accent-wash), -3px -3px 0 var(--accent-wash)}
-.jump{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
-.jump::-webkit-scrollbar{display:none}
-.jump a{font:500 12.5px/1 var(--label);color:var(--ink-3);text-decoration:none;
-  padding:8px 11px;border-radius:7px;white-space:nowrap;transition:color .15s,background .15s}
-.jump a:hover{color:var(--ink);background:var(--surface-2)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
 
 /* ── 히어로 ── */
-.hero{padding:60px 0 4px}
-.kicker{font:500 12px/1 var(--label);letter-spacing:.05em;color:var(--accent-ink);
-  text-transform:uppercase}
-h1{font-size:clamp(38px,6.4vw,60px);line-height:1.06;letter-spacing:-.035em;font-weight:700;
-  margin:18px 0 0;text-wrap:balance}
-.lede{font-size:18px;line-height:1.68;color:var(--ink-2);max-width:44ch;margin:20px 0 0;font-weight:300}
-.byline{margin-top:26px;font:500 13px/1 var(--label);color:var(--ink-3);
+.hero{padding:58px 0 30px}
+.kicker{font:500 12px/1 var(--label);letter-spacing:.05em;color:var(--accent-ink)}
+h1{font-size:clamp(36px,6vw,56px);line-height:1.07;letter-spacing:-.035em;font-weight:700;
+  margin:16px 0 0;text-wrap:balance}
+.lede{font-size:17.5px;line-height:1.66;color:var(--ink-2);max-width:46ch;margin:18px 0 0;font-weight:300}
+.byline{margin-top:22px;font:500 13px/1 var(--label);color:var(--ink-3);
   display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .byline span{color:var(--line-2)}
-
-/* ── KPI 스트립 ── */
-.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:1px;
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;
   background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;
-  margin:38px 0 0;box-shadow:var(--shadow)}
-.strip > div{background:var(--surface);padding:18px 20px}
-.strip b{display:block;font:600 27px/1.1 var(--mono);letter-spacing:-.02em;
+  margin:30px 0 0;box-shadow:var(--shadow)}
+.strip > div{background:var(--surface);padding:17px 19px}
+.strip b{display:block;font:600 26px/1.1 var(--mono);letter-spacing:-.02em;
   font-variant-numeric:tabular-nums}
-.strip small{display:block;margin-top:7px;font-size:12.5px;color:var(--ink-3);line-height:1.45}
+.strip small{display:block;margin-top:6px;font-size:12.5px;color:var(--ink-3);line-height:1.45}
 
-/* ── 섹션 ── */
-section{margin-top:76px;scroll-margin-top:64px}
+/* ── 최상위 탭바 (sticky) ─────────────────────────────────────────
+   ⭐ 이 문서가 탭으로 갈린 이유: 한 스크롤에 전부 쌓으면 길어서 집중이 흩어진다.
+      「통합」은 결론, 「비교」는 넷을 나란히, 개인 탭은 한 사람을 온전히. */
+.tabbar{position:sticky;top:0;z-index:50;margin-top:34px;
+  background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+.tabbar .in{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;align-items:stretch;gap:16px}
+.mark{display:flex;align-items:center;gap:9px;font-weight:600;font-size:13.5px;white-space:nowrap;
+  color:var(--ink-2);padding:12px 0}
+.mark i{width:11px;height:11px;background:var(--accent);border-radius:2px;flex:none}
+.tabbar nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.tabbar nav::-webkit-scrollbar{display:none}
+.tabbar button{appearance:none;border:none;background:none;cursor:pointer;font:600 14px/1 var(--label);
+  color:var(--ink-3);padding:14px 13px 12px;border-bottom:2.5px solid transparent;white-space:nowrap;
+  transition:color .15s,border-color .15s}
+.tabbar button:hover{color:var(--ink)}
+.tabbar button[aria-selected="true"]{color:var(--accent-ink);border-bottom-color:var(--accent)}
+.tabbar .sep{width:1px;background:var(--line);margin:10px 6px;flex:none}
+
+/* ── 탭 패널 ── */
+.panel{padding:8px 0 100px}
+.panel[hidden]{display:none}
+.panel > .intro{color:var(--ink-2);font-size:15px;max-width:62ch;font-weight:300;margin:26px 0 0}
+
+/* 통합 탭 안의 칩 목차 */
+.chipnav{display:flex;gap:7px;flex-wrap:wrap;margin:20px 0 6px}
+.chipnav a{font:500 13px/1 var(--label);text-decoration:none;color:var(--ink-2);
+  background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;
+  transition:border-color .15s,color .15s}
+.chipnav a:hover{border-color:var(--accent);color:var(--accent-ink)}
+
+section{margin-top:58px;scroll-margin-top:76px}
 .shead{display:flex;align-items:baseline;gap:13px;margin-bottom:6px}
-.shead em{font:500 12px/1 var(--mono);color:var(--accent);font-style:normal;
-  letter-spacing:.1em;padding-top:4px}
-h2{font-size:27px;line-height:1.28;letter-spacing:-.022em;font-weight:700;margin:0;text-wrap:balance}
+.shead em{font:500 12px/1 var(--mono);color:var(--accent);font-style:normal;letter-spacing:.1em;padding-top:4px}
+h2{font-size:26px;line-height:1.28;letter-spacing:-.022em;font-weight:700;margin:0;text-wrap:balance}
 .sdesc{color:var(--ink-2);font-size:14.5px;margin:0 0 22px;max-width:62ch;font-weight:300}
-h3{font-size:18px;line-height:1.4;letter-spacing:-.012em;font-weight:600;margin:36px 0 10px;text-wrap:balance}
-h4{font:600 11.5px/1 var(--label);letter-spacing:.05em;color:var(--accent-ink);
-  text-transform:uppercase;margin:34px 0 10px}
+h3{font-size:18px;line-height:1.4;letter-spacing:-.012em;font-weight:600;margin:34px 0 10px;text-wrap:balance}
+.panel > h3:first-of-type{margin-top:26px}
+h4{font:600 11.5px/1 var(--label);letter-spacing:.05em;color:var(--accent-ink);margin:32px 0 10px}
 p{margin:12px 0}
 p,li{font-size:15px}
 ul,ol{padding-left:19px;margin:12px 0} li{margin:6px 0}
@@ -117,7 +134,6 @@ ul,ol{padding-left:19px;margin:12px 0} li{margin:6px 0}
 a{color:var(--accent-ink);text-underline-offset:3px}
 :focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:4px}
 
-/* ── 카드·콜아웃 ── */
 .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;
   margin:16px 0;box-shadow:var(--shadow)}
 .call{border-radius:12px;padding:16px 19px;margin:18px 0;font-size:14.5px;line-height:1.68;
@@ -125,26 +141,29 @@ a{color:var(--accent-ink);text-underline-offset:3px}
 .call.cy{background:var(--cyan-wash);border-color:color-mix(in srgb,var(--cyan) 26%,transparent)}
 .call.pl{background:var(--plum-wash);border-color:color-mix(in srgb,var(--plum) 26%,transparent)}
 .call ul{margin:6px 0 0}
-.call .lab{display:block;font:600 11px/1 var(--label);letter-spacing:.05em;
-  text-transform:uppercase;margin-bottom:9px;color:var(--accent-ink)}
+.call .lab{display:block;font:600 11px/1 var(--label);letter-spacing:.05em;margin-bottom:9px;color:var(--accent-ink)}
 .call.cy .lab{color:var(--cyan)} .call.pl .lab{color:var(--plum)}
 
-/* ── 표 ── */
 .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface);
   margin:14px 0;box-shadow:var(--shadow)}
 table{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
 th,td{padding:13px 15px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
 tr:last-child td{border-bottom:none}
-th{font:600 11px/1.3 var(--label);letter-spacing:.03em;text-transform:uppercase;
-  color:var(--ink-3);background:var(--surface-2);white-space:nowrap;position:sticky;top:0}
-td.n{font:500 13px/1.6 var(--label);color:var(--ink-3);
-  font-variant-numeric:tabular-nums;white-space:nowrap}
+th{font:600 11px/1.3 var(--label);letter-spacing:.03em;color:var(--ink-3);
+  background:var(--surface-2);white-space:nowrap}
+td.n{font:500 13px/1.6 var(--label);color:var(--ink-3);font-variant-numeric:tabular-nums;white-space:nowrap}
 td .sub{display:block;margin-top:5px;color:var(--ink-2);font-size:13.5px;line-height:1.62}
-/* ⭐ 이 문서의 발명 = 「겹침」. 여러 명이 겪은 행은 왼쪽에 주황 띠 */
+/* ⭐ 이 문서의 발명 = 「겹침」. 둘 이상이 독립적으로 겪은 행에만 주황 띠.
+   ⚠ 강조 용도로 쓰지 말 것 — 이 띠는 「사람이 겹쳤다」는 뜻 하나만 가진다. */
 tr.dup td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
 tr.dup{background:color-mix(in srgb,var(--accent-wash) 55%,transparent)}
+/* 비교표 — 세로 첫 칸이 축, 사람이 열 */
+table.cmp th:first-child,table.cmp td:first-child{background:var(--surface-2);font-weight:600;
+  color:var(--ink)}
+table.cmp td{font-size:13.5px;line-height:1.6}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.dot.no{background:var(--line-2)}
 
-/* ── 사람 칩 ── */
 .chips{display:flex;gap:5px;flex-wrap:wrap}
 .chip{font:500 11.5px/1 var(--label);padding:5px 8px;border-radius:6px;
   background:var(--surface-2);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
@@ -152,652 +171,756 @@ tr.dup{background:color-mix(in srgb,var(--accent-wash) 55%,transparent)}
 :root[data-theme="dark"] .chip.on{color:#1a0d05}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.on{color:#1a0d05}}
 
-/* ── 별 ── */
 .stars{font:500 12.5px/1 var(--label);color:var(--accent);letter-spacing:.02em;white-space:nowrap}
 .stars.dim{color:var(--ink-3)}
 
-code{font:500 13px/1.5 var(--mono);background:var(--surface-2);
-  border:1px solid var(--line);padding:1px 6px;border-radius:5px}
+code{font:500 13px/1.5 var(--mono);background:var(--surface-2);border:1px solid var(--line);
+  padding:1px 6px;border-radius:5px}
 pre{background:var(--surface-2);border:1px solid var(--line);padding:16px 18px;border-radius:11px;
   overflow-x:auto;font:400 13px/1.72 var(--mono);margin:14px 0}
 pre code{background:none;border:none;padding:0}
 mark{background:color-mix(in srgb,var(--accent) 26%,transparent);color:inherit;padding:1px 4px;border-radius:3px}
 
-/* ── 사람 카드 (§2) ── */
 .people{display:grid;grid-template-columns:repeat(auto-fit,minmax(214px,1fr));gap:14px;margin:16px 0}
 .person{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:19px 20px;
   box-shadow:var(--shadow);display:flex;flex-direction:column;gap:9px}
 .person .nm{font:600 12px/1 var(--label);letter-spacing:.04em;color:var(--accent-ink)}
 .person .ti{font-size:16px;font-weight:600;line-height:1.4;letter-spacing:-.01em}
 .person .ds{font-size:13.5px;color:var(--ink-2);line-height:1.62;flex:1}
-.person .mt{font:500 12px/1.5 var(--label);color:var(--ink-3);
-  padding-top:10px;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+.person .mt{font:500 12px/1.5 var(--label);color:var(--ink-3);padding-top:10px;
+  border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
 .person.wait{border:1.5px dashed var(--line-2);background:transparent;box-shadow:none}
 
-/* ── 탭 ── */
-.tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin:22px 0 0}
-.tabs button{appearance:none;text-align:left;cursor:pointer;font:inherit;
-  background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;
-  transition:border-color .16s,transform .16s,box-shadow .16s;color:var(--ink)}
-.tabs button:hover{border-color:var(--line-2);transform:translateY(-1px)}
-.tabs button .who{display:block;font-weight:600;font-size:15.5px;letter-spacing:-.01em}
-.tabs button .what{display:block;margin-top:4px;font:400 12px/1.4 var(--label);color:var(--ink-3)}
-.tabs button[aria-selected="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),var(--shadow)}
-.tabs button[aria-selected="true"] .what{color:var(--accent-ink)}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;
-  padding:28px 28px 32px;margin-top:14px;box-shadow:var(--shadow)}
-.panel[hidden]{display:none}
-.panel > h3:first-child{margin-top:0}
 .slot{border:1.5px dashed var(--line-2);border-radius:12px;padding:26px;text-align:center;
   color:var(--ink-3);font-size:14px;margin:18px 0;line-height:1.7}
 
-footer{margin-top:84px;padding-top:24px;border-top:1px solid var(--line);
+footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
   color:var(--ink-3);font-size:13px;line-height:1.7}
 
 @media (max-width:640px){
-  .wrap{padding:0 16px 72px}
-  .hero{padding:40px 0 4px}
-  .panel{padding:22px 18px 26px}
-  section{margin-top:58px}
+  .wrap{padding:0 16px}
+  .hero{padding:38px 0 22px}
+  .tabbar .in{padding:0 16px;gap:8px}
+  .mark span{display:none}
+  section{margin-top:44px}
 }
 </style>
 
-<div class="topbar"><div class="in">
-  <div class="mark"><i></i>순순팩토리 해커톤</div>
-  <nav class="jump">
-    <a href="#s1">요약</a><a href="#s2">만든 것</a><a href="#s3">요청</a>
-    <a href="#s4">막힌 곳</a><a href="#s5">발견</a><a href="#s6">각자</a>
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">외부 개발자 4인 · 클로즈드 테스트 기록</div>
+    <h1>밖에서 본 SPUM</h1>
+    <p class="lede">네 사람이 각자 다른 것을 만들었습니다.
+      그 과정에서 어디에 걸렸고, 무엇을 알게 됐는지를 한 장에 모았습니다.</p>
+    <div class="byline">팀 순순히 따라와라 <span>·</span> 정충원 · 김주영 · 신서연 · 최종우 <span>·</span> 2026-08</div>
+    <div class="strip">
+      <div><b>4</b><small>각자 만든 것</small></div>
+      <div><b>18</b><small>막힌 곳 · 계측 기록</small></div>
+      <div><b>3</b><small>둘 이상이 겪은 항목</small></div>
+      <div><b>316</b><small>커밋 합계</small></div>
+    </div>
+  </div>
+</div>
+
+<div class="tabbar"><div class="in">
+  <div class="mark"><i></i><span>밖에서 본 SPUM</span></div>
+  <nav role="tablist" aria-label="보고 구분">
+    <button role="tab" aria-selected="true"  aria-controls="p-all" id="t-all">통합 보고</button>
+    <button role="tab" aria-selected="false" aria-controls="p-cmp" id="t-cmp">비교</button>
+    <div class="sep" aria-hidden="true"></div>
+    <button role="tab" aria-selected="false" aria-controls="p-cw"  id="t-cw">정충원</button>
+    <button role="tab" aria-selected="false" aria-controls="p-jy"  id="t-jy">김주영</button>
+    <button role="tab" aria-selected="false" aria-controls="p-sy"  id="t-sy">신서연</button>
+    <button role="tab" aria-selected="false" aria-controls="p-jw"  id="t-jw">최종우</button>
   </nav>
 </div></div>
 
 <div class="wrap">
 
-<div class="hero">
-  <div class="kicker">외부 개발자 4인 · 클로즈드 테스트 기록</div>
-  <h1>밖에서 본 SPUM</h1>
-  <p class="lede">네 사람이 각자 다른 것을 만들었습니다.
-    그 과정에서 어디에 걸렸고, 무엇을 알게 됐는지를 한 장에 모았습니다.</p>
-  <div class="byline">팀 순순히 따라와라 <span>·</span> 김주영 · 신서연 · 정충원 · 최종우 <span>·</span> 2026-08</div>
+<!-- ══════════════ 통합 보고 ══════════════ -->
+<div class="panel" role="tabpanel" id="p-all" aria-labelledby="t-all">
+  <p class="intro">넷의 기록에서 <b>회사에 쓸모 있는 것만</b> 뽑아 하나로 합쳤습니다.
+    누가 무엇을 만들었는지는 <b>「비교」 탭</b>에, 각자의 전체 기록은 <b>이름 탭</b>에 있습니다.</p>
 
+  <div class="chipnav">
+    <a href="#s-sum">세 줄 요약</a><a href="#s-ask">회사에 드리는 요청</a>
+    <a href="#s-stuck">어디서 막혔나</a><a href="#s-good">좋았던 것</a>
+    <a href="#s-find">만들고 나서 알게 된 것</a><a href="#s-give">드릴 수 있는 것</a>
+  </div>
+
+  <section id="s-sum">
+    <div class="shead"><em>01</em><h2>세 줄 요약</h2></div>
+    <div class="card">
+      <ol style="margin:0">
+        <li><b>넷 다 돌아가는 것을 만들었습니다.</b> 설치 없이 브라우저에서 켜집니다.</li>
+        <li><b>막힌 곳의 절반은 「문서 한 줄이면 안 막혔을 것」</b>이었고,
+          나머지 중에도 <code>Retry-After</code> 한 줄처럼 가벼운 것이 섞여 있습니다.</li>
+        <li><b>AI NPC 를 여럿 굴리면 표가 한 사람에게 몰립니다.</b> 그리고 그건 고칠 수 있습니다 —
+          금지가 아니라 <b>잣대를 나눠 주는 방식</b>으로요.</li>
+      </ol>
+    </div>
+
+    <h3>이 문서의 수치를 어느 정도로 믿으실지</h3>
+    <p>저희는 전문 게임 개발자가 아닙니다. 몰라서 못 본 것, 잘못 잰 것이 섞일 수 있어
+      <b>어느 정도로 확인한 것인지</b>를 항목마다 붙였습니다.</p>
+    <div class="scroll"><table>
+      <tr><th style="width:120px">표기</th><th>뜻</th></tr>
+      <tr><td><span class="stars">★★★★★</span></td><td><b>직접 확인</b> — 여러 번 재현했고 수치·해시 같은 근거가 있습니다</td></tr>
+      <tr><td><span class="stars">★★★★☆</span></td><td><b>근거 있음</b> — 소스나 문서로 확인했지만 재현은 한 번입니다</td></tr>
+      <tr><td><span class="stars">★★★☆☆</span></td><td><b>추정</b> — 그렇게 보이지만 원인을 갈라내지 못했습니다</td></tr>
+      <tr><td><span class="stars dim">★★☆☆☆</span></td><td><b>불확실</b> — 일부만 확인했고 나머지는 모릅니다</td></tr>
+      <tr><td><span class="stars dim">★☆☆☆☆</span></td><td><b>미확인</b> — 들은 것이거나 짐작입니다</td></tr>
+    </table></div>
+    <p class="muted">★★★★★ 라도 <b>저희 환경에서 잰 값</b>입니다. 판단 근거로 쓰시기 전에 한 번 재보시길 권합니다.
+      재현 절차는 얼마든지 드리겠습니다.</p>
+
+    <div class="call">
+      <span class="lab">과제정의서가 밝힌 동기</span>
+      §1 은 <b>“제품 쇼케이스·레퍼런스가 없어 외부 개발자 진입 장벽이 높다”</b>를 들었습니다.
+      저희는 그 장벽을 실제로 통과해 본 외부 개발자이고,
+      <b>어디에 걸렸는지가 곧 알고 싶어 하신 것</b>이라고 보고 아래 둘을 본론으로 잡았습니다.
+    </div>
+  </section>
+
+  <section id="s-ask">
+    <div class="shead"><em>02</em><h2>회사에 드리는 요청</h2></div>
+    <p class="sdesc">네 사람의 요청을 하나로 모으고 성격이 다른 셋으로 갈랐습니다.
+      앞은 지금 아픈 것, 뒤는 다음 단계를 여는 것입니다.</p>
+
+    <h4>A · 지금 고칠 것</h4>
+    <div class="scroll"><table>
+      <tr><th style="width:52px">#</th><th style="width:34%">요청</th><th>왜</th><th style="width:74px">근거</th></tr>
+      <tr><td class="n">A1</td><td><b><code>Retry-After</code> 헤더 추가</b></td>
+        <td>표준 헤더 한 줄이면 <b>모든 클라이언트가 올바르게 기다립니다.</b>
+          지금은 각 팀이 시행착오로 알아냅니다 — 실패율 24.8% → 1.0%</td><td class="n">#10</td></tr>
+      <tr><td class="n">A2</td><td><b>실패 응답에 과금 여부 표기 · 가능하면 미청구</b></td>
+        <td><mark>504 로 끊겨도 과금됩니다</mark> — 동일 프롬프트 2회 연속 504 로
+          <b>크레딧 249 소모, 결과물 없음</b>. 비용 신뢰에 직접 걸립니다</td><td class="n">#9</td></tr>
+      <tr><td class="n">A3</td><td><b>Cast Export 상태 무효화</b></td>
+        <td>선택을 바꿔도 이전 시트가 유효한 것처럼 남아 <b>남의 픽셀에 내 이름표</b>가 붙습니다.
+          조용히 깨지는 종류라 모르고 당합니다</td><td class="n">#5</td></tr>
+      <tr><td class="n">A4</td><td><b>무음 실패를 말해 줄 것</b></td>
+        <td>세션 만료 · refs 상한 · 생성 실패 · <code>update()</code> 예외 —
+          <b>넷 다 오류 없이 멈춥니다.</b> 저희를 가장 오래 잡아둔 것은
+          기능 부족이 아니라 <b>침묵</b>이었습니다</td><td class="n">#2·3·7·8</td></tr>
+      <tr><td class="n">A5</td><td><b>시뮬레이션 과금 표시</b></td>
+        <td><b>돈이 새는</b> 항목입니다. 켜 둔 채 두면 6인 9분에 165 SSAM.
+          꺼졌는지 확인하려면 두 군데를 봐야 합니다</td><td class="n">#13</td></tr>
+    </table></div>
+
+    <h4>B · 문서 한 줄이면 되는 것</h4>
+    <div class="scroll"><table>
+      <tr><th style="width:52px">#</th><th style="width:34%">요청</th><th>왜</th><th style="width:74px">근거</th></tr>
+      <tr><td class="n">B1</td><td><b>내장 AI 능력 경계 한 페이지</b><br><span class="muted">“이건 되고 이건 안 된다”</span></td>
+        <td>이 한 페이지가 <b>며칠</b>을 아껴줬을 것입니다. 저희는 태워 보고 알았습니다</td><td class="n">#1</td></tr>
+      <tr><td class="n">B2</td><td><b>속도 제한 값과 비용 산정식</b></td>
+        <td>429 의 경계를 알 수 없어 안전 속도를 추측으로 정했습니다.
+          비용도 입력 길이에 크게 좌우되는데 예측할 방법이 없습니다</td><td class="n">#10·12</td></tr>
+      <tr><td class="n">B3</td><td><b>Studio 쓰기 방향 · 필드 의미</b></td>
+        <td>“쓰기는 로컬 먼저” 한 줄, <code>grid</code> 가 무슨 뜻인지 한 줄</td><td class="n">#2</td></tr>
+      <tr><td class="n">B4</td><td><b>AI 캐릭터를 여럿 굴릴 때의 안내</b></td>
+        <td>“금지하지 말고 잣대를 나눠 주세요” — 제작자가 스스로 알아내기 어렵습니다</td><td class="n">05</td></tr>
+    </table></div>
+
+    <h4>C · 다음 단계로 열어줄 것 — 자동화 인터페이스</h4>
+    <div class="scroll"><table>
+      <tr><th style="width:70px">단계</th><th style="width:34%">요청</th><th style="width:130px">예상 부담</th><th>효과</th></tr>
+      <tr><td class="n">1단계</td><td><b>주요 UI 에 <code>data-testid</code><br>+ 자동화용 인증 수단</b></td>
+        <td class="n">매우 낮음<br>반나절~1일</td>
+        <td>UI 개편으로 인한 자동화 파손 대부분 해소 · 30분 재로그인 문제 해소</td></tr>
+      <tr><td class="n">2단계</td><td><b>내부 API 사용 허가<br>+ 최소 문서</b></td>
+        <td class="n">낮음<br>허가 + 문서화</td>
+        <td>신규 개발이 아니라 <b>이미 있는 것에 대한 허가</b>. UI 의존 탈피</td></tr>
+      <tr><td class="n">3단계</td><td><b>공식 MCP 서버</b></td>
+        <td class="n">높음<br>별도 개발</td>
+        <td>AI 에이전트가 다룰 수 있는 제작 플랫폼</td></tr>
+    </table></div>
+    <div class="call">
+      <span class="lab">왜 이건 회사만 할 수 있나</span>
+      Unity · Unreal · Godot 은 회사가 안 만들어도 커뮤니티가 MCP 를 만듭니다.
+      설치형이라 외부에서 플러그인을 붙일 수 있기 때문입니다.
+      <b>SPUM 스튜디오는 웹 서비스라 그 방법이 원천적으로 불가능합니다</b> —
+      사용자는 브라우저 화면만 볼 수 있습니다. 저희가 화면 클릭 자동화라는 불안정한 방식을
+      택할 수밖에 없었던 이유가 이것이고, 직접 만드는 대신 제안서를 드리는 이유이기도 합니다.
+    </div>
+
+    <div class="call cy">
+      <span class="lab">전부 어려우시다면</span>
+      <b>A1(<code>Retry-After</code>)</b> 과 <b>C 1단계(<code>data-testid</code> + 인증)</b> 둘만으로도
+      실무 마찰의 대부분이 사라집니다. 둘 다 반나절 수준의 작업이라고 보고 있습니다.
+    </div>
+  </section>
+
+  <section id="s-stuck">
+    <div class="shead"><em>03</em><h2>어디서 막혔나</h2></div>
+    <p class="sdesc">주황 띠가 붙은 행은 <b>둘 이상이 독립적으로 같은 것을 만난</b> 항목입니다.
+      누가 겪었는지를 나란히 보시려면 <b>「비교」 탭</b>이 더 편합니다.</p>
+
+    <h4>A · Studio 사용</h4>
+    <div class="scroll"><table>
+      <tr><th style="width:46px">#</th><th>막힌 것</th><th style="width:96px">신뢰도</th>
+          <th style="width:24%">있었으면 안 막혔을 것</th><th style="width:132px">겪은 사람</th></tr>
+      <tr><td class="n">1</td><td><b>내장 AI 가 <code>systemPrompt</code> 를 무시한다</b>
+        <span class="sub">캐릭터 설정이 반영되지 않고, 기억을 근거로 쓰지 않고 지어냅니다.
+        확인 후 대화 전체를 SAM 직접 호출로 재작성 — <b>이 프로젝트 최대의 재작업</b></span></td>
+        <td><span class="stars">★★★★★</span></td><td>내장 AI 능력 경계 한 페이지</td>
+        <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
+      <tr class="dup"><td class="n">2</td><td><b>동기화가 서버를 안 읽고 로컬을 얹는다</b>
+        <span class="sub">서버에 직접 PUT 하면 다음 새로고침에 사라집니다(작업을 두 번 날림).
+        부팅 시 로컬과 서버가 다르면 <b>서버를 읽지 않고 로컬을 새 리비전으로 얹습니다</b> —
+        오래된 로컬을 가진 기기로 열면 낡은 데이터가 최신이 됩니다</span></td>
+        <td><span class="stars">★★★★★</span></td><td>“쓰기는 로컬 먼저” 한 줄 · 다중 기기 경고</td>
+        <td><div class="chips"><span class="chip on">정충원</span><span class="chip on">김주영</span></div></td></tr>
+      <tr class="dup"><td class="n">3</td><td><b>세션이 조용히 만료된다</b>
+        <span class="sub">약 15분에 세션 쿠키 회전 1회, <b>약 30분에 서버가 세션 종료</b>(30초 간격 계측 로그).
+        저장·생성이 <b>오류 없이</b> 실패합니다. 자동화는 30분마다 매직링크 재로그인이 필요합니다</span></td>
+        <td><span class="stars">★★★★★</span></td><td>만료 시 <b>명시적 오류</b> · 수명이 긴 토큰</td>
+        <td><div class="chips"><span class="chip on">정충원</span><span class="chip on">김주영</span></div></td></tr>
+      <tr><td class="n">4</td><td><b>계정당 세션 1개</b>
+        <span class="sub">다른 브라우저에서 로그인하면 기존 세션이 즉시 무효화됩니다.
+        사람 확인용 브라우저와 자동화가 공존하기 어렵습니다</span></td>
+        <td><span class="stars">★★★★☆</span></td><td>동시 세션 허용 또는 자동화용 별도 인증</td>
+        <td><div class="chips"><span class="chip on">정충원</span></div></td></tr>
+      <tr><td class="n">5</td><td><b>Cast Export 가 다른 캐릭터의 시트를 내려준다</b>
+        <span class="sub">A→B 로 바꿔도 미리보기가 A 인 채 <code>Sheet ready</code> 로 남고, 그대로 받으면
+        <b>A 의 픽셀에 B 의 이름표</b>가 붙습니다. JSON 의 이름은 맞게 찍히므로 이름만 보는 검증은 못 잡습니다.
+        10명 md5 전수 대조로 발견 — 캐릭터 한 명의 에셋이 잘못 들어간 채 발표까지 갔습니다</span></td>
+        <td><span class="stars">★★★★★</span></td><td>선택이 바뀌면 시트 상태 무효화 <span class="muted">(코드)</span></td>
+        <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
+      <tr><td class="n">6</td><td><b>refs 썸네일을 「보기」만 해도 슬라이스 기준이 바뀐다</b>
+        <span class="sub">클릭만 했는데 테마의 <code>sliceBaseAssetId</code> 가
+        <code>""</code> → <code>sha256:…</code> 로 바뀌었습니다. 백업 두 개를 해시로 대조해 확인</span></td>
+        <td><span class="stars">★★★★☆</span></td><td><b>미리보기는 읽기 전용이어야</b> <span class="muted">(코드)</span></td>
+        <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
+      <tr><td class="n">7</td><td><b>UI 가 자주 갱신돼 자동화가 파손된다</b>
+        <span class="sub">개발 단계 제품에서는 자연스러운 일이지만, 자동화 측에서는
+        <b>기능을 추가하는 시간보다 깨진 선택자를 복구하는 시간이 더 커집니다.</b>
+        문제의 본질은 자동화가 아니라 <b>UI 표현에 의존할 수밖에 없다는 점</b>입니다</span></td>
+        <td><span class="stars">★★★★★</span></td><td><code>data-testid</code> 부여 <span class="muted">(C 1단계)</span></td>
+        <td><div class="chips"><span class="chip on">정충원</span></div></td></tr>
+      <tr><td class="n">8</td><td><b>refs 가 10장을 채우면 생성이 조용히 멈춘다</b>
+        <span class="sub"><code>Generate</code> 를 눌러도 <code>queued</code> 인 채 끝나지 않고 <b>오류도 안 뜹니다.</b>
+        로그인 만료인 줄 알고 두 번 헛짚었고, 새 테마를 만드니 같은 프롬프트가 곧바로 돌았습니다</span></td>
+        <td><span class="stars">★★★★★</span></td><td>상한에 닿으면 <b>막는다고 말해 줄 것</b></td>
+        <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
+    </table></div>
+
+    <h4>B · 생성과 과금</h4>
+    <div class="scroll"><table>
+      <tr><th style="width:46px">#</th><th>막힌 것</th><th style="width:96px">신뢰도</th>
+          <th style="width:24%">있었으면 안 막혔을 것</th><th style="width:132px">겪은 사람</th></tr>
+      <tr><td class="n">9</td><td><b>생성이 504 로 끊기는데 <mark>과금은 진행된다</mark></b>
+        <span class="sub">생성이 잡 큐 없는 동기 요청이어서 길어지면 앞단에서 504 로 끊깁니다.
+        <b>동일 프롬프트 2회 연속 504 로 크레딧 249 소모, 결과물 없음.</b>
+        고품질 설정일수록 잘 납니다</span></td>
+        <td><span class="stars">★★★★☆</span></td><td>잡 큐 + 폴링 · <b>실패 시 미청구</b></td>
+        <td><div class="chips"><span class="chip on">정충원</span></div></td></tr>
+      <tr><td class="n">10</td><td><b>429 의 경계를 알 수 없고, <code>Retry-After</code> 도 없다</b>
+        <span class="sub">평가 실행 2회에서 429 가 36건·20건. 그런데 순차 25회·동시 8개로는 <b>재현 0건</b> —
+        무엇이 기준인지 알 수 없습니다. 재시도 간격 없이 121회 → 실패 <b>24.8%</b>,
+        1500ms + 지수 백오프 → <b>1.0%</b></span></td>
+        <td><span class="stars">★★★★★</span></td><td>속도 제한 문서 + <b>표준 헤더 한 줄</b></td>
+        <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
+      <tr class="dup"><td class="n">11</td><td><b>실패 응답에 <code>usage</code> 가 없다</b>
+        <span class="sub">200 응답만 <code>usage.scredits</code> 를 줍니다. 클라이언트가 확인할 잔액 조회 경로도 없습니다.
+        <b>#9 로 미루어 실패해도 과금되는 것으로 보입니다</b></span></td>
+        <td><span class="stars">★★★★☆</span></td><td><code>usage: { charged: false }</code> 정도면 충분</td>
+        <td><div class="chips"><span class="chip on">정충원</span><span class="chip on">김주영</span></div></td></tr>
+      <tr><td class="n">12</td><td><b>비용이 입력 길이에 크게 좌우된다</b>
+        <span class="sub">같은 모델 기준 — 짧은 프롬프트 <b>2.13</b> / 실제 게임 프롬프트(2,919자) <b>4.67 SSAM</b>.
+        대화형 게임은 대화록이 길어질수록 <b>비용이 가속</b>됩니다</span></td>
+        <td><span class="stars">★★★★★</span></td><td>비용 산정식 안내</td>
+        <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
+      <tr><td class="n">13</td><td><b>시뮬레이션을 켜 둔 채 두면 계속 과금된다</b>
+        <span class="sub">실측 <b>6인 9분 = 165 SSAM</b>. 꺼졌는지 보려면 버튼 상태와 Event Log 헤더
+        <b>두 군데</b>를 봐야 합니다</span></td>
+        <td><span class="stars">★★★★☆</span></td><td>유휴 시 자동 정지 · <b>과금 중임을 눈에 띄게</b></td>
+        <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
+      <tr><td class="n">14</td><td><b>참조 이미지 업로드가 1MiB 에서 막힌다</b>
+        <span class="sub">img2img 참조 업로드가 base64 기준 1MiB 에서 413(파일 약 780KB 상한).
+        디테일 많은 1024² 이미지는 통과 못 해 클라이언트에서 재압축으로 우회 중</span></td>
+        <td><span class="stars">★★★★☆</span></td><td>한도 상향 또는 <b>한도를 문서에 명시</b></td>
+        <td><div class="chips"><span class="chip on">정충원</span></div></td></tr>
+      <tr><td class="n">15</td><td><b>잔액 표시가 늦게 갱신된다</b>
+        <span class="sub">이미지 생성 직후 화면 SSAM 을 읽고 「1장 = 46」이라고 문서에 적었다가,
+        8장을 뽑아 총액으로 나누니 <b>115</b> 였습니다 — <b>2.5배</b> 틀린 값을 근거로 쓸 뻔했습니다</span></td>
+        <td><span class="stars">★★★★★</span></td><td>갱신 지연 표시 또는 <b>잔액 조회 API</b></td>
+        <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
+    </table></div>
+
+    <h4>C · 엔진과 배포</h4>
+    <div class="scroll"><table>
+      <tr><th style="width:46px">#</th><th>막힌 것</th><th style="width:96px">신뢰도</th>
+          <th style="width:24%">있었으면 안 막혔을 것</th><th style="width:132px">겪은 사람</th></tr>
+      <tr><td class="n">16</td><td><b><code>update()</code> 예외가 컴포넌트를 조용히 끈다</b>
+        <span class="sub">NPC 하나가 말없이 멈춥니다. 경고가 콘솔에 안 찍히고 내부 배열에만 쌓이는데,
+        <b>그 배열을 읽는 코드가 패키지 전체에 없습니다</b> — 수집한 오류를 그대로 버립니다</span></td>
+        <td><span class="stars">★★★★★</span></td><td>개발 모드 콘솔 출력 한 줄 <span class="muted">(코드)</span></td>
+        <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
+      <tr><td class="n">17</td><td><b>패키지 배포 경로가 없다</b>
+        <span class="sub">npm 등에 없어 엔진·월드 <b>107개 파일을 재귀 미러링</b>하는 스크립트를 자작했습니다.
+        버전 고정·재현 가능한 빌드가 안 되고, 팀마다 각자 미러링 도구를 만들게 됩니다</span></td>
+        <td><span class="stars">★★★★★</span></td><td>npm 또는 <b>오프라인 zip</b></td>
+        <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
+      <tr><td class="n">18</td><td><b>Cast Editor 로 뽑은 시트를 엔진에 다시 넣는 경로가 없다</b>
+        <span class="sub"><code>Animator</code> 는 스켈레톤 파츠용이라 프레임 시트를 못 돌리고,
+        <code>SpriteRenderer</code> 는 <code>drawImage</code> 에 source rect 인자가 없어
+        시트에서 한 프레임을 잘라 그릴 수 없습니다. 재생 컴포넌트를 직접 작성했습니다</span></td>
+        <td><span class="stars">★★★★★</span></td><td>추출물을 <b>다시 엔진에 넣는 경로</b> — 비어 있는 연결입니다</td>
+        <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
+    </table></div>
+
+    <div class="call">
+      <span class="lab">세어 보면</span>
+      문서 한 줄이면 안 막혔을 것 <b>7</b> · 코드·제품이 움직여야 하는 것 <b>10</b> · 인프라 <b>1</b>.
+      <b>Studio 사용에서 막힌 것은 대부분 「몰라서」</b>였고, 게이트웨이·엔진 쪽은 코드가 움직여야 합니다.
+      다만 그 열 중에도 <b><code>Retry-After</code> 한 줄</b>처럼 아주 가벼운 것이 섞여 있습니다.
+    </div>
+  </section>
+
+  <section id="s-good">
+    <div class="shead"><em>04</em><h2>좋았던 것</h2></div>
+    <p class="sdesc">막힌 것만 적으면 한쪽만 보시게 됩니다. 실제로 도움이 됐던 것을 같이 적습니다.</p>
+    <div class="call cy">
+      <ul style="margin:0">
+        <li><b>클라이언트 소스가 압축돼 있지 않고 한국어 주석이 달려 있습니다.</b>
+          공식 문서가 없는 상황에서 <b>이것이 사실상 문서 역할</b>을 했습니다.
+          이게 없었으면 저희 프로젝트는 성립하지 않았습니다.</li>
+        <li><b>스튜디오의 제작 기능 자체는 완성도가 높습니다.</b>
+          막힌 것은 대부분 「밖에서 다루는 방법」이었지 만드는 기능이 아니었습니다.</li>
+        <li><b>Slice 가 셀마다 <code>role</code> 을 붙여 줍니다.</b> 픽셀 색으로 벽·바닥을 가르려다
+          실패했는데, 이 기능을 찾아 그대로 통행 판정에 썼습니다.</li>
+        <li><b>SPUM CG 태그 체계가 LLM 과 구조적으로 잘 맞습니다.</b>
+          “험상궂은 고블린 궁수”라는 자연어가 태그 조합으로 직접 매핑되므로,
+          <b>이미 보유하신 자산이 그대로 AI 인터페이스가 됩니다.</b></li>
+        <li><b>공개 데모 월드가 로그인 없이 열립니다</b> — “정상 동작이 어떤 모양인가”의 기준점이 됐습니다.</li>
+        <li><b>맵을 로컬에서 만들어 밀어넣을 수 있습니다</b> — 에디터 수작업이 필요 없었습니다.</li>
+        <li>엔진이 <b>길찾기 · 말풍선 · 관계 기억</b>을 이미 제공합니다. (다만 찾기가 어려웠습니다.)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="s-find">
+    <div class="shead"><em>05</em><h2>만들고 나서 알게 된 것</h2></div>
+    <p class="sdesc">버그 신고가 아니라 <b>제품의 성질에 대한 관찰</b>입니다.
+      AI NPC 를 여럿 굴리는 콘텐츠라면 밸런스에 직접 작용한다고 봅니다.</p>
+
+    <h3>AI 들의 표가 한 사람에게 몰린다 <span class="stars">★★★★★</span></h3>
+    <p>사람 없이 AI 시민 5명에게 <b>동일한 대화록</b>을 주고 투표만 반복시켰습니다.
+      대화록에는 <b>범인 단서가 전혀 없습니다</b> — 근거 있는 판단이라면 표가 흩어져야 합니다.
+      <b>표의 80~93% 가 한 사람에게 몰렸고</b>, 표를 받은 사람은 매번 2~3명뿐이었습니다.</p>
+
+    <h3>원인을 두 번 틀리게 짚었습니다 <span class="stars">★★★★★</span></h3>
+    <p>어떻게 틀렸는지를 같이 적어야 저희 결론을 어느 정도로 믿으실지 판단하실 수 있다고 봤습니다.</p>
+    <div class="scroll"><table>
+      <tr><th style="width:64px">차수</th><th style="width:32%">주장</th><th>어떻게 무너졌나</th></tr>
+      <tr><td class="n">1차</td><td>“토론이 오히려 방해가 된다”</td>
+        <td>실패의 100% 가 <b>HTTP 429</b> — 대화가 굶은 데이터였습니다</td></tr>
+      <tr><td class="n">2차</td><td>“캐릭터 <b>성격 태그</b>로 찍는다”</td>
+        <td><b>대사 한 줄을 옮기자 표가 그대로 따라갔습니다</b></td></tr>
+      <tr><td class="n">3차</td><td>“<b>대화를 주도하는 사람</b>을 의심한다”</td><td>대조 실험으로 확인 (아래)</td></tr>
+    </table></div>
+    <p>성격·구성·나머지 대화록을 전부 고정하고
+      <b>「일단 서로 뭐 했는지부터 얘기해 보자」 한 줄만</b> 다른 캐릭터에게 옮겼습니다.</p>
+    <div class="scroll"><table>
+      <tr><th>그 대사를 누가 말하나</th><th style="width:200px">표가 어디로</th></tr>
+      <tr><td>「먹보 · 눈치 없는」 캐릭터</td><td class="n">그 캐릭터에게 <b>80.0%</b> (16/20)</td></tr>
+      <tr><td>「졸림 · 느긋」 캐릭터 <span class="muted">— 대사만 이동</span></td>
+        <td class="n"><b>그 캐릭터에게 80.0%</b> (16/20)</td></tr>
+    </table></div>
+    <p><b>표가 성격이 아니라 대사를 따라 통째로 이동했습니다.</b> AI 가 직접 이렇게 말합니다 —</p>
+    <div class="call pl"><span class="lab">실제 응답</span>
+      「오물오물이 좀 수상한데?
+      <b>5번에서 갑자기 “서로 뭐 했는지부터 얘기해 보자”고 몰아가는</b> 거 봤잖아.」</div>
+
+    <h3>금지해 봤고 — 안 됐습니다 <span class="stars">★★★★★</span></h3>
+    <p>지목 규칙에 <i>「먼저 나서서 제안한 사람을 그 이유로 찍지 마라」</i>를 명시했습니다.</p>
+    <div class="scroll"><table>
+      <tr><th style="width:34%"></th><th style="width:150px">최다 득표</th><th>근거를 인용한 비율</th></tr>
+      <tr><td>방어 전</td><td class="n"><b>80.0%</b></td><td class="n">20%</td></tr>
+      <tr><td>방어 후 · 1회차 (14표)</td><td class="n"><b>85.7%</b></td><td class="n">71%</td></tr>
+      <tr><td>방어 후 · 2회차 (18표)</td><td class="n"><b>83.3%</b></td><td class="n">44%</td></tr>
+    </table></div>
+    <p><b>쏠림은 전혀 줄지 않고 근거를 대는 비율만 올랐습니다.</b>
+      근거는 결론을 만든 게 아니라 <b>이미 정해진 결론에 붙는 설명</b>이었습니다.
+      길이 지시(위반 54.5~63.8%)와 되풀이 금지(시도 21.7~35.3%)도 같았습니다.</p>
+
+    <h3>그런데 — 잣대를 나눠 주니 표가 갈렸습니다 <span class="stars">★★★☆☆</span></h3>
+    <div class="call pl">
+      <span class="lab">해석을 한 번 더 뒤집었습니다</span>
+      <b>「주도한 사람을 의심한다」는 틀린 잣대가 아닙니다.</b> 실제 사람들도 그렇게 몹니다.
+      문제는 AI 들이 <b>쓸 수 있는 잣대가 그것 하나뿐</b>이라 다섯이 같은 답을 냈다는 것입니다.
+      사람이 하는 마피아에서는 <b>말이 없는 사람 · 남을 몰아가는 사람 · 말이 바뀐 사람</b>처럼
+      여러 잣대가 동시에 굴러가고, 그래서 표가 갈립니다.
+    </div>
+    <p>그래서 실제 마피아에서 쓰이는 몰이 근거를 <b>8가지</b> 만들어 <b>사람마다 하나씩 나눠 줬습니다</b> —
+      주도한 사람 · 조용했던 사람 · 말이 바뀐 사람 · 편승한 사람 · 먼저 변명한 사람 ·
+      먼저 남을 지목한 사람 · 누굴 감싼 사람 · 감정이 과했던 사람.</p>
+    <div class="scroll"><table>
+      <tr><th style="width:34%">조건</th><th style="width:230px">최다 득표</th><th>표를 받은 사람</th></tr>
+      <tr><td>모두 같은 잣대 <span class="muted">(4회)</span></td>
+        <td class="n">80.0 · 85.7 · 83.3 · 82.4%</td><td class="n">2~3명</td></tr>
+      <tr><td><b>잣대를 나눠 줌</b></td><td class="n"><b>57.9%</b></td><td class="n"><b>4명</b></td></tr>
+    </table></div>
+    <div class="call">
+      <span class="lab">저희가 얻은 제일 쓸모 있는 것</span>
+      LLM 이 한 곳으로 쏠릴 때, <b>못 하게 막는 것보다 「갈 곳」을 여러 개 주는 편이 먹힙니다.</b>
+      금지는 세 번 다 실패했고(길이 · 되풀이 · 편향), <b>분산은 한 번에 통했습니다.</b>
+    </div>
+    <div class="call cy">
+      <span class="lab">표본을 밝힙니다</span>
+      위 셋은 각 조건 20회 호출(유효 20 · 20 · 14 · 18표), <b>잣대 분산은 1회</b>입니다.
+      방향은 일관되지만 <b>정밀한 수치로 인용하기엔 작습니다.</b>
+      저희는 전문 개발자가 아니므로 <b>전제부터 틀렸을 가능성</b>도 배제하지 못합니다.
+      회사에서 더 큰 규모로 재보시길 권합니다 — 계측 도구와 대조군 설계는 드릴 수 있습니다.
+    </div>
+  </section>
+
+  <section id="s-give">
+    <div class="shead"><em>06</em><h2>드릴 수 있는 것</h2></div>
+    <div class="card">
+      <ul style="margin:0">
+        <li><b>계측 도구</b> <span class="muted">(MIT · 실행 즉시 재현)</span> — 게이트웨이 프로브 ·
+          대사 품질 평가 · <b>편향 분리 측정</b>(원인을 가르는 대조군 포함).
+          브라우저 없이 SAM 호출만으로 돕니다. <b>20회 호출(≈90 SSAM)이면 편향 측정이 끝납니다.</b></li>
+        <li><b>자동화 파이프라인</b> — 생성 → 판정 → 주입 → 검증 전 과정. MIT 공개(<code>spum-kit</code>)</li>
+        <li><b>재현 절차</b> — Cast Export 버그의 클릭 순서, <code>update()</code> 예외의 최소 재현 코드,
+          세션 계측 로그(30초 간격), 504 과금 재현 기록</li>
+        <li><b>함정 기록 문서</b> — 100건. <b>공식 문서로 흡수하셔도 좋습니다.</b> 기꺼이 넘기겠습니다.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════ 비교 ══════════════ -->
+<div class="panel" role="tabpanel" id="p-cmp" aria-labelledby="t-cmp" hidden>
+  <p class="intro">넷은 <b>같은 과제를 받았지만 다른 곳으로 갔습니다.</b>
+    그래서 겹치는 데가 생겼고, <b>겹친 곳이 가장 믿을 만한 신호</b>입니다 —
+    서로 상의하지 않고 같은 것을 만났다는 뜻이니까요.</p>
+
+  <section>
+    <div class="shead"><em>01</em><h2>넷이 만든 것</h2></div>
+    <div class="people">
+      <div class="person">
+        <div class="nm">정충원</div>
+        <div class="ti">SPUM 자동화 파이프라인</div>
+        <div class="ds">자연어 한 줄로 맵 생성 · 판정 · 주입 · 검증까지. 씬 맵 6개를 만들어 실사용 중이고,
+          파이프라인은 MIT 로 공개했습니다.</div>
+        <div class="mt">3단계 개선 제안서 포함</div>
+      </div>
+      <div class="person">
+        <div class="nm">김주영</div>
+        <div class="ti">누가 마피아지?</div>
+        <div class="ds">AI NPC 소셜 추리. 밤마다 한 명이 사라지고, 낮에 토론하고 투표로 마피아를 찾습니다.
+          무대 6개 · 인원 4~10명 · 역할 4종.</div>
+        <div class="mt">커밋 236 · 소스 10,709줄</div>
+      </div>
+      <div class="person">
+        <div class="nm">신서연</div>
+        <div class="ti">누가 내 치즈케이크를 먹었나</div>
+        <div class="ds">하우스메이트 6명 중 범인을 자유 문장 심문으로 추리. 순순팩토리 마케팅 데모.
+          사실은 코드가 정하고 SAM 은 말만 옮깁니다.</div>
+        <div class="mt">커밋 80 · 런타임 의존성 0</div>
+      </div>
+      <div class="person wait">
+        <div class="nm">최종우</div>
+        <div class="ti muted">받는 중</div>
+        <div class="ds muted">내용이 들어오면 이 자리에 채웁니다.</div>
+        <div class="mt">—</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead"><em>02</em><h2>무엇이 같고 무엇이 달랐나</h2></div>
+    <p class="sdesc">같은 도구를 서로 다르게 썼습니다. 가로로 읽으면 <b>SPUM 을 쓰는 방식이 몇 가지인지</b> 보입니다.</p>
+    <div class="scroll"><table class="cmp">
+      <tr><th style="width:126px"></th><th style="width:24%">정충원</th><th style="width:24%">김주영</th>
+          <th style="width:24%">신서연</th><th>최종우</th></tr>
+      <tr><td>만든 갈래</td>
+        <td><b>도구</b> <span class="muted">(제작 자동화)</span></td>
+        <td>게임 <span class="muted">(추리·마피아)</span></td>
+        <td>게임 <span class="muted">(추리·심문)</span></td>
+        <td class="muted">—</td></tr>
+      <tr><td>SPUM 을 어디에</td>
+        <td><b>스튜디오에 자동 주입</b> — 씬 맵 6개</td>
+        <td>맵·캐릭터 제작 <b>+ 엔진을 직접 구동</b></td>
+        <td><b>웹엔진으로 렌더</b> — 캐릭터·맵·애니메이션</td>
+        <td class="muted">—</td></tr>
+      <tr><td>SAM 을 어떻게</td>
+        <td>조감도 <b>이미지 생성</b></td>
+        <td>서버에서 <b>직접 호출</b> <span class="muted">(내장 AI 포기)</span></td>
+        <td><b>말하는 층으로만</b> — 사실은 못 바꿈</td>
+        <td class="muted">—</td></tr>
+      <tr><td>사실을 누가 정하나</td>
+        <td class="muted">해당 없음</td>
+        <td><b>서버가 고정</b> · 각자에겐 자기 기억만</td>
+        <td><b>코드가 정하고 코드가 검사</b></td>
+        <td class="muted">—</td></tr>
+      <tr><td>막힌 지점의 성격</td>
+        <td>세션·UI·과금 <span class="muted">(밖에서 몰다 막힘)</span></td>
+        <td>엔진·게이트웨이 <span class="muted">(안에서 쓰다 막힘)</span></td>
+        <td class="muted">보완 중</td>
+        <td class="muted">—</td></tr>
+      <tr><td>공개 여부</td>
+        <td><b><code>spum-kit</code> MIT 공개</b></td>
+        <td>계측 도구 MIT</td>
+        <td>저장소 <code>who-ate-my-cheesecake</code></td>
+        <td class="muted">—</td></tr>
+      <tr><td>규모</td>
+        <td class="n">씬 맵 6개 · 3단계 제안</td>
+        <td class="n">커밋 236 · 10,709줄</td>
+        <td class="n">커밋 80 · 의존성 0</td>
+        <td class="muted">—</td></tr>
+    </table></div>
+
+    <div class="call cy">
+      <span class="lab">여기서 나온 것</span>
+      <b>SPUM 을 쓰는 방식이 최소 세 갈래로 갈립니다</b> —
+      ① <b>스튜디오를 밖에서 조종하는</b> 쪽(정충원) ② 에셋만 받아 <b>엔진을 직접 굴리는</b> 쪽(김주영)
+      ③ <b>웹엔진에 얹는</b> 쪽(신서연).
+      막힌 곳도 그에 따라 갈렸습니다. <b>①은 「밖에서 몰다」, ②③은 「안에서 쓰다」 막혔습니다.</b>
+      문서를 만드신다면 이 세 갈래가 그대로 목차가 될 수 있다고 봅니다.
+    </div>
+  </section>
+
+  <section>
+    <div class="shead"><em>03</em><h2>둘 이상이 겪은 것</h2></div>
+    <p class="sdesc">서로 상의하지 않고 각자 만난 것들입니다.
+      <b>한 사람의 착각일 가능성이 그만큼 낮습니다.</b></p>
+    <div class="scroll"><table class="cmp">
+      <tr><th style="width:30%">막힌 것</th><th style="width:78px">정충원</th><th style="width:78px">김주영</th>
+          <th style="width:78px">신서연</th><th>합치니 보인 것</th></tr>
+      <tr class="dup"><td>동기화가 서버를 안 읽고 <b>로컬을 얹는다</b>
+          <span class="sub muted">통합 §03 #2</span></td>
+        <td><span class="dot"></span></td><td><span class="dot"></span></td><td><span class="dot no"></span></td>
+        <td>한쪽은 <b>작업을 두 번 날렸고</b>, 한쪽은 <b>다중 기기에서 낡은 데이터가 최신이 되는 것</b>을 봤습니다.
+          같은 원인의 서로 다른 얼굴입니다</td></tr>
+      <tr class="dup"><td><b>세션이 조용히 만료된다</b>
+          <span class="sub muted">통합 §03 #3</span></td>
+        <td><span class="dot"></span></td><td><span class="dot"></span></td><td><span class="dot no"></span></td>
+        <td>한쪽은 「30분쯤」으로 알았고, 한쪽이 <b>30초 간격 계측</b>으로
+          <b>15분 쿠키 회전 · 30분 종료</b>를 확정했습니다</td></tr>
+      <tr class="dup"><td><b>실패해도 과금되는가</b>를 알 수 없다
+          <span class="sub muted">통합 §03 #9·#11</span></td>
+        <td><span class="dot"></span></td><td><span class="dot"></span></td><td><span class="dot no"></span></td>
+        <td><b>이게 가장 값진 합침입니다.</b> 한쪽은 “실패 응답에 <code>usage</code> 가 없다”까지만 알았는데,
+          한쪽이 <b>504 두 번에 크레딧 249 소모</b>를 실측해 <b>답을 줬습니다</b></td></tr>
+    </table></div>
+    <div class="call">
+      <span class="lab">신뢰도가 올라간 지점</span>
+      「실패해도 과금되나」는 김주영 쪽에서 <b>★★☆☆☆(불확실)</b> 이었습니다.
+      정충원 쪽 504 실측이 붙으면서 <b>★★★★☆(근거 있음)</b> 로 올라갔고,
+      그래서 <b>요청 A2 로 올렸습니다.</b>
+      <b>따로 봤으면 둘 다 애매한 채로 남았을 항목입니다.</b>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead"><em>04</em><h2>독립적으로 같은 결론에 갔습니다</h2></div>
+    <div class="call cy">
+      <span class="lab">상의하지 않았습니다</span>
+      <p style="margin:0 0 10px"><b>김주영</b> — “정답(범인·기억)을 <b>서버에 고정</b>하고
+        각 캐릭터에게 <b>자기 기억만</b> 준다.”</p>
+      <p style="margin:0 0 10px"><b>신서연</b> — “사실 관계는 전부 <b>코드가 정하고 코드가 검사한다.</b>
+        SAM 은 이 중 하나도 마음대로 못 바꾼다. SAM 이 하는 일은 그렇게 이미 정해진 사실을,
+        그 캐릭터답게 지금 대화 흐름에 맞는 말로 옮기는 것뿐이다.”</p>
+      <p style="margin:0"><b>둘 다 LLM 을 「말하는 층」으로만 두고, 사실은 코드가 쥐었습니다.</b></p>
+    </div>
+    <p>둘 다 처음부터 그랬던 게 아닙니다. <b>내장 AI 에 사실 판단을 맡겨 보고 실패한 뒤</b>
+      같은 자리로 돌아왔습니다.</p>
+    <div class="call">
+      <span class="lab">이게 회사에 뜻하는 것</span>
+      <b>추리·수사처럼 사실이 고정돼야 하는 장르에서는 이 구조가 정석</b>일 가능성이 큽니다.
+      두 팀이 각자 부딪혀 같은 답을 찾았다면, <b>세 번째 팀도 같은 시간을 쓸 것</b>입니다.
+      <b>「LLM 에 무엇을 맡기고 무엇을 맡기지 말 것인가」 한 페이지</b>가
+      요청 B1(내장 AI 능력 경계)과 함께 가면 좋겠다고 보는 이유입니다.
+    </div>
+  </section>
+
+  <section>
+    <div class="shead"><em>05</em><h2>과제 요건 — 넷 공통</h2></div>
+    <div class="scroll"><table>
+      <tr><th style="width:76px">항목</th><th>요건</th></tr>
+      <tr><td class="n">§7-1</td><td>브라우저에서 바로 실행 (설치 없이)</td></tr>
+      <tr><td class="n">§7-2</td><td>NPC <b>3명 이상</b>과 자연어 대화 · 각 응답이 <b>설정된 성격에 맞을 것</b></td></tr>
+      <tr><td class="n">§7-3</td><td><b>대화 맥락 유지</b> — 이전 대화 참조 가능</td></tr>
+      <tr><td class="n">§7-4</td><td>기술 문서 (README 또는 블로그 1편 분량)</td></tr>
+      <tr><td class="n">§8</td><td>SAM 키 커밋 금지 · MIT 라이선스 · 상용 데이터 사용 금지</td></tr>
+    </table></div>
+  </section>
+</div>
+
+<!-- ══════════════ 김주영 ══════════════ -->
+<div class="panel" role="tabpanel" id="p-jy" aria-labelledby="t-jy" hidden>
+  <p class="intro"><b>김주영</b> — 「누가 마피아지?」 AI NPC 소셜 추리 게임.</p>
+
+  <h3>무엇을 만들었나</h3>
+  <p>여럿이 한 건물에 살고, 밤마다 한 명이 사라집니다.
+    낮에 모여 토론하고 투표로 마피아를 찾습니다. <b>NPC 전원이 AI</b> 이고,
+    매 판 마피아와 밤의 사건이 새로 생성됩니다.</p>
+  <p class="muted">처음엔 「누가 내 케이크 먹었어?」(냉장고의 케이크를 훔쳐 먹은 범인 찾기)로 시작했다가,
+    추리의 밀도를 높이려고 마피아 규칙으로 바꿨습니다.</p>
   <div class="strip">
-    <div><b>4</b><small>각자 만든 것</small></div>
-    <div><b>18</b><small>막힌 곳 · 계측 기록</small></div>
-    <div><b>4</b><small>둘 이상이 겪은 항목</small></div>
-    <div><b>316</b><small>커밋 합계</small></div>
+    <div><b>236</b><small>커밋</small></div>
+    <div><b>10,709</b><small>소스 줄</small></div>
+    <div><b>8,090</b><small>문서 줄</small></div>
+    <div><b>100</b><small>함정 기록</small></div>
+    <div><b>109</b><small>회귀 검사</small></div>
+  </div>
+  <p class="muted">2026-08-17 첫 커밋 ~ 현재. 문서 8,090줄 중 상당량이 「SPUM 을 어떻게 다루는가」인데,
+    <b>만들고 싶어서가 아니라 없어서 만든 것</b>입니다.</p>
+  <div class="slot">스크린샷 자리 — 게임 화면 · 무대 고르기 · 토론 창</div>
+
+  <h3>어떻게 만들었나</h3>
+  <ul>
+    <li><b>SPUM 을 어디에 썼나</b> — ① 맵: Object Editor 로 <b>집 전체 평면도</b>를 생성해
+      통행 마스크를 뽑아 타일맵으로 변환 ② 캐릭터: Cast Editor 로 <b>10명 × idle/move</b> 스프라이트 시트
+      ③ 엔진: <code>spum-engine</code> · <code>spum-world</code> 를 <b>직접 구동</b></li>
+    <li><b>대화</b> — SAM 을 <b>서버에서 직접 호출</b>합니다. 내장 AI 는 검증 후 포기했습니다.
+      정답(범인·기억)은 서버에만 두고 각 캐릭터에게 <b>자기 기억만</b> 줍니다.</li>
+    <li><b>실행</b> — <code>bash serve.sh</code> → <code>localhost:5173</code>. Node 외 의존성 없음.</li>
+  </ul>
+  <p><b>지금 상태</b> — 무대 <b>6개</b>(셰어하우스 · 우주선 · 설산 산장 · 심해 연구기지 · 해변 리조트 · 궤도 정거장),
+    인원 <b>4~10명</b>, 역할 4종(마피아 · 경찰 · 의사 · 시민), 유령 채팅, 다시 보기, 초대 코드.</p>
+
+  <h3>어디서 막혔나</h3>
+  <ol>
+    <li><b>내장 AI 로 게임을 굴리려 했는데 설정을 안 지켰다.</b>
+      추리 게임은 “누가 무엇을 봤는가”가 사실이어야 성립하는데 지어내면 게임이 아닙니다.
+      <span class="muted">→ 항목별 표를 만들어 하나씩 확인하고서야 알았습니다.</span></li>
+    <li><b>평가를 돌렸더니 “토론이 방해가 된다”는 결론이 나왔다.</b>
+      실제로는 <b>실패의 100% 가 429</b> 였습니다.
+      <span class="muted">→ 하마터면 틀린 결론을 회사에 낼 뻔했습니다.</span></li>
+    <li><b>캐릭터 하나가 서 있을 때도 걷는 애니메이션을 재생했다.</b>
+      Cast Export 가 다른 캐릭터의 시트를 내려준 것이었습니다.
+      <span class="muted">→ 10명을 md5 전수 대조해서 발견했습니다.</span></li>
+    <li><b>8·10인 무대를 만들었는데 게임에는 6명만 나왔다.</b>
+      맵도 방 10개, 인원 화면도 「10 / 10」인데 게임에만 6명이었습니다.
+      <span class="muted">→ <b>실제로 플레이해 보고</b> 알았습니다. 코드를 읽어선 안 보였습니다.</span></li>
+  </ol>
+
+  <h3>어떻게 풀었나</h3>
+  <ul>
+    <li><b>1번</b> — 대화를 SAM 직접 호출로 갈아엎고, 정답을 서버에 고정한 뒤 각 캐릭터에게
+      자기 기억만 주는 구조를 직접 짰습니다. <b>이 프로젝트 최대의 재작업</b>이었습니다.</li>
+    <li><b>2번</b> — 재시도 정책을 게임과 측정 도구가 <b>같은 부품</b>으로 쓰게 했습니다.
+      실패율 24.8% → 1.0%.</li>
+    <li><b>3번</b> — 에셋 검증을 해시로 바꿨습니다. 회귀 검사가
+      「idle 과 move 가 같은 파일인 캐릭터가 없다」를 매번 확인합니다.</li>
+    <li><b>4번</b> — <code>world.js</code> 에 <code>.slice(0, 6)</code> 이 남아 있었습니다.
+      6인 고정이던 시절의 잔재입니다. 지웠고, <b>되살아나면 잡는 검사</b>를 넣었습니다.</li>
+  </ul>
+  <div class="call">
+    <span class="lab">못 푼 것</span>
+    AI 지목 적중률이 <b>11.8~23.5%</b> 로, 두 번 다 <b>무작위(33.3%)보다 낮았습니다.</b>
+    잣대 분산으로 쏠림은 줄였지만 <b>적중률 자체는 못 올렸습니다.</b>
+  </div>
+
+  <h3>가장 크게 배운 것</h3>
+  <p><b>“안 도는 코드를 보고 고장이라 하지 마라.”</b>
+    밤에 목격자를 두는 코드가 남아 있길래 「죽어 있던 규칙」이라 부르고 되살릴 방법을 제안했는데,
+    <b>애초에 빼기로 한 설계</b>였습니다. 그 판단이 이미 저희 문서에 적혀 있었는데 안 보고 지나쳤습니다.</p>
+  <p><b>“측정기는 게임과 같은 부품을 써야 한다.”</b>
+    측정 도구가 게임과 다른 재시도 정책을 쓰는 바람에 <b>틀린 결론을 한 번 냈습니다.</b></p>
+</div>
+
+<!-- ══════════════ 신서연 ══════════════ -->
+<div class="panel" role="tabpanel" id="p-sy" aria-labelledby="t-sy" hidden>
+  <p class="intro"><b>신서연</b> — 「누가 내 치즈케이크를 먹었나」 하우스메이트 추리 게임.
+    순순팩토리 마케팅 데모.</p>
+
+  <h3>무엇을 만들었나</h3>
+  <p>하우스메이트 6명이 사는 집에서 치즈케이크가 사라진 사건을,
+    플레이어가 그중 한 명이 되어 나머지 다섯을 <b>자유 문장으로 심문</b>해
+    범인 · 시각 · 목격자를 추리하는 게임.</p>
+  <p>캐릭터 · 맵 · 애니메이션은 <b>SPUM 웹엔진</b>이 그리고, 대사는 미리 써 둔 것 없이
+    플레이어가 말을 걸 때마다 <b>SAM(LLM)</b> 이 즉석에서 짓습니다.</p>
+  <div class="strip">
+    <div><b>80</b><small>커밋</small></div>
+    <div><b>0</b><small>런타임 의존성</small></div>
+    <div><b>6</b><small>등장인물</small></div>
+  </div>
+  <div class="call cy">
+    <span class="lab">핵심 주장</span>
+    “몇 시에 누가 어디 있었나, 누가 봤나, 누가 거짓말을 하고 있나” —
+    이런 <b>사실 관계는 전부 코드가 정하고 코드가 검사한다.</b>
+    SAM 은 이 중 하나도 마음대로 못 바꾼다. SAM 이 하는 일은 그렇게 이미 정해진 사실을,
+    그 캐릭터답게 지금 대화 흐름에 맞는 말로 옮기는 것뿐이다.
+  </div>
+  <p class="muted">저장소 <code>who-ate-my-cheesecake</code> · main · 정리일 2026-08-25</p>
+
+  <div class="slot">
+    <b>보완 필요</b><br>
+    아키텍처 · 설계 원칙 · 개발 계보 · <b>실제로 부딪힌 문제</b> · 검증·테스트 —
+    원문에서 아직 옮기지 못했습니다.
   </div>
 </div>
 
-<section id="s1">
-  <div class="shead"><em>01</em><h2>세 줄 요약</h2></div>
-  <div class="card">
-    <ol style="margin:0">
-      <li><b>넷 다 돌아가는 것을 만들었습니다.</b> 설치 없이 브라우저에서 켜집니다.</li>
-      <li><b>막힌 곳의 절반은 「문서 한 줄이면 안 막혔을 것」</b>이었고,
-        나머지 중에도 <code>Retry-After</code> 한 줄처럼 가벼운 것이 섞여 있습니다.</li>
-      <li><b>AI NPC 를 여럿 굴리면 표가 한 사람에게 몰립니다.</b> 그리고 그건 고칠 수 있습니다 —
-        금지가 아니라 <b>잣대를 나눠 주는 방식</b>으로요(§5).</li>
-    </ol>
-  </div>
-  <div class="call">
-    <span class="lab">이 문서를 이렇게 읽어 주세요</span>
-    서로 다른 것을 만든 네 사람의 기록을 한 장에 모은 것입니다.
-    같은 것을 여러 명이 독립적으로 겪었으면 §4 표에서 <b>왼쪽에 주황 띠</b>가 붙습니다 —
-    <b>그게 가장 강한 신호</b>라고 보고 그렇게 표시했습니다.
-  </div>
-</section>
+<!-- ══════════════ 정충원 ══════════════ -->
+<div class="panel" role="tabpanel" id="p-cw" aria-labelledby="t-cw" hidden>
+  <p class="intro"><b>정충원</b> — SPUM 자동화 파이프라인과 개선 제안서.</p>
 
-<section id="s2">
-  <div class="shead"><em>02</em><h2>각자 만든 것</h2></div>
-  <p class="sdesc">같은 과제를 받았지만 넷이 다른 곳으로 갔습니다. 자세한 것은 §6 탭에 있습니다.</p>
-
-  <div class="people">
-    <div class="person">
-      <div class="nm">김주영</div>
-      <div class="ti">누가 마피아지?</div>
-      <div class="ds">AI NPC 소셜 추리. 밤마다 한 명이 사라지고, 낮에 토론하고 투표로 마피아를 찾습니다.
-        무대 6개 · 인원 4~10명 · 역할 4종.</div>
-      <div class="mt">커밋 236 · 소스 10,709줄</div>
-    </div>
-    <div class="person">
-      <div class="nm">신서연</div>
-      <div class="ti">누가 내 치즈케이크를 먹었나</div>
-      <div class="ds">하우스메이트 6명 중 범인을 자유 문장 심문으로 추리. 순순팩토리 마케팅 데모.
-        사실은 코드가 정하고 SAM 은 말만 옮깁니다.</div>
-      <div class="mt">커밋 80 · 런타임 의존성 0</div>
-    </div>
-    <div class="person">
-      <div class="nm">정충원</div>
-      <div class="ti">SPUM 자동화 파이프라인</div>
-      <div class="ds">자연어 한 줄로 맵 생성 · 판정 · 주입 · 검증까지. 씬 맵 6개를 만들어 실사용 중이고,
-        파이프라인은 MIT 로 공개했습니다.</div>
-      <div class="mt">3단계 개선 제안서 포함</div>
-    </div>
-    <div class="person wait">
-      <div class="nm">최종우</div>
-      <div class="ti muted">받는 중</div>
-      <div class="ds muted">내용이 들어오면 이 자리에 채웁니다.</div>
-      <div class="mt">—</div>
-    </div>
-  </div>
-
-  <div class="call cy">
-    <span class="lab">우연이 아닌 것 같은 일치</span>
-    <b>두 사람이 독립적으로 같은 설계에 도달했습니다.</b>
-    김주영은 <i>“정답(범인·기억)을 서버에 고정하고 각 캐릭터에게 자기 기억만 준다”</i>,
-    신서연은 <i>“사실 관계는 전부 코드가 정하고 코드가 검사한다. SAM 은 이 중 하나도 마음대로 못 바꾼다”</i> —
-    서로 상의하지 않고 같은 결론에 갔습니다.
-    <b>추리·수사처럼 사실이 고정돼야 하는 장르에서는 LLM 을 「말하는 층」으로만 쓰는 것이 정석</b>이라는
-    뜻으로 읽고 있습니다.
-  </div>
-
-  <h3>과제가 요구했던 것</h3>
-  <div class="scroll"><table>
-    <tr><th style="width:76px">항목</th><th>요건</th></tr>
-    <tr><td class="n">§7-1</td><td>브라우저에서 바로 실행 (설치 없이)</td></tr>
-    <tr><td class="n">§7-2</td><td>NPC <b>3명 이상</b>과 자연어 대화 · 각 응답이 <b>설정된 성격에 맞을 것</b></td></tr>
-    <tr><td class="n">§7-3</td><td><b>대화 맥락 유지</b> — 이전 대화 참조 가능</td></tr>
-    <tr><td class="n">§7-4</td><td>기술 문서 (README 또는 블로그 1편 분량)</td></tr>
-    <tr><td class="n">§8</td><td>SAM 키 커밋 금지 · MIT 라이선스 · 상용 데이터 사용 금지</td></tr>
-  </table></div>
-  <div class="call">
-    과제정의서 §1 이 밝힌 동기는 <b>“제품 쇼케이스·레퍼런스가 없어 외부 개발자 진입 장벽이 높다”</b>였습니다.
-    저희는 그 장벽을 실제로 통과해 본 외부 개발자이고,
-    <b>어디에 걸렸는지가 곧 알고 싶어 하신 것</b>이라고 보고 §3·§4 를 본론으로 잡았습니다.
-  </div>
-
-  <h3>신뢰도 표기</h3>
-  <p>저희는 전문 게임 개발자가 아닙니다. 몰라서 못 본 것, 잘못 잰 것이 섞일 수 있어
-     <b>어느 정도로 확인한 것인지</b>를 항목마다 붙였습니다.</p>
-  <div class="scroll"><table>
-    <tr><th style="width:120px">표기</th><th>뜻</th></tr>
-    <tr><td><span class="stars">★★★★★</span></td><td><b>직접 확인</b> — 여러 번 재현했고 수치·해시 같은 근거가 있습니다</td></tr>
-    <tr><td><span class="stars">★★★★☆</span></td><td><b>근거 있음</b> — 소스나 문서로 확인했지만 재현은 한 번입니다</td></tr>
-    <tr><td><span class="stars">★★★☆☆</span></td><td><b>추정</b> — 그렇게 보이지만 원인을 갈라내지 못했습니다</td></tr>
-    <tr><td><span class="stars dim">★★☆☆☆</span></td><td><b>불확실</b> — 일부만 확인했고 나머지는 모릅니다</td></tr>
-    <tr><td><span class="stars dim">★☆☆☆☆</span></td><td><b>미확인</b> — 들은 것이거나 짐작입니다</td></tr>
-  </table></div>
-  <p class="muted">★★★★★ 라도 <b>저희 환경에서 잰 값</b>입니다. 판단 근거로 쓰시기 전에 한 번 재보시길 권합니다.
-     재현 절차는 얼마든지 드리겠습니다.</p>
-</section>
-
-<section id="s3">
-  <div class="shead"><em>03</em><h2>회사에 드리는 요청</h2></div>
-  <p class="sdesc">네 사람의 요청을 하나로 모으고 성격이 다른 셋으로 갈랐습니다.
-    앞은 지금 아픈 것, 뒤는 다음 단계를 여는 것입니다.</p>
-
-  <h4>A · 지금 고칠 것</h4>
-  <div class="scroll"><table>
-    <tr><th style="width:52px">#</th><th style="width:34%">요청</th><th>왜</th><th style="width:74px">근거</th></tr>
-    <tr><td class="n">A1</td><td><b><code>Retry-After</code> 헤더 추가</b></td>
-      <td>표준 헤더 한 줄이면 <b>모든 클라이언트가 올바르게 기다립니다.</b>
-        지금은 각 팀이 시행착오로 알아냅니다 — 실패율 24.8% → 1.0%</td><td class="n">#10</td></tr>
-    <tr><td class="n">A2</td><td><b>실패 응답에 과금 여부 표기 · 가능하면 미청구</b></td>
-      <td><mark>504 로 끊겨도 과금됩니다</mark> — 동일 프롬프트 2회 연속 504 로
-        <b>크레딧 249 소모, 결과물 없음</b>. 비용 신뢰에 직접 걸립니다</td><td class="n">#9</td></tr>
-    <tr><td class="n">A3</td><td><b>Cast Export 상태 무효화</b></td>
-      <td>선택을 바꿔도 이전 시트가 유효한 것처럼 남아 <b>남의 픽셀에 내 이름표</b>가 붙습니다.
-        조용히 깨지는 종류라 모르고 당합니다</td><td class="n">#5</td></tr>
-    <tr><td class="n">A4</td><td><b>무음 실패를 말해 줄 것</b></td>
-      <td>세션 만료 · refs 상한 · 생성 실패 · <code>update()</code> 예외 —
-        <b>넷 다 오류 없이 멈춥니다.</b> 저희를 가장 오래 잡아둔 것은
-        기능 부족이 아니라 <b>침묵</b>이었습니다</td><td class="n">#2·3·7·8</td></tr>
-    <tr><td class="n">A5</td><td><b>시뮬레이션 과금 표시</b></td>
-      <td><b>돈이 새는</b> 항목입니다. 켜 둔 채 두면 6인 9분에 165 SSAM.
-        꺼졌는지 확인하려면 두 군데를 봐야 합니다</td><td class="n">#13</td></tr>
-  </table></div>
-
-  <h4>B · 문서 한 줄이면 되는 것</h4>
-  <div class="scroll"><table>
-    <tr><th style="width:52px">#</th><th style="width:34%">요청</th><th>왜</th><th style="width:74px">근거</th></tr>
-    <tr><td class="n">B1</td><td><b>내장 AI 능력 경계 한 페이지</b><br><span class="muted">“이건 되고 이건 안 된다”</span></td>
-      <td>이 한 페이지가 <b>며칠</b>을 아껴줬을 것입니다. 저희는 태워 보고 알았습니다</td><td class="n">#1</td></tr>
-    <tr><td class="n">B2</td><td><b>속도 제한 값과 비용 산정식</b></td>
-      <td>429 의 경계를 알 수 없어 안전 속도를 추측으로 정했습니다.
-        비용도 입력 길이에 크게 좌우되는데 예측할 방법이 없습니다</td><td class="n">#10·12</td></tr>
-    <tr><td class="n">B3</td><td><b>Studio 쓰기 방향 · 필드 의미</b></td>
-      <td>“쓰기는 로컬 먼저” 한 줄, <code>grid</code> 가 무슨 뜻인지 한 줄</td><td class="n">#2</td></tr>
-    <tr><td class="n">B4</td><td><b>AI 캐릭터를 여럿 굴릴 때의 안내</b></td>
-      <td>“금지하지 말고 잣대를 나눠 주세요” — 제작자가 스스로 알아내기 어렵습니다</td><td class="n">§5-4</td></tr>
-  </table></div>
-
-  <h4>C · 다음 단계로 열어줄 것 — 자동화 인터페이스</h4>
-  <div class="scroll"><table>
-    <tr><th style="width:70px">단계</th><th style="width:34%">요청</th><th style="width:130px">예상 부담</th><th>효과</th></tr>
-    <tr><td class="n">1단계</td><td><b>주요 UI 에 <code>data-testid</code><br>+ 자동화용 인증 수단</b></td>
-      <td class="n">매우 낮음<br>반나절~1일</td>
-      <td>UI 개편으로 인한 자동화 파손 대부분 해소 · 30분 재로그인 문제 해소</td></tr>
-    <tr><td class="n">2단계</td><td><b>내부 API 사용 허가<br>+ 최소 문서</b></td>
-      <td class="n">낮음<br>허가 + 문서화</td>
-      <td>신규 개발이 아니라 <b>이미 있는 것에 대한 허가</b>. UI 의존 탈피</td></tr>
-    <tr><td class="n">3단계</td><td><b>공식 MCP 서버</b></td>
-      <td class="n">높음<br>별도 개발</td>
-      <td>AI 에이전트가 다룰 수 있는 제작 플랫폼</td></tr>
-  </table></div>
-  <div class="call">
-    <span class="lab">왜 이건 회사만 할 수 있나</span>
-    Unity · Unreal · Godot 은 회사가 안 만들어도 커뮤니티가 MCP 를 만듭니다.
-    설치형이라 외부에서 플러그인을 붙일 수 있기 때문입니다.
-    <b>SPUM 스튜디오는 웹 서비스라 그 방법이 원천적으로 불가능합니다</b> —
-    사용자는 브라우저 화면만 볼 수 있습니다. 저희가 화면 클릭 자동화라는 불안정한 방식을
-    택할 수밖에 없었던 이유가 이것이고, 직접 만드는 대신 제안서를 드리는 이유이기도 합니다.
-  </div>
-
-  <div class="call cy">
-    <span class="lab">전부 어려우시다면</span>
-    <b>A1(<code>Retry-After</code>)</b> 과 <b>C 1단계(<code>data-testid</code> + 인증)</b> 둘만으로도
-    실무 마찰의 대부분이 사라집니다. 둘 다 반나절 수준의 작업이라고 보고 있습니다.
-  </div>
-</section>
-
-<section id="s4">
-  <div class="shead"><em>04</em><h2>어디서 막혔나</h2></div>
-  <p class="sdesc">주황 띠가 붙은 행은 <b>둘 이상이 독립적으로 같은 것을 만난</b> 항목입니다.</p>
-
-  <h4>A · Studio 사용</h4>
-  <div class="scroll"><table>
-    <tr><th style="width:46px">#</th><th>막힌 것</th><th style="width:96px">신뢰도</th>
-        <th style="width:24%">있었으면 안 막혔을 것</th><th style="width:132px">겪은 사람</th></tr>
-    <tr><td class="n">1</td><td><b>내장 AI 가 <code>systemPrompt</code> 를 무시한다</b>
-      <span class="sub">캐릭터 설정이 반영되지 않고, 기억을 근거로 쓰지 않고 지어냅니다.
-      확인 후 대화 전체를 SAM 직접 호출로 재작성 — <b>이 프로젝트 최대의 재작업</b></span></td>
-      <td><span class="stars">★★★★★</span></td><td>내장 AI 능력 경계 한 페이지</td>
-      <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
-    <tr class="dup"><td class="n">2</td><td><b>동기화가 서버를 안 읽고 로컬을 얹는다</b>
-      <span class="sub">서버에 직접 PUT 하면 다음 새로고침에 사라집니다(작업을 두 번 날림).
-      부팅 시 로컬과 서버가 다르면 <b>서버를 읽지 않고 로컬을 새 리비전으로 얹습니다</b> —
-      오래된 로컬을 가진 기기로 열면 낡은 데이터가 최신이 됩니다</span></td>
-      <td><span class="stars">★★★★★</span></td><td>“쓰기는 로컬 먼저” 한 줄 · 다중 기기 경고</td>
-      <td><div class="chips"><span class="chip on">김주영</span><span class="chip on">정충원</span></div></td></tr>
-    <tr class="dup"><td class="n">3</td><td><b>세션이 조용히 만료된다</b>
-      <span class="sub">약 15분에 세션 쿠키 회전 1회, <b>약 30분에 서버가 세션 종료</b>(30초 간격 계측 로그).
-      저장·생성이 <b>오류 없이</b> 실패합니다. 자동화는 30분마다 매직링크 재로그인이 필요합니다</span></td>
-      <td><span class="stars">★★★★★</span></td><td>만료 시 <b>명시적 오류</b> · 수명이 긴 토큰</td>
-      <td><div class="chips"><span class="chip on">김주영</span><span class="chip on">정충원</span></div></td></tr>
-    <tr><td class="n">4</td><td><b>계정당 세션 1개</b>
-      <span class="sub">다른 브라우저에서 로그인하면 기존 세션이 즉시 무효화됩니다.
-      사람 확인용 브라우저와 자동화가 공존하기 어렵습니다</span></td>
-      <td><span class="stars">★★★★☆</span></td><td>동시 세션 허용 또는 자동화용 별도 인증</td>
-      <td><div class="chips"><span class="chip on">정충원</span></div></td></tr>
-    <tr><td class="n">5</td><td><b>Cast Export 가 다른 캐릭터의 시트를 내려준다</b>
-      <span class="sub">A→B 로 바꿔도 미리보기가 A 인 채 <code>Sheet ready</code> 로 남고, 그대로 받으면
-      <b>A 의 픽셀에 B 의 이름표</b>가 붙습니다. JSON 의 이름은 맞게 찍히므로 이름만 보는 검증은 못 잡습니다.
-      10명 md5 전수 대조로 발견 — 캐릭터 한 명의 에셋이 잘못 들어간 채 발표까지 갔습니다</span></td>
-      <td><span class="stars">★★★★★</span></td><td>선택이 바뀌면 시트 상태 무효화 <span class="muted">(코드)</span></td>
-      <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
-    <tr><td class="n">6</td><td><b>refs 썸네일을 「보기」만 해도 슬라이스 기준이 바뀐다</b>
-      <span class="sub">클릭만 했는데 테마의 <code>sliceBaseAssetId</code> 가
-      <code>""</code> → <code>sha256:…</code> 로 바뀌었습니다. 백업 두 개를 해시로 대조해 확인</span></td>
-      <td><span class="stars">★★★★☆</span></td><td><b>미리보기는 읽기 전용이어야</b> <span class="muted">(코드)</span></td>
-      <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
-    <tr><td class="n">7</td><td><b>UI 가 자주 갱신돼 자동화가 파손된다</b>
-      <span class="sub">개발 단계 제품에서는 자연스러운 일이지만, 자동화 측에서는
-      <b>기능을 추가하는 시간보다 깨진 선택자를 복구하는 시간이 더 커집니다.</b>
-      문제의 본질은 자동화가 아니라 <b>UI 표현에 의존할 수밖에 없다는 점</b>입니다</span></td>
-      <td><span class="stars">★★★★★</span></td><td><code>data-testid</code> 부여 <span class="muted">(C 1단계)</span></td>
-      <td><div class="chips"><span class="chip on">정충원</span></div></td></tr>
-    <tr><td class="n">8</td><td><b>refs 가 10장을 채우면 생성이 조용히 멈춘다</b>
-      <span class="sub"><code>Generate</code> 를 눌러도 <code>queued</code> 인 채 끝나지 않고 <b>오류도 안 뜹니다.</b>
-      로그인 만료인 줄 알고 두 번 헛짚었고, 새 테마를 만드니 같은 프롬프트가 곧바로 돌았습니다</span></td>
-      <td><span class="stars">★★★★★</span></td><td>상한에 닿으면 <b>막는다고 말해 줄 것</b></td>
-      <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
-  </table></div>
-
-  <h4>B · 생성과 과금</h4>
-  <div class="scroll"><table>
-    <tr><th style="width:46px">#</th><th>막힌 것</th><th style="width:96px">신뢰도</th>
-        <th style="width:24%">있었으면 안 막혔을 것</th><th style="width:132px">겪은 사람</th></tr>
-    <tr><td class="n">9</td><td><b>생성이 504 로 끊기는데 <mark>과금은 진행된다</mark></b>
-      <span class="sub">생성이 잡 큐 없는 동기 요청이어서 길어지면 앞단에서 504 로 끊깁니다.
-      <b>동일 프롬프트 2회 연속 504 로 크레딧 249 소모, 결과물 없음.</b>
-      고품질 설정일수록 잘 납니다</span></td>
-      <td><span class="stars">★★★★☆</span></td><td>잡 큐 + 폴링 · <b>실패 시 미청구</b></td>
-      <td><div class="chips"><span class="chip on">정충원</span></div></td></tr>
-    <tr><td class="n">10</td><td><b>429 의 경계를 알 수 없고, <code>Retry-After</code> 도 없다</b>
-      <span class="sub">평가 실행 2회에서 429 가 36건·20건. 그런데 순차 25회·동시 8개로는 <b>재현 0건</b> —
-      무엇이 기준인지 알 수 없습니다. 재시도 간격 없이 121회 → 실패 <b>24.8%</b>,
-      1500ms + 지수 백오프 → <b>1.0%</b></span></td>
-      <td><span class="stars">★★★★★</span></td><td>속도 제한 문서 + <b>표준 헤더 한 줄</b></td>
-      <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
-    <tr class="dup"><td class="n">11</td><td><b>실패 응답에 <code>usage</code> 가 없다</b>
-      <span class="sub">200 응답만 <code>usage.scredits</code> 를 줍니다. 클라이언트가 확인할 잔액 조회 경로도 없습니다.
-      <b>#9 로 미루어 실패해도 과금되는 것으로 보입니다</b></span></td>
-      <td><span class="stars">★★★★☆</span></td><td><code>usage: { charged: false }</code> 정도면 충분</td>
-      <td><div class="chips"><span class="chip on">김주영</span><span class="chip on">정충원</span></div></td></tr>
-    <tr><td class="n">12</td><td><b>비용이 입력 길이에 크게 좌우된다</b>
-      <span class="sub">같은 모델 기준 — 짧은 프롬프트 <b>2.13</b> / 실제 게임 프롬프트(2,919자) <b>4.67 SSAM</b>.
-      대화형 게임은 대화록이 길어질수록 <b>비용이 가속</b>됩니다</span></td>
-      <td><span class="stars">★★★★★</span></td><td>비용 산정식 안내</td>
-      <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
-    <tr><td class="n">13</td><td><b>시뮬레이션을 켜 둔 채 두면 계속 과금된다</b>
-      <span class="sub">실측 <b>6인 9분 = 165 SSAM</b>. 꺼졌는지 보려면 버튼 상태와 Event Log 헤더
-      <b>두 군데</b>를 봐야 합니다</span></td>
-      <td><span class="stars">★★★★☆</span></td><td>유휴 시 자동 정지 · <b>과금 중임을 눈에 띄게</b></td>
-      <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
-    <tr><td class="n">14</td><td><b>참조 이미지 업로드가 1MiB 에서 막힌다</b>
-      <span class="sub">img2img 참조 업로드가 base64 기준 1MiB 에서 413(파일 약 780KB 상한).
-      디테일 많은 1024² 이미지는 통과 못 해 클라이언트에서 재압축으로 우회 중</span></td>
-      <td><span class="stars">★★★★☆</span></td><td>한도 상향 또는 <b>한도를 문서에 명시</b></td>
-      <td><div class="chips"><span class="chip on">정충원</span></div></td></tr>
-    <tr><td class="n">15</td><td><b>잔액 표시가 늦게 갱신된다</b>
-      <span class="sub">이미지 생성 직후 화면 SSAM 을 읽고 「1장 = 46」이라고 문서에 적었다가,
-      8장을 뽑아 총액으로 나누니 <b>115</b> 였습니다 — <b>2.5배</b> 틀린 값을 근거로 쓸 뻔했습니다</span></td>
-      <td><span class="stars">★★★★★</span></td><td>갱신 지연 표시 또는 <b>잔액 조회 API</b></td>
-      <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
-  </table></div>
-
-  <h4>C · 엔진과 배포</h4>
-  <div class="scroll"><table>
-    <tr><th style="width:46px">#</th><th>막힌 것</th><th style="width:96px">신뢰도</th>
-        <th style="width:24%">있었으면 안 막혔을 것</th><th style="width:132px">겪은 사람</th></tr>
-    <tr><td class="n">16</td><td><b><code>update()</code> 예외가 컴포넌트를 조용히 끈다</b>
-      <span class="sub">NPC 하나가 말없이 멈춥니다. 경고가 콘솔에 안 찍히고 내부 배열에만 쌓이는데,
-      <b>그 배열을 읽는 코드가 패키지 전체에 없습니다</b> — 수집한 오류를 그대로 버립니다</span></td>
-      <td><span class="stars">★★★★★</span></td><td>개발 모드 콘솔 출력 한 줄 <span class="muted">(코드)</span></td>
-      <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
-    <tr><td class="n">17</td><td><b>패키지 배포 경로가 없다</b>
-      <span class="sub">npm 등에 없어 엔진·월드 <b>107개 파일을 재귀 미러링</b>하는 스크립트를 자작했습니다.
-      버전 고정·재현 가능한 빌드가 안 되고, 팀마다 각자 미러링 도구를 만들게 됩니다</span></td>
-      <td><span class="stars">★★★★★</span></td><td>npm 또는 <b>오프라인 zip</b></td>
-      <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
-    <tr><td class="n">18</td><td><b>Cast Editor 로 뽑은 시트를 엔진에 다시 넣는 경로가 없다</b>
-      <span class="sub"><code>Animator</code> 는 스켈레톤 파츠용이라 프레임 시트를 못 돌리고,
-      <code>SpriteRenderer</code> 는 <code>drawImage</code> 에 source rect 인자가 없어
-      시트에서 한 프레임을 잘라 그릴 수 없습니다. 재생 컴포넌트를 직접 작성했습니다</span></td>
-      <td><span class="stars">★★★★★</span></td><td>추출물을 <b>다시 엔진에 넣는 경로</b> — 비어 있는 연결입니다</td>
-      <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
-  </table></div>
-
-  <div class="call">
-    <span class="lab">세어 보면</span>
-    문서 한 줄이면 안 막혔을 것 <b>7</b> · 코드·제품이 움직여야 하는 것 <b>10</b> · 인프라 <b>1</b>.
-    <b>Studio 사용에서 막힌 것은 대부분 「몰라서」</b>였고, 게이트웨이·엔진 쪽은 코드가 움직여야 합니다.
-    다만 그 열 중에도 <b><code>Retry-After</code> 한 줄</b>처럼 아주 가벼운 것이 섞여 있습니다.
-  </div>
-
-  <h3>좋았던 것</h3>
-  <div class="call cy">
-    <ul style="margin:0">
-      <li><b>클라이언트 소스가 압축돼 있지 않고 한국어 주석이 달려 있습니다.</b>
-        공식 문서가 없는 상황에서 <b>이것이 사실상 문서 역할</b>을 했습니다.
-        이게 없었으면 저희 프로젝트는 성립하지 않았습니다.</li>
-      <li><b>스튜디오의 제작 기능 자체는 완성도가 높습니다.</b>
-        막힌 것은 대부분 「밖에서 다루는 방법」이었지 만드는 기능이 아니었습니다.</li>
-      <li><b>Slice 가 셀마다 <code>role</code> 을 붙여 줍니다.</b> 픽셀 색으로 벽·바닥을 가르려다
-        실패했는데, 이 기능을 찾아 그대로 통행 판정에 썼습니다.</li>
-      <li><b>SPUM CG 태그 체계가 LLM 과 구조적으로 잘 맞습니다.</b>
-        “험상궂은 고블린 궁수”라는 자연어가 태그 조합으로 직접 매핑되므로,
-        <b>이미 보유하신 자산이 그대로 AI 인터페이스가 됩니다.</b></li>
-      <li><b>공개 데모 월드가 로그인 없이 열립니다</b> — “정상 동작이 어떤 모양인가”의 기준점이 됐습니다.</li>
-      <li><b>맵을 로컬에서 만들어 밀어넣을 수 있습니다</b> — 에디터 수작업이 필요 없었습니다.</li>
-      <li>엔진이 <b>길찾기 · 말풍선 · 관계 기억</b>을 이미 제공합니다. (다만 찾기가 어려웠습니다.)</li>
-    </ul>
-  </div>
-</section>
-
-<section id="s5">
-  <div class="shead"><em>05</em><h2>만들고 나서 알게 된 것</h2></div>
-  <p class="sdesc">버그 신고가 아니라 <b>제품의 성질에 대한 관찰</b>입니다.
-    AI NPC 를 여럿 굴리는 콘텐츠라면 밸런스에 직접 작용한다고 봅니다.</p>
-
-  <h3>AI 들의 표가 한 사람에게 몰린다 <span class="stars">★★★★★</span></h3>
-  <p>사람 없이 AI 시민 5명에게 <b>동일한 대화록</b>을 주고 투표만 반복시켰습니다.
-    대화록에는 <b>범인 단서가 전혀 없습니다</b> — 근거 있는 판단이라면 표가 흩어져야 합니다.
-    <b>표의 80~93% 가 한 사람에게 몰렸고</b>, 표를 받은 사람은 매번 2~3명뿐이었습니다.</p>
-
-  <h3>원인을 두 번 틀리게 짚었습니다 <span class="stars">★★★★★</span></h3>
-  <p>어떻게 틀렸는지를 같이 적어야 저희 결론을 어느 정도로 믿으실지 판단하실 수 있다고 봤습니다.</p>
-  <div class="scroll"><table>
-    <tr><th style="width:64px">차수</th><th style="width:32%">주장</th><th>어떻게 무너졌나</th></tr>
-    <tr><td class="n">1차</td><td>“토론이 오히려 방해가 된다”</td>
-      <td>실패의 100% 가 <b>HTTP 429</b> — 대화가 굶은 데이터였습니다</td></tr>
-    <tr><td class="n">2차</td><td>“캐릭터 <b>성격 태그</b>로 찍는다”</td>
-      <td><b>대사 한 줄을 옮기자 표가 그대로 따라갔습니다</b></td></tr>
-    <tr><td class="n">3차</td><td>“<b>대화를 주도하는 사람</b>을 의심한다”</td><td>대조 실험으로 확인 (아래)</td></tr>
-  </table></div>
-  <p>성격·구성·나머지 대화록을 전부 고정하고
-    <b>「일단 서로 뭐 했는지부터 얘기해 보자」 한 줄만</b> 다른 캐릭터에게 옮겼습니다.</p>
-  <div class="scroll"><table>
-    <tr><th>그 대사를 누가 말하나</th><th style="width:200px">표가 어디로</th></tr>
-    <tr><td>「먹보 · 눈치 없는」 캐릭터</td><td class="n">그 캐릭터에게 <b>80.0%</b> (16/20)</td></tr>
-    <tr><td>「졸림 · 느긋」 캐릭터 <span class="muted">— 대사만 이동</span></td>
-      <td class="n"><b>그 캐릭터에게 80.0%</b> (16/20)</td></tr>
-  </table></div>
-  <p><b>표가 성격이 아니라 대사를 따라 통째로 이동했습니다.</b> AI 가 직접 이렇게 말합니다 —</p>
-  <div class="call pl"><span class="lab">실제 응답</span>
-    「오물오물이 좀 수상한데?
-    <b>5번에서 갑자기 “서로 뭐 했는지부터 얘기해 보자”고 몰아가는</b> 거 봤잖아.」</div>
-
-  <h3>금지해 봤고 — 안 됐습니다 <span class="stars">★★★★★</span></h3>
-  <p>지목 규칙에 <i>「먼저 나서서 제안한 사람을 그 이유로 찍지 마라」</i>를 명시했습니다.</p>
-  <div class="scroll"><table>
-    <tr><th style="width:34%"></th><th style="width:150px">최다 득표</th><th>근거를 인용한 비율</th></tr>
-    <tr><td>방어 전</td><td class="n"><b>80.0%</b></td><td class="n">20%</td></tr>
-    <tr><td>방어 후 · 1회차 (14표)</td><td class="n"><b>85.7%</b></td><td class="n">71%</td></tr>
-    <tr><td>방어 후 · 2회차 (18표)</td><td class="n"><b>83.3%</b></td><td class="n">44%</td></tr>
-  </table></div>
-  <p><b>쏠림은 전혀 줄지 않고 근거를 대는 비율만 올랐습니다.</b>
-    근거는 결론을 만든 게 아니라 <b>이미 정해진 결론에 붙는 설명</b>이었습니다.
-    길이 지시(위반 54.5~63.8%)와 되풀이 금지(시도 21.7~35.3%)도 같았습니다.</p>
-
-  <h3>그런데 — 잣대를 나눠 주니 표가 갈렸습니다 <span class="stars">★★★☆☆</span></h3>
-  <div class="call pl">
-    <span class="lab">해석을 한 번 더 뒤집었습니다</span>
-    <b>「주도한 사람을 의심한다」는 틀린 잣대가 아닙니다.</b> 실제 사람들도 그렇게 몹니다.
-    문제는 AI 들이 <b>쓸 수 있는 잣대가 그것 하나뿐</b>이라 다섯이 같은 답을 냈다는 것입니다.
-    사람이 하는 마피아에서는 <b>말이 없는 사람 · 남을 몰아가는 사람 · 말이 바뀐 사람</b>처럼
-    여러 잣대가 동시에 굴러가고, 그래서 표가 갈립니다.
-  </div>
-  <p>그래서 실제 마피아에서 쓰이는 몰이 근거를 <b>8가지</b> 만들어 <b>사람마다 하나씩 나눠 줬습니다</b> —
-    주도한 사람 · 조용했던 사람 · 말이 바뀐 사람 · 편승한 사람 · 먼저 변명한 사람 ·
-    먼저 남을 지목한 사람 · 누굴 감싼 사람 · 감정이 과했던 사람.</p>
-  <div class="scroll"><table>
-    <tr><th style="width:34%">조건</th><th style="width:230px">최다 득표</th><th>표를 받은 사람</th></tr>
-    <tr><td>모두 같은 잣대 <span class="muted">(4회)</span></td>
-      <td class="n">80.0 · 85.7 · 83.3 · 82.4%</td><td class="n">2~3명</td></tr>
-    <tr class="dup"><td><b>잣대를 나눠 줌</b></td><td class="n"><b>57.9%</b></td><td class="n"><b>4명</b></td></tr>
-  </table></div>
-  <div class="call">
-    <span class="lab">저희가 얻은 제일 쓸모 있는 것</span>
-    LLM 이 한 곳으로 쏠릴 때, <b>못 하게 막는 것보다 「갈 곳」을 여러 개 주는 편이 먹힙니다.</b>
-    금지는 세 번 다 실패했고(길이 · 되풀이 · 편향), <b>분산은 한 번에 통했습니다.</b>
-  </div>
-  <div class="call cy">
-    <span class="lab">표본을 밝힙니다</span>
-    위 셋은 각 조건 20회 호출(유효 20 · 20 · 14 · 18표), <b>잣대 분산은 1회</b>입니다.
-    방향은 일관되지만 <b>정밀한 수치로 인용하기엔 작습니다.</b>
-    저희는 전문 개발자가 아니므로 <b>전제부터 틀렸을 가능성</b>도 배제하지 못합니다.
-    회사에서 더 큰 규모로 재보시길 권합니다 — 계측 도구와 대조군 설계는 드릴 수 있습니다.
-  </div>
-</section>
-
-<section id="s6">
-  <div class="shead"><em>06</em><h2>각자의 기록</h2></div>
-  <p class="sdesc">이름을 눌러 넘겨 보세요. 키보드 <code>←</code> <code>→</code> 로도 넘어갑니다.</p>
-
-  <div class="tabs" role="tablist">
-    <button role="tab" aria-selected="true" aria-controls="t-jy" id="tab-jy">
-      <span class="who">김주영</span><span class="what">누가 마피아지?</span></button>
-    <button role="tab" aria-selected="false" aria-controls="t-sy" id="tab-sy">
-      <span class="who">신서연</span><span class="what">누가 내 치즈케이크를…</span></button>
-    <button role="tab" aria-selected="false" aria-controls="t-cw" id="tab-cw">
-      <span class="who">정충원</span><span class="what">자동화 파이프라인</span></button>
-    <button role="tab" aria-selected="false" aria-controls="t-jw" id="tab-jw">
-      <span class="who">최종우</span><span class="what">받는 중</span></button>
-  </div>
-
-  <div class="panel" role="tabpanel" id="t-jy" aria-labelledby="tab-jy">
-    <h3>무엇을 만들었나</h3>
-    <p><b>「누가 마피아지?」</b> — 여럿이 한 건물에 살고, 밤마다 한 명이 사라집니다.
-      낮에 모여 토론하고 투표로 마피아를 찾습니다. <b>NPC 전원이 AI</b> 이고,
-      매 판 마피아와 밤의 사건이 새로 생성됩니다.</p>
-    <p class="muted">처음엔 「누가 내 케이크 먹었어?」(냉장고의 케이크를 훔쳐 먹은 범인 찾기)로 시작했다가,
-      추리의 밀도를 높이려고 마피아 규칙으로 바꿨습니다.</p>
-    <div class="strip">
-      <div><b>236</b><small>커밋</small></div>
-      <div><b>10,709</b><small>소스 줄</small></div>
-      <div><b>8,090</b><small>문서 줄</small></div>
-      <div><b>100</b><small>함정 기록</small></div>
-      <div><b>109</b><small>회귀 검사</small></div>
-    </div>
-    <p class="muted">2026-08-17 첫 커밋 ~ 현재. 문서 8,090줄 중 상당량이 「SPUM 을 어떻게 다루는가」인데,
-      <b>만들고 싶어서가 아니라 없어서 만든 것</b>입니다.</p>
-    <div class="slot">스크린샷 자리 — 게임 화면 · 무대 고르기 · 토론 창</div>
-
-    <h3>어떻게 만들었나</h3>
-    <ul>
-      <li><b>SPUM 을 어디에 썼나</b> — ① 맵: Object Editor 로 <b>집 전체 평면도</b>를 생성해
-        통행 마스크를 뽑아 타일맵으로 변환 ② 캐릭터: Cast Editor 로 <b>10명 × idle/move</b> 스프라이트 시트
-        ③ 엔진: <code>spum-engine</code> · <code>spum-world</code> 를 <b>직접 구동</b></li>
-      <li><b>대화</b> — SAM 을 <b>서버에서 직접 호출</b>합니다. 내장 AI 는 검증 후 포기했습니다(§4 #1).
-        정답(범인·기억)은 서버에만 두고 각 캐릭터에게 <b>자기 기억만</b> 줍니다.</li>
-      <li><b>실행</b> — <code>bash serve.sh</code> → <code>localhost:5173</code>. Node 외 의존성 없음.</li>
-    </ul>
-    <p><b>지금 상태</b> — 무대 <b>6개</b>(셰어하우스 · 우주선 · 설산 산장 · 심해 연구기지 · 해변 리조트 · 궤도 정거장),
-      인원 <b>4~10명</b>, 역할 4종(마피아 · 경찰 · 의사 · 시민), 유령 채팅, 다시 보기, 초대 코드.</p>
-
-    <h3>어디서 막혔나</h3>
-    <ol>
-      <li><b>내장 AI 로 게임을 굴리려 했는데 설정을 안 지켰다.</b>
-        추리 게임은 “누가 무엇을 봤는가”가 사실이어야 성립하는데 지어내면 게임이 아닙니다.
-        <span class="muted">→ 항목별 표를 만들어 하나씩 확인하고서야 알았습니다.</span></li>
-      <li><b>평가를 돌렸더니 “토론이 방해가 된다”는 결론이 나왔다.</b>
-        실제로는 <b>실패의 100% 가 429</b> 였습니다.
-        <span class="muted">→ 하마터면 틀린 결론을 회사에 낼 뻔했습니다.</span></li>
-      <li><b>캐릭터 하나가 서 있을 때도 걷는 애니메이션을 재생했다.</b>
-        Cast Export 가 다른 캐릭터의 시트를 내려준 것이었습니다.
-        <span class="muted">→ 10명을 md5 전수 대조해서 발견했습니다.</span></li>
-      <li><b>8·10인 무대를 만들었는데 게임에는 6명만 나왔다.</b>
-        맵도 방 10개, 인원 화면도 「10 / 10」인데 게임에만 6명이었습니다.
-        <span class="muted">→ <b>실제로 플레이해 보고</b> 알았습니다. 코드를 읽어선 안 보였습니다.</span></li>
-    </ol>
-
-    <h3>어떻게 풀었나</h3>
-    <ul>
-      <li><b>1번</b> — 대화를 SAM 직접 호출로 갈아엎고, 정답을 서버에 고정한 뒤 각 캐릭터에게
-        자기 기억만 주는 구조를 직접 짰습니다. <b>이 프로젝트 최대의 재작업</b>이었습니다.</li>
-      <li><b>2번</b> — 재시도 정책을 게임과 측정 도구가 <b>같은 부품</b>으로 쓰게 했습니다.
-        실패율 24.8% → 1.0%.</li>
-      <li><b>3번</b> — 에셋 검증을 해시로 바꿨습니다. 회귀 검사가
-        「idle 과 move 가 같은 파일인 캐릭터가 없다」를 매번 확인합니다.</li>
-      <li><b>4번</b> — <code>world.js</code> 에 <code>.slice(0, 6)</code> 이 남아 있었습니다.
-        6인 고정이던 시절의 잔재입니다. 지웠고, <b>되살아나면 잡는 검사</b>를 넣었습니다.</li>
-    </ul>
-    <div class="call">
-      <span class="lab">못 푼 것</span>
-      AI 지목 적중률이 <b>11.8~23.5%</b> 로, 두 번 다 <b>무작위(33.3%)보다 낮았습니다.</b>
-      §5 의 잣대 분산으로 쏠림은 줄였지만 <b>적중률 자체는 못 올렸습니다.</b>
-    </div>
-
-    <h3>가장 크게 배운 것</h3>
-    <p><b>“안 도는 코드를 보고 고장이라 하지 마라.”</b>
-      밤에 목격자를 두는 코드가 남아 있길래 「죽어 있던 규칙」이라 부르고 되살릴 방법을 제안했는데,
-      <b>애초에 빼기로 한 설계</b>였습니다. 그 판단이 이미 저희 문서에 적혀 있었는데 안 보고 지나쳤습니다.</p>
-    <p><b>“측정기는 게임과 같은 부품을 써야 한다.”</b>
-      측정 도구가 게임과 다른 재시도 정책을 쓰는 바람에 <b>틀린 결론을 한 번 냈습니다.</b></p>
-  </div>
-
-  <div class="panel" role="tabpanel" id="t-sy" aria-labelledby="tab-sy" hidden>
-    <h3>무엇을 만들었나</h3>
-    <p><b>「누가 내 치즈케이크를 먹었나」</b> — 하우스메이트 6명이 사는 집에서 치즈케이크가 사라진 사건을,
-      플레이어가 그중 한 명이 되어 나머지 다섯을 <b>자유 문장으로 심문</b>해
-      범인 · 시각 · 목격자를 추리하는 게임. 순순팩토리 마케팅 데모.</p>
-    <p>캐릭터 · 맵 · 애니메이션은 <b>SPUM 웹엔진</b>이 그리고, 대사는 미리 써 둔 것 없이
-      플레이어가 말을 걸 때마다 <b>SAM(LLM)</b> 이 즉석에서 짓습니다.</p>
-    <div class="strip">
-      <div><b>80</b><small>커밋</small></div>
-      <div><b>0</b><small>런타임 의존성</small></div>
-      <div><b>6</b><small>등장인물</small></div>
-    </div>
-    <div class="call cy">
-      <span class="lab">핵심 주장</span>
-      “몇 시에 누가 어디 있었나, 누가 봤나, 누가 거짓말을 하고 있나” —
-      이런 <b>사실 관계는 전부 코드가 정하고 코드가 검사한다.</b>
-      SAM 은 이 중 하나도 마음대로 못 바꾼다. SAM 이 하는 일은 그렇게 이미 정해진 사실을,
-      그 캐릭터답게 지금 대화 흐름에 맞는 말로 옮기는 것뿐이다.
-    </div>
-    <p class="muted">저장소 <code>who-ate-my-cheesecake</code> · main · 정리일 2026-08-25</p>
-    <div class="slot">
-      <b>보완 필요</b><br>
-      아키텍처 · 설계 원칙 · 개발 계보 · <b>실제로 부딪힌 문제</b> · 검증·테스트 —
-      원문에서 아직 옮기지 못했습니다.
-    </div>
-  </div>
-
-  <div class="panel" role="tabpanel" id="t-cw" aria-labelledby="tab-cw" hidden>
-    <h3>무엇을 만들었나</h3>
-    <p><b>SPUM 자동화 파이프라인</b> — LLM 에게 자연어로 지시하면 그 결과가 SPUM 스튜디오 월드에 반영되어
-      <b>플레이 가능한 상태까지</b> 도달하는 것을 목표로 했습니다.</p>
-    <pre><code>"숲 지형 32x24 맵을 만들고, 좌하단에 상인 NPC,
+  <h3>무엇을 만들었나</h3>
+  <p>LLM 에게 자연어로 지시하면 그 결과가 SPUM 스튜디오 월드에 반영되어
+    <b>플레이 가능한 상태까지</b> 도달하는 것을 목표로 했습니다.</p>
+  <pre><code>"숲 지형 32x24 맵을 만들고, 좌하단에 상인 NPC,
  우측에 고블린 궁수 3마리를 배치한 뒤 플레이 가능하게 해줘"
                 ↓   LLM 에이전트   ↓
               SPUM 스튜디오 월드</code></pre>
-    <ul>
-      <li><b>AI 조감도 생성 → 통행 마스크 생성 → 통행 판정 → 스튜디오 주입 → 검증 스크린샷</b>
-        6단계가 <b>명령 하나로</b> 이어집니다</li>
-      <li>이 방식으로 <b>씬 맵 6개</b>를 제작해 실제 월드에서 사용 중입니다
-        <span class="muted">(산동네 마을 · 미래 도시 · 판타지 시장 광장 등)</span></li>
-      <li>파이프라인은 <b>MIT 로 공개</b>했습니다 — <code>github.com/GojoSuperman/spum-kit</code></li>
-    </ul>
+  <ul>
+    <li><b>AI 조감도 생성 → 통행 마스크 생성 → 통행 판정 → 스튜디오 주입 → 검증 스크린샷</b>
+      6단계가 <b>명령 하나로</b> 이어집니다</li>
+    <li>이 방식으로 <b>씬 맵 6개</b>를 제작해 실제 월드에서 사용 중입니다
+      <span class="muted">(산동네 마을 · 미래 도시 · 판타지 시장 광장 등)</span></li>
+    <li>파이프라인은 <b>MIT 로 공개</b>했습니다 — <code>github.com/GojoSuperman/spum-kit</code></li>
+  </ul>
 
-    <h3>어디서 막혔나</h3>
-    <p>스튜디오가 활발히 개발 중인 만큼 UI 가 자주 갱신되는데, 그때마다 DOM 선택자를 처음부터 다시 찾아야 했습니다.
-      개발 단계 제품에서는 자연스러운 일이지만, 자동화 측에서는
-      <b>기능을 추가하는 시간보다 깨진 선택자를 복구하는 시간이 더 커지는 구조</b>가 됩니다.</p>
-    <div class="call">
-      <b>문제의 본질은 브라우저 자동화 자체가 아니라 「UI 표현에 의존할 수밖에 없다는 점」</b>입니다.
-    </div>
-    <p>그 밖에 계측으로 확인한 마찰 지점은 §4 표의
-      <b>#2 · #3 · #4 · #7 · #9 · #11 · #14</b> 입니다.</p>
+  <h3>어디서 막혔나</h3>
+  <p>스튜디오가 활발히 개발 중인 만큼 UI 가 자주 갱신되는데, 그때마다 DOM 선택자를 처음부터 다시 찾아야 했습니다.
+    개발 단계 제품에서는 자연스러운 일이지만, 자동화 측에서는
+    <b>기능을 추가하는 시간보다 깨진 선택자를 복구하는 시간이 더 커지는 구조</b>가 됩니다.</p>
+  <div class="call">
+    <b>문제의 본질은 브라우저 자동화 자체가 아니라 「UI 표현에 의존할 수밖에 없다는 점」</b>입니다.
+  </div>
+  <p>그 밖에 계측으로 확인한 마찰 지점은 통합 보고 §03 의
+    <b>#2 · #3 · #4 · #7 · #9 · #11 · #14</b> 입니다.</p>
 
-    <h3>제안 — 3단계 점진안</h3>
-    <p>§3-C 에 요약했습니다. 부담이 적은 순서로 정리했고,
-      <b>1단계만 반영되어도 실무적으로는 큰 도움</b>이 됩니다.</p>
-    <ul>
-      <li><b>1단계</b> — 핵심 요소에 <code>data-testid</code> + 자동화용 인증 수단
-        <span class="muted">(반나절~1일)</span></li>
-      <li><b>2단계</b> — 내부 API 사용 허가 + 최소 문서
-        <span class="muted">(이미 있는 것에 대한 허가)</span></li>
-      <li><b>3단계</b> — 공식 MCP 서버. <b>선언형</b>(월드가 어떤 상태여야 하는가) 설계를 권장 —
-        중간에 실패해도 재적용으로 수렴하므로 에이전트 환경에서 안정적입니다</li>
-    </ul>
-    <div class="call cy">
-      <span class="lab">world_validate 의 중요성</span>
-      “플레이 가능한 상태까지” 자동화하려면 에이전트가 <b>스스로 결과를 검증</b>할 수 있어야 합니다.
-      스폰 존재 · 경로 연결 · 엔티티가 충돌 타일 위에 있지 않은지를 반환해 주면
-      에이전트가 자체 수정 루프를 돌 수 있습니다.
-      이것이 있고 없고가 자동화 완성도를 크게 좌우합니다.
-    </div>
-
-    <h3>기여할 수 있는 것</h3>
-    <ul>
-      <li><b>레퍼런스 구현 — 이미 공개돼 있습니다.</b> MCP 가 제공되면 이 파이프라인의 하부를
-        MCP 호출로 교체한 클라이언트 측 레퍼런스와 실사용 예제를 정리해 드리겠습니다</li>
-      <li><b>우선 검증</b> — 각 단계 반영 시 가장 먼저 테스트하고 재현 로그와 함께 피드백을 드리겠습니다</li>
-      <li><b>도구 설계 협의</b> — 실제 사용 시나리오 기반으로 도구 시그니처와 스키마를 함께 다듬겠습니다</li>
-    </ul>
-    <p class="muted">제안서 원문: <a href="https://spum-proposal.vercel.app/">spum-proposal.vercel.app</a>
-      — 업계 MCP 지원 현황 비교, 도구 구성안, 부록 포함</p>
+  <h3>제안 — 3단계 점진안</h3>
+  <p>통합 보고 §02-C 에 요약했습니다. 부담이 적은 순서로 정리했고,
+    <b>1단계만 반영되어도 실무적으로는 큰 도움</b>이 됩니다.</p>
+  <ul>
+    <li><b>1단계</b> — 핵심 요소에 <code>data-testid</code> + 자동화용 인증 수단
+      <span class="muted">(반나절~1일)</span></li>
+    <li><b>2단계</b> — 내부 API 사용 허가 + 최소 문서
+      <span class="muted">(이미 있는 것에 대한 허가)</span></li>
+    <li><b>3단계</b> — 공식 MCP 서버. <b>선언형</b>(월드가 어떤 상태여야 하는가) 설계를 권장 —
+      중간에 실패해도 재적용으로 수렴하므로 에이전트 환경에서 안정적입니다</li>
+  </ul>
+  <div class="call cy">
+    <span class="lab">world_validate 의 중요성</span>
+    “플레이 가능한 상태까지” 자동화하려면 에이전트가 <b>스스로 결과를 검증</b>할 수 있어야 합니다.
+    스폰 존재 · 경로 연결 · 엔티티가 충돌 타일 위에 있지 않은지를 반환해 주면
+    에이전트가 자체 수정 루프를 돌 수 있습니다.
+    이것이 있고 없고가 자동화 완성도를 크게 좌우합니다.
   </div>
 
-  <div class="panel" role="tabpanel" id="t-jw" aria-labelledby="tab-jw" hidden>
-    <div class="slot">최종우 님 내용이 들어갈 자리입니다.</div>
-  </div>
-</section>
+  <h3>기여할 수 있는 것</h3>
+  <ul>
+    <li><b>레퍼런스 구현 — 이미 공개돼 있습니다.</b> MCP 가 제공되면 이 파이프라인의 하부를
+      MCP 호출로 교체한 클라이언트 측 레퍼런스와 실사용 예제를 정리해 드리겠습니다</li>
+    <li><b>우선 검증</b> — 각 단계 반영 시 가장 먼저 테스트하고 재현 로그와 함께 피드백을 드리겠습니다</li>
+    <li><b>도구 설계 협의</b> — 실제 사용 시나리오 기반으로 도구 시그니처와 스키마를 함께 다듬겠습니다</li>
+  </ul>
+  <p class="muted">제안서 원문: <a href="https://spum-proposal.vercel.app/">spum-proposal.vercel.app</a>
+    — 업계 MCP 지원 현황 비교, 도구 구성안, 부록 포함</p>
+</div>
 
-<section id="s7">
-  <div class="shead"><em>07</em><h2>드릴 수 있는 것</h2></div>
-  <div class="card">
-    <ul style="margin:0">
-      <li><b>계측 도구</b> <span class="muted">(MIT · 실행 즉시 재현)</span> — 게이트웨이 프로브 ·
-        대사 품질 평가 · <b>편향 분리 측정</b>(원인을 가르는 대조군 포함).
-        브라우저 없이 SAM 호출만으로 돕니다. <b>20회 호출(≈90 SSAM)이면 편향 측정이 끝납니다.</b></li>
-      <li><b>자동화 파이프라인</b> — 생성 → 판정 → 주입 → 검증 전 과정. MIT 공개(<code>spum-kit</code>)</li>
-      <li><b>재현 절차</b> — Cast Export 버그의 클릭 순서, <code>update()</code> 예외의 최소 재현 코드,
-        세션 계측 로그(30초 간격), 504 과금 재현 기록</li>
-      <li><b>함정 기록 문서</b> — 100건. <b>공식 문서로 흡수하셔도 좋습니다.</b> 기꺼이 넘기겠습니다.</li>
-    </ul>
-  </div>
-</section>
+<!-- ══════════════ 최종우 ══════════════ -->
+<div class="panel" role="tabpanel" id="p-jw" aria-labelledby="t-jw" hidden>
+  <p class="intro"><b>최종우</b> — 내용을 받는 중입니다.</p>
+  <div class="slot">최종우 님 내용이 들어갈 자리입니다.</div>
+</div>
 
 <footer>
   순순팩토리 기업연계 해커톤 · 팀 순순히 따라와라 · 2026-08<br>
@@ -807,42 +930,43 @@ footer{margin-top:84px;padding-top:24px;border-top:1px solid var(--line);
 </div>
 
 <script>
-  // 탭 — ←/→ 키로도 넘어간다. 접근성 이전에 발표 자리에서 손이 편하려고 넣었다.
-  const tabs = [...document.querySelectorAll('[role="tab"]')];
-  const show = (i, focus) => {
-    tabs.forEach((t, k) => {
-      const on = k === i;
-      t.setAttribute("aria-selected", on ? "true" : "false");
-      t.tabIndex = on ? 0 : -1;
-      document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
-    });
-    if (focus) tabs[i].focus();
-  };
-  tabs.forEach((t, i) => {
-    t.tabIndex = i === 0 ? 0 : -1;
-    t.addEventListener("click", () => show(i, false));
-    t.addEventListener("keydown", e => {
-      if (e.key === "ArrowRight") { e.preventDefault(); show((i + 1) % tabs.length, true); }
-      if (e.key === "ArrowLeft")  { e.preventDefault(); show((i - 1 + tabs.length) % tabs.length, true); }
-    });
-  });
+// ── 최상위 탭 ────────────────────────────────────────────────────
+// 한 스크롤에 전부 쌓으면 길어서 집중이 흩어진다. 그래서 탭으로 가른다.
+// 전환하면 탭바가 화면 맨 위에 오도록 스크롤한다 — 안 그러면 이전 탭에서
+// 내려가 있던 위치에 새 탭의 중간이 걸린다.
+const 탭바 = document.querySelector(".tabbar");
+const 탭들 = [...document.querySelectorAll('[role="tab"]')];
 
-  // 앵커 — CSS `scroll-behavior:smooth` 를 쓰지 않고 여기서 처리한다.
-  // 해시를 달고 들어오면 브라우저가 **레이아웃 전에** 스크롤을 시도해 맨 위에 머물렀고,
-  // 한글 웹폰트가 나중에 붙으면서 위치가 또 밀렸다. 그래서 글꼴이 준비된 뒤 다시 맞춘다.
-  const 부드럽게 = !matchMedia("(prefers-reduced-motion: reduce)").matches;
-  document.querySelectorAll(".jump a").forEach(a => {
-    a.addEventListener("click", e => {
-      const 목적지 = document.querySelector(a.getAttribute("href"));
-      if (!목적지) return;
-      e.preventDefault();
-      history.replaceState(null, "", a.getAttribute("href"));
-      목적지.scrollIntoView({ behavior: 부드럽게 ? "smooth" : "auto", block: "start" });
-    });
+function 보이기(i, 옮길까) {
+  탭들.forEach((t, k) => {
+    const 켬 = k === i;
+    t.setAttribute("aria-selected", 켬 ? "true" : "false");
+    t.tabIndex = 켬 ? 0 : -1;
+    document.getElementById(t.getAttribute("aria-controls")).hidden = !켬;
   });
-  if (location.hash) {
-    const 맞추기 = () => document.querySelector(location.hash)?.scrollIntoView({ block: "start" });
-    addEventListener("load", 맞추기);
-    document.fonts?.ready.then(맞추기);
-  }
+  if (옮길까) 탭들[i].focus();
+  탭바.scrollIntoView({ block: "start" });
+}
+
+탭들.forEach((t, i) => {
+  t.tabIndex = i === 0 ? 0 : -1;
+  t.addEventListener("click", () => 보이기(i, false));
+  t.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") { e.preventDefault(); 보이기((i + 1) % 탭들.length, true); }
+    if (e.key === "ArrowLeft")  { e.preventDefault(); 보이기((i - 1 + 탭들.length) % 탭들.length, true); }
+  });
+});
+
+// ── 탭 안 칩 목차 ────────────────────────────────────────────────
+// CSS `scroll-behavior:smooth` 는 쓰지 않는다 — 해시를 달고 들어오면 브라우저가
+// **레이아웃 전에** 스크롤을 시도해 맨 위에 머문다(실측). 여기서 처리한다.
+const 부드럽게 = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+document.querySelectorAll(".chipnav a").forEach(a => {
+  a.addEventListener("click", e => {
+    const 목적지 = document.querySelector(a.getAttribute("href"));
+    if (!목적지) return;
+    e.preventDefault();
+    목적지.scrollIntoView({ behavior: 부드럽게 ? "smooth" : "auto", block: "start" });
+  });
+});
 </script>
