@@ -138,6 +138,10 @@ h3{font-size:18px;line-height:1.4;letter-spacing:-.012em;font-weight:600;margin:
 h4{font:600 12.5px/1.5 var(--label);letter-spacing:.03em;color:var(--accent-ink);margin:34px 0 12px;
   display:flex;align-items:baseline;gap:10px}
 h4 .cnt{font:500 11.5px/1 var(--mono);color:var(--ink-3);letter-spacing:0}
+/* 탭 안에서 h3 아래 한 단 — 통합에서 옮겨 온 실험 소제목들이 여기 해당한다 */
+h4.sub4{display:block;font:600 16px/1.45 var(--label);letter-spacing:-.01em;color:var(--ink);
+  margin:28px 0 10px;text-transform:none}
+h4.sub4 .stars{margin-left:6px;font-weight:500}
 p{margin:12px 0}
 p,li{font-size:15px}
 ul,ol{padding-left:19px;margin:12px 0} li{margin:6px 0}
@@ -991,83 +995,35 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     </div>
   </section>
 
-  <section id="s-find">
+    <section id="s-find">
     <div class="shead"><em>05</em><h2>만들고 나서 알게 된 것</h2></div>
     <p class="sdesc">버그 신고가 아니라 <b>제품의 성질에 대한 관찰</b>입니다.
       AI NPC 를 여럿 굴리는 콘텐츠라면 밸런스에 직접 작용한다고 봅니다.</p>
 
-    <h3>AI 들의 표가 한 사람에게 몰린다 <span class="stars">★★★★★</span></h3>
-    <p>사람 없이 AI 시민 5명에게 <b>동일한 대화록</b>을 주고 투표만 반복시켰습니다.
-      대화록에는 <b>범인 단서가 전혀 없습니다</b> — 근거 있는 판단이라면 표가 흩어져야 합니다.
-      <b>표의 80~93% 가 한 사람에게 몰렸고</b>, 표를 받은 사람은 매번 2~3명뿐이었습니다.</p>
-
-    <h3>원인을 두 번 틀리게 짚었습니다 <span class="stars">★★★★★</span></h3>
-    <p>어떻게 틀렸는지를 같이 적어야 저희 결론을 어느 정도로 믿으실지 판단하실 수 있다고 봤습니다.</p>
-    <div class="scroll"><table>
-      <tr><th style="width:64px">차수</th><th style="width:32%">주장</th><th>어떻게 무너졌나</th></tr>
-      <tr><td class="n">1차</td><td>“토론이 오히려 방해가 된다”</td>
-        <td>실패의 100% 가 <b>HTTP 429</b> — 대화가 굶은 데이터였습니다</td></tr>
-      <tr><td class="n">2차</td><td>“캐릭터 <b>성격 태그</b>로 찍는다”</td>
-        <td><b>대사 한 줄을 옮기자 표가 그대로 따라갔습니다</b></td></tr>
-      <tr><td class="n">3차</td><td>“<b>대화를 주도하는 사람</b>을 의심한다”</td><td>대조 실험으로 확인 (아래)</td></tr>
-    </table></div>
-    <p>성격·구성·나머지 대화록을 전부 고정하고
-      <b>「일단 서로 뭐 했는지부터 얘기해 보자」 한 줄만</b> 다른 캐릭터에게 옮겼습니다.</p>
-    <div class="scroll"><table>
-      <tr><th>그 대사를 누가 말하나</th><th style="width:200px">표가 어디로</th></tr>
-      <tr><td>「먹보 · 눈치 없는」 캐릭터</td><td class="n">그 캐릭터에게 <b>80.0%</b> (16/20)</td></tr>
-      <tr><td>「졸림 · 느긋」 캐릭터 <span class="muted">— 대사만 이동</span></td>
-        <td class="n"><b>그 캐릭터에게 80.0%</b> (16/20)</td></tr>
-    </table></div>
-    <p><b>표가 성격이 아니라 대사를 따라 통째로 이동했습니다.</b> AI 가 직접 이렇게 말합니다 —</p>
-    <div class="call pl"><span class="lab">실제 응답</span>
-      「오물오물이 좀 수상한데?
-      <b>5번에서 갑자기 “서로 뭐 했는지부터 얘기해 보자”고 몰아가는</b> 거 봤잖아.」</div>
-
-    <h3>금지해 봤고 — 안 됐습니다 <span class="stars">★★★★★</span></h3>
-    <p>지목 규칙에 <i>「먼저 나서서 제안한 사람을 그 이유로 찍지 마라」</i>를 명시했습니다.</p>
-    <div class="scroll"><table>
-      <tr><th style="width:34%"></th><th style="width:150px">최다 득표</th><th>근거를 인용한 비율</th></tr>
-      <tr><td>방어 전</td><td class="n"><b>80.0%</b></td><td class="n">20%</td></tr>
-      <tr><td>방어 후 · 1회차 (14표)</td><td class="n"><b>85.7%</b></td><td class="n">71%</td></tr>
-      <tr><td>방어 후 · 2회차 (18표)</td><td class="n"><b>83.3%</b></td><td class="n">44%</td></tr>
-    </table></div>
-    <p><b>쏠림은 전혀 줄지 않고 근거를 대는 비율만 올랐습니다.</b>
-      근거는 결론을 만든 게 아니라 <b>이미 정해진 결론에 붙는 설명</b>이었습니다.
-      길이 지시(위반 54.5~63.8%)와 되풀이 금지(시도 21.7~35.3%)도 같았습니다.</p>
-
-    <h3>그런데 — 잣대를 나눠 주니 표가 갈렸습니다 <span class="stars">★★★☆☆</span></h3>
-    <div class="call pl">
-      <span class="lab">해석을 한 번 더 뒤집었습니다</span>
-      <b>「주도한 사람을 의심한다」는 틀린 잣대가 아닙니다.</b> 실제 사람들도 그렇게 몹니다.
-      문제는 AI 들이 <b>쓸 수 있는 잣대가 그것 하나뿐</b>이라 다섯이 같은 답을 냈다는 것입니다.
-      사람이 하는 마피아에서는 <b>말이 없는 사람 · 남을 몰아가는 사람 · 말이 바뀐 사람</b>처럼
-      여러 잣대가 동시에 굴러가고, 그래서 표가 갈립니다.
+    <div class="call">
+      <span class="lab">한 줄로</span>
+      사람 없이 AI 시민 다섯에게 <b>단서가 전혀 없는 같은 대화록</b>을 주고 투표만 반복시켰더니,
+      <b>표의 80~93% 가 한 사람에게 몰렸습니다.</b>
+      원인은 성격이 아니라 <b>「대화를 주도한 사람」</b> 이었고 —
+      <b>대사 한 줄을 다른 캐릭터에게 옮기자 표가 그대로 따라갔습니다.</b>
     </div>
-    <p>그래서 실제 마피아에서 쓰이는 몰이 근거를 <b>8가지</b> 만들어 <b>사람마다 하나씩 나눠 줬습니다</b> —
-      주도한 사람 · 조용했던 사람 · 말이 바뀐 사람 · 편승한 사람 · 먼저 변명한 사람 ·
-      먼저 남을 지목한 사람 · 누굴 감싼 사람 · 감정이 과했던 사람.</p>
-    <div class="scroll"><table>
-      <tr><th style="width:34%">조건</th><th style="width:230px">최다 득표</th><th>표를 받은 사람</th></tr>
-      <tr><td>모두 같은 잣대 <span class="muted">(4회)</span></td>
-        <td class="n">80.0 · 85.7 · 83.3 · 82.4%</td><td class="n">2~3명</td></tr>
-      <tr><td><b>잣대를 나눠 줌</b></td><td class="n"><b>57.9%</b></td><td class="n"><b>4명</b></td></tr>
-    </table></div>
     <div class="call pl">
-      <span class="lab">저희가 얻은 제일 쓸모 있는 것</span>
-      LLM 이 한 곳으로 쏠릴 때, <b>못 하게 막는 것보다 「갈 곳」을 여러 개 주는 편이 먹힙니다.</b>
-      금지는 세 번 다 실패했고(길이 · 되풀이 · 편향), <b>분산은 한 번에 통했습니다.</b>
+      <span class="lab">그래서 얻은 것</span>
+      금지는 <b>세 번 다 실패했습니다</b>(길이 · 되풀이 · 편향) —
+      쏠림은 안 줄고 <b>근거를 대는 비율만</b> 올랐습니다.
+      그런데 몰이 근거 <b>8가지를 사람마다 하나씩 나눠 주니</b>
+      최다 득표가 <b>80% → 57.9%</b> 로 갈렸습니다.
+      <b>못 하게 막는 것보다 「갈 곳」을 여러 개 주는 편이 먹힙니다.</b>
     </div>
     <div class="call nt">
-      <span class="lab">표본을 밝힙니다</span>
-      위 셋은 각 조건 20회 호출(유효 20 · 20 · 14 · 18표), <b>잣대 분산은 1회</b>입니다.
-      방향은 일관되지만 <b>정밀한 수치로 인용하기엔 작습니다.</b>
-      저희는 전문 개발자가 아니므로 <b>전제부터 틀렸을 가능성</b>도 배제하지 못합니다.
-      회사에서 더 큰 규모로 재보시길 권합니다 — 계측 도구와 대조군 설계는 드릴 수 있습니다.
+      <span class="lab">전체 실험은 김주영 탭에</span>
+      원인을 <b>두 번 틀리게 짚었다가 대조 실험으로 뒤집은 과정</b>,
+      회차별 수치, 표본 크기와 한계까지 <b>「김주영」 탭</b>에 그대로 있습니다.
+      여기 있는 건 <b>회사에 쓸모 있는 결론만</b> 추린 것입니다.
     </div>
   </section>
 
-  <section id="s-give">
+<section id="s-give">
     <div class="shead"><em>06</em><h2>드릴 수 있는 것</h2></div>
     <div class="card">
       <ul style="margin:0">
@@ -1456,6 +1412,81 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     AI 지목 적중률이 <b>11.8~23.5%</b> 로, 두 번 다 <b>무작위(33.3%)보다 낮았습니다.</b>
     잣대 분산으로 쏠림은 줄였지만 <b>적중률 자체는 못 올렸습니다.</b>
   </div>
+
+
+    <h3>만들고 나서 알게 된 것 — AI NPC 의 성질</h3>
+    <p class="muted">버그 신고가 아니라 <b>제품의 성질에 대한 관찰</b>입니다.
+      AI NPC 를 여럿 굴리는 콘텐츠라면 밸런스에 직접 작용한다고 봅니다.</p>
+
+    <h4 class="sub4">AI 들의 표가 한 사람에게 몰린다 <span class="stars">★★★★★</span></h4>
+    <p>사람 없이 AI 시민 5명에게 <b>동일한 대화록</b>을 주고 투표만 반복시켰습니다.
+      대화록에는 <b>범인 단서가 전혀 없습니다</b> — 근거 있는 판단이라면 표가 흩어져야 합니다.
+      <b>표의 80~93% 가 한 사람에게 몰렸고</b>, 표를 받은 사람은 매번 2~3명뿐이었습니다.</p>
+
+    <h4 class="sub4">원인을 두 번 틀리게 짚었습니다 <span class="stars">★★★★★</span></h4>
+    <p>어떻게 틀렸는지를 같이 적어야 저희 결론을 어느 정도로 믿으실지 판단하실 수 있다고 봤습니다.</p>
+    <div class="scroll"><table>
+      <tr><th style="width:64px">차수</th><th style="width:32%">주장</th><th>어떻게 무너졌나</th></tr>
+      <tr><td class="n">1차</td><td>“토론이 오히려 방해가 된다”</td>
+        <td>실패의 100% 가 <b>HTTP 429</b> — 대화가 굶은 데이터였습니다</td></tr>
+      <tr><td class="n">2차</td><td>“캐릭터 <b>성격 태그</b>로 찍는다”</td>
+        <td><b>대사 한 줄을 옮기자 표가 그대로 따라갔습니다</b></td></tr>
+      <tr><td class="n">3차</td><td>“<b>대화를 주도하는 사람</b>을 의심한다”</td><td>대조 실험으로 확인 (아래)</td></tr>
+    </table></div>
+    <p>성격·구성·나머지 대화록을 전부 고정하고
+      <b>「일단 서로 뭐 했는지부터 얘기해 보자」 한 줄만</b> 다른 캐릭터에게 옮겼습니다.</p>
+    <div class="scroll"><table>
+      <tr><th>그 대사를 누가 말하나</th><th style="width:200px">표가 어디로</th></tr>
+      <tr><td>「먹보 · 눈치 없는」 캐릭터</td><td class="n">그 캐릭터에게 <b>80.0%</b> (16/20)</td></tr>
+      <tr><td>「졸림 · 느긋」 캐릭터 <span class="muted">— 대사만 이동</span></td>
+        <td class="n"><b>그 캐릭터에게 80.0%</b> (16/20)</td></tr>
+    </table></div>
+    <p><b>표가 성격이 아니라 대사를 따라 통째로 이동했습니다.</b> AI 가 직접 이렇게 말합니다 —</p>
+    <div class="call pl"><span class="lab">실제 응답</span>
+      「오물오물이 좀 수상한데?
+      <b>5번에서 갑자기 “서로 뭐 했는지부터 얘기해 보자”고 몰아가는</b> 거 봤잖아.」</div>
+
+    <h4 class="sub4">금지해 봤고 — 안 됐습니다 <span class="stars">★★★★★</span></h4>
+    <p>지목 규칙에 <i>「먼저 나서서 제안한 사람을 그 이유로 찍지 마라」</i>를 명시했습니다.</p>
+    <div class="scroll"><table>
+      <tr><th style="width:34%"></th><th style="width:150px">최다 득표</th><th>근거를 인용한 비율</th></tr>
+      <tr><td>방어 전</td><td class="n"><b>80.0%</b></td><td class="n">20%</td></tr>
+      <tr><td>방어 후 · 1회차 (14표)</td><td class="n"><b>85.7%</b></td><td class="n">71%</td></tr>
+      <tr><td>방어 후 · 2회차 (18표)</td><td class="n"><b>83.3%</b></td><td class="n">44%</td></tr>
+    </table></div>
+    <p><b>쏠림은 전혀 줄지 않고 근거를 대는 비율만 올랐습니다.</b>
+      근거는 결론을 만든 게 아니라 <b>이미 정해진 결론에 붙는 설명</b>이었습니다.
+      길이 지시(위반 54.5~63.8%)와 되풀이 금지(시도 21.7~35.3%)도 같았습니다.</p>
+
+    <h4 class="sub4">그런데 — 잣대를 나눠 주니 표가 갈렸습니다 <span class="stars">★★★☆☆</span></h4>
+    <div class="call pl">
+      <span class="lab">해석을 한 번 더 뒤집었습니다</span>
+      <b>「주도한 사람을 의심한다」는 틀린 잣대가 아닙니다.</b> 실제 사람들도 그렇게 몹니다.
+      문제는 AI 들이 <b>쓸 수 있는 잣대가 그것 하나뿐</b>이라 다섯이 같은 답을 냈다는 것입니다.
+      사람이 하는 마피아에서는 <b>말이 없는 사람 · 남을 몰아가는 사람 · 말이 바뀐 사람</b>처럼
+      여러 잣대가 동시에 굴러가고, 그래서 표가 갈립니다.
+    </div>
+    <p>그래서 실제 마피아에서 쓰이는 몰이 근거를 <b>8가지</b> 만들어 <b>사람마다 하나씩 나눠 줬습니다</b> —
+      주도한 사람 · 조용했던 사람 · 말이 바뀐 사람 · 편승한 사람 · 먼저 변명한 사람 ·
+      먼저 남을 지목한 사람 · 누굴 감싼 사람 · 감정이 과했던 사람.</p>
+    <div class="scroll"><table>
+      <tr><th style="width:34%">조건</th><th style="width:230px">최다 득표</th><th>표를 받은 사람</th></tr>
+      <tr><td>모두 같은 잣대 <span class="muted">(4회)</span></td>
+        <td class="n">80.0 · 85.7 · 83.3 · 82.4%</td><td class="n">2~3명</td></tr>
+      <tr><td><b>잣대를 나눠 줌</b></td><td class="n"><b>57.9%</b></td><td class="n"><b>4명</b></td></tr>
+    </table></div>
+    <div class="call pl">
+      <span class="lab">저희가 얻은 제일 쓸모 있는 것</span>
+      LLM 이 한 곳으로 쏠릴 때, <b>못 하게 막는 것보다 「갈 곳」을 여러 개 주는 편이 먹힙니다.</b>
+      금지는 세 번 다 실패했고(길이 · 되풀이 · 편향), <b>분산은 한 번에 통했습니다.</b>
+    </div>
+    <div class="call nt">
+      <span class="lab">표본을 밝힙니다</span>
+      위 셋은 각 조건 20회 호출(유효 20 · 20 · 14 · 18표), <b>잣대 분산은 1회</b>입니다.
+      방향은 일관되지만 <b>정밀한 수치로 인용하기엔 작습니다.</b>
+      저희는 전문 개발자가 아니므로 <b>전제부터 틀렸을 가능성</b>도 배제하지 못합니다.
+      회사에서 더 큰 규모로 재보시길 권합니다 — 계측 도구와 대조군 설계는 드릴 수 있습니다.
+    </div>
 
   <h3>가장 크게 배운 것</h3>
   <p><b>“안 도는 코드를 보고 고장이라 하지 마라.”</b>
