@@ -228,7 +228,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <div class="byline">팀 순순히 따라와라 <span>·</span> 정충원 · 김주영 · 신서연 · 최종우 <span>·</span> 2026-08</div>
     <div class="strip">
       <div><b>4</b><small>각자 만든 것</small></div>
-      <div><b>26</b><small>막힌 곳 · 계측 기록</small></div>
+      <div><b>28</b><small>막힌 곳 · 계측 기록</small></div>
       <div><b>5</b><small>둘 이상이 겪은 항목</small></div>
       <div><b>316</b><small>커밋 합계</small></div>
     </div>
@@ -267,7 +267,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <div class="card">
       <ol style="margin:0">
         <li><b>넷 다 돌아가는 것을 만들었습니다.</b> 설치 없이 브라우저에서 켜집니다. <b>같은 기획에서 출발해 셋이 다른 곳에 도착했고</b>, 한 사람은 도중에 규칙을 바꿔야 했습니다.</li>
-        <li><b>막힌 곳 26건 중 7건은 「문서 한 줄이면 안 막혔을 것」</b>이었고,
+        <li><b>막힌 곳 28건 중 9건은 「문서 한 줄이면 안 막혔을 것」</b>이었고,
           나머지 중에도 <code>Retry-After</code> 한 줄처럼 <b>아주 가벼운 것</b>이 섞여 있습니다.
           <b>둘 이상이 각자 만난 것이 5건</b> — 그게 가장 확실한 신호입니다.</li>
         <li><b>AI NPC 를 여럿 굴리면 표가 한 사람에게 몰립니다.</b> 그리고 그건 고칠 수 있습니다 —
@@ -355,7 +355,10 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <div class="scroll"><table>
       <tr><th style="width:52px">#</th><th style="width:34%">요청</th><th>왜</th><th style="width:74px">근거</th></tr>
       <tr><td class="n">B1</td><td><b>내장 AI 능력 경계 한 페이지</b><br><span class="muted">“이건 되고 이건 안 된다”</span></td>
-        <td>이 한 페이지가 <b>며칠</b>을 아껴줬을 것입니다. 저희는 태워 보고 알았습니다</td><td class="n">#1</td></tr>
+        <td>이 한 페이지가 <b>며칠</b>을 아껴줬을 것입니다. 저희는 태워 보고 알았습니다.
+          <b>겪은 함정 대부분이 “안 되는 걸 됐다고 착각”하거나 “되는 걸 안 된다고 포기”하는 식</b>이었습니다 —
+          <code>baked</code> 가 기본값인 것, <code>expert</code> 가 실패하는 것 모두
+          <b>소스를 읽고서야</b> 알았습니다</td><td class="n">#1·27·28</td></tr>
       <tr><td class="n">B2</td><td><b>속도 제한 값과 비용 산정식</b></td>
         <td>429 의 경계를 알 수 없어 안전 속도를 추측으로 정했습니다.
           비용도 입력 길이에 크게 좌우되는데 예측할 방법이 없습니다</td><td class="n">#10·12</td></tr>
@@ -467,6 +470,13 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         같은 벽의 두 얼굴입니다. 헬멧 이름을 정확히 지정해도 다른 헬멧이 나오는 패턴도 같이 나왔습니다</span></td>
         <td><b>표기 없음</b><span class="sub muted">신서연 님 표기<br>아키텍처 절의 주석</span></td><td>비율 유지 · 또는 <b>제약을 문서에 명시</b></td>
         <td><div class="chips"><span class="chip on">신서연</span><span class="chip on">김주영</span></div></td></tr>
+      <tr><td class="n">27</td><td><b>대화 모드가 <code>baked</code>(미리 만든 대사 재생)로 기본 설정돼 있다</b>
+        <span class="sub">즉석 생성이 될 줄 알고 붙였는데 <b>미리 만든 대사가 재생됩니다.</b>
+        기본값이 그렇다는 것을 <b>소스를 읽고서야</b> 알았습니다.
+        <b>“되는 걸 안 된다고 포기”하게 만드는 종류</b>입니다 — AI 대화가 안 되는 줄 알고 접을 수 있습니다</span></td>
+        <td><b>표기 없음</b><span class="sub muted">신서연 님 표기<br>답변 문서라 등급 없음</span></td>
+        <td>기본값이 무엇인지 · <b>바꾸는 법을 문서에</b></td>
+        <td><div class="chips"><span class="chip on">신서연</span></div></td></tr>
     </table></div>
 
     <h4>B · 생성과 과금</h4>
@@ -510,6 +520,12 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         8장을 뽑아 총액으로 나누니 <b>115</b> 였습니다 — <b>2.5배</b> 틀린 값을 근거로 쓸 뻔했습니다</span></td>
         <td><span class="stars">★★★★★</span></td><td>갱신 지연 표시 또는 <b>잔액 조회 API</b></td>
         <td><div class="chips"><span class="chip on">김주영</span></div></td></tr>
+      <tr><td class="n">28</td><td><b><code>expert</code> 등급에서 대화 생성이 실패한다</b>
+        <span class="sub">품질을 올리려고 고른 등급에서 오히려 <b>생성이 안 됩니다.</b>
+        어느 등급이 되고 어느 등급이 안 되는지 <b>문서에 없어 여러 번 실패한 뒤에</b> 알았습니다</span></td>
+        <td><b>표기 없음</b><span class="sub muted">신서연 님 표기<br>답변 문서라 등급 없음</span></td>
+        <td>지원 등급 표 · 또는 <b>실패 시 이유를 알려줄 것</b></td>
+        <td><div class="chips"><span class="chip on">신서연</span></div></td></tr>
     </table></div>
 
     <h4>C · 엔진과 배포</h4>
@@ -574,13 +590,13 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
 
     <div class="call">
       <span class="lab">세어 보면</span>
-      문서 한 줄이면 안 막혔을 것 <b>7</b> · 코드·제품이 움직여야 하는 것 <b>18</b> · 인프라 <b>1</b>.
+      문서 한 줄이면 안 막혔을 것 <b>9</b> · 코드·제품이 움직여야 하는 것 <b>18</b> · 인프라 <b>1</b>.
       <b>Studio 를 처음 익히는 단계에서 막힌 것은 대부분 「몰라서」</b>였고,
       게이트웨이·엔진 쪽은 코드가 움직여야 합니다.
       다만 그 열여덟 중에도 <b><code>Retry-After</code> 한 줄</b>처럼 아주 가벼운 것이 섞여 있고,
       <b>#22 규약 불일치처럼 사용자가 알아낼 방법이 아예 없는 것</b>도 있습니다.
-      <span class="muted">※ 앞선 판에서는 이 비율을 「절반」이라 적었는데, 항목이 18 → 26 으로 늘면서
-      다시 세니 7/26 이었습니다. 고쳐 적습니다.</span>
+      <span class="muted">※ 앞선 판에서는 이 비율을 「절반」이라 적었는데, 항목이 18 → 28 로 늘면서
+      다시 세니 9/28 이었습니다. 고쳐 적습니다.</span>
     </div>
   </section>
 
@@ -692,6 +708,9 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <li><b>자동화 파이프라인</b> — 생성 → 판정 → 주입 → 검증 전 과정. MIT 공개(<code>spum-kit</code>)</li>
         <li><b>재현 절차</b> — Cast Export 버그의 클릭 순서, <code>update()</code> 예외의 최소 재현 코드,
           세션 계측 로그(30초 간격), 504 과금 재현 기록</li>
+        <li><b>대화 검증기</b> — <code>verify-dialogue-fixes.mjs</code>(인젝션 가드·증언판 파싱 정밀도를
+          실제 SAM 호출로 재현) · <code>harness.mjs</code>(대화·검증·기억 전체 점검, <code>--live</code> 지원).
+          <span class="muted">레포에 그대로 있어 바로 돌려 보실 수 있습니다.</span></li>
         <li><b>함정 기록 문서</b> — 100건. <b>공식 문서로 흡수하셔도 좋습니다.</b> 기꺼이 넘기겠습니다.</li>
       </ul>
     </div>
@@ -1332,8 +1351,31 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     지금 남은 미해결 4건 중 둘이 이 대화 쪽이고, 나머지 둘은 지도·충돌 쪽입니다.
   </div>
 
-  <div class="slot">
-    <b>받는 중</b> — 회사에 하고 싶은 말 / 드릴 수 있는 것 <span class="muted">(스크린샷 · 실행 방법은 받았습니다)</span>
+  <h3>회사에 하고 싶은 말</h3>
+  <div class="call">
+    <span class="lab">문서 하나면 안 겪었을 일들</span>
+    SPUM Studio 사용법과 <b>SAM 이 실제로 해낼 수 있는 일이 무엇인지</b>를 좀 더 구체적으로 알고 싶습니다.
+    저희가 겪은 함정 대부분은 <b>“안 되는 걸 됐다고 착각”하거나 “되는 걸 안 된다고 포기”</b>하는 식이었는데,
+    <b>둘 다 문서가 있었으면 안 겪었을 문제</b>였습니다. 예를 들어 —
+    <ul style="margin:8px 0 0">
+      <li>대화 모드가 <code>baked</code>(미리 만든 대사 재생)로 <b>기본 설정</b>돼 있다는 것</li>
+      <li><code>expert</code> 등급에서 <b>대화 생성이 실패</b>한다는 것</li>
+      <li>Studio 저장 규약과 엔진 런타임 규약이 <b>반대</b>라는 것</li>
+    </ul>
+    <b>전부 소스 코드를 직접 읽거나 여러 번 실패한 뒤에야 알아낸 것들입니다.</b>
+    이런 내용이 공식 문서로 정리돼 있으면 좋겠습니다.
+  </div>
+
+  <h3>드릴 수 있는 것</h3>
+  <div class="card">
+    <ul style="margin:0">
+      <li><code>spum/verify-dialogue-fixes.mjs</code> — 프롬프트 인젝션 가드,
+        증언판 파싱 정밀도를 <b>실제 SAM 호출로 재현</b>하는 검증 스크립트</li>
+      <li><code>spum/harness.mjs</code> — 대화 생성·검증·기억 로직 전체를 점검하는 검증기
+        <span class="muted">(<code>--live</code> 로 실제 SAM 호출 검증도 가능)</span></li>
+    </ul>
+    <p style="margin:12px 0 0" class="muted">둘 다 레포에 그대로 있어 바로 실행해 볼 수 있습니다 —
+      <code>github.com/tigermorning/who-ate-my-cheesecake/tree/main/spum</code></p>
   </div>
 </div>
 
