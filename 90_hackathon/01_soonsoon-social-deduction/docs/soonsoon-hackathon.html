@@ -280,6 +280,15 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     </table></div>
     <p class="muted">★★★★★ 라도 <b>저희 환경에서 잰 값</b>입니다. 판단 근거로 쓰시기 전에 한 번 재보시길 권합니다.
       재현 절차는 얼마든지 드리겠습니다.</p>
+    <div class="call">
+      <span class="lab">한 사람 몫은 척도가 원래 달랐습니다</span>
+      신서연 쪽은 이 문서를 위해 쓴 것이 아니라 <b>자기 개발 기록으로 먼저 정리한 것</b>이라,
+      ★ 대신 <b>자체 4등급</b>(해결됨 / 코드만 확인 / 출처만 확인 / 미해결)을 씁니다.
+      §03 표에 넣으면서 <b>저희가 ★로 옮겼습니다 — 그 환산은 저희 판단입니다.</b>
+      본인이 「출처만 확인」·「코드만 확인」으로 낮춰 둔 항목은
+      <b>★를 그만큼 내려서</b> 적었습니다(#19 · #23).
+      원래 등급은 <b>신서연 탭</b>에 그대로 있습니다.
+    </div>
 
     <div class="call">
       <span class="lab">과제정의서가 밝힌 동기</span>
@@ -425,7 +434,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <code>sv_studio_characters_v1</code> 은 배열인데 주입이 객체로 바꿔 놓아 파싱이 실패했고,
         <code>schemaVersion 2</code> 필드도 안 채워졌습니다. 다른 쪽에서도 같은 이유로
         <b>「캐스트 배치만은 코드로 하지 말라」</b> 가 팀 규칙이 됐습니다</span></td>
-        <td><span class="stars">★★★★★</span></td><td>스키마 검사 후 거부 · 또는 <b>공식 주입 경로</b></td>
+        <td><span class="stars">★★★★☆</span></td><td>스키마 검사 후 거부 · 또는 <b>공식 주입 경로</b></td>
         <td><div class="chips"><span class="chip on">신서연</span><span class="chip on">김주영</span></div></td></tr>
       <tr><td class="n">20</td><td><b>Object Editor 의 Classify 가 통행 판정으로 안 이어진다</b>
         <span class="sub">Classify 가 타일마다 <code>category</code>·<code>movement</code> 를 매겨 주므로
@@ -517,8 +526,10 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
       <tr><td class="n">23</td><td><b><code>blocksMovement</code> 필드가 미끼다</b>
         <span class="sub">이름만 보면 이게 충돌 여부 같은데, 기본 테마의 <b>벽 10종 전부 <code>false</code></b> 입니다.
         이 필드만 보면 <b>“이 게임엔 충돌하는 벽이 하나도 없다”</b> 는 잘못된 결론이 나옵니다.
-        진짜 판정에 쓰이는 값은 <code>movement:'blocked'</code> 쪽이었습니다</span></td>
-        <td><span class="stars">★★★★☆</span></td><td>쓰지 않는 필드는 <b>지우거나 이름을 바꿀 것</b></td>
+        진짜 판정에 쓰이는 값은 <code>movement:'blocked'</code> 쪽이었습니다.
+        <b>단, 이건 다른 저장소의 검증 기록을 인용한 것이고 이 프로젝트에서 재확인하지 않았습니다</b>
+        — 본인이 「출처만 확인」으로 표시한 항목입니다</span></td>
+        <td><span class="stars">★★★☆☆</span></td><td>쓰지 않는 필드는 <b>지우거나 이름을 바꿀 것</b></td>
         <td><div class="chips"><span class="chip on">신서연</span></div></td></tr>
       <tr><td class="n">24</td><td><b>SPUM 자율 배회와 게임 길찾기가 동시에 돌아 위치가 어긋난다</b>
         <span class="sub"><code>sync({shouldRun:true})</code> 로 켜지는 SPUM 자체 배회와 게임이 직접 짠 A* 가
