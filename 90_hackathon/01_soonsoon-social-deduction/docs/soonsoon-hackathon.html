@@ -82,7 +82,7 @@ body{
 .jump a:hover{color:var(--ink);background:var(--surface-2)}
 
 /* ── 히어로 ── */
-.hero{padding:64px 0 40px}
+.hero{padding:60px 0 4px}
 .kicker{font:500 12px/1 var(--label);letter-spacing:.05em;color:var(--accent-ink);
   text-transform:uppercase}
 h1{font-size:clamp(38px,6.4vw,60px);line-height:1.06;letter-spacing:-.035em;font-weight:700;
@@ -165,7 +165,7 @@ pre code{background:none;border:none;padding:0}
 mark{background:color-mix(in srgb,var(--accent) 26%,transparent);color:inherit;padding:1px 4px;border-radius:3px}
 
 /* ── 사람 카드 (§2) ── */
-.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:14px;margin:16px 0}
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(214px,1fr));gap:14px;margin:16px 0}
 .person{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:19px 20px;
   box-shadow:var(--shadow);display:flex;flex-direction:column;gap:9px}
 .person .nm{font:600 12px/1 var(--label);letter-spacing:.04em;color:var(--accent-ink)}
@@ -173,7 +173,7 @@ mark{background:color-mix(in srgb,var(--accent) 26%,transparent);color:inherit;p
 .person .ds{font-size:13.5px;color:var(--ink-2);line-height:1.62;flex:1}
 .person .mt{font:500 12px/1.5 var(--label);color:var(--ink-3);
   padding-top:10px;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
-.person.wait{border-style:dashed;background:transparent;box-shadow:none}
+.person.wait{border:1.5px dashed var(--line-2);background:transparent;box-shadow:none}
 
 /* ── 탭 ── */
 .tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin:22px 0 0}
@@ -197,7 +197,7 @@ footer{margin-top:84px;padding-top:24px;border-top:1px solid var(--line);
 
 @media (max-width:640px){
   .wrap{padding:0 16px 72px}
-  .hero{padding:44px 0 30px}
+  .hero{padding:40px 0 4px}
   .panel{padding:22px 18px 26px}
   section{margin-top:58px}
 }
