@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>퀘스트B · 답을 재는 방법 — 평가지표 사전</title>
+<style>
+  :root{
+    --bg:#0f1220; --card:#171a2b; --ink:#eef1f7; --dim:#9aa3bd;
+    --line:#2a2f47;
+    --A:#34d399; --A-d:#065f46;   /* 파트1 초록 */
+    --B:#fbbf24; --B-d:#78350f;   /* 파트2 노랑 */
+    --C:#60a5fa; --C-d:#1e3a8a;   /* 파트3 파랑 */
+    --hl:#fde68a; --warn:#fca5a5; --ok:#6ee7b7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#05060c; color:var(--ink);
+    font-family:"Pretendard","Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; overflow:hidden;
+  }
+  #stage{position:fixed; inset:0; display:flex; align-items:center; justify-content:center;}
+  .slide{
+    position:absolute; width:min(96vw,1180px); height:min(92vh,680px);
+    background:linear-gradient(160deg,var(--card),#10131f);
+    border:1px solid var(--line); border-radius:22px;
+    padding:44px 56px; opacity:0; transform:translateY(14px) scale(.99);
+    transition:opacity .28s, transform .28s; pointer-events:none;
+    display:flex; flex-direction:column; box-shadow:0 30px 80px rgba(0,0,0,.55);
+    overflow:hidden;
+  }
+  .slide.active{opacity:1; transform:none; pointer-events:auto}
+  .badge{
+    display:inline-flex; align-items:center; gap:8px; align-self:flex-start;
+    font-size:14px; font-weight:800; letter-spacing:.3px;
+    padding:6px 14px; border-radius:999px; margin-bottom:18px;
+  }
+  .pA .badge{background:var(--A-d); color:var(--A)}
+  .pB .badge{background:var(--B-d); color:var(--B)}
+  .pC .badge{background:var(--C-d); color:var(--C)}
+  .pTitle .badge{background:#312e81; color:#c7d2fe}
+  .dot{width:9px;height:9px;border-radius:50%}
+  .pA .dot{background:var(--A)} .pB .dot{background:var(--B)} .pC .dot{background:var(--C)}
+  h1{font-size:52px; line-height:1.15; letter-spacing:-1px}
+  h2{font-size:38px; line-height:1.2; letter-spacing:-.5px; margin-bottom:6px}
+  .sub{color:var(--dim); font-size:18px; margin-bottom:20px; font-weight:600}
+  .body{flex:1; overflow:auto; font-size:20px; line-height:1.62}
+  .body::-webkit-scrollbar{width:8px} .body::-webkit-scrollbar-thumb{background:#2a2f47;border-radius:8px}
+  p{margin:10px 0}
+  ul{margin:8px 0 8px 4px; list-style:none}
+  li{margin:9px 0; padding-left:26px; position:relative}
+  li::before{content:"›"; position:absolute; left:6px; color:var(--dim); font-weight:800}
+  b,strong{color:#fff}
+  .hl{color:#111; background:var(--hl); padding:1px 7px; border-radius:5px; font-weight:800}
+  .warn{color:var(--warn); font-weight:700}
+  .ok{color:var(--ok); font-weight:700}
+  code{background:#0c0f1a; border:1px solid var(--line); padding:2px 8px; border-radius:6px;
+       font-family:"JetBrains Mono","Consolas",monospace; font-size:.92em; color:#a5b4fc}
+  .num{font-family:"JetBrains Mono","Consolas",monospace; color:#fff}
+  .core{
+    margin-top:14px; background:rgba(253,230,138,.08); border:1px solid rgba(253,230,138,.35);
+    border-left:5px solid var(--hl); border-radius:10px; padding:14px 18px; font-size:18px;
+  }
+  .core .t{color:var(--hl); font-weight:800; font-size:15px; letter-spacing:.5px; margin-bottom:6px}
+  table{width:100%; border-collapse:collapse; margin:12px 0; font-size:17px}
+  th,td{border:1px solid var(--line); padding:9px 12px; text-align:left; vertical-align:top}
+  th{background:#0c0f1a; color:#cbd5e1; font-size:15px}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  .col{background:#0c0f1a; border:1px solid var(--line); border-radius:12px; padding:16px 18px}
+  .col.bl{border-top:3px solid #f472b6} .col.rg{border-top:3px solid #38bdf8}
+  .col h3{font-size:22px; margin-bottom:6px}
+  .note{
+    display:none; margin-top:14px; background:#0a0c15; border:1px dashed #3a4166;
+    border-radius:10px; padding:12px 16px; font-size:16px; color:#c4cbe4; line-height:1.55;
+  }
+  body.notes .note{display:block}
+  .note .t{color:#8b93b8; font-weight:800; font-size:13px; letter-spacing:.5px; margin-bottom:5px}
+  /* HUD */
+  #hud{position:fixed; bottom:14px; right:20px; display:flex; gap:14px; align-items:center;
+       font-size:13px; color:var(--dim); z-index:20}
+  #hud b{color:#fff}
+  #prog{position:fixed; bottom:0; left:0; height:4px; background:linear-gradient(90deg,var(--A),var(--B),var(--C)); transition:width .3s; z-index:20}
+  .navhint{position:fixed; bottom:14px; left:20px; font-size:12px; color:#5b6180; z-index:20}
+  .partmark{position:fixed; top:16px; right:22px; font-size:12px; color:var(--dim); z-index:20; font-weight:700}
+  .big{font-size:26px}
+  .center{display:flex; flex-direction:column; justify-content:center; height:100%}
+  .ki{color:var(--dim); font-size:17px}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- ===== S1 표지 ===== -->
+  <section class="slide pTitle center">
+    <div class="badge">모듈3 · 노드2 · 8강 · 퀘스트 B</div>
+    <h1>답을 재는 방법<br><span style="color:var(--hl)">평가지표 사전</span></h1>
+    <p class="sub" style="margin-top:18px">모델의 답을 어떻게 점수로 바꾸는가 — 여섯 개의 자(尺)와 고르는 법</p>
+    <p class="ki" style="margin-top:26px">티처팀 발표 · 파트 <span style="color:var(--A)">A</span> · <span style="color:var(--B)">B</span> · <span style="color:var(--C)">C</span></p>
+  </section>
+
+  <!-- ===== S2 대전제 (A) ===== -->
+  <section class="slide pA">
+    <div class="badge"><span class="dot"></span> PART A · 발표자 A</div>
+    <h2>점수는 결과 전에 정한다</h2>
+    <div class="sub">대전제 — 왜 지표가 여러 개인가</div>
+    <div class="body">
+      <p>시험지에는 답보다 <b>문항·배점·채점 기준</b>이 먼저 놓인다. 평가도 마음에 드는 결과를 고르는 게 아니라, <span class="hl">무엇을 어떤 근거로 통과시킬지 결과 전에 정하는 일</span>이다.</p>
+      <p><b>평가지표 = 모델 답의 어느 성질을 숫자로 바꿀지 정한 자(尺).</b></p>
+      <ul>
+        <li>자 하나가 길이·무게·온도를 다 못 재듯, <span class="warn">한 점수가 사실성·형식·유용성·안전성을 함께 뜻하지 않는다.</span></li>
+        <li>먼저 <b>성공을 문장으로</b> 쓰고, 그 문장을 <b>가장 적게 왜곡하는 지표</b>를 고른다.</li>
+        <li>같은 입력·같은 조건·같은 판정규칙을 고정 안 하면, 숫자 차이는 <span class="warn">지시 효과가 아니라 조건 차이</span>일 수 있다.</li>
+      </ul>
+      <div class="core"><div class="t">💡 학생팀에 꼭 남길 것</div>
+        지표는 <b>자(尺)</b>다. 하나로 다 못 잰다 → <b>성공을 먼저 문장으로 쓰고</b> 그에 맞는 자를 고른다. 조건 고정 없으면 숫자 비교 무의미.</div>
+      <div class="note"><div class="t">🎤 발표 대본</div>
+        "시험 볼 때 답안지보다 채점기준이 먼저 나오죠? 평가도 똑같습니다. 결과를 보고 고르는 게 아니라, 뭘 통과시킬지 미리 정하는 겁니다. 평가지표는 자예요. 그런데 자 하나로 길이·무게·온도를 다 못 재잖아요? 점수 하나도 사실이냐·형식이냐·안전하냐를 동시에 못 답합니다. 그래서 자가 여러 개고, 오늘 그 자들을 하나씩 봅니다."</div>
+    </div>
+  </section>
+
+  <!-- ===== S3 exact match (A) ===== -->
+  <section class="slide pA">
+    <div class="badge"><span class="dot"></span> PART A · 발표자 A</div>
+    <h2>이진 판정 · exact match</h2>
+    <div class="sub">규칙으로 딱 떨어지는 채점 ①</div>
+    <div class="body">
+      <p><b>이진 판정</b> = 조건 지키면 <span class="num">1</span>, 아니면 <span class="num">0</span> (결정적 채점).<br>
+      <b>exact match(정확 일치)</b> = 출력이 <b>기준 답(golden answer)</b>과 정확히 같을 때만 통과.</p>
+      <ul>
+        <li>잘 맞는 곳: 선택지 분류, 고정 레이블, <b>짧고 유일한 추출 답</b>, 정형 JSON</li>
+        <li><span class="ok">장점:</span> 값싸고, 누구나 같은 답을 같은 결과로 판정</li>
+      </ul>
+      <div class="core"><div class="t">💡 학생팀에 꼭 남길 것</div>
+        기준 답과 <b>글자까지 같아야 1점</b>. <span class="warn">함정 — 표현만 다른 옳은 자유답을 0점으로 만들고, 사실성 자체는 못 잰다.</span></div>
+      <div class="note"><div class="t">🎤 발표 대본</div>
+        "제일 단순한 자입니다. 정답이랑 똑같으면 1, 아니면 0. 객관식이나 딱 정해진 답에 좋아요. 근데 함정이 있어요 — 뜻은 맞는데 표현만 다른 답도 무조건 0점이 됩니다. 그리고 '맞는 말인지'는 아예 못 봐요. 형식만 봐요."</div>
+    </div>
+  </section>
+
+  <!-- ===== S4 F1 (A) ===== -->
+  <section class="slide pA">
+    <div class="badge"><span class="dot"></span> PART A · 발표자 A</div>
+    <h2>F1 — 정밀도와 재현율</h2>
+    <div class="sub">규칙으로 딱 떨어지는 채점 ② (계산)</div>
+    <div class="body">
+      <p>여러 항목을 뽑는 과업(예: 문서에서 기관명 추출)의 자. <b>실제 12개 중 모델이 10개를 뽑아 8개 맞음.</b></p>
+      <table>
+        <tr><th>지표</th><th>계산</th><th>무엇을 보나</th></tr>
+        <tr><td><b>정밀도</b> Precision</td><td class="num">8/10 = 0.80</td><td>뽑은 것 중 맞은 비율 → <b>오탐</b> 위험</td></tr>
+        <tr><td><b>재현율</b> Recall</td><td class="num">8/12 ≈ 0.67</td><td>실제 중 찾은 비율 → <b>누락</b> 위험</td></tr>
+        <tr><td><b>F1</b></td><td class="num">2×(.80×.67)/(.80+.67) ≈ 0.73</td><td>둘의 <b>조화평균</b></td></tr>
+      </table>
+      <p>조화평균은 <b>작은 쪽에 민감.</b> P=1.0·R=0.0이면 산술평균은 0.5지만 <span class="hl">F1 = 0.0</span>.</p>
+      <div class="core"><div class="t">💡 학생팀에 꼭 남길 것</div>
+        정밀도=오탐, 재현율=누락. F1=조화평균(작은 쪽에 민감). <span class="warn">암 진단은 재현율 먼저, 스팸차단은 정밀도 먼저 — F1 하나로 어느 피해가 큰지는 못 정한다.</span></div>
+      <div class="note"><div class="t">🎤 발표 대본</div>
+        "여러 개를 찾는 문제예요. 정밀도는 '내가 뽑은 것 중 맞은 비율' — 엉뚱한 거 넣으면 떨어져요. 재현율은 '실제 있는 것 중 찾은 비율' — 빠뜨리면 떨어져요. F1은 둘을 합치는데, 산술평균 말고 조화평균이라 한쪽이 0이면 F1도 0이에요. 암 진단은 놓치면 안 되니 재현율, 스팸은 정상메일 막으면 안 되니 정밀도를 먼저 봅니다."</div>
+    </div>
+  </section>
+
+  <!-- ===== S5 BLEU (B) ===== -->
+  <section class="slide pB">
+    <div class="badge"><span class="dot"></span> PART B · 발표자 B</div>
+    <h2>BLEU — 번역의 자</h2>
+    <div class="sub">모범답안과 비교하는 지표 ① (번역)</div>
+    <div class="body">
+      <p><b>BLEU</b> = 후보 번역과 <b>참조 답(사람이 만든 모범 번역)</b>의 <b>n-gram 중첩</b>을 주로 <b>정밀도 관점</b>으로 세는 지표.</p>
+      <ul>
+        <li><b>n-gram</b> = 연속한 n개 토큰 조각. → "모범 번역의 단어 조각을 내 번역이 <b>얼마나 정확히 빌려왔나</b>"</li>
+        <li>참조 번역이 있고 <b>표면 겹침이 유용</b>할 때 보조 지표로 (짧은 답 벌점 있음)</li>
+      </ul>
+      <div class="core"><div class="t">💡 학생팀에 꼭 남길 것</div>
+        BLEU = <b>번역</b>용 · <b>정밀도</b> 관점 · n-gram 겹침. <span class="warn">함정 — 좋은 번역도 어순·동의어 다르면 낮게, 겹쳐도 부정어 하나 바뀌면 뜻이 틀림. 사람 평가 대체 아님.</span></div>
+      <div class="note"><div class="t">🎤 발표 대본</div>
+        "BLEU는 번역 채점용이에요. 모범 번역이랑 내 번역이 단어 조각을 얼마나 똑같이 겹치나 봅니다. 근데 함정 — '고양이가 매트에 앉았다'랑 '매트 위에 고양이가 앉아 있었다'는 뜻은 같은데 순서가 달라서 점수가 낮게 나와요. 반대로 조각이 많이 겹쳐도 '안' 한 글자 바뀌면 뜻은 정반대죠. 표면만 보는 자입니다."</div>
+    </div>
+  </section>
+
+  <!-- ===== S6 ROUGE (B) ===== -->
+  <section class="slide pB">
+    <div class="badge"><span class="dot"></span> PART B · 발표자 B</div>
+    <h2>ROUGE — 요약의 자</h2>
+    <div class="sub">모범답안과 비교하는 지표 ② (요약)</div>
+    <div class="body">
+      <p><b>ROUGE</b> = 참조 요약에 든 <b>n-gram 중 후보 요약이 포착한 비율</b>을 특히 <b>재현율 관점</b>으로 보는 지표 묶음.</p>
+      <ul>
+        <li>→ "모범 요약의 핵심 조각을 내 요약이 <b>얼마나 안 빠뜨렸나</b>"</li>
+        <li>문서·회의 요약처럼 <b>참조 요약이 있는</b> 과업에 사용 (ROUGE-N·ROUGE-L)</li>
+      </ul>
+      <div class="core"><div class="t">💡 학생팀에 꼭 남길 것</div>
+        ROUGE = <b>요약</b>용 · <b>재현율</b> 관점 · 핵심 조각을 안 빠뜨렸나. <span class="warn">함정 — 길게 쓰면 재현율이 부풀고, 동의어·바꿔쓰기·사실오류·어색함은 못 잡는다. 높은 ROUGE ≠ 좋은 요약.</span></div>
+      <div class="note"><div class="t">🎤 발표 대본</div>
+        "ROUGE는 요약 채점용이에요. 방향이 BLEU랑 반대예요 — '모범 요약의 핵심을 내가 얼마나 안 빠뜨렸나'를 봅니다. 그래서 재현율 관점이죠. 함정 — 길게 막 쓰면 핵심이 우연히 많이 걸려서 점수가 올라가요. 근데 사실이 틀렸거나 문장이 어색한 건 못 봅니다."</div>
+    </div>
+  </section>
+
+  <!-- ===== S7 BLEU vs ROUGE (B) — 하이라이트 대조 ===== -->
+  <section class="slide pB">
+    <div class="badge"><span class="dot"></span> PART B · 발표자 B · ★대조</div>
+    <h2>BLEU vs ROUGE — 헷갈리지 않기</h2>
+    <div class="sub">이 슬라이드 하나로 정리</div>
+    <div class="body">
+      <div class="grid2">
+        <div class="col bl">
+          <h3 style="color:#f472b6">BLEU</h3>
+          <ul>
+            <li>과업: <b>번역</b></li>
+            <li>관점: <b>정밀도</b></li>
+            <li>질문: "얼마나 <b>정확히 빌려왔나</b>"</li>
+            <li>벌점: <b>짧은 답</b> 벌점</li>
+          </ul>
+        </div>
+        <div class="col rg">
+          <h3 style="color:#38bdf8">ROUGE</h3>
+          <ul>
+            <li>과업: <b>요약</b></li>
+            <li>관점: <b>재현율</b></li>
+            <li>질문: "얼마나 <b>안 빠뜨렸나</b>"</li>
+            <li>주의: <b>길게 쓰면</b> 부풀려짐</li>
+          </ul>
+        </div>
+      </div>
+      <div class="core"><div class="t">💡 공통 — 둘 다 똑같은 한계</div>
+        BLEU도 ROUGE도 <b>표면 n-gram 중첩 신호</b>일 뿐, <span class="warn">의미·사실의 증명이 아니다.</span> 반드시 <b>사람 표본 검토</b>와 결합한다.</div>
+      <div class="note"><div class="t">🎤 발표 대본</div>
+        "이 한 장만 기억하세요. BLEU는 번역·정밀도·'정확히 빌렸나', ROUGE는 요약·재현율·'안 빠뜨렸나'. 이름 헷갈리면 B는 번역, R은... 요약이라고 외우세요. 그리고 둘 다 공통 약점 — 단어 겹침만 보지 뜻이 맞는지는 몰라요. 그래서 사람이 표본 검토를 같이 해야 합니다."</div>
+    </div>
+  </section>
+
+  <!-- ===== S8 perplexity (B) ===== -->
+  <section class="slide pB">
+    <div class="badge"><span class="dot"></span> PART B · 발표자 B</div>
+    <h2>perplexity (PPL)</h2>
+    <div class="sub">모델의 내부 확신을 보는 온도계</div>
+    <div class="body">
+      <p><b>PPL</b> = 언어모델이 <b>실제 다음 토큰에 준 확률</b>을 지수화한 <b>내부 확률 지표</b>. <span class="hl">낮을수록 다음 말을 덜 놀라워한다.</span></p>
+      <ul>
+        <li>→ 문장을 한 토큰씩 가렸을 때 <b>얼마나 확신 있게 예상하나</b> 보는 온도계</li>
+        <li>쓰임: <b>같은 모델·같은 토크나이저·같은 코퍼스</b>에서 언어모델링 적합도·학습 변화 비교</li>
+      </ul>
+      <div class="core"><div class="t">💡 학생팀에 꼭 남길 것</div>
+        <span class="warn">함정 — 낮다 ≠ 맞다.</span> 확신하는 답이 옳은 답은 아니다(유창하게 틀림). 토크나이저·문맥창이 값을 바꿔 <b>다른 모델끼리 못 비교</b>. <b>프롬프트 품질 비교엔 부적합</b> → 대신 "근거 없는 날짜 금지·확인 질문 여부"로 과업 성공을 직접 판정.</div>
+      <div class="note"><div class="t">🎤 발표 대본</div>
+        "PPL은 모델이 다음 단어를 얼마나 자신 있게 맞히나 보는 온도계예요. 낮으면 자신 있다는 뜻이죠. 근데 제일 큰 함정 — 자신 있는 게 맞는 건 아니에요. 틀린 배송일도 아주 유창하고 자신 있게 써요. 그래서 '이 프롬프트가 더 좋냐'를 PPL로 비교하면 안 됩니다. 대신 '없는 날짜 지어내지 마' 같은 걸 직접 채점해야 해요."</div>
+    </div>
+  </section>
+
+  <!-- ===== S9 pass@k (C) ===== -->
+  <section class="slide pC">
+    <div class="badge"><span class="dot"></span> PART C · 발표자 C</div>
+    <h2>pass@k — 실행으로 잰다</h2>
+    <div class="sub">코드는 말이 아니라 실행 결과로 (계산)</div>
+    <div class="body">
+      <p><b>pass@k</b> = 한 코딩 문제에서 <b>독립 후보 k개 중 적어도 하나가 단위 테스트를 통과</b>할 확률(또는 추정치).</p>
+      <ul>
+        <li>코드·SQL처럼 <b>실행해 검증</b> 가능하고 여러 후보를 받을 수 있는 과업</li>
+        <li>예: 후보 <span class="num">10개 중 3개</span> 통과 → <span class="hl">pass@1 추정 = 3/10 = 0.3</span></li>
+        <li>통과 = <b>실제 실행 결과</b>. 컴파일 오류·예외·틀린 반환값은 모두 실패</li>
+      </ul>
+      <div class="core"><div class="t">💡 학생팀에 꼭 남길 것</div>
+        후보 k개 중 <b>하나라도 테스트 통과</b>. <span class="warn">함정 — k 커지면 점수 오름 → pass@1과 pass@100은 같은 성능 아님.</span> temperature·후보수·테스트범위를 함께 적어야 재현. <b>후보 다양성도 성능의 일부.</b></div>
+      <div class="note"><div class="t">🎤 발표 대본</div>
+        "코드는 말로 '됐습니다' 하면 안 되고 돌려봐야 알죠. pass@k는 답안 k개 중 하나라도 테스트를 통과하면 성공으로 봐요. 10개 중 3개 통과면 pass@1은 0.3. 근데 k를 키우면 당연히 확률이 오르니까, pass@1이랑 pass@100을 같은 실력이라고 비교하면 안 돼요. 몇 개 후보로 쟀는지 꼭 같이 적어야 합니다."</div>
+    </div>
+  </section>
+
+  <!-- ===== S10 LLM-as-judge (C) ===== -->
+  <section class="slide pC">
+    <div class="badge"><span class="dot"></span> PART C · 발표자 C</div>
+    <h2>LLM-as-judge · rubric</h2>
+    <div class="sub">정답이 하나로 안 닫히는 열린 품질</div>
+    <div class="body">
+      <p>참조 답이 없고 <b>유용성·설득력·안전성</b>처럼 규칙 하나로 닫히지 않는 품질은 어떻게 잴까?</p>
+      <ul>
+        <li><b>구체 rubric(채점표)</b>을 만들고 <b>심사 모델(LLM)</b>이 그 기준으로 채점</li>
+        <li>반드시 <b>사람 표본 검토</b>를 함께</li>
+      </ul>
+      <div class="core"><div class="t">💡 학생팀에 꼭 남길 것</div>
+        참조 답 없는 <b>열린 품질</b> → rubric 기반 <b>LLM-as-judge</b> + <b>사람 검토 병행.</b> 가장 유연하지만 <span class="warn">가장 비싸고, 심사 모델도 편향될 수 있어 사람이 표본을 봐야 한다.</span></div>
+      <div class="note"><div class="t">🎤 발표 대본</div>
+        "'이 답이 설득력 있나, 안전한가' 같은 건 정답표가 없죠. 이럴 땐 채점 기준표를 만들고 AI한테 채점을 시켜요. 이게 LLM-as-judge입니다. 근데 채점하는 AI도 순서에 휘둘리거나 편향될 수 있어서, 사람이 일부는 직접 봐야 해요."</div>
+    </div>
+  </section>
+
+  <!-- ===== S11 결정트리 (C) ===== -->
+  <section class="slide pC">
+    <div class="badge"><span class="dot"></span> PART C · 발표자 C · ★마무리</div>
+    <h2>결국 뭘 고를까 — 질문 3개</h2>
+    <div class="sub">지표를 고르는 결정트리</div>
+    <div class="body">
+      <table>
+        <tr><th>질문 (순서대로)</th><th>Yes → 이 자</th><th>비용</th></tr>
+        <tr><td>① <b>결정적으로 채점 가능?</b><br>(테스트 통과·스키마 일치)</td><td>테스트 · validator · <b>이진 판정</b> · pass@k</td><td class="ok">가장 쌈</td></tr>
+        <tr><td>② <b>참조 답과 비교?</b></td><td>유일답 <b>exact match</b> / 집합 <b>F1</b> / 번역 <b>BLEU</b> · 요약 <b>ROUGE</b></td><td>참조 구축 비용</td></tr>
+        <tr><td>③ <b>사람 판단 필요?</b><br>(유용성·안전성)</td><td>rubric <b>LLM-as-judge</b> + 사람 검토</td><td class="warn">가장 비쌈</td></tr>
+      </table>
+      <div class="core"><div class="t">💡 학생팀에 꼭 남길 것</div>
+        <b>①→②→③ 순서 = 비용 순서.</b> 싼 자부터 대고, <span class="warn">싼 지표 하나로 비싼 판단을 흉내 내지 말고</span> 남은 불확실성에만 사람 검토를 쓴다. (perplexity는 같은 모델 적합도용 — 여기 결정과 별개)</div>
+      <div class="note"><div class="t">🎤 발표 대본</div>
+        "정리하면, 자를 고르는 순서가 있어요. 첫째, 자동으로 채점되나? 되면 그게 제일 싸요. 안 되면 둘째, 모범답안이랑 비교하나? 정답 하나면 exact match, 여러 개면 F1, 번역이면 BLEU, 요약이면 ROUGE. 그것도 아니면 셋째, 사람 판단이 필요한 거라 rubric으로 AI 심사 + 사람 검토. 이 순서가 곧 돈 순서예요. 싼 것부터 쓰고 꼭 필요한 데만 비싼 걸 씁니다."</div>
+    </div>
+  </section>
+
+  <!-- ===== S12 마무리 ===== -->
+  <section class="slide pTitle center">
+    <div class="badge">마무리 · 한 문장으로</div>
+    <h1 style="font-size:44px; line-height:1.25">점수는 결과 전에 정하고,<br><span style="color:var(--hl)">자 하나로 다 재려 하지 마라.</span></h1>
+    <p class="sub big" style="margin-top:24px">규칙형(EM·F1·pass@k) → 참조형(BLEU·ROUGE) → 사람형(rubric).<br>싼 자부터, 남은 불확실성에만 사람 검토.</p>
+    <p class="ki" style="margin-top:26px">모듈3 노드2 8강 · 「답을 재는 방법 — 평가지표 사전」 · 모두의연구소</p>
+  </section>
+
+</div>
+
+<div id="prog"></div>
+<div class="partmark" id="partmark"></div>
+<div id="hud"><span><b id="cur">1</b> / <span id="tot">12</span></span><span>N 발표대본</span></div>
+<div class="navhint">← → 이동 · Space 다음 · F 전체화면 · N 대본</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  const partOf=s=>s.classList.contains('pA')?'PART A':s.classList.contains('pB')?'PART B':s.classList.contains('pC')?'PART C':'';
+  let i=0;
+  const tot=slides.length; document.getElementById('tot').textContent=tot;
+  function show(n){
+    i=Math.max(0,Math.min(tot-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    document.getElementById('cur').textContent=i+1;
+    document.getElementById('prog').style.width=((i+1)/tot*100)+'%';
+    document.getElementById('partmark').textContent=partOf(slides[i]);
+    slides[i].querySelector('.body')?.scrollTo(0,0);
+  }
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();show(i+1);}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(i-1);}
+    else if(e.key==='Home'){show(0);} else if(e.key==='End'){show(tot-1);}
+    else if(e.key.toLowerCase()==='n'){document.body.classList.toggle('notes');}
+    else if(e.key.toLowerCase()==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
+    else if(/^[1-9]$/.test(e.key)){show(parseInt(e.key)-1);}
+  });
+  let sx=null;
+  document.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+  document.addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)show(i+(dx<0?1:-1));sx=null;},{passive:true});
+  document.getElementById('stage').addEventListener('click',e=>{if(e.target.closest('a,button'))return;show(i+1);});
+  show(0);
+</script>
+</body>
+</html>
