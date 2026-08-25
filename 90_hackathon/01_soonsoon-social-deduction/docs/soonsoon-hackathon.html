@@ -50,8 +50,7 @@
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+@media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important;transition-duration:.01ms !important}}
 
 body{
@@ -827,4 +826,23 @@ footer{margin-top:84px;padding-top:24px;border-top:1px solid var(--line);
       if (e.key === "ArrowLeft")  { e.preventDefault(); show((i - 1 + tabs.length) % tabs.length, true); }
     });
   });
+
+  // 앵커 — CSS `scroll-behavior:smooth` 를 쓰지 않고 여기서 처리한다.
+  // 해시를 달고 들어오면 브라우저가 **레이아웃 전에** 스크롤을 시도해 맨 위에 머물렀고,
+  // 한글 웹폰트가 나중에 붙으면서 위치가 또 밀렸다. 그래서 글꼴이 준비된 뒤 다시 맞춘다.
+  const 부드럽게 = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll(".jump a").forEach(a => {
+    a.addEventListener("click", e => {
+      const 목적지 = document.querySelector(a.getAttribute("href"));
+      if (!목적지) return;
+      e.preventDefault();
+      history.replaceState(null, "", a.getAttribute("href"));
+      목적지.scrollIntoView({ behavior: 부드럽게 ? "smooth" : "auto", block: "start" });
+    });
+  });
+  if (location.hash) {
+    const 맞추기 = () => document.querySelector(location.hash)?.scrollIntoView({ block: "start" });
+    addEventListener("load", 맞추기);
+    document.fonts?.ready.then(맞추기);
+  }
 </script>
