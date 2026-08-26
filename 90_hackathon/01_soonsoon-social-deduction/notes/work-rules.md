@@ -229,7 +229,7 @@ JSON.parse(localStorage.spum_studio_server_sync_v1) // ③ revision 이 멈춰 �
 실제로 위 셋이 다 정상인데도 저장이 안 되는 상태를 만났다(revision 110 고정).
 재로그인·새로고침·용량 확보 모두 시도했으나 해소되지 않았다.
 **추측으로 밀어붙이지 말 것** — 로컬 작업은 레포에 커밋해 두고, 제품 이슈로 기록한다
-(`docs/spum-feedback.md` A-2).
+(`notes/spum-feedback.md` A-2).
 
 ## J. refs 클릭과 슬라이스 기준 (2026-08-19 · 해커톤 세션 5차)
 

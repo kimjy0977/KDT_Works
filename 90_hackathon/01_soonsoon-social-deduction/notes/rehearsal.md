@@ -158,7 +158,7 @@ cd 90_hackathon/01_soonsoon-social-deduction/proto && bash serve.sh
 - [ ] SPUM 탭 로그인 살아 있나 (**30분 만료**)
 - [ ] SPUM 에서 **보여줄 캐릭터·맵 미리 열어 두기**
 - [ ] SSAM 잔액 — 한 판에 약 100~170
-- [ ] `docs/logs/mafia-round-2026-08-20.md` 열어 두기
+- [ ] `notes/logs/mafia-round-2026-08-20.md` 열어 두기
 
 ## 4. 하지 말 것
 

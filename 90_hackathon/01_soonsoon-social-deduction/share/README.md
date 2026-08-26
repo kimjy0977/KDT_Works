@@ -59,7 +59,7 @@ SPUM Studio 는 **공식 문서·튜토리얼이 사실상 없어서**, 지금�
 > 여기서 **Object 와 Map 의 차이**부터 잡고 가세요. Object = 타일 "그림", Map = 그 타일로 "배치".
 
 ### 2️⃣ 실제로 조작할 때 — 연결·조작 정본
-**[`../docs/sam-connection-guide.md`](../docs/sam-connection-guide.md)**
+**[`../notes/sam-connection-guide.md`](../notes/sam-connection-guide.md)**
 
 | 절 | 내용 |
 |---|---|
@@ -73,12 +73,12 @@ SPUM Studio 는 **공식 문서·튜토리얼이 사실상 없어서**, 지금�
 | §8 | 참고 자료 현황 — **"SPUM 이 두 개"** 주의 |
 
 ### 3️⃣ 기능 만들기 전에 — 엔진으로 뭐가 되나
-**[`../docs/engine-capability-audit.md`](../docs/engine-capability-audit.md)**
+**[`../notes/engine-capability-audit.md`](../notes/engine-capability-audit.md)**
 소스를 직접 열어 확인한 표. **있는 것**(길찾기·말풍선·관계기억) / **없는 것**(시야제한·조명·추적카메라).
 > 우리는 AI 이동과 말풍선을 직접 만들 뻔했는데, 둘 다 엔진에 이미 있었습니다.
 
 ### 4️⃣ 더 파고들 때 — 함정 원본
-**[`../docs/work-rules.md`](../docs/work-rules.md)**
+**[`../notes/work-rules.md`](../notes/work-rules.md)**
 A. SPUM 조작 / B. 브라우저 자동화 / C. 검증 태도 / D. 보안 / E. git / F. 스코프 / G. 실제로 틀렸던 것
 
 ---
