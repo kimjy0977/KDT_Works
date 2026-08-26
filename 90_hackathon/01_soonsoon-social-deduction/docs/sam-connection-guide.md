@@ -591,7 +591,9 @@ mapThemeId · savedAt · layers[] · objects[] · ruleTiles[] · tilesets[] · s
 2차엔 54개 전부 `passable`, 53개가 `floor`. 깨끗한 면이라 분류기도 헷갈리지 않는다.
 
 **결과물 규격:** `192×192 · 셀 12px` — **기존 셰어하우스 시트와 완전히 동일**하다.
-→ 로컬 파이프라인에 그대로 붙일 수 있다. 레포에 `proto/assets/tileset_rug.png` 로 넣어 뒀다.
+→ 로컬 파이프라인에 그대로 붙일 수 있다.
+⚠ 그때 넣어 둔 `proto/assets/tileset_rug.png` 는 **2026-08-26 에 정리했다** — 쓰지 않게 됐고
+  에셋 폴더가 죽은 시트로 불어나 있었다. 필요하면 git 이력에서 꺼낸다.
 
 **시트를 로컬로 빼내는 법** (base64 를 컨텍스트로 통과시키지 말 것 — work-rules B-1):
 ```js
@@ -600,7 +602,8 @@ a.href = 결과이미지.src; a.download = 'sheet.png';
 d.body.appendChild(a); a.click(); a.remove();     // → 사용자 다운로드 폴더
 ```
 
-**채점은 로컬에서 재현된다:** `node tools/tile-report.mjs assets/tileset_rug.png`
+**채점은 로컬에서 재현된다:** `node tools/tile-report.mjs <시트.png>`
+(도구는 그대로 살아 있다. 당시 쓴 `tileset_rug.png` 는 정리했으니 다른 시트로 보면 된다)
 브라우저에서 잰 값(안전 2 · 비갈색 2 · 최고 27.6)과 **정확히 일치**했다.
 
 ---
@@ -641,7 +644,9 @@ back_1[y * 32 + x] = tileIdBase + y * 32 + x;
 ```
 
 **통행 판정은 우리가 만들어야 한다.** 평면도는 그림이라 어디를 걸을지 모른다.
-→ `tools/floorplan-mask.mjs` — 셀별 **국소 대비(색 분산)** 로 가른다.
+→ (폐지) `tools/floorplan-mask.mjs` — 셀별 **국소 대비(색 분산)** 로 갈랐다.
+  **지금은 `tools/floorplan-build.mjs` 로 맵을 만들고 `tools/map-rooms.mjs` 로 통행을 고친다**
+  (2026-08-26 정리). 아래 수치는 당시 실측 기록이다.
   바닥(나무결·카펫·타일)은 균일해 분산이 낮고, 가구·벽은 윤곽선이 있어 높다.
   **색으로는 못 가른다** — 빨간 카펫과 빨간 침대가 같은 색이다.
   임계값 실측: `flat<55` → 597칸 / `flat<65` → 719칸(통로가 넓어짐).
