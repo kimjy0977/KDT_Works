@@ -145,6 +145,27 @@ h1{font-size:clamp(36px,6vw,56px);line-height:1.07;letter-spacing:-.035em;font-w
 
 /* 통합 탭 안의 칩 목차 */
 .chipnav{display:flex;gap:7px;flex-wrap:wrap;margin:20px 0 6px}
+/* ── 한국어 줄바꿈 ────────────────────────────────────────────────
+   기본값(break-word)은 **낱말 한가운데를 자른다** — 「비교」가 「비 / 교」로,
+   「캐릭터·맵·애니메이션」이 「…애 / 니메이션」으로 갈렸다.
+   한국어는 어절로 끊어야 읽힌다. 표 안에서 특히 티가 난다. */
+:root, body, table, td, th, p, li, div { word-break: keep-all; overflow-wrap: break-word; }
+
+/* 비교 표의 괄호 보조설명 — **잘릴 바에 통째로 다음 줄로 내린다**
+   「(내장 AI 포기)」가 「(내장 AI 포 / 기)」로 갈리고 있었다. 괄호가 두 줄에 걸치면
+   읽는 눈이 한 번 멈춘다. nowrap 이면 짧은 것은 그대로 붙고, 안 들어갈 때만 통째로 내려간다
+   — 「짧은 건 안 내려도 된다」는 요구가 이걸로 같이 풀린다. */
+.cmp span.muted{white-space:nowrap}
+
+/* 칩 내비에 절 번호 — 본문 제목이 01·02… 인데 칩에는 없어 짝이 안 맞았다 */
+.chipnav a em{font:600 10.5px/1 var(--mono);font-style:normal;color:var(--accent-ink);
+  opacity:.85;margin-right:6px;letter-spacing:.02em}
+
+/* 「근거」 칸 — 눌러서 §03 해당 항목으로 간다. 전에는 그냥 글자라 직접 찾아야 했다 */
+.src a{color:var(--accent-ink);text-decoration:none;border-bottom:1px dashed currentColor}
+.src a:hover{background:var(--accent-wash)}
+th .sub{display:block;font-weight:400;font-size:10.5px;margin-top:2px;letter-spacing:0}
+
 .chipnav a{font:500 13px/1 var(--label);text-decoration:none;color:var(--ink-2);
   background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;
   transition:border-color .15s,color .15s}
@@ -380,9 +401,9 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
   </div>
 
   <div class="chipnav">
-    <a href="#s-sum">세 줄 요약</a><a href="#s-ask">회사에 드리는 요청</a>
-    <a href="#s-stuck">어디서 막혔나</a><a href="#s-good">좋았던 것</a>
-    <a href="#s-find">만들고 나서 알게 된 것</a><a href="#s-give">드릴 수 있는 것</a>
+    <a href="#s-sum"><em>01</em>세 줄 요약</a><a href="#s-ask"><em>02</em>회사에 드리는 요청</a>
+    <a href="#s-stuck"><em>03</em>어디서 막혔나</a><a href="#s-good"><em>04</em>좋았던 것</a>
+    <a href="#s-find"><em>05</em>만들고 나서 알게 된 것</a><a href="#s-give"><em>06</em>드릴 수 있는 것</a>
   </div>
 
   <section id="s-sum">
@@ -452,48 +473,48 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
 
     <h4>A · 지금 고칠 것</h4>
     <div class="scroll"><table>
-      <tr><th style="width:52px">#</th><th style="width:34%">요청</th><th>왜</th><th style="width:74px">근거</th></tr>
+      <tr><th style="width:52px">#</th><th style="width:34%">요청</th><th>왜</th><th style="width:82px">근거<span class="sub muted">§03 번호</span></th></tr>
       <tr><td class="n">A1</td><td><b><code>Retry-After</code> 헤더 추가</b></td>
         <td>표준 헤더 한 줄이면 <b>모든 클라이언트가 올바르게 기다립니다.</b>
-          지금은 각 팀이 시행착오로 알아냅니다 — 실패율 24.8% → 1.0%</td><td class="n">#10</td></tr>
+          지금은 각 팀이 시행착오로 알아냅니다 — 실패율 24.8% → 1.0%</td><td class="n src"><a href="#i10">#10</a></td></tr>
       <tr><td class="n">A2</td><td><b>실패 응답에 과금 여부 표기 · 가능하면 미청구</b></td>
         <td><mark>504 로 끊겨도 과금됩니다</mark> — 동일 프롬프트 2회 연속 504 로
-          <b>크레딧 249 소모, 결과물 없음</b>. 비용 신뢰에 직접 걸립니다</td><td class="n">#9</td></tr>
+          <b>크레딧 249 소모, 결과물 없음</b>. 비용 신뢰에 직접 걸립니다</td><td class="n src"><a href="#i9">#9</a></td></tr>
       <tr><td class="n">A3</td><td><b>Cast Export 상태 무효화</b></td>
         <td>선택을 바꿔도 이전 시트가 유효한 것처럼 남아 <b>남의 픽셀에 내 이름표</b>가 붙습니다.
-          조용히 깨지는 종류라 모르고 당합니다</td><td class="n">#5</td></tr>
+          조용히 깨지는 종류라 모르고 당합니다</td><td class="n src"><a href="#i5">#5</a></td></tr>
       <tr><td class="n">A4</td><td><b>무음 실패를 말해 줄 것</b></td>
         <td>세션 만료 · refs 상한 · 생성 실패 · <code>update()</code> 예외 —
           <b>넷 다 오류 없이 멈춥니다.</b> 저희를 가장 오래 잡아둔 것은
-          기능 부족이 아니라 <b>침묵</b>이었습니다</td><td class="n">#2·3·7·8</td></tr>
+          기능 부족이 아니라 <b>침묵</b>이었습니다</td><td class="n src"><a href="#i2">#2</a>·<a href="#i3">#3</a>·<a href="#i7">#7</a>·<a href="#i8">#8</a></td></tr>
       <tr><td class="n">A5</td><td><b>시뮬레이션 과금 표시</b></td>
         <td><b>돈이 새는</b> 항목입니다. 켜 둔 채 두면 6인 9분에 165 SSAM.
-          꺼졌는지 확인하려면 두 군데를 봐야 합니다</td><td class="n">#13</td></tr>
+          꺼졌는지 확인하려면 두 군데를 봐야 합니다</td><td class="n src"><a href="#i13">#13</a></td></tr>
       <tr><td class="n">A6</td><td><b>Studio 저장 규약과 엔진 런타임 규약을 맞출 것</b></td>
         <td><mark>Studio 는 <code>1 = 장애물</code>, 엔진은 <code>1 = 걸을 수 있음</code></mark> —
           정반대입니다. <b>제품 안에서 두 규약이 어긋난 것이라 사용자가 알아낼 방법이 없습니다.</b>
-          그대로 넘기면 캐릭터가 벽을 뚫고 걷습니다</td><td class="n">#22</td></tr>
+          그대로 넘기면 캐릭터가 벽을 뚫고 걷습니다</td><td class="n src"><a href="#i22">#22</a></td></tr>
       <tr><td class="n">A7</td><td><b><code>blocksMovement</code> 를 지우거나 이름을 바꿀 것</b></td>
         <td>이름은 충돌 여부 같은데 기본 테마 벽 <b>10종 전부 <code>false</code></b> 입니다.
-          이 필드만 보면 <b>“충돌하는 벽이 하나도 없다”</b> 는 잘못된 결론에 이릅니다</td><td class="n">#23</td></tr>
+          이 필드만 보면 <b>“충돌하는 벽이 하나도 없다”</b> 는 잘못된 결론에 이릅니다</td><td class="n src"><a href="#i23">#23</a></td></tr>
       <tr><td class="n">A8</td><td><b>내장 대화의 모델 이름을 게이트웨이와 맞출 것</b></td>
         <td>런타임이 <code>model</code> 에 <code>"medium"</code> 같은 <b>자체 품질 등급</b>을 실어 보내
-          <code>Unknown model</code> <b>404</b> 가 납니다. 받는 쪽은 그런 이름을 모릅니다</td><td class="n">#25</td></tr>
+          <code>Unknown model</code> <b>404</b> 가 납니다. 받는 쪽은 그런 이름을 모릅니다</td><td class="n src"><a href="#i25">#25</a></td></tr>
     </table></div>
 
     <h4>B · 문서 한 줄이면 되는 것</h4>
     <div class="scroll"><table>
-      <tr><th style="width:52px">#</th><th style="width:34%">요청</th><th>왜</th><th style="width:74px">근거</th></tr>
+      <tr><th style="width:52px">#</th><th style="width:34%">요청</th><th>왜</th><th style="width:82px">근거<span class="sub muted">§03 번호</span></th></tr>
       <tr><td class="n">B1</td><td><b>내장 AI 능력 경계 한 페이지</b><br><span class="muted">“이건 되고 이건 안 된다”</span></td>
         <td>이 한 페이지가 <b>며칠</b>을 아껴줬을 것입니다. 저희는 태워 보고 알았습니다.
           <b>겪은 함정 대부분이 “안 되는 걸 됐다고 착각”하거나 “되는 걸 안 된다고 포기”하는 식</b>이었습니다 —
           <code>baked</code> 가 기본값인 것, <code>expert</code> 가 실패하는 것 모두
-          <b>소스를 읽고서야</b> 알았습니다</td><td class="n">#1·27·28</td></tr>
+          <b>소스를 읽고서야</b> 알았습니다</td><td class="n src"><a href="#i1">#1</a>·<a href="#i27">#27</a>·<a href="#i28">#28</a></td></tr>
       <tr><td class="n">B2</td><td><b>속도 제한 값과 비용 산정식</b></td>
         <td>429 의 경계를 알 수 없어 안전 속도를 추측으로 정했습니다.
-          비용도 입력 길이에 크게 좌우되는데 예측할 방법이 없습니다</td><td class="n">#10·12</td></tr>
+          비용도 입력 길이에 크게 좌우되는데 예측할 방법이 없습니다</td><td class="n src"><a href="#i10">#10</a>·<a href="#i12">#12</a></td></tr>
       <tr><td class="n">B3</td><td><b>Studio 쓰기 방향 · 필드 의미</b></td>
-        <td>“쓰기는 로컬 먼저” 한 줄, <code>grid</code> 가 무슨 뜻인지 한 줄</td><td class="n">#2</td></tr>
+        <td>“쓰기는 로컬 먼저” 한 줄, <code>grid</code> 가 무슨 뜻인지 한 줄</td><td class="n src"><a href="#i2">#2</a></td></tr>
       <tr><td class="n">B4</td><td><b>AI 캐릭터를 여럿 굴릴 때의 안내</b></td>
         <td>“금지하지 말고 잣대를 나눠 주세요” — 제작자가 스스로 알아내기 어렵습니다</td><td class="n">05</td></tr>
     </table></div>
@@ -543,7 +564,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
 
     <h4>A · Studio 사용 <span class="cnt">15건</span></h4>
     <div class="items">
-<article class="item">
+<article id="i1" class="item">
         <div class="ihead"><span class="inum">1</span>
           <div class="ititle">내장 AI 가 <code>systemPrompt</code> 를 무시한다</div>
           <div class="chips"><span class="chip on">김주영</span></div>
@@ -556,7 +577,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item dup">
+            <article id="i2" class="item dup">
         <div class="ihead"><span class="inum">2</span>
           <div class="ititle">동기화가 서버를 안 읽고 로컬을 얹는다</div>
           <div class="chips"><span class="chip on">정충원</span><span class="chip on">김주영</span><span class="chip on">최종우</span></div>
@@ -570,7 +591,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item dup">
+            <article id="i3" class="item dup">
         <div class="ihead"><span class="inum">3</span>
           <div class="ititle">세션이 조용히 만료된다</div>
           <div class="chips"><span class="chip on">정충원</span><span class="chip on">김주영</span><span class="chip on">최종우</span></div>
@@ -583,7 +604,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i4" class="item">
         <div class="ihead"><span class="inum">4</span>
           <div class="ititle">계정당 세션 1개</div>
           <div class="chips"><span class="chip on">정충원</span></div>
@@ -596,7 +617,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i5" class="item">
         <div class="ihead"><span class="inum">5</span>
           <div class="ititle">Cast Export 가 다른 캐릭터의 시트를 내려준다</div>
           <div class="chips"><span class="chip on">김주영</span></div>
@@ -610,7 +631,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i6" class="item">
         <div class="ihead"><span class="inum">6</span>
           <div class="ititle">refs 썸네일을 「보기」만 해도 슬라이스 기준이 바뀐다</div>
           <div class="chips"><span class="chip on">김주영</span></div>
@@ -623,7 +644,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i7" class="item">
         <div class="ihead"><span class="inum">7</span>
           <div class="ititle">UI 가 자주 갱신돼 자동화가 파손된다</div>
           <div class="chips"><span class="chip on">정충원</span></div>
@@ -637,7 +658,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i8" class="item">
         <div class="ihead"><span class="inum">8</span>
           <div class="ititle">refs 가 10장을 채우면 생성이 조용히 멈춘다</div>
           <div class="chips"><span class="chip on">김주영</span></div>
@@ -650,7 +671,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item dup">
+            <article id="i19" class="item dup">
         <div class="ihead"><span class="inum">19</span>
           <div class="ititle">캐스트를 코드로 주입하면 캐릭터 저장소가 깨진다</div>
           <div class="chips"><span class="chip on">신서연</span><span class="chip on">김주영</span></div>
@@ -665,7 +686,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i20" class="item">
         <div class="ihead"><span class="inum">20</span>
           <div class="ititle">Object Editor 의 Classify 가 통행 판정으로 안 이어진다</div>
           <div class="chips"><span class="chip on">신서연</span></div>
@@ -683,7 +704,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item dup">
+            <article id="i21" class="item dup">
         <div class="ihead"><span class="inum">21</span>
           <div class="ititle">참조 이미지를 쓰면 1024 정사각형으로 찌그러진다</div>
           <div class="chips"><span class="chip on">신서연</span><span class="chip on">김주영</span></div>
@@ -698,7 +719,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i34" class="item">
         <div class="ihead"><span class="inum">34</span>
           <div class="ititle">헬멧 이름을 정확히 지정해도 <b>다른 헬멧이 장착된다</b></div>
           <div class="chips"><span class="chip on">신서연</span></div>
@@ -716,7 +737,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i27" class="item">
         <div class="ihead"><span class="inum">27</span>
           <div class="ititle">대화 모드가 <code>baked</code>(미리 만든 대사 재생)로 기본 설정돼 있다</div>
           <div class="chips"><span class="chip on">신서연</span></div>
@@ -730,7 +751,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i29" class="item">
         <div class="ihead"><span class="inum">29</span>
           <div class="ititle">Cast Editor export PNG 에 편집용 파란 격자가 구워져 나온다</div>
           <div class="chips"><span class="chip on">최종우</span></div>
@@ -745,7 +766,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item dup">
+            <article id="i30" class="item dup">
         <div class="ihead"><span class="inum">30</span>
           <div class="ititle">에셋을 프로그래밍으로 내려받을 경로가 없다</div>
           <div class="chips"><span class="chip on">정충원</span><span class="chip on">최종우</span></div>
@@ -765,7 +786,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
 
     <h4>B · 생성과 과금 <span class="cnt">10건</span></h4>
     <div class="items">
-<article class="item">
+<article id="i9" class="item">
         <div class="ihead"><span class="inum">9</span>
           <div class="ititle">생성이 504 로 끊기는데 <mark>과금은 진행된다</mark></div>
           <div class="chips"><span class="chip on">정충원</span></div>
@@ -779,7 +800,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i10" class="item">
         <div class="ihead"><span class="inum">10</span>
           <div class="ititle">429 의 경계를 알 수 없고, <code>Retry-After</code> 도 없다</div>
           <div class="chips"><span class="chip on">김주영</span></div>
@@ -793,7 +814,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item dup">
+            <article id="i11" class="item dup">
         <div class="ihead"><span class="inum">11</span>
           <div class="ititle">실패 응답에 <code>usage</code> 가 없다</div>
           <div class="chips"><span class="chip on">정충원</span><span class="chip on">김주영</span><span class="chip on">최종우</span></div>
@@ -806,7 +827,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i12" class="item">
         <div class="ihead"><span class="inum">12</span>
           <div class="ititle">비용이 입력 길이에 크게 좌우된다</div>
           <div class="chips"><span class="chip on">김주영</span></div>
@@ -819,7 +840,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i13" class="item">
         <div class="ihead"><span class="inum">13</span>
           <div class="ititle">시뮬레이션을 켜 둔 채 두면 계속 과금된다</div>
           <div class="chips"><span class="chip on">김주영</span></div>
@@ -832,7 +853,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i14" class="item">
         <div class="ihead"><span class="inum">14</span>
           <div class="ititle">참조 이미지 업로드가 1MiB 에서 막힌다</div>
           <div class="chips"><span class="chip on">정충원</span></div>
@@ -845,7 +866,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i15" class="item">
         <div class="ihead"><span class="inum">15</span>
           <div class="ititle">잔액 표시가 늦게 갱신된다</div>
           <div class="chips"><span class="chip on">김주영</span></div>
@@ -858,7 +879,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i28" class="item">
         <div class="ihead"><span class="inum">28</span>
           <div class="ititle"><code>expert</code> 등급에서 대화 생성이 실패한다</div>
           <div class="chips"><span class="chip on">신서연</span></div>
@@ -871,7 +892,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i31" class="item">
         <div class="ihead"><span class="inum">31</span>
           <div class="ititle"><mark>브라우저에서 SAM 직접 호출이 CORS 로 전면 차단된다</mark></div>
           <div class="chips"><span class="chip on">최종우</span></div>
@@ -890,7 +911,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i32" class="item">
         <div class="ihead"><span class="inum">32</span>
           <div class="ititle">응답 포맷이 매 호출 제각각 — 구조화 출력이 없다</div>
           <div class="chips"><span class="chip on">최종우</span><span class="chip on">김주영</span></div>
@@ -911,7 +932,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
 
     <h4>C · 엔진과 배포 <span class="cnt">9건</span></h4>
     <div class="items">
-<article class="item">
+<article id="i16" class="item">
         <div class="ihead"><span class="inum">16</span>
           <div class="ititle"><code>update()</code> 예외가 컴포넌트를 조용히 끈다</div>
           <div class="chips"><span class="chip on">김주영</span></div>
@@ -924,7 +945,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item dup">
+            <article id="i17" class="item dup">
         <div class="ihead"><span class="inum">17</span>
           <div class="ititle">패키지 배포 경로가 없어 엔진을 통째로 복제해야 한다</div>
           <div class="chips"><span class="chip on">김주영</span><span class="chip on">최종우</span></div>
@@ -939,7 +960,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i18" class="item">
         <div class="ihead"><span class="inum">18</span>
           <div class="ititle">Cast Editor 로 뽑은 시트를 엔진에 다시 넣는 경로가 없다</div>
           <div class="chips"><span class="chip on">김주영</span></div>
@@ -953,7 +974,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item dup">
+            <article id="i33" class="item dup">
         <div class="ihead"><span class="inum">33</span>
           <div class="ititle">2D 캐릭터 게임의 기본기가 엔진에 없다</div>
           <div class="chips"><span class="chip on">최종우</span><span class="chip on">김주영</span></div>
@@ -972,7 +993,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i22" class="item">
         <div class="ihead"><span class="inum">22</span>
           <div class="ititle"><mark>Studio 저장 규약과 엔진 런타임 규약이 정반대다</mark></div>
           <div class="chips"><span class="chip on">신서연</span></div>
@@ -988,7 +1009,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i23" class="item">
         <div class="ihead"><span class="inum">23</span>
           <div class="ititle"><code>blocksMovement</code> 필드가 미끼다</div>
           <div class="chips"><span class="chip on">신서연</span></div>
@@ -1004,7 +1025,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i24" class="item">
         <div class="ihead"><span class="inum">24</span>
           <div class="ititle">SPUM 자율 배회와 게임 길찾기가 동시에 돌아 위치가 어긋난다</div>
           <div class="chips"><span class="chip on">신서연</span></div>
@@ -1019,7 +1040,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i25" class="item">
         <div class="ihead"><span class="inum">25</span>
           <div class="ititle">내장 대화가 <code>model</code> 에 품질 등급을 실어 보내 404 를 받는다</div>
           <div class="chips"><span class="chip on">신서연</span></div>
@@ -1035,7 +1056,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         </div>
       </article>
 
-            <article class="item">
+            <article id="i26" class="item">
         <div class="ihead"><span class="inum">26</span>
           <div class="ititle">문틀 부분 가림을 못 해 건물 출입을 구현하지 못했다</div>
           <div class="chips"><span class="chip on">신서연</span></div>
