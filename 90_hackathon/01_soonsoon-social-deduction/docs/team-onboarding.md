@@ -66,8 +66,16 @@ SAM/SSAM 크레딧은 **로그인한 사람의 실제 계정**에서 빠진다. 
 ```bash
 git clone <이 레포> && cd 90_hackathon/01_soonsoon-social-deduction
 cp .env.example .env          # SAM_API_KEY 를 넣는다
-bash serve.sh                 # → http://localhost:5173/game.html
+bash serve.sh
 ```
+
+**이 폴더에는 게임이 둘이다.** 서버가 뜨면 세 주소를 다 찍어 준다.
+
+| | 주소 | 무엇 |
+|---|---|---|
+| **마피아 판** | `localhost:5173/mafia.html` | **발표·배포작.** 회사에 보이는 것은 이쪽 |
+| 케이크 판 | `localhost:5173/game.html` | 과제 제출본 |
+| 다시보기 | `localhost:5173/replay.html` | 지난 판 재생 · **AI 호출 0회** |
 
 게임만 돌리려면 여기까지면 끝이다. **SPUM Studio 로 에셋을 만들려면 §4 를 읽는다.**
 
