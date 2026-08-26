@@ -13,7 +13,7 @@
 
 ### 읽는 순서
 
-1. `../CLAUDE.md` (과제 하네스) → 2. `docs/work-rules.md` (함정) → 3. 이 문서 §4 (SPUM 조작)
+1. `../CLAUDE.md` (과제 하네스) → 2. `notes/work-rules.md` (함정) → 3. 이 문서 §4 (SPUM 조작)
 4. 그다음 필요한 것만 `docs/README.md` 문서 지도로 찾는다
 
 ### 💸 돈이 나가는 동작 — **사용자 확인 후에만**
@@ -132,7 +132,7 @@ export SAM_API_KEY=sam-...
 **팀원이 할 일은 없다.** 폴더를 열기만 하면 된다. 다만 두 가지는 알아 둘 것:
 
 - **작업 디렉터리를 `90_hackathon/` 안으로 둔다.** 밖으로 나가면 다른 세션(튜터·매니저)의 스코프다.
-- **하네스를 고치면 팀 전체에 적용된다.** 새 함정을 배웠으면 `docs/work-rules.md` 에 적고,
+- **하네스를 고치면 팀 전체에 적용된다.** 새 함정을 배웠으면 `notes/work-rules.md` 에 적고,
   하네스에는 요약 + 포인터만 남긴다(문서 지도 = `docs/README.md`).
 
 ---
@@ -195,7 +195,7 @@ await __뽑기("살살이",   "move");
 | **4** | **세션이 30분에 만료된다** | 배지 → ACCOUNT → 「다시 로그인」. **페이지가 리로드된다**(약 10~25초). 화면에 심어둔 것은 다 날아간다 |
 | **5** | **img2img 출력은 항상 1024×1024** | 격자는 1024 를 정수로 나누는 값만(16·32·64·128). 60×40 같은 건 그대로 안 된다 |
 
-전체 목록은 `docs/work-rules.md`(A~K절)과 `docs/sam-connection-guide.md`(§4-1~4-21).
+전체 목록은 `notes/work-rules.md`(A~K절)과 `notes/sam-connection-guide.md`(§4-1~4-21).
 
 ### 4-5. 계정·비용 주의
 
@@ -207,7 +207,7 @@ await __뽑기("살살이",   "move");
 
 ## 5. 서버 저장이 막혔을 때
 
-`studio_state_object_missing` 으로 저장이 안 되면 **`docs/work-rules.md` J-4** 를 따른다.
+`studio_state_object_missing` 으로 저장이 안 되면 **`notes/work-rules.md` J-4** 를 따른다.
 
 원인은 서버가 아니라 **클라이언트 교착**이다 — 읽기가 500 이면 쓰기가 영영 안 켜진다.
 실제로 이 방법으로 세 세션 동안 막혀 있던 저장을 풀었다.
@@ -227,13 +227,13 @@ await __뽑기("살살이",   "move");
 
 | 알고 싶은 것 | 볼 곳 |
 |---|---|
-| 이 게임이 뭘 하려는 건가 | `docs/game-spec.md` |
-| 지금 어디까지 됐나 | `docs/handoff.md` (맨 위 절이 최신) |
-| SPUM/SAM 조작법·스키마 | `docs/sam-connection-guide.md` |
-| 밟으면 안 되는 함정 | `docs/work-rules.md` |
-| 엔진으로 뭐가 되고 안 되나 | `docs/engine-capability-audit.md` |
+| 이 게임이 뭘 하려는 건가 | `notes/game-spec.md` |
+| 지금 어디까지 됐나 | `notes/handoff.md` (맨 위 절이 최신) |
+| SPUM/SAM 조작법·스키마 | `notes/sam-connection-guide.md` |
+| 밟으면 안 되는 함정 | `notes/work-rules.md` |
+| 엔진으로 뭐가 되고 안 되나 | `notes/engine-capability-audit.md` |
 | 외부에 보여줄 구현기 | `docs/tutorial.md` |
-| 회사에 전달할 제품 피드백 | `docs/spum-feedback.md` |
+| 회사에 전달할 제품 피드백 | `notes/spum-feedback.md` |
 
 **새로 알게 된 건 한 곳에만 적고 나머지는 링크한다**(`docs/README.md` 의 규칙).
 

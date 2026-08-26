@@ -33,7 +33,7 @@
 | 3 | 결말 | **아침에 모여 토론 → 투표** |
 
 > ⚠ **이 문서는 기획(하려는 것)이지 구현 현황이 아니다.**
-> 구현된 것과 안 된 것은 `docs/tutorial.md` §11 과 `docs/handoff.md` 를 볼 것.
+> 구현된 것과 안 된 것은 `docs/tutorial.md` §11 과 `notes/handoff.md` 를 볼 것.
 > ~~§2-1 범인 매 판 랜덤 배정 미구현~~ → **구현 완료**(`proto/night.mjs` + `/api/newgame`).
 > 플레이어 포함 매 판 랜덤이며, 결과 화면에서 그날 밤 전원 동선을 공개한다.
 
@@ -109,7 +109,7 @@
 | 브라우저에서 즉시 실행 | `bash serve.sh` → `localhost:5173` (vendor 를 자동으로 받아 준다) |
 | NPC 3명 이상 + 성격 대화 | 등장인물 10명(무대별 4~10인), 각자 성격·말투·배경 · **무대 5개**(셰어하우스 · 설산 산장 · 심해 연구기지 · 해변 리조트 · 궤도 정거장)에 따라 어휘가 바뀐다 |
 | 대화 맥락 기억/유지 | 캐릭터별 대화 이력 + `memory.recent` 기반 |
-| 기술문서 1편 | 본 문서 + 루트 `README.md` + `docs/sam-connection-guide.md` + `docs/worklog.md` |
+| 기술문서 1편 | 본 문서 + 루트 `README.md` + `notes/sam-connection-guide.md` + `notes/worklog.md` |
 | SAM 키 커밋 금지 | 환경변수/로컬 설정에서만 로드 (`proto/README.md`) |
 
 ## 8. 스코프 아웃 (이번 마감에서 안 함)

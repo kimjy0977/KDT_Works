@@ -1530,7 +1530,7 @@ emotion, summary, recentSummary, lastInteractionAt, importantConversationIds[≤
 
 ### 4-41. 지시 프롬프트에 **같은 월드 캐스트 명단이 실리지 않는다** ★★★★★
 
-마피아 1판(2026-08-20, 전문 = `docs/logs/mafia-round-2026-08-20.md`)에서 확정.
+마피아 1판(2026-08-20, 전문 = `notes/logs/mafia-round-2026-08-20.md`)에서 확정.
 
 전체 브로드캐스트로 "가장 의심스러운 사람 한 명을 지목하라"고 했더니
 **6명 전원이 존재하지 않는 이름을 댔다** — 토실이·민호·모카·냠냠이·부스럭이.

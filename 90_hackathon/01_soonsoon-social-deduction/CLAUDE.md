@@ -26,6 +26,9 @@
 - **⚠ 「SPUM 세션」은 다른 뜻이다** — Studio 로그인 세션(30분 만료, `work-rules.md` A-3).
   문서에서 치환할 때 이 둘을 섞지 말 것.
 - 문서를 어디에 적을지는 **`docs/README.md` 문서 지도**를 따른다.
+- **폴더가 둘이다(2026-08-26).** `docs/` = **밖으로 나가는 것만**(회사 보고서·그림·공개 기술문서),
+  `notes/` = **우리 작업 기록**(함정·인계·기획·이력). 새 문서를 만들 때 어느 쪽인지 먼저 정한다.
+  ⛔ `docs/soonsoon-hackathon.html` 주소는 바꾸지 않는다 — 이미 팀원들에게 보냈다.
 
 ---
 
@@ -34,15 +37,15 @@
 | 순서 | 파일 | 왜 |
 |---|---|---|
 | 1 | `_local/회사자료/과제정의서_순순팩토리.docx` | **채점 기준 원본.** ⛔ 비커밋 — 로컬에만 있다 |
-| 2 | `docs/work-rules.md` | SPUM 조작 함정 모음 |
-| 3 | `docs/handoff.md` | 지금 어디까지 왔나 |
-| 3-b | `docs/team-onboarding.md` | **팀원이 새로 합류하면 이것부터.** 환경 세팅 + SPUM 을 코드로 다루는 법 |
-| 4 | `docs/engine-capability-audit.md` | 엔진으로 뭐가 되고 뭐가 안 되나 |
-| 5 | `docs/game-spec.md` | 기획 확정본 |
-| 5-b | `docs/multiplayer-design.md` | 멀티(사람3+AI3) 설계안 — 규칙 엔진 계약. **구현 전** |
-| 6 | `docs/sam-connection-guide.md` | **SPUM/SAM 정본 레퍼런스** — 스키마·localStorage 키·맵 코드작성 절차(§4-5)·스프라이트 시트 스키마(§4-6)·자료 현황(§8). SPUM 만질 때 여기부터 |
+| 2 | `notes/work-rules.md` | SPUM 조작 함정 모음 |
+| 3 | `notes/handoff.md` | 지금 어디까지 왔나 |
+| 3-b | `notes/team-onboarding.md` | **팀원이 새로 합류하면 이것부터.** 환경 세팅 + SPUM 을 코드로 다루는 법 |
+| 4 | `notes/engine-capability-audit.md` | 엔진으로 뭐가 되고 뭐가 안 되나 |
+| 5 | `notes/game-spec.md` | 기획 확정본 |
+| 5-b | `notes/multiplayer-design.md` | 멀티(사람3+AI3) 설계안 — 규칙 엔진 계약. **구현 전** |
+| 6 | `notes/sam-connection-guide.md` | **SPUM/SAM 정본 레퍼런스** — 스키마·localStorage 키·맵 코드작성 절차(§4-5)·스프라이트 시트 스키마(§4-6)·자료 현황(§8). SPUM 만질 때 여기부터 |
 
-> 전체 작업 이력(실패 포함) **정본 = `docs/handoff.md`**(세션별 §0-최신). `docs/worklog.md`는 2차(08-19)에서 멈춘 초기 기록 — 이중관리 드리프트 방지로 채우지 않는다. 요건 분석·내부 자료 = `_local/내부자료/`.
+> 전체 작업 이력(실패 포함) **정본 = `notes/handoff.md`**(세션별 §0-최신). `notes/worklog.md`는 2차(08-19)에서 멈춘 초기 기록 — 이중관리 드리프트 방지로 채우지 않는다. 요건 분석·내부 자료 = `_local/내부자료/`.
 
 ---
 
@@ -97,7 +100,7 @@ World Editor 에서 `+` → "배치" 버튼으로. (생성·수정·외형·맵�
 **셀 = 이미지폭 ÷ 격자수.** 옛 테마는 192px ÷ 16 = **12px**, 현재 평면도는 1024px ÷ 32 = **32px**.
 맵의 `tilesets[]` 가 시트마다 `cell` 과 `tileIdBase` 를 알려 준다 — 코드에 박지 말 것.
 
-**4-6. SPUM 맵 저장구조 = 로컬 `map.json` 과 동일.** (상세 스키마·절차 = `docs/sam-connection-guide.md` §4-5)
+**4-6. SPUM 맵 저장구조 = 로컬 `map.json` 과 동일.** (상세 스키마·절차 = `notes/sam-connection-guide.md` §4-5)
 레이어 4개(`back_1`/`front_1`/`walkable`/`obstacle`) · 각 1200칸 · `tileIdBase 2049` · `columns 16`.
 → 맵은 **로컬에서 만들어 스크립트로 밀어넣는다.** 에디터 수작업 불필요.
 
@@ -118,7 +121,7 @@ World Editor 에서 `+` → "배치" 버튼으로. (생성·수정·외형·맵�
 **5-5. 엔진이 이미 주는 것 — 직접 짜지 말 것:**
 `PathfindingManager` + `NavAgent.setDestination()` (AI 이동) ·
 `BubbleRenderer` (말풍선 4종) · spum-world `RelationshipMemory`·`ConversationModel` (관계·대화세션).
-**없는 것:** 시야/안개 시스템, 조명. 자세히는 `docs/engine-capability-audit.md`.
+**없는 것:** 시야/안개 시스템, 조명. 자세히는 `notes/engine-capability-audit.md`.
 
 **5-6. ⚠ `update()` 에서 예외가 나면 엔진이 그 컴포넌트를 조용히 끈다.**
 `GameObject._executeUpdate` 가 `catch → c.enabled = false` 한다. 게다가 경고를
@@ -178,7 +181,7 @@ bash serve.sh            # → http://localhost:5173/game.html
 > **정답(범인·기억)은 서버에만 둔다.** 클라이언트에 넣으면 개발자도구로 다 보여 추리가 성립하지 않는다.
 > ⚠ **마피아 판은 이 원칙을 안 지킨다** — 역할·투표·승패가 전부 클라이언트에 있다.
 > 싱글 전용이라 지금은 문제가 없지만, **멀티로 가면 제일 먼저 고쳐야 할 곳**이다
-> (`docs/multiplayer-design.md` §1).
+> (`notes/multiplayer-design.md` §1).
 
 ---
 
@@ -205,7 +208,7 @@ bash serve.sh            # → http://localhost:5173/game.html
 | `src/audio.js` | 소리 — 음악·효과음을 **오실레이터로 만든다**(음원 파일 0장) |
 | `src/backoff.js` | 재시도 정책 — 게임과 측정기가 같이 쓴다(N-4) |
 
-**마피아 판 함정 — 고치기 전에 읽을 것 (`docs/work-rules.md` N·O 절이 정본):**
+**마피아 판 함정 — 고치기 전에 읽을 것 (`notes/work-rules.md` N·O 절이 정본):**
 
 - **N-1** 값을 옮기면 **끝까지 따라가서** 확인한다. 태도가 `server.mjs` 에서 누락돼
   프롬프트에 한 번도 안 들어갔다 — 프롬프트를 고쳐도 안 낫던 이유가 그것이었다.
@@ -247,7 +250,7 @@ bash serve.sh            # → http://localhost:5173/game.html
 
 ### 발표 후 상태 (2026-08-23)
 
-- **발표·채점 끝났다.** 진행 현황·다음 할 일은 `docs/handoff.md` **§0-최신(9차)** 가 정본이다.
+- **발표·채점 끝났다.** 진행 현황·다음 할 일은 `notes/handoff.md` **§0-최신(9차)** 가 정본이다.
 - **`proto/vendor/` 는 커밋하지 않는다**(회사 코드). `serve.sh` 가 없으면 **알아서 내려받는다** —
   새로 클론해도 `bash serve.sh` 한 번이면 된다. 수동: `node mirror.mjs spum-engine` / `spum-world`.
 - 로스터 **10명 전원 사용 가능**(2026-08-24). 곰곰이 시트를 SPUM 에서 뽑아 넣었고,
