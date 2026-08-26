@@ -324,30 +324,6 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
 .links a code{font-size:12.5px;font-weight:600;background:none;padding:0;opacity:.92;color:inherit}
 .links a::after{content:"↗";font-size:.9em;opacity:.75;font-weight:700}
 
-/* ── 히어로의 「직접 해보기」 ─────────────────────────────────────
-   문서만 읽고 덮으면 **만든 것을 한 번도 안 보고 끝난다.**
-   네 사람 중 배포까지 간 것은 마피아 판 하나뿐이라, 그 하나를 맨 위에 올린다.
-   ⚠ 다시보기를 같이 두는 이유: 실플레이는 초대 코드가 필요하고 AI 호출이 든다.
-     **다시보기는 코드도 비용도 없다** — 그냥 눌러서 볼 수 있는 쪽이 먼저 보여야 한다. */
-/* 이 두 버튼이 이 문서에서 **유일하게 눌러서 돌려볼 수 있는 것**이다.
-   전에는 「직접 해보기」가 테두리만 있는 회색이라 눌러 보라는 신호가 없었다.
-   둘 다 주황을 입히되, 바로 열리는 다시보기는 **채우고**,
-   초대 코드가 필요한 실플레이는 **테두리로** 둬서 문턱 차이를 색으로 보인다. */
-.hero .try{margin-top:22px;display:flex;flex-wrap:wrap;gap:11px;align-items:center}
-.hero .try a{display:inline-flex;align-items:center;gap:8px;
-  padding:13px 23px;border-radius:999px;text-decoration:none;
-  font:700 14.5px/1 var(--label);transition:transform .12s,box-shadow .18s,border-color .15s,background .15s,color .15s}
-.hero .try .go{background:var(--accent);color:#fff;border:2px solid transparent;
-  box-shadow:0 4px 15px color-mix(in srgb,var(--accent) 32%,transparent)}
-.hero .try .go:hover{transform:translateY(-2px);
-  box-shadow:0 9px 26px color-mix(in srgb,var(--accent) 45%,transparent)}
-.hero .try .sub{border:2px solid var(--accent);background:var(--accent-wash);color:var(--accent-ink);
-  font-weight:700}
-.hero .try .sub:hover{background:var(--accent);color:#fff;transform:translateY(-2px);
-  box-shadow:0 9px 26px color-mix(in srgb,var(--accent) 38%,transparent)}
-.hero .try a small{font-weight:600;opacity:.82;font-size:12px}
-.hero .try .note{font-size:12.5px;opacity:.9;flex-basis:100%;margin-top:2px}
-.hero .try .note b{color:var(--accent-ink)}
 </style>
 
 <div class="wrap">
@@ -360,14 +336,6 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
     <p class="lede">네 사람이 같은 기획에서 출발해 각자 다른 것을 만들었습니다.
       어디에 걸렸고 무엇을 알게 됐는지를 한 장에 모았습니다.</p>
     <div class="byline">팀: 순순히 따라와라, 팀장: 김주영, 팀원: 정충원 · 신서연 · 최종우 <span>·</span> 해커톤 2026-08-18(화) ~ 08-21(금)</div>
-    <div class="try">
-      <a class="go" href="https://kdt-mafia.vercel.app/replay.html" target="_blank" rel="noopener noreferrer">
-        지난 판 다시보기 <small>AI 호출 0회 ↗</small></a>
-      <a class="sub" href="https://kdt-mafia.vercel.app/" target="_blank" rel="noopener noreferrer">
-        직접 해보기 <small>초대 코드 필요 ↗</small></a>
-      <span class="note">김주영 「누가 마피아지?」 — <b>네 결과물 중 유일하게 배포까지 간 것입니다.</b>
-        다시보기는 <b>코드도 키도 없이 지금 바로 열립니다.</b></span>
-    </div>
 
     <div class="strip">
       <div><b>4</b><small>각자 만든 것</small></div>
@@ -400,14 +368,14 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
 
   <div class="call">
     <span class="lab">코드 바로 보기</span>
-    <b>네 저장소 모두 공개돼 있습니다.</b> 아래는 각자 <b>실제 게임 코드가 들어 있는 폴더</b>로 바로 가는 링크입니다 —
-    저장소 첫 화면이 아니라 <b>코드가 있는 자리</b>입니다. 저장소 전체·실행 방법·문서는 <b>이름 탭</b>에 있습니다.
-    <span class="sub"><b>직접 돌려 보시려면</b> — 웹에서 바로 되는 것은 <b>김주영 것 하나</b>입니다(위 버튼). 나머지 셋은 <b>저장소를 받아 로컬에서</b> 띄웁니다 — 신서연 <code>node spum/serve.mjs</code> · 최종우 <code>bash serve.sh</code> · 정충원은 게임이 아니라 <b>맵 제작 파이프라인 도구</b>입니다. <b>셋 다 대화(AI)를 쓰려면 SAM 키가 필요합니다</b> — 키 없이도 화면·이동은 뜹니다.</span>
+    <b>네 저장소 모두 공개돼 있습니다.</b> 아래를 누르면 각자 <b>코드가 있는 자리</b>로 바로 갑니다 —
+    저장소를 열고 폴더를 찾아 들어갈 필요가 없습니다. 실행 방법·문서는 <b>이름 탭</b>에 있습니다.
+    <span class="sub"><b>직접 돌려 보시려면</b> — 웹에서 바로 되는 것은 <b>김주영 것 하나</b>입니다. 나머지 셋은 <b>저장소를 받아 로컬에서</b> 띄웁니다 — 신서연 <code>node spum/serve.mjs</code> · 최종우 <code>bash serve.sh</code> · 정충원은 게임이 아니라 <b>맵 제작 파이프라인 도구</b>입니다. <b>셋 다 대화(AI)를 쓰려면 SAM 키가 필요합니다</b> — 키 없이도 화면·이동은 뜹니다.</span>
     <div class="links">
-      <a href="https://github.com/kimjy0977/KDT_Works/tree/main/90_hackathon/01_soonsoon-social-deduction/proto" target="_blank" rel="noopener noreferrer">김주영 <code>KDT_Works/…/proto</code></a>
-      <a href="https://github.com/tigermorning/who-ate-my-cheesecake/tree/main/spum" target="_blank" rel="noopener noreferrer">신서연 <code>who-ate-my-cheesecake/spum</code></a>
-      <a href="https://github.com/GojoSuperman/spum-kit/tree/main/src" target="_blank" rel="noopener noreferrer">정충원 <code>spum-kit/src</code></a>
-      <a href="https://github.com/cjwmanelf/spum-cheesecake-demo/blob/master/app.js" target="_blank" rel="noopener noreferrer">최종우 <code>spum-cheesecake-demo/app.js</code></a>
+      <a href="https://github.com/kimjy0977/KDT_Works/tree/main/90_hackathon/01_soonsoon-social-deduction/proto" target="_blank" rel="noopener noreferrer">김주영 깃허브</a>
+      <a href="https://github.com/tigermorning/who-ate-my-cheesecake/tree/main/spum" target="_blank" rel="noopener noreferrer">신서연 깃허브</a>
+      <a href="https://github.com/GojoSuperman/spum-kit/tree/main/src" target="_blank" rel="noopener noreferrer">정충원 깃허브</a>
+      <a href="https://github.com/cjwmanelf/spum-cheesecake-demo" target="_blank" rel="noopener noreferrer">최종우 깃허브</a>
     </div>
   </div>
 
