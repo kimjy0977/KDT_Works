@@ -146,6 +146,9 @@ bash serve.sh            # → http://localhost:5173/game.html
 | 도구 | 용도 |
 |---|---|
 | `proto/tools/build-map.mjs` | 맵 생성 + **자체 연결성 검증**(실패 시 빌드 중단) |
+| `proto/tools/map-rooms.mjs` | **무대 4개의 방 안쪽 열기 + 침대 좌표**(설산은 `lodge-walls.mjs`). 멱등 · `--write` |
+| `proto/tools/map-grid.mjs` | 무대 그림에 **좌표를 찍은 격자**를 얹어 확대 — 벽·문·침대를 손으로 읽는 눈 |
+| `proto/tools/map-overlay.mjs` | 통행 판정을 그림 위에 **빨갛게** 겹쳐 보기 — 맵을 고친 뒤 눈으로 확인하는 자리 |
 | `proto/tools/png.mjs` | 의존성 없는 PNG 디코더/인코더 — 브라우저 없이 눈으로 검증 |
 | `proto/tools/cut-chars.mjs` | 캐릭터 초상 배경 제거 |
 | `proto/tools/atlas.html` | 타일 시트 격자 뷰어 |
