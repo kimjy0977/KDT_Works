@@ -1,3 +1,7 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>밖에서 본 SPUM</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -268,6 +272,32 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
   .mark span{display:none}
   section{margin-top:44px}
 }
+
+/* 저장소 링크 — <code> 모양은 지키되 「눌린다」가 보여야 한다.
+   ⚠ 링크를 걸기 전에 5개 주소가 실제로 200 인지 확인했다(2026-08-26).
+     안 열리는 링크를 대표님이 누르면 그 자체가 신뢰를 깎는다. */
+a.repo{text-decoration:none;border-bottom:1px dashed currentColor}
+a.repo:hover code{background:rgba(255,138,61,.14)}
+a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
+
+/* ── 탭 머리 ─────────────────────────────────────────────────────
+   「누가 무엇을 만들었나」는 그 탭에서 **제일 먼저 답해야 할 질문**이라
+   본문 한 줄이 아니라 제목으로 세운다.
+   그리고 **저장소·원문 주소를 여기에 올린다** — 표 한가운데 묻혀 있으면
+   대표님이 「그래서 어디서 보나」를 찾아 헤맨다.
+   ⚠ 링크를 걸기 전에 다섯 주소가 실제로 200 인지 확인했다(2026-08-26). */
+.tabhead{margin:4px 0 26px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.tabhead h2{margin:0 0 6px;font-size:clamp(20px,2.6vw,27px);line-height:1.35;letter-spacing:-.02em}
+.tabhead h2 .who{color:var(--accent-ink)}
+.tabhead .what{font-weight:500;opacity:.86}
+.tabhead .links{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+.tabhead .links a{display:inline-flex;align-items:center;gap:6px;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);
+  background:var(--card);color:inherit;text-decoration:none;
+  font:600 12.5px/1 var(--label);transition:border-color .15s,background .15s}
+.tabhead .links a:hover{border-color:var(--accent);background:rgba(255,138,61,.08)}
+.tabhead .links a code{font-size:12px;font-weight:500;background:none;padding:0;opacity:.75}
+.tabhead .links a::after{content:"↗";font-size:.85em;opacity:.5}
 </style>
 
 <div class="wrap">
@@ -1298,12 +1328,15 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
 
 <!-- ══════════════ 김주영 ══════════════ -->
 <div class="panel" role="tabpanel" id="p-jy" aria-labelledby="t-jy" hidden>
-  <p class="intro"><b>김주영</b> — 「누가 마피아지?」 AI NPC 소셜 추리 게임.</p>
+  <header class="tabhead">
+    <h2><span class="who">김주영</span> — <span class="what">「누가 마피아지?」 AI NPC 소셜 추리 게임</span></h2>
+    <div class="links"><a href="https://github.com/kimjy0977/KDT_Works/tree/main/90_hackathon/01_soonsoon-social-deduction" target="_blank" rel="noopener noreferrer">저장소 <code>github.com/kimjy0977/KDT_Works</code></a><a href="https://kdt-mafia.vercel.app/" target="_blank" rel="noopener noreferrer">실제로 해보기 <code>kdt-mafia.vercel.app</code></a><a href="https://kdt-mafia.vercel.app/replay.html" target="_blank" rel="noopener noreferrer">지난 판 다시보기 <code>AI 호출 0회</code></a></div>
+  </header>
 
   <h3>한 줄 정보</h3>
   <div class="scroll"><table>
     <tr><th style="width:130px">항목</th><th>내용</th><th style="width:96px">신뢰도</th></tr>
-    <tr><td>저장소</td><td><code>github.com/kimjy0977/KDT_Works</code>
+    <tr><td>저장소</td><td><a class="repo" href="https://github.com/kimjy0977/KDT_Works" target="_blank" rel="noopener noreferrer"><code>github.com/kimjy0977/KDT_Works</code></a>
       <span class="muted">· <code>90_hackathon/01_soonsoon-social-deduction/</code> (공개 · MIT)</span></td>
       <td><span class="stars">★★★★★</span></td></tr>
     <tr><td>실행 방법</td><td><code>bash serve.sh</code> → <code>localhost:5173</code>
@@ -1313,8 +1346,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
       <td><span class="stars">★★★★★</span></td></tr>
     <tr><td>문서 · 검사</td><td class="n">문서 8,349줄 · 함정 기록 100건 · 회귀 검사 <b>109/109 통과</b></td>
       <td><span class="stars">★★★★★</span></td></tr>
-    <tr><td>커밋 수</td><td class="n"><b>256</b>
-      <span class="muted">(폴더 개명 전 경로까지 포함해 셌습니다 — 개명 후 경로만 세면 86 으로 나옵니다)</span></td>
+    <tr><td>커밋 수</td><td class="n"><b>256</b></td>
       <td><span class="stars">★★★★★</span></td></tr>
     <tr><td>작업 기간</td><td>2026-08-17 첫 커밋 ~ 현재</td><td><span class="stars">★★★★★</span></td></tr>
     <tr><td><b>신뢰도 척도</b></td><td><b>★ 5단계</b>
@@ -1362,7 +1394,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <li><b>대화</b> — SAM 을 <b>서버에서 직접 호출</b>합니다. 내장 AI 는 검증 후 포기했습니다.
       정답(범인·기억)은 서버에만 두고 각 캐릭터에게 <b>자기 기억만</b> 줍니다.</li>
     <li><b>실행</b> — <code>bash serve.sh</code> → <code>localhost:5173</code>. Node 외 의존성 없음.</li>
-    <li><b>저장소</b> — <code>github.com/kimjy0977/KDT_Works</code> ·
+    <li><b>저장소</b> — <a class="repo" href="https://github.com/kimjy0977/KDT_Works" target="_blank" rel="noopener noreferrer"><code>github.com/kimjy0977/KDT_Works</code></a> ·
       <code>90_hackathon/01_soonsoon-social-deduction/</code> <span class="muted">(공개 · MIT)</span></li>
   </ul>
   <p><b>지금 상태</b> — 무대 <b>5개</b>(설산 산장 · 셰어하우스 · 심해 연구기지 · 해변 리조트 · 궤도 정거장),
@@ -1378,6 +1410,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
   </figure>
 
   <h3>어디서 막혔나</h3>
+  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 넷의 것을 나란히 놓아야 <b>겹치는 요청</b>이 보이기 때문입니다 — 「어디서 막혔나」 36개 중 <b>김주영 님 이름이 붙은 것이 18개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a></p>
   <ol>
     <li><b>내장 AI 로 게임을 굴리려 했는데 설정을 안 지켰다.</b>
       추리 게임은 “누가 무엇을 봤는가”가 사실이어야 성립하는데 지어내면 게임이 아닙니다.
@@ -1498,13 +1531,15 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
 
 <!-- ══════════════ 신서연 ══════════════ -->
 <div class="panel" role="tabpanel" id="p-sy" aria-labelledby="t-sy" hidden>
-  <p class="intro"><b>신서연</b> — 「누가 내 치즈케이크를 먹었나」 하우스메이트 추리 게임.
-    순순팩토리 마케팅 데모.</p>
+  <header class="tabhead">
+    <h2><span class="who">신서연</span> — <span class="what">「누가 내 치즈케이크를 먹었나」 하우스메이트 추리 게임</span></h2>
+    <div class="links"><a href="https://github.com/tigermorning/who-ate-my-cheesecake" target="_blank" rel="noopener noreferrer">저장소 <code>github.com/tigermorning/who-ate-my-cheesecake</code></a></div>
+  </header>
 
   <h3>한 줄 정보</h3>
   <div class="scroll"><table>
     <tr><th style="width:130px">항목</th><th>내용</th><th style="width:96px">신뢰도</th></tr>
-    <tr><td>저장소</td><td><code>github.com/tigermorning/who-ate-my-cheesecake</code>
+    <tr><td>저장소</td><td><a class="repo" href="https://github.com/tigermorning/who-ate-my-cheesecake" target="_blank" rel="noopener noreferrer"><code>github.com/tigermorning/who-ate-my-cheesecake</code></a>
       <span class="muted">· main · 정리일 2026-08-25</span></td><td><span class="stars">★★★★★</span></td></tr>
     <tr><td>실행 방법</td><td><code>node spum/serve.mjs</code> → <code>http://127.0.0.1:8790</code></td>
       <td><span class="stars">★★★★★</span></td></tr>
@@ -1512,7 +1547,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
       <td><span class="stars">★★★★★</span></td></tr>
     <tr><td>런타임 의존성</td><td><b>0개</b> <span class="muted">(순수 Node.js ESM · 프레임워크 없음)</span></td>
       <td><span class="stars">★★★★★</span></td></tr>
-    <tr><td>작업 기간</td><td class="muted">받지 못했습니다</td><td class="muted">—</td></tr>
+    <tr><td>작업 기간</td><td>김주영과 같은 시기에 시작했습니다 <span class="muted">(첫 커밋 2026-08-17 기준)</span>. <span class="muted">본인에게 받은 자료에는 기간 표기가 없어, 함께 작업한 김주영의 진술로 적습니다.</span></td><td><span class="stars">★★★☆☆</span></td></tr>
     <tr><td><b>신뢰도 척도</b></td>
       <td><b>자체 4등급</b> — 해결됨 / 코드만 확인 / 출처만 확인 / 미해결. <b>★ 5단계가 아닙니다.</b>
         <span class="muted">이 자료는 저희가 요청해서 받은 것이 아니라
@@ -1715,6 +1750,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
   </table></div>
 
   <h3>실제로 부딪힌 문제 — 등급을 매겨 관리했습니다</h3>
+  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 넷의 것을 나란히 놓아야 <b>겹치는 요청</b>이 보이기 때문입니다 — 「어디서 막혔나」 36개 중 <b>신서연 님 이름이 붙은 것이 10개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a></p>
   <div class="call nt">
     <span class="lab">「해결됨」은 주장이 아니라 판정입니다</span>
     <i>“게임 속에서 무엇이 진짜인지는 전부 코드가 정하고 코드가 검사한다”</i> 는 원칙을
@@ -1837,20 +1873,21 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
         <span class="muted">(<code>--live</code> 로 실제 SAM 호출 검증도 가능)</span></li>
     </ul>
     <p style="margin:12px 0 0" class="muted">둘 다 레포에 그대로 있어 바로 실행해 볼 수 있습니다 —
-      <code>github.com/tigermorning/who-ate-my-cheesecake/tree/main/spum</code></p>
+      <a class="repo" href="https://github.com/tigermorning/who-ate-my-cheesecake/tree/main/spum" target="_blank" rel="noopener noreferrer"><code>github.com/tigermorning/who-ate-my-cheesecake/tree/main/spum</code></a></p>
   </div>
 </div>
 
 <!-- ══════════════ 정충원 ══════════════ -->
 <div class="panel" role="tabpanel" id="p-cw" aria-labelledby="t-cw" hidden>
-  <p class="intro"><b>정충원</b> — SPUM 자동화 파이프라인과 개선 제안서.</p>
+  <header class="tabhead">
+    <h2><span class="who">정충원</span> — <span class="what">SPUM 자동화 파이프라인과 개선 제안서</span></h2>
+    <div class="links"><a href="https://spum-proposal.vercel.app/" target="_blank" rel="noopener noreferrer">제안서 원문 <code>spum-proposal.vercel.app</code></a><a href="https://github.com/GojoSuperman/spum-kit" target="_blank" rel="noopener noreferrer">파이프라인 코드 <code>github.com/GojoSuperman/spum-kit</code></a></div>
+  </header>
 
   <div class="call nt">
     <span class="lab">이 탭은 성격이 다릅니다</span>
-    이 자료는 저희가 요청해서 받은 것이 아니라, <b>정충원 님이 회사에 낼 개선 제안서로 먼저 쓴 것</b>입니다.
-    제안서라 <b>신뢰도 표기가 원래 없습니다</b> — §03 표에서 정충원 님 항목이
-    <b>「표기 없음」</b> 으로 나오는 이유이고, <b>저희가 대신 등급을 매기지 않았습니다.</b>
-    근거는 본문에 적힌 계측 방식(30초 간격 세션 로그 · 실제 크레딧 소모 · 413 재현)으로 판단해 주십시오.
+    회사에 낼 <b>개선 제안서</b>로 먼저 쓴 자료라 <b>신뢰도 척도가 없습니다.</b>
+    근거는 본문의 계측 방식(30초 간격 세션 로그 · 실제 크레딧 소모 · 413 재현)으로 봐 주십시오.
   </div>
 
   <h3>무엇을 만들었나</h3>
@@ -1884,10 +1921,11 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
       6단계가 <b>명령 하나로</b> 이어집니다</li>
     <li>이 방식으로 <b>씬 맵 6개</b>를 제작해 실제 월드에서 사용 중입니다
       <span class="muted">(산동네 마을 · 미래 도시 · 판타지 시장 광장 등)</span></li>
-    <li>파이프라인은 <b>MIT 로 공개</b>했습니다 — <code>github.com/GojoSuperman/spum-kit</code></li>
+    <li>파이프라인은 <b>MIT 로 공개</b>했습니다 — <a class="repo" href="https://github.com/GojoSuperman/spum-kit" target="_blank" rel="noopener noreferrer"><code>github.com/GojoSuperman/spum-kit</code></a></li>
   </ul>
 
   <h3>어디서 막혔나</h3>
+  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 넷의 것을 나란히 놓아야 <b>겹치는 요청</b>이 보이기 때문입니다 — 「어디서 막혔나」 36개 중 <b>정충원 님 이름이 붙은 것이 8개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a></p>
   <p>스튜디오가 활발히 개발 중인 만큼 UI 가 자주 갱신되는데, 그때마다 DOM 선택자를 처음부터 다시 찾아야 했습니다.
     개발 단계 제품에서는 자연스러운 일이지만, 자동화 측에서는
     <b>기능을 추가하는 시간보다 깨진 선택자를 복구하는 시간이 더 커지는 구조</b>가 됩니다.</p>
@@ -1986,7 +2024,10 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
 
 <!-- ══════════════ 최종우 ══════════════ -->
 <div class="panel" role="tabpanel" id="p-jw" aria-labelledby="t-jw" hidden>
-  <p class="intro"><b>최종우</b> — 「치즈케이크 도난 사건」 2D 탑다운 미니 추리 게임.</p>
+  <header class="tabhead">
+    <h2><span class="who">최종우</span> — <span class="what">「치즈케이크 도난 사건」 2D 탑다운 미니 추리 게임</span></h2>
+    <div class="links"><a href="https://github.com/cjwmanelf/spum-cheesecake-demo" target="_blank" rel="noopener noreferrer">저장소 <code>github.com/cjwmanelf/spum-cheesecake-demo</code></a></div>
+  </header>
 
   <div class="call nt">
     <span class="lab">결론 먼저</span>
@@ -2001,7 +2042,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
   <h3>한 줄 정보</h3>
   <div class="scroll"><table>
     <tr><th style="width:130px">항목</th><th>내용</th><th style="width:96px">신뢰도</th></tr>
-    <tr><td>저장소</td><td><code>github.com/cjwmanelf/spum-cheesecake-demo</code> <span class="muted">(공개)</span></td>
+    <tr><td>저장소</td><td><a class="repo" href="https://github.com/cjwmanelf/spum-cheesecake-demo" target="_blank" rel="noopener noreferrer"><code>github.com/cjwmanelf/spum-cheesecake-demo</code></a> <span class="muted">(공개)</span></td>
       <td><span class="stars">★★★★★</span></td></tr>
     <tr><td>실행 방법</td><td><code>bash serve.sh</code> → <code>localhost:8791/index.html</code>
       <span class="muted">(내부적으로 <code>python server.py 8791</code>)</span></td>
@@ -2064,6 +2105,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <b>왜 프록시인가 — 브라우저 직접 호출이 CORS 로 막혀서입니다.</b></p>
 
   <h3>어디서 막혔나</h3>
+  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 넷의 것을 나란히 놓아야 <b>겹치는 요청</b>이 보이기 때문입니다 — 「어디서 막혔나」 36개 중 <b>최종우 님 이름이 붙은 것이 9개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a></p>
   <p class="sdesc">본인이 <b>유형 ①~⑤</b>를 항목마다 붙였습니다 —
     ① 오류 없이 조용히 실패 ② 문서에 없어 소스로 알아냄 ③ 이름과 동작이 다름
     ④ 두 규약이 어긋남 ⑤ 돈이 샘.</p>
@@ -2187,7 +2229,7 @@ footer{margin-top:70px;padding:24px 0 60px;border-top:1px solid var(--line);
     <ul style="margin:0">
       <li><b>재사용 가능한 SAM 프록시</b> — <code>server.py</code> 63줄.
         <b>다른 브라우저 데모도 이걸로 CORS 를 우회할 수 있습니다.</b></li>
-      <li><b>코드 + README + 작업 노트</b> — <code>github.com/cjwmanelf/spum-cheesecake-demo</code></li>
+      <li><b>코드 + README + 작업 노트</b> — <a class="repo" href="https://github.com/cjwmanelf/spum-cheesecake-demo" target="_blank" rel="noopener noreferrer"><code>github.com/cjwmanelf/spum-cheesecake-demo</code></a></li>
       <li><b>플랫폼 개선 제안 문서</b> — 별도 정리본.
         <b>항목 20건</b>을 심각도 3단계(High/Medium/Low)로 나누고 <b>Top 5 우선순위</b>를 붙였습니다.
         위 「어디서 막혔나」와 「엔진에 없어서 직접 만든 것」이 그 문서에서 온 것입니다</li>
@@ -2260,10 +2302,31 @@ function 보이기(i, 옮길까) {
   });
 });
 
+const 부드럽게 = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// ── 다른 탭으로 보내는 링크 ──────────────────────────────────────
+// 왜 필요한가: 「어디서 막혔나」 36개는 **통합 탭에만** 있다(넷을 나란히 놓아야
+// 겹치는 요청이 보이기 때문이다). 그래서 개인 탭에서 그쪽을 가리켜야 하는데,
+// 탭 전환이 클릭 핸들러뿐이라 **링크로는 갈 수가 없었다.**
+document.querySelectorAll("[data-tab-to]").forEach(a => {
+  a.addEventListener("click", e => {
+    e.preventDefault();
+    const 목표 = a.getAttribute("data-tab-to");
+    const i = 탭들.findIndex(t => t.getAttribute("aria-controls") === 목표);
+    if (i < 0) return;
+    보이기(i, false);
+    const 앵커 = a.getAttribute("data-anchor");
+    if (앵커) {
+      const el = document.querySelector(앵커);
+      if (el) requestAnimationFrame(() =>
+        el.scrollIntoView({ behavior: 부드럽게 ? "smooth" : "auto", block: "start" }));
+    }
+  });
+});
+
 // ── 탭 안 칩 목차 ────────────────────────────────────────────────
 // CSS `scroll-behavior:smooth` 는 쓰지 않는다 — 해시를 달고 들어오면 브라우저가
 // **레이아웃 전에** 스크롤을 시도해 맨 위에 머문다(실측). 여기서 처리한다.
-const 부드럽게 = !matchMedia("(prefers-reduced-motion: reduce)").matches;
 document.querySelectorAll(".chipnav a").forEach(a => {
   a.addEventListener("click", e => {
     const 목적지 = document.querySelector(a.getAttribute("href"));
