@@ -290,14 +290,14 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
 .tabhead h2{margin:0 0 6px;font-size:clamp(20px,2.6vw,27px);line-height:1.35;letter-spacing:-.02em}
 .tabhead h2 .who{color:var(--accent-ink)}
 .tabhead .what{font-weight:500;opacity:.86}
-.tabhead .links{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
-.tabhead .links a{display:inline-flex;align-items:center;gap:6px;
+.links{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+.links a{display:inline-flex;align-items:center;gap:6px;
   padding:7px 13px;border-radius:999px;border:1px solid var(--line);
   background:var(--card);color:inherit;text-decoration:none;
   font:600 12.5px/1 var(--label);transition:border-color .15s,background .15s}
-.tabhead .links a:hover{border-color:var(--accent);background:rgba(255,138,61,.08)}
-.tabhead .links a code{font-size:12px;font-weight:500;background:none;padding:0;opacity:.75}
-.tabhead .links a::after{content:"↗";font-size:.85em;opacity:.5}
+.links a:hover{border-color:var(--accent);background:rgba(255,138,61,.08)}
+.links a code{font-size:12px;font-weight:500;background:none;padding:0;opacity:.75}
+.links a::after{content:"↗";font-size:.85em;opacity:.5}
 
 /* ── 히어로의 「직접 해보기」 ─────────────────────────────────────
    문서만 읽고 덮으면 **만든 것을 한 번도 안 보고 끝난다.**
@@ -362,6 +362,18 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
 <div class="panel" role="tabpanel" id="p-all" aria-labelledby="t-all">
   <p class="intro">넷의 기록에서 <b>회사에 쓸모 있는 것만</b> 뽑아 하나로 합쳤습니다.
     누가 무엇을 만들었는지는 <b>「비교」 탭</b>에, 각자의 전체 기록은 <b>이름 탭</b>에 있습니다.</p>
+
+  <div class="call">
+    <span class="lab">코드 바로 보기</span>
+    <b>네 저장소 모두 공개돼 있습니다.</b> 아래는 각자 <b>실제 게임 코드가 들어 있는 폴더</b>로 바로 가는 링크입니다 —
+    저장소 첫 화면이 아니라 <b>코드가 있는 자리</b>입니다. 저장소 전체·실행 방법·문서는 <b>이름 탭</b>에 있습니다.
+    <div class="links">
+      <a href="https://github.com/kimjy0977/KDT_Works/tree/main/90_hackathon/01_soonsoon-social-deduction/proto" target="_blank" rel="noopener noreferrer">김주영 <code>KDT_Works/…/proto</code></a>
+      <a href="https://github.com/tigermorning/who-ate-my-cheesecake/tree/main/spum" target="_blank" rel="noopener noreferrer">신서연 <code>who-ate-my-cheesecake/spum</code></a>
+      <a href="https://github.com/GojoSuperman/spum-kit/tree/main/src" target="_blank" rel="noopener noreferrer">정충원 <code>spum-kit/src</code></a>
+      <a href="https://github.com/cjwmanelf/spum-cheesecake-demo/blob/master/app.js" target="_blank" rel="noopener noreferrer">최종우 <code>spum-cheesecake-demo/app.js</code></a>
+    </div>
+  </div>
 
   <div class="chipnav">
     <a href="#s-sum">세 줄 요약</a><a href="#s-ask">회사에 드리는 요청</a>
@@ -1381,7 +1393,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
 <div class="panel" role="tabpanel" id="p-jy" aria-labelledby="t-jy" hidden>
   <header class="tabhead">
     <h2><span class="who">김주영</span> — <span class="what">「누가 마피아지?」 AI NPC 소셜 추리 게임</span></h2>
-    <div class="links"><a href="https://github.com/kimjy0977/KDT_Works/tree/main/90_hackathon/01_soonsoon-social-deduction" target="_blank" rel="noopener noreferrer">저장소 <code>github.com/kimjy0977/KDT_Works</code></a><a href="https://kdt-mafia.vercel.app/" target="_blank" rel="noopener noreferrer">실제로 해보기 <code>kdt-mafia.vercel.app</code></a><a href="https://kdt-mafia.vercel.app/replay.html" target="_blank" rel="noopener noreferrer">지난 판 다시보기 <code>AI 호출 0회</code></a></div>
+    <div class="links"><a href="https://github.com/kimjy0977/KDT_Works/tree/main/90_hackathon/01_soonsoon-social-deduction" target="_blank" rel="noopener noreferrer">저장소 <code>github.com/kimjy0977/KDT_Works</code></a><a href="https://github.com/kimjy0977/KDT_Works/tree/main/90_hackathon/01_soonsoon-social-deduction/proto" target="_blank" rel="noopener noreferrer">게임 코드 <code>/proto</code></a><a href="https://kdt-mafia.vercel.app/" target="_blank" rel="noopener noreferrer">실제로 해보기 <code>kdt-mafia.vercel.app</code></a><a href="https://kdt-mafia.vercel.app/replay.html" target="_blank" rel="noopener noreferrer">지난 판 다시보기 <code>AI 호출 0회</code></a></div>
   </header>
 
   <h3>한 줄 정보</h3>
@@ -2044,7 +2056,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
 <div class="panel" role="tabpanel" id="p-cw" aria-labelledby="t-cw" hidden>
   <header class="tabhead">
     <h2><span class="who">정충원</span> — <span class="what">SPUM 자동화 파이프라인과 개선 제안서</span></h2>
-    <div class="links"><a href="https://spum-proposal.vercel.app/" target="_blank" rel="noopener noreferrer">제안서 원문 <code>spum-proposal.vercel.app</code></a><a href="https://github.com/GojoSuperman/spum-kit" target="_blank" rel="noopener noreferrer">파이프라인 코드 <code>github.com/GojoSuperman/spum-kit</code></a></div>
+    <div class="links"><a href="https://spum-proposal.vercel.app/" target="_blank" rel="noopener noreferrer">제안서 원문 <code>spum-proposal.vercel.app</code></a><a href="https://github.com/GojoSuperman/spum-kit" target="_blank" rel="noopener noreferrer">파이프라인 코드 <code>github.com/GojoSuperman/spum-kit</code></a><a href="https://github.com/GojoSuperman/spum-kit/tree/main/src" target="_blank" rel="noopener noreferrer">코드 폴더 <code>/src</code></a></div>
   </header>
 
   <div class="call nt">
@@ -2189,7 +2201,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
 <div class="panel" role="tabpanel" id="p-jw" aria-labelledby="t-jw" hidden>
   <header class="tabhead">
     <h2><span class="who">최종우</span> — <span class="what">「치즈케이크 도난 사건」 2D 탑다운 미니 추리 게임</span></h2>
-    <div class="links"><a href="https://github.com/cjwmanelf/spum-cheesecake-demo" target="_blank" rel="noopener noreferrer">저장소 <code>github.com/cjwmanelf/spum-cheesecake-demo</code></a></div>
+    <div class="links"><a href="https://github.com/cjwmanelf/spum-cheesecake-demo" target="_blank" rel="noopener noreferrer">저장소 <code>github.com/cjwmanelf/spum-cheesecake-demo</code></a><a href="https://github.com/cjwmanelf/spum-cheesecake-demo/blob/master/app.js" target="_blank" rel="noopener noreferrer">게임 코드 <code>app.js</code></a></div>
   </header>
 
   <div class="call nt">
