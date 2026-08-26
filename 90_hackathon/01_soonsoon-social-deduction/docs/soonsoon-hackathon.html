@@ -336,7 +336,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
 
     <div class="strip">
       <div><b>4</b><small>각자 만든 것</small></div>
-      <div><b>33</b><small>막힌 곳 · 계측 기록</small></div>
+      <div><b>34</b><small>막힌 곳 · 계측 기록</small></div>
       <div><b>8</b><small>둘 이상이 겪은 항목</small></div>
       <div><b>3</b><small>세 사람이 겪은 항목</small></div>
     </div>
@@ -525,7 +525,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
     <p class="sdesc">주황 띠가 붙은 행은 <b>둘 이상이 독립적으로 같은 것을 만난</b> 항목입니다.
       누가 겪었는지를 나란히 보시려면 <b>「비교」 탭</b>이 더 편합니다.</p>
 
-    <h4>A · Studio 사용 <span class="cnt">14건</span></h4>
+    <h4>A · Studio 사용 <span class="cnt">15건</span></h4>
     <div class="items">
 <article class="item">
         <div class="ihead"><span class="inum">1</span>
@@ -672,10 +672,28 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         <p class="idesc">평면도 사진을 참조로 주면 <b>원본 비율과 무관하게 무조건 1024×1024</b> 로 나옵니다.
         오히려 <b>짧은 텍스트만 주고 자유 생성시킨 쪽이 결과가 좋았습니다.</b>
         다른 쪽에서는 <b>1024 가 품질 설정과 무관한 하드 상한</b>임을 저·중·고 전부에서 확인했습니다 —
-        같은 벽의 두 얼굴입니다. 헬멧 이름을 정확히 지정해도 다른 헬멧이 나오는 패턴도 같이 나왔습니다</p>
+        같은 벽의 두 얼굴입니다</p>
         <div class="imeta">
           <div><span class="ilab">확인 수준</span><span class="ival"><b>표기 없음</b><span class="sub muted">신서연 님 표기<br>아키텍처 절의 주석</span></span></div>
           <div><span class="ilab">있었으면 안 막혔을 것</span><span class="ival">비율 유지 · 또는 <b>제약을 문서에 명시</b></span></div>
+        </div>
+      </article>
+
+            <article class="item">
+        <div class="ihead"><span class="inum">34</span>
+          <div class="ititle">헬멧 이름을 정확히 지정해도 <b>다른 헬멧이 장착된다</b></div>
+          <div class="chips"><span class="chip on">신서연</span></div>
+        </div>
+        <p class="idesc">Cast Editor 에서 캐릭터가 걸치고 있는 헬멧의 <b>정확한 명칭을 그대로 따와서</b>
+        장착을 요청했는데, <b>요청한 것과 다른 헬멧이 무작위로</b> 장착됐습니다.
+        <b>이름을 정확히 지정했다는 사실이 결과를 보장하지 않습니다.</b>
+        다만 원인이 Studio 쪽인지 <b>자연어 요청을 장착 명령으로 옮기는 쪽인지는 가르지 못했습니다</b> —
+        그 세션이 커밋으로 남지 않아 재현할 코드가 없습니다.
+        위 #21(1024 강제)과 <b>「정확한 입력을 줘도 그대로 받아 주지 않는다」</b>는 점이 겹치지만,
+        이건 이미지 생성이 아니라 <b>있는 항목을 특정해 장착하는</b> 경우라 같은 원인인지는 확인되지 않았습니다</p>
+        <div class="imeta">
+          <div><span class="ilab">확인 수준</span><span class="ival"><b>표기 없음</b><span class="sub muted">신서연 님 표기<br>본인 경험 · 코드 재현 증거 없음</span></span></div>
+          <div><span class="ilab">있었으면 안 막혔을 것</span><span class="ival">장착 요청이 <b>지정한 항목을 그대로 쓰는지</b> · 이름으로 특정하는 규약</span></div>
         </div>
       </article>
 
@@ -1236,7 +1254,10 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         <td><span class="dot no"></span></td><td><span class="dot"></span></td>
         <td><b>같은 원인의 세 얼굴입니다.</b> 하나는 <b>작업을 두 번 날렸고</b>,
           하나는 <b>다중 기기에서 낡은 데이터가 최신이 되는 것</b>을 봤고,
-          하나는 <b>콘솔 전용 내부 API 로만 서버 최신본을 받아올 수 있다</b>는 데까지 갔습니다</td></tr>
+          하나는 <b>콘솔 전용 내부 API 로만 서버 최신본을 받아올 수 있다</b>는 데까지 갔습니다.
+          <span class="sub">네 번째 사람은 <b>겪지 않았습니다</b> — 팀 공용 문서에서 이 규칙을 물려받아
+          <b>「백업 → 로컬 쓰기 → 서버 저장」 순서를 자동화 코드에 박아 두었기 때문</b>입니다.
+          이 표에서 <b>문서 한 줄이 실제로 사고를 막은 유일한 칸</b>입니다</span></td></tr>
       <tr class="dup"><td><b>세션이 조용히 만료된다</b>
           <span class="sub muted">통합 §03 #3</span></td>
         <td><span class="dot"></span></td><td><span class="dot"></span></td>
@@ -1244,7 +1265,10 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         <td>하나는 「30분쯤」으로 알았고, 하나가 <b>30초 간격 계측</b>으로
           <b>15분 쿠키 회전 · 30분 종료</b>를 확정했습니다.
           하나는 <b><code>/api/me</code> 60초 폴링 keep-alive 를 페이지에 직접 주입</b>했고
-          <b>페이지를 옮길 때마다 다시 심어야</b> 했습니다</td></tr>
+          <b>페이지를 옮길 때마다 다시 심어야</b> 했습니다.
+          <span class="sub">네 번째 사람도 <b>겪지 않았습니다</b> — 같은 규칙을
+          <b>인계 문서에 실무 절차로 적어 두고</b>(만료 시 ACCOUNT → 다시 로그인)
+          자동화를 짤 때 그 전제로 만들었습니다</span></td></tr>
       <tr class="dup"><td><b>실패해도 과금되는가</b>를 알 수 없다
           <span class="sub muted">통합 §03 #9·#11</span></td>
         <td><span class="dot"></span></td><td><span class="dot"></span></td>
@@ -1450,7 +1474,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
   </figure>
 
   <h3>어디서 막혔나</h3>
-  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 넷의 것을 나란히 놓아야 <b>겹치는 요청</b>이 보이기 때문입니다 — 「어디서 막혔나」 36개 중 <b>김주영 님 이름이 붙은 것이 18개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a></p>
+  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 넷의 것을 나란히 놓아야 <b>겹치는 요청</b>이 보이기 때문입니다 — 「어디서 막혔나」 34개 중 <b>김주영 님 이름이 붙은 것이 18개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a></p>
   <ol>
     <li><b>내장 AI 로 게임을 굴리려 했는데 설정을 안 지켰다.</b>
       추리 게임은 “누가 무엇을 봤는가”가 사실이어야 성립하는데 지어내면 게임이 아닙니다.
@@ -1880,7 +1904,16 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
   </table></div>
 
   <h3>실제로 부딪힌 문제 — 등급을 매겨 관리했습니다</h3>
-  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 넷의 것을 나란히 놓아야 <b>겹치는 요청</b>이 보이기 때문입니다 — 「어디서 막혔나」 36개 중 <b>신서연 님 이름이 붙은 것이 10개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a></p>
+  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 넷의 것을 나란히 놓아야 <b>겹치는 요청</b>이 보이기 때문입니다 — 「어디서 막혔나」 34개 중 <b>신서연 님 이름이 붙은 것이 11개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a></p>
+  <div class="call nt">
+    <span class="lab">비어 있는 칸에도 이유가 있습니다</span>
+    통합 §04 표의 <b>「동기화가 로컬을 얹는다」·「세션이 조용히 만료된다」</b> 두 건은 이 사람 칸이 비어 있습니다.
+    <b>겪지 않았기 때문입니다.</b> 팀 공용 문서에서 규칙을 물려받아
+    <b>「백업 → 로컬 쓰기 → 서버 저장」 순서를 자동화 코드에 박아 두었고</b>,
+    세션 만료는 <b>인계 문서에 실무 절차로 적어 두고</b> 그 전제로 자동화를 짰습니다.
+    표는 <b>「겪은 것」</b> 을 세므로 점을 찍지 않고 그 칸 설명에 적었습니다 —
+    <b>문서 한 줄이 실제로 사고를 막은 사례</b>라 그쪽이 더 정확합니다.
+  </div>
   <div class="call nt">
     <span class="lab">「해결됨」은 주장이 아니라 판정입니다</span>
     <i>“게임 속에서 무엇이 진짜인지는 전부 코드가 정하고 코드가 검사한다”</i> 는 원칙을
@@ -2055,7 +2088,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
   </ul>
 
   <h3>어디서 막혔나</h3>
-  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 넷의 것을 나란히 놓아야 <b>겹치는 요청</b>이 보이기 때문입니다 — 「어디서 막혔나」 36개 중 <b>정충원 님 이름이 붙은 것이 8개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a></p>
+  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 넷의 것을 나란히 놓아야 <b>겹치는 요청</b>이 보이기 때문입니다 — 「어디서 막혔나」 34개 중 <b>정충원 님 이름이 붙은 것이 8개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a></p>
   <p>스튜디오가 활발히 개발 중인 만큼 UI 가 자주 갱신되는데, 그때마다 DOM 선택자를 처음부터 다시 찾아야 했습니다.
     개발 단계 제품에서는 자연스러운 일이지만, 자동화 측에서는
     <b>기능을 추가하는 시간보다 깨진 선택자를 복구하는 시간이 더 커지는 구조</b>가 됩니다.</p>
@@ -2234,7 +2267,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
     <b>왜 프록시인가 — 브라우저 직접 호출이 CORS 로 막혀서입니다.</b></p>
 
   <h3>어디서 막혔나</h3>
-  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 넷의 것을 나란히 놓아야 <b>겹치는 요청</b>이 보이기 때문입니다 — 「어디서 막혔나」 36개 중 <b>최종우 님 이름이 붙은 것이 9개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a></p>
+  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 넷의 것을 나란히 놓아야 <b>겹치는 요청</b>이 보이기 때문입니다 — 「어디서 막혔나」 34개 중 <b>최종우 님 이름이 붙은 것이 9개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a></p>
   <p class="sdesc">본인이 <b>유형 ①~⑤</b>를 항목마다 붙였습니다 —
     ① 오류 없이 조용히 실패 ② 문서에 없어 소스로 알아냄 ③ 이름과 동작이 다름
     ④ 두 규약이 어긋남 ⑤ 돈이 샘.</p>
@@ -2432,7 +2465,7 @@ function 보이기(i, 옮길까) {
 const 부드럽게 = !matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // ── 다른 탭으로 보내는 링크 ──────────────────────────────────────
-// 왜 필요한가: 「어디서 막혔나」 36개는 **통합 탭에만** 있다(넷을 나란히 놓아야
+// 왜 필요한가: 「어디서 막혔나」 34개는 **통합 탭에만** 있다(넷을 나란히 놓아야
 // 겹치는 요청이 보이기 때문이다). 그래서 개인 탭에서 그쪽을 가리켜야 하는데,
 // 탭 전환이 클릭 핸들러뿐이라 **링크로는 갈 수가 없었다.**
 document.querySelectorAll("[data-tab-to]").forEach(a => {
