@@ -191,7 +191,7 @@ LLM 에게 "범인 역할을 해줘"라고 시키면 매번 다른 얘기를 지
 | NPC 3명 이상과 자연어 대화 · 성격 반영 | 등장인물 **10명**(무대별 4~10인), 각자 성격·말투·MBTI·말수·기억. 가까이 가서 `E`, 전체 토론은 `T` |
 | 대화 맥락 유지 | 캐릭터별 history 를 누적해 매 요청에 전송. 대명사만 쓴 후속 질문으로 검증 |
 | 구현 기술 문서 | **[docs/tutorial.md](docs/tutorial.md)** (블로그 1편 분량) + 이 README + [`proto/README.md`](proto/README.md) |
-| 검증 | `node proto/tools/regress.mjs` — 규칙·배선·맵 **217항목**, **SAM 호출 0회**. 그 밖에 `balance.mjs`(승률 4만 판) · `run.mjs`(근거 엔진 7항목) |
+| 검증 | `cd proto && node tools/regress.mjs` — 규칙·배선·맵 **217항목**, **SAM 호출 0회**. 그 밖에 `balance.mjs`(승률 4만 판) · `run.mjs`(근거 엔진 7항목) <br>⚠ 도구는 `proto/` 안에서 돌린다 — 에셋을 상대경로로 읽는다 |
 | SAM 키 커밋 금지 | 서버에서만 읽습니다. `.env` 는 `.gitignore`, 레포엔 `.env.example` 만 |
 | MIT 라이선스 | `LICENSE` |
 
