@@ -232,8 +232,22 @@ a{color:var(--accent-ink);text-underline-offset:3px}
 .call .lab{display:block;font:600 11px/1 var(--label);letter-spacing:.05em;margin-bottom:9px;color:var(--accent-ink)}
 .call.cy .lab{color:var(--cyan)} .call.pl .lab{color:var(--plum)}
 
-.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface);
+/* ⚠⚠ **좁은 화면에서 표 28개가 가로로 넘친다**(2026-08-27 실측 · 900px 미만).
+     `overflow-x:auto` 로 밀 수는 있었지만 **밀 수 있다는 걸 알 방법이 없었다** —
+     화면 밖 열은 그냥 없는 것처럼 보인다. 넘칠 때만 힌트를 띄운다. */
+  .scroll{position:relative;overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface);
   margin:14px 0;box-shadow:var(--shadow)}
+  /* 넘칠 때만 붙는다(JS 가 data-넘침 을 단다). 다 밀면 사라진다. */
+  .scroll[data-넘침="1"]::after{
+    content:"← 옆으로 밀어 보세요";
+    position:sticky;left:0;bottom:0;display:block;
+    padding:5px 12px;font:500 11px/1 var(--label);
+    color:var(--ink-3);background:color-mix(in srgb,var(--surface) 88%,transparent);
+    border-top:1px solid var(--line);text-align:right;
+    backdrop-filter:blur(4px)}
+  .scroll[data-넘침="0"]::after{content:none}
+  @media (prefers-reduced-motion:reduce){ .scroll::after{transition:none} }
+
 table{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
 th,td{padding:13px 15px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
 tr:last-child td{border-bottom:none}
@@ -2742,6 +2756,24 @@ document.addEventListener("click", e => {
   if (!a) return;
   e.preventDefault();
   절로(document.querySelector(a.getAttribute("href")));
+});
+
+// ── 가로로 넘치는 표에 힌트를 붙인다 ──────────────────────────
+// ⚠ **넘칠 때만** 붙인다. 안 넘치는데 「밀어 보세요」가 뜨면 거짓말이다.
+// ⚠ 다 밀면 뗀다 — 끝까지 갔는데도 남아 있으면 더 있는 줄 안다.
+function 넘침표시(sc) {
+  const 넘 = sc.scrollWidth > sc.clientWidth + 2;
+  const 끝 = sc.scrollLeft + sc.clientWidth >= sc.scrollWidth - 4;
+  sc.dataset["넘침"] = (넘 && !끝) ? "1" : "0";
+}
+for (const sc of document.querySelectorAll(".scroll")) {
+  넘침표시(sc);
+  sc.addEventListener("scroll", () => 넘침표시(sc), { passive: true });
+}
+// 탭을 바꾸거나 창 크기가 바뀌면 다시 잰다 — 숨어 있던 표는 폭이 0 이라 못 잰다.
+addEventListener("resize", () => document.querySelectorAll(".scroll").forEach(넘침표시));
+for (const t of 탭들) t.addEventListener("click", () => {
+  setTimeout(() => document.querySelectorAll(".scroll").forEach(넘침표시), 0);
 });
 
 // ── 지금 보고 있는 절을 목차에 표시 ────────────────────────────
