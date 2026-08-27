@@ -22,7 +22,7 @@
 
 | | 주소 | 비고 |
 |---|---|---|
-| **게임** | <https://kdt-mafia.vercel.app/> | **초대 코드 필요** — 팀장에게 요청 |
+| **게임** | <https://kdt-mafia.vercel.app/> | 바로 열립니다 |
 | **지난 판 다시보기** | <https://kdt-mafia.vercel.app/replay.html> | 코드·키 없이 열립니다 · **AI 호출 0회** |
 
 ## 내 컴퓨터에서 실행
