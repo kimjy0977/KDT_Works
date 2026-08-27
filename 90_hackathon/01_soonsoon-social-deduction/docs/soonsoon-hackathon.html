@@ -37,11 +37,15 @@
   --surface-2:#f6f8fb;
   --ink:#131822;
   --ink-2:#4a5464;
-  --ink-3:#7b8698;
+  /* ⚠⚠ **WCAG 4.5:1 을 못 넘고 있었다**(2026-08-27 실측 · 주영님 지시로 처음 쟀다).
+     전 #7b8698 은 흰 배경에서 **3.68**, 주황 배경(--accent-wash)에서 **3.29** 였다.
+     흐린 글자가 「덜 중요하다」는 뜻이지 **안 보여도 된다**는 뜻은 아니다.
+     새 값: 흰 5.41 · 회 5.08 · 주황배경 4.84 — 셋 다 통과. */
+  --ink-3:#616b78;
   --line:#dde3ec;
   --line-2:#c8d1de;
   --grid:rgba(19,24,34,.045);
-  --accent:#e8590c;             /* 위험표시 주황 — SPUM UI·우리 맵에서 */
+  --accent:#c44708;             /* 위험표시 주황 — SPUM UI·우리 맵에서 */
   --accent-ink:#b8460a;
   --accent-wash:#fdf0e7;
   --cyan:#0b7285;
@@ -52,7 +56,7 @@
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --ground:#0e1116; --surface:#171b22; --surface-2:#1d222b;
-  --ink:#e8ecf2; --ink-2:#a8b2c1; --ink-3:#77828f;
+  --ink:#e8ecf2; --ink-2:#a8b2c1; --ink-3:#909ba9;
   --line:#2a313c; --line-2:#3a424f;
   --grid:rgba(232,236,242,.04);
   --accent:#ff8a4c; --accent-ink:#ffa876; --accent-wash:#2a1a10;
@@ -62,7 +66,7 @@
 }}
 :root[data-theme="dark"]{
   --ground:#0e1116; --surface:#171b22; --surface-2:#1d222b;
-  --ink:#e8ecf2; --ink-2:#a8b2c1; --ink-3:#77828f;
+  --ink:#e8ecf2; --ink-2:#a8b2c1; --ink-3:#909ba9;
   --line:#2a313c; --line-2:#3a424f;
   --grid:rgba(232,236,242,.04);
   --accent:#ff8a4c; --accent-ink:#ffa876; --accent-wash:#2a1a10;
@@ -156,8 +160,11 @@ h1{font-size:clamp(36px,6vw,56px);line-height:1.07;letter-spacing:-.035em;font-w
     border-bottom:1px solid var(--line)}
   /* 지금 보고 있는 절을 알려 준다 — 긴 문서에서 「내가 어디쯤인가」가 안 보이면
      목차가 있어도 길을 잃는다 */
+  /* ⚠ 안쪽 <em> 번호가 `--accent-ink` + opacity .85 라, 주황 배경과 겹치면 4.5 를 못 넘었다.
+       현재 절에서는 **불투명하게** 둔다 — 강조하려고 만든 것이 오히려 덜 보이면 안 된다. */
   .chipnav a[aria-current="true"]{border-color:var(--accent);color:var(--accent-ink);
     background:var(--accent-wash);font-weight:600}
+  .chipnav a[aria-current="true"] em{opacity:1}
   /* 좁은 화면에서는 줄바꿈 대신 옆으로 민다 — 세 줄이 되면 화면 절반을 먹는다 */
   @media (max-width:640px){
     .chipnav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
@@ -278,7 +285,9 @@ table.cmp td{font-size:13.5px;line-height:1.6}
 :root[data-theme="dark"] .chip.on{color:#1a0d05}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.on{color:#1a0d05}}
 
-.stars{font:500 12.5px/1 var(--label);color:var(--accent);letter-spacing:.02em;white-space:nowrap}
+/* ⚠ 별은 `--accent` 였는데 **주황 배경(겹침 행·콜아웃) 위에서 4.42** 로 미달이었다.
+     `--accent-ink` 는 같은 계열이면서 주황 위에서도 4.8 이다 — 색감은 유지하고 대비만 올린다. */
+  .stars{font:500 12.5px/1 var(--label);color:var(--accent-ink);letter-spacing:.02em;white-space:nowrap}
 .stars.dim{color:var(--ink-3)}
 
 code{font:500 13px/1.5 var(--mono);background:var(--surface-2);border:1px solid var(--line);
@@ -361,7 +370,10 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
   transition:border-color .15s,background .15s,color .15s,transform .12s,box-shadow .18s}
 .links a:hover{background:var(--accent);color:#fff;transform:translateY(-2px);
   box-shadow:0 8px 22px color-mix(in srgb,var(--accent) 34%,transparent)}
-.links a code{font-size:12.5px;font-weight:600;background:none;padding:0;opacity:.92;color:inherit}
+/* ⚠ 여기 `opacity:.92` 가 있었다. 색은 --accent-ink(주황 배경에서 4.8) 인데
+     0.92 가 곱해지면서 **4.22 로 떨어져 WCAG 4.5 를 못 넘었다.**
+     0.92 는 눈으로는 거의 차이가 없는데 대비만 깎는다 — 얻는 것 없이 잃기만 한다. */
+  .links a code{font-size:12.5px;font-weight:600;background:none;padding:0;color:inherit}
 .links a::after{content:"↗";font-size:.9em;opacity:.75;font-weight:700}
 
 </style>
