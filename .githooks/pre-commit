@@ -1,5 +1,5 @@
 #!/bin/sh
-# KDT pre-commit v4 — **혼합 스코프 커밋 거부** (세션 정체 불필요)
+# KDT pre-commit v5 — **혼합 스코프 커밋 거부** (세션 정체 불필요)
 # 근거: 토론 TH-20260823-INFRA / v1~v3 결함을 실사용에서 연속 발견 후 재설계
 #
 # ★왜 세션 정체를 안 쓰는가 (v3까지의 실패)
@@ -12,9 +12,25 @@
 #     · 매니저 08-23: 폴더개명(구조) + 게임코드(해커톤)
 #     · 튜터 08-19: 문서(튜터) + 해커톤 미완성 파일
 #   혼합만 막으면 **정체를 몰라도 두 사고가 다 걸린다.**
+#
+# ── v5 수정 (2026-08-27 · 빌더 KBTM-B-20260827-1 제보) ─────────────
+# ★버그: **한글 파일명이 든 정상 커밋을 거부**했다.
+#   git 은 기본(core.quotepath=true)에서 비ASCII 경로를 따옴표로 감싸고 8진 이스케이프한다:
+#     "90_hackathon/.../SPUM-\355\214\200\352\260\200\354\235\264\353\223\234.md"
+#   그러면 `case "$f" in 90_hackathon/*)` 가 **선두 따옴표 때문에 빗나가** other 로 떨어지고,
+#   같은 커밋의 다른 파일과 합쳐져 "스코프 2개"로 오판된다.
+#   → `git -c core.quotepath=false` 로 받는다.
+# ★함께 고친 것: `for f in $FILES` 는 **공백 있는 파일명에서도 쪼개진다.**
+#   IFS 를 개행만으로 한정해 막는다.
+# ⚠빌더는 훅이 매니저 관할이라 **직접 고치지 않고 --no-verify 도 쓰지 않았다.** 옳은 처신이다.
 
-FILES=$(git diff --cached --name-only)
+# 비ASCII 경로 따옴표 방지 + 공백 파일명 대비(IFS=개행)
+FILES=$(git -c core.quotepath=false diff --cached --name-only)
 [ -z "$FILES" ] && exit 0
+
+OLDIFS=$IFS
+IFS='
+'
 
 SCOPES=""
 for f in $FILES; do
@@ -27,11 +43,13 @@ for f in $FILES; do
   case " $SCOPES " in *" $S "*) ;; *) SCOPES="$SCOPES $S" ;; esac
 done
 
+IFS=$OLDIFS
+
 N=$(echo $SCOPES | wc -w)
 if [ "$N" -gt 1 ]; then
   echo "[거부] 한 커밋에 스코프가 $N 개 섞였습니다:$SCOPES"
   echo ""
-  git diff --cached --name-only | sed 's/^/   /'
+  git -c core.quotepath=false diff --cached --name-only | sed 's/^/   /'
   echo ""
   echo "실제 사고 2건이 전부 이 형태였습니다(개명 커밋에 게임코드 / 문서 커밋에 미완성 파일)."
   echo "-> 스코프별로 나눠 커밋하세요:  git restore --staged <다른 스코프 파일>"
