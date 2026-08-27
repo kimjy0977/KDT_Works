@@ -4,11 +4,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>밖에서 본 SPUM — 외부 개발자 4인 클로즈드 테스트 기록</title>
 
-<meta name="description" content="외부 개발자 네 사람이 SPUM Studio·SAM 으로 각자 게임을 만들며 어디서 막혔는지 정리한 기록. 막힌 곳 36건과 둘 이상이 각자 만난 것 8건을 근거와 함께 담았습니다.">
+<meta name="description" content="외부 개발자 네 사람이 SPUM Studio·SAM 으로 각자 게임을 만들며 어디서 막혔는지 정리한 기록. 막힌 곳 37건과 둘 이상이 각자 만난 것 8건을 근거와 함께 담았습니다.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="팀 순순히 따라와라 · 순순팩토리 기업연계">
 <meta property="og:title" content="밖에서 본 SPUM — 외부 개발자 4인 클로즈드 테스트 기록">
-<meta property="og:description" content="네 사람이 같은 기획에서 출발해 각자 다른 것을 만들었습니다. 막힌 곳 36건 · 둘 이상이 겪은 것 8건.">
+<meta property="og:description" content="네 사람이 같은 기획에서 출발해 각자 다른 것을 만들었습니다. 막힌 곳 37건 · 둘 이상이 겪은 것 8건.">
 <meta property="og:url" content="https://kimjy0977.github.io/KDT_Works/90_hackathon/01_soonsoon-social-deduction/docs/soonsoon-hackathon.html">
 <meta property="og:image" content="https://kimjy0977.github.io/KDT_Works/90_hackathon/01_soonsoon-social-deduction/docs/img/og-cover.png">
 <meta property="og:image:width" content="1200">
@@ -358,7 +358,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
 
     <div class="strip">
       <div><b>4</b><small>각자 만든 것</small></div>
-      <div><b>36</b><small>막힌 곳 · 계측 기록</small></div>
+      <div><b>37</b><small>막힌 곳 · 계측 기록</small></div>
       <div><b>8</b><small>둘 이상이 겪은 항목</small></div>
       <div><b>1</b><small>넷이 다 겪은 항목</small></div>
     </div>
@@ -409,7 +409,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
     <div class="card">
       <ol style="margin:0">
         <li><b>넷 다 돌아가는 것을 만들었습니다.</b> 설치 없이 브라우저에서 켜집니다. <b>같은 기획에서 출발해 셋이 다른 곳에 도착했고</b>, 한 사람은 도중에 규칙을 바꿔야 했습니다.</li>
-        <li><b>막힌 곳 36건 중 9건은 「문서 한 줄이면 안 막혔을 것」</b>이었고,
+        <li><b>막힌 곳 37건 중 9건은 「문서 한 줄이면 안 막혔을 것」</b>이었고,
           나머지 중에도 <code>Retry-After</code> 한 줄처럼 <b>아주 가벼운 것</b>이 섞여 있습니다.
           <b>둘 이상이 각자 만난 것이 8건, 그중 3건은 세 사람</b> — 그게 가장 확실한 신호입니다.</li>
         <li><b>AI NPC 를 여럿 굴리면 표가 한 사람에게 몰립니다.</b> 그리고 그건 고칠 수 있습니다 —
@@ -523,6 +523,10 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
         <td>“쓰기는 로컬 먼저” 한 줄, <code>grid</code> 가 무슨 뜻인지 한 줄</td><td class="n src"><a href="#i2">#2</a></td></tr>
       <tr><td class="n">B4</td><td><b>AI 캐릭터를 여럿 굴릴 때의 안내</b></td>
         <td>“금지하지 말고 잣대를 나눠 주세요” — 제작자가 스스로 알아내기 어렵습니다</td><td class="n src"><a href="#s-find">§05</a></td></tr>
+    <tr><td class="n">B5</td><td><b>사용량 배지에 「남음/씀」을 밝힐 것</b></td>
+      <td>배지가 <code>43,325 / 45,000</code> 처럼 <b>쓴 양</b>을 보여 주는데
+        <b>남은 양으로 읽힙니다.</b> 한 낱말이면 갈립니다 — 예산을 다 쓴 줄 모르고
+        계획을 세우게 되는 자리입니다</td><td class="n src"><a href="#i37">#37</a></td></tr>
     </table></div>
 
     <h4>C · 다음 단계로 열어줄 것</h4>
@@ -809,7 +813,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
 
     </div>
 
-    <h4>B · 생성과 과금 <span class="cnt">11건</span></h4>
+    <h4>B · 생성과 과금 <span class="cnt">12건</span></h4>
     <div class="items">
 <article id="i9" class="item">
         <div class="ihead"><span class="inum">9</span>
@@ -970,6 +974,25 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
       </article>
 
 
+      <article id="i37" class="item">
+        <div class="ihead"><span class="inum">37</span>
+          <div class="ititle">사용량 배지가 <mark>남은 양처럼 읽힌다</mark></div>
+          <div class="chips"><span class="chip on">김주영</span></div>
+        </div>
+        <p class="idesc">화면 우측 상단 배지가 <code>SS 43,325.64 / 45,000</code> 로 나옵니다.
+        앞 숫자가 <b>쓴 양</b>인데 <b>남은 양으로 읽힙니다</b> — 「45,000 중 43,325 남았다」로요.
+        실제로는 <b>남은 것이 1,674</b> 였습니다.
+        <span class="sub">Usage 화면에 들어가면 <code>USED</code>·<code>REMAINING</code> 이 갈라져 있어 분명합니다.
+        다만 <b>작업 중에 계속 보이는 것은 배지</b>라, 거기서 반대로 읽으면
+        <b>예산을 다 쓴 줄 모르고 계획을 세우게</b> 됩니다.
+        <b>API Keys 화면이 키마다 「45,000 SS/mo」를 따로 보여 주는 것</b>도 겹칩니다 —
+        키가 넷이라 18만처럼 보이지만 <b>실제 예산은 계정 하나로 45,000</b> 입니다
+        (Usage 화면 <code>SCOPE: Account 전체 합산</code>).</span></p>
+        <div class="imeta">
+          <div><span class="ilab">확인 수준</span><span class="ival"><span class="stars">★★★★★</span><span class="sub muted">김주영 님 표기<br>직접 오독함 · 화면 확인</span></span></div>
+          <div><span class="ilab">있었으면 안 막혔을 것</span><span class="ival">배지에 <b>「남음」 또는 「씀」</b>을 붙이거나 <b>남은 양을 보여줄 것</b></span></div>
+        </div>
+      </article>
     </div>
 
     <h4>C · 엔진과 배포 <span class="cnt">9건</span></h4>
@@ -1564,7 +1587,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
   </figure>
 
   <h3>어디서 막혔나</h3>
-  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 「어디서 막혔나」 36개 중 <b>김주영 님 이름이 붙은 것이 18개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a> <a href="#p-cmp" data-tab-to="p-cmp" data-anchor="#s-cmp">비교 표에서 보기 →</a></p>
+  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 「어디서 막혔나」 37개 중 <b>김주영 님 이름이 붙은 것이 19개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a> <a href="#p-cmp" data-tab-to="p-cmp" data-anchor="#s-cmp">비교 표에서 보기 →</a></p>
   <ol>
     <li><b>내장 AI 로 게임을 굴리려 했는데 설정을 안 지켰다.</b>
       추리 게임은 “누가 무엇을 봤는가”가 사실이어야 성립하는데 지어내면 게임이 아닙니다.
@@ -2021,7 +2044,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
   </table></div>
 
   <h3>실제로 부딪힌 문제 — 등급을 매겨 관리했습니다</h3>
-  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 「어디서 막혔나」 36개 중 <b>신서연 님 이름이 붙은 것이 13개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a> <a href="#p-cmp" data-tab-to="p-cmp" data-anchor="#s-cmp">비교 표에서 보기 →</a></p>
+  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 「어디서 막혔나」 37개 중 <b>신서연 님 이름이 붙은 것이 13개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a> <a href="#p-cmp" data-tab-to="p-cmp" data-anchor="#s-cmp">비교 표에서 보기 →</a></p>
   <div class="call nt">
     <span class="lab">비어 있는 칸에도 이유가 있습니다</span>
     통합 §04 표에서 <b>「동기화가 로컬을 얹는다」</b> 칸이 이 사람만 비어 있습니다.
@@ -2210,7 +2233,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
   </ul>
 
   <h3>어디서 막혔나</h3>
-  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 「어디서 막혔나」 36개 중 <b>정충원 님 이름이 붙은 것이 8개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a> <a href="#p-cmp" data-tab-to="p-cmp" data-anchor="#s-cmp">비교 표에서 보기 →</a></p>
+  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 「어디서 막혔나」 37개 중 <b>정충원 님 이름이 붙은 것이 8개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a> <a href="#p-cmp" data-tab-to="p-cmp" data-anchor="#s-cmp">비교 표에서 보기 →</a></p>
   <p>스튜디오가 활발히 개발 중인 만큼 UI 가 자주 갱신되는데, 그때마다 DOM 선택자를 처음부터 다시 찾아야 했습니다.
     개발 단계 제품에서는 자연스러운 일이지만, 자동화 측에서는
     <b>기능을 추가하는 시간보다 깨진 선택자를 복구하는 시간이 더 커지는 구조</b>가 됩니다.</p>
@@ -2385,7 +2408,7 @@ a.repo::after{content:"↗";font-size:.78em;margin-left:.25em;opacity:.55}
     <b>왜 프록시인가 — 브라우저 직접 호출이 CORS 로 막혀서입니다.</b></p>
 
   <h3>어디서 막혔나</h3>
-  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 「어디서 막혔나」 36개 중 <b>최종우 님 이름이 붙은 것이 10개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a> <a href="#p-cmp" data-tab-to="p-cmp" data-anchor="#s-cmp">비교 표에서 보기 →</a></p>
+  <p class="call nt"><b>이 사람이 막힌 곳은 통합 탭에 모아 두었습니다.</b> 「어디서 막혔나」 37개 중 <b>최종우 님 이름이 붙은 것이 10개</b>입니다. <a href="#p-all" data-tab-to="p-all" data-anchor="#s-stuck">통합 보고에서 보기 →</a> <a href="#p-cmp" data-tab-to="p-cmp" data-anchor="#s-cmp">비교 표에서 보기 →</a></p>
   <p class="sdesc">본인이 <b>유형 ①~⑤</b>를 항목마다 붙였습니다 —
     ① 오류 없이 조용히 실패 ② 문서에 없어 소스로 알아냄 ③ 이름과 동작이 다름
     ④ 두 규약이 어긋남 ⑤ 돈이 샘.</p>
