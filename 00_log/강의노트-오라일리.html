@@ -325,6 +325,8 @@
       <a href="#s-1-7">1.7 이 책의 나머지 구성</a>
       <small style="margin-top:14px">전체 · 장별</small>
       <a href="#s-map">📕 책 전체 지도 (10장·32패턴)</a>
+      <a href="#s-rel">🔗 패턴 상호참조 지도</a>
+      <a href="#s-lim">⚠️ 실무 제약·한계 모음</a>
       <a href="#s-2">CH2. 콘텐츠 스타일 제어 <span class="toctag">패턴1~5</span></a>
       <a href="#s-3">CH3. 지식 더하기: 베이스 <span class="toctag">패턴6~8</span></a>
       <a href="#s-4">CH4. 지식 더하기: 싱코페이션 <span class="toctag">패턴9~12</span></a>
@@ -629,7 +631,100 @@
         <p class="fine">📌 장 제목의 <b>베이스·싱코페이션</b>은 음악 용어다. 베이스는 곡의 밑바닥을 받치는 저음부 — RAG의 기본기(인덱싱·검색·생성)가 그 역할이고, 4장의 고급 패턴들이 그 위에 얹는 엇박이라는 뜻이다.</p>
       </section>
 
-      <section class="section" id="s-2">
+            <section class="section" id="s-rel">
+        <h2>🔗 패턴 상호참조 지도</h2>
+        <p class="lead">이 책의 진짜 강점은 <span class="hl">패턴들이 서로 물려 있다는 것</span>이다. 장별로 흩어져 읽으면 보이지 않으므로, 책이 실제로 서로를 가리키는 지점만 모았다. <b>1장의 기초 개념이 어느 패턴으로 자라는지</b>도 함께 표시한다.</p>
+
+        <h3>① 1장의 개념 → 어느 패턴이 되는가</h3>
+        <div class="table-wrap"><table><thead><tr><th>1장에서 배운 것</th><th>자라난 패턴</th><th>연결</th></tr></thead><tbody>
+          <tr><td><b>1.4 세밀한 제어</b> (로짓·확률 0으로)</td><td><b>1 Logits Masking</b> · <b>2 Grammar</b></td><td>규칙·문법에 어긋나는 <b>토큰의 확률을 0으로</b> 만드는 그 조작이 그대로 패턴이 된다</td></tr>
+          <tr><td><b>1.5 인컨텍스트 러닝</b> (제로샷·퓨샷)</td><td><b>3 Style Transfer</b> · <b>13 CoT</b></td><td>Style Transfer의 첫 선택지가 퓨샷이고, CoT의 세 변형도 제로샷/퓨샷 축 위에 있다</td></tr>
+          <tr><td><b>1.6 포스트 트레이닝</b> (PeFT·LoRA)</td><td><b>15 Adapter Tuning</b></td><td>끼운 층만 학습하는 <b>같은 갈래</b>. 1.6에서 이름만 보고 지나간 것이 5장에서 패턴이 된다</td></tr>
+          <tr><td><b>1.3 에이전트 4특성</b> — 지각과 행동</td><td><b>21 Tool Calling</b></td><td>1장이 "보통 Tool Calling(패턴 21)로 부여한다"고 직접 예고했다</td></tr>
+          <tr><td><b>1.3 에이전트 4특성</b> — 적응과 학습</td><td><b>18 Reflection</b> · <b>31 Self-Check</b></td><td>자기 출력을 평가·교정하는 능력. 1장이 두 패턴 번호를 그대로 지목했다</td></tr>
+          <tr><td><b>1.2.5 증류</b></td><td><b>24 Small Language Model</b></td><td>작은 모델로 가는 세 선택지 중 첫 번째가 증류다</td></tr>
+        </tbody></table></div>
+
+        <h3>② 패턴이 다른 패턴을 부르는 자리</h3>
+        <div class="table-wrap"><table><thead><tr><th>관계</th><th>내용</th></tr></thead><tbody>
+          <tr><td><b>2 Grammar → 21 Tool Calling</b></td><td><span class="hl">Tool Calling은 Grammar의 확장이다.</span> 함수를 호출하려면 LLM이 <b>정해진 형식</b>으로 출력해야 하기 때문. 책이 명시한다</td></tr>
+          <tr><td><b>1 Logits Masking ↔ 2 Grammar</b></td><td>Grammar는 <b>프레임워크가 대신 해 주는 Logits Masking</b>. 로짓 처리의 상세는 패턴 1 쪽에 있으니 함께 읽으라고 책이 권한다</td></tr>
+          <tr><td><b>3 Style Transfer → 4 Reverse Neutralization</b></td><td>Style Transfer는 <b>변환 예시가 있을 때</b> 쓴다. 그 <b>쌍이 없을 때</b> 꺼내는 것이 Reverse Neutralization(방향을 뒤집어 쌍을 만든다)</td></tr>
+          <tr><td><b>17 LLM-as-Judge는 이미 여러 패턴 안에 있다</b></td><td>책이 직접 나열한다 — <b>5 Content Optimization</b>(두 콘텐츠 비교) · <b>10 Node Postprocessing</b>(청크 재순위화) · <b>14 ToT</b>(경로 평가) · <b>16 Evol-Instruct</b>(오염될 예제 걸러내기). <span class="hl2">그래서 평가가 GenAI의 기본기다</span></td></tr>
+          <tr><td><b>13 CoT + 18 Reflection</b></td><td>6장의 예제가 둘을 <b>결합</b>한다 — 아이디어를 여러 개 생성(CoT)한 뒤 가장 좋은 것을 골라 고쳐 쓴다(Reflection)</td></tr>
+          <tr><td><b>12 Deep Search → 21 Tool Calling</b></td><td>Deep Search의 세 번째 확장이 <b>검색 엔진·기업 API 같은 도구로 능동 수집</b>하는 것 — 곧 Tool Calling이다</td></tr>
+          <tr><td><b>21·22·13·18 → 23 Multiagent</b></td><td>7장이 명시한다 — 이 넷으로 수동적 앱을 넘어섰지만, 복잡해지면 <b>단일 에이전트의 병목</b>이 드러나 멀티에이전트로 간다</td></tr>
+          <tr><td><b>21 Tool Calling → 32 Guardrails</b></td><td>Tool Calling의 고려사항이 <b>프롬프트 인젝션</b>이다. 그 방어가 9장의 가드레일 계층</td></tr>
+          <tr><td><b>2 Grammar ↔ 29·30</b></td><td>Template Generation·Assembled Reformat도 <b>"구조로 위험을 없앤다"</b>는 같은 사고방식. 6장 예제도 비평을 <b>구조화된 객체</b>로 정의하며 패턴 2를 참조한다</td></tr>
+          <tr><td><b>6 → 7 → 8 → 9 → 10 → 11 → 12</b></td><td>RAG 7종은 <b>사슬</b>이다 — 기본(6) → 의미 색인(7) → 규모(8) → 검색 개선(9) → 검색 후처리(10) → 신뢰(11) → 반복 심층 탐색(12)</td></tr>
+        </tbody></table></div>
+
+        <h3>③ 문제에서 패턴으로 — 역방향 찾아보기</h3>
+        <div class="table-wrap"><table><thead><tr><th>겪는 증상</th><th>먼저 볼 패턴</th></tr></thead><tbody>
+          <tr><td>출력 형식이 자꾸 깨진다</td><td><b>2 Grammar</b> (→ 안 되면 1 Logits Masking)</td></tr>
+          <tr><td>말투·톤이 원하는 게 아니다</td><td><b>3 Style Transfer</b> (쌍이 없으면 <b>4</b>)</td></tr>
+          <tr><td>사내·최신 지식을 모른다</td><td><b>6 Basic RAG</b> → 7 → 8</td></tr>
+          <tr><td>검색이 엉뚱한 걸 물어온다</td><td><b>9 Index-Aware Retrieval</b> · <b>10 Node Postprocessing</b></td></tr>
+          <tr><td>답을 믿을 수 없다 / 출처가 없다</td><td><b>11 Trustworthy Generation</b> · <b>31 Self-Check</b></td></tr>
+          <tr><td>다단계 추론에서 틀린다</td><td><b>13 CoT</b> (탐색·계획이 필요하면 <b>14 ToT</b>)</td></tr>
+          <tr><td>프롬프트로는 원하는 응답이 안 나온다</td><td><b>15 Adapter Tuning</b> (데이터가 없으면 <b>16 Evol-Instruct</b>)</td></tr>
+          <tr><td>품질을 무엇으로 재야 할지 모르겠다</td><td><b>17 LLM-as-Judge</b></td></tr>
+          <tr><td>테스트가 안 된다(매번 답이 다르다)</td><td><b>19 Dependency Injection</b></td></tr>
+          <tr><td>모델을 바꾸니 다 깨졌다</td><td><b>20 Prompt Optimization</b></td></tr>
+          <tr><td>실제 행동(예약·결제·조회)이 필요하다</td><td><b>21 Tool Calling</b> · <b>22 Code Execution</b></td></tr>
+          <tr><td>비용·지연이 감당이 안 된다</td><td><b>24 SLM</b> · <b>25 Prompt Caching</b> · <b>26 Inference Optimization</b></td></tr>
+          <tr><td>느려지는데 어디서부터인지 모른다</td><td><b>27 Degradation Testing</b></td></tr>
+          <tr><td>이전 대화를 기억 못 한다</td><td><b>28 Long-Term Memory</b></td></tr>
+          <tr><td>사람이 다 검토할 수 없다</td><td><b>29 Template Generation</b> · <b>30 Assembled Reformat</b></td></tr>
+          <tr><td>넘지 말아야 할 선을 넘는다</td><td><b>32 Guardrails</b></td></tr>
+        </tbody></table></div>
+        <p class="fine">📚 출처: Generative AI Design Patterns(O'Reilly) 전권의 상호참조를 정리 — 개념 재서술</p>
+      </section>
+
+      <section class="section" id="s-lim">
+        <h2>⚠️ 실무 제약·한계 모음</h2>
+        <p class="lead">각 장에 흩어져 있는 <b>고려사항·한계·주의점</b>만 모았다. <span class="hl">패턴을 고르기 전에 여기부터 확인하면, 쓸 수 없는 패턴에 시간을 쓰지 않는다.</span></p>
+
+        <h3>① 애초에 못 쓰는 경우 — 모델 접근 제약</h3>
+        <div class="notice warn"><b>로짓·logprobs 접근이 필요한 패턴은 제공자를 탄다</b><br>
+          <b>패턴 1(Logits Masking)</b>과 <b>패턴 31(Self-Check)</b>은 모델이 <b>토큰 확률에 대한 접근</b>을 제공해야 쓸 수 있다. 집필 시점(2025년 6월) 기준으로 <span class="hl3">Anthropic Claude 계열은 그 접근을 제공하지 않고</span>, OpenAI·Google·Meta는 제공한다. 다만 <b>셋 사이에도 접근 수준이 다르다</b> — OpenAI는 거의 모든 모델에서 logprobs 읽기를 제공한다.<br>
+          <span class="fine">→ 이 제약 때문에 같은 목적을 <b>패턴 2(Grammar)</b>로 우회하는 경우가 많다. 프레임워크가 대신 처리해 주기 때문이다.</span></div>
+
+        <h3>② 값은 하지만 대가가 큰 경우 — 반복·탐색의 비용</h3>
+        <div class="table-wrap"><table><thead><tr><th>패턴</th><th>대가</th><th>완화</th></tr></thead><tbody>
+          <tr><td><b>12 Deep Search</b></td><td>사고 단계를 반복해 끼우므로 <span class="hl3">전체 시스템이 매우 느려진다.</span> 반복마다 모델 추론 + 문서 검색 + 처리가 다시 일어난다</td><td><b>하위 질의를 병렬 처리</b>하고, <b>반복을 일찍 끊는</b> 조건을 둔다</td></tr>
+          <tr><td><b>14 Tree of Thoughts</b></td><td>여러 경로를 만들고 평가하느라 <b>복잡도와 호출 비용</b>이 오른다</td><td>탐색·계획이 <b>실제로 필요한 과제</b>에만 쓴다(CoT의 상위 호환이 아니다)</td></tr>
+          <tr><td><b>18 Reflection</b></td><td>비평·재작성만큼 <b>호출이 늘어난다</b>(비용 대 품질)</td><td>비평 단계를 <b>필요한 지점에만</b> 둔다</td></tr>
+          <tr><td><b>1 Logits Masking</b></td><td>막다른 길에서 <b>백트래킹</b>이 반복되면 지연이 커진다</td><td><b>최대 시도 횟수</b>를 정하고 넘으면 거부 응답</td></tr>
+        </tbody></table></div>
+
+        <h3>③ 잘 돌아도 품질이 새는 곳</h3>
+        <div class="table-wrap"><table><thead><tr><th>패턴</th><th>한계</th></tr></thead><tbody>
+          <tr><td><b>7 Semantic Indexing</b></td><td><b>고정 차원의 정보 병목</b> — 임베딩은 텍스트를 보통 768~4,096차원의 <b>고정 길이 벡터</b>로 압축한다. 복잡하고 미묘한 청크도 단순한 청크와 <b>같은 공간</b>에 눌러 담기므로 깊이가 손실된다. <span class="hl3">고도로 기술적이거나 다면적인 문서일수록 이 압축이 더 문제가 된다</span></td></tr>
+          <tr><td><b>7 청킹</b></td><td>문서를 조각내면 <b>의미적 일관성이 깨지고</b>, 절과 절 사이의 <b>상호 참조 연결이 사라진다</b> → 그래서 컨텍스추얼 리트리벌·계층적 청킹(RAPTOR)이 뒤따른다</td></tr>
+          <tr><td><b>17 LLM-as-Judge</b></td><td>심사자도 흔들린다 — <b>불일치</b>(같은 답에 다른 점수) · <b>관대함</b>(후하게 줌) · <b>편향</b>(순서·길이·자기 계열 선호). 중요한 판정은 <b>사람 표본 검토</b>와 맞춰야 한다</td></tr>
+          <tr><td><b>2 Grammar</b></td><td>형식은 보장해도 <span class="hl">내용의 사실성은 보장하지 않는다</span>(1장의 "JSON은 맞는데 내용이 틀린" 그 문제와 같다)</td></tr>
+        </tbody></table></div>
+
+        <h3>④ 숫자로 기억할 임계값</h3>
+        <div class="table-wrap"><table><thead><tr><th>수치</th><th>뜻</th></tr></thead><tbody>
+          <tr><td><b>재생성 10% 남짓</b></td><td>"생성하고 안 맞으면 다시" 방식(안티패턴)은 <b>재생성이 이 정도로 드물 때만</b> 통한다. 넘으면 지연·비용이 무너진다 → 패턴 1·2로</td></tr>
+          <tr><td><b>반복 질문 30~40%</b></td><td>케이블 31%·은행 30%·매장 40%가 같은 몇 개 질문이다 → <b>패턴 25 캐싱</b>이 값을 하는 근거</td></tr>
+          <tr><td><b>임베딩 768~4,096차원</b></td><td>모든 청크가 이 고정 크기로 압축된다 → 정보 병목의 출처</td></tr>
+          <tr><td><b>파인튜닝 최소 100쌍</b></td><td>프론티어 모델 파인튜닝의 하한(수천 쌍이면 더 좋음)</td></tr>
+        </tbody></table></div>
+
+        <h3>⑤ 조직·환경 제약</h3>
+        <ul>
+          <li><b>포스트 트레이닝 계열</b>(15 Adapter Tuning, 16 Evol-Instruct) — 집필 시점 기준 <b>모든 형태를 지원하는 것은 오픈웨이트 모델뿐</b>이다. 호스팅 모델은 제공자 문서를 확인하거나 되는 모델로 바꿔야 한다</li>
+          <li><b>자체 호스팅</b>(26 Inference Optimization) — 규제 산업엔 유리하지만 <b>추론 서버 운영 경험</b>이 전제된다. 모델 호스팅 기초는 책의 범위 밖이다</li>
+          <li><b>SLM 전환</b>(24) — 증류는 <b>범용성</b>을, 양자화는 <b>약간의 정확도</b>를, 추측 디코딩은 <b>복잡도</b>를 대가로 낸다. 공짜는 없다</li>
+          <li><b>Tool Calling</b>(21) — <b>프롬프트 인젝션</b>과 <b>MCP의 한계</b>가 따라온다 → 패턴 32 가드레일이 필요한 이유</li>
+        </ul>
+        <p class="fine">📚 출처: Generative AI Design Patterns(O'Reilly) 각 장의 고려사항·한계·주의점 — 개념 재서술. ※제공자별 기능 지원 여부는 <b>집필 시점 기준</b>이며 바뀔 수 있다.</p>
+      </section>
+
+<section class="section" id="s-2">
         <h2>CHAPTER 2. 콘텐츠 스타일 제어하기 <span class="dur">패턴 1~5</span></h2>
         <p class="lead">이 장이 맡은 문제는 하나다 — <span class="hl">생성된 텍스트가 원하는 스타일·형식 규칙을 따르게 만드는 것.</span> 다섯 패턴이 각각 다른 상황을 맡는다.</p>
 
