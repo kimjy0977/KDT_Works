@@ -59,8 +59,12 @@ export default function App() {
   const [openSrc, setOpenSrc] = useState<Record<number, boolean>>({});
   const [hitsOpen, setHitsOpen] = useState(false);
   const [embedCached, setEmbedCached] = useState(false);
+  const [dockOpen, setDockOpen] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  /** 정지 버튼으로 끊은 것인지 — 연결 실패와 구별하려고 따로 둔다 */
+  const stoppedByUser = useRef(false);
+  const inlineLogRef = useRef<HTMLDivElement>(null);
+  const dockLogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     pingOllama().then(setOllamaOk);
@@ -72,14 +76,32 @@ export default function App() {
     });
   }, []);
 
+  // 답변이 길어질 때 대화 로그 '안에서만' 아래로 붙인다.
+  // 예전에는 bottomRef.scrollIntoView()를 썼는데, 토큰이 올 때마다 페이지 전체가
+  // 끌려 내려가 위쪽 작품 목록을 읽던 사람의 스크롤을 빼앗았다.
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [turns, phase]);
+    for (const r of [inlineLogRef, dockLogRef]) {
+      const el = r.current;
+      if (el) el.scrollTop = el.scrollHeight;
+    }
+  }, [turns, phase, dockOpen]);
+
+  // Esc — 근거 모달이 열려 있으면 모달, 아니면 도크를 닫는다
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (showSource) setShowSource(null);
+      else if (dockOpen) setDockOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [showSource, dockOpen]);
 
   async function ask() {
     const q = input.trim();
     if (!q || phase !== "idle") return;
     setInput("");
+    stoppedByUser.current = false;
     setTurns((t) => [...t, { role: "user", content: q }]);
 
     let streamStarted = false;
@@ -170,6 +192,26 @@ export default function App() {
         setPhase("idle");
         return;
       }
+      // 사용자가 정지를 눌러 끊은 것은 연결 실패가 아니다.
+      // 예전에는 여기서 ollama 미연결 배너까지 띄워 멀쩡한 연결을 끊긴 것처럼 보였다.
+      // 6강 "스트리밍이 중단되어도 이미 받은 답변 청크를 지우지 않는다"에 따라
+      // 받은 데까지는 그대로 두고 안내만 붙인다.
+      if (stoppedByUser.current) {
+        stoppedByUser.current = false;
+        setTurns((t) => {
+          const copy = [...t];
+          const li = copy.length - 1;
+          if (copy[li]?.role === "assistant") {
+            copy[li] = {
+              ...copy[li],
+              content: (copy[li].content || "") + (copy[li].content ? "\n\n" : "") + "— 여기서 정지했습니다.",
+            };
+          }
+          return copy;
+        });
+        setPhase("idle");
+        return;
+      }
       setPhase("error-ollama");
       setOllamaOk(false);
       setTurns((t) => [
@@ -181,6 +223,7 @@ export default function App() {
   }
 
   function stop() {
+    stoppedByUser.current = true;
     abortRef.current?.abort();
     setPhase("idle");
   }
@@ -194,6 +237,139 @@ export default function App() {
     // 피드백은 로컬에만 기록 (제출 없음 — 데모)
     console.log("feedback", { turn: i, value: v });
   }
+
+  const connBadge = (
+    <span className={`conn ${ollamaOk === true ? "ok" : ollamaOk === false ? "bad" : ""}`}>
+      {engine === "gemini"
+        ? "Gemini API"
+        : ollamaOk === true
+          ? "ollama 연결됨"
+          : ollamaOk === false
+            ? "ollama 미연결"
+            : "연결 확인 중…"}
+    </span>
+  );
+
+  /** 대화 로그 + 입력칸. 인라인 섹션과 우측 도크가 같은 상태를 그대로 나눠 쓴다.
+   *  컴포넌트로 빼지 않고 JSX를 돌려주는 함수로 둔 이유 — 렌더마다 새 컴포넌트가
+   *  만들어지면 React가 입력칸을 다시 마운트해 타이핑 중 포커스가 날아간다. */
+  const chatBody = (variant: "inline" | "dock") => (
+    <>
+      <div className="chat-log" ref={variant === "inline" ? inlineLogRef : dockLogRef}>
+          {turns.map((t, i) => (
+            <div key={i} className={`bubble ${t.role}`}>
+              <div className="bubble-text">{t.content || (phase === "stream" && i === turns.length - 1 ? "…" : "")}</div>
+              {t.role === "assistant" && t.question && (
+                <div className="meta-row">
+                  {t.judge ? (
+                    <span className={`judge ${(t.judge.score ?? 0) >= 70 ? "ok" : "bad"}`}>
+                      평가 {t.judge.score}점 (루브릭 평균) ·
+                      {(t.judge.rubrics ?? []).map((r) => ` ${r.name} ${r.score}`).join(" ·")}
+                      {t.judge.refusal ? " · 정당한 거부" : ""}
+                      {t.judge.comment && <em> “{t.judge.comment}”</em>}
+                      <span className="judge-by"> · 판정 {t.judgeBy === "gemini-3.5-flash" ? "gemini-3.5-flash" : "qwen3.5:2b 자기평가"}</span>
+                    </span>
+                  ) : t.judgeError ? (
+                    <span className="judge fail">판정 실패 — 평가 모델이 결과를 만들지 못했습니다 (답변은 정상)</span>
+                  ) : judgeBusy && i === turns.length - 1 ? (
+                    <span className="judge">④ 판정 중… (LLM-as-a-Judge)</span>
+                  ) : null}
+                  <span className="feedback">
+                    <button aria-label="좋아요" className={t.feedback === "up" ? "on" : ""} onClick={() => setFeedback(i, "up")}>👍</button>
+                    <button aria-label="싫어요" className={t.feedback === "down" ? "on" : ""} onClick={() => setFeedback(i, "down")}>👎</button>
+                  </span>
+                </div>
+              )}
+              {t.sources && !(phase === "stream" && i === turns.length - 1) && (
+                <div className="chips">
+                  <button
+                    className="chips-toggle"
+                    onClick={() => setOpenSrc((m) => ({ ...m, [i]: !m[i] }))}
+                  >
+                    출처 {t.sources.length}개 {openSrc[i] ? "접기 ▴" : "펼쳐 보기 ▾"}
+                  </button>
+                  {t.sources[0].score < 0.55 && (
+                    <span className="weak-badge">⚠ 최고 유사도 {(t.sources[0].score * 100).toFixed(1)}%</span>
+                  )}
+                  {openSrc[i] &&
+                    t.sources.map((s) => (
+                      <button
+                        key={s.chunk.id}
+                        className={`chip ${s.method === "bm25" ? "bm25" : "vec"}`}
+                        onClick={() => setShowSource(t.sources!)}
+                      >
+                        {s.chunk.id} · {s.chunk.section} · {s.method === "bm25" ? "BM25" : "벡터"} {(s.score * 100).toFixed(0)}%
+                      </button>
+                    ))}
+                </div>
+              )}
+            </div>
+          ))}
+          {(phase === "embed" || phase === "search") && (
+            <div className="phase-box">
+              <span className="spinner" />
+              <span>
+                {phase === "embed" && embedCached
+                  ? "① 질문 임베딩 중 — 캐시된 모델 사용 (다운로드 없음)"
+                  : PHASE_LABEL[phase]}
+                {dlPct !== null && (
+                  <div className="dl-progress">
+                    임베딩 모델을 내려받는 중 {dlPct}% — 첫 방문 1회(약 200MB), 이후 브라우저에 캐시됩니다
+                  </div>
+                )}
+              </span>
+            </div>
+          )}
+          {lastHits && phase === "stream" && (
+            <div className="hits-box">
+              <div className="hits-title">
+                <button className="chips-toggle" onClick={() => setHitsOpen((o) => !o)}>
+                  ② 검색된 근거 {lastHits.length}개 — 벡터 {lastHits.length - nBm} · BM25 {nBm}{" "}
+                  {hitsOpen ? "접기 ▴" : "펼쳐 보기 ▾"}
+                </button>
+                {lastHits[0].score < 0.55 && (
+                  <span className="weak-badge"> ⚠ 최고 유사도 {(lastHits[0].score * 100).toFixed(1)}% — 근거가 약합니다</span>
+                )}
+              </div>
+              {hitsOpen &&
+                lastHits.map((h) => (
+                  <div key={h.chunk.id} className={`hit-row ${h.method === "bm25" ? "bm25" : "vec"}`}>
+                    <span className="hit-id">{h.chunk.id}</span>
+                    <span className="hit-sec">{h.chunk.section}</span>
+                    <span className="hit-score" style={{ "--w": `${Math.round(h.score * 100)}%` } as CSSProperties}>
+                      {h.method === "bm25" ? "BM25" : "벡터"} {(h.score * 100).toFixed(1)}%
+                    </span>
+                    <span className="hit-text">{h.chunk.text.slice(0, 80)}…</span>
+                  </div>
+                ))}
+              {phase === "stream" && (
+                <div className="hits-title" style={{ marginTop: hitsOpen ? ".6rem" : undefined }}>③ 이 근거로 답변을 만듭니다…</div>
+              )}
+            </div>
+          )}
+      </div>
+      <div className="chat-input">
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => {
+            // 한글 조합 중의 Enter는 글자를 확정하는 키다. isComposing을 보지 않으면
+            // "프로세르피나" 를 확정하려고 누른 Enter가 그대로 질문 전송이 된다.
+            if (e.key === "Enter" && !e.nativeEvent.isComposing) ask();
+          }}
+          placeholder="예: 사계절이 생긴 신화가 뭐야?"
+          disabled={phase !== "idle"}
+        />
+        {phase === "stream" ? (
+          <button onClick={stop} className="stop-btn">정지</button>
+        ) : (
+          <button onClick={ask} disabled={phase !== "idle" || !input.trim()}>
+            보내기
+          </button>
+        )}
+      </div>
+    </>
+  );
 
   const nBm = lastHits ? lastHits.filter((h) => h.method === "bm25").length : 0;
 
@@ -376,127 +552,33 @@ export default function App() {
       <section id="chat" className="chat">
         <h2>
           MYTH GALLERY 안내 챗봇
-          <span className={`conn ${ollamaOk === true ? "ok" : ollamaOk === false ? "bad" : ""}`}>
-            {engine === "gemini"
-              ? "Gemini API"
-              : ollamaOk === true
-                ? "ollama 연결됨"
-                : ollamaOk === false
-                  ? "ollama 미연결"
-                  : "연결 확인 중…"}
-          </span>
+          {connBadge}
         </h2>
-        <div className="chat-log">
-          {turns.map((t, i) => (
-            <div key={i} className={`bubble ${t.role}`}>
-              <div className="bubble-text">{t.content || (phase === "stream" && i === turns.length - 1 ? "…" : "")}</div>
-              {t.role === "assistant" && t.question && (
-                <div className="meta-row">
-                  {t.judge ? (
-                    <span className={`judge ${(t.judge.score ?? 0) >= 70 ? "ok" : "bad"}`}>
-                      평가 {t.judge.score}점 (루브릭 평균) ·
-                      {(t.judge.rubrics ?? []).map((r) => ` ${r.name} ${r.score}`).join(" ·")}
-                      {t.judge.refusal ? " · 정당한 거부" : ""}
-                      {t.judge.comment && <em> “{t.judge.comment}”</em>}
-                      <span className="judge-by"> · 판정 {t.judgeBy === "gemini-3.5-flash" ? "gemini-3.5-flash" : "qwen3.5:2b 자기평가"}</span>
-                    </span>
-                  ) : t.judgeError ? (
-                    <span className="judge fail">판정 실패 — 평가 모델이 결과를 만들지 못했습니다 (답변은 정상)</span>
-                  ) : judgeBusy && i === turns.length - 1 ? (
-                    <span className="judge">④ 판정 중… (LLM-as-a-Judge)</span>
-                  ) : null}
-                  <span className="feedback">
-                    <button aria-label="좋아요" className={t.feedback === "up" ? "on" : ""} onClick={() => setFeedback(i, "up")}>👍</button>
-                    <button aria-label="싫어요" className={t.feedback === "down" ? "on" : ""} onClick={() => setFeedback(i, "down")}>👎</button>
-                  </span>
-                </div>
-              )}
-              {t.sources && !(phase === "stream" && i === turns.length - 1) && (
-                <div className="chips">
-                  <button
-                    className="chips-toggle"
-                    onClick={() => setOpenSrc((m) => ({ ...m, [i]: !m[i] }))}
-                  >
-                    출처 {t.sources.length}개 {openSrc[i] ? "접기 ▴" : "펼쳐 보기 ▾"}
-                  </button>
-                  {t.sources[0].score < 0.55 && (
-                    <span className="weak-badge">⚠ 최고 유사도 {(t.sources[0].score * 100).toFixed(1)}%</span>
-                  )}
-                  {openSrc[i] &&
-                    t.sources.map((s) => (
-                      <button
-                        key={s.chunk.id}
-                        className={`chip ${s.method === "bm25" ? "bm25" : "vec"}`}
-                        onClick={() => setShowSource(t.sources!)}
-                      >
-                        {s.chunk.id} · {s.chunk.section} · {s.method === "bm25" ? "BM25" : "벡터"} {(s.score * 100).toFixed(0)}%
-                      </button>
-                    ))}
-                </div>
-              )}
-            </div>
-          ))}
-          {(phase === "embed" || phase === "search") && (
-            <div className="phase-box">
-              <span className="spinner" />
-              <span>
-                {phase === "embed" && embedCached
-                  ? "① 질문 임베딩 중 — 캐시된 모델 사용 (다운로드 없음)"
-                  : PHASE_LABEL[phase]}
-                {dlPct !== null && (
-                  <div className="dl-progress">
-                    임베딩 모델을 내려받는 중 {dlPct}% — 첫 방문 1회(약 200MB), 이후 브라우저에 캐시됩니다
-                  </div>
-                )}
-              </span>
-            </div>
-          )}
-          {lastHits && phase === "stream" && (
-            <div className="hits-box">
-              <div className="hits-title">
-                <button className="chips-toggle" onClick={() => setHitsOpen((o) => !o)}>
-                  ② 검색된 근거 {lastHits.length}개 — 벡터 {lastHits.length - nBm} · BM25 {nBm}{" "}
-                  {hitsOpen ? "접기 ▴" : "펼쳐 보기 ▾"}
-                </button>
-                {lastHits[0].score < 0.55 && (
-                  <span className="weak-badge"> ⚠ 최고 유사도 {(lastHits[0].score * 100).toFixed(1)}% — 근거가 약합니다</span>
-                )}
-              </div>
-              {hitsOpen &&
-                lastHits.map((h) => (
-                  <div key={h.chunk.id} className={`hit-row ${h.method === "bm25" ? "bm25" : "vec"}`}>
-                    <span className="hit-id">{h.chunk.id}</span>
-                    <span className="hit-sec">{h.chunk.section}</span>
-                    <span className="hit-score" style={{ "--w": `${Math.round(h.score * 100)}%` } as CSSProperties}>
-                      {h.method === "bm25" ? "BM25" : "벡터"} {(h.score * 100).toFixed(1)}%
-                    </span>
-                    <span className="hit-text">{h.chunk.text.slice(0, 80)}…</span>
-                  </div>
-                ))}
-              {phase === "stream" && (
-                <div className="hits-title" style={{ marginTop: hitsOpen ? ".6rem" : undefined }}>③ 이 근거로 답변을 만듭니다…</div>
-              )}
-            </div>
-          )}
-          <div ref={bottomRef} />
-        </div>
-        <div className="chat-input">
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && ask()}
-            placeholder="예: 사계절이 생긴 신화가 뭐야?"
-            disabled={phase !== "idle"}
-          />
-          {phase === "stream" ? (
-            <button onClick={stop} className="stop-btn">정지</button>
-          ) : (
-            <button onClick={ask} disabled={phase !== "idle" || !input.trim()}>
-              보내기
-            </button>
-          )}
-        </div>
+        {chatBody("inline")}
       </section>
+
+      {/* 우측 도크 — 페이지를 읽으면서 물어볼 수 있게. 인라인 챗봇과 같은 대화를 공유한다. */}
+      <div className={`dock ${dockOpen ? "open" : ""}`}>
+        {dockOpen && (
+          <div className="dock-panel" id="dock-panel" role="complementary" aria-label="MYTH GALLERY 안내 챗봇">
+            <div className="dock-head">
+              <b>안내 챗봇</b>
+              {connBadge}
+              <button className="dock-close" onClick={() => setDockOpen(false)} aria-label="챗봇 닫기">✕</button>
+            </div>
+            {chatBody("dock")}
+          </div>
+        )}
+        <button
+          className="dock-tab"
+          onClick={() => setDockOpen((o) => !o)}
+          aria-expanded={dockOpen}
+          aria-controls="dock-panel"
+        >
+          {dockOpen ? "챗봇 접기 ▾" : "💬 챗봇에게 물어보기"}
+        </button>
+      </div>
+
 
       {showSource && (
         <div className="modal" onClick={() => setShowSource(null)}>
