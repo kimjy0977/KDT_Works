@@ -327,6 +327,9 @@
       <a href="#s-map">📕 책 전체 지도 (10장·32패턴)</a>
       <a href="#s-2">CH2. 콘텐츠 스타일 제어 <span class="toctag">패턴1~5</span></a>
       <a href="#s-3">CH3. 지식 더하기: 베이스 <span class="toctag">패턴6~8</span></a>
+      <a href="#s-4">CH4. 지식 더하기: 싱코페이션 <span class="toctag">패턴9~12</span></a>
+      <a href="#s-5">CH5. 모델 능력 확장하기 <span class="toctag">패턴13~16</span></a>
+
 
     </nav>
 
@@ -606,8 +609,8 @@
           <tr><td><b>1</b></td><td>서론</td><td>— (개관·기초)</td><td>✅ 기록</td></tr>
           <tr><td><b>2</b></td><td>콘텐츠 스타일 제어하기</td><td>1 Logits Masking · 2 Grammar · 3 Style Transfer · 4 Reverse Neutralization · 5 Content Optimization</td><td>✅ 기록</td></tr>
           <tr><td><b>3</b></td><td>지식 더하기: 베이스</td><td>6 Basic RAG · 7 Semantic Indexing · 8 Indexing at Scale</td><td>✅ 기록</td></tr>
-          <tr><td><b>4</b></td><td>지식 더하기: 싱코페이션</td><td>9 Index-Aware Retrieval · 10 Node Postprocessing · 11 Trustworthy Generation · 12 Deep Search</td><td>대기</td></tr>
-          <tr><td><b>5</b></td><td>모델 능력 확장하기</td><td>13 Chain of Thought · 14 Tree of Thoughts · 15 Adapter Tuning · 16 Evol-Instruct</td><td>대기</td></tr>
+          <tr><td><b>4</b></td><td>지식 더하기: 싱코페이션</td><td>9 Index-Aware Retrieval · 10 Node Postprocessing · 11 Trustworthy Generation · 12 Deep Search</td><td>✅ 기록</td></tr>
+          <tr><td><b>5</b></td><td>모델 능력 확장하기</td><td>13 Chain of Thought · 14 Tree of Thoughts · 15 Adapter Tuning · 16 Evol-Instruct</td><td>✅ 기록</td></tr>
           <tr><td><b>6</b></td><td>신뢰성 높이기</td><td>17 LLM-as-Judge · 18 Reflection · <b>19 Dependency Injection</b> · 20 Prompt Optimization</td><td>대기</td></tr>
           <tr><td><b>7</b></td><td>에이전트가 행동하게 하기</td><td>21 Tool Calling · 22 Code Execution · 23 Multiagent Collaboration</td><td>대기</td></tr>
           <tr><td><b>8</b></td><td>제약 다루기</td><td>24 Small Language Model · 25 Prompt Caching · 26 Inference Optimization · 27 Degradation Testing · 28 Long-Term Memory</td><td>대기</td></tr>
@@ -714,6 +717,81 @@
           · <b>오해 차단</b>: RAG는 모델을 <b>학습시키는 게 아니다</b>(가중치 불변) — 1.5의 ICL과 같은 층이다. 그리고 <b>임베딩만 넣으면 끝이 아니다</b> — 규모가 커지면 메타데이터 없이는 무너진다.<br>
           · <b>비유</b>: 모델을 <b>똑똑한 조사원</b>으로 바꾸는 일. 시맨틱 색인은 <b>제목이 아니라 내용으로 책을 찾는 사서</b>.</div>
         <p class="fine">📚 출처: Generative AI Design Patterns(O'Reilly) 3장 — 개념 재서술</p>
+      </section>
+
+      <section class="section" id="s-4">
+        <h2>CHAPTER 4. 지식 더하기: 싱코페이션 <span class="dur">패턴 9~12</span></h2>
+        <p class="lead">3장의 기본기 위에 <span class="hl">얹는 엇박</span>. 기본 RAG가 깨지는 지점들을 하나씩 메우는 고급 패턴 넷이다.</p>
+
+        <h3>4.1 패턴 9 · Index-Aware Retrieval</h3>
+        <p><b>문제</b> — RAG는 두 가정 위에 서 있다. ①질문과 비슷한 청크를 검색할 수 있다 ②검색된 청크로 답을 그라운딩할 수 있다. <span class="hl3">첫 번째 가정이 깨지는 상황이 넷</span> 있다.</p>
+        <ul>
+          <li><b>질문이 지식 베이스에 없다</b> — FAQ·티켓·게시판을 색인한 게 아니라면, 질문 자체는 문서에 없다(문서엔 <b>답</b>이 있다). 이게 닭·달걀 문제다</li>
+          <li><b>용어가 다르다</b> — 지식 베이스가 사용자와 다른 전문 용어를 쓴다</li>
+          <li><b>답이 미세한 세부</b>라 청크 안에 묻혀 있다</li>
+          <li><b>답이 여러 청크를 아우르는</b> 전체적 해석을 요구한다</li>
+        </ul>
+        <p><b>해법</b> — 네 아이디어의 묶음이다. <b>가설 답변(HyDE)</b>(질문으로 검색하지 말고 <b>가짜 답을 먼저 만들어</b> 그걸로 검색), <b>질의 확장</b>, <b>하이브리드 검색</b>, <b>GraphRAG</b>(청크뿐 아니라 <b>관계</b>까지 저장). <span class="hl2">넷을 한꺼번에 쓰라는 게 아니라, 내가 색인하는 콘텐츠와 답해야 할 질문의 종류에 비추어 개별로 판단하라</b>는 것이 책의 지시다.</p>
+
+        <h3>4.2 패턴 10 · Node Postprocessing</h3>
+        <div class="notice key"><b>🎯 이 패턴의 한 문장</b><br><span class="hl">유사성은 관련성이 아니다.</span> 실제로 지질학 교과서로 RAG를 만들었을 때, "그랜드캐니언의 지질을 설명하라"는 질문에 <b>지질학 용어가 들어 있다는 이유만으로 목차 청크</b>가 검색돼 돌아왔다.</div>
+        <p><b>문제</b> — 비슷한 청크가 곧 답에 쓸모 있는 청크는 아니다. 관련 있는 청크라도 <b>청크 전체가 관련되지는</b> 않는다.</p>
+        <p><b>해법</b> — <b>검색과 생성 사이에 연산을 끼워 넣는다.</b> 여러 검색 메커니즘을 동시에 쓰고, 청크를 합치고, 재순위화하거나 걸러 낸다. 여기서 열리는 기능들 — <b>재순위화</b>, 하이브리드 검색, <b>질의 확장·분해</b>, <b>낡은 정보 걸러내기</b>, <b>컨텍스추얼 압축</b>, 중의성 해소, 개인화·대화 이력 반영.</p>
+
+        <h3>4.3 패턴 11 · Trustworthy Generation</h3>
+        <p><b>문제</b> — RAG에도 신뢰를 갉아먹는 위험이 남는다. <b>검색 실패</b>(관련 없는 문서를 가져오거나 핵심을 놓침), <b>컨텍스트 신뢰성</b>(검색된 문서가 낡거나 편향되거나 틀림), <b>추론 오류</b>(가져온 정보를 잘못 읽음).</p>
+        <p><b>해법</b> — 신뢰는 다섯 갈래로 쌓는다. <span class="hl">지식 베이스가 충분한 질문에만 답하기</span> · <b>인용 제공</b> · <b>사람을 루프에</b> · 틀릴 수 있는 정보 <b>검증</b> · 적절한 <b>UI 설계</b>.</p>
+        <p>첫째가 특히 중요하다 — <b>도메인 밖 질의 탐지</b>. 의료 RAG에 환자가 "병원 가는 길"을 물으면 <b>거절하거나 지도 서비스로 넘겨야</b> 한다. 판별은 질의 임베딩과 문서 청크 임베딩의 <b>거리</b> 등으로 한다. 이어서 <b>가드레일 · 관측 가능성 · 사람 피드백 · 교정형 RAG(CRAG) · Self-RAG</b>를 다룬다.</p>
+
+        <h3>4.4 패턴 12 · Deep Search</h3>
+        <p><b>문제</b> — 복잡한 정보 검색에서 기본 RAG는 힘이 빠진다. <b>컨텍스트 윈도 제약 · 질의 중의성 · 정보 검증 · 얕은 추론 · 멀티홉 질의</b>가 이유다.</p>
+        <p><b>해법</b> — <span class="hl">충분히 좋은 답을 얻거나 시간·비용 예산이 소진될 때까지 "검색과 사고"를 반복하는 루프.</span> 전통 RAG를 세 가지로 넘어선다.</p>
+        <div class="table-wrap"><table><thead><tr><th>넘어서는 지점</th><th>내용</th></tr></thead><tbody>
+          <tr><td>① <b>사고 단계 추가</b></td><td>검색과 생성 사이에서 <b>무엇을 더 모아야 하는지(모을 필요가 있는지)</b> 판단</td></tr>
+          <tr><td>② <b>반복</b></td><td>검색이 한 번이 아니라 <b>여러 단계의 검색·생성을 되풀이</b></td></tr>
+          <tr><td>③ <b>능동적 수집</b></td><td>사내 지식 베이스에만 의존하지 않고 <b>검색 엔진·기업 API 같은 도구</b>로 필요한 지식을 모음</td></tr>
+        </tbody></table></div>
+        <p class="fine">루프 구성: 질의 분해 → 하이브리드 검색·웹 검색·기업 도구 → 관련 정보 추출 → <b>성찰(빈틈 찾기)</b> → 예산 초과 검사 → 종합 → "충분히 좋은가?" 평가 → 부족하면 다시.</p>
+
+        <div class="notice key"><b>💡 강의 포인트 (4장)</b><br>
+          · <b>훅</b>: "RAG를 붙였는데 엉뚱한 걸 물어온다 — 왜?"<br>
+          · <b>꼭 살릴 것</b>: <b>유사성 ≠ 관련성</b>(목차 청크 사례) / <b>HyDE</b>는 질문 대신 <b>가짜 답으로</b> 검색 / Deep Search는 <b>사고·반복·도구</b> 셋으로 확장 / 도메인 밖이면 <b>답하지 않는 것</b>이 신뢰다.<br>
+          · <b>오해 차단</b>: 네 아이디어를 <b>다 넣으라는 게 아니다</b> — 콘텐츠와 질문 종류에 맞는지 개별 판단하라고 책이 못박는다.<br>
+          · <b>비유</b>: 기본 RAG가 <b>책에서 비슷한 문장 찾기</b>라면, 이 장은 <b>사서가 되묻고·추려주고·출처를 대고·모자라면 더 찾아오는 것</b>.</div>
+        <p class="fine">📚 출처: Generative AI Design Patterns(O'Reilly) 4장 — 개념 재서술</p>
+      </section>
+
+      <section class="section" id="s-5">
+        <h2>CHAPTER 5. 모델 능력 확장하기 <span class="dur">패턴 13~16</span></h2>
+        <p class="lead">이 장이 맡은 문제 — <span class="hl">모델의 추론 능력 자체가 모자랄 때</span> 무엇을 할 것인가. 앞의 두 패턴은 <b>프롬프트로</b>, 뒤의 두 패턴은 <b>가중치·데이터로</b> 접근한다.</p>
+
+        <h3>5.1 패턴 13 · Chain of Thought (CoT)</h3>
+        <p><b>문제</b> — 수학 계산·논리적 연역·순차적 추론이 얽힌 문제에서 모델은 <b>학습 데이터 커버리지</b>의 한계를 드러낸다. 특히 다단계 추론이 필요한데 <b>모델이 곧장 답을 내놓을 때</b> 두드러진다. 초등 수준 수학·물리는 학습에 있었겠지만 <b>산업 특화 계산은 아니었을</b> 가능성이 높다.</p>
+        <p><b>해법</b> — 직접적인 답을 요구하는 대신 <b>단계별 추론 과정을 명시적으로 요청하거나 시연</b>한다. 변형 셋.</p>
+        <div class="table-wrap"><table><thead><tr><th>변형</th><th>방법</th></tr></thead><tbody>
+          <tr><td><b>Zero-shot CoT</b></td><td>프롬프트에 <b>"단계별로 생각하라"</b> 한 문장을 덧붙이는 것만으로</td></tr>
+          <tr><td><b>Few-shot CoT</b></td><td>단계별로 푼 <b>예시</b>를 보여 준다</td></tr>
+          <tr><td><b>Auto-CoT</b></td><td>그 예시를 <b>자동으로 생성</b>한다</td></tr>
+        </tbody></table></div>
+
+        <h3>5.2 패턴 14 · Tree of Thoughts (ToT)</h3>
+        <p><b>문제</b> — 전략적 사고나 논리적 추론이 필요한 과제는 <span class="hl3">하나의 다단계 경로를 밀어붙이는 것으로 풀리지 않는다.</span> 여러 방향을 탐색하고, 안 되는 해법에서 <b>되돌아 나오고</b>, 선택지를 계속 <b>자기 평가</b>해야 한다. (원 논문의 예: 주어진 네 문장으로 각 문단이 끝나는 일관된 글쓰기 — 창의적 사고와 상위 수준 계획을 동시에 요구한다.)</p>
+        <p><b>해법</b> — 문제 해결을 <b>트리 탐색</b>으로 다룬다. LLM을 여러 번 호출해 경로를 <b>비선형적으로 평가</b>하고, 따라가던 경로를 <b>버리고 재시작</b>할 수 있다. CoT보다 <b>넓은 범위의 과제</b>, 특히 추론과 계획이 필요한 과제에 쓴다. 대신 <b>복잡도·비용</b>이 올라간다.</p>
+
+        <h3>5.3 패턴 15 · Adapter Tuning</h3>
+        <p><b>문제</b> — 프롬프트로 능력을 여는 게 정석이지만, <b>응답이 원하는 모습이 아닐 때</b>가 있다. 책의 예 — "아이스크림 맛을 개선할 방법 세 가지"를 물으면 <b>원칙만 나열</b>한 답이 온다(좋은 재료를 쓴다 등). 원하는 건 <b>구체적인 아이디어</b>인데.</p>
+        <p><b>해법</b> — <b>어댑터 아키텍처</b>. 트랜스포머 블록 사이에 작은 <b>어댑터 층</b>을 끼우고 <span class="hl">그 층만 학습</span>한다. 그래서 ①학습이 <b>파라미터 효율적</b>이고 ②<b>배포가 편하며</b> ③<b>추론이 빠르다</b>. (1.6의 PeFT·LoRA와 같은 갈래다.)</p>
+
+        <h3>5.4 패턴 16 · Evol-Instruct</h3>
+        <p><b>문제</b> — 파인튜닝을 하려면 <b>인스트럭션 튜닝 데이터셋</b>이 필요한데, 새롭고 복잡한 과제일수록 그런 데이터가 <b>세상에 없다.</b></p>
+        <p><b>해법</b> — <span class="hl">데이터셋을 진화(evolve)시켜 만든다.</span> 단순한 지시에서 출발해 <b>4단계</b>로 점점 더 복잡하고 다양한 지시로 키워, 새 과제용 인스트럭션 튜닝 데이터셋을 합성한다.</p>
+
+        <div class="notice key"><b>💡 강의 포인트 (5장)</b><br>
+          · <b>훅</b>: "모델이 못 푸는 문제 — 프롬프트로 밀어붙일까, 모델을 바꿀까?"<br>
+          · <b>꼭 살릴 것</b>: CoT 세 변형(<b>Zero-shot / Few-shot / Auto</b>) / ToT는 <b>되돌아 나올 수 있다</b>(백트래킹·자기평가) / Adapter Tuning은 <b>끼운 층만 학습</b> / Evol-Instruct는 <b>데이터가 없을 때 만들어 낸다</b>.<br>
+          · <b>오해 차단</b>: ToT가 CoT의 상위 호환이 <b>아니다</b> — 복잡도와 비용이 붙으므로 <b>계획·탐색이 필요한 과제</b>에서만 값을 한다.<br>
+          · <b>비유</b>: CoT는 <b>풀이 과정을 쓰게 하는 것</b>, ToT는 <b>여러 갈래로 풀어 보고 막히면 돌아 나오는 것</b>, Adapter Tuning은 <b>본체는 두고 부품만 갈아 끼우는 것</b>.</div>
+        <p class="fine">📚 출처: Generative AI Design Patterns(O'Reilly) 5장 — 개념 재서술</p>
       </section>
 
     </main>
