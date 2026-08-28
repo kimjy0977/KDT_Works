@@ -36,7 +36,7 @@ SCOPES=""
 for f in $FILES; do
   case "$f" in
     90_hackathon/*)                         S=hackathon ;;
-    00_log/*|01_onboarding/*|02_module1/*|03_module2/*|99_domain-dev/*) S=content ;;
+    00_log/*|01_onboarding/*|0[2-9]_module*/*|99_domain-dev/*) S=content ;;
     index.html|README.md|assets/*|.githooks/*|.gitignore|.kdt-session*) S=structure ;;
     *)                                      S=other ;;
   esac
