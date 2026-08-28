@@ -331,6 +331,10 @@
       <a href="#s-5">CH5. 모델 능력 확장하기 <span class="toctag">패턴13~16</span></a>
       <a href="#s-6">CH6. 신뢰성 높이기 <span class="toctag">패턴17~20</span></a>
       <a href="#s-7">CH7. 에이전트가 행동하게 하기 <span class="toctag">패턴21~23</span></a>
+      <a href="#s-8">CH8. 제약 다루기 <span class="toctag">패턴24~28</span></a>
+      <a href="#s-9">CH9. 안전장치 설치하기 <span class="toctag">패턴29~32</span></a>
+      <a href="#s-10">CH10. 조립 가능한 에이전트 워크플로 <span class="toctag">종합</span></a>
+
 
 
 
@@ -616,9 +620,9 @@
           <tr><td><b>5</b></td><td>모델 능력 확장하기</td><td>13 Chain of Thought · 14 Tree of Thoughts · 15 Adapter Tuning · 16 Evol-Instruct</td><td>✅ 기록</td></tr>
           <tr><td><b>6</b></td><td>신뢰성 높이기</td><td>17 LLM-as-Judge · 18 Reflection · <b>19 Dependency Injection</b> · 20 Prompt Optimization</td><td>✅ 기록</td></tr>
           <tr><td><b>7</b></td><td>에이전트가 행동하게 하기</td><td>21 Tool Calling · 22 Code Execution · 23 Multiagent Collaboration</td><td>✅ 기록</td></tr>
-          <tr><td><b>8</b></td><td>제약 다루기</td><td>24 Small Language Model · 25 Prompt Caching · 26 Inference Optimization · 27 Degradation Testing · 28 Long-Term Memory</td><td>대기</td></tr>
-          <tr><td><b>9</b></td><td>안전장치 설치하기</td><td>29 Template Generation · 30 Assembled Reformat · 31 Self-Check · 32 Guardrails</td><td>대기</td></tr>
-          <tr><td><b>10</b></td><td>조립 가능한 에이전트 워크플로</td><td>(종합)</td><td>대기</td></tr>
+          <tr><td><b>8</b></td><td>제약 다루기</td><td>24 Small Language Model · 25 Prompt Caching · 26 Inference Optimization · 27 Degradation Testing · 28 Long-Term Memory</td><td>✅ 기록</td></tr>
+          <tr><td><b>9</b></td><td>안전장치 설치하기</td><td>29 Template Generation · 30 Assembled Reformat · 31 Self-Check · 32 Guardrails</td><td>✅ 기록</td></tr>
+          <tr><td><b>10</b></td><td>조립 가능한 에이전트 워크플로</td><td>(종합)</td><td>✅ 기록</td></tr>
         </tbody></table></div>
         <div class="notice warn"><b>⚠️ 원서와 대조한 결과 — 패턴 19의 이름이 다르다</b><br>
           저자 공식 저장소(<code>github.com/lakshmanok/generative-ai-design-patterns</code>)에는 패턴 19가 <b>Harness Engineering</b>으로 되어 있고, 우리가 읽는 정리본에는 <b>Dependency Injection</b>으로 되어 있다. <span class="hl">개정되며 이름이 바뀐 것으로 보인다(얼리 릴리스에서 흔한 일).</span> 검색할 때 <b>두 이름 모두</b> 시도할 것. 나머지 31개 패턴과 장 구성은 대조 결과 일치했다.</div>
@@ -853,6 +857,95 @@
           · <b>오해 차단</b>: 도구를 붙였다고 안전해지지 <b>않는다</b> — <b>프롬프트 인젝션</b>과 MCP의 한계가 따라온다. 그리고 멀티에이전트는 <b>기본값이 아니라</b> 단일 에이전트가 병목일 때 꺼내는 카드다.<br>
           · <b>비유</b>: Tool Calling은 <b>비서에게 결재 권한을 주는 것</b>, Code Execution은 <b>직접 그리지 말고 설계도를 써서 기계에 맡기는 것</b>.</div>
         <p class="fine">📚 출처: Generative AI Design Patterns(O'Reilly) 7장 — 개념 재서술</p>
+      </section>
+
+      <section class="section" id="s-8">
+        <h2>CHAPTER 8. 제약 다루기 <span class="dur">패턴 24~28</span></h2>
+        <p class="lead">이 장이 맡은 문제 — <span class="hl">프로덕션의 벽.</span> 데모에서는 안 보이던 비용·지연·메모리·기억의 한계가 여기서 드러난다.</p>
+
+        <h3>8.1 패턴 24 · Small Language Model (SLM)</h3>
+        <p><b>문제</b> — 프런티어 LLM을 자체 하드웨어로 돌리려면 최신 GPU와 메모리 넉넉한 VM이 필요하다. 클라우드 위라면 <b>높은 청구서와 물량 부족</b>으로 돌아온다(집필 시점 기준, 원하는 하드웨어가 동나는 일이 예사다). 제공자 API를 쓰면 기계를 운영할 필요는 없지만 <span class="hl3">비용과 가용성 문제가 사라지는 게 아니라, 누가 관리하느냐만 바뀐다.</span></p>
+        <p><b>해법</b> — 보통 프런티어 모델로 프로토타입을 만든 뒤 <b>작은 모델로 갈아탄다.</b> 품질을 크게 희생하지 않는 선택지가 셋이다.</p>
+        <div class="table-wrap"><table><thead><tr><th>옵션</th><th>방법</th><th>대가</th></tr></thead><tbody>
+          <tr><td><b>증류</b></td><td>지식 <b>범위를 좁혀</b> 크기를 줄인다. 작은 모델은 내 애플리케이션에 필요한 일만 한다</td><td>범용성 상실</td></tr>
+          <tr><td><b>양자화</b></td><td>파라미터 <b>정밀도를 낮춰</b> 메모리를 덜 쓴다</td><td>정확도를 아주 조금 양보</td></tr>
+          <tr><td><b>추측 디코딩</b></td><td>작은 모델과 큰 모델을 <b>한 쌍</b>으로 쓴다</td><td>정확도 손해 없이 지연↓, 대신 <b>복잡도↑</b></td></tr>
+        </tbody></table></div>
+
+        <h3>8.2 패턴 25 · Prompt Caching</h3>
+        <p><b>문제</b> — 배포하고 나면 <span class="hl">사용자 요청의 상당수가 몇 안 되는 같은 질문의 반복</span>이라는 걸 발견하게 된다. 책이 든 수치 — 케이블 회사 전화의 31%는 장애 신고, 은행 전화의 30%는 로그인 문제, 매장 전화의 40%는 영업시간 문의다.</p>
+        <p><b>해법</b> — <b>어디에 캐시할 것인가</b>를 정한다. <b>클라이언트 측 캐싱</b> · <b>시맨틱 캐싱</b>(똑같은 문장이 아니라 <b>뜻이 같은</b> 질문을 같은 것으로 취급) · <b>서버 측 캐싱</b>.</p>
+
+        <h3>8.3 패턴 26 · Inference Optimization</h3>
+        <p><b>문제</b> — 의료·금융·법률처럼 <b>규제가 심한</b> 영역은 LLM을 직접 호스팅하는 편이 유리하다. 기밀 데이터가 자기 서버 안에 머물고, 제3자가 공유하거나 <b>차기 모델 학습에 재사용</b>하지 못하기 때문이다. 대신 호스팅 고유의 난제가 따라온다.</p>
+        <p><b>해법</b> — 자체 호스팅 추론을 최적화하는 세 옵션. <b>연속 배칭</b>(요청을 계속 이어 붙여 GPU를 놀리지 않기) · <b>추측 디코딩</b> · <b>프롬프트 압축</b>.</p>
+
+        <h3>8.4 패턴 27 · Degradation Testing</h3>
+        <div class="notice key"><b>🎯 이 패턴의 한 문장</b><br>전통적 부하 테스트는 <b>언제 완전히 실패하는지</b>를 알려 준다. 그러나 AI 애플리케이션에서 알아야 할 것은 <span class="hl">서비스 품질이 어디서부터 저하되기 시작하는가</span>이다.</div>
+        <p><b>문제</b> — AI 애플리케이션은 겉보기엔 평범한 서버 앱 같지만, 400/500 오류를 찾는 부하 테스트만으로는 부족하다. "응답은 0.3초 안에" 같은 목표를 두고 <b>저하 지점과 제약</b>을 세밀하게 짚어야 한다. 이를 위해 <b>핵심 지표 4종</b>과 <b>확장성·복원력</b>을 함께 잰다.</p>
+
+        <h3>8.5 패턴 28 · Long-Term Memory</h3>
+        <p><b>문제</b> — LLM은 <span class="hl3">각 프롬프트를 고립된 채로 처리하며, 상호작용을 넘나들며 맥락을 유지하는 능력이 없다.</span> 그러나 챗봇·비서는 사용자 선호를 기억하고 세션을 넘어 대화 이력과 상태를 유지해야 한다.</p>
+        <p><b>해법</b> — 기억을 <b>네 종류로 나눠</b> 설계한다.</p>
+        <div class="table-wrap"><table><thead><tr><th>기억</th><th>담는 것</th></tr></thead><tbody>
+          <tr><td><b>작업 기억</b></td><td>지금 진행 중인 대화의 단기 맥락</td></tr>
+          <tr><td><b>일화 기억</b></td><td>과거에 있었던 <b>사건·상호작용</b></td></tr>
+          <tr><td><b>절차 기억</b></td><td>일을 <b>어떻게 하는지</b>에 대한 방법</td></tr>
+          <tr><td><b>의미 기억</b></td><td>사실·개념 같은 <b>일반 지식</b></td></tr>
+        </tbody></table></div>
+
+        <div class="notice key"><b>💡 강의 포인트 (8장)</b><br>
+          · <b>훅</b>: "데모는 됐는데 프로덕션에서 벽에 부딪힌다 — 비용·지연·기억."<br>
+          · <b>꼭 살릴 것</b>: 같은 질문 반복 비율(<b>31%·30%·40%</b>) → 캐싱이 값을 하는 이유 / SLM 세 옵션(<b>증류·양자화·추측 디코딩</b>) / 부하 테스트가 아니라 <b>저하 테스트</b> / 기억 <b>네 종류</b>.<br>
+          · <b>오해 차단</b>: API를 쓰면 비용·가용성 문제가 <b>사라지는 게 아니라</b> 관리 주체만 바뀐다. 그리고 <b>완전 실패 지점</b>을 아는 것만으로는 부족하다.<br>
+          · <b>비유</b>: 추측 디코딩은 <b>인턴이 먼저 초안을 쓰고 전문가가 훑어 확인하는 것</b>.</div>
+        <p class="fine">📚 출처: Generative AI Design Patterns(O'Reilly) 8장 — 개념 재서술</p>
+      </section>
+
+      <section class="section" id="s-9">
+        <h2>CHAPTER 9. 안전장치 설치하기 <span class="dur">패턴 29~32</span></h2>
+        <p class="lead">이 장이 맡은 문제 — <span class="hl">위험을 줄이는 네 가지 방법.</span> 출발점은 하나다. <b>LLM은 결정적이지 않고, 그래서 부정확하거나 유해한 응답의 위험이 언제나 조금은 남는다.</b></p>
+
+        <h3>9.1 패턴 29 · Template Generation</h3>
+        <p><b>문제</b> — 여행사가 투어 구매자에게 <b>감사 편지</b>를 보낸다고 하자. 개인화돼야 하고 읽기 좋아야 하며 여러 언어로 나가야 한다. LLM으로 만들고 싶지만, 그러면 <b>브랜드를 위험에 노출</b>시킨다 — 부적절한 표현이 들어가거나 엉뚱한 상품을 업셀하려 들면? 사람이 검토하면 되지만 <span class="hl3">하루 수천 건이면 사람 검토는 곧 비싸진다.</span></p>
+        <p><b>해법</b> — 편지를 매번 생성하지 말고 <span class="hl">템플릿을 생성한다.</span> 사람은 <b>템플릿 하나만</b> 검토하면 되고, 실제 발송물은 그 템플릿에 값을 채워 만든다. 검토 비용이 발송 건수에서 <b>템플릿 개수로</b> 줄어든다.</p>
+
+        <h3>9.2 패턴 30 · Assembled Reformat</h3>
+        <p><b>문제</b> — 이커머스 <b>제품 카탈로그</b> 수십만 페이지를 LLM으로 만든다고 하자. 여기서 환각의 대가는 크다. 책의 예 — 리튬 배터리 카메라를 <b>알칼라인이라고 잘못 적으면</b>, 그 배터리는 밀폐 공간에서 통제 불가능한 화재를 낼 수 있어 <b>위탁 수하물 반입 금지</b> 품목이다. 잘못된 정보가 실제 사고나 탑승 거부로 이어질 수 있다.</p>
+        <p><b>해법</b> — 사실은 <b>구조화된 데이터에서 조립</b>하고, LLM에게는 <span class="hl">그것을 읽기 좋게 재포맷하는 일만</span> 맡긴다. 사실을 지어낼 여지 자체를 없앤다.</p>
+
+        <h3>9.3 패턴 31 · Self-Check</h3>
+        <p><b>문제</b> — <b>환각</b>은 LLM이 실제 세계나 입력 컨텍스트와 맞지 않는 내용을 만들어 내는 것이다. 원인은 구조적이다 — <span class="hl3">LLM은 본질적으로 통계적 토큰 생성기이며, 자기가 생성하는 것의 의미를 모른다.</span></p>
+        <p><b>해법</b> — 모델이 내놓는 <b>logprobs(토큰 확률)</b>를 읽어 <span class="hl">모델이 얼마나 확신하는지</span>를 본다. 신뢰도가 낮은 자리를 찾아 환각을 식별하고, 그 부분만 검증하거나 사람에게 넘긴다.</p>
+
+        <h3>9.4 패턴 32 · Guardrails</h3>
+        <p><b>해법</b> — 입출력 앞뒤에 <b>가드레일 계층</b>을 둔다. <b>기성 가드레일</b>(제공되는 것)과 <b>커스텀 가드레일</b>(내 도메인 규칙)을 함께 쓴다. 앞의 셋이 "잘 만들기"라면 이건 <b>"넘지 말아야 할 선을 지키기"</b>다.</p>
+
+        <div class="notice key"><b>💡 강의 포인트 (9장)</b><br>
+          · <b>훅</b>: "하루 수천 통을 사람이 다 검토할 수 있나?"<br>
+          · <b>꼭 살릴 것</b>: Template Generation은 <b>검토 대상을 발송물에서 템플릿으로 옮긴다</b> / Assembled Reformat은 <b>사실은 조립, LLM은 재포맷만</b> / Self-Check는 <b>logprobs로 확신도를 읽는다</b> / 환각의 원인은 <b>의미를 모르는 통계적 생성기</b>라는 구조.<br>
+          · <b>오해 차단</b>: 프롬프트로 "정확하게 써 줘"라고 해서 해결되는 문제가 <b>아니다</b> — 구조를 바꿔 위험 자체를 없앤다.<br>
+          · <b>비유</b>: 배터리 표기 오류 사례처럼, <b>한 단어의 환각이 화재로 이어질 수 있다.</b></div>
+        <p class="fine">📚 출처: Generative AI Design Patterns(O'Reilly) 9장 — 개념 재서술</p>
+      </section>
+
+      <section class="section" id="s-10">
+        <h2>CHAPTER 10. 조립 가능한 에이전트 워크플로 <span class="dur">종합</span></h2>
+        <p class="lead"><span class="hl">10장은 새 패턴을 소개하지 않는다.</span> 앞의 아홉 개 장에서 다룬 패턴들을 <b>하나의 애플리케이션으로 끌어모아</b>, 서로 어떻게 맞물려 <b>시간이 갈수록 좋아지는 프로덕션급 에이전트 앱</b>이 되는지 보여 준다.</p>
+        <div class="table-wrap"><table><thead><tr><th>다루는 것</th><th>내용</th></tr></thead><tbody>
+          <tr><td><b>실행 모드 둘</b></td><td><b>코파일럿 모드</b>(사람이 주도, AI가 보조) vs <b>에이전트 모드</b>(AI가 워크플로를 밀고 나감)</td></tr>
+          <tr><td><b>사람의 피드백</b></td><td>워크플로 중간에 사람이 끼어드는 자리</td></tr>
+          <tr><td><b>시스템 아키텍처</b></td><td>맞물리는 <b>다섯 구성 요소</b> — 각 단계를 구현하는 <b>에이전트들</b>, 사용자를 워크플로를 따라 밀고 나가는 부분 등</td></tr>
+          <tr><td><b>멀티에이전트 아키텍처</b></td><td>패턴 23의 실제 배치</td></tr>
+          <tr><td><b>거버넌스·모니터링·보안</b></td><td>운영에 필요한 통제 장치</td></tr>
+          <tr><td><b>학습 파이프라인 · 데이터 프로그램</b></td><td>시간이 갈수록 좋아지게 만드는 되먹임</td></tr>
+          <tr><td><b>배포</b></td><td>프로덕션으로 내보내기</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>💡 강의 포인트 (10장)</b><br>
+          · <b>훅</b>: "패턴을 하나씩 배웠다 — 그럼 실제 앱은 어떻게 생겼나?"<br>
+          · <b>꼭 살릴 것</b>: <b>새 패턴이 없다</b>는 것 자체가 메시지 — 조립이 목적이다 / <b>코파일럿 vs 에이전트</b> 모드 / 좋아지려면 <b>학습 파이프라인과 데이터 프로그램</b>이 있어야 한다.<br>
+          · <b>오해 차단</b>: 에이전트 앱은 패턴을 <b>많이 넣는다고</b> 완성되지 않는다 — 거버넌스·모니터링·보안과 되먹임 구조가 함께 있어야 프로덕션급이다.</div>
+        <p class="fine">📚 출처: Generative AI Design Patterns(O'Reilly) 10장 — 개념 재서술</p>
       </section>
 
     </main>
