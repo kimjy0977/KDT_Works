@@ -256,6 +256,13 @@ def main():
     os.makedirs(a.out, exist_ok=True)
     with open(os.path.join(a.out, "chunks.json"), "w", encoding="utf-8") as f:
         json.dump(chunks, f, ensure_ascii=False, indent=1)
+    # 앱이 file:// 로도 열리도록 같은 내용을 스크립트로도 낸다 (json 이 정본, 여기서 함께 생성)
+    with open(os.path.join(a.out, "chunks.js"), "w", encoding="utf-8") as f:
+        f.write("// 자동 생성 -- harvest.py 가 chunks.json 과 함께 만든다. 직접 고치지 말 것." + chr(10))
+        f.write("window.CHUNKS = ")
+        json.dump(chunks, f, ensure_ascii=False)
+        f.write(";" + chr(10))
+
     with open(os.path.join(a.out, "works.json"), "w", encoding="utf-8") as f:
         json.dump([{k: w[k] for k in ("slug", "url", "title", "artist", "era", "people")}
                    for w in chosen], f, ensure_ascii=False, indent=1)
