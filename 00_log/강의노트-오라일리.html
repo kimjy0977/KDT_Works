@@ -323,6 +323,11 @@
       <a href="#s-1-5">1.5 인컨텍스트 러닝</a>
       <a href="#s-1-6">1.6 포스트 트레이닝</a>
       <a href="#s-1-7">1.7 이 책의 나머지 구성</a>
+      <small style="margin-top:14px">전체 · 장별</small>
+      <a href="#s-map">📕 책 전체 지도 (10장·32패턴)</a>
+      <a href="#s-2">CH2. 콘텐츠 스타일 제어 <span class="toctag">패턴1~5</span></a>
+      <a href="#s-3">CH3. 지식 더하기: 베이스 <span class="toctag">패턴6~8</span></a>
+
     </nav>
 
     <main>
@@ -592,6 +597,123 @@
         </tbody></table></div></div>
         <p>그리고 1장의 뼈대는 이렇게 요약된다 — <b>프로토타입은 쉽지만 프로덕션은 어렵고, 그래서 검증된 패턴이 필요하다.</b> 이제는 모델을 만드는 게 아니라 <b>파운데이션 모델 위에 짓는다.</b> 에이전트는 과제가 커서 쪼갠 결과이며 <b>아직은 지향점</b>이고, 출력은 복잡한 패턴을 꺼내기 전에 <b>온도·Top-P 같은 손잡이</b>만으로도 꽤 조절된다.</p>
         <p class="fine">📚 출처: Generative AI Design Patterns(O'Reilly) 1.7 — 개념 재서술</p>
+      </section>
+
+      <section class="section" id="s-map">
+        <h2>📕 책 전체 지도 — 10장 · 32패턴</h2>
+        <p class="lead">저자 <b>Valliappa Lakshmanan · Hannes Hapke</b>. 각 장은 <b>하나의 문제</b>를 맡고, 그 해법 후보들을 <b>패턴 묶음</b>으로 제시한다. 1장에서 예고편처럼 등장한 이름들(Tool Calling·Reflection·Self-Check·CoT·Adapter Tuning)이 모두 여기 배치돼 있다.</p>
+        <div class="table-wrap"><table><thead><tr><th>장</th><th>제목</th><th>패턴</th><th>상태</th></tr></thead><tbody>
+          <tr><td><b>1</b></td><td>서론</td><td>— (개관·기초)</td><td>✅ 기록</td></tr>
+          <tr><td><b>2</b></td><td>콘텐츠 스타일 제어하기</td><td>1 Logits Masking · 2 Grammar · 3 Style Transfer · 4 Reverse Neutralization · 5 Content Optimization</td><td>✅ 기록</td></tr>
+          <tr><td><b>3</b></td><td>지식 더하기: 베이스</td><td>6 Basic RAG · 7 Semantic Indexing · 8 Indexing at Scale</td><td>✅ 기록</td></tr>
+          <tr><td><b>4</b></td><td>지식 더하기: 싱코페이션</td><td>9 Index-Aware Retrieval · 10 Node Postprocessing · 11 Trustworthy Generation · 12 Deep Search</td><td>대기</td></tr>
+          <tr><td><b>5</b></td><td>모델 능력 확장하기</td><td>13 Chain of Thought · 14 Tree of Thoughts · 15 Adapter Tuning · 16 Evol-Instruct</td><td>대기</td></tr>
+          <tr><td><b>6</b></td><td>신뢰성 높이기</td><td>17 LLM-as-Judge · 18 Reflection · <b>19 Dependency Injection</b> · 20 Prompt Optimization</td><td>대기</td></tr>
+          <tr><td><b>7</b></td><td>에이전트가 행동하게 하기</td><td>21 Tool Calling · 22 Code Execution · 23 Multiagent Collaboration</td><td>대기</td></tr>
+          <tr><td><b>8</b></td><td>제약 다루기</td><td>24 Small Language Model · 25 Prompt Caching · 26 Inference Optimization · 27 Degradation Testing · 28 Long-Term Memory</td><td>대기</td></tr>
+          <tr><td><b>9</b></td><td>안전장치 설치하기</td><td>29 Template Generation · 30 Assembled Reformat · 31 Self-Check · 32 Guardrails</td><td>대기</td></tr>
+          <tr><td><b>10</b></td><td>조립 가능한 에이전트 워크플로</td><td>(종합)</td><td>대기</td></tr>
+        </tbody></table></div>
+        <div class="notice warn"><b>⚠️ 원서와 대조한 결과 — 패턴 19의 이름이 다르다</b><br>
+          저자 공식 저장소(<code>github.com/lakshmanok/generative-ai-design-patterns</code>)에는 패턴 19가 <b>Harness Engineering</b>으로 되어 있고, 우리가 읽는 정리본에는 <b>Dependency Injection</b>으로 되어 있다. <span class="hl">개정되며 이름이 바뀐 것으로 보인다(얼리 릴리스에서 흔한 일).</span> 검색할 때 <b>두 이름 모두</b> 시도할 것. 나머지 31개 패턴과 장 구성은 대조 결과 일치했다.</div>
+        <p class="fine">📌 장 제목의 <b>베이스·싱코페이션</b>은 음악 용어다. 베이스는 곡의 밑바닥을 받치는 저음부 — RAG의 기본기(인덱싱·검색·생성)가 그 역할이고, 4장의 고급 패턴들이 그 위에 얹는 엇박이라는 뜻이다.</p>
+      </section>
+
+      <section class="section" id="s-2">
+        <h2>CHAPTER 2. 콘텐츠 스타일 제어하기 <span class="dur">패턴 1~5</span></h2>
+        <p class="lead">이 장이 맡은 문제는 하나다 — <span class="hl">생성된 텍스트가 원하는 스타일·형식 규칙을 따르게 만드는 것.</span> 다섯 패턴이 각각 다른 상황을 맡는다.</p>
+
+        <h3>2.1 패턴 1 · Logits Masking</h3>
+        <p><b>문제</b> — 생성 텍스트가 특정 규칙을 지켜야 한다. 규칙의 성격은 넷 정도다. <b>브랜딩</b>(제품 A를 말할 땐 A의 브랜드 단어만 쓰고 B의 단어는 금지), <b>정확성</b>(인보이스 ID·금액이 본문에서 반복되지 않게 — 반복은 검증 밖의 오류를 만든다), <b>컴플라이언스</b>(고객사 사례를 인용하되 경쟁사가 함께 등장하지 않게), <b>스타일북</b>(시카고 매뉴얼, APA 인용 등).</p>
+        <div class="notice warn"><b>⚠️ 안티패턴 — "될 때까지 다시 하기"</b><br>생성 → 규칙 위반 검사 → 위반이면 재생성. 이 방식은 <span class="hl3">재생성이 필요한 응답이 10% 남짓일 때만</span> 통한다. 그보다 잦으면 재시도가 지연과 비용을 잡아먹는다.</div>
+        <p><b>해법</b> — 완성될 때까지 기다리지 않고 <b>샘플링 단계에서 가로챈다.</b></p>
+        <ol>
+          <li>중간 지점마다 가능한 연속 후보 집합을 얻는다</li>
+          <li>규칙에 맞지 않는 후보의 <b>확률을 0으로</b> 만든다</li>
+          <li>맞는 후보가 하나라도 있으면 계속 진행</li>
+          <li>하나도 없거나 이미 막다른 길로 확인된 지점이면 <b>한 단계 되돌아가(백트래킹) 재생성</b></li>
+          <li>최대 시도 횟수를 넘기면 <b>거부 응답</b>을 돌려준다</li>
+        </ol>
+        <p>효과를 한 문장으로 하면 — <span class="hl">빔 서치에서 규칙에 맞지 않는 빔을 쳐내는 것</span>이다(1.4.5와 연결).</p>
+
+        <h3>2.2 패턴 2 · Grammar</h3>
+        <p><b>문제</b> — 출력이 특정 <b>형식</b>을 따라야 한다. 쉼표로 구분된 목록처럼 단순할 수도, 문법적으로 유효한 SQL처럼 복잡할 수도 있다. 다운스트림 애플리케이션은 <b>파싱·검증 없이 바로 쓰기를</b> 기대한다.</p>
+        <div class="notice warn"><b>⚠️ 안티패턴 — 프롬프트로 부탁하기</b><br>"JSON으로 출력해 줘"라고 쓰거나 예시 몇 개를 주고 <b>모델이 늘 그 구문을 지키기를 바라는 것.</b> 지시 이행 능력에 기대는 건 <span class="hl3">취약하고(버전이 바뀌면 깨진다) · 불안정하고(생성은 확률적이다) · 비싸다(지시를 잘 따르는 건 보통 더 큰 모델이다).</span><br>결정적 이유는 따로 있다 — <b>이 출력을 소비하는 모든 쪽이 "안 따랐을 경우"에 대비해야 한다.</b></div>
+        <p><b>해법</b> — 규칙을 <b>문법</b>으로 만들어 프레임워크에 넘긴다. 모델이 토큰을 고를 때 <b>문법상 허용되는 토큰만</b> 남기고 나머지 확률을 0으로 만든다. 방법은 셋 — ①문법 제약 로짓 프로세서 ②데이터 형식 명시 ③스키마 설명 전달.</p>
+        <div class="notice key"><b>🎯 두 패턴의 관계</b><br><span class="hl">Grammar는 모델 프레임워크가 대신 해 주는 Logits Masking이다.</span> 그래서 책도 Grammar를 이해하려면 패턴 1을 함께 읽으라고 권한다(로짓 처리의 상세는 패턴 1에 있다).</div>
+
+        <h3>2.3 패턴 3 · Style Transfer</h3>
+        <p><b>문제</b> — 특정 톤·문체를 모방해야 한다. 이 패턴은 <b>세 조건이 갖춰졌을 때</b> 쓴다.</p>
+        <div class="table-wrap"><table><thead><tr><th>조건</th><th>뜻</th></tr></thead><tbody>
+          <tr><td><b>가용한 콘텐츠</b></td><td>내용은 이미 있는데 <b>톤·스타일이 아니다</b>. 예: 학술 논문의 방법론·결과를 비기술직 임원용 브로슈어로</td></tr>
+          <tr><td><b>미묘한 스타일</b></td><td>원하는 바를 <b>몇 가지 규칙으로 표현하기 어렵다.</b> 사람도 말로 못 하지만 <span class="hl">보면 안다</span></td></tr>
+          <tr><td><b>변환 예시</b></td><td>전문가가 <b>가용 콘텐츠를 원하는 스타일로 바꿔 놓은 예시</b>가 있다</td></tr>
+        </tbody></table></div>
+        <p><b>해법</b> — <b>퓨샷</b>으로 예시를 보이거나, 변환 쌍으로 <b>파인튜닝</b>한다. 같은 발상이 이미지 스타일 전이에도 적용된다.</p>
+
+        <h3>2.4 패턴 4 · Reverse Neutralization</h3>
+        <p><b>문제</b> — 내 개인 문체로 쓰고 싶은데 <span class="hl3">변환 전후 쌍이 없다.</span> 항공사에 항의하는 편지를 내가 쓴 것처럼 만들고 싶다고 하자. 제로샷은 탈락이고(내 문체가 아니다), <b>Style Transfer도 탈락</b>이다 — 스타일을 바꿔 볼 <b>그 주제의 원본 편지가 없기 때문</b>이다. 가진 것은 다른 주제로 쓴 내 이메일들뿐이다.</p>
+        <p><b>해법</b> — 방향을 <b>거꾸로</b> 만든다.</p>
+        <div class="table-wrap"><table><thead><tr><th>단계</th><th>하는 일</th></tr></thead><tbody>
+          <tr><td><b>① 중립 형태 생성</b></td><td>내 문체 이메일을 모델에게 주고 <b>중립적인 업무 문체로</b> 바꿔 달라고 한다</td></tr>
+          <tr><td><b>② 데이터셋 만들기</b></td><td>①의 <b>입력과 출력을 뒤집는다.</b> 이제 입력=중립 이메일, 출력=내 문체 이메일</td></tr>
+          <tr><td><b>③ 파인튜닝</b></td><td>그 데이터셋으로 베이스 모델을 학습 → <b>중립 텍스트를 내 스타일로 바꾸는 모델</b>이 나온다</td></tr>
+        </tbody></table></div>
+        <p class="fine">같은 방식이 특정 관할권의 법률 문서 문체를 만들 때도 쓰인다.</p>
+
+        <h3>2.5 패턴 5 · Content Optimization</h3>
+        <p><b>문제</b> — 콘텐츠는 <b>목적</b>(교육·오락·판매)에 봉사하려고 만든다. 그러면 그 목적에 가장 잘 맞는 스타일로 만들어야 한다. 전통적인 <b>A/B 테스트</b>는 단순하고 좋은 방법이지만 결정적 제약이 있다 — <span class="hl3">어떤 스타일 요인이 중요한지에 대한 가설이 먼저 있어야만 통한다.</span></p>
+        <p>예를 들어 "교육 콘텐츠에선 문단 길이가 중요하고 3~4문장이 최선"이라는 가설이 있어야, A안과 B안을 만들어 학습 속도·기억 지속을 비교할 수 있다. 해법은 이 과정을 <b>4단계로 체계화</b>하고 <b>지속적 개선</b> 루프로 돌리는 것이다.</p>
+
+        <div class="notice key"><b>💡 강의 포인트 (2장 전체)</b><br>
+          · <b>훅</b>: "스타일이 제멋대로다 — 근데 다시 생성시키는 건 답이 아니다."<br>
+          · <b>꼭 살릴 것</b>: 재생성 안티패턴은 <b>10% 남짓일 때만</b> 통함 / "JSON으로 줘"는 <b>취약·불안정·비쌈</b> / Grammar = <b>프레임워크가 대신 하는 Logits Masking</b> / Reverse Neutralization은 <b>쌍이 없을 때 방향을 뒤집는다</b>.<br>
+          · <b>오해 차단</b>: 형식을 프롬프트로 부탁하는 건 보장이 <b>아니다</b> — 소비하는 쪽이 늘 실패에 대비해야 하니 안티패턴이다.<br>
+          · <b>비유</b>: Logits Masking은 <b>글을 다 쓴 뒤 검사해 다시 쓰게 하는 대신, 금지어를 쓰려는 순간 펜을 막는 것</b>.</div>
+        <p class="fine">📚 출처: Generative AI Design Patterns(O'Reilly) 2장 — 개념 재서술</p>
+      </section>
+
+      <section class="section" id="s-3">
+        <h2>CHAPTER 3. 지식 더하기: 베이스 <span class="dur">패턴 6~8</span></h2>
+        <p class="lead">이 장이 맡은 문제 — <span class="hl">모델이 모르는 지식(최신·사내·기밀)을 어떻게 대게 할 것인가.</span> 제목의 <b>베이스</b>는 음악의 저음부다. RAG의 기본기인 <b>인덱싱·검색·생성</b>이 곡의 밑바닥을 받치는 역할이고, 4장 <b>싱코페이션</b>(엇박)의 고급 패턴들은 그 위에 얹힌다.</p>
+
+        <h3>3.1 패턴 6 · Basic RAG</h3>
+        <p><b>문제</b> — 파운데이션 모델의 <b>세계 지식</b>은 방대하다(웹 크롤·전자도서관·위키백과·arXiv·GitHub·소셜·신문 아카이브·금융 공시·정부 간행물). 그런데 기업 업무에는 <b>충분하지 않다.</b></p>
+        <div class="table-wrap"><table><thead><tr><th>왜 부족한가</th><th>내용</th></tr></thead><tbody>
+          <tr><td><b>정적인 지식 컷오프</b></td><td>학습 데이터 수집일 <b>이후 정보에 접근할 수 없다</b> → 낡거나 부정확한 응답. 빠르게 바뀌는 주제일수록 치명적</td></tr>
+          <tr><td><b>모델 용량의 한계</b></td><td>파라미터 안에 저장할 수 있는 지식의 양에 한계가 있다</td></tr>
+          <tr><td><b>비공개 데이터 접근 부재</b></td><td>기밀·업계 특화·개인화된 자료는 <b>애초에 학습에 들어가지 않았다</b></td></tr>
+        </tbody></table></div>
+        <p><b>해법 — 그라운딩(근거 대기)</b>. 응답을 <b>신뢰할 수 있는 지식 출처에 근거해서</b> 생성하게 만든다. 핵심은 <span class="hl">학습 시점이 아니라 런타임에 지식을 공급한다</span>는 것이다. 그러면 위 세 문제가 이렇게 풀린다 — 최신 외부 출처를 덧대 <b>낡음</b>을 해소하고, 외부 지식 베이스에 연결해 <b>용량 한계</b>를 사실상 확장하며, 사내 자료를 붙여 <b>비공개 데이터</b>를 다룬다.</p>
+        <div class="notice key"><b>🎯 한 줄 비유 (책의 표현)</b><br>RAG는 파운데이션 모델을 <span class="hl">"똑똑한 조사원"</span>으로 바꿔 놓는다 — 자기 지식을 보충하려고 <b>외부 출처를 찾아보는</b> 조사원.</div>
+        <p><b>구성 3단계</b> — <b>인덱싱</b>(문서를 조각내 색인) → <b>검색</b>(질문에 맞는 조각 찾기, 고전적으로 <b>TF-IDF·BM25</b> 같은 키워드 방식) → <b>생성</b>(찾은 조각을 근거로 답).</p>
+
+        <h3>3.2 패턴 7 · Semantic Indexing</h3>
+        <p><b>문제</b> — 전통적인 <b>키워드 색인·조회</b>는 문서가 복잡해지거나 이미지·표 같은 <b>다른 미디어</b>가 섞이면 한계에 부딪힌다. 단어가 겹치지 않아도 <b>뜻이 같은</b> 문서를 찾아야 하는데, 키워드 방식은 그걸 못 한다.</p>
+        <p><b>해법 — 임베딩</b>. <b>의미 임베딩</b>은 텍스트(나아가 이미지·기타 미디어)를 <span class="hl">고정 길이 벡터</span>로 인코딩해 <b>의미</b>를 담는다. 문서 조각을 이 벡터로 색인하고, 그렇게 만든 저장소를 <b>벡터 스토어</b>라 부른다.</p>
+        <div class="table-wrap"><table><thead><tr><th>이 패턴이 함께 다루는 것</th><th>무엇</th></tr></thead><tbody>
+          <tr><td><b>시맨틱 청킹</b></td><td>글자 수로 자르지 않고 <b>의미 단위</b>로 조각내기</td></tr>
+          <tr><td>이미지·비디오·표</td><td>텍스트가 아닌 미디어를 색인에 넣는 법</td></tr>
+          <tr><td>업계 전문 용어</td><td>일반 임베딩이 못 잡는 도메인 어휘 다루기</td></tr>
+          <tr><td><b>컨텍스추얼 리트리벌</b></td><td>조각에 <b>맥락을 덧붙여</b> 색인해 검색 정확도를 올리기</td></tr>
+          <tr><td><b>계층적 청킹(RAPTOR)</b></td><td>조각을 <b>계층</b>으로 묶어 요약 단계를 만들기</td></tr>
+        </tbody></table></div>
+
+        <h3>3.3 패턴 8 · Indexing at Scale</h3>
+        <p><b>문제</b> — 데모나 PoC에서는 안 만나지만 <b>프로덕션에서 시간이 지나면</b> 반드시 드러나는 난제들이다. <span class="hl3">잘 돌던 시스템도 유지보수 전략이 없으면 서서히 무너진다.</span></p>
+        <div class="table-wrap"><table><thead><tr><th>난제</th><th>내용</th></tr></thead><tbody>
+          <tr><td><b>중의성 해소</b></td><td>지식 베이스가 커질수록 <b>같은 단어가 다른 뜻</b>을 갖는다. 예: <b>유체(fluid)</b>는 일상에선 거의 액체지만 <b>물리학에서는 기체도 유체</b>다. 어떤 문서가 산소 질문에 해당하는지 판단하려면 <b>그 글이 과학 논문인지 교양 글인지</b>를 알아야 한다</td></tr>
+          <tr><td><b>데이터 최신성</b></td><td>시간이 지나며 자료가 낡는다</td></tr>
+          <tr><td><b>상충하는 정보</b></td><td>서로 어긋나는 문서들이 함께 검색된다</td></tr>
+        </tbody></table></div>
+        <p><b>해법 — 메타데이터</b>. <b>저자·도메인·이름</b>처럼 <span class="hl">문서에 관한 정보</span>를 붙여 두면 중의성 해소·최신성 반영·상충 정보 사이의 항해를 모두 다룰 수 있고, 검색 성능도 크게 올라간다. 이어서 <b>모순 탐지</b>, <b>낡은 콘텐츠 처리</b>, <b>모델 수명 주기 관리</b>, <b>메타데이터 필터링</b>을 다룬다.</p>
+
+        <div class="notice key"><b>💡 강의 포인트 (3장 전체)</b><br>
+          · <b>훅</b>: "모델은 사내 문서를 모른다 — 학습을 다시 시킬 게 아니라 <b>런타임에 근거를 쥐여 준다</b>."<br>
+          · <b>꼭 살릴 것</b>: RAG가 푸는 세 문제(<b>지식 컷오프·용량 한계·비공개 데이터</b>) / 키워드(TF-IDF·BM25) → <b>임베딩·벡터 스토어</b>로 넘어가는 이유 / <b>프로덕션에서만 드러나는</b> 난제 3종.<br>
+          · <b>오해 차단</b>: RAG는 모델을 <b>학습시키는 게 아니다</b>(가중치 불변) — 1.5의 ICL과 같은 층이다. 그리고 <b>임베딩만 넣으면 끝이 아니다</b> — 규모가 커지면 메타데이터 없이는 무너진다.<br>
+          · <b>비유</b>: 모델을 <b>똑똑한 조사원</b>으로 바꾸는 일. 시맨틱 색인은 <b>제목이 아니라 내용으로 책을 찾는 사서</b>.</div>
+        <p class="fine">📚 출처: Generative AI Design Patterns(O'Reilly) 3장 — 개념 재서술</p>
       </section>
 
     </main>
