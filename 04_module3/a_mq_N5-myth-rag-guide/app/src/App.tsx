@@ -18,11 +18,21 @@ interface Turn {
 
 type Phase = "idle" | "embed" | "search" | "stream" | "error-ollama";
 
+/** ★실험 변수 — 근거로 넘길 청크 수 (8강: 한 번에 하나만 바꾼다)
+ *  세팅 A = 15 (참조 구현 기본값) · 세팅 B = 6
+ *
+ *  ⚠️ 이 값은 순수한 한 축이 아니다. rag.ts 의 retrieve() 가
+ *     벡터 = slice(0, min(10, k)) · BM25 = k - 벡터개수  로 배분하므로
+ *     k=15 -> 벡터10 + BM25 5,  k=6 -> 벡터6 + BM25 0 이 된다.
+ *     즉 k 를 줄이면 BM25 가 통째로 빠진다. 실험 해석 시 이 교란을 감안할 것.
+ *  기록은 README.md 「실험」 절 참조. */
+const TOP_K = 15;
+
 // 파이프라인 단계 — 튜토리얼용 표시
 const PHASE_LABEL: Record<Phase, string> = {
   idle: "",
   embed: "① 질문 임베딩 중 — 브라우저에서 질문을 벡터로 바꿉니다",
-  search: "② 근거 검색 중 — 벡터 유사도 상위 10개 + BM25 상위 5개, 총 15개를 찾습니다",
+  search: "② 근거 검색 중 — 벡터 유사도와 BM25로 근거를 고릅니다",
   stream: "③ 답변 생성 중 — 찾은 근거를 붙여 모델이 답을 씁니다",
   "error-ollama": "연결 실패",
 };
@@ -75,7 +85,7 @@ export default function App() {
       setPhase("embed");
       await new Promise((r) => setTimeout(r, 350)); // 임베딩 단계를 눈으로 볼 수 있게 짧게 표시
       setPhase("search");
-      const hits = await retrieve(q, 15);
+      const hits = await retrieve(q, TOP_K);
       setDlPct(null);
       setLastHits(hits);
       setHitsOpen(false);
