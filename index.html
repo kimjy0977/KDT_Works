@@ -140,6 +140,16 @@
           <span class="go">열기 ↗</span>
         </a>
 
+        <a class="row main" href="./04_module3/a_mq_N5-myth-rag-guide/">
+          <div class="rmeta"><span class="rdate">2026.08.28</span><span class="rnode">메인 퀘스트</span><span class="rcat">RAG 챗봇</span><span class="rwhen">↳ 모듈3 · 노드5 · 9강</span></div>
+          <div class="rmain">
+            <h3><span class="ico">🏛️</span> MYTH GALLERY 안내 챗봇 <span class="en">Myth RAG Guide</span></h3>
+            <p>공개 자료만 읽고 답하는 신화 안내 챗봇 — 답마다 원문 URL을 근거로 걸고, 근거를 못 찾으면 모른다고 말한다.</p>
+            <div class="tags"><span class="tag">RAG</span><span class="tag">하이브리드 검색</span><span class="tag">embeddinggemma</span><span class="tag">Ollama</span><span class="tag">React·TS</span></div>
+          </div>
+          <span class="go">열기 →</span>
+        </a>
+
       </div>
     </section>
 
@@ -366,7 +376,7 @@
         ['d_hw_L4-world-atlas','world-atlas','앱'],['d_hw_L6-agent-skills','agent-skills','문서'],
         ['pose_tool.ipynb','pose','노트북'],['c_lab_L5-todo-app','todo','앱'],
         ['c_lab_L6-agent-practice','agent-practice','앱'],['opening-trainer','opening-trainer','앱'],
-        ['d_hw_N6-room-3d',null,'3D']
+        ['d_hw_N6-room-3d',null,'3D'],['a_mq_N5-myth-rag-guide',null,'챗봇']
       ];
       function ph(e){var d=document.createElement('div');d.className='thumb ph';d.textContent=e;return d;}
       document.querySelectorAll('a.row').forEach(function(row){
@@ -374,7 +384,7 @@
         var m=null; for(var i=0;i<map.length;i++){ if(href.indexOf(map[i][0])>-1){m=map[i];break;} }
         var cell=document.createElement('div'); cell.className='thumbcell';
         var thumb;
-        var pe={'발표':'📊','3D':'🧊','노트북':'📓'}, phe=(m&&pe[m[2]])||'📄';
+        var pe={'발표':'📊','3D':'🧊','노트북':'📓','챗봇':'💬'}, phe=(m&&pe[m[2]])||'📄';
         if(m&&m[1]){ thumb=document.createElement('img'); thumb.className='thumb'; thumb.src='assets/thumbs/'+m[1]+'.png'; thumb.alt=''; thumb.loading='lazy';
           thumb.onerror=function(){this.replaceWith(ph(phe));}; }
         else { thumb=ph(phe); }
