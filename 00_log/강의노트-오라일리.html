@@ -329,6 +329,9 @@
       <a href="#s-3">CH3. 지식 더하기: 베이스 <span class="toctag">패턴6~8</span></a>
       <a href="#s-4">CH4. 지식 더하기: 싱코페이션 <span class="toctag">패턴9~12</span></a>
       <a href="#s-5">CH5. 모델 능력 확장하기 <span class="toctag">패턴13~16</span></a>
+      <a href="#s-6">CH6. 신뢰성 높이기 <span class="toctag">패턴17~20</span></a>
+      <a href="#s-7">CH7. 에이전트가 행동하게 하기 <span class="toctag">패턴21~23</span></a>
+
 
 
     </nav>
@@ -611,8 +614,8 @@
           <tr><td><b>3</b></td><td>지식 더하기: 베이스</td><td>6 Basic RAG · 7 Semantic Indexing · 8 Indexing at Scale</td><td>✅ 기록</td></tr>
           <tr><td><b>4</b></td><td>지식 더하기: 싱코페이션</td><td>9 Index-Aware Retrieval · 10 Node Postprocessing · 11 Trustworthy Generation · 12 Deep Search</td><td>✅ 기록</td></tr>
           <tr><td><b>5</b></td><td>모델 능력 확장하기</td><td>13 Chain of Thought · 14 Tree of Thoughts · 15 Adapter Tuning · 16 Evol-Instruct</td><td>✅ 기록</td></tr>
-          <tr><td><b>6</b></td><td>신뢰성 높이기</td><td>17 LLM-as-Judge · 18 Reflection · <b>19 Dependency Injection</b> · 20 Prompt Optimization</td><td>대기</td></tr>
-          <tr><td><b>7</b></td><td>에이전트가 행동하게 하기</td><td>21 Tool Calling · 22 Code Execution · 23 Multiagent Collaboration</td><td>대기</td></tr>
+          <tr><td><b>6</b></td><td>신뢰성 높이기</td><td>17 LLM-as-Judge · 18 Reflection · <b>19 Dependency Injection</b> · 20 Prompt Optimization</td><td>✅ 기록</td></tr>
+          <tr><td><b>7</b></td><td>에이전트가 행동하게 하기</td><td>21 Tool Calling · 22 Code Execution · 23 Multiagent Collaboration</td><td>✅ 기록</td></tr>
           <tr><td><b>8</b></td><td>제약 다루기</td><td>24 Small Language Model · 25 Prompt Caching · 26 Inference Optimization · 27 Degradation Testing · 28 Long-Term Memory</td><td>대기</td></tr>
           <tr><td><b>9</b></td><td>안전장치 설치하기</td><td>29 Template Generation · 30 Assembled Reformat · 31 Self-Check · 32 Guardrails</td><td>대기</td></tr>
           <tr><td><b>10</b></td><td>조립 가능한 에이전트 워크플로</td><td>(종합)</td><td>대기</td></tr>
@@ -792,6 +795,64 @@
           · <b>오해 차단</b>: ToT가 CoT의 상위 호환이 <b>아니다</b> — 복잡도와 비용이 붙으므로 <b>계획·탐색이 필요한 과제</b>에서만 값을 한다.<br>
           · <b>비유</b>: CoT는 <b>풀이 과정을 쓰게 하는 것</b>, ToT는 <b>여러 갈래로 풀어 보고 막히면 돌아 나오는 것</b>, Adapter Tuning은 <b>본체는 두고 부품만 갈아 끼우는 것</b>.</div>
         <p class="fine">📚 출처: Generative AI Design Patterns(O'Reilly) 5장 — 개념 재서술</p>
+      </section>
+
+      <section class="section" id="s-6">
+        <h2>CHAPTER 6. 신뢰성 높이기 <span class="dur">패턴 17~20</span></h2>
+        <p class="lead">이 장이 맡은 문제 — <span class="hl">확률적인 모델을 어떻게 믿을 수 있게 만드는가.</span> 평가하고(17), 스스로 고치게 하고(18), 테스트 가능하게 만들고(19), 프롬프트를 자동으로 갱신한다(20).</p>
+
+        <h3>6.1 패턴 17 · LLM-as-Judge</h3>
+        <p><b>문제</b> — 이 책의 <b>많은 패턴 안에 평가 단계가 이미 들어 있다.</b> Content Optimization(5)은 두 콘텐츠를 비교하고, Node Postprocessing(10)은 청크를 관련도로 재순위화하고, ToT(14)는 경로를 평가해 유망한 것을 고르고, Evol-Instruct(16)는 데이터셋을 오염시킬 예제를 쳐낸다. <span class="hl">즉 효과적인 평가는 GenAI의 기본기다.</span> 견고한 평가가 없으면 출력이 요구사항을 만족하는지 판단할 길이 없다.</p>
+        <p><b>해법</b> — 평가를 <b>강한 LLM에게 맡긴다.</b> 사람 평가보다 <b>잘 확장되고</b>, 전통적 자동 지표보다 <b>뉘앙스 있는 심사</b>를 하며, 기준에 맞게 <b>커스터마이즈</b>할 수 있고, 잣대를 <b>일관되게</b> 적용한다. 방식은 셋 — ①<b>프롬프팅</b> ②<b>ML</b>(프롬프팅 출력을 ML 모델로 보냄) ③<b>파인튜닝된 LLM</b>. ②③도 프롬프팅을 품고 있어서, 보통 ①로 시작해 ②③으로 개선해 나간다.</p>
+        <div class="notice warn"><b>⚠️ 고려사항 — 불일치·관대함·편향</b><br>심사 LLM은 <b>같은 답에 다른 점수</b>를 줄 수 있고(불일치), <b>후하게</b> 주는 경향이 있으며, 순서·길이·자기 계열 선호 같은 <b>편향</b>이 있다. 1장 8절에서 본 주의와 같은 맥락이다.</div>
+
+        <h3>6.2 패턴 18 · Reflection</h3>
+        <p><b>문제</b> — 웹 인터페이스에서는 답이 시원찮으면 <b>후속 질문으로 고치게</b> 할 수 있다. 그런데 API로 호출할 때는 <span class="hl3">호출들이 무상태(stateless)</span>라 그 되먹임이 저절로 생기지 않는다.</p>
+        <p><b>해법</b> — 생성과 최종 출력 사이에 <b>비평 단계를 끼워 넣는다.</b> 초안을 만들고 → 비평하고 → 그 비평으로 고쳐 쓰게 한다.</p>
+        <div class="notice key"><b>🎯 흔한 오해 하나</b><br>이걸 <b>자기 반성(self-reflection)</b>이라 부르는 걸 자주 보지만, <span class="hl">평가를 반드시 LLM이 할 이유도 없고, 하물며 그 콘텐츠를 생성한 바로 그 LLM이 할 이유는 더더욱 없다.</span> 반성하는 주체는 <b>AI 시스템 전체</b>이고, 생성에 쓰인 파운데이션 모델 자체는 그대로다.</div>
+        <p class="fine">고려사항은 <b>비용 대 품질</b> — 비평·재작성만큼 호출이 늘어난다.</p>
+
+        <h3>6.3 패턴 19 · Dependency Injection <span class="fine">(공식 저장소 명칭: Harness Engineering)</span></h3>
+        <p><b>문제</b> — GenAI 애플리케이션은 <b>개발·테스트가 어렵다.</b> 가장 큰 이유가 <span class="hl3">비결정성</span>이다 — 대부분의 API나 통계 모델과 달리, <b>똑같은 입력을 넣어도 매번 다른 출력</b>이 나올 수 있다. 그래서 합성 입력을 넣고 기대값과 비교하는 <b>보통의 테스트 방식이 통하지 않는다.</b></p>
+        <p><b>해법</b> — 소프트웨어 공학의 <b>의존성 주입</b>을 가져온다. LLM 호출을 코드에 박아 넣지 말고 <b>바깥에서 주입</b>하게 만들어, 테스트할 때는 <span class="hl">가짜(목, mock)로 갈아 끼운다.</span> 그러면 비결정적인 부분을 떼어내고 나머지 로직을 결정적으로 테스트할 수 있다.</p>
+
+        <h3>6.4 패턴 20 · Prompt Optimization</h3>
+        <p><b>문제</b> — GenAI 개발은 대개 <b>시행착오</b>다. 결과가 시원찮으면 프롬프트를 자세하게 고치고, 예시를 넣고, 지시 순서를 바꾼다. 그런데 <span class="hl3">모델 제공자가 새 버전을 내놓아 모델을 바꾸면 그 시행착오를 전부 다시 해야 한다.</span> 애플리케이션이 기반 LLM(또는 툴체인 같은 의존성)의 변화에 매우 취약해진다.</p>
+        <p><b>해법</b> — <b>한 겹의 간접 계층</b>을 둔다("소프트웨어 공학의 근본 정리" — 대부분의 문제는 간접 계층 하나로 풀린다). 프롬프트를 코드에 하드코딩하지 말고 <b>최적화 가능한 대상</b>으로 두어, 의존성이 바뀌면 <span class="hl">프롬프트를 사람이 아니라 절차가 갱신하게</span> 만든다.</p>
+
+        <div class="notice key"><b>💡 강의 포인트 (6장)</b><br>
+          · <b>훅</b>: "확률적인 걸 어떻게 믿고 서비스에 올리나?"<br>
+          · <b>꼭 살릴 것</b>: 평가는 <b>이미 다른 패턴들 안에 들어 있다</b>(5·10·14·16) / API 호출은 <b>무상태</b>라 반성이 저절로 안 생긴다 / 테스트가 어려운 진짜 이유는 <b>비결정성</b> / 모델이 바뀌면 <b>프롬프트 튜닝이 통째로 날아간다</b>.<br>
+          · <b>오해 차단</b>: "자기 반성"이라 부르지만 <b>같은 LLM이 평가해야 할 이유는 없다.</b> 심사 LLM도 <b>관대함·편향</b>이 있어 사람 검토가 필요하다.<br>
+          · <b>비유</b>: Reflection은 <b>초고를 쓴 뒤 빨간 펜으로 고치는 것</b>, Dependency Injection은 <b>테스트할 때 진짜 엔진 대신 더미를 꽂는 것</b>.</div>
+        <p class="fine">📚 출처: Generative AI Design Patterns(O'Reilly) 6장 — 개념 재서술</p>
+      </section>
+
+      <section class="section" id="s-7">
+        <h2>CHAPTER 7. 에이전트가 행동하게 하기 <span class="dur">패턴 21~23</span></h2>
+        <p class="lead">이 장이 맡은 문제 — <span class="hl">콘텐츠 생성을 넘어 '행동'으로.</span> 1.3에서 예고했던 Tool Calling이 여기서 본격적으로 나온다.</p>
+
+        <h3>7.1 패턴 21 · Tool Calling</h3>
+        <div class="notice key"><b>🎯 이 패턴의 한 문장</b><br>LLM은 <b>"환불이 처리됐다"는 이메일 문구는 생성할 수 있지만, 당신 계좌에 돈이 들어오게 만들 수는 없다.</b> 항공편 예약 문장을 쓸 수는 있어도 <span class="hl">실제로 좌석을 잡지는 못한다.</span></div>
+        <p><b>문제</b> — 멀티모달 LLM은 텍스트·이미지·오디오·비디오를 생성한다. 리포트 작성·번역·코드 생성에는 그것으로 충분하고, 지식이 모자라면 RAG로 채울 수도 있다. 그러나 <b>소프트웨어는 콘텐츠 생성 말고도 많은 일을 한다</b> — 계산하고, 예약하고, 환불을 처리한다. LLM 혼자서는 이런 유스케이스를 감당하지 못한다.</p>
+        <p><b>해법</b> — 모델에게 <b>외부 함수를 호출할 통로</b>를 준다. 구현은 여러 겹으로 추상화돼 있어서, 책은 ①개념 → ②OpenAI의 함수 호출(5단계) → ③LangGraph와 <b>MCP</b> 같은 더 추상화된 구현 순서로 설명한다. <span class="hl2">실무에서 MCP만 쓰게 되더라도 내부를 알아 두면, 기대대로 작동하지 않을 때 원인을 짚을 수 있다</span>는 것이 책의 권고다.</p>
+        <div class="notice"><b>구조상의 연결</b><br><span class="hl">Tool Calling은 패턴 2 <b>Grammar</b>의 확장이다.</span> 함수를 호출해야 할 때 LLM이 <b>정해진 형식</b>으로 출력하게 만드는 것이 출발점이기 때문이다.</div>
+        <p class="fine">고려사항으로 <b>신뢰성 높이기 · MCP의 한계 · 프롬프트 인젝션</b>을 다룬다(문서 속 명령을 실행 지시로 착각하는 문제 — 모듈3 노드2 4강의 그 주제와 같다).</p>
+
+        <h3>7.2 패턴 22 · Code Execution</h3>
+        <p><b>문제</b> — LLM은 <b>그래프를 그리거나 이미지에 주석을 다는 일에 능하지 않다.</b> 그렇다고 Tool Calling으로 해결되는 것도 아니다.</p>
+        <p><b>해법</b> — 원하는 일을 이미 해 주는 소프트웨어가 <b>DSL로 구동된다면</b>, LLM에게 <span class="hl">그 DSL 코드를 생성하게</span> 하고 <b>샌드박스</b>에서 실행해 결과물을 얻는다. 파운데이션 모델은 <b>Matplotlib 코드·SQL 구문·Mermaid 마크다운</b>을 꽤 잘 생성한다. 즉 <b>"코드를 만든다 → 실행한다"</b>는 두 단계 구조다.</p>
+
+        <h3>7.3 패턴 23 · Multiagent Collaboration</h3>
+        <p><b>문제</b> — Tool Calling(21)·Code Execution(22)·CoT(13)·Reflection(18)은 수동적 애플리케이션을 넘어서게 해 준다. 그러나 현실의 요구는 더 까다롭다 — 여러 툴이 필요한 <b>다단계 과제</b>, 긴 상호작용에 걸친 <b>맥락 유지</b>, 사용자 선호 <b>적응</b>, 상황 <b>평가</b>, 사람 개입 없는 <b>행동</b>. 복잡해질수록 <span class="hl3">단일 에이전트의 한계(인지적 병목 등)</span>가 뚜렷해진다.</p>
+        <p><b>해법</b> — <b>여러 전문 에이전트</b>를 둔다. 멀티에이전트 시스템은 <span class="hl">인간의 조직 구조를 반영한 '인지 노동의 분업'</span>이며, 모델 용량을 더 효율적으로 배분해 단일 모델 호출의 한계를 우회한다.</p>
+
+        <div class="notice key"><b>💡 강의 포인트 (7장)</b><br>
+          · <b>훅</b>: "LLM은 환불 안내문은 쓰지만, 실제로 돈을 보내지는 못한다."<br>
+          · <b>꼭 살릴 것</b>: Tool Calling은 <b>Grammar(패턴 2)의 확장</b> / Code Execution은 <b>DSL 생성 + 샌드박스 실행</b> / 멀티에이전트는 <b>인지 노동의 분업</b>.<br>
+          · <b>오해 차단</b>: 도구를 붙였다고 안전해지지 <b>않는다</b> — <b>프롬프트 인젝션</b>과 MCP의 한계가 따라온다. 그리고 멀티에이전트는 <b>기본값이 아니라</b> 단일 에이전트가 병목일 때 꺼내는 카드다.<br>
+          · <b>비유</b>: Tool Calling은 <b>비서에게 결재 권한을 주는 것</b>, Code Execution은 <b>직접 그리지 말고 설계도를 써서 기계에 맡기는 것</b>.</div>
+        <p class="fine">📚 출처: Generative AI Design Patterns(O'Reilly) 7장 — 개념 재서술</p>
       </section>
 
     </main>
