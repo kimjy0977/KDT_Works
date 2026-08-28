@@ -3,6 +3,8 @@ import { retrieve, buildPrompt, loadCorpus, onEmbedProgress, peekModelCache, typ
 import { chatStream, pingOllama, judgeWithOllama, type ChatMsg } from "./ollama";
 import { geminiStream, judgeTurn } from "./gemini";
 import type { JudgeResult } from "./judge";
+import { WORKS, THUMB, MYTHS } from "./works";
+import { Thumb } from "./Thumb";
 import "./App.css";
 
 interface Turn {
@@ -280,6 +282,94 @@ export default function App() {
             서버가 없습니다. 브라우저가 직접 로컬 ollama(qwen3.5:2b)를 호출하고, 질문 임베딩도
             브라우저에서 돕니다. Gemini API 키를 넣으면 Gemini가 답변을 만듭니다.
           </p>
+        </div>
+      </section>
+
+      <section className="scope">
+        <div className="scope-head">
+          <h2>이 챗봇이 다루는 작품 — 그리스·로마 12점</h2>
+          <p>
+            아카이브 전체 982점 가운데 <b>12점</b>을 사실 단위 <b>41조각</b>으로 나눠 두었습니다.
+            여기 없는 작품을 물으면 <b>없다고 답합니다.</b> 그림을 누르면 근거가 된 원문 페이지가 열립니다.
+          </p>
+        </div>
+        <ul className="work-grid">
+          {WORKS.map((w) => (
+            <li key={w.slug}>
+              <a href={w.url} target="_blank" rel="noreferrer">
+                <Thumb src={THUMB(w.slug)} alt={w.title} />
+                <div className="work-meta">
+                  <strong>{w.title}</strong>
+                  <span>{w.artist}</span>
+                  <span className="work-era">{w.era}</span>
+                  <span className="work-chunks">근거 조각 {w.chunks}개</span>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div className="myth-scope">
+          <h3>여섯 신화 가운데 지금 답할 수 있는 범위</h3>
+          <ul>
+            {MYTHS.map((m) => (
+              <li key={m.name} className={m.covered ? "on" : "off"}>
+                <b>{m.name}</b>
+                <span>{m.works}점</span>
+                <em>{m.covered ? "12점 수록" : "미수록"}</em>
+              </li>
+            ))}
+          </ul>
+          <p className="fine">
+            미수록 신화는 아카이브에는 있지만 <b>이 챗봇의 자료에는 없습니다.</b> 그래서 답을 지어내지 않고
+            범위 밖이라고 알립니다. 신화 코드만 바꾸면 같은 방식으로 넓힐 수 있습니다.
+          </p>
+        </div>
+      </section>
+
+      <section className="faq">
+        <h2>먼저 읽어 주세요</h2>
+        <div className="faq-grid">
+          <div>
+            <h3>무엇을 물어볼 수 있나요?</h3>
+            <p>
+              위 12점의 <b>작가·제작연도·매체·소장처·사조</b>, 그림 속 <b>장면 설명</b>,
+              바탕이 된 <b>신화 이야기</b>, <b>감상 포인트</b>를 물을 수 있습니다.
+            </p>
+            <p className="ex">
+              &ldquo;프로세르피나의 납치는 누가 그렸어?&rdquo; · &ldquo;큐피드와 프시케 이야기가 뭐야?&rdquo;
+            </p>
+          </div>
+          <div>
+            <h3>왜 답하지 못하는 질문이 있나요?</h3>
+            <p>
+              이 챗봇은 <b>작품 페이지에서 뽑은 조각 안에서만</b> 답합니다. 시세·감정,
+              저작권 가부, 수록되지 않은 신화, 이미지 생성은 다루지 않습니다.
+            </p>
+            <p className="ex">
+              모르면 지어내지 않고 <b>&ldquo;가진 자료에는 없습니다&rdquo;</b>라고 답하는 것이 정상 동작입니다.
+            </p>
+          </div>
+          <div>
+            <h3>왜 Ollama가 필요한가요?</h3>
+            <p>
+              이 페이지에는 <b>서버가 없습니다.</b> 답을 만드는 모델은 <b>여러분 컴퓨터에서</b> 돕니다.
+              그래서 Ollama가 실행 중이어야 하고, 이 주소에서 부를 수 있도록 <code>OLLAMA_ORIGINS</code> 허용이 필요합니다.
+            </p>
+            <p className="ex">
+              첫 방문에는 질문을 벡터로 바꿀 <b>임베딩 모델 약 200MB</b>를 한 번 내려받습니다.
+            </p>
+          </div>
+          <div>
+            <h3>답을 어디까지 믿나요?</h3>
+            <p>
+              문장 안의 <code>[ID]</code>와 아래 <b>출처 칩</b>이 근거를 가리킵니다. 칩을 누르면
+              실제 조각과 유사도가 보이고 원문으로 갈 수 있습니다.
+            </p>
+            <p className="ex">
+              판정 배지는 같은 2B 모델이 매기므로 <b>독립 심사가 아닙니다.</b> 거친 신호로만 읽어 주세요.
+            </p>
+          </div>
         </div>
       </section>
 
