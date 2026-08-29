@@ -1,0 +1,25 @@
+#!/bin/sh
+# commit-msg — 커밋 메시지 검사 전용 훅.
+# $1 = 메시지 파일 경로. pre-commit 단계에선 메시지가 아직 없어서 검사가 안 된다
+# (2026-08-29 실측: pre-commit 에 넣었더니 정상 커밋에도 경고가 떴다).
+#
+# 공통운영규칙 F-10 — 작성자 기록.
+# 1단계: 경고만. 2단계(세 세션 합의 후): exit 1 로 전환.
+
+MSG="$1"
+[ -f "$MSG" ] || exit 0
+
+if ! grep -qE '^Session: (manager|tutor|builder)[[:space:]]*$' "$MSG"; then
+  echo ""
+  echo "[안내] 커밋 메시지에 세션 표시가 없습니다 (공통규칙 F-10)."
+  echo "       마지막 줄에 한 줄 추가해 주세요:"
+  echo ""
+  echo "         Session: manager     (또는 tutor / builder)"
+  echo ""
+  echo "       왜: 세 세션이 같은 계정·같은 clone 을 써서 git author 로는"
+  echo "           누가 썼는지 못 가립니다. 2026-08 engine.mjs 58줄의 저자를"
+  echo "           끝내 못 밝힌 것이 이 규칙의 계기입니다."
+  echo "       지금은 경고만 합니다. 합의되면 거부로 바뀝니다."
+  echo ""
+fi
+exit 0
