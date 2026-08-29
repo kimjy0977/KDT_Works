@@ -57,12 +57,4 @@ if [ "$N" -gt 1 ]; then
   exit 1
 fi
 
-# ── F-10 작성자 기록: Session 트레일러 (1단계 = 경고만, 거부 안 함) ──
-MSGFILE=".git/COMMIT_EDITMSG"
-if [ -f "$MSGFILE" ] && ! grep -qE '^Session: (manager|tutor|builder)$' "$MSGFILE"; then
-  echo "[안내] 커밋 메시지에 세션 표시가 없습니다 (공통규칙 F-10)."
-  echo "       마지막 줄에 한 줄 추가해 주세요:  Session: manager|tutor|builder"
-  echo "       지금은 경고만 합니다. 합의되면 거부로 바뀝니다."
-fi
-
 exit 0
