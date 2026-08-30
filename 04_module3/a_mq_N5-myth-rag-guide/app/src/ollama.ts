@@ -20,7 +20,15 @@ export async function chatStream(
   const res = await fetch("http://localhost:11434/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ model, messages, stream: true, think: false }),
+    /* temperature 0 — 실험 3바퀴의 결과로 넣었다.
+     * 이 값을 안 주면 ollama 기본값으로 매번 새로 뽑는다. 그래서 같은 질문에
+     * 어떤 때는 근거를 읽고 답하고 어떤 때는 "자료에 없습니다"로 잘랐다.
+     * 브라우저로 잰 2바퀴에서 같은 세팅 재실행에 문항 평균 48.4점이 움직였고,
+     * 온도를 0으로 고정한 헤드리스 3바퀴에서는 0.0점이었다.
+     * 판정(judgeWithOllama)에는 원래 0이 들어 있었는데 생성에만 빠져 있었다 —
+     * 재는 쪽은 고정하고 재어지는 쪽은 흔들리게 둔 셈이었다. */
+    body: JSON.stringify({ model, messages, stream: true, think: false,
+                           options: { temperature: 0 } }),
     signal,
   });
   if (!res.ok) {
