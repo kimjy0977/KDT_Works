@@ -20,6 +20,18 @@ interface Turn {
 
 type Phase = "idle" | "embed" | "search" | "stream" | "error-ollama";
 
+/* 평가용 훅 — 주소에 ?evalhook=1 이 있을 때만 검색과 프롬프트 조립을 밖으로 연다.
+ *
+ * 왜 필요한가. 실험 2바퀴에서 같은 세팅을 다시 돌렸더니 문항 점수가 평균 48.4점
+ * 움직였다. 원인은 답변 생성이 매번 다시 뽑기 때문인데, 브라우저로 재면 검색까지
+ * 매번 다시 돈다. 그러면 «프롬프트를 바꾼 효과»와 «뽑기 운»을 가를 수 없다.
+ * 그래서 검색 결과를 한 번만 뽑아 고정해 두고, 생성만 통제 조건에서 비교한다.
+ *
+ * 파이프라인은 건드리지 않는다 — 읽기만 내보낸다(9강의 변경 금지 조건). */
+if (typeof window !== "undefined" && window.location.search.includes("evalhook=1")) {
+  (window as unknown as { __rag?: unknown }).__rag = { retrieve, buildPrompt, loadCorpus };
+}
+
 /** ★실험 변수 — 근거로 넘길 청크 수 (8강: 한 번에 하나만 바꾼다)
  *  세팅 A = 15 (참조 구현 기본값) · 세팅 B = 6
  *
