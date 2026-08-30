@@ -26,6 +26,7 @@
 | **`notes/work-rules.md`** | **함정과 재발방지 규칙.** 한 번 당한 것, 브라우저 자동화 요령, 검증 태도, git 규율 | 새 기능 설명, 스키마 |
 | **`notes/game-spec.md`** | **기획(하려는 것).** 규칙 · 캐릭터 · 루프 설계 | 구현 현황 (→ handoff) |
 | **`notes/handoff.md`** | **진행 현황과 세션 인계.** 지금 어디까지 왔나, 다음 시작점, 검증 결과 | 재사용 가능한 지식 (→ 위 3개) |
+| **`notes/retrospective-1st.md`** | **1차 회고.** 사고 3건의 공통 구조 · 먹힌 것 / 안 먹힌 것 · **2차 체크리스트** | 함정 개별 항목 (→ work-rules) |
 | **`docs/tutorial.md`** | **공개 기술 문서(과제 산출물 §7-4).** 외부 개발자가 읽는 구현기 | 내부 사정, 미검증 추정 |
 | **`docs/soonsoon-hackathon.html`** | **회사에 드리는 최종 통합 보고(대표님 보고용).** 네 사람 것을 합친 것 — 「어디서 막혔나」 34건 · 둘 이상이 겪은 것 · 사람별 탭 | 우리 내부 사정, 작업 이력 |
 | **`notes/spum-feedback.md`** | **김주영 한 사람의 제품 피드백 원본.** 쓰다가 부딪힌 마찰·결함·제안 | 우리 코드 사정, 비난. **회사에 보일 때는 위 통합본을 연다** |
@@ -43,6 +44,7 @@
 | "Studio 의 이 버튼은 이런 동작이더라" | `notes/sam-connection-guide.md` |
 | "이 엔진 API 는 이름과 달리 이런 것이더라" | `notes/engine-capability-audit.md` |
 | "이거 하다가 데였다. 다음엔 이렇게" | `notes/work-rules.md` |
+| "1차에서 뭘 배웠나 · 2차에 뭘 가져가나" | `notes/retrospective-1st.md` |
 | "이 데이터의 구조는 이렇더라" | `notes/sam-connection-guide.md` (스키마 절) |
 | "이번에 이만큼 만들었고 이건 아직 안 됐다" | `notes/handoff.md` |
 | "외부에 이렇게 설명하면 좋겠다" | `docs/tutorial.md` |
