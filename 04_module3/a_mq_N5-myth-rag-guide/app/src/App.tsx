@@ -531,7 +531,7 @@ export default function App() {
         <div className="scope-head">
           <h2>이 챗봇이 아는 작품 — {CORPUS.works}점</h2>
           <p>
-            MYTH GALLERY 아카이브 <b>{CORPUS.archive}점</b> 가운데 <b>{CORPUS.works}점</b>을
+            MYTH GALLERY 아카이브 <b>여섯 신화 {CORPUS.archive}점 전부</b>를
             사실 단위 <b>{CORPUS.chunks.toLocaleString()}조각</b>으로 나눠 실어 두었습니다.
             아래는 그중 <b>맛보기 {WORKS.length}점</b>이고, <b>목록에 없어도 실린 작품이면 답합니다.</b>
             그림을 누르면 근거가 된 원문 페이지가 열립니다.
