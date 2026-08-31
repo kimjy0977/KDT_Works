@@ -430,6 +430,22 @@ export default function App() {
 
       <a className="skip-link" href="#chat">본문(챗봇)으로 건너뛰기</a>
 
+      {/* 9강: "이 순서가 README와 안내 페이지에서 같은 말로 보이는지 마지막으로 대조합니다."
+          → README.md 「처음 열었을 때 순서」와 같은 문장을 쓴다. 조건부로 감싸지 않는다. */}
+      <section className="steps" aria-label="처음 열었을 때 순서">
+        <h2>처음 열었을 때 순서</h2>
+        <ol>
+          <li>배포 주소를 열고 이 챗봇이 <b>다루는 자료와 질문 범위</b>를 읽습니다</li>
+          <li><b>Ollama</b>를 실행하고 <code>qwen3.5:2b</code>를 준비합니다</li>
+          <li>첫 방문의 <b>임베딩 다운로드</b>를 기다립니다 <span className="fine">(약 200MB · 1회, 이후 캐시)</span></li>
+          <li>안내된 질문과 <b>자료 밖 질문</b>을 각각 넣어 봅니다</li>
+        </ol>
+        <p className="steps-note">
+          원격 주소에서 로컬 Ollama를 부르려면 <code>OLLAMA_ORIGINS</code> 허용이 필요합니다 — 아래 «왜 Ollama가 필요한가요?» 참고.
+          Chrome·Edge를 권장합니다. Safari는 https 페이지에서 로컬 호출을 차단합니다.
+        </p>
+      </section>
+
       <div className="marquee" aria-hidden="true">
         <div className="marquee-track">
           {[0, 1].map((g) => (
@@ -582,7 +598,7 @@ export default function App() {
           <div>
             <h3>무엇을 물어볼 수 있나요?</h3>
             <p>
-              위 12점의 <b>작가·제작연도·매체·소장처·사조</b>, 그림 속 <b>장면 설명</b>,
+              실린 {CORPUS.works}점의 <b>작가·제작연도·매체·소장처·사조</b>, 그림 속 <b>장면 설명</b>,
               바탕이 된 <b>신화 이야기</b>, <b>감상 포인트</b>를 물을 수 있습니다.
             </p>
             <p className="ex">
