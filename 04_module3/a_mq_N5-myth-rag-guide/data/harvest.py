@@ -98,6 +98,21 @@ def parse_work(html, url, slug, myth_label):
 NEEDED = ("해설", "신화 배경", "감상 포인트")
 
 
+def pick_broad(works, limit):
+    """넓게 담기 — 안내 챗봇은 «고른 몇 점»이 아니라 «사이트에 있는 것»을 알아야 한다.
+
+    v1은 서사가 뚜렷한 작품을 골라 12점만 담았다(아래 pick). 그러면 방문자가
+    화면에서 본 작품을 물었는데 «없습니다»가 나온다. 실제로 그런 실패를 봤다.
+    그래서 커버리지 모드에서는 큐레이션 조건(등장인물 2명 이상 · 이야기/작가 중복 제외)을
+    끄고, **쓸 수 있는 본문이 하나라도 있으면 담는다.** 기본정보(meta)는 어느 작품에나 있으므로
+    사실상 받아진 작품 전부가 들어온다.
+    """
+    ok = [w for w in works if w.get("title") and any(w["sections"].values() or [1])]
+    # 본문이 많은 것부터 — 잘릴 때 정보가 적은 쪽이 잘리게
+    ok.sort(key=lambda w: -sum(len(v) for v in w["sections"].values()))
+    return ok[:limit]
+
+
 def pick(works, limit):
     """선정 기준 (PRD 3-2)
        1) 서사가 있는 장면화 -- 등장 인물이 2명 이상
@@ -189,9 +204,13 @@ def build_chunks(w):
 # ------------------------------ 실행 ------------------------------
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--myth", default="greek", choices=list(MYTHS))
-    ap.add_argument("--limit", type=int, default=12)
+    # 신화를 쉼표로 여러 개 받는다. "신화 코드만 바꾸면 6종 전부 돈다"를 한 번의 실행으로.
+    ap.add_argument("--myth", default="greek",
+                    help="신화 코드. 쉼표로 여럿 (예: greek,norse). 가능: " + ",".join(MYTHS))
+    ap.add_argument("--limit", type=int, default=12, help="신화당 선정 작품 수")
     ap.add_argument("--scan", type=int, default=120, help="후보로 실제 받아볼 작품 수")
+    ap.add_argument("--broad", action="store_true",
+                    help="커버리지 모드 — 큐레이션 조건을 끄고 받아진 작품을 최대한 담는다")
     ap.add_argument("--out", default=os.path.dirname(os.path.abspath(__file__)))
     a = ap.parse_args()
 
@@ -200,7 +219,10 @@ def main():
     except Exception:
         pass
 
-    path, label = MYTHS[a.myth]
+    myths = [m.strip() for m in a.myth.split(",") if m.strip()]
+    bad_codes = [m for m in myths if m not in MYTHS]
+    if bad_codes:
+        sys.exit("모르는 신화 코드: %s (가능: %s)" % (", ".join(bad_codes), ", ".join(MYTHS)))
     log = []
 
     def say(s):
@@ -210,48 +232,69 @@ def main():
         except UnicodeEncodeError:   # 윈도우 cp949 콘솔
             sys.stdout.write(s.encode("ascii", "backslashreplace").decode("ascii") + chr(10))
 
-    say("[1] 목록 받기 -- %s/ko/%s/works" % (BASE, path))
-    st, html = fetch(BASE + "/ko/" + path + "/works")
-    if st != 200:
-        sys.exit("목록을 받지 못했다 (HTTP %s)." % st)
-    slugs = sorted(set(re.findall(r"/ko/%s/works/(%s-[a-z0-9]+)" % (path, path), html)))
-    say("    작품 주소 %d개 발견" % len(slugs))
+    all_chunks, all_works = [], []
+    for myth_code in myths:
+        path, label = MYTHS[myth_code]
+        say("")
+        say("=== %s ===" % myth_code)
+        say("[1] 목록 받기 -- %s/ko/%s/works" % (BASE, path))
+        st, html = fetch(BASE + "/ko/" + path + "/works")
+        if st != 200:
+            sys.exit("목록을 받지 못했다 (HTTP %s)." % st)
+        slugs = sorted(set(re.findall(r"/ko/%s/works/(%s-[a-z0-9]+)" % (path, path), html)))
+        say("    작품 주소 %d개 발견" % len(slugs))
 
-    cand = slugs[: a.scan]
-    say("[2] 후보 %d점 실제로 받아보기 (200 인 것만 남긴다)" % len(cand))
+        cand = slugs[: a.scan]
+        say("[2] 후보 %d점 실제로 받아보기 (200 인 것만 남긴다)" % len(cand))
 
-    def grab(slug):
-        url = BASE + "/ko/" + path + "/works/" + slug
-        st, h = fetch(url)
-        if st != 200 or not h:
-            return None, (slug, st)
-        return parse_work(h, url, slug, label), (slug, 200)
+        def grab(slug):
+            url = BASE + "/ko/" + path + "/works/" + slug
+            st, h = fetch(url)
+            if st != 200 or not h:
+                return None, (slug, st)
+            return parse_work(h, url, slug, label), (slug, 200)
 
-    works, status = [], []
-    with ThreadPoolExecutor(max_workers=8) as ex:
-        for w, s in ex.map(grab, cand):
-            status.append(s)
-            if w:
-                works.append(w)
-    bad = [s for s in status if s[1] != 200]
-    say("    200: %d점 / 실패: %d점 %s" % (len(works), len(bad), bad[:5] if bad else ""))
+        works, status = [], []
+        with ThreadPoolExecutor(max_workers=8) as ex:
+            for w, s in ex.map(grab, cand):
+                status.append(s)
+                if w:
+                    works.append(w)
+        bad = [s for s in status if s[1] != 200]
+        say("    200: %d점 / 실패: %d점 %s" % (len(works), len(bad), bad[:5] if bad else ""))
 
-    say("[3] 선정 -- 세 섹션이 다 있고 등장인물 2명 이상, 이야기/작가 중복 제외")
-    chosen = pick(works, a.limit)
-    say("    %d점 선정" % len(chosen))
-    for i, w in enumerate(chosen, 1):
-        say("    %2d. %s -- %s" % (i, w["title"], w["artist"] or "작가 미상"))
+        if a.broad:
+            say("[3] 선정 -- 커버리지 모드 (큐레이션 조건 끔, 본문 많은 순)")
+            chosen = pick_broad(works, a.limit)
+        else:
+            say("[3] 선정 -- 세 섹션이 다 있고 등장인물 2명 이상, 이야기/작가 중복 제외")
+            chosen = pick(works, a.limit)
+        say("    %d점 선정" % len(chosen))
+        for i, w in enumerate(chosen, 1):
+            say("    %2d. %s -- %s" % (i, w["title"], w["artist"] or "작가 미상"))
 
-    say("[4] 청크 만들기")
-    chunks = []
-    for w in chosen:
-        chunks += build_chunks(w)
+        say("[4] 청크 만들기")
+        chunks = []
+        for w in chosen:
+            chunks += build_chunks(w)
 
-    dropped = [c for c in chunks if not c["url"]]   # url 없는 청크는 색인에 넣지 않는다
-    chunks = [c for c in chunks if c["url"]]
+        dropped = [c for c in chunks if not c["url"]]   # url 없는 청크는 색인에 넣지 않는다
+        chunks = [c for c in chunks if c["url"]]
+        lens = [len(c["text"]) for c in chunks]
+        say("    청크 %d개 (버림 %d개)" % (len(chunks), len(dropped)))
+        say("    길이 최소 %d / 평균 %d / 최대 %d" % (min(lens), sum(lens) // len(lens), max(lens)))
+
+        all_chunks += chunks
+        all_works += chosen
+
+    chunks, chosen = all_chunks, all_works
+    say("")
+    say("[합계] 작품 %d점 · 청크 %d개 · 신화 %s" % (len(chosen), len(chunks), ",".join(myths)))
     lens = [len(c["text"]) for c in chunks]
-    say("    청크 %d개 (버림 %d개)" % (len(chunks), len(dropped)))
-    say("    길이 최소 %d / 평균 %d / 최대 %d" % (min(lens), sum(lens) // len(lens), max(lens)))
+    say("       길이 최소 %d / 평균 %d / 최대 %d" % (min(lens), sum(lens) // len(lens), max(lens)))
+    ids = [c["id"] for c in chunks]
+    if len(set(ids)) != len(ids):
+        sys.exit("청크 ID가 겹친다 — 신화별 접두어를 확인할 것")
 
     os.makedirs(a.out, exist_ok=True)
     with open(os.path.join(a.out, "chunks.json"), "w", encoding="utf-8") as f:

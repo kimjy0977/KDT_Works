@@ -52,7 +52,11 @@ body {
   border-radius: 4px;
 }
 
-.app { max-width: 900px; margin: 0 auto; }
+/* 본문 폭 — 900px 였는데 넓은 화면에서 양옆이 지나치게 비었다.
+ * 작품 목록이 격자라 폭이 넓을수록 한 화면에 더 들어오고, 판정 배지처럼
+ * 가로로 긴 요소도 줄바꿈이 줄어든다. 다만 대화 글줄은 길어지면 읽기 나빠지므로
+ * 말풍선만 따로 상한을 둔다(.bubble). */
+.app { max-width: 1240px; margin: 0 auto; }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -341,7 +345,7 @@ body {
   padding-right: .35rem;
 }
 .bubble {
-  max-width: 82%;
+  max-width: min(82%, 760px);   /* 본문 폭을 넓혔어도 글줄은 길어지지 않게 */
   border-radius: 14px;
   padding: .9rem 1.15rem;
   line-height: 1.75;
@@ -714,6 +718,14 @@ body {
   font-size: 0.63rem !important; color: var(--blue) !important;
 }
 
+.work-foot { display: flex; align-items: center; gap: .35rem; margin-top: .3rem; flex-wrap: wrap; }
+.work-myth {
+  font-family: var(--font-util); font-size: .6rem !important;
+  padding: .05rem .3rem; border-radius: 4px;
+  background: var(--surface-2); color: var(--dim) !important;
+}
+.work-foot .work-chunks { margin-top: 0; }
+
 .myth-scope { margin-top: 1.6rem; }
 .myth-scope h3 { font-size: 0.9rem; margin: 0 0 0.7rem; }
 .myth-scope ul {
@@ -734,7 +746,15 @@ body {
 }
 .myth-scope li.on { border-color: rgba(11, 181, 70, 0.45); }
 .myth-scope li.on em { color: var(--green-hi); background: rgba(11, 181, 70, 0.13); }
-.myth-scope li.off { opacity: 0.62; }
+.myth-scope li.off { opacity: 0.78; }
+.myth-load {
+  margin-left: auto; font-family: var(--font-util); font-size: .63rem;
+  padding: .18rem .45rem; border-radius: 5px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface-2); color: var(--blue);
+}
+.myth-load:hover:not(:disabled) { border-color: var(--blue); }
+.myth-load:disabled { cursor: default; opacity: .6; }
+.myth-load:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
 .myth-scope li.off em { color: var(--mute); background: var(--surface-2); }
 .myth-scope .fine {
   font-size: 0.78rem; color: var(--dim); line-height: 1.6; margin: 0; max-width: 66ch;
@@ -837,3 +857,16 @@ body {
   .dock-tab:hover { transform: none; }
   .work-grid a:hover { transform: none; }
 }
+
+
+/* 건너뛰기 링크 — 키보드로 Tab 하면 첫 번째로 잡힌다. 마우스 사용자에게는 보이지 않는다. */
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--indigo); color: #fff; text-decoration: none;
+  padding: .6rem 1rem; border-radius: 0 0 8px 0; font-size: .85rem;
+}
+.skip-link:focus { left: 0; }
+
+/* 모달 본체는 포커스를 받되 윤곽선은 내용 쪽에 맡긴다 */
+.modal-body:focus { outline: none; }
+.modal-body:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
