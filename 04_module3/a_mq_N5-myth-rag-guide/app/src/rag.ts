@@ -3,7 +3,7 @@
 //   - transformers.js pipeline()은 q4/q8 기본 파일을 골라 GatherBlockQuantized
 //     미지원으로 실패하므로, 토크나이저만 transformers.js로 쓰고
 //     ORT 세션은 no_gather_q4 파일로 직접 만든다 (2026-08 헤드리스 검증).
-// 검색: myth-docs.json 정적 벡터스토어와 코사인 유사도 top-k
+// 검색: 신화별 샤드(myth-docs-{신화}.json)와 코사인 유사도 top-k. 목록은 myth-docs-index.json
 
 import { AutoTokenizer, type PreTrainedTokenizer } from "@huggingface/transformers";
 
