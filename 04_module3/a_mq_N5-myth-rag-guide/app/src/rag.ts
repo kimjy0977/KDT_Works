@@ -159,14 +159,59 @@ export async function embed(text: string): Promise<number[]> {
   return vec;
 }
 
-let corpus: DocChunk[] | null = null;
+/* ── 신화별 벡터스토어 ────────────────────────────────────────────────
+ * 아카이브 982점을 전부 담으면 한 파일이 20MB를 넘는다. 그리스·로마만 물으러 온
+ * 방문자가 여섯 신화를 다 받아야 할 이유가 없다. 그래서 신화를 파일 경계로 삼고
+ * (myth-docs-greek.json …), 기본은 그리스·로마만 받은 뒤 나머지는 **누를 때** 받는다.
+ *
+ * 스키마는 그대로다 — id·text·url·section·vector. 파일이 나뉠 뿐이라
+ * 검색·프롬프트 파이프라인은 건드리지 않는다.                                   */
 
+export const DEFAULT_MYTH = "greek";
+
+export interface ShardInfo { myth: string; chunks: number; works: number; bytes: number }
+
+let index: ShardInfo[] | null = null;
+const loaded = new Map<string, DocChunk[]>();
+const inflight = new Map<string, Promise<DocChunk[]>>();
+
+/** 어떤 신화가 있고 얼마나 큰지 — 화면이 «몇 MB 더 받습니다»를 보여 줄 수 있게 */
+export async function loadIndex(): Promise<ShardInfo[]> {
+  if (index) return index;
+  const res = await fetch(`${import.meta.env.BASE_URL}myth-docs-index.json`);
+  if (!res.ok) throw new Error(`목록 로드 실패: ${res.status}`);
+  index = ((await res.json()) as { shards: ShardInfo[] }).shards;
+  return index;
+}
+
+/** 신화 하나를 받아 말뭉치에 더한다. 이미 있으면 그대로. */
+export async function loadMyth(myth: string): Promise<DocChunk[]> {
+  const have = loaded.get(myth);
+  if (have) return have;
+  const running = inflight.get(myth);
+  if (running) return running;                 // 두 번 눌러도 한 번만 받는다
+  const p = (async () => {
+    const res = await fetch(`${import.meta.env.BASE_URL}myth-docs-${myth}.json`);
+    if (!res.ok) throw new Error(`${myth} 자료 로드 실패: ${res.status}`);
+    const docs = (await res.json()) as DocChunk[];
+    loaded.set(myth, docs);
+    inflight.delete(myth);
+    return docs;
+  })().catch((e) => { inflight.delete(myth); throw e; });
+  inflight.set(myth, p);
+  return p;
+}
+
+export function loadedMyths(): string[] {
+  return [...loaded.keys()];
+}
+
+/** 지금까지 받은 신화를 합쳐 돌려준다 — 검색은 이 위에서만 일어난다 */
 export async function loadCorpus(): Promise<DocChunk[]> {
-  if (corpus) return corpus;
-  const res = await fetch(`${import.meta.env.BASE_URL}myth-docs.json`);
-  if (!res.ok) throw new Error(`docs 로드 실패: ${res.status}`);
-  corpus = (await res.json()) as DocChunk[];
-  return corpus;
+  if (!loaded.size) await loadMyth(DEFAULT_MYTH);
+  const all: DocChunk[] = [];
+  for (const list of loaded.values()) all.push(...list);
+  return all;
 }
 
 export interface Retrieved {

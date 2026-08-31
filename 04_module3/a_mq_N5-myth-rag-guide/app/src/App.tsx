@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect, type CSSProperties } from "react";
-import { retrieve, buildPrompt, loadCorpus, onEmbedProgress, peekModelCache, type Retrieved } from "./rag";
+import { retrieve, buildPrompt, loadCorpus, loadIndex, loadMyth, loadedMyths, DEFAULT_MYTH,
+         onEmbedProgress, peekModelCache, type Retrieved, type ShardInfo } from "./rag";
 import { chatStream, pingOllama, judgeWithOllama, type ChatMsg } from "./ollama";
 import { geminiStream, judgeTurn } from "./gemini";
 import type { JudgeResult } from "./judge";
-import { WORKS, THUMB, MYTHS } from "./works";
+import { WORKS, THUMB, MYTHS, CORPUS } from "./works";
 import { Thumb } from "./Thumb";
 import "./App.css";
 
@@ -71,16 +72,24 @@ export default function App() {
   const [openSrc, setOpenSrc] = useState<Record<number, boolean>>({});
   const [hitsOpen, setHitsOpen] = useState(false);
   const [embedCached, setEmbedCached] = useState(false);
+  const [shards, setShards] = useState<ShardInfo[] | null>(null);
+  const [myths, setMyths] = useState<string[]>([]);        // 지금까지 받은 신화
+  const [loadingMyth, setLoadingMyth] = useState<string | null>(null);
   const [dockOpen, setDockOpen] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
   /** 정지 버튼으로 끊은 것인지 — 연결 실패와 구별하려고 따로 둔다 */
   const stoppedByUser = useRef(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+  /** 모달을 연 버튼 — 닫을 때 포커스를 여기로 돌려준다 */
+  const lastFocus = useRef<HTMLElement | null>(null);
   const inlineLogRef = useRef<HTMLDivElement>(null);
   const dockLogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     pingOllama().then(setOllamaOk);
-    loadCorpus().catch(() => undefined); // 프리로드
+    loadIndex().then(setShards).catch(() => undefined);
+    // 기본은 그리스·로마만 받는다. 나머지는 방문자가 누를 때.
+    loadMyth(DEFAULT_MYTH).then(() => setMyths(loadedMyths())).catch(() => undefined);
     peekModelCache().then(setEmbedCached); // 재방문이면 "캐시된 모델" 표시
     onEmbedProgress((p) => {
       if (p.cached) setEmbedCached(true);
@@ -97,6 +106,21 @@ export default function App() {
       if (el) el.scrollTop = el.scrollHeight;
     }
   }, [turns, phase, dockOpen]);
+
+  /* 모달이 열리면 포커스를 안으로 넣고 배경 스크롤을 잠근다.
+   * 안 하면 키보드 사용자는 Tab 을 페이지 처음부터 눌러 내려와야 하고,
+   * 모달 뒤 페이지가 같이 스크롤돼 어디를 보고 있었는지 잃는다. */
+  useEffect(() => {
+    if (!showSource) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    modalRef.current?.focus();
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      lastFocus.current?.focus();   // 열었던 자리로 돌려준다
+      lastFocus.current = null;
+    };
+  }, [showSource]);
 
   // Esc — 근거 모달이 열려 있으면 모달, 아니면 도크를 닫는다
   useEffect(() => {
@@ -308,7 +332,10 @@ export default function App() {
                       <button
                         key={s.chunk.id}
                         className={`chip ${s.method === "bm25" ? "bm25" : "vec"}`}
-                        onClick={() => setShowSource(t.sources!)}
+                        onClick={(e) => {
+                          lastFocus.current = e.currentTarget;
+                          setShowSource(t.sources!);
+                        }}
                       >
                         {s.chunk.id} · {s.chunk.section} · {s.method === "bm25" ? "BM25" : "벡터"} {(s.score * 100).toFixed(0)}%
                       </button>
@@ -370,6 +397,7 @@ export default function App() {
             if (e.key === "Enter" && !e.nativeEvent.isComposing) ask();
           }}
           placeholder="예: 사계절이 생긴 신화가 뭐야?"
+          aria-label="작품에 대해 질문하기"
           disabled={phase !== "idle"}
         />
         {phase === "stream" ? (
@@ -400,6 +428,8 @@ export default function App() {
         </div>
       </header>
 
+      <a className="skip-link" href="#chat">본문(챗봇)으로 건너뛰기</a>
+
       <div className="marquee" aria-hidden="true">
         <div className="marquee-track">
           {[0, 1].map((g) => (
@@ -412,6 +442,7 @@ export default function App() {
         </div>
       </div>
 
+      <main>
       <section className="engine">
         <div className="engine-row">
           <span>답변 엔진:</span>
@@ -453,8 +484,9 @@ export default function App() {
         <div className="card card-a">
           <h2>MYTH GALLERY란?</h2>
           <p>
-            여섯 신화의 그림을 신화·작가·인물·사조로 엮어 보는 아카이브입니다. 지금 이 챗봇이
-            안내하는 범위는 <b>그리스·로마 작품 12점</b>이고, 다루지 않는 신화는 없다고 답합니다.
+            여섯 신화의 그림을 신화·작가·인물·사조로 엮어 보는 아카이브입니다. 이 챗봇이
+            근거로 삼는 것은 그중 <b>{CORPUS.works}점</b>이고, 첫 방문에는
+            <b>그리스·로마</b>만 받고 다른 신화는 <b>누를 때</b> 받습니다.
           </p>
         </div>
         <div className="card card-b">
@@ -475,10 +507,12 @@ export default function App() {
 
       <section className="scope">
         <div className="scope-head">
-          <h2>이 챗봇이 다루는 작품 — 그리스·로마 12점</h2>
+          <h2>이 챗봇이 아는 작품 — {CORPUS.works}점</h2>
           <p>
-            아카이브 전체 982점 가운데 <b>12점</b>을 사실 단위 <b>41조각</b>으로 나눠 두었습니다.
-            여기 없는 작품을 물으면 <b>없다고 답합니다.</b> 그림을 누르면 근거가 된 원문 페이지가 열립니다.
+            MYTH GALLERY 아카이브 <b>{CORPUS.archive}점</b> 가운데 <b>{CORPUS.works}점</b>을
+            사실 단위 <b>{CORPUS.chunks.toLocaleString()}조각</b>으로 나눠 실어 두었습니다.
+            아래는 그중 <b>맛보기 {WORKS.length}점</b>이고, <b>목록에 없어도 실린 작품이면 답합니다.</b>
+            그림을 누르면 근거가 된 원문 페이지가 열립니다.
           </p>
         </div>
         <ul className="work-grid">
@@ -490,7 +524,10 @@ export default function App() {
                   <strong>{w.title}</strong>
                   <span>{w.artist}</span>
                   <span className="work-era">{w.era}</span>
-                  <span className="work-chunks">근거 조각 {w.chunks}개</span>
+                  <span className="work-foot">
+                    <span className="work-myth">{w.myth}</span>
+                    <span className="work-chunks">근거 조각 {w.chunks}개</span>
+                  </span>
                 </div>
               </a>
             </li>
@@ -498,19 +535,43 @@ export default function App() {
         </ul>
 
         <div className="myth-scope">
-          <h3>여섯 신화 가운데 지금 답할 수 있는 범위</h3>
+          <h3>지금 브라우저에 받아 둔 신화</h3>
           <ul>
-            {MYTHS.map((m) => (
-              <li key={m.name} className={m.covered ? "on" : "off"}>
-                <b>{m.name}</b>
-                <span>{m.works}점</span>
-                <em>{m.covered ? "12점 수록" : "미수록"}</em>
-              </li>
-            ))}
+            {MYTHS.map((m) => {
+              const sh = shards?.find((s) => s.myth === m.code);
+              const on = myths.includes(m.code);
+              const busy = loadingMyth === m.code;
+              return (
+                <li key={m.name} className={on ? "on" : "off"}>
+                  <b>{m.name}</b>
+                  <span>{m.works}점</span>
+                  {on ? (
+                    <em>불러옴</em>
+                  ) : (
+                    <button
+                      className="myth-load"
+                      disabled={busy || !sh}
+                      onClick={async () => {
+                        setLoadingMyth(m.code);
+                        try {
+                          await loadMyth(m.code);
+                          setMyths(loadedMyths());
+                        } finally {
+                          setLoadingMyth(null);
+                        }
+                      }}
+                    >
+                      {busy ? "받는 중…" : sh ? `불러오기 (${(sh.bytes / 1e6).toFixed(1)}MB)` : "준비 안 됨"}
+                    </button>
+                  )}
+                </li>
+              );
+            })}
           </ul>
           <p className="fine">
-            미수록 신화는 아카이브에는 있지만 <b>이 챗봇의 자료에는 없습니다.</b> 그래서 답을 지어내지 않고
-            범위 밖이라고 알립니다. 신화 코드만 바꾸면 같은 방식으로 넓힐 수 있습니다.
+벡터스토어를 <b>신화별 파일로 나눠</b> 두었습니다. 한 번에 다 받으면 첫 방문이 무거워지므로
+            처음에는 <b>그리스·로마만</b> 받고, 다른 신화는 <b>위 버튼을 누를 때</b> 받습니다.
+            아직 안 받은 신화를 물으면 지어내지 않고 <b>범위 밖이라고 알립니다</b> — 불러온 뒤 다시 물어보세요.
           </p>
         </div>
       </section>
@@ -594,8 +655,16 @@ export default function App() {
 
       {showSource && (
         <div className="modal" onClick={() => setShowSource(null)}>
-          <div className="modal-body" onClick={(e) => e.stopPropagation()}>
-            <h3>근거 조각</h3>
+          <div
+            className="modal-body"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+            ref={modalRef}
+            tabIndex={-1}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 id="modal-title">근거 조각</h3>
             {showSource.map((s) => (
               <div key={s.chunk.id} className="source-item">
                 <div className="source-meta">
@@ -609,6 +678,8 @@ export default function App() {
           </div>
         </div>
       )}
+
+      </main>
 
       <footer className="footer">
         <p>
