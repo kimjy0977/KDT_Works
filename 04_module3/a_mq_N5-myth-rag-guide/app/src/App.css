@@ -272,6 +272,51 @@ body {
 .banner > button:hover { background: rgba(227, 142, 39, 0.12); }
 
 /* ---------- Info cards ---------- */
+/* ── 처음 열었을 때 순서 ─────────────────────────────────────────────
+   9강의 마지막 점검 항목: "이 순서가 README와 안내 페이지에서 같은 말로 보이는지 대조".
+   실행 조건을 판단하는 자리이므로 조건부가 아니라 **항상** 보인다(연결 배너와 다름). */
+.steps {
+  margin: 1.4rem 1.5rem 0;
+  padding: 1.15rem 1.35rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.steps h2 {
+  margin: 0 0 .55rem;
+  font-family: var(--font-util);
+  font-size: .82rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.steps ol {
+  margin: 0;
+  padding-left: 1.35rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: .3rem 1.6rem;
+}
+.steps li { margin: .2rem 0; color: var(--dim); font-size: .93rem; line-height: 1.7; }
+.steps li::marker { color: var(--indigo); font-variant-numeric: tabular-nums; }
+.steps li b { color: var(--ink); }
+.steps .fine { color: var(--mute); font-size: .88em; }
+.steps code {
+  font-family: var(--font-mono);
+  font-size: .88em;
+  padding: .08em .34em;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.06);
+}
+.steps-note {
+  margin: .7rem 0 0;
+  padding-top: .65rem;
+  border-top: 1px solid var(--line-soft);
+  color: var(--mute);
+  font-size: .86rem;
+  line-height: 1.7;
+}
+
 .info {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -663,7 +708,7 @@ body {
 /* ---------- 반응형 ---------- */
 @media (max-width: 640px) {
   .hero { padding: 3.5rem 1.25rem 3rem; }
-  .info, .chat, .engine { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .info, .chat, .engine, .steps { padding-left: 1.25rem; padding-right: 1.25rem; }
   .banner { margin-left: 1.25rem; margin-right: 1.25rem; }
   .bubble { max-width: 94%; }
   .hit-row { grid-template-columns: 58px 54px 1fr; }
