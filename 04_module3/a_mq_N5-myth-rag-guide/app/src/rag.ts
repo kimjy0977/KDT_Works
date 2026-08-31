@@ -184,6 +184,26 @@ export async function loadIndex(): Promise<ShardInfo[]> {
   return index;
 }
 
+/* starter — «화면에 보이는 작품»만 담은 작은 샤드.
+ * greek 샤드가 9.79MB 라 페이지를 여는 순간 그걸 받으면 첫 방문이 10MB 다.
+ * 그래서 starter 를 먼저 받아 바로 답할 수 있게 하고, 전체 샤드는 뒤에서 받는다.
+ * 검색은 loadCorpus() 가 돌려주는 배열 위에서만 일어나므로 파이프라인은 그대로다. */
+let starter: DocChunk[] | null = null;
+let starterInflight: Promise<DocChunk[]> | null = null;
+
+export async function loadStarter(): Promise<DocChunk[]> {
+  if (starter) return starter;
+  if (starterInflight) return starterInflight;
+  starterInflight = (async () => {
+    const res = await fetch(`${import.meta.env.BASE_URL}myth-docs-starter.json`);
+    if (!res.ok) throw new Error(`맛보기 자료 로드 실패: ${res.status}`);
+    starter = (await res.json()) as DocChunk[];
+    starterInflight = null;
+    return starter;
+  })().catch((e) => { starterInflight = null; throw e; });
+  return starterInflight;
+}
+
 /** 신화 하나를 받아 말뭉치에 더한다. 이미 있으면 그대로. */
 export async function loadMyth(myth: string): Promise<DocChunk[]> {
   const have = loaded.get(myth);
@@ -208,9 +228,17 @@ export function loadedMyths(): string[] {
 
 /** 지금까지 받은 신화를 합쳐 돌려준다 — 검색은 이 위에서만 일어난다 */
 export async function loadCorpus(): Promise<DocChunk[]> {
-  if (!loaded.size) await loadMyth(DEFAULT_MYTH);
+  /* 아무것도 없으면 starter 라도 받는다. starter 마저 없으면 기본 신화를 받는다. */
+  if (!loaded.size && !starter) {
+    try { await loadStarter(); } catch { await loadMyth(DEFAULT_MYTH); }
+  }
+  const seen = new Set<string>();
   const all: DocChunk[] = [];
-  for (const list of loaded.values()) all.push(...list);
+  /* 전체 샤드를 먼저 넣는다 — starter 는 그 부분집합이라 중복이 걸러진다 */
+  for (const list of loaded.values())
+    for (const d of list) if (!seen.has(d.id)) { seen.add(d.id); all.push(d); }
+  if (starter)
+    for (const d of starter) if (!seen.has(d.id)) { seen.add(d.id); all.push(d); }
   return all;
 }
 
