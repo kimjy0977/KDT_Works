@@ -88,8 +88,37 @@ async function main() {
   }
 
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
+
+  /* 신화별로 쪼개 저장한다 — myth-docs-greek.json 처럼.
+   *
+   * 왜. 아카이브 982점을 전부 담으면 한 파일이 20MB를 넘는다. 방문자는 그리스·로마만
+   * 물으려 왔어도 여섯 신화를 다 받아야 한다. 그래서 신화를 파일 경계로 삼고,
+   * 앱은 기본으로 그리스·로마만 받은 뒤 나머지는 **누를 때** 받는다.
+   *
+   * 스키마는 그대로다(id·text·url·section·vector). 파일이 나뉠 뿐이라
+   * 검색·프롬프트 파이프라인은 건드리지 않는다. */
+  const byMyth = new Map();
+  for (const d of docs) {
+    const code = d.id.split("-")[0];          // greek-xxxx#meta → greek
+    if (!byMyth.has(code)) byMyth.set(code, []);
+    byMyth.get(code).push(d);
+  }
+
+  const manifest = [];
+  for (const [code, list] of [...byMyth].sort((a, b) => b[1].length - a[1].length)) {
+    const p = path.join(path.dirname(OUT), `myth-docs-${code}.json`);
+    fs.writeFileSync(p, JSON.stringify(list), "utf8");
+    const bytes = fs.statSync(p).size;
+    manifest.push({ myth: code, chunks: list.length,
+                    works: new Set(list.map((d) => d.url)).size, bytes });
+    console.log(`  ${code.padEnd(8)} ${String(list.length).padStart(5)}청크  ${(bytes / 1e6).toFixed(2)}MB`);
+  }
+  fs.writeFileSync(path.join(path.dirname(OUT), "myth-docs-index.json"),
+    JSON.stringify({ built: docs.length, shards: manifest }), "utf8");
+
+  // 예전 이름의 통합본도 남긴다 — 이전 링크·도구가 깨지지 않게
   fs.writeFileSync(OUT, JSON.stringify(docs), "utf8");
-  console.log(`저장 — ${OUT} (${docs.length}개, ${(fs.statSync(OUT).size / 1e6).toFixed(2)}MB)`);
+  console.log(`저장 — 샤드 ${manifest.length}개 + 통합본 ${OUT} (${docs.length}개, ${(fs.statSync(OUT).size / 1e6).toFixed(2)}MB)`);
 
   // 브라우저 embed() 와 같은 공간인지 확인할 기준 문장.
   // 브라우저 콘솔에서 embed("<문장>") 을 돌려 이 벡터와 코사인을 재면 1에 가까워야 한다.
