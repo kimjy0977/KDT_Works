@@ -1,7 +1,8 @@
 /* 청크 → 768차원 벡터스토어 (모듈3 노드5 메인 퀘스트 · 4강)
  *
  * chunks.json 의 각 청크를 embeddinggemma-300m 으로 임베딩해
- * app/public/myth-docs.json 을 만든다. 스키마는 참조 구현과 동일하게 유지한다:
+ * app/public/myth-docs-{신화}.json 샤드와 myth-docs-index.json 을 만든다.
+ * 스키마는 참조 구현과 동일하게 유지한다:
  *   { id, text, url, section, vector[768] }
  *
  * ★ 왜 이 모델·이 방식이어야 하나
@@ -117,8 +118,12 @@ async function main() {
     JSON.stringify({ built: docs.length, shards: manifest }), "utf8");
 
   // 예전 이름의 통합본도 남긴다 — 이전 링크·도구가 깨지지 않게
-  fs.writeFileSync(OUT, JSON.stringify(docs), "utf8");
-  console.log(`저장 — 샤드 ${manifest.length}개 + 통합본 ${OUT} (${docs.length}개, ${(fs.statSync(OUT).size / 1e6).toFixed(2)}MB)`);
+  /* ⛔ 통합본(myth-docs.json)은 더 이상 만들지 않는다.
+     샤딩으로 바꾼 뒤 앱은 myth-docs-index.json 과 myth-docs-{myth}.json 만 읽는다(rag.ts).
+     그런데 통합본을 계속 만들어 커밋·배포까지 하고 있었다 — 22MB짜리 죽은 파일이
+     재생성할 때마다 새 blob 으로 히스토리에 쌓였다(2026-08-31 확인, 이미 3판본).
+     되살릴 일이 생기면 샤드를 합치면 된다. */
+  console.log(`저장 — 샤드 ${manifest.length}개 · 청크 ${docs.length}개 (통합본은 만들지 않는다)`);
 
   // 브라우저 embed() 와 같은 공간인지 확인할 기준 문장.
   // 브라우저 콘솔에서 embed("<문장>") 을 돌려 이 벡터와 코사인을 재면 1에 가까워야 한다.
