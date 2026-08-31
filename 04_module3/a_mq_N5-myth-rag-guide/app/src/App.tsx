@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, type CSSProperties } from "react";
-import { retrieve, buildPrompt, loadCorpus, loadIndex, loadMyth, loadedMyths, DEFAULT_MYTH,
+import { retrieve, buildPrompt, loadCorpus, loadIndex, loadMyth, loadStarter, loadedMyths, DEFAULT_MYTH,
          onEmbedProgress, peekModelCache, type Retrieved, type ShardInfo } from "./rag";
 import { chatStream, pingOllama, judgeWithOllama, type ChatMsg } from "./ollama";
 import { geminiStream, judgeTurn } from "./gemini";
@@ -88,8 +88,14 @@ export default function App() {
   useEffect(() => {
     pingOllama().then(setOllamaOk);
     loadIndex().then(setShards).catch(() => undefined);
-    // 기본은 그리스·로마만 받는다. 나머지는 방문자가 누를 때.
-    loadMyth(DEFAULT_MYTH).then(() => setMyths(loadedMyths())).catch(() => undefined);
+    /* 화면에 보이는 작품만 담은 starter 를 먼저 받는다(가볍다). 받자마자 질문할 수 있다.
+       그리스·로마 전체(9.79MB)는 그 뒤에 **기다리지 않고** 받아 조용히 채운다.
+       예전엔 마운트에서 곧장 전체를 받아 첫 방문이 10MB 였다. */
+    loadStarter()
+      .catch(() => undefined)
+      .finally(() => {
+        loadMyth(DEFAULT_MYTH).then(() => setMyths(loadedMyths())).catch(() => undefined);
+      });
     peekModelCache().then(setEmbedCached); // 재방문이면 "캐시된 모델" 표시
     onEmbedProgress((p) => {
       if (p.cached) setEmbedCached(true);

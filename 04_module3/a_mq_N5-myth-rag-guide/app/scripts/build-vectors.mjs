@@ -114,8 +114,30 @@ async function main() {
                     works: new Set(list.map((d) => d.url)).size, bytes });
     console.log(`  ${code.padEnd(8)} ${String(list.length).padStart(5)}청크  ${(bytes / 1e6).toFixed(2)}MB`);
   }
+  /* ── starter 샤드 ────────────────────────────────────────────────────
+   * 왜. 신화별로 쪼갰는데도 그리스·로마 혼자 아카이브의 절반(469점)이라
+   * 샤드 하나가 9.79MB다. 그런데 그걸 **페이지를 여는 순간** 받는다(App.tsx).
+   * 첫 방문자가 질문을 하기도 전에 10MB를 기다린다.
+   *
+   * 그래서 «화면에 실제로 보이는 작품»만 담은 작은 샤드를 따로 만든다.
+   * 정본은 app/src/works.ts — 화면이 싣는 목록 그대로다. 화면에 보이는 것은
+   * 무조건 답할 수 있고, 나머지는 뒤에서 받는 동안 채워진다.
+   *
+   * 스키마는 그대로다(id·text·url·section·vector). 파일이 하나 더 생길 뿐이라
+   * 검색·프롬프트 파이프라인은 건드리지 않는다. */
+  const worksTs = fs.readFileSync(path.join(HERE, "..", "src", "works.ts"), "utf8");
+  const shown = new Set([...worksTs.matchAll(/slug:\s*"([a-z]+-[a-z0-9]+)"/g)].map((m) => m[1]));
+  const starter = docs.filter((d) => shown.has(d.id.split("#")[0]));
+  const missing = [...shown].filter((sl) => !docs.some((d) => d.id.startsWith(sl + "#")));
+  const sp = path.join(path.dirname(OUT), "myth-docs-starter.json");
+  fs.writeFileSync(sp, JSON.stringify(starter), "utf8");
+  const sbytes = fs.statSync(sp).size;
+  console.log(`  starter  ${String(starter.length).padStart(5)}청크  ${(sbytes / 1e6).toFixed(2)}MB  (화면 ${shown.size}점)`);
+  if (missing.length) console.log(`  ⚠ works.ts 에 있는데 말뭉치에 없는 슬러그 ${missing.length}개: ${missing.join(", ")}`);
+
   fs.writeFileSync(path.join(path.dirname(OUT), "myth-docs-index.json"),
-    JSON.stringify({ built: docs.length, shards: manifest }), "utf8");
+    JSON.stringify({ built: docs.length, shards: manifest,
+                     starter: { chunks: starter.length, works: shown.size, bytes: sbytes } }), "utf8");
 
   // 예전 이름의 통합본도 남긴다 — 이전 링크·도구가 깨지지 않게
   /* ⛔ 통합본(myth-docs.json)은 더 이상 만들지 않는다.
