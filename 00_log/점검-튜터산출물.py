@@ -45,22 +45,26 @@ def check_control_chars():
     SKIP = ("node_modules", ".git", ".venv", "venv", "dist", "__pycache__",
             "assets", "legacy-handmade")
     KDT = os.path.abspath(os.path.join(TUTOR, os.pardir))
-    roots = [
-        (HERE, "00_log"),
-        (TUTOR, "02_tutor"),
-        (os.path.join(KDT, "00_shared", "bridge"), "브리지"),
-        (os.path.join(REPO, "99_domain-dev"), "99_domain-dev"),
-        (os.path.join(REPO, "04_module3", "a_mq_N5-myth-rag-guide", "app", "src"), "노드5 src"),
-        (os.path.join(REPO, "04_module3", "a_mq_N5-myth-rag-guide", "tools"), "노드5 tools"),
-    ]
+    # ★«튜터 관할 폴더»를 통째로 넣는다. 하위를 골라 넣으면 또 샌다.
+    # 2026-09-02 2차 확대 — 1차 확대 때도 04_module3 의 src/tools 만 넣어
+    # README·PRD·node5-requirements 를 빼먹었다. 01_onboarding·02_module1 도 통째로 빠져 있었다.
+    # 매니저 실측: «범위를 좁게 잡는 실수»가 3세션에서 3회. 하위 선택을 하지 않는다.
+    roots = [(TUTOR, "02_tutor"),
+             (os.path.join(KDT, "00_shared", "bridge"), "브리지")]
+    roots += [(os.path.join(REPO, d), d) for d in
+              ("00_log", "01_onboarding", "02_module1", "04_module3", "99_domain-dev")]
     seen, n = set(), 0
     for root, _label in roots:
         if not os.path.isdir(root):
             continue
         for dp, dns, fns in os.walk(root):
             dns[:] = [d for d in dns if not any(x in d for x in SKIP)]
+            DATA = ("myth-docs", "chunks.json", "eval-hits", "variant-",
+                    "experiment-", "package-lock.json")
             for f in fns:
                 if not f.endswith(EXT):
+                    continue
+                if any(x in f for x in DATA):
                     continue
                 p = os.path.abspath(os.path.join(dp, f))
                 if p in seen:
