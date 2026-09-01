@@ -915,3 +915,8 @@ body {
 /* 모달 본체는 포커스를 받되 윤곽선은 내용 쪽에 맡긴다 */
 .modal-body:focus { outline: none; }
 .modal-body:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+/* ★생성 문장의 자연스러움과 출처 유무를 구분해 보여 주는 문장 — 흐리게 처리하지 않는다 */
+.claim-sep{margin-top:.6rem;padding-top:.6rem;border-top:1px dashed var(--line,#d8d4cc);font-size:.94rem;line-height:1.6}
+/* ★사람 피드백이 수집되지 않는다는 고지 — 작지만 읽히게 */
+.feedback-note{margin-left:.5rem;font-size:.76rem;opacity:.75}
