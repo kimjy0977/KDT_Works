@@ -11,6 +11,16 @@ _local/
 # 의존성·빌드 산출물
 node_modules/
 
+# 파이썬 — 가상환경·캐시 (2026-09-01 · 튜터 요청 KBTM-T-20260901-2)
+# 모듈4 실습이 uv 가상환경을 요구한다. 한 번 만들면 수백 MB 가 딸려간다(54ff1e5 와 같은 유형)
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
 # 작업 선언(로컬 전용·토론 TH-20260823-INFRA)
 .kdt-session
 .kdt-session-*
