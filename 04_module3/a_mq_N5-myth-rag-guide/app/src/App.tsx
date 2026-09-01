@@ -319,6 +319,8 @@ export default function App() {
                   <span className="feedback">
                     <button aria-label="좋아요" className={t.feedback === "up" ? "on" : ""} onClick={() => setFeedback(i, "up")}>👍</button>
                     <button aria-label="싫어요" className={t.feedback === "down" ? "on" : ""} onClick={() => setFeedback(i, "down")}>👎</button>
+                    {/* ★수집되는 척하지 않는다 — 이 표시는 화면 상태일 뿐 어디로도 보내지 않는다. */}
+                    <span className="feedback-note">이 표시는 이 브라우저 화면에만 남습니다 (수집·전송하지 않습니다)</span>
                   </span>
                 </div>
               )}
@@ -444,7 +446,7 @@ export default function App() {
           <li>배포 주소를 열고 이 챗봇이 <b>다루는 자료와 질문 범위</b>를 읽습니다</li>
           <li><b>Ollama</b>를 실행하고 <code>qwen3.5:2b</code>를 준비합니다</li>
           <li>첫 방문의 <b>임베딩 다운로드</b>를 기다립니다 <span className="fine">(약 200MB · 1회, 이후 캐시)</span></li>
-          <li>안내된 질문과 <b>자료 밖 질문</b>을 각각 넣어 봅니다</li>
+          <li><b>CORS를 허용한 뒤</b> 안내된 질문과 <b>자료 밖 질문</b>을 각각 넣어 봅니다</li>
         </ol>
         <p className="steps-note">
           원격 주소에서 로컬 Ollama를 부르려면 <code>OLLAMA_ORIGINS</code> 허용이 필요합니다 — 아래 «왜 Ollama가 필요한가요?» 참고.
@@ -516,6 +518,12 @@ export default function App() {
           <p>
             모든 답변은 <b>실제로 열리는 작품 페이지</b>에서 뽑은 조각에 근거합니다. 자료에 없으면
             없다고 답합니다. 답변 아래 출처 칩을 누르면 근거 조각과 원문 주소가 나옵니다.
+          </p>
+          {/* ★2강·9강 요구 — «생성 문장이 자연스럽다»와 «출처를 가진 답이다»를 화면에서 구분해 보여 준다.
+              PRD 안쪽에만 두면 사용자에게 전달되지 않는다. 흐리게 처리하지 않는다. */}
+          <p className="claim-sep">
+            <b>문장이 매끄럽다는 것과 출처가 있다는 것은 다릅니다.</b> 그래서 답 아래에
+            <b> 출처 칩</b>과 <b>판정 배지</b>를 함께 둡니다 — 둘을 같이 읽어 주세요.
           </p>
         </div>
         <div className="card card-c">
