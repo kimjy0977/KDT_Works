@@ -225,9 +225,33 @@ def check_docs():
     print(f"[SHA] {len(seen)}개 검증")
 
 
+
+def check_bridge_ids():
+    """브리지 발신 ID 중복 — 같은 계열·같은 날짜에서 «건수 ≠ 최대번호» 면 중복이거나 결번.
+    결번은 안 쓰고 건너뛴 번호라 신호가 아니다(9계열에서 나오는데 진짜는 2건). 중복만 본다.
+    정본 §D · 발견 경위 = KBTM-T-20260831-10."""
+    BR = os.path.join(os.path.dirname(REPO), os.pardir, "bridge")
+    BR = os.path.abspath(BR)
+    if not os.path.isdir(BR):
+        print("[브리지] 폴더 없음 — 건너뜀"); return
+    ID = re.compile(r"^\[(KB[A-Z]+(?:-[A-Z가-힣]+)?)-(\d{8})-(\d+)\]", re.M)
+    g, tot = {}, 0
+    for f in sorted(os.listdir(BR)):
+        if not f.endswith(".md"): continue
+        t = io.open(os.path.join(BR, f), encoding="utf-8", errors="replace").read()
+        for pre, d, n in ID.findall(t):
+            g.setdefault((pre, d), []).append(int(n)); tot += 1
+    dup = 0
+    for (pre, d), ns in sorted(g.items()):
+        for n in sorted(set(x for x in ns if ns.count(x) > 1)):
+            dup += 1
+            note("MED", "브리지", f"ID 중복 [{pre}-{d}-{n}] x{ns.count(n)} — 원참조로 되짚을 수 없다")
+    print(f"[브리지] ID {tot}개 · 계열 {len(g)}개 · 중복 {dup}건")
+
+
 def main():
     print("튜터 산출물 전수 점검\n" + "─" * 62)
-    for fn in (check_control_chars, check_notes, check_n5, check_harness, check_docs):
+    for fn in (check_control_chars, check_notes, check_n5, check_harness, check_docs, check_bridge_ids):
         try:
             fn()
         except Exception as e:
