@@ -575,6 +575,12 @@
       <a href="#m3n5-8">8강 스스로 세운 목표를 실험으로 — 프롬프트 엔지니어링<span class="toctag p">실습</span></a>
       <a href="#m3n5-9">9강 내 도메인에서 동작하는 챗봇 제출하기<span class="toctag q">과제</span></a>
       </div>
+      <a class="tochead" href="#m4n1">노드1 · 자동화와 에이전트</a>
+      <div class="tocgroup" data-g="m4n1">
+      <a href="#m4n1-1">1강 반복하는 일, AI에게 맡기면 안 될까</a>
+      <a href="#m4n1-2">2강 자동화와 워크플로 — 규칙을 정하고 그래프를 잇는다</a>
+      <a href="#m4n1-3">3강 워크플로 도구를 인스턴스에서 관찰한다<span class="toctag p">실습</span></a>
+      </div>
     </nav>
 
     <main>
@@ -5289,6 +5295,144 @@ systemctl set-environment OLLAMA_ORIGINS="https://YOUR_ID.github.io"</code></pre
       </section>
 
 
+      <!-- ================= 모듈4 노드1 · 자동화와 에이전트 ================= -->
+      <section class="section coursehead" id="m4n1">
+        <div class="badge">모듈4 · 노드1<span style="opacity:.7"> · 「AI Agent 파해치기_Agt1」</span></div>
+        <h2>자동화와 에이전트 <span style="font-size:.86rem;opacity:.85">(7강)</span></h2>
+        <p class="lead">업무 자동화에서 <b>에이전트가 차지하는 자리</b>를 잡는 노드다. 도구 이름을 외우는 시간이 아니라 <span class="hl">「다음 행동을 누가 정하는가」</span>를 가르는 눈을 만드는 시간이다. 관통 질문 — <b>"무엇을 맡기고, 어디에서 멈추게 하며, 문제가 생기면 무엇을 확인할 것인가?"</b></p>
+        <div class="table-wrap"><table><thead><tr><th>강</th><th>제목</th><th>담은 것</th></tr></thead><tbody>
+          <tr><td>1</td><td><a href="#m4n1-1">반복하는 일, AI에게 맡기면 안 될까</a></td><td>세 국면 · 선택권의 위치 · 워크플로/에이전트 구분</td></tr>
+          <tr><td>2</td><td><a href="#m4n1-2">자동화와 워크플로</a></td><td>규칙 판별 · 그래프 · 비교 다섯 질문</td></tr>
+          <tr><td>3</td><td><a href="#m4n1-3">워크플로 도구를 인스턴스에서 관찰한다</a></td><td>도구 스펙트럼 · n8n · 첫 워크플로 실습</td></tr>
+          <tr><td>4</td><td>코딩 에이전트에게 같은 흐름을 맡긴다</td><td class="fine">미수강</td></tr>
+          <tr><td>5</td><td>워크플로에서 에이전트 사용하기</td><td class="fine">미수강</td></tr>
+          <tr><td>6</td><td>판정 — 내 업무의 어느 부분을 어디까지 맡길까</td><td class="fine">미수강 · 이 노드의 도착점</td></tr>
+          <tr><td>7</td><td>n8n 직접 띄워 보기 — 셀프 호스팅</td><td class="fine">미수강</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section class="section" id="m4n1-1"><h2>1강 · 반복하는 일, AI에게 맡기면 안 될까 — 무엇부터 고민할까 <span class="dur">이론</span></h2>
+        <p class="lead">아침마다 비슷한 문의가 쌓인다. 읽고, 담당 팀에 넘기고, 표에 다시 옮긴다. 점심이 가까워도 줄지 않는다. <b>AI가 맡아 주면 좋겠다</b>는 생각이 자연스럽게 든다.</p>
+        <p>규칙이 분명한 반복은 실제로 잘 맡길 수 있다. <span class="hl3">문제는 맡긴 일이 예외를 만났을 때다.</span> 잘못 분류된 문의가 여러 팀으로 전달될 수 있고, 멈춰야 할 작업이 계속 실행될 수도 있다. 그리고 나중에는 <b>결과만 남고 왜 그런 선택이 이어졌는지는 찾기 어렵다.</b></p>
+        <div class="callout"><b>먼저 정할 것은 「AI를 쓸지 말지」가 아니다</b><br>
+          <span class="hl">무엇을 맡기고, 어디에서 멈추게 하며, 문제가 생기면 무엇을 확인할지</span>를 정해야 한다.<br>
+          이 강의가 기르는 것은 도구 지식이 아니라 <b>그 판단의 기준</b>이다.</div>
+
+        <h3>다음 행동을 누가 정하는가</h3>
+        <p>같은 <b>에이전트</b>라는 이름 아래 서로 다른 통제 방식이 있다. 결과가 같아 보여도 <span class="hl2">문제가 생겼을 때 살펴볼 곳이 달라진다.</span></p>
+        <div class="table-wrap"><table><thead><tr><th>누가 정하나</th><th>어떻게</th><th>부르는 이름</th></tr></thead><tbody>
+          <tr><td><b>사람</b></td><td>대화에서 다음 요청을 하나씩 고른다</td><td><b>자동화</b></td></tr>
+          <tr><td><b>고정 그래프</b></td><td>미리 연결한 순서와 조건이 정한다</td><td><b>워크플로</b></td></tr>
+          <tr><td><b>모델</b></td><td>앞선 결과를 읽고 도구와 경로를 고른다</td><td><b>에이전트</b></td></tr>
+        </tbody></table></div>
+        <p><b>같은 업무로 보면 이렇다.</b> 고객 문의를 분류해 담당 팀에 알리는 일 — 사람이 메일을 읽고 기준을 적용해 알림을 보내면 첫째. 「수신 → 분류 → 담당 팀 찾기 → 알림 발송」을 연결하고 조건을 정해 두었으면 둘째. 내용이 모호한 문의에서 <b>모델이 조회 도구를 쓸지, 추가 정보를 요청할지, 후보를 다시 찾을지</b> 고르면 셋째다.</p>
+
+        <div class="notice"><b>🧭 화면에 남는 결과는 셋 다 같다</b><br>
+          「담당 팀에 알림을 보냈다」 한 줄뿐이다. <span class="hl">그런데 원인을 찾는 방식은 다르다.</span><br>
+          · <b>사람</b>이 골랐다면 → 입력과 판단 기준을 되짚는다<br>
+          · <b>고정 그래프</b>가 골랐다면 → 어느 조건에서 다른 경로로 갔는지 확인한다<br>
+          · <b>모델</b>이 골랐다면 → 제공한 도구, 관측한 결과, <b>반복 한도와 승인 규칙</b>을 함께 확인한다<br>
+          운전대가 손에서 자동 조향 장치로, 다시 상황을 해석하는 조수에게 넘어가는 모습과 닮았다. <b>목적지는 같아도 브레이크를 확인할 곳은 달라진다.</b></div>
+
+        <h3>Anthropic의 구분</h3>
+        <p>Anthropic은 『Building effective agents』에서 <span class="hl2">코드 경로가 미리 정해진 경우를 <b>워크플로</b>, 모델이 과정과 도구 사용을 동적으로 이끄는 경우를 <b>에이전트</b></span>로 구분한다.</p>
+        <div class="notice warn"><b>⚠️ 어느 쪽이 더 낫다는 뜻이 아니다</b><br>
+          · <b>고정 경로</b> — 검토와 <b>재현</b>에 유리하다<br>
+          · <b>동적 선택</b> — 예외가 많은 업무에서 도움이 된다. 대신 <b>비용과 오류가 쌓일 가능성</b>도 커진다<br>
+          ⇒ <span class="hl">모델에 선택을 더 맡길수록 도구 권한 · 반복 한도 · 사람이 멈추는 지점을 더 분명히 정해야 한다.</span></div>
+        <div class="notice warn"><b>⚠️ 제품 목록이 아니다</b><br>
+          하나의 도구 안에서도 국면마다 선택 주체가 달라질 수 있다. 대화창에 연결 기능이 붙을 수 있고, <b>고정 그래프 한가운데 모델 판단이 들어갈</b> 수도 있으며, 코딩 에이전트에도 <b>사람이 승인하는 절차</b>가 함께 있을 수 있다.</div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드1 1강. 인용 — Anthropic, Building effective agents.</span></div>
+      </section>
+
+      <section class="section" id="m4n1-2"><h2>2강 · 자동화와 워크플로 — 규칙을 정하고 그래프를 잇는다 <span class="dur">이론</span></h2>
+        <p class="lead">자동화에 맡길 일을 고를 때는 <b>먼저 규칙을 확인한다.</b> 일을 설명하면서 <span class="hl">「무조건」·「항상」·「매번」</span>을 쓸 수 있다면 규칙이 비교적 선명하다.</p>
+        <p>새 문의에 접수 번호를 붙인다. 매일 아침 전날 매출을 표에 옮긴다. 첨부가 없는 신청서에는 안내를 보낸다. — 이런 일은 <b>조건과 결과를 이어 적을 수 있다.</b></p>
+        <div class="callout"><b>규칙인지 시험하는 법 — 낯선 동료 테스트</b><br>
+          「친절하게 답합니다」나 「중요한 메일부터 봅니다」에는 <b>사람의 판단</b>이 들어간다.<br>
+          낯선 동료에게 그 일을 가르친다고 상상해 보라. 동료가 <b>"이 경우에는 어떻게 하나요"</b>라고 물었을 때 <span class="hl3">"알아서 해주세요"</span>라고 답하게 된다면, <b>그 부분은 아직 규칙이 아니다.</b><br>
+          → 자동화는 빈틈을 알아서 메우는 마술이 아니다. <b>빈틈까지 적어 둔 조리법</b>처럼 작동한다.</div>
+
+        <h3>그래프 — 여러 행동을 연결한 설계도</h3>
+        <p>업무는 한 번의 행동으로 끝나지 않는 경우가 많다. 문의를 받고 분류하고, 답을 고르고 기록하고, 필요하면 담당 부서로 넘긴다. 이렇게 여러 행동을 연결한 설계도를 <b>그래프</b>라고 한다. 그래프에는 행동을 나타내는 <b>점</b>과 흐름을 나타내는 <b>화살표</b>가 있다. 조건에 따라 길이 갈라지며, <span class="hl2">실행 기록도 각 흐름에 남는다.</span></p>
+        <p>Anthropic은 워크플로를 <b>"미리 정의된 코드 경로로 LLM과 도구가 조율되는 시스템"</b>으로 정의한다. 따라서 <span class="hl">워크플로의 핵심은 모델이 자유롭게 움직이는 데 있지 않다. 정해 둔 경로와 분기, 그리고 검토할 수 있는 기록에 있다.</span></p>
+
+        <h3>제품 이름 대신 확인할 다섯 가지</h3>
+        <div class="notice warn"><b>⚠️ 기능 수는 업무의 위험과 무관하다</b><br>
+          도구 소개 페이지에서는 연결 가능한 서비스 수나 모델 이름이 먼저 보인다. 그러나 <b>연결이 많아도 입력을 어디서 읽었는지 알 수 없다면 잘못된 요약을 고치기 어렵다.</b> 반대로 기능이 적어도 읽기 전용 공개 데이터로 검토용 초안을 만드는 일에는 더 안전할 수 있다.</div>
+        <div class="table-wrap"><table><thead><tr><th>항목</th><th>확인할 것</th></tr></thead><tbody>
+          <tr><td><b>통제</b></td><td>누가 <b>시작·중지·승인·쓰기 권한</b>을 정하는가</td></tr>
+          <tr><td><b>관측</b></td><td>입력·도구 호출·응답·<b>실패 지점</b>을 기록으로 되짚을 수 있는가</td></tr>
+          <tr><td><b>이식성</b></td><td>프롬프트·연결 규칙·코드·<b>비밀값</b>을 옮길 때 무엇을 다시 준비해야 하는가</td></tr>
+          <tr><td><b>비용</b></td><td>구독·모델 처리량·실행 횟수 — <b>어떤 단위</b>로 요금이 계산되는가</td></tr>
+          <tr><td><b>데이터 경로</b></td><td>입력·로그·모델·결과·비밀값이 <b>어느 서비스와 저장 위치</b>를 지나는가</td></tr>
+        </tbody></table></div>
+        <p><b>예시 업무 하나로 재보면</b> — 매일 아침 공개 데이터(개인정보 없는 공개 API)에서 정보를 읽고 세 문장 요약을 받는다. 같은 업무라도 세 국면에 놓으면 확인할 내용이 달라진다. 사람이 시키는 국면에서는 <b>예약·연결 기능의 켜고 끄는 권한</b>과 원문 응답을 다시 열 수 있는지를 본다. 그래프 국면에서는 <b>정해 둔 시각의 실행을 멈추는 권한</b>과 각 실행의 요청·응답·분기·오류를 본다. 모델이 고르는 국면에서는 <b>일정 설정·코드 변경·파일 저장·메시지 발송의 승인 경로를 각각</b> 확인한다.</p>
+        <div class="notice"><b>🧭 이 표는 승자를 가리는 도구가 아니다</b><br>
+          <span class="hl">확인하지 않은 전제를 드러내는 도구</span>로 쓴다. 공식 문서에서 확인하지 못한 가격·연결 수·기능 차이는 <b>「미확인」으로 남겨 둔다.</b><br>
+          · 코드가 저장소에 있어도 <b>실행 환경과 비밀값을 재현하지 못하면</b> 업무 전체를 옮길 수 없다.<br>
+          · 과금 단위도 도구마다 다르다 — 워크플로 <b>전체 1회</b>를 execution으로 세는 도구가 있는가 하면 <b>노드 하나하나</b>에 매기는 도구도 있다. 숫자만 나란히 두고 비교하지 않는다.<br>
+          · 그래프 안에 <b>모델이 도구를 고르는 노드</b>를 둘 수도 있다. 이는 통제가 필요 없다는 뜻이 아니라, <b>연결한 도구와 실행 기록을 더 분명히 살펴야 한다</b>는 뜻이다.</div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드1 2강. 인용 — Anthropic, Building effective agents.</span></div>
+      </section>
+
+      <section class="section" id="m4n1-3"><h2>3강 · 워크플로 도구를 인스턴스에서 관찰한다 <span class="dur">실습</span></h2>
+        <p class="lead">반복 업무를 덜어 줄 도구를 검색하면 화면마다 전혀 다른 세계가 펼쳐진다. 이 강은 그 스펙트럼을 훑고, <span class="hl">그래프가 눈에 보이는 도구 하나를 골라 직접 돌려 본다.</span></p>
+        <div class="table-wrap"><table><thead><tr><th>층</th><th>도구</th><th>특징</th></tr></thead><tbody>
+          <tr><td>대화창</td><td>ChatGPT · Claude</td><td>말로 요청하고 맥락으로 다음 행동을 정한다. <b>판단이 어떤 연결을 거쳤는지는 대화창 밖에서</b> 살펴야 한다</td></tr>
+          <tr><td rowspan="2">규칙·시나리오</td><td><b>Zapier</b></td><td>수천 개 앱을 「트리거 → 액션」으로 연결. <b>실행 횟수(task)</b> 단위 과금</td></tr>
+          <tr><td><b>Make</b> <span class="fine">(구 Integromat)</span></td><td>시각적 시나리오 편집기. 필터·반복·에러 분기를 조립. <b>연산량(operation)</b> 단위 과금</td></tr>
+          <tr><td>그래프형</td><td><b>n8n</b> · Node-RED</td><td>노드와 선이 <b>다음 행동과 데이터 이동 경로를 화면에 드러낸다</b></td></tr>
+          <tr><td>코드</td><td>코딩 에이전트 · 터미널 · 저장소</td><td>더 세밀한 규칙이 가능하지만 <b>흐름과 기록을 한 화면에서 보기는 어렵다</b></td></tr>
+        </tbody></table></div>
+        <p>Zapier와 Make는 <b>사람이 미리 정한 규칙이 다음 행동을 대신 수행</b>한다는 점에서 같은 층이다. n8n이 수업 도구로 뽑힌 이유는 성능이 아니라 <span class="hl2">그래프를 눈으로 들여다볼 수 있고 나중에 직접 띄워 볼 수도 있다는 점</span>이다.</p>
+
+        <h3>n8n — 관찰 도구로 고른 이유</h3>
+        <div class="callout"><b>n8n</b><br>
+          2019년 <b>베를린</b>에서 태어난 워크플로 자동화 도구. 이름은 <b>node + automation = nodemation</b>에서 왔다 — <b>노드를 잇는 그래프가 곧 실행되는 구조</b>가 이름의 출발점이다.<br>
+          메일·폼·스프레드시트·채팅 같은 외부 서비스와 공개 API를 노드로 묶고, <b>실행할 때마다 어느 노드가 무엇을 주고받았는지 기록이 남는다.</b><br>
+          · 2025년 한 해에만 GitHub 별 <b>11만 개 이상</b> 증가, 월간 활동 사용자 <b>170만 명 이상</b><br>
+          · 소스 공개 <b>fair-code</b> 방식 — 클라우드가 문을 닫아도 <b>내 환경에서 계속 돌릴 수 있다</b><br>
+          <span class="hl3">사용 규모가 곧 신뢰라는 뜻은 아니다.</span> 다만 배운 것을 강의 밖에서도 쓸 생태계가 있다는 뜻이다.</div>
+
+        <h3>수업 인스턴스 접속</h3>
+        <div class="table-wrap"><table><tbody>
+          <tr><td><b>접속 주소</b></td><td><code>https://n8n.vibemakers.kr</code></td></tr>
+          <tr><td><b>계정 생성</b></td><td>설문 폼 <code>/form/ea2d73cf-…</code> — 폼 진입용 <b>modu / labs</b> 입력 후 제출</td></tr>
+          <tr><td><b>로그인 뒤</b></td><td><b>화면에 표시되는 버전을 그대로 기록</b>해 둔다</td></tr>
+        </tbody></table></div>
+        <div class="notice warn"><b>⚠️ 인증 방법을 추정하여 진행하지 않는다</b><br>
+          개인 가입 · 초대 수락 · 비밀번호 설정 같은 방법을 <b>짐작해서 시도하지 않는다.</b> 로그인에 실패했을 때 여러 방식으로 계정을 만들려 하면 <span class="hl3">수업 계정의 권한 경계와 기록이 흐려진다.</span><br>
+          → <b>멈춘 화면 · 오류 문구 · 접속한 주소를 남기는 편이 더 정확한 관측이다.</b></div>
+
+        <h3>첫 워크플로 — 실제로 돌린 기록</h3>
+        <p><b>Manual Trigger</b>는 <code>Execute workflow</code>를 누를 때에만 흐름을 시작하므로 <b>첫 실행의 출발점이 눈앞에 보인다.</b> 여기에 <b>HTTP Request</b>를 이어 인증 없이 읽히는 공개 주소를 넣는다.</p>
+        <pre><code>Manual Trigger  →  HTTP Request
+                   GET https://en.wikipedia.org/api/rest_v1/page/summary/N8n</code></pre>
+        <div class="table-wrap"><table><thead><tr><th>관찰 질문</th><th>확인한 위치 또는 값</th></tr></thead><tbody>
+          <tr><td>n8n 버전</td><td>Help → About n8n → <b>2.36.8</b> <span class="fine">(Update: 1 version behind)</span></td></tr>
+          <tr><td>Manual Trigger·HTTP Request 노드를 찾았는가</td><td>노드 패널 검색 — <code>manual</code> / <code>HTTP Request</code></td></tr>
+          <tr><td><b>실행은 어디에 기록되는가</b></td><td><b>Executions 탭.</b> <code>Succeeded in 404ms · 5KB · ID#189311 · Autosave</code></td></tr>
+          <tr><td><b>원 응답은 어디에 보이는가</b></td><td>HTTP Request 노드 더블클릭 → 우측 <b>OUTPUT</b> 패널 (Schema / Table / <b>JSON</b>)</td></tr>
+        </tbody></table></div>
+        <p><b>응답에서 찾은 네 필드</b> — <code>title</code> <b>"N8n"</b> · <code>description</code> <b>"German workflow-automation company"</b> · <code>timestamp</code> <b>"2026-08-25T13:17:23Z"</b> · <code>content_urls</code> <b>desktop/mobile 각각 page·revisions·edit·talk</b>.</p>
+
+        <div class="notice warn"><b>⚠️ 상태코드는 기본값으로 안 보인다 — 실제로 겪은 것</b><br>
+          강의는 <b>"출력에는 HTTP 상태코드와 원 응답이 함께 보인다"</b>고 적었지만, n8n의 HTTP Request는 <span class="hl3">기본값이 「본문만」</span>이다. 첫 실행에서 워크플로는 <b>초록불 성공</b>이었고 데이터도 왔지만 <b>상태코드는 어디에도 없었다.</b><br>
+          → <code>Options → Response → <b>Include Response Headers and Status</b></code> 를 켜야 나온다. 켜면 응답 구조가 바뀐다:<br>
+          <b>켜기 전</b> 최상위에 <code>title</code>·<code>description</code>… (본문이 바로)<br>
+          <b>켠 뒤</b> <code>body</code> / <code>headers</code> / <code>statusCode</code> <b>200</b> / <code>statusMessage</code> <b>"OK"</b> — 본문은 <code>body</code> 안으로 내려간다.<br>
+          <span class="hl">「돌아갔다」와 「무슨 일이 있었는지 안다」는 다르다.</span> 2강의 <b>관측</b> 항목이 바로 이것이다 — <b>보이게 만드는 것은 설정이다.</b></div>
+        <div class="notice"><b>🧭 관찰 두 가지</b><br>
+          · <b>실행 기록의 단위는 「워크플로 1회」다.</b> 노드가 둘인데 기록은 한 건(<code>ID#189311</code>)이고 그 안에 노드별 입출력이 들어 있다. <b>노드 화면과 실행 한 건을 구별해 살핀다.</b><br>
+          · <code>headers</code>를 켜니 <code>x-client-ip</code>·<code>set-cookie</code>·<code>GeoIP</code>까지 딸려 나왔다. 2강의 <b>데이터 경로</b> 질문이 여기서 눈에 보인다.<br>
+          · <code>timestamp</code>가 <b>2026-08-25</b>인 것도 관찰거리다 — 위키백과 문서가 마지막으로 바뀐 시각이지 <b>지금 시각이 아니다.</b> 도구가 보여 준 사실과 내가 추정한 사실을 구분하는 연습이 이 실습의 요지다.</div>
+        <div class="notice warn"><b>⚠️ 노드가 있다는 사실 ≠ 업무를 맡겨도 된다는 판단</b><br>
+          연결할 서비스의 <b>권한</b>, 실패 뒤에 남는 <b>기록</b>, 사람이 다시 확인할 <b>지점</b>을 함께 살펴야 한다.</div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드1 3강. 실습 기록은 2026-09-01 수업용 인스턴스(2.36.8)에서 직접 실행한 값.</span></div>
+      </section>
+
+
     </main>
   </div>
   <footer class="footer"><div class="wrap">Ⓒ 모두의연구소 노드 「바이브 코딩으로 웹 만들기」 — 직접 확인·정리한 개인 학습 노트 · KDT 교육 운영 워크스페이스</div></footer>
@@ -5301,8 +5445,8 @@ systemctl set-environment OLLAMA_ORIGINS="https://YOUR_ID.github.io"</code></pre
     var toc=document.querySelector('.toc');
     var pager=document.getElementById('pager');
     var groups=[].slice.call(document.querySelectorAll('.toc .tocgroup'));
-    var names={'adn1':'협업 툴 소개','adn2':'아이펠이란?','adn3':'퀘스트란?','adn4':'코딩 0줄로 여는 첫날','adn5':'Computational Thinking','m1n1':'작업대 마련하기','m1n2':'세 겹 & 게임','m1n3':'프레임워크','m1n4':'백엔드','m1n5':'데이터베이스','m1n6':'AI 에이전트 도구','m1n7':'메인 퀘스트','m2n1':'AI는 어떻게 배우나','m2n2':'트랜스포머 (AI는 어떻게 언어를 배웠나)','m2n3':'LLM과 로컬 실행','m2n4':'AI는 문서와 사진에서 무엇을 꺼낼까?','m2n5':'[프로젝트] 이미지 생성 어플리케이션 만들기','m2n6':'여러 입력을 처리하는 모델들 (멀티모달)','m2n7':'[프로젝트] 폰 영상으로 3D 공간 만들기','m2n8':'AI가 새로 연 곳들','m2n9':'Main Quest — 도구 학습에서 적용 판단으로','m3n1':'거대 언어모델과 프롬프트','m3n2':'지시 설계 — 무엇이라고 시키는가','m3n3':'컨텍스트 엔지니어링과 서비스 설계','m3n4':'도구 설계 — 에이전트에게 무엇을 줄 것인가','m3n5':'Main Quest — RAG 가이드 챗봇 만들고 배포·평가'};
-    var order=['adn1','adn2','adn3','adn4','adn5','m1n1','m1n2','m1n3','m1n4','m1n5','m1n6','m1n7','m2n1','m2n2','m2n3','m2n4','m2n5','m2n6','m2n7','m2n8','m2n9','m3n1','m3n2','m3n3','m3n4','m3n5'];
+    var names={'adn1':'협업 툴 소개','adn2':'아이펠이란?','adn3':'퀘스트란?','adn4':'코딩 0줄로 여는 첫날','adn5':'Computational Thinking','m1n1':'작업대 마련하기','m1n2':'세 겹 & 게임','m1n3':'프레임워크','m1n4':'백엔드','m1n5':'데이터베이스','m1n6':'AI 에이전트 도구','m1n7':'메인 퀘스트','m2n1':'AI는 어떻게 배우나','m2n2':'트랜스포머 (AI는 어떻게 언어를 배웠나)','m2n3':'LLM과 로컬 실행','m2n4':'AI는 문서와 사진에서 무엇을 꺼낼까?','m2n5':'[프로젝트] 이미지 생성 어플리케이션 만들기','m2n6':'여러 입력을 처리하는 모델들 (멀티모달)','m2n7':'[프로젝트] 폰 영상으로 3D 공간 만들기','m2n8':'AI가 새로 연 곳들','m2n9':'Main Quest — 도구 학습에서 적용 판단으로','m3n1':'거대 언어모델과 프롬프트','m3n2':'지시 설계 — 무엇이라고 시키는가','m3n3':'컨텍스트 엔지니어링과 서비스 설계','m3n4':'도구 설계 — 에이전트에게 무엇을 줄 것인가','m3n5':'Main Quest — RAG 가이드 챗봇 만들고 배포·평가','m4n1':'자동화와 에이전트'};
+    var order=['adn1','adn2','adn3','adn4','adn5','m1n1','m1n2','m1n3','m1n4','m1n5','m1n6','m1n7','m2n1','m2n2','m2n3','m2n4','m2n5','m2n6','m2n7','m2n8','m2n9','m3n1','m3n2','m3n3','m3n4','m3n5','m4n1'];
     var current='m1n1';
     function nodeOf(id){if(!id)return null;var m=id.match(/^(adn\d+|m\dn\d+)(?:-\d+)?$/);return m?m[1]:null;}
     function paintToc(){
