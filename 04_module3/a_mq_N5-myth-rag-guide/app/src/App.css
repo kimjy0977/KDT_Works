@@ -920,3 +920,6 @@ body {
 .claim-sep{margin-top:.6rem;padding-top:.6rem;border-top:1px dashed var(--line,#d8d4cc);font-size:.94rem;line-height:1.6}
 /* ★사람 피드백이 수집되지 않는다는 고지 — 작지만 읽히게 */
 .feedback-note{margin-left:.5rem;font-size:.76rem;opacity:.75}
+
+/* 검색 단계에 «모델에 넘긴 조각 수» — 찾은 것과 준 것은 다르다 */
+.used-note { color: var(--blue); font-size: .72rem; }
