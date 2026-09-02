@@ -42,6 +42,25 @@ if (typeof window !== "undefined" && window.location.search.includes("evalhook=1
  *     즉 k 를 줄이면 BM25 가 통째로 빠진다. 실험 해석 시 이 교란을 감안할 것.
  *  기록은 README.md 「실험」 절 참조. */
 const TOP_K = 15;
+/** ★프롬프트·판정에 실제로 넣는 조각 수 — 실험 4바퀴에서 15 → 5 로 바꿨다.
+ *
+ *  왜. 자료가 12점·41청크에서 982점·2,978청크로 커지며 **후보의 성격이 달라졌다.**
+ *  상위 15개 안에 다른 신화 조각이 문항당 3.1개 섞이고(3바퀴엔 0개),
+ *  벡터 1위와 꼴찌의 점수 낙차가 0.065 → 0.029 로 절반이 됐다. 뒤쪽이 잡음이라는 뜻이다.
+ *
+ *  통제 조건(검색 고정 · temperature 0)에서 잰 결과 —
+ *    base(15조각) 45.5점 · 부당거부 3/10 · 인용 6/13
+ *    topk5( 5조각) 56.8점 · 부당거부 1/10 · 인용 9/13     ← 채택
+ *  두 세팅 모두 두 번씩 돌려 자가 검사 0.0점(13/13 동일)을 확인한 뒤 비교했다.
+ *
+ *  ⚠️ **검색은 15개 그대로 둔다.** TOP_K 를 5로 바꾸면 rag.ts 의 retrieve() 가
+ *     BM25 몫을 `k − 벡터개수` 로 계산해 **BM25 를 0개로 만든다.** 1바퀴를 망친 함정이
+ *     바로 그것이었다. 그래서 «검색 15 · 프롬프트 5» 로 나눈다. 실험에서 잰 것과 같다
+ *     (상위 5개는 실측상 전부 벡터였다). 하이브리드 검색이라는 설명도 유지된다.
+ *
+ *  3바퀴에서는 이 세팅을 **탈락**시켰다 — 그때는 base 를 1.2점 이기면서 부당거부가
+ *  늘었기 때문이다. 자료가 24배가 되며 결론이 뒤집혔다. 근거는 README 「실험 — 네 바퀴」. */
+const PROMPT_K = 5;
 
 // 파이프라인 단계 — 튜토리얼용 표시
 const PHASE_LABEL: Record<Phase, string> = {
@@ -156,7 +175,9 @@ export default function App() {
       setLastHits(hits);
       setHitsOpen(false);
       await new Promise((r) => setTimeout(r, 450)); // 검색 결과를 눈으로 볼 수 있게 표시
-      const prompt = buildPrompt(q, hits);
+      // 화면·출처 칩에는 검색 결과 전부를 보여 주되, 모델에게는 상위 PROMPT_K 개만 넘긴다
+      const used = hits.slice(0, PROMPT_K);
+      const prompt = buildPrompt(q, used);
       const messages: ChatMsg[] = [
         {
           role: "system",
@@ -198,7 +219,9 @@ export default function App() {
       //    로컬 → qwen 자기평가(API 키 불필요), gemini → gemini-3.5-flash
       setJudgeBusy(true);
       try {
-        const src = hits.map((h) => `[${h.chunk.id}] ${h.chunk.text}`).join("\n");
+        // 판정도 «모델이 실제로 본 근거»로 재야 한다. 안 준 조각을 근거라고 채점하면
+        // 낮은 점수가 답변 탓인지 안 준 조각 탓인지 갈리지 않는다.
+        const src = used.map((h) => `[${h.chunk.id}] ${h.chunk.text}`).join("\n");
         const by = engine === "gemini" && apiKey ? "gemini-3.5-flash" as const : "qwen3.5:2b" as const;
         const verdict =
           engine === "gemini" && apiKey
@@ -372,6 +395,7 @@ export default function App() {
               <div className="hits-title">
                 <button className="chips-toggle" onClick={() => setHitsOpen((o) => !o)}>
                   ② 검색된 근거 {lastHits.length}개 — 벡터 {lastHits.length - nBm} · BM25 {nBm}{" "}
+                  <span className="used-note">(모델에는 상위 {PROMPT_K}개)</span>{" "}
                   {hitsOpen ? "접기 ▴" : "펼쳐 보기 ▾"}
                 </button>
                 {lastHits[0].score < 0.55 && (
