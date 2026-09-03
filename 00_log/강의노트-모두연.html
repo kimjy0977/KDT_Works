@@ -599,6 +599,19 @@
       <a href="#m4n2-10">10강 일곱 하네스를 기능 지도 위에 놓기</a>
       <a href="#m4n2-11">11강 논문 가설을 내 개선 실험으로 바꾸기<span class="toctag q">과제</span></a>
       </div>
+      <a class="tochead" href="#m4n3">노드3 · 멀티에이전트는 어떻게 적용할까?</a>
+      <div class="tocgroup" data-g="m4n3">
+      <a href="#m4n3-1">1강 멀티 에이전트와 나눔의 득실</a>
+      <a href="#m4n3-2">2강 네 가지 구조와 맞는 과업</a>
+      <a href="#m4n3-3">3강 성과 숫자 읽기와 적용 조건</a>
+      <a href="#m4n3-4">4강 단일 에이전트로 기준선 세우기<span class="toctag p">실습</span></a>
+      <a href="#m4n3-5">5강 코드가 정하는 흐름 — 워크플로로 나누기<span class="toctag p">실습</span></a>
+      <a href="#m4n3-6">6강 모델이 정하는 흐름 — 리드가 나누기<span class="toctag p">실습</span></a>
+      <a href="#m4n3-7">7강 실행 기록을 관측하고 한 흐름으로 읽기<span class="toctag p">실습</span></a>
+      <a href="#m4n3-8">8강 단일과 멀티 비교 판정하기</a>
+      <a href="#m4n3-9">9강 실험을 둘러싼 생태계</a>
+      <a href="#m4n3-10">10강 채택·축소·폐기 판정과 과제<span class="toctag q">과제</span></a>
+      </div>
     </nav>
 
     <main>
@@ -5251,6 +5264,449 @@ save_run("with-history.txt", [
         <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드2 11강 (step 27012). 제출 스텝은 27013.</span></div>
       </section>
 
+      <!-- ================= 모듈4 · 노드3 · 멀티에이전트는 어떻게 적용할까? ================= -->
+      <section class="section coursehead" id="m4n3">
+        <div class="badge">모듈4 · 노드3<span style="opacity:.7"> · 「AI Agent 파헤치기_Agt1」</span></div>
+        <h2>멀티에이전트는 어떻게 적용할까? <span style="font-size:.86rem;opacity:.85">(10강)</span></h2>
+        <p class="lead">노드2가 <b>「맡긴 일이 어디서 막히나」</b>였다면 노드3은 <b>「나누면 정말 나아지나」</b>다. 노드 소개 문장이 그대로 관통 질문이다 — <span class="hl">"멀티에이전트에 대한 실험을 하는 방법을 배워봅니다."</span> 이 노드가 가르치는 것은 <b>많이 나누는 방법이 아니라, 나눠서 얻은 이득과 치른 비용을 같은 조건의 기록으로 판정하는 방법</b>이다.</p>
+        <div class="callout"><b>이 노드의 뼈대 — 세 실행(A·B·C)</b><br>
+          문제·모델·저장소 준비·채점 방식은 <b>모두 고정</b>하고, <span class="hl">「다음 행동을 정하는 주체」 하나만</span> 바꿔 비교한다.<br>
+          <span class="fine"><b>기준선 실행(A)</b> = 한 에이전트가 정한다 &nbsp;·&nbsp; <b>워크플로 실행(B)</b> = 파이썬 코드가 정한다 &nbsp;·&nbsp; <b>오케스트레이션 실행(C)</b> = 리드 모델이 정한다.</span></div>
+        <div class="table-wrap"><table><thead><tr><th>강</th><th>제목</th><th>담은 것</th></tr></thead><tbody>
+          <tr><td>1</td><td><a href="#m4n3-1">멀티 에이전트와 나눔의 득실</a></td><td>리드·워커 · 세 이점 · 세 실패 · <b>판정표</b></td></tr>
+          <tr><td>2</td><td><a href="#m4n3-2">네 가지 구조와 맞는 과업</a></td><td>허브형/직접형 · 오케스트레이터-워커·팬아웃·비평-수정·인계</td></tr>
+          <tr><td>3</td><td><a href="#m4n3-3">성과 숫자 읽기와 적용 조건</a></td><td>90.2% · 최대 90% · 약 15배를 <b>필드 이름으로</b> 바꿔 읽기 · 2층 채점</td></tr>
+          <tr><td>4</td><td><a href="#m4n3-4">단일 에이전트로 기준선 세우기</a></td><td>문제 5건 · Claude Agent SDK · A 실행(25턴)</td></tr>
+          <tr><td>5</td><td><a href="#m4n3-5">코드가 정하는 흐름</a></td><td>locator(12턴) → fixer(18턴) · locate_report 인계</td></tr>
+          <tr><td>6</td><td><a href="#m4n3-6">모델이 정하는 흐름</a></td><td><code>agents=</code> 로 locator 등록 · 리드 40턴 · 호출 여부는 리드가 결정</td></tr>
+          <tr><td>7</td><td><a href="#m4n3-7">실행 기록을 관측하고 한 흐름으로</a></td><td>result.json · changes.diff · 세션 JSONL · judge.py</td></tr>
+          <tr><td>8</td><td><a href="#m4n3-8">단일과 멀티 비교 판정하기</a></td><td>고정 조건 vs 달라진 조건 · <b>턴 예산이 다르다</b></td></tr>
+          <tr><td>9</td><td><a href="#m4n3-9">실험을 둘러싼 생태계</a></td><td>네 문제 → Agent Teams · Workflows · oh-my-claudecode · herdr</td></tr>
+          <tr><td>10</td><td><a href="#m4n3-10">채택·축소·폐기 판정과 과제</a></td><td>루브릭 3항 · 한 문장 판정문</td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드3 「멀티에이전트는 어떻게 적용할까?」 (course 2196 · node-version 5355 · steps 27013~27022). 노드 소개: "멀티에이전트에 대한 실험을 하는 방법을 배워봅니다."</span></div>
+      </section>
+
+      <section class="section" id="m4n3-1"><h2>1강 · 멀티 에이전트와 나눔의 득실 <span class="dur">이론</span></h2>
+        <p class="lead">에이전트를 나누는 것은 <span class="hl">능력을 더하는 일이 아니라 컨텍스트와 책임을 다시 배치하는 일</span>이다.</p>
+
+        <h3>멀티 에이전트는 무엇인가</h3>
+        <p>한 에이전트에게 조사 과업을 통째로 맡기면, 지시를 받고 검색하고 찾은 자료와 중간 판단을 대화 창에 차곡차곡 쌓는다. 어느 순간 <b>처음 받은 질문은 아래로 밀리고</b>, 한참 전에 확인해 둔 근거도 다시 찾기 어려워진다.</p>
+        <p>여기서 저절로 나오는 생각이 「나누면 어떨까」다. <b>컨텍스트</b>는 다음 행동을 고를 때 함께 읽는 지시·대화·파일·도구 결과인데, 창을 여러 개로 나누면 그만큼 처음의 질문과 확인된 근거를 오래 보존할 수 있다. 멀티 에이전트는 이 분업을 <b>실행 구조로 구현</b>한 것이다. 하나의 과업을 여러 에이전트에게 나눠 맡기고 각자의 결과를 합쳐 하나로 완성한다.</p>
+        <div class="callout"><b>리드와 워커</b><br>
+          과업을 <b>나누고 결과를 합치는</b> 에이전트 = <span class="hl2">리드</span> &nbsp;/&nbsp; 나뉜 몫을 <b>수행하는</b> 에이전트 = <span class="hl2">워커</span>.<br>
+          <span class="fine">수를 늘린다는 것은 구체적으로 이런 행동이다 — 리드가 워커의 역할을 <b>파일로 미리 정의</b>해 두고, <b>한 번의 위임으로 여러 워커를 동시에</b> 띄운다. 각 워커는 자기 창에서 자기 몫만 다루고, 리드는 돌아온 결과를 합친다.</span></div>
+        <p>실제로 이 구성을 택한 곳도 있다. Anthropic의 Research 시스템은 <b>LeadResearcher의 컨텍스트가 200,000토큰을 넘으면 잘릴 수 있어, 시작할 때 연구 계획을 Memory에 저장</b>한다고 밝혔다. 한계에 이르기 전에 계획을 별도 메모리에 보존하는 방식이다.</p>
+
+        <h3>기대와 회의는 어디서 오는가</h3>
+        <p>「에이전트 수를 늘릴수록 결과가 좋아진다」는 이야기는 개발 커뮤니티에서 오래 돌았고, 학술적 근거를 얹은 보고도 있다. 같은 질문에 여러 에이전트의 답을 뽑아 <b>다수로 결정하는 간단한 방법만으로도 수를 늘릴수록 성능이 오르는 경향</b>을 보였다는 것이다(<i>More Agents Is All You Need</i>, arXiv 2402.05120). 업체 발표도 힘을 보탠다 — Anthropic은 멀티 에이전트 연구 시스템이 단일 에이전트보다 <b>연구 성능 90.2% 높았고</b>, 복잡한 질의의 <b>연구 시간을 최대 90% 줄였다</b>고 밝혔다.</p>
+        <p><span class="hl3">그러나 현장에서는 정반대의 경험도 이어진다.</span> Cognition은 <b>협업하는 여러 에이전트가 취약한 시스템만 만든다</b>며, 에이전트 사이에 문맥이 충분히 공유되지 않는다고 지적하고 <b>단일 흐름</b>을 권장했다. 해커뉴스 토론에는 검색 에이전트 여섯 개를 띄운 서비스가 질문 하나에 <b>약 2달러</b>를 태웠다는 보고, 간단한 질문 하나에 <b>3달러와 3분</b>이 걸렸다는 사례, "에이전트 열기는 이제 가라앉았다"는 반응이 있다.</p>
+        <div class="callout"><b>두 목소리를 나란히 두면</b><br>
+          기대하는 쪽 — <b>숫자가 성능을 밀어 올린다</b> &nbsp;↔&nbsp; 회의하는 쪽 — <b>숫자가 비용과 혼란만 밀어 올린다</b><br>
+          <span class="fine"><span class="hl">어느 쪽이 옳은지는 남의 발표를 듣는 것만으로 정해지지 않는다.</span> 나누면 같은 자료를 여러 워커가 다시 찾을 수 있고, 맡기지 않은 질문은 누구도 확인하지 않을 수 있으며, 한 워커의 잘못된 판단이 합성 결과에 그대로 들어갈 수도 있다. <b>수를 늘린 뒤 실제로 무엇이 일어나는지 직접 실행하고 기록해야 판정할 수 있다.</b></span></div>
+
+        <h3>나누면 생기는 세 가지 이점</h3>
+        <div class="table-wrap"><table><thead><tr><th>이점</th><th>무엇인가</th><th>대신 리드가 할 일</th></tr></thead><tbody>
+          <tr><td><b>병렬 탐색</b></td><td>각 워커가 <b>분리된 컨텍스트</b>에서 다른 질문을 동시에 살핀 뒤 <b>필요한 결과만 간추려</b> 전달한다</td><td>모든 탐색 기록을 처음부터 다시 읽지 않고도 비교할 재료를 받는다</td></tr>
+          <tr><td><b>관심사 분리</b></td><td>워커마다 도구·프롬프트·탐색 과정을 분리해, 앞선 검색 결과에 끌려 다음 판단이 바뀌는 <b>경로 의존성</b>을 줄인다</td><td>각 결과의 <b>근거와 빠진 범위</b>를 다시 확인해야 한다</td></tr>
+          <tr><td><b>전문화</b></td><td>워커마다 자료 찾기·반례 찾기·인용 위치 확인처럼 <b>한 책임</b>을 맡긴다. 질문과 반환 포맷이 선명할수록 이점이 커진다</td><td><b>목표·출력 포맷·도구/출처 지침·과업 경계</b>를 함께 전달해야 한다</td></tr>
+        </tbody></table></div>
+        <p class="fine">세 이점의 공통 뿌리는 하나다 — <span class="hl">하나의 긴 컨텍스트를 「독립적인 증거 묶음」으로 나누는 일</span>. 강의 도식의 표제도 그렇게 적혀 있다: <b>"분리는 결과 수가 아니라 증거의 독립성을 만든다"</b>(하나의 긴 컨텍스트 → 증거 묶음 A「주장·직접 근거」 + 증거 묶음 B「제약·반례」 → 리드의 대조와 합성).</p>
+
+        <h3>나누면 커지는 실패</h3>
+        <ul>
+          <li><b>중복과 누락</b> — 역할 경계가 흐릴 때 <b>함께</b> 생긴다. 두 워커가 같은 질문을 조사하면 비용만 늘고, 경계 밖 질문은 빈다.</li>
+          <li><b>오류의 증폭</b> — 결과 요약을 거치며 더 그럴듯한 결론으로 퍼질 수 있다. <span class="hl2">반환물마다 근거와 불확실성을 남겨야</span> 합성 뒤에도 다시 확인할 수 있다.</li>
+          <li><b>비용</b> — Anthropic 사례에서 멀티 에이전트는 채팅 대비 <b>약 15배</b> 토큰을 썼다. <span class="hl3">이것을 「단일 에이전트 대비 비용」이라고 해석하면 안 된다.</span> 과업의 가치가 그 비용을 감당할 만큼 큰지도 함께 판단해야 한다.</li>
+          <li><b>의존성이 큰 과업</b> — 리드가 워커를 동기 실행하면 <b>한 워커가 늦을 때 전체가 기다린다.</b> 언어 모델은 아직 실시간 조율·위임에 능숙하지 않다. 서로의 중간 결과가 있어야 다음 질문을 정할 수 있다면 <b>한 흐름으로 처리하는 편이 낫다.</b></li>
+        </ul>
+
+        <h3>★ 나눌 조건과 나누지 않을 조건 판정표</h3>
+        <div class="table-wrap"><table><thead><tr><th>판정 항목</th><th>나눌 조건</th><th>나누지 않을 조건</th></tr></thead><tbody>
+          <tr><td>질문의 독립성</td><td>서로의 중간 결과 없이 시작한다</td><td>앞 결과가 다음 질문을 정한다</td></tr>
+          <tr><td>컨텍스트</td><td>자료가 섞이면 처음 기준이 밀린다</td><td>한 흐름에서 함께 비교해야 한다</td></tr>
+          <tr><td>책임 경계</td><td>워커별 목표와 반환 포맷을 정한다</td><td>누가 무엇을 확인할지 갈리지 않는다</td></tr>
+          <tr><td>합성 검토</td><td>근거와 불확실성을 대조할 시간이 있다</td><td>합성 비용이 조사 이득보다 크다</td></tr>
+          <tr><td>대기 위험</td><td>한 결과가 늦어도 다른 탐색이 진행된다</td><td>하나가 늦으면 전체 판단이 멈춘다</td></tr>
+          <tr><td>비용 가치</td><td>추가 토큰 비용을 감당할 이유가 있다</td><td>짧은 확인만으로 충분하다</td></tr>
+        </tbody></table></div>
+        <div class="callout"><b>표를 「에이전트 수의 우열」로 읽지 말 것</b><br>
+          판정의 핵심은 둘이다 — <span class="hl">이 과업에서 분리가 «확인 가능성»을 높이는가</span>, 그리고 <span class="hl">그것이 «조정 비용»을 넘는가</span>.<br>
+          <span class="fine"><span class="hl2">나누지 않기로 한 판단도 비교 실험의 중요한 결과다.</span> 강의 도식의 흐름도 같다 — ①독립적으로 탐색할 수 있는가 ②결과를 독립 기준으로 검증할 수 있는가 → <b>하나라도 아니오면 단일 연속 컨텍스트가 기본</b>, 둘 다 예면 병렬 탐색 후보. 조건이 바뀌면 <b>재판정</b>한다(과업·평가셋은 고정).</span></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드3 1강 (step 27013). 인용 근거: <i>More Agents Is All You Need</i>(arXiv 2402.05120) · Anthropic 연구 시스템 보고 · Cognition 블로그 · 해커뉴스 토론.</span></div>
+      </section>
+
+      <section class="section" id="m4n3-2"><h2>2강 · 네 가지 구조와 맞는 과업 <span class="dur">이론</span></h2>
+        <p class="lead"><span class="hl">「여러 명」이라는 말은 누가 일을 나누고 누가 다음 행동을 정하는지를 말해 주지 않는다.</span> 같은 수의 워커도 <b>연결 방식</b>에 따라 다른 실패를 만든다.</p>
+        <p>구조를 고를 때 먼저 확인할 것은 둘이다 — <b>결과가 어디로 모이는지</b>, 그리고 <b>틀린 결과를 누가 되돌리는지.</b></p>
+        <div class="callout"><b>소통 경로로 나뉘는 두 갈래</b><br>
+          <b>허브형</b> — 모든 소통이 <b>리드를 경유</b>한다. (오케스트레이터-워커 · 팬아웃·합성)<br>
+          <b>직접형</b> — 에이전트끼리 결과와 <b>제어권을 바로 주고받는다</b>. (비평-수정 · 인계)<br>
+          <span class="fine">강의 도식에서 <b>파란 화살표 = 제어권/위임의 방향</b>, <b>회색 화살표 = 탐색 결과나 검토 결과가 모이는 방향</b>이다. 도식의 그림 출처는 Wikimedia Commons, <i>Kanban board example.jpg</i>(CC BY-SA 2.5) — <span class="hl">패턴의 핵심이 «인원수»가 아니라 «연결된 책임»임을</span> 보이려는 예시다.</span></div>
+
+        <h3>① 오케스트레이터-워커 — 리드가 나누고 합친다</h3>
+        <p><b>허브형.</b> 리드가 전략을 세우고 과업을 위임한다. 워커는 병렬로 탐색하고, 리드가 결과를 받아 합성한다. Anthropic은 이 구조를 <b>orchestrator-worker</b>라 부른다. <b>독립된 조사 질문이 여럿인 열린 과업</b>에 맞는다.</p>
+        <p class="fine"><span class="hl3">위험은 모호한 위임이다.</span> 워커가 같은 범위를 찾거나, 결과만 전달하고 근거를 남기지 않을 수 있다. 의존성이 큰 과업에서 워커를 동기 실행하면 <b>가장 늦게 끝나는 워커 때문에 전체가 기다린다.</b> → <b>목표·출력 포맷·도구/출처 지침·과업 경계</b>를 먼저 적어 위험을 낮춘다.</p>
+
+        <h3>② 팬아웃·합성 — 독립 결과를 모아 비교한다</h3>
+        <p><b>허브형.</b> 같은 출발점에서 여러 워커가 <b>독립적으로</b> 조사한 뒤 리드가 결과를 비교해 합친다. 「팬아웃」은 일을 여러 갈래로 펼친다는 뜻이다. <b>자료 수집과 관점 비교</b>처럼 중간 결과를 기다리지 않고 시작할 수 있는 과업에 맞는다.</p>
+        <p class="fine"><span class="hl3">위험은 독립성만 믿고 결과를 그대로 이어 붙이는 일이다.</span> 서로 다른 결과가 같은 근거를 반복하거나 중요한 관점 하나를 빠뜨릴 수 있다. → 리드는 <b>결과의 수보다 근거가 얼마나 겹치는지, 어떤 관점이 비어 있는지</b>를 확인해야 한다.</p>
+
+        <h3>③ 비평-수정 — 비평을 되돌린다</h3>
+        <p><b>직접형.</b> 초안을 만든 뒤 비평이 문제를 찾아 작성자에게 돌려주고 수정이 이어진다. <b>반례 점검이나 설계안 검토</b>처럼 한 결과의 약점을 찾아야 하는 과업에 맞는다. <span class="hl2">비평은 새 답을 많이 만드는 역할이 아니라</span> 초안의 <b>근거·누락·과도한 일반화</b>를 점검하는 역할이다.</p>
+        <p class="fine"><span class="hl3">위험은 비평과 수정의 끝없는 반복이다.</span> 비평이 <b>확인할 항목과 되돌릴 횟수</b>를 정하지 않으면 결론을 늦춘다. <b>비평 결과가 초안보다 항상 더 정확하다고 해석해서도 안 된다.</b></p>
+
+        <h3>④ 인계 — 제어권을 넘긴다</h3>
+        <p><b>직접형.</b> 한 담당이 다음 담당에게 제어권을 넘긴다. <b>문의의 성격에 따라 다른 전문 역할로 대화를 이어 가야 하는 과업</b>에 맞는다. 다음 담당은 <b>이미 확인한 사실</b>과 <b>아직 답하지 못한 질문</b>을 받아야 한다.</p>
+        <p class="fine"><span class="hl3">위험은 잘못된 인계와 반복 인계다.</span> 인계 기준이 흐리면 같은 설명을 다시 묻게 된다. → <b>어떤 조건에서 넘기고 어떤 조건에서 앞 담당에게 되돌릴지</b> 기록해야 한다.</p>
+
+        <h3>패턴-과업 매칭표</h3>
+        <div class="table-wrap"><table><thead><tr><th>패턴</th><th>소통 경로와 구조</th><th>맞는 과업</th><th>주요 위험</th></tr></thead><tbody>
+          <tr><td><b>오케스트레이터-워커</b></td><td>허브형: 리드가 전략·위임·합성</td><td>독립 조사가 여럿인 열린 과업</td><td>중복 조사와 대기 병목</td></tr>
+          <tr><td><b>팬아웃·합성</b></td><td>허브형: 독립 워커 결과를 리드가 비교</td><td>자료 수집과 관점 비교</td><td>근거 반복과 누락</td></tr>
+          <tr><td><b>비평-수정</b></td><td>직접형: 초안 작성자와 비평자가 의견 교환</td><td>반례 점검과 설계안 검토</td><td>끝없는 되돌림</td></tr>
+          <tr><td><b>인계</b></td><td>직접형: 앞 담당이 다음 담당에게 제어권 이양</td><td>역할 전환이 필요한 대화</td><td>잘못된 인계와 반복 인계</td></tr>
+        </tbody></table></div>
+        <div class="callout"><b>오늘 실습의 구성</b><br>
+          <b>리드 1명 · 병렬 워커 2명 · 비평 1명.</b> 리드가 두 워커의 결과를 합성한 뒤 비평이 결과를 검토한다.<br>
+          <span class="fine">네 구조는 모두 <b>한 실행 환경 안의</b> 에이전트들이다. 오늘 실험은 이 <b>안쪽 구조만</b> 비교한다. 소유자·프레임워크가 다른 에이전트끼리 연결하는 문제는 강의의 접기 블록 <b>「🔬 깊이 보기 · 소유자가 다른 에이전트끼리 통신하는 규격, A2A」</b>에서 다룬다. <span class="hl3">이 접기 본문은 수확 시점에 접힌 상태였어 이 노트에 담기지 않았다 — LMS에서 펼쳐 확인이 필요하다.</span></span></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드3 2강 (step 27014). 도식 그림: Wikimedia Commons, <i>Kanban board example.jpg</i>, CC BY-SA 2.5.</span></div>
+      </section>
+
+      <section class="section" id="m4n3-3"><h2>3강 · 성과 숫자 읽기와 적용 조건 <span class="dur">이론</span></h2>
+        <p class="lead"><span class="hl">보고서의 숫자를 「오늘 결과의 예고」로 읽지 않는다.</span> 보고서의 관측은 <b>오늘 실행에서 무엇을 확인할지 정하는 단서</b>로만 쓰고, 결과는 <b>실행이 끝난 뒤 생성된 파일의 필드</b>로 읽는다.</p>
+        <div class="callout"><b>턴(turn)이란</b><br>
+          모델이 <b>도구 결과를 받아 다음 행동을 정하는 한 사이클.</b><br>
+          <span class="fine">기준선 실행(A)의 첫 실행에서 haiku는 SymPy 버그를 조사·수정하려 했으나 <b>25번째 사이클까지 마친 뒤에도 종료하지 못했다.</b> <span class="hl3">이 사건을 단순히 "실패"라고 닫으면 무엇을 하다 멈췄는지 알 수 없다.</span> <code>result.json</code>의 <b>num_turns</b>는 몇 사이클까지 탐색했는지를, 세션 JSONL의 <b>tool_use</b> 레코드는 그 사이 어떤 도구를 몇 번 호출했는지를 보여 준다. <span class="hl2">두 값을 함께 보면 «탐색이 길어진 것»인지 «같은 호출을 되풀이한 것»인지 구분할 수 있다.</span></span></div>
+
+        <h3>다섯 관측을 필드 이름으로 바꿔 읽기</h3>
+        <div class="table-wrap"><table><thead><tr><th>보고된 관측</th><th>그 수치의 조건</th><th>오늘 대신 볼 필드</th></tr></thead><tbody>
+          <tr><td><b>성능 90.2% 차이</b></td><td>내부 research eval. <b>Opus 4 리드 + Sonnet 4 서브에이전트</b> vs 단일 Opus 4. <span class="hl3">평가 방식은 보고서에 밝혀져 있지 않다</span> → 오늘 haiku 구성의 우위로 옮길 수 없다</td><td><code>resolved</code> — 정답 커밋의 테스트를 통과했는가. <b>이 값이 먼저여야</b> 비용·시간이 좋은 «실패 실행»을 성공처럼 읽지 않는다</td></tr>
+          <tr><td><b>연구 시간 최대 90% 감소</b></td><td>리드가 서브에이전트 <b>3~5개를 병렬</b>로 만들고, 각 서브에이전트도 <b>도구 3개 이상 병렬</b>. 두 변경이 <b>함께</b> 있을 때의 시간</td><td><code>wall_s</code> — 같은 SymPy 인스턴스·모델 조건에서 잰 시간을 나란히</td></tr>
+          <tr><td><b>토큰 약 15배 / 약 4배</b></td><td>두 값 <b>모두 «채팅» 기준</b>. 단일↔멀티의 직접 비용 비교가 아니다 → <span class="hl3">약 15배를 A 대비 C의 비용으로 읽지 않는다</span></td><td><code>cost_usd</code> — <b>같은 resolved 결과끼리만</b> 비용을 견준다</td></tr>
+          <tr><td><b>분산의 80% / 95% 설명</b></td><td>BrowseComp에서 토큰 사용량 하나가 성능 분산의 80%, 토큰·도구 호출 수·모델 선택 셋이 95%를 설명. <b>그 평가의 여러 실행에서 나타난 분산의 설명 비중</b>이지 버그 1건의 품질 점수가 아니다</td><td><code>num_turns</code> + 세션 JSONL <b>tool_use 합계</b></td></tr>
+          <tr><td><b>과업 완료 시간 40% 감소</b></td><td>바뀐 것은 <b>도구 설명</b>. <span class="hl3">빠른 실행이 더 싼 실행이나 더 높은 정답률을 뜻하지 않는다</span></td><td><code>wall_s</code>를 <b>cost_usd·resolved·실행 조건과 떼어 읽지 않는다</b></td></tr>
+        </tbody></table></div>
+        <div class="callout"><b>★ results-table.md 읽는 순서</b><br>
+          ① <b>resolved</b> — 정답 커밋의 테스트를 통과했는가 → ② 그 결과에 든 <b>wall_s·cost_usd</b> → ③ <b>num_turns·tool_use 합계</b> — 빠르거나 비쌌던 이유가 <b>탐색 부족</b>인지 <b>반복 호출</b>인지.<br>
+          <span class="fine"><span class="hl">값 하나가 좋아도 나머지 기록을 덮지 않는다.</span> 강의 도식의 범례도 같다 — 「시간 개선 기준: 최대 90%(복잡한 조사 조건의 시간 관측)」과 「토큰 비용 기준: 약 15배(채팅 대비 토큰 비용 관측)」는 <b>서로 다른 조건에서 나온 수치</b>이므로 <b>같은 결론 금지</b>. resolved가 같아도 시간이 다를 수 있고, 시간이 짧아도 비용이 낮다는 뜻은 아니다.</span></div>
+
+        <h3>2층 채점 — 점수는 판정의 출발점</h3>
+        <p><b>LLM judge</b>는 언어 모델이 정해진 기준에 따라 실행 기록을 평가하는 방식이다. Anthropic 보고의 루브릭은 <b>사실 정확성 · 인용 정확성 · 완결성 · 출처 품질 · 도구 효율성</b>을 본다. 오늘의 버그 수정에서는 이 다섯 물음이 <span class="hl">결과 문장의 그럴듯함이 아니라 «수정에 이른 행동 기록»을 읽는 물음</span>이 된다.</p>
+        <div class="table-wrap"><table><thead><tr><th>층</th><th>무엇으로 판정하나</th><th>남는 값</th></tr></thead><tbody>
+          <tr><td><b>1층 · 결정론</b></td><td>정답 커밋의 테스트를 적용해 실행</td><td><b>resolved</b>(통과 여부) · <b>invalid</b>(테스트 파일을 건드렸는가)<br><span class="fine"><span class="hl3">설명이 좋아도 «테스트가 통과했다»는 판정을 대신할 수 없다.</span></span></td></tr>
+          <tr><td><b>2층 · LLM judge</b></td><td>세션 JSONL <b>전사</b>를 읽는다</td><td><b>근거_추적</b>(파일을 읽은 뒤 편집했는가) · <b>편집_최소성</b>(무관한 변경을 넓히지 않았는가) · <b>검증_성실성</b>(수정 뒤 확인했는가) — 각각 <b>0·1·2</b></td></tr>
+        </tbody></table></div>
+        <p class="fine">2층은 Anthropic의 다섯 기준을 <b>버그 수정 기록에 맞춰 좁힌 대응</b>이다. <span class="hl2">1층의 resolved와 2층의 세 점수를 함께 봐야</span> 「통과했지만 근거가 약한 실행」과 「통과하지 못했지만 어디에서 막혔는지 남긴 실행」을 구별할 수 있다.</p>
+        <div class="callout"><b>judge는 자유 서술을 부탁하지 않는다</b><br>
+          <code>output_format</code>의 <b>json_schema</b>가 ①세 점수 ②MAST 계열 <b>실패 분류</b> ③<b>evidence_quote</b>를 출력 구조로 요구한다. evidence_quote에는 <b>판정 근거가 된 전사 구절</b>이 들어가야 한다.<br>
+          <span class="fine"><span class="hl">인용이 없으면 스키마가 결과를 허용하지 않으므로, "검증을 했다"는 말만으로 점수를 얻을 수 없다.</span> 실패 분류에는 <b>턴_소진 · 무근거_편집 · 과잉_편집 · 검증_생략</b> 등이 포함된다. A가 25턴을 모두 쓴 기록도 이렇게 «실패 과정»을 분류하는 근거가 된다.<br>
+          <span class="hl2">판정 모델은 실험 모델인 haiku와 다르게 둔다</span> — 같은 모델이 자기 행동을 채점하면 자기 설명에 끌릴 수 있기 때문이다.</span></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드3 3강 (step 27015). 인용 근거: Anthropic 연구 시스템 보고(90.2% · 최대 90% · 약 15배/약 4배 · BrowseComp 분산 80%/95% · 도구 설명 개선 40%).</span></div>
+      </section>
+
+      <section class="section" id="m4n3-4"><h2>4강 · 단일 에이전트로 기준선 세우기 <span class="dur">실습</span></h2>
+        <p class="lead"><span class="hl">앞 절의 관측을 «우리 조건»에서 확인하려면, 먼저 «나누지 않은 실행»을 비교의 기준으로 남겨야 한다.</span></p>
+        <div class="callout"><b>세 실행 — 바뀌는 것은 하나뿐</b><br>
+          같은 고장 난 장치를 세 작업대로 옮겨 가며 고치되, <b>다음 행동을 정하는 주체만</b> 바꾼다.<br>
+          <b>A</b> = 한 에이전트가 &nbsp;·&nbsp; <b>B</b> = 코드가 &nbsp;·&nbsp; <b>C</b> = 리드가 정한다.<br>
+          <span class="fine"><span class="hl2">문제 · 모델 별칭 · 저장소 준비 방식 · 채점 방식은 세 실행에 «공통»으로 둔다.</span></span></div>
+
+        <h3>대상 — 벤치마크 문제 다섯 건</h3>
+        <div class="table-wrap"><table><thead><tr><th>문제</th><th>내용</th></tr></thead><tbody>
+          <tr><td><b>sympy-24909</b></td><td>접두사에 단위를 곱하면 결과가 1이 되어 <b>단위가 사라진다</b>. <code>milli * W</code>를 곱하면 정상이라면 밀리와트가 남아야 한다</td></tr>
+          <tr><td><b>sympy-24213</b></td><td>가속도×시간에 속도를 더하면 <b>같은 차원인데도 서로 다르다는 ValueError</b>가 난다. (차원 = 길이·시간·속도처럼 물리량의 종류를 나타내는 정보)</td></tr>
+          <tr><td><b>sympy-24152</b></td><td>텐서곱(두 연산 대상을 짝지어 결합하는 연산)의 인수에 덧셈이 섞였을 때 <code>expand(tensorproduct=True)</code>가 <b>두번째 인수까지 전개하지 못한다</b></td></tr>
+          <tr><td><b>log-summary</b></td><td>서로 다른 서비스의 로그 파일에서 ERROR·WARNING·INFO가 들어간 줄 수를 세어 <code>summary.csv</code>로 만든다</td></tr>
+          <tr><td><b>bank-trans-filter</b></td><td>회사명·계좌번호에 오타가 섞인 거래 내역에서 특정 회사 관련 거래만 골라 날짜순 <code>output.json</code>으로 만든다</td></tr>
+        </tbody></table></div>
+        <p class="fine">SymPy 인스턴스에는 확인할 테스트가 한두 개 있고 <b>파이썬 3.11</b>에서 실행한다. <span class="hl3">SymPy 평가는 공식 SWE-bench 도커 평가가 아닌 «경량 평가»다</span> — 저장소 타르볼을 고정한 뒤, 에이전트가 수정한 복사본에 테스트 패치를 적용하고 대상 테스트를 실행한다. Terminal-Bench 두 과제는 <b>도커 없이</b> 문제 폴더 안의 pytest로 곧바로 채점한다.</p>
+        <div class="callout"><b>문제 내려받기</b><br>
+          <code>git clone https://github.com/SunCreation/d035-agent-lab.git</code><br>
+          <span class="fine"><code>tasks/</code> 폴더에 문제별 폴더가 있다. SymPy 폴더 = 원문 이슈 <code>problem.md</code> · 확인 테스트를 더하는 <code>test_patch.diff</code> · 기준 커밋과 테스트 경로를 적은 <code>info.json</code>. Terminal-Bench 폴더 = 지시문 <code>task.yaml</code> · 입력 데이터 · 채점용 <code>tests/test_outputs.py</code>.<br>
+          <span class="hl2">정답 패치와 참조 솔루션은 저장소에 없다. 무엇을 맞혔는지는 오직 «테스트 실행»으로만 확인한다.</span></span></div>
+
+        <h3>왜 Claude Agent SDK인가</h3>
+        <div class="table-wrap"><table><thead><tr><th>방법</th><th>문제점</th></tr></thead><tbody>
+          <tr><td>대화형 CLI를 셸 스크립트에서 반복 호출<br><span class="fine">(Claude Code CLI · opencode)</span></td><td>시작은 쉽지만 <b>사람의 조작과 셸 환경이 끼어들어</b> 조건을 고정하고 재현하기 어렵다</td></tr>
+          <tr><td>Messages API 직접 호출</td><td>도구 실행기·권한 승인·기록 형식을 <b>모두 코드로</b> 만들어야 해, 실험 설계보다 <b>실행 기반 만들기</b>에 시간이 든다</td></tr>
+          <tr><td>범용 에이전트 프레임워크<br><span class="fine">(LangGraph 등)</span></td><td>추상화 문법을 익혀야 하고, <span class="hl3">오늘 비교하려는 «다음 행동의 결정 주체»가 프레임워크 안에 가려진다</span></td></tr>
+          <tr><td><b>Claude Agent SDK</b><br><span class="fine">(claude-agent-sdk)</span></td><td>Claude Code의 <b>도구 실행 · 권한 · 세션 JSONL 기록 · 서브에이전트 정의 · 구조화 출력</b>을 파이썬에서 제공 → <span class="hl">세 실행의 차이가 «오케스트레이션을 정하는 주체»로만 남는다</span></td></tr>
+        </tbody></table></div>
+        <p class="fine">A는 <code>query()</code> 한 번으로 시작한다. B는 코드가 파일을 나누어 병렬 <code>query()</code>를 호출한 뒤 결과를 합친다. C는 <code>options.agents</code>로 워커를 정의하고 리드가 위임 여부를 정한다. <span class="hl2">매 실행의 <code>result.json</code>과 세션 JSONL은 같은 형식으로 남고, 판정기 <code>judge.py</code>는 그 파일을 그대로 읽는다.</span></p>
+
+        <h3>환경 만들기와 A 실행</h3>
+        <p>자기 폴더에 실험용 파이썬 스크립트를 만든다. 아래 기준선 코드를 보여 주며 <b>코딩 에이전트에게 비슷한 실험 스크립트와 준비 코드를 만들어 달라</b>고 부탁해도 된다. 인스턴스 준비와 채점까지 똑같이 만들 필요는 없고, <b>한 문제를 한 에이전트가 처리하고 결과 파일을 남기는 실험 구조</b>가 같으면 된다.</p>
+        <div class="callout"><b>왜 전용 가상 환경인가</b><br>
+          시스템 파이썬에 설치하지 않는 이유는 둘이다 — <b>PEP 668 환경에서 전역 설치가 막힐 수 있고</b>, <b>실행 환경을 분리</b>해야 하기 때문.<br>
+          <span class="fine"><code>cd ~/sweb-lab</code> · <code>uv venv .venv</code> · <code>uv pip install --python .venv/bin/python claude-agent-sdk==0.2.151</code></span></div>
+        <pre><code>async def _run_once(prompt, options):
+    """(마지막 ResultMessage, 오류문) 반환.
+
+    max_turns 소진은 SDK가 ResultError로 던지지만 실험에서는 '턴 소진'이라는
+    관측 결과일 뿐이라 예외로 죽지 않고 남은 상태를 그대로 채점한다.
+    """
+    last = None
+    try:
+        async for m in query(prompt=prompt, options=options):
+            t = getattr(m, "subtype", None) or type(m).__name__
+            if t == "result" or type(m).__name__ == "ResultMessage":
+                last = m
+    except Exception as e:
+        return last, f"{type(e).__name__}: {str(e)[:200]}"
+    return last, None
+
+
+if arm == "A":
+    msg, err = await asyncio.wait_for(_run_once(
+        f"Fix this bug:\n\n{problem}",
+        ClaudeAgentOptions(cwd=str(repo), model=MODEL, max_turns=25,
+                           system_prompt=SYS_A, permission_mode="bypassPermissions")), 1500)
+    if err:
+        extra["error"] = err</code></pre>
+        <p class="fine"><span class="hl3">주의:</span> 원문에서 읽기 전용 도구 제한(<code>allowed_tools=["Read","Grep","Glob"]</code>)은 <b>A가 아니라 B의 원인 탐색 호출에만</b> 적용된다. 따라서 A 코드에는 그 제한을 덧붙이지 않는다.</p>
+        <p><code>common.py</code>는 저장소 타르볼을 펼쳐 <b>pristine 복사본</b>을 만들고, 채점용 <code>venv311</code>에 pytest와 mpmath를 준비한 뒤 <b>골드 패치를 적용한 검증</b>을 실행한다. 세 건 모두 <b>정답 패치 전에는 1 failed가 재현</b>되었고 <b>정답 패치 후에는 통과</b>가 확인된 인스턴스다. <span class="hl">이 확인이 없으면 «에이전트의 수정»이 아니라 «시험 환경의 문제»를 성공이나 실패로 읽을 수 있다.</span></p>
+        <div class="callout"><b>바이브 코딩으로 따라하기</b><br>
+          명령 경로나 파일 이름을 정확히 외울 필요는 없다. 에이전트가 자기 폴더의 스크립트와 환경을 살펴 필요한 명령을 실행하게 하고, <b>실행한 명령과 만든 결과 파일을 보여 달라</b>고 부탁한다.<br>
+          <span class="fine">예시 요청 — <i>"내가 만든 실험 스크립트를 살펴보고 실행을 도와줘. 먼저 준비가 되었는지 확인한 뒤, 기준선 실행(A)으로 SymPy 문제 하나를 실행해 줘. 끝나면 결과 파일에서 성공 여부, 비용, 대화 횟수, 걸린 시간을 찾아 정리하고, 실행한 명령과 결과 파일 경로도 보여 줘."</i><br>
+          <span class="hl3">다만 «에이전트의 요약»을 결과로 받아들이지 말고, 실제 명령과 결과 파일을 함께 확인한다.</span></span></div>
+        <p>A는 <code>arms.py</code>의 <code>query()</code> 한 번으로 문항 하나를 처리한다. 모델은 <b>haiku</b>, 최대 턴은 <b>25</b>. 한 실행에서는 haiku가 <b>25턴을 모두 소진</b>한 관측이 있었다. <span class="hl2">턴 소진은 단순 오류가 아니라, 문제를 어디까지 탐색했고 어느 지점에서 멈췄는지 읽을 «기록»이다.</span></p>
+        <pre><code>.venv/bin/python common.py
+.venv/bin/python arms.py A sympy__sympy-24909
+
+cat runs/A-sympy__sympy-24909/result.json
+cat runs/A-sympy__sympy-24909/changes.diff</code></pre>
+        <p class="fine">실행이 끝나면 <code>runs/A-sympy__sympy-24909/result.json</code>이 생긴다. <b>resolved·invalid</b>는 테스트 채점 결과이고, <b>cost_usd·num_turns·wall_s</b>는 실행에서 남은 관측값이다. <b>final_text</b>는 에이전트의 마지막 응답, <b>changes.diff</b>에는 수정 내용이 남는다.</p>
+        <div class="callout"><b>「resolved: false + 턴 소진」을 보고 바로 결론 내리지 않는다</b><br>
+          <span class="hl3">단일 에이전트로는 안 된다고 생각하기 쉽지만, 이 한 번의 실행만으로 그렇게 결론 내리지 않는다.</span><br>
+          <span class="fine">먼저 <code>changes.diff</code>와 실행 기록을 열어 <b>주어진 턴 동안 무엇을 찾았고 무엇을 고쳤는지</b> 확인한다. 그래야 <b>왜 끝내지 못했는지</b>와 <b>A의 한계</b>를 구분해 볼 수 있다.</span></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드3 4강 (step 27016). 실습 저장소: <code>github.com/SunCreation/d035-agent-lab</code> · SDK: <code>claude-agent-sdk==0.2.151</code>.</span></div>
+      </section>
+
+      <section class="section" id="m4n3-5"><h2>5강 · 코드가 정하는 흐름 — 워크플로로 나누기 <span class="dur">실습</span></h2>
+        <p class="lead">A의 기록에서 <b>탐색과 수정이 한 세션에 함께</b> 남았다면, 이제 그 두 행동을 <b>분리하되 문제와 검증 조건은 그대로 둔다.</b></p>
+        <div class="callout"><b>건물 보수 현장에 비유하면</b><br>
+          구조조사팀이 먼저 균열을 살피고 <b>보고서를 넘기면</b>, 시공팀이 그 보고서를 바탕으로 보수에 들어간다.<br>
+          <span class="fine">워크플로 실행(B)은 이 <b>순서와 인계 내용</b>을 현장이 아니라 <span class="hl">파이썬 코드가 미리 고정</span>하는 구성이다. <b>locator</b>는 읽기·검색만 하며 <b>파일 경로 · 함수/클래스 이름 · 진단</b>을 구조화된 보고로 남긴다. 그 보고를 받은 <b>fixer</b>가 <b>새 세션에서</b> 수정한다.</span></div>
+        <p><span class="hl2">이 분리는 «역할 이름을 늘리는 일»이 아니다.</span> 비교 대상은 셋이다 — ①탐색 결과가 <code>locate_report</code>로 다음 단계에 전달되는지 ②탐색 담당이 파일을 고치지 않는지 ③수정 담당이 그 근거를 이용하는지. <code>arms.py</code>의 B는 <b>locator에 12턴, fixer에 18턴</b>을 준다.</p>
+        <pre><code>loc, err_loc = await asyncio.wait_for(_run_once(
+            f"Bug report:\n\n{problem}\n\nLocate the likely cause.",
+            ClaudeAgentOptions(cwd=str(repo), model=MODEL, max_turns=12,
+                               system_prompt=SYS_B_LOCATE, permission_mode="bypassPermissions",
+                               allowed_tools=["Read", "Grep", "Glob"])), 900)
+        if err_loc:
+            extra["locator_error"] = err_loc
+        locate_report = (getattr(loc, "result", "") or "").strip()
+        extra["locate_report"] = locate_report[:2000]
+        msg, err = await asyncio.wait_for(_run_once(
+            f"Bug report:\n\n{problem}\n\nLocator report from a previous agent:\n{locate_report}\n\n"
+            "Apply the minimal fix.",
+            ClaudeAgentOptions(cwd=str(repo), model=MODEL, max_turns=18,
+                               system_prompt=SYS_B_FIX, permission_mode="bypassPermissions")), 1200)
+        if err:
+            extra["error"] = err</code></pre>
+        <p class="fine">첫 호출의 <code>loc</code>에서 보고서를 꺼내 변수에 저장하고, 두번째 호출은 <b>그 변수의 내용을 프롬프트로 받는다.</b> <span class="hl">따라서 두 세션이 같은 대화를 공유하는 것이 아니라, «코드가 정한 보고서»만 다음 단계로 건너간다.</span></p>
+        <pre><code>.venv/bin/python arms.py B sympy__sympy-24909
+
+cat runs/B-sympy__sympy-24909/result.json
+cat runs/B-sympy__sympy-24909/changes.diff</code></pre>
+        <p>B의 결과 파일을 A의 파일과 나란히 연다. <span class="hl3">실행 시간이 짧거나 길다는 사실만으로 좋고 나쁨을 판단하지 않는다.</span> 볼 것은 셋이다 — <b>locator의 진단이 수정 위치와 이어지는지 · 수정 뒤 검증을 시도했는지 · 실패했다면 어느 단계의 기록이 끊겼는지.</b></p>
+        <div class="callout"><b>★ A의 25턴과 B의 12+18턴을 «같은 예산»이라고 읽으면 안 된다</b><br>
+          B의 숫자는 <b>두 호출의 기록이 합쳐진 값</b>이다.<br>
+          <span class="fine">여기서 비교할 수 있는 것은 <span class="hl2">흐름을 나눴을 때 «남는 근거»와 «실패의 모습»</span>이며, <b>예산이 다른 실행의 숫자 하나만으로 우열을 정할 수 없다.</b></span></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드3 5강 (step 27017).</span></div>
+      </section>
+
+      <section class="section" id="m4n3-6"><h2>6강 · 모델이 정하는 흐름 — 리드가 나누기 <span class="dur">실습</span></h2>
+        <p class="lead">B와 C는 <b>같은 문제와 같은 읽기 전용 locator</b>를 재료로 쓴다. 차이는 하나다 — <span class="hl">연주 순서를 악보에 미리 고정해 두는가, 지휘자가 연주 중 상황을 보고 다음 순서를 정하는가.</span></p>
+        <p>B에서는 코드가 locator 다음 fixer를 <b>반드시</b> 실행했지만, C에서는 <b>리드가 상황을 보고 다음 행동을 정한다.</b></p>
+        <div class="callout"><b><code>agents={"locator": ...}</code>의 뜻</b><br>
+          <code>ClaudeAgentOptions</code>의 이 인자는 <b>읽기 전용 도구를 리드 세션에 «제공»한다</b>는 뜻이다.<br>
+          <span class="fine">리드는 <b>locator를 부를지</b>와 <b>받은 내용을 어떻게 쓸지</b>를 스스로 정하고, <b>최종 수정도 직접</b> 한다. <span class="hl2">같은 역할 구성이더라도 조율 주체가 달라지면 «실행 기록에서 확인할 것»이 달라진다.</span> C의 리드 세션은 최대 <b>40턴</b>이다.</span></div>
+        <pre><code>    elif arm == "C":
+        locator = AgentDefinition(
+            description="Read-only locator: finds the likely cause of a bug in this repo. Cannot edit files.",
+            prompt=SYS_B_LOCATE,
+            tools=["Read", "Grep", "Glob"],
+        )
+        msg, err = await asyncio.wait_for(_run_once(
+            f"Fix this bug:\n\n{problem}",
+            ClaudeAgentOptions(cwd=str(repo), model=MODEL, max_turns=40,
+                               system_prompt=SYS_C, permission_mode="bypassPermissions",
+                               agents={"locator": locator}, forward_subagent_text=True)), 1500)
+        if err:
+            extra["error"] = err</code></pre>
+        <pre><code>.venv/bin/python arms.py C sympy__sympy-24909
+
+cat runs/C-sympy__sympy-24909/result.json
+cat runs/C-sympy__sympy-24909/changes.diff</code></pre>
+        <p><code>result.json</code>에서 <b>리드 세션의 턴 수와 종료 결과</b>를, <code>changes.diff</code>에서 <b>그 판단이 실제 수정으로 이어졌는지</b>를 확인한다. 판정 기록이 있다면 <code>judgment.json</code>의 <b>evidence_quote</b>도 함께 읽어, <b>리드가 locator를 실제로 사용했는지</b>와 <b>locator의 탐색이 최종 편집에 반영됐는지</b>를 본다. 사용하지 않았다면 <b>어떤 탐색을 대신 했는지</b>도 세션 기록과 함께 읽는다.</p>
+        <div class="callout"><b>★ 서브에이전트를 «정의했다»는 사실만으로 분업이 일어났다고 볼 수 없다</b><br>
+          <span class="fine">위임 뒤에는 <code>.venv/bin/python judge.py</code>를 실행해 <code>judgment.json</code>의 <b>evidence_quote</b>(기록에서 인용한 근거)와 <b>changes.diff</b>(최종 수정이 남은 파일)를 <b>함께</b> 확인한다.</span></div>
+        <div class="table-wrap"><table><thead><tr><th>실행</th><th>다음 행동을 정하는 주체</th><th>흐름</th><th>턴 예산</th></tr></thead><tbody>
+          <tr><td><b>기준선 실행(A)</b></td><td>한 에이전트</td><td>질문 → 에이전트 1회 → 결과</td><td>25</td></tr>
+          <tr><td><b>워크플로 실행(B)</b></td><td>파이썬 코드</td><td>locator → 보고서 → fixer → 결과</td><td>12 + 18</td></tr>
+          <tr><td><b>오케스트레이션 실행(C)</b></td><td>리드 모델</td><td>리드 판단 → (선택) locator 호출 → 직접 수정</td><td>40</td></tr>
+        </tbody></table></div>
+        <div class="callout"><b>세 실행을 한 번에</b><br>
+          <code>.venv/bin/python arms.py A,B,C</code> — 첫 인수에 쉼표로 실행 이름을 나열한다. <b>이미 <code>result.json</code>이 있는 실행은 러너가 건너뛴다.</b><br>
+          <span class="fine"><span class="hl3">실행을 다시 하기 전에 기존 결과가 있는지 확인한다.</span> 같은 파일을 덮어쓴 뒤 이전 기록과 비교하면 <b>무엇이 달라졌는지 알 수 없게 된다.</b></span></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드3 6강 (step 27018).</span></div>
+      </section>
+
+      <section class="section" id="m4n3-7"><h2>7강 · 실행 기록을 관측하고 한 흐름으로 읽기 <span class="dur">실습</span></h2>
+        <p class="lead"><span class="hl">비교는 기억에 의존하지 않는다.</span> 결과 파일은 <b>사람이 빈칸을 채운 메모가 아니라 실행이 끝날 때 코드가 만든 산물</b>이다.</p>
+
+        <h3>관측</h3>
+        <p>러너는 실행마다 결과를 <code>result.json</code>에, 변경분을 <code>changes.diff</code>에 남긴다. 세션 JSONL에는 <b>도구 호출과 응답의 순서</b>가 남는다.</p>
+        <pre><code>find runs -name result.json -print
+cat runs/A-sympy__sympy-24909/result.json</code></pre>
+        <div class="table-wrap"><table><thead><tr><th>필드</th><th>무엇을 나타내나</th></tr></thead><tbody>
+          <tr><td><b>resolved</b></td><td>대상 테스트의 <b>종료 코드가 0</b>인지</td></tr>
+          <tr><td><b>invalid</b></td><td><code>tests/</code> 아래 파일을 <b>바꿨는지</b></td></tr>
+          <tr><td><b>num_turns · cost_usd · wall_s</b></td><td>각각 <b>대화 턴 · 비용 · 경과 시간</b>의 관측값</td></tr>
+        </tbody></table></div>
+        <p class="fine"><span class="hl2">이 값들은 서로 다른 질문에 답한다.</span> 통과 여부가 같아도 <b>턴 소진·비용·실행 시간·수정 범위는 다를 수 있다.</b> 실행이 실패한 경우에도 <b>tail · error · final_text · changes.diff</b>를 함께 읽는다. A에서 관측된 25턴 소진처럼, 실패의 원인이 <b>탐색 부족인지 무근거 편집인지 검증 생략인지</b> 구분하려면 성공 여부만으로는 부족하다.</p>
+        <p class="fine">세션 전사는 Claude 프로젝트 기록 아래에 남고, <code>judge.py</code>가 해당 실행 폴더를 기준으로 찾아 읽는다. <span class="hl3">기록이 없는 실행에 «사후 설명»을 덧붙이는 대신, 결과 파일과 전사에서 확인되는 근거만으로 판단한다.</span></p>
+
+        <h3>판정</h3>
+        <div class="callout"><b>★ <code>pytest | tail</code>로 판정하지 않는 이유</b><br>
+          <code>common.py</code>는 수정 뒤 테스트 패치를 적용하고 pytest를 실행해 <b>종료 코드를 직접</b> 받는다.<br>
+          <span class="fine">파이프로 연결하면 <span class="hl3">pytest 실패가 tail의 종료 코드 0으로 가려질 수 있다.</span> <span class="hl2">실패를 «보기 좋게 줄이는 출력 처리»와 실패를 «판정하는 종료 코드 처리»를 분리해야 한다.</span></span></div>
+        <p>첫 층만으로는 <b>통과하지 못한 실행이 어떤 방식으로 실패했는지</b> 알기 어렵다. 두번째 층에서 <code>judge.py</code>는 세션 전사와 결과를 판정 모델에 보내 <b>구조화된 출력</b>으로 남긴다 — <b>근거 추적 · 편집 최소성 · 검증 성실성</b>의 0·1·2 점수, <b>실패 분류 enum</b>, 실행 기록에서 가져온 <b>evidence_quote</b>, 한 줄 사유. <span class="hl">인용 필드를 «필수»로 둔 까닭은 추측으로 점수를 매기지 않기 위해서다.</span></p>
+        <pre><code>.venv/bin/python judge.py
+.venv/bin/python judge.py --aggregate
+cat runs/A-sympy__sympy-24909/judgment.json</code></pre>
+        <p class="fine">판정 결과를 각 실행의 <code>judgment.json</code>에 쓰고, 전체 행을 <code>grading.jsonl</code>과 <code>results-table.md</code>로 모은다. <code>results-table.md</code>의 <b>A·B·C</b>는 각각 기준선·워크플로·오케스트레이션 실행을 뜻한다.</p>
+
+        <h3>한 흐름으로 읽기</h3>
+        <div class="callout"><b>LLM 판정의 점수는 «테스트 통과»를 대체하지 않는다</b><br>
+          테스트는 <b>수정의 결과</b>를, 판정 기록은 <b>그 결과에 이르는 행동의 근거</b>를 읽는다.<br>
+          <span class="fine"><span class="hl3">evidence_quote가 실제 전사에 없는 문장이라면 점수도 신뢰할 수 없으므로 원래 기록으로 돌아가 확인한다.</span><br>
+          읽는 순서: <b><code>result.json</code>의 결과 → <code>changes.diff</code>의 수정 → 세션 전사의 행동 → <code>judgment.json</code>과 집계표의 판정</b> — 차례로 연결해 <b>한 실행의 흐름</b>으로 읽는다.</span></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드3 7강 (step 27019).</span></div>
+      </section>
+
+      <section class="section" id="m4n3-8"><h2>8강 · 단일과 멀티 비교 판정하기 <span class="dur">정리</span></h2>
+        <p class="lead">같은 문제와 같은 모델로 실행했어도, <span class="hl">다음 행동을 정한 주체가 달라지면 기록은 다르게 갈린다.</span></p>
+        <pre><code>cat results-table.md
+cat grading.jsonl</code></pre>
+        <p class="fine">이 표에는 <b>인스턴스별 테스트 결과 · 비용 · 턴 · 경과 시간 · 세 가지 행동 판정 · 실패 분류</b>가 함께 있다. <span class="hl3">직접 실행한 결과가 표에 반영되므로, 다른 실행에서 얻은 수치를 그대로 일반화하지 않는다.</span></p>
+
+        <h3>고정한 조건과 달라진 조건을 구분한다</h3>
+        <p>비교의 출발점은 <b>「다음 행동을 누가 정했는가」</b>다. 먼저 <span class="hl2">같은 문제·모델 별칭·저장소 준비·채점 조건이 고정됐는지</span> 확인한다. 그 뒤 세 실행에서 <b>달라진 조율 방식과 턴 예산</b>을 따로 표시한다. <span class="hl">이 구분이 없으면 표의 차이가 «방식»에서 왔는지 «실행 조건»에서 왔는지 알 수 없다.</span></p>
+        <p>차이와 결과 파일의 근거를 연결해 읽는다 — B에서 <b>탐색 보고가 수정으로 이어졌는지</b>, C에서 <b>리드가 locator를 어떻게 활용했는지</b>, A에서 <b>25턴을 모두 썼는지</b>를 전사와 diff로 확인한다. 표의 한 행을 읽을 때는 <code>result.json</code>의 해결 여부·비용·턴·시간, <code>changes.diff</code>의 수정 범위, <code>grading.jsonl</code>의 판정 근거를 <b>해당 실행 폴더와 연결</b>한다.</p>
+
+        <h3>★ 공정성 점검 — 턴 예산이 다르다</h3>
+        <div class="callout"><b>A 25턴 · B locator 12 + fixer 18 · C 40턴</b><br>
+          <span class="hl3">턴 예산이 다르므로 해결 여부·비용·시간만 나란히 놓고 «구조의 효과»라고 해석할 수 없다.</span><br>
+          <span class="fine">고정한 조건과 실행마다 달라진 조율 방식을 구분한 뒤, <b>결과 파일이 직접 보여 주는 범위에서만</b> 결론을 정한다.</span></div>
+        <p class="fine"><span class="hl2">이 실험에서 얻을 수 있는 결론은 한정적이다.</span> 말할 수 있는 것은 <b>세 SymPy 인스턴스와 이 실행 조건에서 남은 기록이 무엇을 보이는지</b>뿐이다. 다른 문제나 다른 예산에서도 같은 결과가 난다고 말하려면 <b>그 조건으로 다시 실행하고 같은 방식으로 기록을 읽어야 한다.</b></p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드3 8강 (step 27020).</span></div>
+      </section>
+
+      <section class="section" id="m4n3-9"><h2>9강 · 실험을 둘러싼 생태계 <span class="dur">이론</span></h2>
+        <p class="lead">세 실행의 결과표를 덮고 나면 <b>네 가지 어려움</b>이 남는다. <span class="hl">이 넷은 이 실험만의 사정이 아니라 멀티 에이전트가 실전에서 늘 부딪히는 문제</span>이고, 최근 나온 도구들은 저마다 이 가운데 하나를 겨냥한다.</p>
+        <div class="callout"><b>왜 이 지도를 그리나</b><br>
+          <span class="hl2">어느 도구가 어느 문제를 푸는지 알면 «이름»이 아니라 «문제»로 도구를 고를 수 있고, 그 도구를 붙였을 때 «비교 조건 가운데 무엇이 바뀌는지»도 미리 알 수 있다.</span></div>
+        <div class="table-wrap"><table><thead><tr><th>남은 문제</th><th>구체적으로</th><th>겨냥한 도구</th><th>바꾸는 층</th></tr></thead><tbody>
+          <tr><td><b>컨텍스트가 끊긴다</b></td><td>워커 결과가 <b>리드에게만</b> 돌아온다. 워커가 둘이면 서로 무엇을 찾았는지 알 길이 없다 — Cognition이 지적한 그 일이 여기서 일어난다</td><td><b>Agent Teams</b></td><td>다음 행동을 <b>팀원들이</b> 정함</td></tr>
+          <tr><td><b>재현이 안 된다</b></td><td>리드가 매 턴 다음 행동을 정하는 실행은 <b>같은 명령을 다시 돌려도 같은 경로를 밟지 않는다</b></td><td><b>Workflows</b></td><td>다음 행동을 <b>스크립트가</b> 정함</td></tr>
+          <tr><td><b>모델을 나눌 수 없다</b></td><td><code>arms.py</code>는 세 실행의 모델을 <b>모두 haiku로 고정</b>했다. 경로를 찾는 워커와 방침을 정하는 리드가 같은 모델을 쓸 이유는 없지만 나눌 자리가 없었다</td><td><b>oh-my-claudecode</b></td><td><b>어느 모델이</b> 그 행동을 하는가</td></tr>
+          <tr><td><b>상태가 안 보인다</b></td><td>어디서 멈췄는지는 <b>실행이 끝난 뒤</b> judge.py가 전사를 읽어야 알 수 있었다. 터미널을 닫으면 작업이 사라진다</td><td><b>herdr</b></td><td>그 행동을 <b>어디서 지켜보는가</b></td></tr>
+        </tbody></table></div>
+        <p class="fine"><span class="hl3">조율이나 모델 층이 바뀌면 기준선을 다시 세우고, 관측 층은 오늘 실험 위에 그대로 얹는다.</span></p>
+
+        <h3>① 컨텍스트가 끊기는 문제 — Agent Teams</h3>
+        <p>Claude Code <b>Agent Teams</b>는 실험적 기능이다. 서브에이전트는 결과를 리드에게 돌려주고 끝나지만, <b>팀원(teammate)</b>은 <span class="hl2">각자 컨텍스트 창을 가진 독립 세션</span>으로서 <b>서로에게 직접 메시지를 보내고</b>, <b>공유 작업 목록에서 다음 일을 스스로 가져간다.</b> 두 팀원이 같은 작업을 동시에 가져가지 않도록 <b>파일 잠금</b>이 막아 준다. 공식 문서의 사례 하나는 <b>원인이 불분명한 버그를 두고 팀원 다섯이 각자 다른 가설을 맡아 서로 반박하게 하는 조사</b>다 — <span class="hl">한 에이전트가 첫 가설에 묶이는 일을 «팀원 사이의 반박»으로 푸는 발상</span>이다. <code>settings.json</code>의 <code>env</code>에 <code>CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</code>를 <code>"1"</code>로 넣어 켠다.</p>
+        <p class="fine"><b>대가는 셋.</b> 팀원 하나가 곧 Claude 세션 하나라서 <b>토큰이 팀원 수에 비례</b>해 늘고, <b>한 세션에 팀은 하나</b>이며 팀원이 다시 팀을 만들 수 없다. 그리고 <b>대화형 세션에서만</b> 팀원이 만들어진다 — <span class="hl3"><code>arms.py</code>처럼 SDK로 돌리는 실행에서는 켜 두어도 서브에이전트로 돌아가므로 오늘 실험에 바로 끼울 수 없다.</span> 붙이면 바뀌는 조건은 <b>다음 행동을 정하는 주체</b>이므로, C와 나란히 놓으려면 <b>같은 문제로 기준선을 다시 세워야 한다.</b></p>
+
+        <h3>오늘의 locator를 CLI 서브에이전트로 만들기</h3>
+        <p>오늘 locator는 <code>arms.py</code> 안에서 <code>agents={"locator": ...}</code>로 <b>파이썬 코드가</b> 정의했다. 같은 역할을 터미널 코딩 에이전트에는 <b>파일 하나로</b> 정의할 수 있고, <span class="hl2">Agent Teams의 팀원도 이 정의 파일에서 띄운다</span> — 역할을 파일로 적어 두면 <b>서브에이전트로도 팀원으로도 같은 정의</b>를 쓴다.</p>
+        <p><b>Claude Code 서브에이전트</b>는 프로젝트의 <code>.claude/agents/</code> 폴더에 두는 마크다운 파일이다. 프로젝트 폴더에 두면 <b>저장소와 함께 버전 관리</b>되어 팀이 같은 정의를 쓰고, <code>~/.claude/agents/</code>에 두면 <b>내 모든 프로젝트</b>에서 쓸 수 있다. 파일 머리의 YAML에서 <code>name</code>·<code>description</code>은 필수이고, <code>tools</code>로 도구를 제한하고 <code>model</code>·<code>maxTurns</code>로 모델과 턴 예산을 정한다. <b>머리 아래 본문이 그 에이전트의 시스템 프롬프트</b>가 된다.</p>
+        <pre><code>---
+name: locator
+description: 버그 보고를 받아 원인이 있는 파일 경로·함수 이름·진단을 구조화된 보고로 남긴다. 파일을 고치지 않는다.
+tools: Read, Grep, Glob
+model: haiku
+maxTurns: 12
+---
+
+당신은 읽기 전용 탐색 담당입니다. 저장소를 읽고 검색만 하며, 결과는
+파일 경로 · 함수 또는 클래스 이름 · 한 문단 진단의 세 항목으로 보고합니다.</code></pre>
+        <p class="fine"><code>tools</code>에 Read·Grep·Glob만 적으면 <b>파일을 고치는 도구가 빠지므로</b>, 오늘 <code>arms.py</code>가 locator에 준 읽기 전용 제한과 같은 뜻이 된다. Claude는 <b>요청과 description을 견주어</b> 이 서브에이전트에 맡길지 스스로 정하고, 반드시 맡기려면 프롬프트에 <code>@agent-locator</code>라고 부른다. 파일을 저장하면 몇 초 안에 반영되지만, <span class="hl3">agents 폴더를 «처음 만들었을 때»는 세션을 다시 시작해야 한다.</span></p>
+        <p><b>OpenCode</b>는 오픈소스 코딩 에이전트 CLI로, herdr가 같은 화면에 놓는 CLI 가운데 하나다. 정의는 <code>.opencode/agents/</code> 또는 <code>~/.config/opencode/agents/</code>에 두는 마크다운 파일이고 <b>파일 이름이 에이전트 이름</b>이 된다. <code>mode</code>가 <b>primary</b>면 Tab 키로 바꿔 가며 직접 대화하는 주 에이전트, <b>subagent</b>면 주 에이전트가 부르거나 사용자가 <code>@이름</code>으로 부르는 보조 에이전트다. 도구 제한은 <code>permission</code>으로 선언한다.</p>
+        <pre><code>---
+description: 버그 보고를 받아 원인이 있는 파일 경로·함수 이름·진단을 구조화된 보고로 남긴다. 파일을 고치지 않는다.
+mode: subagent
+model: anthropic/claude-haiku-4-5
+permission:
+  edit: deny
+  bash: deny
+---
+당신은 읽기 전용 탐색 담당입니다. 저장소를 읽고 검색만 하며, 결과는
+파일 경로 · 함수 또는 클래스 이름 · 한 문단 진단의 세 항목으로 보고합니다.</code></pre>
+        <p class="fine">이 파일을 <code>locator.md</code>로 저장하면 <code>@locator</code>로 부를 수 있다. <code>model</code>은 <b>공급자/모델 ID</b> 꼴로 적고, 모델 ID는 설치한 OpenCode의 모델 목록에서 확인해 맞춘다. <code>opencode agent create</code>를 실행하면 질문에 답하는 식으로 파일을 만들어 준다. OpenCode에는 읽기 전용 탐색용 <b>explore</b> 서브에이전트가 이미 들어 있으므로, 보고 포맷을 정해 줄 필요가 없다면 그것을 그대로 불러도 된다.</p>
+        <div class="callout"><b>두 CLI의 파일은 «필드 이름만» 다르고 담는 정보는 같다</b><br>
+          이름 · 무엇을 맡기는지 · 어떤 도구를 허용하는지 · 어느 모델을 쓰는지. <b>오늘 <code>arms.py</code>가 파이썬 인자로 정한 것이 파일의 필드로 옮겨 간 셈</b>이다.<br>
+          <span class="fine"><span class="hl3">다른 점은 «기록»이다.</span> CLI의 서브에이전트 호출은 <code>result.json</code>과 <code>changes.diff</code>를 남기지 않으므로, 이 정의로 비교 실험을 하려면 <b>실행 뒤 비용·턴 수·수정 범위를 스스로 기록해야 한다.</b></span></div>
+
+        <h3>② 재현이 안 되는 문제 — Workflows</h3>
+        <p>오늘 <code>arms.py</code>에서 locator 다음 fixer를 부르는 순서는 <b>사람이 파이썬으로</b> 적었다. Claude Code <b>Workflows</b>는 그 파이썬을 <b>Claude가 자바스크립트로 쓰게 하고</b>, 실행을 맡는 프로그램인 <b>런타임</b>이 그 스크립트를 백그라운드에서 돌린다. 반복과 분기는 스크립트에 적히고 중간 결과는 스크립트 변수에 머물며, <b>Claude의 컨텍스트에는 최종 결과만</b> 들어온다. 공식 문서는 서브에이전트·스킬·팀·워크플로를 <span class="hl">「다음에 실행할 것을 누가 정하는가」</span>로 나눈다 — <b>A·B·C를 가른 물음도 이것이었다.</b> B를 <b>수십 개 에이전트 규모로 키운 것</b>이 이 제품이다.</p>
+        <p class="fine"><b>재현을 위한 장치가 눈에 띈다.</b> 실행마다 스크립트와 각 에이전트의 결과가 <b>세션 디렉터리에 남는다.</b> 같은 세션에서 다시 띄우면 <b>이미 끝난 에이전트는 저장된 결과를 돌려주고, 프롬프트가 달라진 에이전트부터 다시 실행</b>한다. 스크립트 안에서 <b>현재 시각이나 난수를 쓰면 오류를 내는데</b>, 다시 돌렸을 때 <b>같은 호출이 같은 순서로 반복되게</b> 하려는 것이다. <span class="hl2">오늘 러너가 result.json이 있는 실행을 건너뛴 것과 같은 발상을 «런타임이 강제»하는 셈이다.</span></p>
+        <p class="fine"><b>대가는 실행 중에 사람이 끼어들 수 없다는 점.</b> 단계 사이에 승인이 필요하면 워크플로를 <b>단계마다 따로 나눠야</b> 한다. 한 실행이 <b>에이전트 25개나 150만 토큰</b>을 넘으면 큰 실행이라는 경고가 뜨지만 <span class="hl3">알림일 뿐 실행을 멈추지는 않는다.</span> 붙이면 바뀌는 조건도 <b>다음 행동을 정하는 주체</b>다 — <b>B와 같은 층</b>이므로, B의 파이썬을 이 스크립트로 옮겨 같은 문제를 돌리면 <b>B와 바로 견줄 수 있다.</b></p>
+
+        <h3>③ 모델을 나눌 수 없는 문제 — oh-my-claudecode</h3>
+        <p>Anthropic의 멀티 에이전트 시스템은 채팅의 <b>약 15배</b> 토큰을 썼다. 워커가 늘수록 비용이 따라 늘지만 <b>워커마다 필요한 능력은 다르다.</b> <b>oh-my-claudecode</b>는 Claude Code 위에서 돌아가는 커뮤니티 오케스트레이션 프레임워크(GitHub 스타 38,000+)로, 겨냥하는 지점이 <b>역할별 모델 배분</b>이다. <span class="hl2">단순 조회에는 Haiku, 표준 구현에는 Sonnet, 설계와 깊은 분석에는 Opus를 고르는 3단 배분</b>이 기본이고, 그 위에 에이전트마다 어느 모델을 붙일지 적어 두는 표가 따로 있다. 실행 모드 가운데 <b>ralph</b>는 <b>검증이 통과할 때까지 수정을 반복</b>한다 — <span class="hl">오늘 judge.py가 «검증 성실성» 점수로 물었던 것, 곧 «끝났다고 말하기 전에 실제로 확인했는가»를 도구가 강제하는 장치</span>다.</p>
+        <p class="fine"><b>대가는 비교가 어려워지는 것.</b> 프레임워크가 <b>자체 에이전트 정의와 프롬프트를 끼워 넣기 때문에</b> <span class="hl3">결과 차이가 «모델 배분»에서 왔는지 «프레임워크의 프롬프트»에서 왔는지 가르기 어렵고</span>, 판이 빠르게 바뀌는 커뮤니티 프로젝트라 <b>문서와 실제 동작이 다를 수 있다.</b> 붙이면 바뀌는 조건은 <b>모델</b>이므로, 고정 조건 표에 <b>역할별 모델 열을 추가</b>하고 <b>그 열이 같은 실행끼리만</b> 비용을 견줘야 한다.</p>
+
+        <h3>④ 상태가 안 보이는 문제 — herdr</h3>
+        <p>에이전트가 셋을 넘으면 <b>어느 창이 일하고 있고 어느 창이 승인을 기다리며 멈춰 있는지</b> 눈으로 좇기 어렵고, 노트북 터미널을 닫으면 <b>돌아가던 작업이 함께 사라진다.</b> <b>herdr</b>는 이 문제를 겨냥한 오픈소스 런타임이다. <span class="hl2">백그라운드 서버가 에이전트 CLI의 터미널을 «소유»하기 때문에</span> 터미널을 닫거나 컴퓨터를 다시 켜도 작업이 이어지고, 다른 터미널이나 원격 접속으로 다시 붙을 수 있다. 각 창에는 <b>작업 중(working) · 대기(blocked) · 유휴(idle)</b> 세 상태가 표시되므로 <b>멈춘 에이전트를 바로 찾을 수 있다.</b> Claude Code뿐 아니라 <b>다른 회사의 코딩 에이전트 CLI 20여 종</b>을 같은 화면에 놓을 수 있고, 한 에이전트가 다른 에이전트의 창을 띄운 뒤 그쪽이 입력을 기다리며 멈출 때까지 기다리는 동작도 지원한다.</p>
+        <div class="callout"><b>herdr가 푸는 것은 «관측과 보존»이고 «결과 판정»은 하지 않는다</b><br>
+          <span class="hl3">창이 «유휴»로 바뀌었다는 표시는 «실행이 끝났다»는 뜻일 뿐 «테스트가 통과했다»는 뜻이 아니다.</span> <code>result.json</code>과 <code>judge.py</code>의 층은 그대로 필요하다.<br>
+          <span class="fine"><span class="hl2">이 도구는 비교 조건을 바꾸지 않는다.</span> 세션 JSONL로 «사후에» 읽던 실행 상태를 «실행 중에» 화면으로 보게 해 주는 층이라, <b>기준선을 다시 세우지 않고 오늘 실험 위에 그대로 얹을 수 있다.</b></span></div>
+
+        <h3>문제로 도구를 고르는 표</h3>
+        <div class="table-wrap"><table><thead><tr><th>오늘 실험이 남긴 문제</th><th>겨냥한 도구</th><th>남는 것</th></tr></thead><tbody>
+          <tr><td>컨텍스트가 끊긴다</td><td><b>Agent Teams</b></td><td>토큰이 팀원 수에 비례 · 대화형 세션 전용 · <b>조율 주체가 바뀌어 기준선을 다시 세움</b></td></tr>
+          <tr><td>재현이 안 된다</td><td><b>Workflows</b></td><td>실행 중 사람이 끼어들 수 없음 · <b>B와 같은 층이라 바로 견줌</b></td></tr>
+          <tr><td>모델을 나눌 수 없다</td><td><b>oh-my-claudecode</b></td><td>프레임워크 프롬프트가 섞여 원인 분리가 어려움 · <b>고정 조건에 모델 열 추가</b></td></tr>
+          <tr><td>상태가 안 보인다</td><td><b>herdr</b></td><td>결과 판정은 하지 않음 · <b>비교 조건은 그대로</b></td></tr>
+        </tbody></table></div>
+        <div class="callout"><b>네 도구는 «경쟁 상대»가 아니라 «다른 층»을 맡는다</b><br>
+          Agent Teams·Workflows = <b>다음 행동을 누가 정하는가</b> &nbsp;/&nbsp; oh-my-claudecode = <b>어느 모델이 그 행동을 하는가</b> &nbsp;/&nbsp; herdr = <b>그 행동을 어디서 지켜보는가</b>. 2강의 <b>A2A</b>는 이 격자의 <b>바깥</b>에서 소유자가 다른 에이전트를 잇는 층이다.<br>
+          <span class="fine"><span class="hl">조율이나 모델 층이 바뀌면 기준선을 다시 세워야 하지만, «비교하는 방법»은 그대로다. 조건을 고정하고, 기록을 남기고, 같은 방식으로 읽는 일은 도구가 바뀌어도 바뀌지 않는다.</span> 이 도구들 가운데 하나를 붙일 때도 <b>채택·축소·폐기를 같은 순서로 판정</b>한다.</span></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드3 9강 (step 27021). 도구 근거: Claude Code Agent Teams 공식 문서 · Claude Code Workflows 공식 문서 · oh-my-claudecode(GitHub) · herdr(GitHub) · OpenCode 공식 문서 · Anthropic 연구 시스템 보고(약 15배).</span></div>
+      </section>
+
+      <section class="section" id="m4n3-10"><h2>10강 · 채택·축소·폐기 판정과 과제 <span class="dur">과제</span></h2>
+        <p class="lead">A·B·C를 끝낸 뒤에는 <span class="hl3">결과의 좋고 나쁨만 보지 않는다.</span> 같은 인스턴스·모델 별칭·저장소 준비·채점 조건을 고정한 범위에서, <b>다음 행동을 정한 방식과 결과가 어떻게 연결됐는지</b>를 읽는다. <span class="hl">턴 예산이 A·B·C에서 다르므로 이 결과만으로 «구조 일반»의 우열을 말할 수 없다.</span></p>
+
+        <h3>과제의 목표</h3>
+        <ol>
+          <li><b>비교할 조건을 분리한다.</b> 고정할 조건, 바꿀 조율 방식, 측정할 값을 <b>실행 전에</b> 구분한다.</li>
+          <li><b>결과 파일에서 근거를 읽는다.</b> <code>result.json</code>의 실행 결과와 <code>grading.jsonl</code>의 판정 근거, <code>results-table.md</code>의 비교 행을 <b>연결해</b> 읽는다.</li>
+          <li><b>결론의 범위를 정한다.</b> 이 실험 조건에서 <b>채택·축소·폐기</b> 가운데 하나를 고르고, <b>다시 확인할 조건</b>을 밝힌다.</li>
+        </ol>
+
+        <h3>평가 루브릭 — 제출물에서 다음이 확인될 때 충족</h3>
+        <div class="table-wrap"><table><thead><tr><th>항목</th><th>충족 조건</th></tr></thead><tbody>
+          <tr><td><b>고정·조작·측정이 분리</b></td><td>같은 인스턴스·모델·저장소 준비·채점 조건과 <b>A·B·C의 조율 방식</b>을 구분했고, <b>해결 여부·비용·턴·경과 시간·행동 판정</b>을 측정값으로 제시했다</td></tr>
+          <tr><td><b>결과 파일의 근거가 연결</b></td><td><code>result.json</code>·<code>grading.jsonl</code>·<code>results-table.md</code>에서 확인한 <b>행 또는 인용</b>을 판정문과 연결했고, <b>evidence_quote는 원래 전사로 다시 확인</b>했다</td></tr>
+          <tr><td><b>결론의 적용 조건이 분명</b></td><td><b>턴 예산 차이</b>와 <b>경량 평가</b>라는 한계를 밝히고, <b>이 조건에서만</b> 채택·축소·폐기 결론을 말했다</td></tr>
+        </tbody></table></div>
+
+        <h3>결과표를 읽고 판정한다</h3>
+        <p><code>results-table.md</code>에는 <b>미리 실어 둔 실측값</b>이 들어 있다. <span class="hl3">숫자를 그대로 믿지 않고</span> 표의 각 행을 <code>result.json</code>과 <code>grading.jsonl</code>로 <b>거슬러 확인</b>한다. 직접 실행한 결과가 있다면 나란히 놓고 비교한다.</p>
+        <div class="callout"><b>★ 판정문은 한 문장으로</b><br>
+          <span class="hl2">"이 조건에서는 [채택·축소·폐기]합니다. [결과 파일의 근거]가 있고, [비용·시간·턴 또는 판정 기록]이라는 한계가 있기 때문입니다."</span><br>
+          <span class="fine">재실행한다면 <b>고정할 조건과 바꿀 조건을 함께</b> 적는다.</span></div>
+        <div class="callout"><b>이 노드가 남기는 한 문장</b><br>
+          <span class="hl">오늘 익혀야 할 것은 «일을 많이 나누는 방법»이 아니다. 멀티 에이전트 구성에서 얻은 이득과 치른 비용을, 같은 조건에서 남은 기록으로 «판정하는 방법»이다.</span></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드3 10강 (step 27022).</span></div>
+      </section>
+
+
       <div class="pager" id="pager"></div>
       <!-- ================= 모듈3 · 노드5 · 메인 퀘스트 ================= -->
       <section class="section coursehead" id="m3n5">
@@ -5804,8 +6260,8 @@ AI Agent
     var toc=document.querySelector('.toc');
     var pager=document.getElementById('pager');
     var groups=[].slice.call(document.querySelectorAll('.toc .tocgroup'));
-    var names={'adn1':'협업 툴 소개','adn2':'아이펠이란?','adn3':'퀘스트란?','adn4':'코딩 0줄로 여는 첫날','adn5':'Computational Thinking','m1n1':'작업대 마련하기','m1n2':'세 겹 & 게임','m1n3':'프레임워크','m1n4':'백엔드','m1n5':'데이터베이스','m1n6':'AI 에이전트 도구','m1n7':'메인 퀘스트','m2n1':'AI는 어떻게 배우나','m2n2':'트랜스포머 (AI는 어떻게 언어를 배웠나)','m2n3':'LLM과 로컬 실행','m2n4':'AI는 문서와 사진에서 무엇을 꺼낼까?','m2n5':'[프로젝트] 이미지 생성 어플리케이션 만들기','m2n6':'여러 입력을 처리하는 모델들 (멀티모달)','m2n7':'[프로젝트] 폰 영상으로 3D 공간 만들기','m2n8':'AI가 새로 연 곳들','m2n9':'Main Quest — 도구 학습에서 적용 판단으로','m3n1':'거대 언어모델과 프롬프트','m3n2':'지시 설계 — 무엇이라고 시키는가','m3n3':'컨텍스트 엔지니어링과 서비스 설계','m3n4':'도구 설계 — 에이전트에게 무엇을 줄 것인가','m3n5':'Main Quest — RAG 가이드 챗봇 만들고 배포·평가','m4n1':'자동화와 에이전트','m4n2':'[프로젝트] 에이전트 하네스 톺아보기'};
-    var order=['adn1','adn2','adn3','adn4','adn5','m1n1','m1n2','m1n3','m1n4','m1n5','m1n6','m1n7','m2n1','m2n2','m2n3','m2n4','m2n5','m2n6','m2n7','m2n8','m2n9','m3n1','m3n2','m3n3','m3n4','m3n5','m4n1','m4n2'];
+    var names={'adn1':'협업 툴 소개','adn2':'아이펠이란?','adn3':'퀘스트란?','adn4':'코딩 0줄로 여는 첫날','adn5':'Computational Thinking','m1n1':'작업대 마련하기','m1n2':'세 겹 & 게임','m1n3':'프레임워크','m1n4':'백엔드','m1n5':'데이터베이스','m1n6':'AI 에이전트 도구','m1n7':'메인 퀘스트','m2n1':'AI는 어떻게 배우나','m2n2':'트랜스포머 (AI는 어떻게 언어를 배웠나)','m2n3':'LLM과 로컬 실행','m2n4':'AI는 문서와 사진에서 무엇을 꺼낼까?','m2n5':'[프로젝트] 이미지 생성 어플리케이션 만들기','m2n6':'여러 입력을 처리하는 모델들 (멀티모달)','m2n7':'[프로젝트] 폰 영상으로 3D 공간 만들기','m2n8':'AI가 새로 연 곳들','m2n9':'Main Quest — 도구 학습에서 적용 판단으로','m3n1':'거대 언어모델과 프롬프트','m3n2':'지시 설계 — 무엇이라고 시키는가','m3n3':'컨텍스트 엔지니어링과 서비스 설계','m3n4':'도구 설계 — 에이전트에게 무엇을 줄 것인가','m3n5':'Main Quest — RAG 가이드 챗봇 만들고 배포·평가','m4n1':'자동화와 에이전트','m4n2':'[프로젝트] 에이전트 하네스 톺아보기','m4n3':'멀티에이전트는 어떻게 적용할까?'};
+    var order=['adn1','adn2','adn3','adn4','adn5','m1n1','m1n2','m1n3','m1n4','m1n5','m1n6','m1n7','m2n1','m2n2','m2n3','m2n4','m2n5','m2n6','m2n7','m2n8','m2n9','m3n1','m3n2','m3n3','m3n4','m3n5','m4n1','m4n2','m4n3'];
     var current='m1n1';
     function nodeOf(id){if(!id)return null;var m=id.match(/^(adn\d+|m\dn\d+)(?:-\d+)?$/);return m?m[1]:null;}
     function paintToc(){
