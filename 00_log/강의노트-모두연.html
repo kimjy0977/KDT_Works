@@ -612,6 +612,19 @@
       <a href="#m4n3-9">9강 실험을 둘러싼 생태계</a>
       <a href="#m4n3-10">10강 채택·축소·폐기 판정과 과제<span class="toctag q">과제</span></a>
       </div>
+      <a class="tochead" href="#m4n4">노드4 · OpenClaw를 사용해보자!</a>
+      <div class="tocgroup" data-g="m4n4">
+      <a href="#m4n4-1">1강 OpenClaw는 무엇이고 어디서 왔나</a>
+      <a href="#m4n4-2">2강 OpenClaw 나도 써보자<span class="toctag p">실습</span></a>
+      <a href="#m4n4-3">3강 세션 기록 읽기<span class="toctag p">실습</span></a>
+      <a href="#m4n4-4">4강 텔레그램으로 부리기<span class="toctag p">실습</span></a>
+      <a href="#m4n4-5">5강 보안 — OpenClaw가 지키는 것들</a>
+      <a href="#m4n4-6">6강 pi — 내 에이전트 툴의 뼈대</a>
+      <a href="#m4n4-7">7강 멀티에이전트 — 한 Gateway에 여러 역할</a>
+      <a href="#m4n4-8">8강 모니터링 — 사용량과 상태 보기<span class="toctag p">실습</span></a>
+      <a href="#m4n4-9">9강 자동화 — 반복되는 일을 예약하기<span class="toctag p">실습</span></a>
+      <a href="#m4n4-10">10강 확장 — 손끝 늘리기, 기능 투어</a>
+      </div>
     </nav>
 
     <main>
@@ -5707,6 +5720,397 @@ permission:
       </section>
 
 
+            <!-- ================= 모듈4 · 노드4 · OpenClaw를 사용해보자! ================= -->
+      <section class="section coursehead" id="m4n4">
+        <div class="badge">모듈4 · 노드4<span style="opacity:.7"> · 「AI Agent 파헤치기_Agt1」</span></div>
+        <h2>OpenClaw를 사용해보자! <span style="font-size:.86rem;opacity:.85">(10강)</span></h2>
+        <p class="lead">노드3이 <b>「나누면 정말 나아지나」</b>를 실험으로 판정했다면, 노드4는 <b>「그 에이전트를 내 컴퓨터에 실제로 들이면 어떻게 되나」</b>다. 노드 소개 문장 — <span class="hl">"Openclaw 가 어떻게 만들어졌고, 어떻게 사용하는지 알아봅니다."</span></p>
+        <div class="callout"><b>OpenClaw를 한 줄로</b><br>
+          <span class="hl2">계속 켜 둔 <b>게이트웨이</b>가 WebChat·텔레그램 같은 채널의 메시지를 받아 에이전트 런타임으로 실행을 보내는 «개인 어시스턴트».</span><br>
+          <span class="fine">강의의 비유 그대로 — <b>내 컴퓨터에 늘 켜져 있고, 내 메시지를 받고, 내 파일과 도구를 «정해 둔 권한 안에서» 다루는 부하직원 한 명.</b> 이 노드는 그 부하직원을 직접 들이는 날이다.</span></div>
+        <div class="table-wrap"><table><thead><tr><th>강</th><th>제목</th><th>담은 것</th></tr></thead><tbody>
+          <tr><td>1</td><td><a href="#m4n4-1">무엇이고 어디서 왔나</a></td><td>Warelay→Clawdbot→Moltbot→OpenClaw · 상표 분쟁 · 게이트웨이 정의</td></tr>
+          <tr><td>2</td><td><a href="#m4n4-2">나도 써보자</a></td><td>설치·onboard·doctor·WebChat · <b>127.0.0.1:18789</b> · 인증 두 경로</td></tr>
+          <tr><td>3</td><td><a href="#m4n4-3">세션 기록 읽기</a></td><td>설정/세션/워크스페이스 <b>구분</b> · <b>toolCall ≠ toolResult</b></td></tr>
+          <tr><td>4</td><td><a href="#m4n4-4">텔레그램으로 부리기</a></td><td>BotFather · 봇 토큰 · <b>페어링 승인</b> · Discord·Slack</td></tr>
+          <tr><td>5</td><td><a href="#m4n4-5">보안</a></td><td><b>권한 모드 4단</b> · 프롬프트 인젝션 · <b>공개 취약점 권고 3건</b></td></tr>
+          <tr><td>6</td><td><a href="#m4n4-6">pi — 에이전트 툴의 뼈대</a></td><td>작은 코어 · <b>«없는 것»도 설계다</b> · OpenClaw의 뿌리</td></tr>
+          <tr><td>7</td><td><a href="#m4n4-7">멀티에이전트</a></td><td><b>binding</b> 라우터 · 에이전트별 격리 · delegate · standing orders</td></tr>
+          <tr><td>8</td><td><a href="#m4n4-8">모니터링</a></td><td><code>/status</code>·<code>/usage</code> · <b>구독 창 ≠ API 비용</b></td></tr>
+          <tr><td>9</td><td><a href="#m4n4-9">자동화</a></td><td>automations 스케줄러 · cron 표기식 · <code>/loop</code></td></tr>
+          <tr><td>10</td><td><a href="#m4n4-10">확장 — 기능 투어</a></td><td>브라우저·카메라·음성·IMAP·페일오버·ClawHub</td></tr>
+        </tbody></table></div>
+        <div class="callout"><b>★ 이 노드를 관통하는 세 물음</b><br>
+          10강이 스스로 밝히는 둘러보기 기준이다 — 손이 하나 늘면 <b>①닿는 곳(입구)</b>, <b>②남기는 기록(상태)</b>, <b>③허락해야 하는 권한</b>이 함께 늘어난다.<br>
+          <span class="fine"><span class="hl">노드2의 「최소 카드」(입구·상태·대표 행동·권한 경계)와 같은 뼈대다.</span> 노드4는 그 카드를 «실제로 설치해서» 채운다.</span></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드4 「Openclaw를 사용해보자!」 (course 2196 · node-version 5356 · steps 27023~27032). 원 출처는 OpenClaw 공식 문서(docs.openclaw.ai) 및 GitHub 보안 권고.</span></div>
+      </section>
+
+      <section class="section" id="m4n4-1"><h2>1강 · OpenClaw는 무엇이고 어디서 왔나 <span class="dur">이론</span></h2>
+        <p class="lead">채팅창에 부탁하면 스스로 파일을 찾아 읽고, 텔레그램 메시지에 대신 답하고, 정해 둔 시간에 반복 일을 처리한다. <span class="hl">OpenClaw는 이 «고수준 에이전트 도구» 유행을 이끈 오픈소스 가운데 하나다.</span></p>
+
+        <h3>바닷가재는 껍데기를 여러 번 바꾼다 — 이름이 세 번 바뀐 사연</h3>
+        <p class="fine">사연 자체가 이 도구가 <b>얼마나 널리 알려졌는지</b>를 보여 준다.</p>
+        <div class="table-wrap"><table><thead><tr><th>시기</th><th>이름</th><th>무슨 일이</th></tr></thead><tbody>
+          <tr><td>출발점</td><td><b>Warelay</b></td><td>WhatsApp 메시지를 연결하는 <b>게이트웨이</b>. npm의 clawdbot 패키지 설명도 <i>"WhatsApp gateway CLI with Pi RPC agent"</i></td></tr>
+          <tr><td>~2026.1</td><td><b>Clawdbot</b></td><td>바닷가재 마스코트 <b>Clawd</b>와 함께. npm에 <b>2026.1.4 ~ 1.24 사이 39개 버전</b></td></tr>
+          <tr><td>2026.1</td><td><b>Moltbot</b></td><td><span class="hl3">Anthropic이 «상표 문제»로 이름 변경 요청.</span> 탈피(molt)를 뜻하는 이름</td></tr>
+          <tr><td><b>2026.1.30</b></td><td><b>OpenClaw</b></td><td>1월 27일 <b>Shelldon·Pinchy 등 수백 개 후보</b>로 커뮤니티 투표 → 30일 확정. 공식 문서 표현 — <b>"New shell, same lobster"</b>(새 껍데기, 같은 바닷가재)</td></tr>
+        </tbody></table></div>
+        <div class="callout"><b>이름은 바뀌어도 설치 환경에는 흔적이 남는다</b><br>
+          예전에 설치한 환경의 systemd 서비스 이름 <code>clawdbot-gateway</code>는 지금도 <b>자동 마이그레이션</b>된다.<br>
+          <span class="fine"><span class="hl3">단, 자동 마이그레이션은 Linux·WSL2 이야기다.</span> macOS의 옛 실행 설정은 <b>지워지지 않은 채</b> 진단 명령이 찾아 알려 준다.</span></div>
+        <div class="callout"><b>여기서 얻는 두 가지</b><br>
+          ① <span class="hl2">상표와 분쟁 때문에 이름이 바뀌어도 «코드와 커뮤니티»는 이어질 수 있다.</span><br>
+          ② <span class="hl">버전과 문서를 찾을 때는 «현재 이름»뿐 아니라 «예전 이름»도 함께 검색해야</span> 필요한 기록을 놓치지 않는다.</div>
+
+        <h3>OpenClaw는 «연결을 조정하는» 개인 어시스턴트다</h3>
+        <p>계속 켜 둔 <b>게이트웨이</b>가 WebChat·텔레그램 같은 채널의 메시지를 받아 <b>에이전트 런타임으로 실행을 보낸다.</b> 게이트웨이는 <span class="hl2">여러 연결과 «실행 결정»을 조정하는 프로그램</span>이다.</p>
+        <p class="fine">왜 이런 게 필요한가 — <b>채널이 늘수록 「어느 채널의 요청을 어느 세션과 어느 도구로 보낼지」를 정해야 하기 때문</b>이다. OpenClaw는 이 연결과 실행을 <b>한 게이트웨이에서</b> 다룬다.</p>
+        <p class="fine">노드 진행 순서도 여기서 예고된다 — <b>설치 → 세션 기록 → 텔레그램 연결 → 보안 → 멀티에이전트 → 모니터링 → 자동화 예약 → 확장.</b></p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드4 1강 (step 27023).</span></div>
+      </section>
+
+      <section class="section" id="m4n4-2"><h2>2강 · OpenClaw 나도 써보자 <span class="dur">실습</span></h2>
+        <p class="lead">OpenClaw는 한 덩어리 명령이 아니라 <b>여러 부품</b>으로 이루어져 있다. 그 첫 번째가 <b>Gateway</b> — <span class="hl">채널 연결을 «오래 유지하는» 실행 과정</span>이다. 기본적으로 내 컴퓨터의 <code>127.0.0.1:18789</code>에서 연결을 받는다(<code>127.0.0.1</code> = 이 컴퓨터 «안에서만» 접속).</p>
+
+        <h3>★ 시작 위치 — 격리는 폴더 이름만으로 완성되지 않는다</h3>
+        <div class="callout"><b>연습용 폴더에서만 진행한다</b><br>
+          실제 업무 저장소 · 홈 디렉터리의 설정 폴더 · 개인 파일이 있는 위치에서는 <b>진행하지 않는다.</b><br>
+          <code>mkdir -p ~/openclaw-lab &amp;&amp; cd ~/openclaw-lab</code> &nbsp;<span class="fine">(<code>-p</code> = 이미 있어도 오류 없음)</span><br>
+          <span class="fine"><span class="hl3">★그런데 폴더를 나눠도 완전히 격리되지 않는다.</span> OpenClaw는 실습 폴더 «안»에서 설치해도 <b>설정과 상태를 홈 폴더의 <code>~/.openclaw/</code> 아래에 모으고, 자격 증명도 이곳에 저장</b>한다.<br>
+          → <span class="hl2">수업용 계정·수업용 키만 쓴다. 온보딩 화면이 «실제 업무 계정이나 비밀값»을 요구하면 입력을 멈춘다.</span></span></div>
+        <p class="fine">Node 버전을 먼저 대조한다 — 공식 설치 문서는 <b>Node 22.22.3+ · 24.15+ · 25.9+</b>를 요구하고 <b>Node 26을 권장</b>한다. <span class="hl3">범위에 맞지 않으면 Node를 억지로 바꾸지 말고 실패 경로로 이동한다.</span></p>
+
+        <h3>설치와 온보딩</h3>
+        <p class="fine">공식 README는 macOS·Linux·WSL2에 <code>install.sh</code>, Windows에 <code>install.ps1</code>을 안내한다. <b>npm은 운영체제와 무관하게 같은 명령</b>이라 <b>노트북 환경이 섞인 수업에서는 npm 경로를 공통 절차로</b> 쓴다.</p>
+        <pre><code>npm install -g openclaw@latest --allow-scripts=openclaw
+openclaw --version
+
+openclaw onboard --install-daemon</code></pre>
+        <p class="fine"><code>--allow-scripts=openclaw</code>는 npm의 lifecycle script 허용 옵션. <code>latest</code>는 설치 시점의 최신을 받으므로 <b>화면 숫자는 설치한 날짜에 따라 다르다.</b> <b>데몬</b>은 터미널을 열어 두지 않아도 백그라운드에서 도는 관리 서비스 — macOS는 <b>LaunchAgent</b>, Linux·WSL2는 <b>systemd 사용자 서비스</b>로 설치될 수 있다.</p>
+        <div class="callout"><b>★ 인증 두 경로 — 열쇠를 누가 갖느냐가 다르다</b><br>
+          <b>① API 키</b>(<code>ANTHROPIC_API_KEY</code>) — <span class="hl2">OpenClaw가 «직접 키를 들고» 호출한다 → 종량 과금.</span><br>
+          <b>② claude-cli</b> — 같은 호스트에서 로그인해 둔 Claude Code 세션을 재사용. OpenClaw가 <b>내부적으로 Claude CLI를 실행</b>한다.<br>
+          <span class="fine"><span class="hl3">★오해 주의: 구독 계정을 연결해도 «구독으로 완벽하게 동작»하는 것은 아니다.</span> 요금과 한도는 구독에서 차감되지만 <b>실제 호출은 CLI를 거친다.</b><br>
+          <b>API 키 값을 메모나 화면 캡처에 남기지 않는다.</b> 이 구분은 8강 사용량 화면에서 그대로 다시 나온다.</span></div>
+
+        <h3>실행 상태를 «세 곳»에서 확인한다</h3>
+        <pre><code>openclaw doctor
+openclaw gateway status</code></pre>
+        <div class="callout"><b>doctor 출력을 «마지막 줄만» 보고 성공으로 판단하지 않는다</b><br>
+          <span class="hl">경고와 오류가 있으면 «통과한 항목과 남은 항목»을 화면 그대로 읽는 것이 진단의 목적이다.</span> 둘 중 하나라도 실패하면 <b>그 시점에서 멈춘다.</b></div>
+        <p><b>WebChat</b>은 OpenClaw가 자체 제공하는 대화 화면이다. 실행 중인 게이트웨이가 이 화면을 <code>http://127.0.0.1:18789</code>에서 내어 놓고, 브라우저가 게이트웨이와 <b>WebSocket</b>(연결을 끊지 않고 메시지를 계속 주고받는 통신 방식) 연결을 유지한 채 이력과 메시지를 주고받는다. <span class="hl3">화면은 저절로 열리지 않는다</span> — <code>openclaw dashboard</code>를 실행하면 기본 브라우저에서 열린다. <b>게이트웨이가 멈춰 있으면 화면이 열려도 새 메시지를 보낼 수 없다.</b></p>
+        <p class="fine">첫 확인은 무해한 한 문장으로 — <i>"이 메시지를 받았다면 연결 확인이라고만 답해 주세요."</i></p>
+        <div class="callout"><b>주소를 추측해 입력하거나 외부 네트워크에 포트를 열지 않는다</b><br>
+          기본 주소의 외부 접속은 <b>공식 문서가 권장하지 않으며</b>, 원격 접속에는 <b>별도의 승인 절차</b>가 필요하다.<br>
+          <span class="fine">원격에서 이 화면에 들어가야 할 때 공식 문서가 안내하는 길은 <b>Tailscale</b>(내 기기들을 하나로 묶어 사설망처럼 쓰게 해 주는 도구)이다. 게이트웨이를 <code>127.0.0.1</code>에 둔 채 <b>Serve</b>로 사설망 안에서만 쓰는 HTTPS 주소를 붙이고, <b>Funnel</b>로 공개 주소를 만들 수도 있다.<br>
+          <span class="hl2">★텔레그램 연결과는 «다른 길»이다</span> — 텔레그램은 에이전트가 메시지를 받을 <b>새 창구를 여는 것</b>이고, 이쪽은 <b>이미 떠 있는 WebChat 화면을 다른 기기에서도 쓰게</b> 하는 길이다.</span></div>
+
+        <h3>생긴 상태를 열어 본다 · 끝낼 때 멈추는 법</h3>
+        <pre><code>ls -la ~/.openclaw
+openclaw config file          # 기본 설정 = ~/.openclaw/openclaw.json
+
+openclaw daemon stop          # 데몬으로 띄웠다면
+openclaw gateway status       # 멈췄는지 확인</code></pre>
+        <p class="fine">터미널에서 직접 실행했다면 그 터미널에서 <b>Ctrl-C</b>. <span class="hl3">파일 내용에 토큰·키·개인 대화가 보이면 복사하거나 공유하지 않는다. 화면에 표시된 경로만 따라가고, 화면에 없는 경로를 추측으로 만들어 열지 않는다.</span> <b>프로그램을 멈춰도 상태 디렉터리와 설정 파일은 지우지 않는 한 남는다.</b> 마무리에서는 프로그램을 끄고 <b>수업용 토큰과 인증 경로의 «보관 위치와 접근 가능 범위»</b>를 다시 살핀다.</p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드4 2강 (step 27024). 원 출처: OpenClaw 공식 설치 문서 · docs.openclaw.ai/gateway/tailscale.</span></div>
+      </section>
+
+      <section class="section" id="m4n4-3"><h2>3강 · 세션 기록 읽기 <span class="dur">실습</span></h2>
+        <p class="lead">WebChat의 직접 메시지는 기본적으로 <b>하나의 이어지는 대화</b>인 <b>main session</b>으로 들어간다. 표준 키는 <code>agent:&lt;agentId&gt;:main</code>이고 웹 앱에서는 <b>Home</b> 화면으로 연다. <span class="hl">대화의 연속성은 «화면»만이 아니라 «설정·세션·워크스페이스에 남는 정보»와 함께 읽는다.</span></p>
+
+        <h3>★ 세 가지를 구분한다 — 같은 파일이 아니다</h3>
+        <div class="table-wrap"><table><thead><tr><th>무엇</th><th>어디에</th><th>역할</th></tr></thead><tbody>
+          <tr><td><b>설정</b></td><td><code>~/.openclaw/openclaw.json</code></td><td>기본 설정 파일</td></tr>
+          <tr><td><b>세션 기록</b></td><td><code>~/.openclaw/agents/&lt;agentId&gt;/agent/openclaw-agent.sqlite</code></td><td>세션 행 · 대화 기록 · <b>에이전트별 실행 상태</b><br><span class="fine">(<code>.../sessions/</code>에는 <b>이전 형식</b>의 입력과 보관·지원용 자료)</span></td></tr>
+          <tr><td><b>워크스페이스</b></td><td><code>~/.openclaw/workspace</code></td><td>파일 도구가 <b>상대 경로를 해석하는 기본 작업 폴더</b><br><span class="fine"><b>MEMORY.md</b> = 오래 남길 사실·결정 / <b>memory/</b> = 날짜별 메모(<code>memory/2026-09-04-제목.md</code> 꼴)</span></td></tr>
+        </tbody></table></div>
+        <p class="fine"><code>~/.openclaw/</code>는 <b>설정·자격 증명·세션</b>을 보관하는 위치다. <span class="hl2">워크스페이스는 이와 «분리»한다.</span></p>
+        <pre><code>openclaw memory status        # 워크스페이스 메모의 색인 상태</code></pre>
+        <p class="fine">관찰 방법 — <code>~/.openclaw/</code> 아래에서 설정 파일과 에이전트별 디렉터리 이름을 먼저 찾고, WebChat Home에서 <b>짧은 대화를 한 번 더</b> 보낸 뒤 <b>같은 위치에서 파일 이름·수정 시각을 다시 비교</b>한다. <span class="hl3">개인 대화와 자격 증명은 복사하거나 공유하지 않는다.</span></p>
+
+        <h3>★ 말보다 «실행 기록»을 먼저 본다 — toolCall ≠ toolResult</h3>
+        <div class="callout"><b>세션 기록 안에서 «말한 것»과 «한 것»은 서로 다른 줄로 저장된다</b><br>
+          모델이 낸 줄(<b>assistant</b>)에는 말한 문장(<b>text</b>)과 <b>하겠다고 «요청»한 도구 호출(toolCall)</b>이 함께 남고,<br>
+          <b>실제로 실행한 결과</b>는 <b>별도의 결과 줄(toolResult)</b>에 남는다. 둘은 <b>toolCallId</b>로 짝지어진다.<br>
+          <span class="fine"><span class="hl">완료 여부를 묻는다면 «문장»이 아니라 «결과 줄»을 보아야 한다.</span> 대화 화면의 답변은 «작업이 끝났다»는 인상을 줄 수 있지만, 실제 도구 호출과 파일 변경은 <b>세션 저장소와 워크스페이스의 기록을 함께 보아야</b> 읽힌다.<br>
+          <span class="hl2">Home의 이어지는 대화 · 에이전트별 SQLite 기록 · 워크스페이스의 메모를 «나란히» 놓고 어느 대화가 어떤 흔적을 남겼는지 확인한다.</span></span></div>
+        <p class="fine">노드2 2강의 <b>「사실과 해석을 나눈다」</b>, 노드3 7강의 <b>「evidence_quote가 전사에 실제로 있는가」</b>와 같은 원칙이 여기서도 반복된다 — <b>답변 문장만으로 완료를 판단하지 않는다.</b></p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드4 3강 (step 27025).</span></div>
+      </section>
+
+      <section class="section" id="m4n4-4"><h2>4강 · 텔레그램으로 부리기 <span class="dur">실습</span></h2>
+        <p class="lead"><b>채널(channel)</b>은 메시지 서비스와 Gateway를 잇는 연결이다. Telegram을 채널로 붙이면 <span class="hl">폰에서 보낸 메시지가 Gateway에 도착한다.</span></p>
+        <div class="callout"><b>봇 토큰</b><br>
+          <b>봇을 대신해 Telegram에 접속하는 «비밀값».</b> <span class="hl3">채팅창·화면 공유·메모에 토큰을 적지 않는다.</span><br>
+          <span class="fine">토큰이 대화에 남았다면 <b>BotFather에서 새 토큰을 발급하고 이전 토큰은 쓰지 않는다.</b></span></div>
+
+        <h3>봇 만들기 → Gateway에 연결</h3>
+        <p class="fine">Telegram의 <b>@BotFather</b>는 사용자가 봇을 손쉽게 만들 수 있게 제공되는 서비스다. 대화창에 <code>/newbot</code>을 보내고, 안내에 따라 <b>표시 이름</b>과 <b>bot으로 끝나는 봇 이름</b>을 입력한 뒤 발급 화면의 토큰을 <b>안전한 비밀 보관 위치</b>에 둔다.</p>
+        <pre><code>openclaw config set channels.telegram.botToken "여기에_봇_토큰"
+openclaw gateway</code></pre>
+        <p class="fine"><span class="hl2">Telegram은 <code>channels login</code> 명령으로 연결하지 않고, «설정에 토큰을 넣은 뒤 Gateway를 시작»한다.</span> Gateway가 이미 실행 중이면 수업 환경의 재시작 방법으로 다시 시작한다. 그다음 폰에서 새 봇 대화창을 열어 <b>짧은 인사말 하나</b>를 보낸다.</p>
+
+        <h3>★ 누가 말 걸었는지 구분한다 — 페어링</h3>
+        <div class="callout"><b>채널은 열려 있어도 «바로 누구나» 대화하는 곳은 아니다</b><br>
+          Telegram의 기본 DM 정책인 <b>페어링(pairing)</b> = <b>첫 메시지를 보낸 계정을 «승인 대기 목록»에 올리고, 승인된 계정만 봇과 대화하게 하는 규칙.</b><br>
+          <span class="fine"><span class="hl">입구는 열려 있지만 문은 잠긴 상태이며, 페어링 승인이 «열쇠»다.</span></span></div>
+        <pre><code>openclaw pairing list telegram
+openclaw pairing approve telegram &lt;코드&gt;</code></pre>
+        <div class="table-wrap"><table><thead><tr><th>규칙</th><th>내용</th></tr></thead><tbody>
+          <tr><td>만료</td><td><b>승인 «전» 대기 중인 코드만</b> 1시간 뒤 만료. <b>한 번 승인하면 이후에는 코드 없이 대화가 이어진다</b></td></tr>
+          <tr><td>미승인</td><td>승인하지 않은 계정의 메시지에는 <b>봇이 답하지 않는다</b></td></tr>
+          <tr><td>식별</td><td><span class="hl3">Telegram 계정을 «사람 이름»으로 추측하지 말고, «승인 목록의 계정»으로 구분한다</span></td></tr>
+          <tr><td><b>allowlist</b></td><td>소유 계정 하나만 쓰는 봇은 <b>numeric Telegram ID</b>를 허용 목록에 넣어 입구를 더 좁힐 수 있다</td></tr>
+          <tr><td><b>open</b></td><td>모든 계정을 받는 정책 — <span class="hl3">제한된 도구만 둔 «공개 봇»에만 맞다</span></td></tr>
+        </tbody></table></div>
+
+        <h3>다른 입구에도 같은 문을 둔다</h3>
+        <p class="fine"><b>Discord</b> — 개발자 포털에서 애플리케이션 생성 → Bot 탭에서 봇 생성 → 같은 탭 <b>Reset Token</b>으로 토큰 발급 → <b>Privileged Gateway Intents</b>에서 <b>Message Content Intent</b> 켜기 → <b>OAuth2 URL Generator</b>에서 <code>bot</code>·<code>applications.commands</code> 범위로 서버 초대 → 토큰은 환경 변수로 둔 설정 파일을 <code>openclaw config patch --file ./discord.patch.json5</code>로 등록 후 Gateway 시작.</p>
+        <p class="fine"><b>Slack</b> — Create New App에서 <b>From a manifest</b> 선택, 워크스페이스와 manifest JSON 입력 → <b>App-Level Token</b>에 <code>connections:write</code>를 더해 발급 → <b>Install to Workspace</b>에서 <b>Bot User OAuth Token</b> 수령 → 두 토큰을 <code>openclaw config patch --file ./slack.socket.patch.json5</code>로 등록. <span class="hl2">기본 전송 방식인 <b>Socket Mode</b>는 «공개 Gateway 주소가 필요 없다».</span></p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드4 4강 (step 27026). 원 출처: docs/channels/telegram · docs/channels/discord · docs/channels/slack.</span></div>
+      </section>
+
+      <section class="section" id="m4n4-5"><h2>5강 · 보안 — OpenClaw가 지키는 것들 <span class="dur">이론</span></h2>
+        <p class="lead"><span class="hl">에이전트를 집에 들이면 «편리함만» 늘어나는 것이 아니다.</span> 파일을 읽고 명령을 실행하며 채널 메시지를 받는 만큼, 어디까지 행동해도 되는지 경계를 정해야 한다. <b>보안은 하나의 잠금장치가 아니라 ①파일과 명령 ②채널 입구 ③외부 입력을 «각각» 다루는 일</b>이다.</p>
+
+        <h3>① 파일과 명령의 범위 — 권한 모드 4단</h3>
+        <div class="callout"><b>먼저 용어</b><br>
+          <b>sessionRoot</b> = 파일 접근을 판단하는 <b>작업 폴더 경계</b> &nbsp;/&nbsp; <b>권한 모드</b> = 그 경계 안팎에서 파일을 읽고 쓰는 범위와 <b>명령 실행을 누가 검토하는지</b>를 정하는 것.<br>
+          <span class="fine"><span class="hl2">「도구 목록이 곧 권한」이라는 말은, 에이전트가 할 수 있는 행동이 «보이는 도구»에 한정된다는 뜻이다.</span></span></div>
+        <div class="table-wrap"><table><thead><tr><th>모드</th><th>파일 읽기</th><th>파일 쓰기</th><th>명령 실행</th></tr></thead><tbody>
+          <tr><td><b>read-only</b></td><td>작업 폴더 안</td><td><b>도구가 아예 없음</b></td><td>거부</td></tr>
+          <tr><td><b>guarded</b></td><td>작업 폴더 안</td><td>작업 폴더 안</td><td>허용 목록 밖이면 <b>사람이 승인</b></td></tr>
+          <tr><td><b>workspace</b></td><td>작업 폴더 안</td><td>작업 폴더 안</td><td>허용 목록 밖이면 <b>모델 검토</b> 뒤 필요 시 사람</td></tr>
+          <tr><td><b>full</b></td><td>제한 없음</td><td>제한 없음</td><td><b>승인 절차 없음</b> <span class="fine">(관리자 권한 필요)</span></td></tr>
+        </tbody></table></div>
+        <div class="callout"><b>★ 어느 모드에서 시작하나</b><br>
+          자료를 <b>읽어 요약</b>하는 과업이면 <b>read-only에서 시작</b>한다. <b>파일을 고칠 때만</b> guarded를 검토한다.<br>
+          <span class="fine"><span class="hl3">더 넓은 권한은 «편해 보여도», 잘못된 요청이 들어왔을 때 «닿는 범위»도 함께 넓힌다.</span></span></div>
+
+        <h3>② 채널 입구에서 계정을 구분한다</h3>
+        <p class="fine">4강에서 Telegram 첫 메시지에 페어링 승인을 한 까닭은 <b>봇에게 말을 거는 계정을 구분하기 위해서</b>다. 페어링 = <b>입구의 신원 확인.</b> 소유 계정 하나만 쓰는 봇이면 numeric Telegram ID 허용 목록으로 더 좁힐 수 있다.</p>
+        <p class="fine"><span class="hl3">★놓치기 쉬운 것:</span> <b>직접 메시지의 페어링 승인이 «그룹 발신자 허용 목록»으로 자동 확대되지는 않는다.</b> 그룹 대화에서는 누가 메시지를 보냈는지 따로 제한할 수 있다.</p>
+
+        <h3>③ 읽은 내용과 실행 요청을 «분리»한다 — 프롬프트 인젝션</h3>
+        <div class="callout"><b>프롬프트 인젝션</b><br>
+          웹 문서·이메일·채팅 메시지에는 <b>사람에게 명령처럼 보이는 문장</b>이 섞일 수 있다. 이런 문장이 에이전트의 <b>원래 과업보다 앞서 행동하게 유도</b>하는 일.<br>
+          <span class="fine"><span class="hl">★핵심 원칙: 읽어 온 문서는 «판단 재료»일 뿐 «실행 허가»가 아니다.</span></span></div>
+        <p class="fine">대응 — <b>외부 내용을 읽는 역할에는 «읽기 전용 도구»를 두고</b>, 명령 실행이나 파일 변경이 필요한 과업은 <b>별도 승인 뒤에</b> 진행한다. OpenClaw 보안 문서는 <b>신뢰하기 어려운 내용을 요약하는 «읽기 전용 에이전트»를 따로 두고</b>, 검색·웹 읽기·브라우저 도구는 <b>필요한 경우에만</b> 켜도록 안내한다.</p>
+        <p class="fine"><b>음성 환경</b>에서도 고영향 행동은 다시 확인한다. 파일을 바꾸거나 외부로 보내는 행동을 시작하기 전에는 <b>요청 내용을 말로 다시 읽고 승인 의사를 «발화로» 받는</b> 규칙을 둔다. <span class="hl2">「말한 요청」과 「실제 실행」은 다른 권한이라는 원칙을 유지한다.</span></p>
+
+        <h3>★ 공개된 사건 기록을 읽어 본다 — 경계 규칙은 «사건 위에서» 자랐다</h3>
+        <div class="table-wrap"><table><thead><tr><th>권고</th><th>무슨 일이 있었나</th><th>무엇을 보여 주나</th></tr></thead><tbody>
+          <tr><td><b>GHSA-xr4f-mjxj-w6w5</b><br><span class="fine">페어링 코드 권한 상승</span></td><td>소유자가 아닌 «승인된 채팅 발신자»가 승인 코드를 만들어 만료 전에 사용하면 <b>관리자 권한 기기를 등록</b>할 수 있었다</td><td><span class="hl3">채널에서 «대화를 허용받은 계정»과 «기기를 소유한 계정»은 다른 경계인데, 한쪽 약점이 다른 쪽 권한으로 넘어갔다</span></td></tr>
+          <tr><td><b>GHSA-v2ww-5rh7-2h5v</b><br><span class="fine">명령 허용 목록 우회</span></td><td>허용한 <b>명령 «이름»만 검사하고 «인자»는 검사하지 않아서</b>, 낮은 신뢰 발신자가 허용되지 않은 인자로 파일·네트워크·명령 실행을 유도할 수 있었다</td><td><b>명령 이름을 제한하는 일</b>과 <b>인자를 제한하는 일</b>은 <b>다른 일</b>이다</td></tr>
+          <tr><td><b>GHSA-grc3-2j34-p6gm</b><br><span class="fine">게이트웨이 자격 증명 유출</span></td><td><b>모델이 «지정한» 주소로 요청이 흐를 때 게이트웨이의 열쇠가 함께 전달</b>될 수 있었다</td><td><b>읽어 온 외부 내용이 «실행 권한»에 닿는 길</b>과 같은 맥락</td></tr>
+        </tbody></table></div>
+        <div class="callout"><b>★ 이 기록들을 어떻게 읽나</b><br>
+          <span class="hl2">개별 사용자가 «피해를 입었다»는 사고 보도가 아니라, «고쳤음을 스스로 공개한» 취약점 권고다. 실무 판단은 이 둘을 구분하는 데서 시작한다.</span><br>
+          <span class="fine">사건이 공개된 뒤 안정판에는 고쳐 들어왔다. <b>최신 버전을 유지하는 일이 «첫 방어선»이다.</b></span></div>
+        <p class="fine"><b>한 줄 정리(강의 원문):</b> <span class="hl">파일과 명령의 범위, 채널에서 말할 수 있는 계정, 외부 내용을 실행으로 옮기는 승인 절차를 «따로» 정한다.</span></p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드4 5강 (step 27027). 원 출처: docs/gateway/permission-modes · docs/channels/telegram · docs/gateway/security/index.md · GitHub 보안 권고 3건.</span></div>
+      </section>
+
+      <section class="section" id="m4n4-6"><h2>6강 · pi — 내 에이전트 툴의 뼈대 <span class="dur">이론</span></h2>
+        <p class="lead"><b>pi</b>는 터미널에서 쓰는 <b>작은 코딩 에이전트 CLI</b>다. <span class="hl">여기서 pi를 소개하는 까닭은 하나 — pi를 «기반»으로 내 필요에 맞춘 에이전트 툴을 만들 수 있기 때문</span>이다.</p>
+        <div class="callout"><b>이 선택은 «이미 일어난 일»이다</b><br>
+          <span class="hl2">한때 OpenClaw는 pi를 «에이전트 엔진»으로 채택했다.</span> WhatsApp 메시지 입구를 pi 엔진에 연결하는 작은 도구에서 출발해 지금에 이르렀다.<br>
+          <span class="fine">→ <b>코어를 골라 그 위에 도구를 키우는 일이 «실제로 작동했다»</b>는 뜻이다.</span></div>
+        <p class="fine"><span class="hl3">「작은 코어」는 «적은 기능»이라는 뜻만은 아니다.</span> <b>도구와 모델, 기록과 확장을 «어디에 둘지» 나누어 볼 수 있다</b>는 뜻이다. 먼저 코어가 맡은 일을 읽고, 바깥에 더할 일을 고르면 된다.</p>
+
+        <h3>pi 안을 들여다본다</h3>
+        <div class="table-wrap"><table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody>
+          <tr><td>기본 화면</td><td><b>터미널 TUI</b>(터미널 안에서 움직이는 화면)</td></tr>
+          <tr><td><b>모델 연결 3갈래</b></td><td>① Claude Pro/Max 구독 <b>OAuth</b> ② <b>API 키</b> 등록 ③ <b>로컬 Ollama</b> 모델 등록<br><span class="fine"><span class="hl2">OpenClaw의 두 경로와 비교하면 pi에는 «로컬 모델 경로»가 하나 더 있다 — 같은 에이전트 화면이라도 «모델을 만나는 방식»은 도구마다 다르게 설계된다.</span></span></td></tr>
+          <tr><td>세션 기록</td><td>기본 위치 <code>~/.pi/agent/sessions/</code> · <b>작업 경로마다 JSONL 파일</b>이 쌓인다<br><span class="fine">첫 줄에 <b>세션 ID·시각·작업 폴더 경로</b>, 이후 줄에 대화와 도구 호출 결과 → <b>화면의 답변과 실제 호출을 «따로» 볼 수 있는 까닭</b></span></td></tr>
+          <tr><td>도구 제한</td><td><code>--tools</code> 옵션으로 허용할 도구 목록 지정 — <b>읽기만 맡길 때와 파일을 바꾸게 할 때의 경계가 여기서 갈린다</b></td></tr>
+        </tbody></table></div>
+
+        <h3>게이트웨이를 얹어 도구가 자란다 — 계보</h3>
+        <p class="fine"><b>Warelay</b>는 WhatsApp 게이트웨이였고, <b>Clawdbot</b>은 npm 패키지 설명에서 <i>"Pi RPC agent"</i> 위에 만든 WhatsApp 게이트웨이로 소개됐다. <span class="hl">pi가 «에이전트 코어»가 되고, 그 위에 «메시지를 받는 입구»가 더해져 다른 도구가 된 모습</span>이다. 초기 버전은 pi를 프로그램 안에 넣어(임베디드) 엔진으로 썼고, <b>이후 자체 코어를 갖추면서 pi 의존을 걷어냈다.</b> 지금은 <b>내장 런타임 <code>openclaw</code></b>가 그 자리를 맡는다.</p>
+        <p class="fine">그리고 pi는 대화 화면만이 아니다 — <b>다른 프로그램이 «표준입출력»으로 요청과 결과를 주고받는 «워커»가 될 수도 있다.</b> 채널을 받는 입구와 작업을 처리하는 코어를 나누면 도구의 역할도 나누어 읽을 수 있다.</p>
+
+        <h3>★ «없는 것»도 설계다</h3>
+        <div class="callout"><b>pi에 없는 세 가지</b><br>
+          내장 <b>MCP 클라이언트</b> 없음 · 내장 <b>서브에이전트</b> 없음 · 반복 작업을 정해진 시각에 돌리는 내장 <b>스케줄러</b> 없음.<br>
+          <span class="fine"><span class="hl">이 빈자리는 «부족한 목록»으로만 끝나지 않는다. «무엇을 코어에 두고 무엇을 확장으로 둘지» 고르는 «경계»가 된다.</span><br>
+          MCP 연결은 확장으로 더할 수 있고, 여러 pi를 함께 다루는 방식도 확장이나 별도 구성으로 설계할 수 있으며, 반복 실행은 <b>운영체제의 예약 기능</b>이나 별도 확장이 맡을 수 있다.<br>
+          <span class="hl2">★OpenClaw에서는 채널 연결·권한 모드·자동화 예약을 «하나의 도구»에서 보았다. pi는 그 기능들을 기본으로 품지 않는 대신 «바깥에서 조립할 여지»를 남긴다. → 기능이 «있는지»뿐 아니라 «어느 층에 놓였는지»도 살펴야 한다.</span></span></div>
+        <p class="fine"><b>같은 질문을 다시 쓴다.</b> 에이전트 툴은 <span class="hl3">마법 상자가 아니라 «조립할 수 있는 층위»</span>다. 오늘 OpenClaw에서 본 <b>게이트웨이·채널·권한</b>은 pi 위에 내 도구를 만들 때도 다시 묻게 된다 — <b>어디에서 메시지를 받을지, 무엇을 할 수 있게 둘지, 어느 행동에 승인을 둘지.</b> 여기에 <b>모델을 고르는 길</b>과 <b>세션이 남는 위치</b>, <b>도구를 제한하는 목록</b>이 더해진다.</p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드4 6강 (step 27028). 원 출처: pi 공식 문서 · docs.start/lore.</span></div>
+      </section>
+
+      <section class="section" id="m4n4-7"><h2>7강 · 멀티에이전트 — 한 Gateway에 여러 역할 <span class="dur">이론</span></h2>
+        <p class="lead">지금까지는 에이전트 «하나»를 다뤘다. 실무에서는 역할이 갈린다. OpenClaw는 이 차이를 <span class="hl">Gateway 프로세스 «하나» 안에 서로 «격리된» 에이전트 여럿을 두고, 들어온 대화를 담당 역할에게 나르는 것</span>으로 푼다.</p>
+        <div class="callout"><b>★ 눈여겨 볼 그림은 하나</b><br>
+          채널에서 메시지가 들어오면 <b>binding이 «받을 에이전트»를 고르고</b>, 고른 에이전트는 <b>자기 작업 폴더와 자기 기록 «안에서만»</b> 움직인다.<br>
+          <span class="fine"><span class="hl2">챗봇을 여러 개 만드는 일이 아니라, «대화를 역할에게 보내는 작은 라우터»를 설계하는 일이다.</span> 이 절은 설치 없이 공식 문서의 설정 예시를 읽으며 구조를 이해한다.</span></div>
+
+        <h3>binding — 채널 계정을 역할에 연결한다</h3>
+        <p class="fine"><b>binding</b> = 채널 계정을 특정 에이전트에 연결하는 규칙. <b>채널 계정</b>은 슬랙 작업공간 하나, 와츠앱 번호 하나처럼 <b>채널이 구분하는 단위</b>다. 예: 디스코드의 <code>support</code> 계정에서 온 메시지는 항상 <code>support</code> 에이전트로 가게 만드는 규칙.</p>
+        <pre><code>{
+  agents: {
+    entries: {
+      main: {
+        default: true,
+        workspace: "~/.openclaw/workspace",
+      },
+      support: {
+        workspace: "~/.openclaw/workspace-support",
+      },
+    },
+  },
+  bindings: [
+    {
+      channel: "discord",
+      account: "support",
+      agent: "support",
+    },
+  ],
+}</code></pre>
+        <div class="callout"><b>★ <code>default: true</code>를 반드시 정한다</b><br>
+          어떤 binding에도 해당하지 않는 대화가 도착하면 <b>기본 에이전트가 받는다.</b><br>
+          <span class="fine"><span class="hl3">기본 에이전트를 정하지 않으면, 갈 곳이 없어진 메시지가 «조용히 사라지는» 사고가 날 수 있다.</span> 여러 역할을 두기로 했다면 <b>어느 에이전트가 «남은 대화»를 받을지 반드시 정해 둔다.</b></span></div>
+        <p class="fine"><span class="hl2">★binding이 하는 일은 «메시지를 받을 에이전트를 고르는 것»까지다.</span> 5강에서 본 <b>페어링 승인이나 허용 목록처럼 «누가 말을 걸 수 있는지»를 정하는 규칙은 «채널 설정»이 따로 가진다.</b> — <b>라우터가 갈 길을 정할 뿐, 문지방의 기준을 대신 정하지 않는다.</b></p>
+
+        <h3>에이전트마다 분리되는 것</h3>
+        <p class="fine">에이전트 하나가 감싸는 범위를 <b>페르소나 하나의 전체</b>라고 부른다 — <b>역할의 성격 · 쓰는 규칙 · 작업 폴더 · 대화 기록</b>이 한 단위로 묶인다.</p>
+        <div class="table-wrap"><table><thead><tr><th>분리되는 것</th><th>내용</th></tr></thead><tbody>
+          <tr><td><b>workspace</b>(작업 폴더)</td><td>에이전트가 기본으로 일하는 폴더. main과 support가 각자 다른 폴더를 쓰므로 <b>만지는 파일이 처음부터 갈린다</b></td></tr>
+          <tr><td><b>상태 폴더</b></td><td><b>인증 프로필과 에이전트별 설정</b>이 사는 곳</td></tr>
+          <tr><td><b>대화 기록</b></td><td>에이전트마다 <b>따로인 SQLite 파일</b> — <code>~/.openclaw/agents/&lt;agentId&gt;/agent/openclaw-agent.sqlite</code></td></tr>
+          <tr><td><b>기억</b></td><td><span class="hl2">기본으로 섞이지 않는다.</span> 한 에이전트의 기본 메모리는 <b>다른 에이전트의 기록을 검색하지 않는다.</b> 함께 써야 하는 자료는 <b>두 에이전트가 모두 읽는 «공유 문서»를 명시적으로</b> 둔다</td></tr>
+        </tbody></table></div>
+        <p class="fine">비유하면 — 서로 다른 두 파이썬 프로젝트가 폴더를 나눠 쓰는 것과 같은 이치다. <b>연구 담당과 코딩 담당이 한 테이블에서 일하면 서류가 섞인다.</b></p>
+        <div class="callout"><b>★ 문서가 분명히 적은 두 경계</b><br>
+          ① <span class="hl3">상태 폴더를 «에이전트끼리 재사용»하면 인증과 세션 상태가 충돌한다.</span><br>
+          ② <span class="hl3">작업 폴더는 «기본 작업 경로»일 뿐 «단단한 격리 장치»가 아니다</span> — 폴더 «밖»의 경로를 막아야 한다면 <b>sandbox</b>를 따로 두어야 한다.</div>
+
+        <h3>delegate — 자기 계정으로 대신 행동한다</h3>
+        <p><b>delegate</b>는 조직 안에서 <b>자기 이메일 주소와 표시 이름을 가지고</b> 일하는 에이전트다. 공식 문서가 정체성을 한 문장으로 못 박는다 — <span class="hl">사람으로 «가장하지 않고», «자기» 자격 증명으로, «정해진 권한 안에서» 대신 행동한다.</span> <b>내 계정을 빌려주는 자동화가 아니라, 권한 범위를 정해 둔 «보조 구성원»을 추가하는 설계</b>다.</p>
+        <p class="fine"><b>권한은 작은 것에서 시작한다.</b> 문서가 권하는 첫 단계는 <b>읽고 «초안만» 만들고 사람의 검토를 받는 등급</b> — 아무것도 승인 없이는 밖으로 나가지 않는다. <b>발송과 일정 생성</b>처럼 밖으로 나가는 행동은 <b>다음 등급</b>에서 delegate 자신의 이름으로 이뤄진다. 넓힐 때는 <b>도구 제한 · sandbox · 감사 기록</b>을 먼저 갖추는 순서를 지킨다.</p>
+        <p class="fine"><span class="hl3">delegate 문서가 다루는 권한은 «조직의 이메일과 캘린더»다. 넓은 위임 열쇠 «하나»가 새면 «모든» 사서함과 캘린더가 열리는 구조라, 공식 문서 스스로 최소 권한을 권한다.</span> 수업에서는 <b>실제 메일 권한을 연결하지 않고 «역할과 승인 규칙을 설계하는 것»까지만</b> 다룬다.</p>
+
+        <h3>standing orders와 전문가 레인</h3>
+        <div class="callout"><b>standing orders (스탠딩 오더)</b><br>
+          <b>항상 적용되는 지시.</b> 무엇을 해도 되는지 / 무엇은 승인을 받아야 하는지 / 무엇이 보이면 멈추는지를 <b>미리 적어 두는 규칙</b>.<br>
+          <span class="fine"><span class="hl2">「허용 · 승인 · 중단」 세 칸을 채우는 셈</span>이고, 앞 절의 권한 기준 메모와 같은 문양이다.</span></div>
+        <p class="fine"><span class="hl">병렬 작업은 «에이전트를 많이 만드는 일»이 아니라 «역할 설계»가 먼저다.</span> 공식 문서의 <b>병렬 전문가 레인</b>은 <b>연구·제작·검토처럼 역할이 «겹치지 않게» 나누고, 동시에 돌릴 «개수»를 정해 두는</b> 구성을 권한다.</p>
+        <pre><code>{
+  agents: {
+    defaults: {
+      maxConcurrent: 4,
+      subagents: { maxConcurrent: 8, delegationMode: "prefer" },
+    },
+  },
+  messages: {
+    queue: { mode: "collect", cap: 20, drop: "summarize" },
+  },
+}</code></pre>
+        <p class="fine"><b>동시 실행 수에 한도</b>를 두고, <b>몰리는 메시지는 모아 두었다가 요약해 넘기는 규칙</b>까지가 설계 대상이다. <span class="hl2">에이전트를 늘리는 일보다 «역할 겹침과 용량»을 먼저 정하는 편이 사고를 줄인다.</span></p>
+        <div class="callout"><b>에이전트끼리 «직접 대화»하는 길은 «기본으로 닫혀» 있다</b><br>
+          켜려면 <b>명시적 활성화와 «허용 목록»</b>이 필요하다 — 필요한 상대만, 필요한 범위만 지정하는 설계.<br>
+          <pre style="margin:8px 0 0"><code>{ tools: { agentToAgent: { enabled: false, allow: ["home", "work"] } } }</code></pre>
+          <span class="fine"><span class="hl3">명령줄의 <code>openclaw agent</code>는 «별개»의 도구다.</span> <code>--agent</code>·<code>--session-id</code>로 대상을 지정해 <b>«한 번의 실행»을 요청할 뿐</b>, 에이전트 사이의 «대화»를 여는 장치가 아니다. <b>역할 간 전달은 «서로의 대화를 모두 보는 것»이 아니라 «누구에게 무엇을 넘길지 명시하는 작업»이다.</b></span></div>
+        <p class="fine"><b>한 줄 정리(강의 원문):</b> <span class="hl">Gateway가 «문»을 지키고, binding이 «대화»를 역할에게 나르고, 각 에이전트는 «자기 폴더와 자기 기록» 안에서 «정해진 권한»만 움직인다.</span></p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드4 7강 (step 27029). 원 출처: docs/concepts/multi-agent · agent-bindings · delegate-architecture · parallel-specialist-lanes · agent-workspace · docs/automation/standing-orders · docs/tools/agent-send.</span></div>
+      </section>
+
+      <section class="section" id="m4n4-8"><h2>8강 · 모니터링 — 사용량과 상태 보기 <span class="dur">실습</span></h2>
+        <p class="lead">맡긴 일이 많아질수록 <b>얼마나 쓰고 있는지</b>를 보는 일이 중요해진다. OpenClaw는 이 질문에 답하는 화면을 <b>채팅 안과 명령줄 «양쪽»에</b> 두었다. <span class="fine">이 절은 앞 절의 WebChat 세션을 다시 열고 확인한다 — <b>새로 설치하는 것은 없다.</b></span></p>
+        <div class="callout"><b>측정의 단위부터</b><br>
+          <b>토큰</b> = 모델이 글을 주고받는 «양»을 세는 단위. <b>입력과 출력이 각각 세고</b>, 비용은 이 양에서 계산된다.<br>
+          <span class="fine"><span class="hl">★이 절의 목표: 「지금 «대화»가 얼마나 커졌는지」와 「지금까지 «얼마를» 썼는지」를 «나누어 보는» 습관.</span> 세션 단위 숫자와 모아 둔 전체 요약은 <b>다른 질문에 답한다.</b></span></div>
+
+        <h3>채팅에서 바로 본다</h3>
+        <pre><code>/status          # 상태 카드 — 세션 토큰 · 추정 비용 · (인증 방식에 따라) 제공사 사용량 창 요약
+
+/usage           # 인수 없이 입력할 때마다  끄기 → 토큰 → 자세히  순환
+/usage tokens    # 입력·출력을 한 줄로
+/usage full      # 모델 · 추론 수준 · 빠른/느린 처리 · 컨텍스트 창 · 비용
+/usage cost      # 세션 기록을 모아 계산한 «로컬» 비용 정리</code></pre>
+        <p class="fine">읽는 재료 — <b>입력 토큰과 출력 토큰 중 어느 쪽이 큰지</b>, <b>대화가 길어지면서 어느 쪽이 빨리 불어나는지</b>가 <span class="hl2">«다음 대화를 얼마나 이어 붙일지» 판단하는 재료</span>가 된다.</p>
+
+        <h3>명령줄에서 편 쓴다</h3>
+        <pre><code>openclaw status --usage     # 게이트웨이 생존 + 제공자별 사용량·할당량 표
+openclaw models status      # 인증 프로필 상태 + 제공자별 사용량 창 요약</code></pre>
+        <p class="fine">온보딩에서 고른 인증 경로가 여기서 다시 등장하는지 확인한다. <span class="hl2">연결이 죽었거나 인증이 만료된 프로필이 있다면 이 표에서 «먼저» 보인다.</span></p>
+
+        <h3>★ 구독 창과 API 비용은 «같은 숫자»가 아니다</h3>
+        <div class="callout"><b>같은 화면의 숫자라도 하나는 «돈»이고 하나는 «남은 양»이다</b><br>
+          <b>API 키</b>로 쓰는 모델 → <b>호출마다 계산한 «추정 비용»</b>을 보여 준다.<br>
+          <b>구독 로그인</b>으로 쓰는 모델 → <b>«남은 한도 비율»</b>을 제공사의 사용량 창 형태로 보여 준다.<br>
+          <span class="fine">2강에서 본 <b>「열쇠를 누가 갖고 있느냐」</b>가 인증 경로의 차이였다. <span class="hl">그 차이가 사용량 화면에도 그대로 나타난다</span> — API 키 경로는 OpenClaw가 키를 갖고 있으니 <b>비용을 OpenClaw가 계산</b>하고, 구독 경로는 <b>한도 창을 «제공사»가 계산</b>해 알려 준다.<br>
+          <span class="hl3">★어느 경로로 접속했는지 모른 채 숫자만 보면 «남은 비율»을 «남은 돈»으로 잘못 읽을 수 있다. 접속 경로와 숫자의 뜻은 «함께» 읽어야 한다.</span></span></div>
+
+        <h3>운영용 관측 도구는 «따로» 있다</h3>
+        <p class="fine">지금까지 본 화면은 <b>«내 세션을 내가» 보는 도구</b>다. 여러 사람이 함께 쓰는 설비에는 관측이 더 필요해지고, OpenClaw는 그런 운영용 도구를 따로 갖추고 있다 — <b>OpenTelemetry</b>(지표를 밖으로 내보내기) · <b>Prometheus</b>(모아 보기) · <b>audit</b>(누가 무엇을 승인했는지 이력). <span class="fine">오늘은 <b>이런 도구가 «존재하고 운영용»이라는 것까지만</b> 알아 둔다.</span></p>
+        <div class="callout"><b>★ 목적과 개인정보 경계가 다른 «세 가지»를 구분한다</b><br>
+          ① <b>내 사용량 관찰</b> — <code>/status</code>·<code>/usage</code>·<code>openclaw status</code><br>
+          ② <b>문제 분석 자료</b> — 진단 번들. 압축 파일 하나로 상태와 로그를 모아 주는데, <span class="hl3">개인정보를 가려 주더라도 «로그 요약»이 들어 있으므로 함부로 나누지 않고 «비밀 자료»처럼 다뤄야 한다.</span><br>
+          ③ <b>제품 개선 통계</b> — 제품이 스스로 보내는 통계는 <b>하루 한 번 «버전 확인»이 전부</b>이고, <b>기능 사용 통계는 «동의하기 전까지» 꺼져 있다.</b></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드4 8강 (step 27030). 원 출처: docs/concepts/usage-tracking · docs/gateway/opentelemetry · prometheus · audit · diagnostics · telemetry.</span></div>
+      </section>
+
+      <section class="section" id="m4n4-9"><h2>9강 · 자동화 — 반복되는 일을 예약하기 <span class="dur">실습</span></h2>
+        <p class="lead">모니터링에서 <b>지금 상태를 보는 눈</b>을 얻었다. 이번에는 <b>스스로 움직이는 시간표</b>를 만든다. 반복되는 일을 사람이 기억하지 않도록 예약하는 기능이 <b>automations</b>다.</p>
+        <div class="callout"><b>★ automations는 «Gateway에 들어 있는 스케줄러»다 — 모델 안의 기능이 아니다</b><br>
+          <span class="hl">Gateway 프로세스가 «실행 중이어야» 예약한 시간에 일이 시작된다.</span><br>
+          <span class="fine">일정·실행 상태·실행 기록은 <b>OpenClaw의 공유 SQLite DB</b>에 저장된다. <span class="hl2">Gateway를 다시 시작해도 «예약 자체»는 사라지지 않는다.</span> 실행 결과는 <b>채팅 채널 · 웹훅 · 기록</b>으로 보낼 수 있다.</span></div>
+        <pre><code>openclaw automations list        # 짧게 openclaw cron 도 같은 명령</code></pre>
+        <p class="fine"><span class="hl3">작업을 «만들거나 지우거나 즉시 실행»하는 «변경» 명령에는 <code>operator.admin</code> 권한이 필요하다.</span> 권한은 <b>예약이 실행되는 조건과 «별개»로 먼저</b> 확인한다.</p>
+
+        <h3>① 3분 뒤의 알림 (일회성)</h3>
+        <pre><code>date -u +%FT%TZ        # UTC 현재 시각 → 3분 뒤의 ISO 시각을 계산
+
+openclaw automations create "&lt;ISO시각&gt;" --name "첫 알림" --session main \
+  --system-event "3분 전에 예약한 알림이 도착했습니다"</code></pre>
+        <p class="fine"><code>--session main</code>은 앞에서 연 <b>WebChat의 main 세션</b>으로 시스템 이벤트를 보낸다. <span class="hl2">한 번만 실행하는 작업은 «성공적으로 끝나면 자동으로 지워진다».</span> 작업을 만들 때는 <b>«일정»이 먼저이고 «프롬프트»가 그 다음</b>이다(위 명령은 프롬프트 대신 시스템 이벤트를 넣은 형태).</p>
+
+        <h3>② 5분마다 울리는 시보 (반복)</h3>
+        <div class="callout"><b>cron 표기식 — 다섯 칸 (분 시 일 월 요일)</b><br>
+          <code>*/5 * * * *</code> → 첫 칸 <code>*/5</code>는 <b>5분마다</b>. 나머지 네 칸의 <code>*</code>는 <b>모든 시 · 모든 날 · 모든 달 · 모든 요일</b>.</div>
+        <pre><code>openclaw automations create "*/5 * * * *" "지금 시각과 대기 중인 알림이 있으면 한 줄로 알려 줘" --name "5분 시보"
+
+openclaw automations list                    # 작업 ID 확인
+openclaw automations runs --id &lt;job-id&gt;      # 실행 기록</code></pre>
+        <p class="fine"><span class="hl">★목록과 실행 기록을 나란히 보면 차이가 그대로 나타난다</span> — <b>일회성 작업은 실행 뒤 목록에서 «사라지고», 반복 작업은 «다음 실행 시간»을 가진 채 목록에 남는다.</b></p>
+        <p class="fine"><span class="hl3">Gateway를 끄면 스케줄러도 함께 멈춘다.</span> 그동안에는 예약 시간이 되어도 작업이 실행되지 않는다. <b>다시 켠 뒤에도 SQLite에 저장한 «일정»과 «이전 실행 기록»은 남아 있다.</b></p>
+
+        <h3>③ 같은 일을 «대화»로 시킨다 — 다섯 칸을 외우지 않아도 된다</h3>
+        <div class="table-wrap"><table><thead><tr><th>길</th><th>어떻게</th></tr></thead><tbody>
+          <tr><td><b>반복을 알아채는 길</b></td><td>같은 부탁을 여러 번 하면 <b>에이전트가 먼저 «예약으로 바꿀지» 제안</b>한다. 만들기 전에 일정과 할 일을 <b>사람의 말로 한 문장 확인</b>한다 — <i>"매주 평일 오전 7시에 어제 밤 업데이트를 요약해 이 방에 올립니다"</i><br><span class="fine"><span class="hl2">★cron 표기식이 아니라 «사람의 문장»으로 확인하게 하는 설계다.</span></span></td></tr>
+          <tr><td><b><code>/loop</code> 대화 명령</b></td><td><code>/loop 5m 지금 시각을 한 줄로 알려 줘</code> → <b>이 대화에 묶인</b> 5분 반복 작업 생성. <b>소유자만</b> 쓸 수 있다.<br><span class="fine">간격을 빼면 <b>1분~1시간 사이에서 스스로 다음 실행을 정한다.</b> <code>/loop status</code>로 보고 <code>/loop stop</code>으로 끈다.</span></td></tr>
+        </tbody></table></div>
+        <p class="fine">확인해 볼 것 — <code>/loop</code>로 시보를 하나 만든 뒤 <code>openclaw automations list</code>를 다시 실행해, <b>CLI로 만든 시보와 <code>/loop</code>로 만든 시보가 «한 목록»에 나타나는지</b> 본다. <span class="hl">만드는 «입구»가 달라도 스케줄러는 «하나»다.</span></p>
+
+        <h3>실습이 끝나면 시간표를 비운다</h3>
+        <pre><code>openclaw automations remove &lt;job-id&gt;     # /loop로 만든 것은 /loop stop 으로도 가능</code></pre>
+        <p class="fine"><span class="hl3">반복 작업을 남겨 두면 Gateway가 켜져 있는 동안 «계속» 실행된다. 실습이 끝난 작업은 지우는 습관이 필요하다.</span></p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드4 9강 (step 27031). 원 출처: docs.openclaw.ai/automation/cron-jobs.</span></div>
+      </section>
+
+      <section class="section" id="m4n4-10"><h2>10강 · 확장 — 손끝 늘리기, 기능 투어 <span class="dur">정리</span></h2>
+        <p class="lead">여기까지가 OpenClaw의 <b>기본 몸</b>이다 — 게이트웨이가 있고, 채널이 붙고, 권한이 있고, 사용량을 본다. 이 절은 여기에 <b>손을 더 붙이는 기능들을 «지도처럼»</b> 둘러본다. <span class="hl3">오늘은 켜지 않는다.</span> 무엇이 있는지, 무엇을 조심해야 하는지를 읽고 <b>다음에 열어 볼 지점을 정하는</b> 절이다.</p>
+        <div class="callout"><b>★ 둘러보는 기준 — 손이 하나 늘면 셋이 함께 는다</b><br>
+          ① 그 손이 <b>닿는 곳</b>이 늘어난다 <span class="fine">(입구)</span> ② 그 손이 <b>남기는 기록</b>이 늘어난다 <span class="fine">(상태)</span> ③ 그 손에게 <b>허락해야 하는 권한</b>이 늘어난다 <span class="fine">(권한)</span></div>
+        <div class="table-wrap"><table><thead><tr><th>기능</th><th>무엇을 하나</th><th>무엇이 본체인가</th></tr></thead><tbody>
+          <tr><td><b>브라우저 조작</b></td><td>페이지 열기·탭·스크린샷·클릭·입력·PDF 저장을 <b>하나의 서비스</b>로. 에이전트가 <b>눈으로 화면을 보고 손으로 누르는 일</b>을 대신</td><td><span class="hl3"><b>입구</b> — 웹이 «통째로» 새 접촉면이 된다.</span> 방문하는 페이지에는 <b>사람을 향한 문장이 얼마든지</b> 있다 → 5강의 <b>「읽은 내용과 실행 요청의 분리」가 더 자주 적용</b>된다</td></tr>
+          <tr><td><b>카메라·위치 노드</b></td><td>폰이나 다른 컴퓨터를 <b>노드</b>로 연결해 기기의 감각을 사용. 카메라 목록·사진 / 위도·경도·고도·속도·위치 출처</td><td><span class="hl3"><b>권한</b> — 켜는 순간 «물리 세계»가 에이전트의 입력이 된다.</span> 문서는 <b>권한 거부·기능 꺼짐·시간 초과 시의 오류까지</b> 정리해 둔다. <b>허용과 연결이 먼저고 기능은 그다음</b></td></tr>
+          <tr><td><b>Talk mode</b></td><td><b>로컬 글소리 인식·합성</b>을 함께 쓰는 연속 음성 대화. 화면을 보지 않고 대화가 이어진다</td><td><b>승인의 «형태»</b> — <span class="hl3">소리로 듣는 승인은 «눈으로 읽는 승인»보다 흘러가기 쉽다.</span> 문서는 위험도가 큰 작업은 <b>발화로 정확하게 다시 승인</b>하도록 요구한다</td></tr>
+          <tr><td><b>IMAP 감시</b></td><td>메일함을 지켜보다가 <b>인증된 받은 메일</b>을 <b>별도의 «읽기 전용» 역할(reader agent)</b>로 넘긴다</td><td><span class="hl2">★오늘의 원칙이 그대로 드러난 사례.</span> 공식 문서가 <b>「임의의 메일을 주 에이전트에 «바로» 넣는 기능이 아니다」</b>라고 분명히 못 박는다 — <b>검증할 수 없는 입력이 들어오는 입구에, 처음 닿는 것을 «권한이 가장 작은» 별도 역할로 격리</b></td></tr>
+          <tr><td><b>모델 페일오버</b></td><td>지금 쓰는 모델에 문제가 생기면 <b>같은 제공자 안에서 인증 프로필을 바꿔 본 뒤</b> 설정해 둔 <b>다음 모델로</b></td><td><span class="hl">실패를 «없애는» 장치가 아니라 «실패 뒤에 시도할 순서»를 정해 두는 장치.</span> 다음 모델을 정해 두지 않으면 넘어갈 곳이 없고, <b>인증 프로필이 여러 개여야 회전이 가능</b>하다</td></tr>
+          <tr><td><b>ClawHub</b><br><span class="fine">스킬 마켓</span></td><td><code>openclaw skills search</code> · <code>openclaw skills install</code></td><td><span class="hl3">★「설치할 수 있다」와 「안전하다」는 다른 말이다.</span> ClawHub는 <b>악성으로 «표시된»</b> 배포판은 거부하지만, <b>감사 내용을 함께 보여 주고 «설치를 이어 가는»</b> 형태의 배포판도 있다 → <b>무엇을 설치하는지 «그 문서를 읽는 습관»이 마켓을 쓰는 조건</b></td></tr>
+          <tr><td><b>휴대폰 앱</b></td><td>iOS·Android 앱이 <b>노드로 연결</b>되면 폰의 감각과 알림이 에이전트와 이어진다</td><td><b>입구를 «주머니까지»</b> — 4강의 텔레그램 연결과 <b>같은 원리가 «앱»이라는 다른 옷</b>을 입은 것</td></tr>
+        </tbody></table></div>
+        <div class="callout"><b>★ 함께 붙는 주의점 둘</b><br>
+          ① <b>실험 단계 표시가 붙은 기능</b>은 <b>안정적인 기본값이나 장기 계약을 보장하지 않는 «미리 보기»</b>이며 형태가 빨리 바뀔 수 있다 → <span class="hl2">같은 일을 하는 «안정 경로»가 있다면 그쪽이 먼저다.</span><br>
+          ② <b>카메라·위치·음성·기기 조작</b>은 <b>권한을 주고 «연결된 노드»가 있어야</b> 움직인다 → <span class="hl">«켜는 순서»가 아니라 «허용의 근거»를 먼저 묻는 습관이 오늘의 결론이다.</span></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드4 10강 (step 27032). 원 출처: docs/tools/browser · docs/nodes/camera · location-command · talk · docs/automation/imap · docs/concepts/model-failover · experimental-features · docs/clawhub/cli · docs/platforms/ios · android.</span></div>
+      </section>
+
       <div class="pager" id="pager"></div>
       <!-- ================= 모듈3 · 노드5 · 메인 퀘스트 ================= -->
       <section class="section coursehead" id="m3n5">
@@ -6260,8 +6664,8 @@ AI Agent
     var toc=document.querySelector('.toc');
     var pager=document.getElementById('pager');
     var groups=[].slice.call(document.querySelectorAll('.toc .tocgroup'));
-    var names={'adn1':'협업 툴 소개','adn2':'아이펠이란?','adn3':'퀘스트란?','adn4':'코딩 0줄로 여는 첫날','adn5':'Computational Thinking','m1n1':'작업대 마련하기','m1n2':'세 겹 & 게임','m1n3':'프레임워크','m1n4':'백엔드','m1n5':'데이터베이스','m1n6':'AI 에이전트 도구','m1n7':'메인 퀘스트','m2n1':'AI는 어떻게 배우나','m2n2':'트랜스포머 (AI는 어떻게 언어를 배웠나)','m2n3':'LLM과 로컬 실행','m2n4':'AI는 문서와 사진에서 무엇을 꺼낼까?','m2n5':'[프로젝트] 이미지 생성 어플리케이션 만들기','m2n6':'여러 입력을 처리하는 모델들 (멀티모달)','m2n7':'[프로젝트] 폰 영상으로 3D 공간 만들기','m2n8':'AI가 새로 연 곳들','m2n9':'Main Quest — 도구 학습에서 적용 판단으로','m3n1':'거대 언어모델과 프롬프트','m3n2':'지시 설계 — 무엇이라고 시키는가','m3n3':'컨텍스트 엔지니어링과 서비스 설계','m3n4':'도구 설계 — 에이전트에게 무엇을 줄 것인가','m3n5':'Main Quest — RAG 가이드 챗봇 만들고 배포·평가','m4n1':'자동화와 에이전트','m4n2':'[프로젝트] 에이전트 하네스 톺아보기','m4n3':'멀티에이전트는 어떻게 적용할까?'};
-    var order=['adn1','adn2','adn3','adn4','adn5','m1n1','m1n2','m1n3','m1n4','m1n5','m1n6','m1n7','m2n1','m2n2','m2n3','m2n4','m2n5','m2n6','m2n7','m2n8','m2n9','m3n1','m3n2','m3n3','m3n4','m3n5','m4n1','m4n2','m4n3'];
+    var names={'adn1':'협업 툴 소개','adn2':'아이펠이란?','adn3':'퀘스트란?','adn4':'코딩 0줄로 여는 첫날','adn5':'Computational Thinking','m1n1':'작업대 마련하기','m1n2':'세 겹 & 게임','m1n3':'프레임워크','m1n4':'백엔드','m1n5':'데이터베이스','m1n6':'AI 에이전트 도구','m1n7':'메인 퀘스트','m2n1':'AI는 어떻게 배우나','m2n2':'트랜스포머 (AI는 어떻게 언어를 배웠나)','m2n3':'LLM과 로컬 실행','m2n4':'AI는 문서와 사진에서 무엇을 꺼낼까?','m2n5':'[프로젝트] 이미지 생성 어플리케이션 만들기','m2n6':'여러 입력을 처리하는 모델들 (멀티모달)','m2n7':'[프로젝트] 폰 영상으로 3D 공간 만들기','m2n8':'AI가 새로 연 곳들','m2n9':'Main Quest — 도구 학습에서 적용 판단으로','m3n1':'거대 언어모델과 프롬프트','m3n2':'지시 설계 — 무엇이라고 시키는가','m3n3':'컨텍스트 엔지니어링과 서비스 설계','m3n4':'도구 설계 — 에이전트에게 무엇을 줄 것인가','m3n5':'Main Quest — RAG 가이드 챗봇 만들고 배포·평가','m4n1':'자동화와 에이전트','m4n2':'[프로젝트] 에이전트 하네스 톺아보기','m4n3':'멀티에이전트는 어떻게 적용할까?','m4n4':'OpenClaw를 사용해보자!'};
+    var order=['adn1','adn2','adn3','adn4','adn5','m1n1','m1n2','m1n3','m1n4','m1n5','m1n6','m1n7','m2n1','m2n2','m2n3','m2n4','m2n5','m2n6','m2n7','m2n8','m2n9','m3n1','m3n2','m3n3','m3n4','m3n5','m4n1','m4n2','m4n3','m4n4'];
     var current='m1n1';
     function nodeOf(id){if(!id)return null;var m=id.match(/^(adn\d+|m\dn\d+)(?:-\d+)?$/);return m?m[1]:null;}
     function paintToc(){
