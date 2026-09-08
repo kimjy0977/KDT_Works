@@ -1,0 +1,7 @@
+README.md
+docs/INSTALL.md
+docs/OPERATIONS.md
+docs/internal/ops/handoff/HANDOFF-tutor.md
+services/api/config/settings.toml
+services/worker/config/settings.toml
+src/config/settings.toml
