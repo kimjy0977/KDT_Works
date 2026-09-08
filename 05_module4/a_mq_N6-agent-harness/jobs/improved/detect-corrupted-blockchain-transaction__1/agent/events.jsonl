@@ -1,0 +1,5 @@
+{"event": "model_start", "elapsed_seconds": 0.0015, "step": 1}
+{"event": "tool_start", "elapsed_seconds": 8.9098, "name": "read_file", "call_id": "call_lt60fqzn"}
+{"event": "tool_end", "elapsed_seconds": 8.9146, "name": "read_file", "call_id": "call_lt60fqzn", "ok": true}
+{"event": "model_start", "elapsed_seconds": 8.9152, "step": 2}
+{"event": "run_end", "elapsed_seconds": 61.4145, "status": "completed", "metrics": {"model_calls": 2, "tool_calls": 1, "tool_errors": 0, "input_tokens": 3158, "output_tokens": 1691, "elapsed_seconds": 61.41445889999159, "usage_known": true}}

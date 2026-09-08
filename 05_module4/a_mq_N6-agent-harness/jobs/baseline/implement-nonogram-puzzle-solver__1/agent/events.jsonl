@@ -1,0 +1,21 @@
+{"event": "model_start", "elapsed_seconds": 0.0015, "step": 1}
+{"event": "tool_start", "elapsed_seconds": 4.8746, "name": "list_files", "call_id": "call_noxq6go7"}
+{"event": "tool_end", "elapsed_seconds": 4.8811, "name": "list_files", "call_id": "call_noxq6go7", "ok": true}
+{"event": "model_start", "elapsed_seconds": 4.8814, "step": 2}
+{"event": "tool_start", "elapsed_seconds": 7.4546, "name": "read_file", "call_id": "call_bur9rmvp"}
+{"event": "tool_end", "elapsed_seconds": 7.4586, "name": "read_file", "call_id": "call_bur9rmvp", "ok": false}
+{"event": "model_start", "elapsed_seconds": 7.4589, "step": 3}
+{"event": "tool_start", "elapsed_seconds": 11.859, "name": "list_files", "call_id": "call_j3h0it13"}
+{"event": "tool_end", "elapsed_seconds": 11.8657, "name": "list_files", "call_id": "call_j3h0it13", "ok": true}
+{"event": "model_start", "elapsed_seconds": 11.866, "step": 4}
+{"event": "tool_start", "elapsed_seconds": 13.5124, "name": "read_file", "call_id": "call_aogmtcr3"}
+{"event": "tool_end", "elapsed_seconds": 13.5179, "name": "read_file", "call_id": "call_aogmtcr3", "ok": true}
+{"event": "model_start", "elapsed_seconds": 13.5183, "step": 5}
+{"event": "tool_start", "elapsed_seconds": 15.1152, "name": "list_files", "call_id": "call_un52v5da"}
+{"event": "tool_end", "elapsed_seconds": 15.1212, "name": "list_files", "call_id": "call_un52v5da", "ok": true}
+{"event": "model_start", "elapsed_seconds": 15.1217, "step": 6}
+{"event": "tool_start", "elapsed_seconds": 17.3098, "name": "read_file", "call_id": "call_zvlswhrn"}
+{"event": "tool_end", "elapsed_seconds": 17.3154, "name": "read_file", "call_id": "call_zvlswhrn", "ok": true}
+{"event": "model_start", "elapsed_seconds": 17.3158, "step": 7}
+{"event": "run_error", "elapsed_seconds": 76.6055, "error_type": "ValueError"}
+{"event": "run_end", "elapsed_seconds": 76.6093, "status": "failed", "metrics": {"model_calls": 7, "tool_calls": 6, "tool_errors": 1, "input_tokens": 11187, "output_tokens": 460, "elapsed_seconds": 76.60929860000033, "usage_known": false}}

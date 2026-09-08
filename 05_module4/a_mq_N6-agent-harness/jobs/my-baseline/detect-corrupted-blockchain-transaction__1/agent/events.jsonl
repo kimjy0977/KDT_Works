@@ -1,0 +1,5 @@
+{"elapsed_seconds": 0.0, "event": "model_start", "step": 1}
+{"elapsed_seconds": 6.0676, "event": "tool_start", "name": "read_file", "call_id": "call_3r0yqrj8"}
+{"elapsed_seconds": 6.0689, "event": "tool_end", "name": "read_file", "call_id": "call_3r0yqrj8", "ok": true}
+{"elapsed_seconds": 6.0692, "event": "model_start", "step": 2}
+{"elapsed_seconds": 37.945, "event": "run_end", "status": "completed", "metrics": {"model_calls": 2, "tool_calls": 1, "tool_errors": 0, "elapsed_seconds": 37.945, "usage_known": false, "input_tokens": null, "output_tokens": null}}

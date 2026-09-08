@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="12" skipped="0" tests="22" time="0.246" timestamp="2026-09-08T16:20:00.040986+09:00" hostname="DESKTOP-2IUAI3I"><testcase classname="test_outputs" name="test_solution_file_exists" time="0.001" /><testcase classname="test_outputs" name="test_solution_file_not_empty" time="0.001" /><testcase classname="test_outputs" name="test_solution_file_format" time="0.001" /><testcase classname="test_outputs" name="test_solution_all_digits_valid" time="0.001"><failure message="AssertionError: 位置(1,3)的数字0不在1-9范围内&#10;assert 1 &lt;= 0">def test_solution_all_digits_valid():
+        """测试4: 检查所有数字都在1-9范围内"""
+        grid = read_sudoku_grid('C:/Users/EAN22V01/Desktop/KDT/02_tutor/실습/m4n6-하네스랩/jobs/baseline/python-sudoku-solver-backtracking__1/workspace/app/solution.txt')
+    
+        for i, row in enumerate(grid):
+            assert len(row) == 9, f"第{i+1}行列数不是9"
+            for j, num in enumerate(row):
+&gt;               assert 1 &lt;= num &lt;= 9, f"位置({i+1},{j+1})的数字{num}不在1-9范围内"
+E               AssertionError: 位置(1,3)的数字0不在1-9范围内
+E               assert 1 &lt;= 0
+
+..\..\verifier\test_outputs.py:95: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_solution_rows_valid" time="0.001"><failure message="AssertionError: 第1行有重复数字: [5, 3, 0, 0, 7, 0, 0, 0, 0]&#10;assert 4 == 9&#10; +  where 4 = len({0, 3, 5, 7})">def test_solution_rows_valid():
+        """测试5: 检查每行没有重复数字"""
+        grid = read_sudoku_grid('C:/Users/EAN22V01/Desktop/KDT/02_tutor/실습/m4n6-하네스랩/jobs/baseline/python-sudoku-solver-backtracking__1/workspace/app/solution.txt')
+    
+        for i, row in enumerate(grid):
+            unique_nums = set(row)
+&gt;           assert len(unique_nums) == 9, f"第{i+1}行有重复数字: {row}"
+E           AssertionError: 第1行有重复数字: [5, 3, 0, 0, 7, 0, 0, 0, 0]
+E           assert 4 == 9
+E            +  where 4 = len({0, 3, 5, 7})
+
+..\..\verifier\test_outputs.py:103: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_solution_columns_valid" time="0.001"><failure message="AssertionError: 第1列有重复数字: [5, 6, 0, 8, 4, 7, 0, 0, 0]&#10;assert 6 == 9&#10; +  where 6 = len({0, 4, 5, 6, 7, 8})">def test_solution_columns_valid():
+        """测试6: 检查每列没有重复数字"""
+        grid = read_sudoku_grid('C:/Users/EAN22V01/Desktop/KDT/02_tutor/실습/m4n6-하네스랩/jobs/baseline/python-sudoku-solver-backtracking__1/workspace/app/solution.txt')
+    
+        for col in range(9):
+            column = [grid[row][col] for row in range(9)]
+            unique_nums = set(column)
+&gt;           assert len(unique_nums) == 9, f"第{col+1}列有重复数字: {column}"
+E           AssertionError: 第1列有重复数字: [5, 6, 0, 8, 4, 7, 0, 0, 0]
+E           assert 6 == 9
+E            +  where 6 = len({0, 4, 5, 6, 7, 8})
+
+..\..\verifier\test_outputs.py:112: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_solution_boxes_valid" time="0.001"><failure message="AssertionError: 宫格(1,1)有重复数字: [5, 3, 0, 6, 0, 0, 0, 9, 8]&#10;assert 6 == 9&#10; +  where 6 = len({0, 3, 5, 6, 8, 9})">def test_solution_boxes_valid():
+        """测试7: 检查每个3x3宫格没有重复数字"""
+        grid = read_sudoku_grid('C:/Users/EAN22V01/Desktop/KDT/02_tutor/실습/m4n6-하네스랩/jobs/baseline/python-sudoku-solver-backtracking__1/workspace/app/solution.txt')
+    
+        for box_row in range(3):
+            for box_col in range(3):
+                box = []
+                for i in range(3):
+                    for j in range(3):
+                        box.append(grid[box_row * 3 + i][box_col * 3 + j])
+                unique_nums = set(box)
+&gt;               assert len(unique_nums) == 9, f"宫格({box_row+1},{box_col+1})有重复数字: {box}"
+E               AssertionError: 宫格(1,1)有重复数字: [5, 3, 0, 6, 0, 0, 0, 9, 8]
+E               assert 6 == 9
+E                +  where 6 = len({0, 3, 5, 6, 8, 9})
+
+..\..\verifier\test_outputs.py:125: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_solution_complete_validation" time="0.001"><failure message="AssertionError: 数独解答无效: 第1行包含无效数字&#10;assert False">def test_solution_complete_validation():
+        """测试8: 完整的数独解答验证"""
+        grid = read_sudoku_grid('C:/Users/EAN22V01/Desktop/KDT/02_tutor/실습/m4n6-하네스랩/jobs/baseline/python-sudoku-solver-backtracking__1/workspace/app/solution.txt')
+        valid, msg = validate_sudoku_solution(grid)
+&gt;       assert valid, f"数独解答无效: {msg}"
+E       AssertionError: 数独解答无效: 第1行包含无效数字
+E       assert False
+
+..\..\verifier\test_outputs.py:131: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_solution_matches_original_puzzle" time="0.001" /><testcase classname="test_outputs" name="test_solution_fills_all_empty_cells" time="0.001"><failure message="AssertionError: 应该填充51个空格，实际填充了0个&#10;assert 0 == 51">def test_solution_fills_all_empty_cells():
+        """测试10: 检查所有空白格子都被填充"""
+        puzzle_grid = read_sudoku_grid('C:/Users/EAN22V01/Desktop/KDT/02_tutor/실습/m4n6-하네스랩/jobs/baseline/python-sudoku-solver-backtracking__1/workspace/app/puzzle.txt')
+        solution_grid = read_sudoku_grid('C:/Users/EAN22V01/Desktop/KDT/02_tutor/실습/m4n6-하네스랩/jobs/baseline/python-sudoku-solver-backtracking__1/workspace/app/solution.txt')
+    
+        empty_count = sum(1 for row in puzzle_grid for cell in row if cell == 0)
+        filled_count = 0
+    
+        for i in range(9):
+            for j in range(9):
+                if puzzle_grid[i][j] == 0 and solution_grid[i][j] != 0:
+                    filled_count += 1
+    
+&gt;       assert filled_count == empty_count, f"应该填充{empty_count}个空格，实际填充了{filled_count}个"
+E       AssertionError: 应该填充51个空格，实际填充了0个
+E       assert 0 == 51
+
+..\..\verifier\test_outputs.py:156: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_solution_no_zeros" time="0.001"><failure message="AssertionError: 位置(1,3)仍然是0，未被填充&#10;assert 0 != 0">def test_solution_no_zeros():
+        """测试11: 检查解答中没有0（所有格子都填充）"""
+        grid = read_sudoku_grid('C:/Users/EAN22V01/Desktop/KDT/02_tutor/실습/m4n6-하네스랩/jobs/baseline/python-sudoku-solver-backtracking__1/workspace/app/solution.txt')
+    
+        for i, row in enumerate(grid):
+            for j, num in enumerate(row):
+&gt;               assert num != 0, f"位置({i+1},{j+1})仍然是0，未被填充"
+E               AssertionError: 位置(1,3)仍然是0，未被填充
+E               assert 0 != 0
+
+..\..\verifier\test_outputs.py:166: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_solution_each_row_sum_45" time="0.001"><failure message="AssertionError: 第1行数字之和是15，应该是45&#10;assert 15 == 45">def test_solution_each_row_sum_45():
+        """测试12: 检查每行数字之和为45（1+2+...+9=45）"""
+        grid = read_sudoku_grid('C:/Users/EAN22V01/Desktop/KDT/02_tutor/실습/m4n6-하네스랩/jobs/baseline/python-sudoku-solver-backtracking__1/workspace/app/solution.txt')
+    
+        for i, row in enumerate(grid):
+            row_sum = sum(row)
+&gt;           assert row_sum == 45, f"第{i+1}行数字之和是{row_sum}，应该是45"
+E           AssertionError: 第1行数字之和是15，应该是45
+E           assert 15 == 45
+
+..\..\verifier\test_outputs.py:174: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_solution_each_column_sum_45" time="0.001"><failure message="AssertionError: 第1列数字之和是30，应该是45&#10;assert 30 == 45">def test_solution_each_column_sum_45():
+        """测试13: 检查每列数字之和为45"""
+        grid = read_sudoku_grid('C:/Users/EAN22V01/Desktop/KDT/02_tutor/실습/m4n6-하네스랩/jobs/baseline/python-sudoku-solver-backtracking__1/workspace/app/solution.txt')
+    
+        for col in range(9):
+            column = [grid[row][col] for row in range(9)]
+            col_sum = sum(column)
+&gt;           assert col_sum == 45, f"第{col+1}列数字之和是{col_sum}，应该是45"
+E           AssertionError: 第1列数字之和是30，应该是45
+E           assert 30 == 45
+
+..\..\verifier\test_outputs.py:183: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_solution_each_box_sum_45" time="0.001"><failure message="AssertionError: 宫格(1,1)数字之和是31，应该是45&#10;assert 31 == 45">def test_solution_each_box_sum_45():
+        """测试14: 检查每个3x3宫格数字之和为45"""
+        grid = read_sudoku_grid('C:/Users/EAN22V01/Desktop/KDT/02_tutor/실습/m4n6-하네스랩/jobs/baseline/python-sudoku-solver-backtracking__1/workspace/app/solution.txt')
+    
+        for box_row in range(3):
+            for box_col in range(3):
+                box = []
+                for i in range(3):
+                    for j in range(3):
+                        box.append(grid[box_row * 3 + i][box_col * 3 + j])
+                box_sum = sum(box)
+&gt;               assert box_sum == 45, f"宫格({box_row+1},{box_col+1})数字之和是{box_sum}，应该是45"
+E               AssertionError: 宫格(1,1)数字之和是31，应该是45
+E               assert 31 == 45
+
+..\..\verifier\test_outputs.py:196: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_solution_corners_valid" time="0.001"><failure message="AssertionError: 右上角位置(1,9)的数字0无效&#10;assert 1 &lt;= 0">def test_solution_corners_valid():
+        """测试15: 检查四个角的数字有效性"""
+        grid = read_sudoku_grid('C:/Users/EAN22V01/Desktop/KDT/02_tutor/실습/m4n6-하네스랩/jobs/baseline/python-sudoku-solver-backtracking__1/workspace/app/solution.txt')
+    
+        corners = [
+            (0, 0, "左上角"),
+            (0, 8, "右上角"),
+            (8, 0, "左下角"),
+            (8, 8, "右下角")
+        ]
+    
+        for row, col, name in corners:
+            num = grid[row][col]
+&gt;           assert 1 &lt;= num &lt;= 9, f"{name}位置({row+1},{col+1})的数字{num}无效"
+E           AssertionError: 右上角位置(1,9)的数字0无效
+E           assert 1 &lt;= 0
+
+..\..\verifier\test_outputs.py:213: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_solution_center_valid" time="0.001"><failure message="AssertionError: 中心位置的数字0无效&#10;assert 1 &lt;= 0">def test_solution_center_valid():
+        """测试16: 检查中心位置的数字有效性"""
+        grid = read_sudoku_grid('C:/Users/EAN22V01/Desktop/KDT/02_tutor/실습/m4n6-하네스랩/jobs/baseline/python-sudoku-solver-backtracking__1/workspace/app/solution.txt')
+        center_num = grid[4][4]
+&gt;       assert 1 &lt;= center_num &lt;= 9, f"中心位置的数字{center_num}无效"
+E       AssertionError: 中心位置的数字0无效
+E       assert 1 &lt;= 0
+
+..\..\verifier\test_outputs.py:219: AssertionError</failure></testcase><testcase classname="test_outputs" name="test_easy_puzzle_can_be_solved" time="0.002" /><testcase classname="test_outputs" name="test_hard_puzzle_can_be_solved" time="0.001" /><testcase classname="test_outputs" name="test_already_solved_puzzle" time="0.001" /><testcase classname="test_outputs" name="test_solution_generated_within_reasonable_time" time="0.000" /><testcase classname="test_outputs" name="test_puzzle_file_exists" time="0.000" /><testcase classname="test_outputs" name="test_puzzle_file_format_valid" time="0.001" /></testsuite></testsuites>

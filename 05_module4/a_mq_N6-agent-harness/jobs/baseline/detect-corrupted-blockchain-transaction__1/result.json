@@ -1,0 +1,51 @@
+{
+  "id": "3055ae6c0632424296d842f126d51fe6",
+  "task_name": "detect-corrupted-blockchain-transaction",
+  "trial_name": "detect-corrupted-blockchain-transaction__1",
+  "started_at": "2026-09-08T07:20:00.434724+00:00",
+  "finished_at": "2026-09-08T07:21:23.230303+00:00",
+  "agent_result": {
+    "status": "failed",
+    "answer": "Execution failed (ValueError)",
+    "metrics": {
+      "model_calls": 3,
+      "tool_calls": 2,
+      "tool_errors": 0,
+      "input_tokens": 2438,
+      "output_tokens": 227,
+      "elapsed_seconds": 82.21875959998579,
+      "usage_known": false
+    },
+    "n_input_tokens": null,
+    "n_output_tokens": null,
+    "n_cache_tokens": null,
+    "cost_usd": null
+  },
+  "fixture_sha256": {
+    "app/blockchain_ledger.json": "9462ad2a46cc778474f7c29af6d6729d4ada731ee2125ccc3c403c6d88cbc86e"
+  },
+  "verifier_result": {
+    "rewards": {
+      "reward": 0
+    },
+    "reward": 0,
+    "checks_passed": 1,
+    "checks_total": 10,
+    "checks_failed": 1,
+    "checks_errors": 8,
+    "checks_skipped": 0,
+    "cleanup_incomplete": false,
+    "exit_code": 1,
+    "timed_out": false,
+    "truncated": false,
+    "details": {
+      "junit": "C:\\Users\\EAN22V01\\Desktop\\KDT\\02_tutor\\실습\\m4n6-하네스랩\\jobs\\baseline\\detect-corrupted-blockchain-transaction__1\\verifier\\results.xml",
+      "stdout": "C:\\Users\\EAN22V01\\Desktop\\KDT\\02_tutor\\실습\\m4n6-하네스랩\\jobs\\baseline\\detect-corrupted-blockchain-transaction__1\\verifier\\stdout.txt",
+      "stderr": "C:\\Users\\EAN22V01\\Desktop\\KDT\\02_tutor\\실습\\m4n6-하네스랩\\jobs\\baseline\\detect-corrupted-blockchain-transaction__1\\verifier\\stderr.txt"
+    }
+  },
+  "exception_info": {
+    "exception_type": "AgentIncomplete",
+    "message": "failed"
+  }
+}

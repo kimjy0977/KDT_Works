@@ -1,0 +1,8 @@
+{"elapsed_seconds": 0.0, "event": "model_start", "step": 1}
+{"elapsed_seconds": 16.676, "event": "tool_start", "name": "list_files", "call_id": "call_0771io63"}
+{"elapsed_seconds": 16.6776, "event": "tool_end", "name": "list_files", "call_id": "call_0771io63", "ok": true}
+{"elapsed_seconds": 16.678, "event": "model_start", "step": 2}
+{"elapsed_seconds": 20.4945, "event": "tool_start", "name": "read_file", "call_id": "call_hwmpn92n"}
+{"elapsed_seconds": 20.4957, "event": "tool_end", "name": "read_file", "call_id": "call_hwmpn92n", "ok": true}
+{"elapsed_seconds": 20.4959, "event": "model_start", "step": 3}
+{"elapsed_seconds": 56.8885, "event": "run_end", "status": "completed", "metrics": {"model_calls": 3, "tool_calls": 2, "tool_errors": 0, "elapsed_seconds": 56.8885, "usage_known": false, "input_tokens": null, "output_tokens": null}}

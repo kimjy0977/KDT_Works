@@ -1,0 +1,13 @@
+{
+ "status": "step_limit",
+ "answer": "",
+ "metrics": {
+  "model_calls": 40,
+  "tool_calls": 40,
+  "tool_errors": 17,
+  "elapsed_seconds": 205.3753,
+  "usage_known": false,
+  "input_tokens": null,
+  "output_tokens": null
+ }
+}
