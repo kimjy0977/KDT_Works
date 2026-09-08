@@ -646,6 +646,12 @@
       <a href="#m4n5-14">14강 자기 과업에 맞게 확장하기</a>
       <a href="#m4n5-15">15강 실행 경험과 Skill 개선 연구</a>
       </div>
+        <a class="tochead" href="#m4n6">노드6 · 나만의 에이전트 하네스 만들기</a>
+        <div class="tocgroup" data-g="m4n6">
+          <a href="#m4n6-1">1강 내 하네스의 사용자와 작업</a>
+          <a href="#m4n6-2">2강 미완성 PRD와 설계 대화</a>
+          <a href="#m4n6-3">3강 플랫폼과 언어 선택</a>
+        </div>
     </nav>
 
     <main>
@@ -10238,6 +10244,255 @@ claude mcp add --transport stdio --scope project google-sheets-reader -- \
         <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드5 15강 (step 27047). 인용 근거: WikiSkill 논문(Google Research 등)의 실험 구성과 검증 절차 · Figure 1. ※ 이 연구는 <b>모듈4 노드2 5강</b>에서도 「경험·스킬 축적」의 최근 사례로 다뤘다 — <a href="#m4n2-5">노드2 5강</a>과 교차해 읽으면 좋다.</span></div>
       </section>
 
+            <!-- ================= 모듈4 · 노드6 ================= -->
+      <section class="section coursehead" id="m4n6">
+        <div class="badge">모듈4 · 노드6<span style="opacity:.7"> · 「AI Agent 파헤치기_Agt1」</span></div>
+        <h2>나만의 에이전트 하네스 만들기 <span style="font-size:.86rem;opacity:.85">(12강 · 1~3강 기록)</span></h2>
+        <p class="lead">노드5가 <b>「내 업무에 맞는 도구를 직접 만들어 붙이기」</b>였다면,
+        노드6은 <span class="hl">「그 도구들을 «돌리는 판» 자체를 내 손으로 짓기」</span>다.
+        노드2에서 <b>남의 하네스 일곱 개를 열어 봤고</b>, 이번엔 <b>내 것을 하나 만든다.</b></p>
+        <div class="callout"><b>이 노드가 도착하는 곳</b><br>
+          <span class="fine">만든 뒤에 <b>고정된 터미널 과제 «열 개»</b>로 기준 성능을 잰다.
+          실패 기록에서 개선할 부분을 찾고 <b>같은 조건으로 다시 실행</b>해,
+          <span class="hl2">«구현체»와 «실험 결과»를 «함께» 제출한다.</span>
+          Python 예시 구현과 평가 연결 도구가 제공되므로 <b>내 명세와 코드가 «실제 결과»로 이어지는지 비교</b>할 수 있다.</span></div>
+        <div class="table-wrap"><table><thead><tr><th>강</th><th>제목</th><th>이 노드에서 맡는 자리</th></tr></thead><tbody>
+          <tr><td>1</td><td>내 하네스의 사용자와 작업</td><td rowspan="7">설계 — <b>PRD의 빈칸 D01~D07을 «대화로» 채운다</b></td></tr>
+          <tr><td>2</td><td>미완성 PRD와 설계 대화</td></tr>
+          <tr><td>3</td><td>플랫폼과 언어 선택</td></tr>
+          <tr><td>4</td><td>기능 범위와 모델 제공자</td></tr>
+          <tr><td>5</td><td>실행 흐름과 상태 설계</td></tr>
+          <tr><td>6</td><td>API와 도구의 인터페이스</td></tr>
+          <tr><td>7</td><td>완료 조건과 검증 시나리오</td></tr>
+          <tr><td>8</td><td>첫 작업부터 제품 기능까지 구현</td><td rowspan="2">구현</td></tr>
+          <tr><td>9</td><td>실행 가능한 Python 하네스 읽기</td></tr>
+          <tr><td>10</td><td>실제 벤치마크의 로컬 10문항 평가</td><td rowspan="3">평가와 제출</td></tr>
+          <tr><td>11</td><td>점수 모니터링과 비교 실험</td></tr>
+          <tr><td>12</td><td>실험 결과와 구현체 제출</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section class="section" id="m4n6-1"><h2>1강 · 내 하네스의 사용자와 작업 <span class="dur">이론</span></h2>
+        <p class="lead"><span class="hl3">"이 일을 AI가 대신 정리해 주면 좋겠다"는 생각과, «실제로 맡길 수 있는 요청»은 다르다.</span>
+        어느 폴더의 자료인지, 확정된 일과 미정인 일을 어떻게 구별할지, 결과를 화면에만 보여 줄지 파일로 남길지에 따라 <b>필요한 프로그램이 달라진다.</b></p>
+        <p class="fine">코딩 작업도 같다. <b>"코드를 잘 고쳐 주는 에이전트"</b>는 바라는 «방향»이지만 무엇을 만들고 확인할지 정하기엔 넓다.
+        <span class="hl2">"내가 지정한 작은 프로젝트에서 «실패하는 테스트»를 확인하고, 관련 코드를 수정한 뒤 «같은 검사를 다시 실행»한다"</span>라고 적으면
+        <b>«작업 대상»과 «완료의 근거»가 보인다.</b></p>
+        <div class="callout"><b>🎯 「범용」이라는 말의 뜻</b><br>
+          처음부터 모든 일을 해야 한다는 뜻이 <b>아니다.</b>
+          <span class="hl">자료 읽기와 코드 수정처럼 «서로 다른 작업이 공유하는 실행 구조»를 만들고, 필요한 도구를 연결해 «범위를 넓힌다»는 뜻으로 쓴다.</span></div>
+
+        <h3>사용자가 「결과를 판단할 수 있는」 시나리오</h3>
+        <p class="fine">먼저 <b>사용할 사람 «한 명»</b>을 떠올린다(자기 자신이어도 좋다).
+        <span class="hl3">실제 개인 자료를 가져올 필요는 없으며 «같은 상황을 재현한 가상 자료»로 시작할 수 있다.</span></p>
+        <div class="table-wrap"><table><thead><tr><th>구분</th><th>자료 정리 시나리오</th><th>코딩 시나리오</th></tr></thead><tbody>
+          <tr><td><b>사용자</b></td><td>회의 뒤 다음 할 일을 정리하는 팀원</td><td>작은 프로그램을 유지·보수하는 개발자</td></tr>
+          <tr><td><b>시작 상황</b></td><td>회의록과 체크리스트가 <b>여러 파일로 나뉨</b></td><td>특정 입력에서 <b>테스트가 실패함</b></td></tr>
+          <tr><td><b>요청</b></td><td>확정된 일과 확인할 일을 <b>구별해</b> 정리</td><td>실패 원인을 확인하고 <b>필요한 코드 수정</b></td></tr>
+          <tr><td><b>필요한 근거</b></td><td><b>실제 읽은 파일</b>과 관련 문장</td><td><b>변경 내용</b>과 <b>다시 실행한 검사 결과</b></td></tr>
+          <tr><td><b>원하지 «않는» 행동</b></td><td><span class="hl">없는 담당자나 일정을 «추측해 확정»</span></td><td><span class="hl">테스트의 «기대값을 바꿔» 실패를 숨김</span></td></tr>
+        </tbody></table></div>
+        <p class="fine">표는 <b>그대로 따라야 할 주제가 아니라 «자기 시나리오를 구체화하는 예시»</b>다. 자료 이름만 바꾸기보다 <b>어떤 결과가 «유용한지»</b>를 생각한다 —
+        <span class="hl2">요약이 짧아도 «담당자가 빠지면» 쓸 수 없고, 코드가 바뀌어도 «검사를 하지 않았다면» 수정이 맞는지 알기 어렵다.</span></p>
+        <div class="notice key"><b>★"파일을 읽었다"는 «말»과 «실제 읽기»는 다르다</b><br>
+          <span class="fine">사용자는 <b>결과 «문장»뿐 아니라 «어떤 행동이 실행됐는지»</b>도 확인하고 싶다 —
+          <span class="hl">이 기대가 뒤에서 «진행 상태»와 «실행 기록»을 설계하는 이유가 된다.</span></span></div>
+
+        <h3>모델과, 「직접 만들」 하네스</h3>
+        <p class="fine">모델은 전달받은 내용을 바탕으로 <b>다음 «행동이나 답변»을 생성</b>한다.
+        <span class="hl3">파일을 읽는 것이 필요하다고 «판단»할 수 있지만, 그 판단만으로 내 컴퓨터의 파일이 «열리지는» 않는다</span> — <b>파일을 읽는 프로그램이 따로 실행돼야 한다.</b><br>
+        모델의 요청을 <b>실제 실행과 연결하고 그 결과를 다시 전달하는 프로그램</b>이 <b>하네스(harness)</b>다.</p>
+        <div class="table-wrap"><table><thead><tr><th>#</th><th>하네스가 하는 일</th></tr></thead><tbody>
+          <tr><td>①</td><td><b>사용자 요청</b>과 <b>사용할 수 있는 기능</b>을 모델에게 전달</td></tr>
+          <tr><td>②</td><td>모델이 <b>어떤 기능을 요청했는지 «해석»</b></td></tr>
+          <tr><td>③</td><td><span class="hl">«실행 «가능»한 요청인지 확인»하고 실제 기능을 실행</span></td></tr>
+          <tr><td>④</td><td><b>성공 결과나 «오류»</b>를 모델에게 돌려줌</td></tr>
+          <tr><td>⑤</td><td>다음 행동을 이어가거나 — <b>답변·오류·«중단 조건»</b>에 따라 끝냄</td></tr>
+        </tbody></table></div>
+        <p class="fine">모델에게 제공하는 실행 기능이 <b>도구(tool)</b>다(파일 읽기·문자열 검색·정해진 테스트 실행).
+        <b>도구 호출은 «그 기능을 실행해 달라»는 모델의 요청</b>이다 —
+        필요한 파일을 못 찾았다면 <b>오류를 돌려주고</b>, 모델이 <b>다른 경로를 확인하거나 사용자에게 질문</b>할 수 있어야 한다.</p>
+        <div class="notice key"><b>★무엇을 모델이 정하고, 무엇을 하네스가 쥐나</b><br>
+          <span class="fine"><span class="hl2">«어떤 파일을 읽을지»는 모델이 선택할 수 있지만 — «작업 폴더»·«허용한 기능»·«승인과 중단 조건»은 «하네스»가 관리한다.</span><br>
+          <b>결과를 보고 다시 판단하는 이 반복이 «자료 작업»과 «코딩 작업»의 «공통 구조»다.</b></span></div>
+
+        <h3>PRD에 남길 사용자 기대</h3>
+        <p class="fine">바로 <i>"하네스를 만들어 줘"</i>라고 요청할 수도 있다. <span class="hl">하지만 «빠진 결정»은 AI가 «대신 채우게» 된다</span> —
+        터미널 도구를 생각했는데 <b>웹 서버가 만들어지거나</b>, 파일 변경 «전»에 확인하고 싶었는데 <b>곧바로 저장하는 기능</b>이 들어갈 수 있다.</p>
+        <div class="callout"><b>📄 PRD</b>(Product Requirements Document, 제품 요구사항 문서)<br>
+          <b>무엇을 만들고 어떤 동작을 기대하는지</b> 적어 <b>«구현과 검증의 기준»</b>으로 삼는 문서다.
+          <span class="hl3">분량을 늘리는 것이 목적은 아니다</span> —
+          <b>"사용자가 무엇을 요청했을 때 프로그램이 어떻게 행동해야 하는가"</b>를 함께 확인할 수 있으면 된다.</div>
+        <p class="fine"><b>"범용 에이전트 지원"</b>보다 다음 문장이 구현에 도움이 된다.</p>
+        <pre><code>사용자가 지정한 자료 폴더에서 관련 내용을 찾아 정리한다.
+자료에 없는 정보는 «확정하지 않고», 사용한 파일을 결과에 «표시»한다.</code></pre>
+        <p class="fine">여기에 코딩 시나리오를 더하면 <b>같은 하네스가 «무엇을 재사용»하고 «무엇을 추가»해야 할지</b>가 드러난다.
+        아직 테스트 명령이나 승인 방식을 모두 정할 필요는 없다 —
+        <span class="hl2">이번 단계에서는 «누가 어떤 일을 맡기며, 무엇을 좋은 결과로 판단할지»를 먼저 적는다.</span></p>
+
+        <h3>★개발 AI와 「완성할 에이전트」를 구별한다</h3>
+        <div class="notice key"><b>Claude Code·OpenCode는 「설계·구현을 돕는 개발 협업 도구」다</b><br>
+          <span class="fine">AI에게 코드를 작성하게 하거나 오류 분석을 맡겨도 된다. 다만
+          <span class="hl">«개발 AI가 대신 자료를 읽어 답한 결과»와 «내가 만든 하네스가 실제로 실행한 결과»를 «구분»해야 한다.</span><br>
+          Claude Code에게 <i>"폴더의 자료를 요약해 줘"</i>라고 하면 <b>개발 도구 «자체»의 기능으로</b> 작업할 수 있다 —
+          <b>이것만으로 «내 하네스가 구현되었다»고 볼 수는 없다.</b>
+          <span class="hl2">만든 프로그램을 «별도로 실행»하고, 그 프로그램이 «모델에 요청하고 도구를 실행한 기록»을 확인해야 한다.</span></span></div>
+        <div class="notice warn"><b>⚠ 이 수업의 경계선</b><br>
+          <span class="fine">API 통신 라이브러리 등은 활용하되, <b>제품 «내부»의 «모델·도구 반복»을 «완성된 에이전트 CLI나 Agent SDK»에 통째로 넘기지 않는다.</b>
+          <span class="hl3">그 방식으로 «기존 실행 도구를 조립하는» 경험은 «다음 카드뉴스 제작 수업»에서 다룬다.</span></span></div>
+
+        <h3>첫 사용자 결정(D01) 기록하기</h3>
+        <p class="fine">하네스 설계 자료를 내려받아 개발 도우미의 작업 폴더로 연다. <b><code>PRD.md</code>에는 일부 결정이 «비어» 있다.</b> 이번에는 <b>사용자와 업무에 해당하는 D01</b>부터 구체화한다.</p>
+        <pre><code>내가 쓸 자료 정리·코딩 하네스를 설계하고 싶어.
+PRD의 사용자와 작업부터 같이 구체화하자.</code></pre>
+        <p class="fine"><span class="hl">AI가 제시한 «기능 목록»을 바로 받아들이기보다</span> — <b>자기 자료 작업 «하나»와 코딩 작업 «하나»</b>를 골라 설명한다.
+        각각 <b>어떤 입력을 주고 · 어떤 결과를 확인하고 · 무엇을 «원하지 않는지»</b>를 적는다.
+        <span class="hl3">이 단계에서는 «구현을 시작하도록 요청하지 않는다».</span></p>
+        <div class="notice key"><b>★완료 판정 — 「D01을 읽었을 때 다른 사람이 «사용 장면»을 떠올릴 수 있으면」</b></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드6 1강 (step 27048) 「내 하네스의 사용자와 작업」.</span></div>
+      </section>
+
+      <section class="section" id="m4n6-2"><h2>2강 · 미완성 PRD와 설계 대화 <span class="dur">이론</span></h2>
+        <p class="lead"><i>"내 파일을 정리하고 코드를 고치는 에이전트를 만들어 줘."</i> — 이 요청에는 «방향»이 있지만 <b>구현에 필요한 선택은 아직 많다.</b>
+        <span class="hl2">AI가 코드를 «작성할 수 있다»고 해서 이 선택들이 «자동으로 내 의도와 같아지는» 것은 아니다.</span></p>
+        <p class="fine">그래서 <b>완성 코드를 따라 실행하는 대신 «일부가 비어 있는» 설계 자료로 시작</b>한다 —
+        AI와 대화하며 미결정 사항을 구체화하고, <b>합의한 내용을 문서에 남긴 뒤</b> 하네스를 구현한다.</p>
+        <pre><code># harness-design-kit 폴더를 Claude Code 또는 OpenCode의 작업 폴더로 열고
+README와 설계 문서를 읽고, 아직 정하지 않은 것부터 같이 정하자. 코드는 아직 만들지 마.</code></pre>
+
+        <h3>문서 일곱 개가 각각 맡는 역할</h3>
+        <div class="table-wrap"><table><thead><tr><th>문서</th><th>대화에서 맡는 역할</th></tr></thead><tbody>
+          <tr><td><code>README.md</code></td><td>자료를 사용하는 <b>순서와 시작점</b></td></tr>
+          <tr><td><code>AGENTS.md</code> · <code>CLAUDE.md</code></td><td>개발 도우미가 따를 <b>협업 지침</b></td></tr>
+          <tr><td><code>PRD.md</code></td><td>사용자·업무·제품 요구사항과 <b>«미결정» 선택</b></td></tr>
+          <tr><td><code>DECISIONS.md</code></td><td>선택한 내용과 <b>«선택 이유»</b></td></tr>
+          <tr><td><code>INTERFACES.md</code></td><td>구성요소가 주고받을 <b>입력·출력 «약속»</b></td></tr>
+          <tr><td><code>ACCEPTANCE.md</code></td><td><b>완료 여부를 판단할 «검증 기준»</b></td></tr>
+          <tr><td><code>IMPLEMENTATION_PLAN.md</code></td><td>합의한 설계를 <b>구현할 순서</b></td></tr>
+        </tbody></table></div>
+        <p class="fine"><span class="hl3">처음부터 «모든 문서를 완벽하게» 채울 필요는 없다.</span>
+        <b>사용자와 작업을 정하면 PRD가 구체화되고, 그 결정을 «구현하려고 입력과 출력을 정하면» 인터페이스 문서가 구체화된다.</b>
+        같은 설명을 여러 파일에 길게 <b>복제하기보다 «각 문서의 역할에 맞춰 연결»</b>한다.</p>
+
+        <h3>★질문 · 기록 · 합의의 반복 — ID와 상태</h3>
+        <div class="table-wrap"><table><thead><tr><th>상태</th><th>뜻</th></tr></thead><tbody>
+          <tr><td><code>OPEN</code></td><td>아직 <b>결정하지 않았다</b></td></tr>
+          <tr><td><code>CHOSEN</code></td><td>선택을 <b>합의했다</b></td></tr>
+          <tr><td><code>DEFERRED</code></td><td><span class="hl">«필요 없다»는 뜻이 «아니라» — «나중에 다루기로» 했다는 뜻</span></td></tr>
+        </tbody></table></div>
+        <p class="fine">PRD에는 선택을 추적할 <b>ID</b>가 있다 — <b>D01</b>=사용자와 업무, <b>D02</b>=플랫폼, <b>D03</b>=언어처럼 <b>하나의 «결정 대상»</b>을 가리킨다.</p>
+        <div class="callout"><b>💬 대화의 예 — 「범위를 좁히는」 방식</b><br>
+          <span class="fine"><b>학생:</b> 우선 내가 터미널에서 쓸 거야. 실습 폴더의 자료를 찾아보고, 나중에는 코드도 고치고 싶어.<br>
+          <b>AI:</b> 첫 동작은 파일을 읽고 요약하는 작업으로 잡고, 쓰기와 테스트 실행은 그다음 단계로 확장할 수 있습니다.<br>
+          <b>학생:</b> 좋아. <b>읽기는 실습 폴더 «안»으로 제한</b>하자. <b>이 선택과 «이유»를 기록해 줘.</b></span><br>
+          <span class="fine" style="display:block;margin-top:6px">이 대화는 <b>«최종 정답»이 아니라 «범위를 좁히는 예»</b>다. 다른 학생은 웹 화면이 필요할 수 있고 익숙한 언어도 다르다 —
+          <span class="hl2">중요한 것은 «선택을 숨은 가정으로 남기지 않는» 것이다.</span></span></div>
+        <div class="table-wrap"><table><thead><tr><th>AI에게 맡길 수 있는 일</th><th>학생이 판단할 일</th></tr></thead><tbody>
+          <tr><td>대안을 <b>설명</b>하고 · 결정의 <b>영향</b>을 짚고 · 합의한 내용을 <b>문서로 작성</b></td><td><b>사용할 장면</b> · <b>허용할 행동</b> · <b>감수할 불편</b></td></tr>
+        </tbody></table></div>
+        <p class="fine">기술적 차이가 낯설다면 <i>"추천해 줘"</i>에 이어 <b><i>"내 작업에서는 «왜» 그 선택이 나은지 설명해 줘"</i></b>라고 요청할 수 있다.</p>
+
+        <h3>★지침 파일과 「실제 행동」은 다르다</h3>
+        <div class="table-wrap"><table><thead><tr><th>도구</th><th>지침 파일</th></tr></thead><tbody>
+          <tr><td><b>Claude Code</b></td><td><code>CLAUDE.md</code>를 프로젝트 지침으로 읽으며 <b>다른 파일을 «가져오는» 문법</b>도 제공한다. <span class="hl3"><code>AGENTS.md</code>를 «자동으로 같은 방식으로 읽는다»고 가정하지 말고, 자료의 <code>CLAUDE.md</code>가 «공통 지침을 어떻게 연결하는지» 확인</span></td></tr>
+          <tr><td><b>OpenCode</b></td><td><code>AGENTS.md</code>를 통해 프로젝트 지침을 제공</td></tr>
+        </tbody></table></div>
+        <p class="fine"><span class="hl">도구마다 «파일 탐색과 적용 규칙»이 다르므로 «같은 폴더 이름만 있다고 동일한 행동이 보장되지는» 않는다.</span></p>
+        <div class="notice key"><b>★"미결정 사항을 먼저 질문하라"는 문장은 「유도」이지 「강제」가 아니다</b><br>
+          <span class="fine">이것은 <b>AI의 «행동을 유도»하는 지침</b>이다 —
+          <span class="hl2">제품에 구현한 «필수 입력 검사»처럼 «강제로 실행을 막는 장치»가 아니다.</span><br>
+          AI가 질문 없이 선택을 채우거나 구현을 시작하려 하면 바로잡는다:</span>
+          <pre style="margin:8px 0"><code>내가 답하지 않은 선택은 OPEN으로 남겨 줘.
+합의한 내용만 기록하고 다음 질문을 해 줘.</code></pre>
+          <span class="fine"><b>«문서를 읽었다»고 «말하는지»만 보지 말고, «PRD의 미결정 항목을 «실제로» 짚는지» 확인한다.</b>
+          질문이 너무 많으면 «지금 결정할 것»과 «미룰 것»을 나누되 —
+          <span class="hl">«중요한 결정»을 AI가 «조용히 대신 정하게» 두지는 않는다.</span></span></div>
+
+        <h3>구현으로 넘어가는 기준</h3>
+        <div class="table-wrap"><table><thead><tr><th></th><th>내용</th></tr></thead><tbody>
+          <tr><td><b>첫 구현 «전»에 합의</b></td><td><b>D01~D07</b> — 사용자·업무 / 플랫폼 / 언어 / 첫 모델 제공자 / 최초 도구와 작업 범위 / 승인 방식 / 세션</td></tr>
+          <tr><td><b>나중으로 미뤄도 됨</b></td><td><b>D08</b> 추가 제공자 · <b>D09</b> 확장 기능</td></tr>
+        </tbody></table></div>
+        <p class="fine">합의가 끝나면 <b>학생이 «명시적으로» 구현을 요청</b>한다.</p>
+        <pre><code>합의한 설계로 첫 읽기 작업부터 구현하자. 실행 결과를 보고 다음 기능으로 넓히자.</code></pre>
+        <div class="notice key"><b>★설계 문서는 「빈칸을 채우고 끝나는 제출물」이 아니다</b><br>
+          <span class="fine"><span class="hl2">구현 중 «발견한 문제»와 «선택 변경»을 반영하며 «계속 사용하는 작업 기준»이다.</span></span></div>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드6 2강 (step 27049) 「미완성 PRD와 설계 대화」. 인용: Claude Code 공식 지침 문서 · OpenCode 공식 규칙 문서.</span></div>
+      </section>
+
+      <section class="section" id="m4n6-3"><h2>3강 · 플랫폼과 언어 선택 <span class="dur">이론</span></h2>
+        <p class="lead">이제 <b>그 사람이 «요청을 입력하고 결과를 확인할 자리»</b>를 고른다.
+        <span class="hl3">혼자 프로젝트 폴더의 코드를 점검하는 도구와, 동료에게 문서를 정리해 주는 도구는 «같은 모델을 써도» 필요한 화면이 다를 수 있다.</span></p>
+        <div class="notice key"><b>★기본안 — 「내 컴퓨터에서 실행하는 Python CLI」</b><br>
+          <span class="fine">모든 조합을 시험할 필요는 없다. <b>내 사용자가 실제로 쓸 수 있고, 내가 AI와 함께 «코드를 읽고 검증»할 수 있는 조합</b>을 고른다.<br>
+          아직 특별한 이유가 없다면 <b>로컬 Python CLI</b>를 권한다 —
+          <span class="hl">«웹 화면을 만드는 일»보다 «모델과 도구 사이의 실행 흐름»을 먼저 «관찰»하기 좋기 때문이다.</span>
+          이미 익숙한 언어나 분명한 화면 요구가 있다면 그쪽을 선택해도 된다.</span></div>
+
+        <h3>★「실행 위치」와 「화면 형태」를 구분한다 — 세 가지가 서로 다른 결정</h3>
+        <p class="fine"><b>CLI</b>(Command-Line Interface)는 터미널에서 «글자»로 요청하고 결과를 받는 방식이고,
+        <b>UI</b>(User Interface)는 사용자가 프로그램과 상호작용하는 «화면이나 조작 방식»이다.
+        <span class="hl2">CLI도 UI의 «한 종류»이며, 버튼과 입력란을 둔 웹 화면도 UI다.</span></p>
+        <div class="notice warn"><b>⚠ "웹으로 만든다"는 말만으로 「어디에서 실행되는지」는 정해지지 않는다</b><br>
+          <span class="fine"><b>내 컴퓨터에서 서버 프로그램을 실행하고 «같은 컴퓨터의 브라우저»로 접속하는 «로컬 웹 앱»</b>도 있다.
+          여기서 <b>«서버»는 «브라우저의 요청을 받아 작업을 처리하는 프로그램»</b>이지 <span class="hl3">꼭 «멀리 있는 컴퓨터»를 뜻하지 않는다.</span><br><br>
+          <b>반대로 «원격 서버»에 하네스를 올리면 «파일 작업의 기준»도 «그 서버»가 된다</b> —
+          <span class="hl">«내 노트북의 폴더»가 «자동으로 서버에 연결되지는» 않는다.</span><br><br>
+          그리고 <b>하네스가 로컬에서 실행된다고 «모델까지 반드시 로컬»인 것도 아니다</b> —
+          내 컴퓨터의 하네스가 «외부 모델 API»를 호출할 수도, «로컬 모델 서버»를 호출할 수도 있다.<br>
+          <span class="hl2">⇒ ①화면 ②하네스 «실행 위치» ③모델 «실행 위치» — 셋은 «서로 다른 결정»이다.</span></span></div>
+
+        <h3>사용자에게 맞는 첫 화면</h3>
+        <div class="table-wrap"><table><thead><tr><th>지금의 사용 상황</th><th>권할 첫 선택</th><th>함께 고려할 점</th></tr></thead><tbody>
+          <tr><td>내가 자료 정리와 코드 점검에 사용</td><td><b>로컬 CLI</b></td><td>실행 기록과 승인 내용을 <b>터미널에서 읽기 쉽게</b> 구성</td></tr>
+          <tr><td>터미널에 익숙하지 «않은» 사람이 사용</td><td><b>로컬 웹</b></td><td><b>입력·진행·결과·승인</b>을 화면에서 구별</td></tr>
+          <tr><td>여러 기기나 여러 사람이 접속</td><td><b>접속 요구를 «먼저» 구체화</b></td><td><span class="hl">실행 위치 · 인증 · «사용자별 파일 접근 범위»가 «추가로» 필요</span></td></tr>
+        </tbody></table></div>
+        <p class="fine">코드를 점검하며 터미널을 자주 쓰면 CLI가 자연스럽다 — <b>요청 뒤에 «어떤 파일을 읽었고 어떤 테스트가 실패했는지» 순서대로</b> 볼 수 있다.
+        파일을 바꾸기 전에 승인받아야 한다면 <b>터미널에서도 «변경 내용을 보여 주고 입력을 기다리도록»</b> 만들 수 있다.<br>
+        <span class="hl3">웹을 고르면 입력 화면뿐 아니라 «작업 중 표시 · 완료·실패 상태 · 승인 버튼 · 처리 중 «중복 요청»»도 설계해야 한다 — «화면이 있다»는 사실만으로 이런 동작이 갖춰지지 않는다.</span></p>
+        <div class="notice key"><b>★CLI를 먼저 골라도 「핵심 처리」와 「터미널 입출력」을 분리해 두면 나중에 웹을 붙일 여지가 생긴다</b><br>
+          <span class="fine"><span class="hl2">그렇다고 «웹 전환이 자동으로 끝나는» 것은 아니다 — «오늘 필요한 화면»을 고르고, «미래의 화면»은 «실제 필요가 생길 때» 별도 설계한다.</span></span></div>
+
+        <h3>「읽고 고칠 수 있는」 구현 언어</h3>
+        <p class="fine"><b>Python · TypeScript · Rust 모두 이번 하네스를 구현할 수 있다.</b>
+        <span class="hl">언어를 바꾼다고 «모델이 더 정확한 답»을 내는 것은 아니다</span> —
+        파일 작업 · 모델 요청 · 응답 해석 · 도구 실행 · 기록을 <b>«어떤 코드와 개발 환경으로 다룰지»</b> 고르는 것이다.</p>
+        <div class="table-wrap"><table><thead><tr><th>언어</th><th>언제 고르나</th><th>주의</th></tr></thead><tbody>
+          <tr><td><b>Python</b><br><span class="fine">(기본안)</span></td><td>간결한 문법으로 <b>파일 처리와 API 연결 코드를 «읽어 가고»</b> 싶은 경우. 이미 배웠다면 <b>아는 자료 구조와 함수로 하네스 «흐름을 설명»</b>하기 좋다</td><td>—</td></tr>
+          <tr><td><b>TypeScript</b></td><td>JavaScript 경험이 있거나 <b>웹 화면과 서버 코드를 «같은 언어 계열»</b>로 다루고 싶은 경우. 데이터의 <b>«종류와 모양»(타입)</b>을 코드에 적어 <b>실행 «전»에 일부 불일치를 발견</b></td><td><span class="hl3">외부 API에서 받은 값이 올바른지는 «실행 중에도» 검사해야 한다 — «TypeScript를 쓴다는 이유만으로 «잘못된 모델 응답»이 차단되지는» 않는다</span></td></tr>
+          <tr><td><b>Rust</b></td><td>이미 경험이 있거나 <b>컴파일된 CLI의 «구조와 자원 관리»</b>를 깊게 다루고 싶은 경우</td><td><b>소유권 규칙</b>(값의 소유와 사용 관계를 «컴파일러»가 검사)이 있어 <b>새로 익힐 개념이 늘어난다</b> — <span class="hl2">«이번 학습의 중심이 하네스 «설계»라면 «그 규칙까지 함께 배우고 싶은지» 판단</span></td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>★화면과 언어를 「하나의 고정된 묶음」으로 생각하지 않는다</b><br>
+          <span class="fine">세 언어를 모두 설치하거나 같은 기능을 세 번 구현할 필요는 없다.
+          <b>Python으로도 «웹 앱»을 만들 수 있고 TypeScript로도 «CLI»를 만들 수 있다.</b><br>
+          <span class="hl">«웹이므로 반드시 TypeScript»보다 — «내가 TypeScript를 알고 있고 화면과 서버를 함께 다루고 싶다»가 «더 구체적인 선택 이유»다.</span></span></div>
+
+        <h3>내 선택을 설계 문서에 남기기 (D02 · D03)</h3>
+        <pre><code>나는 Python을 배웠고, 내 컴퓨터에서 문서 정리와 코드 점검에 쓸 거야.
+CLI와 로컬 웹 중 맞는 구성과 이유를 설명해 줘.
+내가 고른 뒤 PRD와 결정 기록에 남기자. 구현은 아직 하지 마.</code></pre>
+        <div class="notice teal"><b>🔬 수동으로 플랫폼·언어 결정 기록하기</b>
+          <span class="fine">(원문 접기 블록)</span><br>
+          <span class="fine"><code>PRD.md</code>에서 <b>D02 플랫폼</b>과 <b>D03 언어</b> 항목을 찾아
+          «사용할 화면 · 하네스를 «실행할 위치» · 구현 언어»를 정하고 상태를 <code>CHOSEN</code>으로 바꾼다.
+          <span class="hl3">아래는 예시이며 «그대로 선택해야 하는 정답이 아니다».</span></span>
+          <pre style="margin:8px 0"><code>D02: 내 컴퓨터에서 실행하는 CLI.
+     요청·진행·결과와 파일 변경 승인을 터미널에서 확인한다.
+D03: Python. 기존에 배운 함수와 파일 처리 코드를 활용해 실행 흐름을 읽고 검증한다.</code></pre>
+          <span class="fine"><code>DECISIONS.md</code>에는 <b>«선택 이유»와 «받아들이는 불편»</b>을 적는다 — 예:
+          <i>"현재 사용자는 터미널에 익숙한 나 자신이다. 이미지나 표를 나란히 보는 화면은 첫 요구에 없으며, 필요해지면 웹 화면을 추가로 설계한다."</i><br>
+          <b>문서의 «기존 형식»을 유지하고, 아직 결정하지 않은 «모델 제공자나 권한»까지 «임의로 확정»하지 않는다.</b></span></div>
+        <div class="notice warn"><b>⚠ AI가 기록한 내용을 읽고 「내 상황과 맞는지」 확인한다</b><br>
+          <span class="fine">· 로컬 웹을 골랐는데 <b>«공개 서버 배포»가 구현 계획에 들어가 있거나</b><br>
+          · Python을 골랐는데 <b>«완성된 다른 에이전트 CLI»에 모든 작업을 넘기도록</b> 되어 있다면 → <span class="hl">«요구가 달라진» 것이다.</span><br>
+          <span class="hl2">Claude Code와 OpenCode는 여기서 «소스를 함께 만드는 개발 도우미»다 —
+          «우리가 만드는 제품»의 «모델 요청과 도구 실행 반복»은 «제품의 소스»에서 구현한다.</span></span></div>
+        <p class="fine">이번 선택의 결과는 <b>D02·D03</b>에 남는다. <span class="hl3">아직 모든 설계가 끝난 것은 아니므로 «설치와 구현을 서두르지 않는다».</span>
+        다음 절에서는 <b>이 환경에서 «처음 제공할 작업 범위»와 «모델 제공자»</b>를 정해 «실제로 무엇을 실행하는 제품인지» 구체화한다.</p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드6 3강 (step 27050) 「플랫폼과 언어 선택」. 인용: Python 공식 자습서 · TypeScript 공식 입문 문서 · Rust 공식 문서(소유권).</span></div>
+      </section>
+
       <div class="pager" id="pager"></div>
       <!-- ================= 모듈3 · 노드5 · 메인 퀘스트 ================= -->
       <section class="section coursehead" id="m3n5">
@@ -10791,8 +11046,8 @@ AI Agent
     var toc=document.querySelector('.toc');
     var pager=document.getElementById('pager');
     var groups=[].slice.call(document.querySelectorAll('.toc .tocgroup'));
-    var names={'adn1':'협업 툴 소개','adn2':'아이펠이란?','adn3':'퀘스트란?','adn4':'코딩 0줄로 여는 첫날','adn5':'Computational Thinking','m1n1':'작업대 마련하기','m1n2':'세 겹 & 게임','m1n3':'프레임워크','m1n4':'백엔드','m1n5':'데이터베이스','m1n6':'AI 에이전트 도구','m1n7':'메인 퀘스트','m2n1':'AI는 어떻게 배우나','m2n2':'트랜스포머 (AI는 어떻게 언어를 배웠나)','m2n3':'LLM과 로컬 실행','m2n4':'AI는 문서와 사진에서 무엇을 꺼낼까?','m2n5':'[프로젝트] 이미지 생성 어플리케이션 만들기','m2n6':'여러 입력을 처리하는 모델들 (멀티모달)','m2n7':'[프로젝트] 폰 영상으로 3D 공간 만들기','m2n8':'AI가 새로 연 곳들','m2n9':'Main Quest — 도구 학습에서 적용 판단으로','m3n1':'거대 언어모델과 프롬프트','m3n2':'지시 설계 — 무엇이라고 시키는가','m3n3':'컨텍스트 엔지니어링과 서비스 설계','m3n4':'도구 설계 — 에이전트에게 무엇을 줄 것인가','m3n5':'Main Quest — RAG 가이드 챗봇 만들고 배포·평가','m4n1':'자동화와 에이전트','m4n2':'[프로젝트] 에이전트 하네스 톺아보기','m4n3':'멀티에이전트는 어떻게 적용할까?','m4n4':'OpenClaw를 사용해보자!','m4n5':'에이전트와 도구 연결'};
-    var order=['adn1','adn2','adn3','adn4','adn5','m1n1','m1n2','m1n3','m1n4','m1n5','m1n6','m1n7','m2n1','m2n2','m2n3','m2n4','m2n5','m2n6','m2n7','m2n8','m2n9','m3n1','m3n2','m3n3','m3n4','m3n5','m4n1','m4n2','m4n3','m4n4','m4n5'];
+    var names={'adn1':'협업 툴 소개','adn2':'아이펠이란?','adn3':'퀘스트란?','adn4':'코딩 0줄로 여는 첫날','adn5':'Computational Thinking','m1n1':'작업대 마련하기','m1n2':'세 겹 & 게임','m1n3':'프레임워크','m1n4':'백엔드','m1n5':'데이터베이스','m1n6':'AI 에이전트 도구','m1n7':'메인 퀘스트','m2n1':'AI는 어떻게 배우나','m2n2':'트랜스포머 (AI는 어떻게 언어를 배웠나)','m2n3':'LLM과 로컬 실행','m2n4':'AI는 문서와 사진에서 무엇을 꺼낼까?','m2n5':'[프로젝트] 이미지 생성 어플리케이션 만들기','m2n6':'여러 입력을 처리하는 모델들 (멀티모달)','m2n7':'[프로젝트] 폰 영상으로 3D 공간 만들기','m2n8':'AI가 새로 연 곳들','m2n9':'Main Quest — 도구 학습에서 적용 판단으로','m3n1':'거대 언어모델과 프롬프트','m3n2':'지시 설계 — 무엇이라고 시키는가','m3n3':'컨텍스트 엔지니어링과 서비스 설계','m3n4':'도구 설계 — 에이전트에게 무엇을 줄 것인가','m3n5':'Main Quest — RAG 가이드 챗봇 만들고 배포·평가','m4n1':'자동화와 에이전트','m4n2':'[프로젝트] 에이전트 하네스 톺아보기','m4n3':'멀티에이전트는 어떻게 적용할까?','m4n4':'OpenClaw를 사용해보자!','m4n5':'에이전트와 도구 연결','m4n6':'나만의 에이전트 하네스 만들기'};
+    var order=['adn1','adn2','adn3','adn4','adn5','m1n1','m1n2','m1n3','m1n4','m1n5','m1n6','m1n7','m2n1','m2n2','m2n3','m2n4','m2n5','m2n6','m2n7','m2n8','m2n9','m3n1','m3n2','m3n3','m3n4','m3n5','m4n1','m4n2','m4n3','m4n4','m4n5','m4n6'];
     var current='m1n1';
     function nodeOf(id){if(!id)return null;var m=id.match(/^(adn\d+|m\dn\d+)(?:-\d+)?$/);return m?m[1]:null;}
     function paintToc(){
