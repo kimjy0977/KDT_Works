@@ -651,6 +651,7 @@
           <a href="#m4n6-1">1강 내 하네스의 사용자와 작업</a>
           <a href="#m4n6-2">2강 미완성 PRD와 설계 대화</a>
           <a href="#m4n6-3">3강 플랫폼과 언어 선택</a>
+          <a href="#m4n6-4">4강 기능 범위와 모델 제공자</a>
         </div>
     </nav>
 
@@ -10247,7 +10248,7 @@ claude mcp add --transport stdio --scope project google-sheets-reader -- \
             <!-- ================= 모듈4 · 노드6 ================= -->
       <section class="section coursehead" id="m4n6">
         <div class="badge">모듈4 · 노드6<span style="opacity:.7"> · 「AI Agent 파헤치기_Agt1」</span></div>
-        <h2>나만의 에이전트 하네스 만들기 <span style="font-size:.86rem;opacity:.85">(12강 · 1~3강 기록)</span></h2>
+        <h2>나만의 에이전트 하네스 만들기 <span style="font-size:.86rem;opacity:.85">(12강 · 1~4강 기록)</span></h2>
         <p class="lead">노드5가 <b>「내 업무에 맞는 도구를 직접 만들어 붙이기」</b>였다면,
         노드6은 <span class="hl">「그 도구들을 «돌리는 판» 자체를 내 손으로 짓기」</span>다.
         노드2에서 <b>남의 하네스 일곱 개를 열어 봤고</b>, 이번엔 <b>내 것을 하나 만든다.</b></p>
@@ -10491,6 +10492,99 @@ D03: Python. 기존에 배운 함수와 파일 처리 코드를 활용해 실행
         <p class="fine">이번 선택의 결과는 <b>D02·D03</b>에 남는다. <span class="hl3">아직 모든 설계가 끝난 것은 아니므로 «설치와 구현을 서두르지 않는다».</span>
         다음 절에서는 <b>이 환경에서 «처음 제공할 작업 범위»와 «모델 제공자»</b>를 정해 «실제로 무엇을 실행하는 제품인지» 구체화한다.</p>
         <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드6 3강 (step 27050) 「플랫폼과 언어 선택」. 인용: Python 공식 자습서 · TypeScript 공식 입문 문서 · Rust 공식 문서(소유권).</span></div>
+      </section>
+      <section class="section" id="m4n6-4"><h2>4강 · 기능 범위와 모델 제공자 <span class="dur">이론</span></h2>
+        <p class="lead">사용자와 실행 환경을 정했으니 이제 <b>어떤 기능부터 «연결»할지</b> 고른다.
+        <span class="hl3">자료 읽기·코드 수정·테스트·승인·기록을 «한꺼번에» 요청하면 «기능 이름»은 많이 생겨도 «어디까지 실제로 동작하는지» 확인하기 어렵다.</span></p>
+
+        <h3>제품의 목표와 「첫 실행」을 나눈다 — 수직 구현</h3>
+        <p class="fine"><b>PRD의 제품 목표는 그대로 유지</b>한다. 완성된 하네스는 «허용한 자료를 읽는 범용 작업»과 «변경을 보여 주고 검사하는 코딩 작업»을 «모두» 다룬다.
+        <span class="hl2">다만 «첫 구현»에서 모든 기능을 동시에 완성할 필요는 없다 — 처음에는 «읽기 작업 하나»가 «사용자 요청부터 실제 결과까지» 이어지게 설계한다.</span></p>
+        <div class="notice key"><b>★수직 구현 — 작더라도 「여러 층을 통과해 끝까지」 도는 구현</b><br>
+          <span class="fine">모델 연결«만» 따로 만드는 것보다
+          <b>"사용자 요청 → 모델의 파일 읽기 요청 → 내 프로그램의 «실제» 읽기 → 결과 전달 → 답변"</b>을 <b>한 번 연결</b>하면
+          <span class="hl">«중요한 경계들»이 «함께» 확인된다.</span></span></div>
+        <div class="table-wrap"><table><thead><tr><th>구분</th><th>이번 설계에서의 의미</th><th>예시</th></tr></thead><tbody>
+          <tr><td><b>필수 제품 목표</b></td><td>수업에서 <b>완성하고 «검증»</b>할 동작</td><td>범용 자료 작업 · 코드 변경·검사 · 권한 · 상태·기록</td></tr>
+          <tr><td><b>최초 «수직» 작업</b></td><td>연결 구조를 <b>처음 확인할 «작은»</b> 작업</td><td>지정한 가상 회의록을 읽고 <b>담당자 찾기</b></td></tr>
+          <tr><td><b>후속 필수 구현</b></td><td>첫 연결 뒤 <b>확장할</b> 제품 기능</td><td>변경 확인과 승인 · 제한된 테스트 실행</td></tr>
+          <tr><td><b>선택 확장</b></td><td>필요에 따라 구현하거나 <b>미룰</b> 기능</td><td>두 번째 제공자 · 동시 실행 · 원격 접속</td></tr>
+        </tbody></table></div>
+        <div class="notice warn"><b>⚠ 양쪽으로 오해할 수 있다</b><br>
+          <span class="fine">· <b>읽기부터 시작하는 것</b>이 «코딩 기능을 «제외»한다»는 뜻이 <b>아니다.</b><br>
+          · 반대로 <b>두 제공자를 붙였다고</b> «코드 변경과 검증이 «생략»되어도 된다»는 것도 <b>아니다.</b><br>
+          <span class="hl2">PRD의 R01~R07을 기준으로 «구현할 «순서»»와 «최종 «완료 범위»»를 «구별해» 적는다.</span></span></div>
+
+        <h3>D04 — 첫 모델 제공자 선택</h3>
+        <p class="fine"><b>모델 제공자(provider)</b>는 <b>프로그램이 «모델 실행을 요청»하는 서비스나 연결 경로</b>다.
+        <b>모델</b>은 그 경로에서 «실제 응답을 생성할 대상»이고, <b>같은 제공자에서도 여러 모델을 고를 수 있다.</b>
+        <span class="hl">«제공자 이름»만 정해서는 «어떤 모델을 검증할지»까지 정해진 것이 아니다.</span></p>
+        <div class="table-wrap"><table><thead><tr><th>선택</th><th>준비하고 확인할 내용</th><th>설계에 미치는 영향</th></tr></thead><tbody>
+          <tr><td><b>OpenAI API</b></td><td>제공된 키 · 사용 가능한 모델 · <b>선택한 API의 «도구 호출 방식»</b></td><td><span class="hl3">자료가 «외부 서비스»로 전송</span>되며 <b>사용량·오류</b>를 다뤄야 함</td></tr>
+          <tr><td><b>Ollama 로컬 모델</b></td><td>실행 중인 로컬 서버 · 설치된 모델 · <b>도구 호출 «지원 여부»</b> · 장치 자원</td><td>로컬 실행 환경과 <b>모델의 «응답 품질»</b>을 확인해야 함</td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>★Ollama 「자체」가 하나의 모델인 것은 아니다</b><br>
+          <span class="fine">어떤 모델을 실행하느냐에 따라 <b>도구 요청과 답변의 품질이 달라진다.</b>
+          <span class="hl2">«작은 모델이 «실행된다»는 사실»만으로 «코드 수정까지 잘한다»고 판단하지 않는다.</span></span></div>
+        <pre><code>내 환경에서 먼저 연결할 제공자와 모델을 고르자.
+도구 호출 지원과 선택 이유를 확인해서 D04에 남겨 줘.</code></pre>
+        <p class="fine"><span class="hl">AI의 «추천»을 읽은 뒤 «학생이» 선택한다.</span>
+        아직 확인하지 못한 사항은 <b>「확인 예정」으로 남기고, «추천만으로» <code>CHOSEN</code>으로 바꾸지 않는다.</b>
+        <b>실제 연결 검증은 D01~D07을 정하고 «구현을 요청한 뒤»</b> 수행한다.</p>
+
+        <h3>★API 호환과 「도구 지원」은 다른 이야기다</h3>
+        <p class="fine"><b>API</b>는 <b>프로그램이 다른 프로그램에 기능을 요청하는 «약속»</b>이다(요청 주소·입력 필드·응답 형식).
+        Ollama는 <b>OpenAI API의 «일부»와 호환</b>되는 경로를 제공한다 —
+        <span class="hl3">기존 클라이언트를 재사용할 수 있지만 «모든 기능과 저장 방식이 같다»는 뜻은 아니다.</span></p>
+        <div class="notice key"><b>★「API가 도구 설명을 받는 것」과 「그 모델이 적절한 도구 호출을 반환하는 것」은 별개다</b><br>
+          <span class="fine"><b>도구를 지원하는 모델인지 확인하고, «실제 응답을 받아» 판단해야 한다.</b></span></div>
+        <div class="table-wrap"><table><thead><tr><th>#</th><th>구현 후 확인할 항목</th></tr></thead><tbody>
+          <tr><td>1</td><td><b>연결</b> — 선택한 주소와 인증으로 응답을 받는다</td></tr>
+          <tr><td>2</td><td><b>호출 형식</b> — 도구 이름과 입력이 <b>프로그램에서 «해석할 수 있는 구조»</b>로 반환된다</td></tr>
+          <tr><td>3</td><td><b>결과 전달</b> — 실제 실행 결과를 돌려주면 <b>다음 응답이 이어진다</b></td></tr>
+          <tr><td>4</td><td><b>내용 품질</b> — 모델의 답이 <b>실제 자료나 검사 결과와 «맞는다»</b></td></tr>
+        </tbody></table></div>
+        <div class="notice warn"><b>⚠ 「파일을 읽었습니다」라는 텍스트는 2·3번의 증거가 아니다</b><br>
+          <span class="fine"><span class="hl">«구조화된 도구 요청»을 받아 «내 프로그램이 실행»했는지 확인해야 한다.</span><br>
+          반대로 <b>읽기 함수가 «성공»해도 담당자나 마감일을 «잘못 답했다면» 4번은 실패다.</b></span></div>
+        <p class="fine"><b>두 제공자를 처음부터 모두 구현할 의무는 없다</b> — D08에서 추가 제공자를 <code>DEFERRED</code>로 둘 수 있다.
+        다만 <b>R07의 목적에 맞게 «제공자별 요청·응답 처리»를 «제품의 도구 실행 규칙»과 «구별»해</b> 설계한다.
+        <span class="hl2">이후 «모델 연결을 바꾸려는데 «파일 권한 코드»까지 고쳐야 한다면» — 경계가 섞였는지 살펴볼 수 있다.</span></p>
+
+        <h3>D05 — 최초 도구와 작업 범위</h3>
+        <p class="fine"><span class="hl">D05에는 «도구 «이름» 목록»보다 «어떤 자료에 어떤 «행동»을 허용할지»를 «먼저» 적는다.</span>
+        첫 요청이 <i>"지정한 회의록에서 담당자를 찾아 줘"</i>라면 <b>파일 읽기 «하나»로 시작</b>할 수 있다.
+        <b>파일을 «스스로 찾아야» 하는 시나리오</b>라면 <b>목록 조회나 검색이 «추가로»</b> 필요하다.</p>
+        <pre><code>첫 구현은 작은 읽기 작업 하나로 잡자. 필요한 도구와 접근할 폴더를 PRD에 정리해 줘.</code></pre>
+        <div class="table-wrap"><table><thead><tr><th>#</th><th>학생이 정할 내용</th></tr></thead><tbody>
+          <tr><td>1</td><td>사용할 <b>민감하지 않은 자료</b>와 <b>기준 폴더</b></td></tr>
+          <tr><td>2</td><td>첫 도구가 <b>받는 대상</b>과 <b>반환해야 할 정보</b></td></tr>
+          <tr><td>3</td><td><span class="hl3"><b>접근하지 «않을» 위치와 파일 종류</b></span></td></tr>
+          <tr><td>4</td><td>결과를 확인할 <b>짧은 사용자 요청</b></td></tr>
+          <tr><td>5</td><td>읽기 «이후»에 추가할 <b>코드 변경·테스트의 범위</b></td></tr>
+        </tbody></table></div>
+        <div class="notice warn"><b>⚠ 처음부터 「컴퓨터 전체 접근」이나 「임의 터미널 명령」을 기본 기능으로 넣지 않는다</b><br>
+          <span class="fine"><b>작은 코드 예제와 «정해진» 검사</b>부터 선택하면 «실제 변경과 검증»을 이해하기 쉽다.
+          승인 방식은 D06에서 구체화하되, <span class="hl2">«쓰기와 테스트에 승인이 필요한지»를 «빠뜨리지 않도록» 연결해 둔다.</span></span></div>
+
+        <h3>★「실패할 때의 동작」도 기능으로 적는다</h3>
+        <p class="fine"><i>"파일을 읽을 수 있다"</i>만 적으면 <b>파일이 «없을 때» 어떻게 할지</b>가 남는다.
+        <i>"모델과 연결된다"</i>만 적으면 <b>인증 오류나 응답 형식 오류를 «성공처럼 숨길»</b> 수도 있다.
+        <span class="hl">이런 상황도 «사용자가 경험하는 제품 동작»이다.</span></p>
+        <div class="table-wrap"><table><thead><tr><th>상황</th><th>명세에 남길 동작의 예</th></tr></thead><tbody>
+          <tr><td>자료가 없음</td><td>실패 «이유»를 반환하고 <b>다른 자료 확인이나 «사용자 질문»으로 이어감</b></td></tr>
+          <tr><td>허용 범위 «밖» 경로</td><td><b>읽지 않고 «거절 사실»을 남김</b></td></tr>
+          <tr><td>API 인증·연결 실패</td><td>현재 요청을 <b>실패로 «표시»</b>하고 원인을 확인할 단서 제공</td></tr>
+          <tr><td>해석할 수 없는 도구 요청</td><td><b>실행하지 «않고»</b> 오류 처리</td></tr>
+          <tr><td>모델이 <b>근거와 다른 답</b></td><td><span class="hl2">«내용 평가»에서 실패로 기록하고 «실행 성공»과 «구별»</span></td></tr>
+        </tbody></table></div>
+        <div class="notice key"><b>★분명히 둘 기준 하나</b><br>
+          <span class="fine">반복 시도 여부와 중단 조건은 «다음 절»에서 정한다. 다만 —
+          <span class="hl">실패했을 때 «몰래 다른 제공자나 준비된 답변으로 바꾸어» «성공한 것처럼» 보이지 않게 한다.</span></span></div>
+        <p class="fine">이제 <code>PRD.md</code>와 <code>DECISIONS.md</code>의 <b>D04·D05</b>에 선택과 이유를 맞춰 적는다.
+        <b>D08·D09에서 «미룬» 기능도 «이유»를 남긴다.</b>
+        제공자와 최초 작업이 정해졌다면 다음에는 <b>«요청이 들어와서 끝날 때까지»의 «상태와 흐름»</b>을 설계할 수 있다.</p>
+        <div class="notice"><b>📚 출처:</b> <span class="fine">모듈4 노드6 4강 (step 27051) 「기능 범위와 모델 제공자」. 인용: Ollama 공식 호환성 문서 · Ollama 공식 도구 호출 안내.</span></div>
       </section>
 
       <div class="pager" id="pager"></div>
