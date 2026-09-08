@@ -1,0 +1,39 @@
+{
+  "variant": "my-baseline",
+  "kind": "agent_evaluation",
+  "suite_id": "terminal-bench-pro-local-port-v1",
+  "revision": "874af409da6aafebccbf3bc5bb41a2fa4d78784d",
+  "provider": "ollama",
+  "execution_mode": "local-port",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "python_version": "3.13.13",
+  "hostlimits": "unrestricted",
+  "model": "qwen3.5:2b",
+  "attempts": 1,
+  "expected_tasks": [
+    "extract-paper-metadata-to-json",
+    "python-sudoku-solver-backtracking",
+    "detect-corrupted-blockchain-transaction",
+    "implement-go-board-analyzer",
+    "python-sokoban-bfs-solver",
+    "recover-encrypted-db-credentials",
+    "advanced-json-to-rfc4180-csv-converter",
+    "implement-depgraph-dependency-resolver",
+    "implement-lz77-file-compressor",
+    "implement-nonogram-puzzle-solver"
+  ],
+  "manifest_sha256": "9313a9bc65812d9d77b433d409f42d75ac76688a762921e5bca6530419e2964f",
+  "agent_source_path": "C:\\Users\\EAN22V01\\Desktop\\KDT\\02_tutor\\실습\\m4n6-하네스랩\\myharness\\__init__.py",
+  "source_sha256": "877ae118a265b4d19e6318b1a2c37d104d1fc1a50002e51e7247726179b1894b",
+  "code_sha256": "877ae118a265b4d19e6318b1a2c37d104d1fc1a50002e51e7247726179b1894b",
+  "agent_import_path": "myharness.bench:solve_task",
+  "limits": {
+    "max_steps": 40,
+    "max_seconds": 300,
+    "command_timeout": 10
+  },
+  "started_at": "2026-09-08T08:21:35.505000+00:00",
+  "status": "finished",
+  "finished_at": "2026-09-08T08:42:57.177232+00:00",
+  "exit_code": 0
+}

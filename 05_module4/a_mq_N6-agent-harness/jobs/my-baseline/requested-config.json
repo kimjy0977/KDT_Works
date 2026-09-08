@@ -1,0 +1,13 @@
+{
+  "job": "C:\\Users\\EAN22V01\\Desktop\\KDT\\02_tutor\\실습\\m4n6-하네스랩\\jobs\\my-baseline",
+  "options": {
+    "provider": "ollama",
+    "model": "qwen3.5:2b",
+    "agent": "myharness.bench:solve_task",
+    "attempts": 1,
+    "max_steps": 40,
+    "max_seconds": 300,
+    "command_timeout": 10,
+    "self_check": false
+  }
+}

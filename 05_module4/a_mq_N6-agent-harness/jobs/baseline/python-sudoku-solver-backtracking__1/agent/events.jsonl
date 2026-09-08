@@ -1,0 +1,21 @@
+{"event": "model_start", "elapsed_seconds": 0.0014, "step": 1}
+{"event": "tool_start", "elapsed_seconds": 2.7175, "name": "list_files", "call_id": "call_y16g8po4"}
+{"event": "tool_end", "elapsed_seconds": 2.7224, "name": "list_files", "call_id": "call_y16g8po4", "ok": true}
+{"event": "model_start", "elapsed_seconds": 2.7228, "step": 2}
+{"event": "tool_start", "elapsed_seconds": 4.5354, "name": "read_file", "call_id": "call_olgcl68g"}
+{"event": "tool_end", "elapsed_seconds": 4.5405, "name": "read_file", "call_id": "call_olgcl68g", "ok": true}
+{"event": "model_start", "elapsed_seconds": 4.5408, "step": 3}
+{"event": "tool_start", "elapsed_seconds": 48.0036, "name": "write_file", "call_id": "call_u2qt8qpx"}
+{"event": "tool_end", "elapsed_seconds": 48.0122, "name": "write_file", "call_id": "call_u2qt8qpx", "ok": true}
+{"event": "model_start", "elapsed_seconds": 48.0127, "step": 4}
+{"event": "tool_start", "elapsed_seconds": 50.9215, "name": "run_python", "call_id": "call_9m66i86e"}
+{"event": "tool_end", "elapsed_seconds": 51.0086, "name": "run_python", "call_id": "call_9m66i86e", "ok": true}
+{"event": "model_start", "elapsed_seconds": 51.0089, "step": 5}
+{"event": "tool_start", "elapsed_seconds": 53.0934, "name": "read_file", "call_id": "call_2wp1aak7"}
+{"event": "tool_end", "elapsed_seconds": 53.0986, "name": "read_file", "call_id": "call_2wp1aak7", "ok": true}
+{"event": "model_start", "elapsed_seconds": 53.0989, "step": 6}
+{"event": "tool_start", "elapsed_seconds": 69.766, "name": "run_python", "call_id": "call_qnfem0sk"}
+{"event": "tool_end", "elapsed_seconds": 69.8507, "name": "run_python", "call_id": "call_qnfem0sk", "ok": true}
+{"event": "model_start", "elapsed_seconds": 69.8512, "step": 7}
+{"event": "run_error", "elapsed_seconds": 73.8522, "error_type": "ValueError"}
+{"event": "run_end", "elapsed_seconds": 73.8549, "status": "failed", "metrics": {"model_calls": 7, "tool_calls": 6, "tool_errors": 0, "input_tokens": 14672, "output_tokens": 1939, "elapsed_seconds": 73.85486690001562, "usage_known": false}}

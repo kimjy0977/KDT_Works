@@ -1,0 +1,8 @@
+{"event": "model_start", "elapsed_seconds": 0.0014, "step": 1}
+{"event": "tool_start", "elapsed_seconds": 8.0474, "name": "list_files", "call_id": "call_izeyc22y"}
+{"event": "tool_end", "elapsed_seconds": 8.0537, "name": "list_files", "call_id": "call_izeyc22y", "ok": true}
+{"event": "model_start", "elapsed_seconds": 8.0541, "step": 2}
+{"event": "tool_start", "elapsed_seconds": 10.1843, "name": "read_file", "call_id": "call_u9u2igtm"}
+{"event": "tool_end", "elapsed_seconds": 10.1908, "name": "read_file", "call_id": "call_u9u2igtm", "ok": true}
+{"event": "model_start", "elapsed_seconds": 10.1916, "step": 3}
+{"event": "run_end", "elapsed_seconds": 34.866, "status": "completed", "metrics": {"model_calls": 3, "tool_calls": 2, "tool_errors": 0, "input_tokens": 8589, "output_tokens": 886, "elapsed_seconds": 34.86599550000392, "usage_known": true}}

@@ -1,0 +1,13 @@
+{
+ "status": "empty_answer",
+ "answer": "",
+ "metrics": {
+  "model_calls": 8,
+  "tool_calls": 7,
+  "tool_errors": 2,
+  "elapsed_seconds": 103.1564,
+  "usage_known": false,
+  "input_tokens": null,
+  "output_tokens": null
+ }
+}

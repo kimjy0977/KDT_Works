@@ -1,0 +1,27 @@
+{"event": "model_start", "elapsed_seconds": 0.0013, "step": 1}
+{"event": "tool_start", "elapsed_seconds": 30.2837, "name": "read_file", "call_id": "call_kh4uitvj"}
+{"event": "tool_end", "elapsed_seconds": 30.2882, "name": "read_file", "call_id": "call_kh4uitvj", "ok": false}
+{"event": "model_start", "elapsed_seconds": 30.2886, "step": 2}
+{"event": "tool_start", "elapsed_seconds": 32.9861, "name": "run_python", "call_id": "call_7ie8uuhn"}
+{"event": "tool_end", "elapsed_seconds": 32.9903, "name": "run_python", "call_id": "call_7ie8uuhn", "ok": false}
+{"event": "model_start", "elapsed_seconds": 32.9905, "step": 3}
+{"event": "tool_start", "elapsed_seconds": 34.068, "name": "list_files", "call_id": "call_db00zqkz"}
+{"event": "tool_end", "elapsed_seconds": 34.0724, "name": "list_files", "call_id": "call_db00zqkz", "ok": true}
+{"event": "model_start", "elapsed_seconds": 34.0727, "step": 4}
+{"event": "tool_start", "elapsed_seconds": 41.1581, "name": "read_file", "call_id": "call_oc8fcwj3"}
+{"event": "tool_end", "elapsed_seconds": 41.1626, "name": "read_file", "call_id": "call_oc8fcwj3", "ok": false}
+{"event": "model_start", "elapsed_seconds": 41.163, "step": 5}
+{"event": "tool_start", "elapsed_seconds": 47.0687, "name": "list_files", "call_id": "call_3l4m6fbe"}
+{"event": "tool_end", "elapsed_seconds": 47.0731, "name": "list_files", "call_id": "call_3l4m6fbe", "ok": true}
+{"event": "model_start", "elapsed_seconds": 47.0734, "step": 6}
+{"event": "tool_start", "elapsed_seconds": 49.5635, "name": "read_file", "call_id": "call_0j7vf328"}
+{"event": "tool_end", "elapsed_seconds": 49.5678, "name": "read_file", "call_id": "call_0j7vf328", "ok": false}
+{"event": "model_start", "elapsed_seconds": 49.5681, "step": 7}
+{"event": "tool_start", "elapsed_seconds": 55.2798, "name": "run_python", "call_id": "call_h6i73gcp"}
+{"event": "tool_end", "elapsed_seconds": 55.2858, "name": "run_python", "call_id": "call_h6i73gcp", "ok": false}
+{"event": "model_start", "elapsed_seconds": 55.2862, "step": 8}
+{"event": "tool_start", "elapsed_seconds": 63.27, "name": "run_python", "call_id": "call_3m21nn4n"}
+{"event": "tool_end", "elapsed_seconds": 63.2751, "name": "run_python", "call_id": "call_3m21nn4n", "ok": false}
+{"event": "model_start", "elapsed_seconds": 63.2754, "step": 9}
+{"event": "run_error", "elapsed_seconds": 87.2899, "error_type": "ValueError"}
+{"event": "run_end", "elapsed_seconds": 87.2933, "status": "failed", "metrics": {"model_calls": 9, "tool_calls": 8, "tool_errors": 6, "input_tokens": 19520, "output_tokens": 1822, "elapsed_seconds": 87.29326420000871, "usage_known": false}}

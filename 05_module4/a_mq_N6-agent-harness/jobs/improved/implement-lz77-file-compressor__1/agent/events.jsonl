@@ -1,0 +1,24 @@
+{"event": "model_start", "elapsed_seconds": 0.0018, "step": 1}
+{"event": "tool_start", "elapsed_seconds": 6.4865, "name": "list_files", "call_id": "call_qxuxu1hb"}
+{"event": "tool_end", "elapsed_seconds": 6.5008, "name": "list_files", "call_id": "call_qxuxu1hb", "ok": true}
+{"event": "model_start", "elapsed_seconds": 6.5012, "step": 2}
+{"event": "tool_start", "elapsed_seconds": 8.6723, "name": "read_file", "call_id": "call_u3lny3du"}
+{"event": "tool_end", "elapsed_seconds": 8.677, "name": "read_file", "call_id": "call_u3lny3du", "ok": true}
+{"event": "model_start", "elapsed_seconds": 8.6773, "step": 3}
+{"event": "tool_start", "elapsed_seconds": 10.601, "name": "read_file", "call_id": "call_jm9zc77e"}
+{"event": "tool_end", "elapsed_seconds": 10.6072, "name": "read_file", "call_id": "call_jm9zc77e", "ok": true}
+{"event": "model_start", "elapsed_seconds": 10.6076, "step": 4}
+{"event": "tool_start", "elapsed_seconds": 12.619, "name": "read_file", "call_id": "call_h6z5x20d"}
+{"event": "tool_end", "elapsed_seconds": 12.6243, "name": "read_file", "call_id": "call_h6z5x20d", "ok": false}
+{"event": "model_start", "elapsed_seconds": 12.6246, "step": 5}
+{"event": "tool_start", "elapsed_seconds": 16.1208, "name": "read_file", "call_id": "call_ecb8y2kr"}
+{"event": "tool_end", "elapsed_seconds": 16.126, "name": "read_file", "call_id": "call_ecb8y2kr", "ok": true}
+{"event": "model_start", "elapsed_seconds": 16.1263, "step": 6}
+{"event": "tool_start", "elapsed_seconds": 18.7488, "name": "read_file", "call_id": "call_npxhfalw"}
+{"event": "tool_end", "elapsed_seconds": 18.7534, "name": "read_file", "call_id": "call_npxhfalw", "ok": true}
+{"event": "model_start", "elapsed_seconds": 18.7538, "step": 7}
+{"event": "tool_start", "elapsed_seconds": 20.3825, "name": "read_file", "call_id": "call_dwt1btbb"}
+{"event": "tool_end", "elapsed_seconds": 20.3872, "name": "read_file", "call_id": "call_dwt1btbb", "ok": true}
+{"event": "model_start", "elapsed_seconds": 20.3875, "step": 8}
+{"event": "run_error", "elapsed_seconds": 26.7598, "error_type": "ValueError"}
+{"event": "run_end", "elapsed_seconds": 26.7623, "status": "failed", "metrics": {"model_calls": 8, "tool_calls": 7, "tool_errors": 1, "input_tokens": 18709, "output_tokens": 514, "elapsed_seconds": 26.762309199984884, "usage_known": false}}
