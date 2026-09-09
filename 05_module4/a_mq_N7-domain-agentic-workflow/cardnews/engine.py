@@ -137,34 +137,59 @@ def extract_json(text):
         return json.loads(t)
     except Exception:
         pass
-    for opener, closer in (('[', ']'), ('{', '}')):
-        s = t.find(opener)
-        if s < 0:
-            continue
-        depth, in_str, esc = 0, False, False
-        for i in range(s, len(t)):
-            c = t[i]
-            if esc:
-                esc = False
-                continue
-            if c == '\\':
-                esc = True
-                continue
-            if c == '"':
-                in_str = not in_str
-                continue
-            if in_str:
-                continue
-            if c == opener:
-                depth += 1
-            elif c == closer:
-                depth -= 1
-                if depth == 0:
-                    try:
-                        return json.loads(t[s:i + 1])
-                    except Exception:
+    # ★★실측 2026-09-09 — 여기서 «모델의 답을 통째로 버리고» 있었다.
+    #   옛 코드는 `[` 를 «항상 먼저» 찾았다. 모델이 앞에 산문을 한 줄 붙이면
+    #   본문에서 처음 나오는 `[` 가 «객체 안쪽의 배열»이라, 그걸 통째로 답으로 집었다.
+    #
+    #     원문:  원전 대조를 마쳤습니다.  ← 산문
+    #            {"status":"need_input","research":{"verified":[ … ]  ← 여기 `[` 를 집었다
+    #
+    #   결과: status 가 사라져 need_input 이 result 로 바뀌고, research·editorial 이
+    #   전부 None 이 됐다. **오류는 하나도 안 났다.** 그냥 «빈 채로 성공»했다.
+    #   ⇒ 두 후보를 «모두» 파 보고, ①status 가 있는 객체 ②그다음 긴 것 순으로 고른다.
+    cands = []
+    for opener, closer in (('{', '}'), ('[', ']')):
+        start = -1
+        while True:
+            start = t.find(opener, start + 1)
+            if start < 0:
+                break
+            depth, in_str, esc = 0, False, False
+            for i in range(start, len(t)):
+                c = t[i]
+                if esc:
+                    esc = False
+                    continue
+                if c == '\\':
+                    esc = True
+                    continue
+                if c == '"':
+                    in_str = not in_str
+                    continue
+                if in_str:
+                    continue
+                if c == opener:
+                    depth += 1
+                elif c == closer:
+                    depth -= 1
+                    if depth == 0:
+                        try:
+                            cands.append((json.loads(t[start:i + 1]), i + 1 - start))
+                        except Exception:
+                            pass
                         break
-    return None
+            if len(cands) >= 8:      # 한 응답에서 여덟 덩어리면 충분하다
+                break
+    if not cands:
+        return None
+    # ①규약 필드를 가진 객체 ②그다음 «가장 큰» 덩어리
+    withstatus = [c for c in cands
+                  if isinstance(c[0], dict)
+                  and ({'status', 'question', 'storyboard', 'candidates', 'research'}
+                       & set(c[0].keys()))]
+    pool = withstatus or cands
+    pool.sort(key=lambda c: -c[1])
+    return pool[0][0]
 
 
 def normalize(payload):
@@ -181,7 +206,11 @@ def normalize(payload):
         return {'kind': 'error', 'reason': 'unexpected_type'}
     st = payload.get('status')
     if st == 'need_input' or ('question' in payload and 'options' in payload):
-        return {'kind': 'need_input', 'question': {
+        # ★★data 를 «함께» 싣는다. 실측 2026-09-09 —
+        #   모델은 「질문」과 「검증 결과」를 **한 응답에** 담아 보낸다.
+        #   질문만 꺼내고 나머지를 버리면 100초짜리 웹 검증이 통째로 사라진다.
+        #   (CURATOR 에서 모델이 action 과 finish 를 «동시에» 내던 것과 같은 종류다.)
+        return {'kind': 'need_input', 'data': payload, 'question': {
             'id': payload.get('question_id') or 'q-%d' % int(time.time()),
             'question': payload.get('question') or '',
             'options': payload.get('options') or [],

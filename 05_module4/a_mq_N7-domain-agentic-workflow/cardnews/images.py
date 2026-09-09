@@ -22,6 +22,8 @@ import urllib.request
 
 from PIL import Image, ImageDraw, ImageFont
 
+import myth
+
 UA = 'KDT-MQ4-CardNews/1.0 (https://github.com/kimjy0977/KDT_Works; kjuyoung77@gmail.com)'
 W, H = 1080, 1350          # DECISIONS D-05
 
@@ -65,14 +67,27 @@ def commons_search(query, limit=3):
     if not hits:
         return {'ok': True, 'results': [], 'empty': True}
 
-    titles = '|'.join(h['title'] for h in hits)
+    return _info_for_titles('|'.join(h['title'] for h in hits))
+
+
+def commons_file_info(file_name):
+    """파일 «이름 하나»로 라이선스·썸네일을 받는다 (Wikidata P18 경로에서 쓴다)."""
+    t = str(file_name or '').strip()
+    if not t:
+        return {'ok': True, 'results': []}
+    if not t.lower().startswith('file:'):
+        t = 'File:' + t
+    return _info_for_titles(t)
+
+
+def _info_for_titles(titles):
     try:
         # ★iiurlwidth 를 주면 Commons 가 «래스터 썸네일» URL 을 함께 준다.
         #   실측 2026-09-09 — 원본 url 을 그대로 받았더니 SVG 가 걸려
         #   Pillow 가 "cannot identify image file" 로 세 장을 놓쳤다.
         #   썸네일은 SVG·거대 TIFF 도 PNG/JPEG 로 내려온다.
         iu = ('https://commons.wikimedia.org/w/api.php?action=query&format=json'
-              '&titles=%s&prop=imageinfo&iiprop=url%%7Cextmetadata%%7Cmime&iiurlwidth=1600'
+              '&titles=%s&prop=imageinfo&iiprop=url%%7Cextmetadata%%7Cmime%%7Csize&iiurlwidth=1600'
               % urllib.parse.quote(titles))
         pages = json.load(_get(iu)).get('query', {}).get('pages', {})
     except Exception as e:
@@ -94,6 +109,7 @@ def commons_search(query, limit=3):
             # 썸네일이 있으면 그것을 쓴다 — SVG·초대형 파일도 래스터로 내려온다
             'imageUrl': info.get('thumburl') or info.get('url'),
             'originalUrl': info.get('url'), 'mime': info.get('mime'),
+            'width': info.get('width'), 'height': info.get('height'),
             'pageUrl': info.get('descriptionurl'),
             'license': lic or None, 'licenseUrl': strip(em.get('LicenseUrl', {}).get('value')) or None,
             'author': strip(em.get('Artist', {}).get('value')) or None,
@@ -134,6 +150,15 @@ def fetch_background(query, dest_dir, name):
         return {'ok': False, 'reason': 'no_usable_license',
                 'detail': 'PD/CC 이미지를 못 찾았습니다. 시도한 검색어: %s' % ' / '.join(tries),
                 'retry': '카드의 이미지 검색어를 더 짧게(2~3단어) 바꿔 다시 시도하세요'}
+    return _download_pick(pick, dest_dir, name)
+
+
+def _download_pick(pick, dest_dir, name):
+    """고른 Commons 파일을 «실제로 열리는지까지» 확인하며 내려받는다.
+
+    ★뉴스 경로와 아카이브 경로가 «같은 검사»를 쓰게 떼어 냈다.
+      한쪽만 고치면 다른 쪽이 조용히 뒤처진다.
+    """
     os.makedirs(dest_dir, exist_ok=True)
     path = os.path.join(dest_dir, name + '.jpg')
     try:
@@ -158,6 +183,46 @@ def fetch_background(query, dest_dir, name):
                 'verdict': pick['verdict'], 'fetchedAt': time.strftime('%Y-%m-%d %H:%M'),
                 'generator': None, 'prompt': None,   # 생성 이미지가 아니므로 «해당 없음»
             }}
+
+
+def fetch_archive_background(work, dest_dir, name, used=None):
+    """★색인의 «작품 한 점»에 해당하는 그림을 받아 온다. 뉴스 경로와 다른 점이 둘이다.
+
+    ① 검색어를 **모델이 만들지 않는다** — 색인의 원제·작가로 찍는다.
+    ② 「찾았다」로 끝내지 않고 **«맞는 걸» 찾았는지**(match)를 함께 돌려준다.
+       provenance 에 `match` 와 `creditBasis` 가 들어가므로,
+       나중에 카드만 보고도 **이 크레딧을 믿어도 되는지** 판별할 수 있다.
+    """
+    found = myth.find_painting(work, commons_search, used=used,
+                               commons_file=commons_file_info)
+    if not found.get('ok'):
+        return {'ok': False, 'reason': found.get('reason', 'not_found'),
+                'detail': found.get('detail'), 'match': found.get('match'),
+                'attempts': found.get('attempts'),
+                'retry': found.get('retry', '다른 작품을 고르세요')}
+    got = _download_pick(found['pick'], dest_dir, name)
+    if not got['ok']:
+        got['match'] = found['match']
+        return got
+    cr = myth.credit(work, found) or {}
+    got['match'] = found['match']
+    got['credit'] = cr
+    got['provenance'].update({
+        'kind': 'archive-matched-public-domain',
+        # ★색인이 말한 것과 Commons 가 말한 것을 «따로» 남긴다. 섞으면 되돌릴 수 없다.
+        'archiveWork': {'slug': work.get('slug'), 'title': work.get('title'),
+                        'artist': work.get('artist'), 'inception': work.get('inception'),
+                        'collection': work.get('collection'), 'material': work.get('material')},
+        'artistEn': found.get('artistEn'),
+        'match': found['match'],          # exact | different-artist | unverified
+        'via': found.get('via'),          # wikidata-p18 | commons-search
+        'wikidataQid': found.get('qid'),
+        'width': found['pick'].get('width'), 'height': found['pick'].get('height'),
+        'creditBasis': cr.get('basis'),   # archive | commons
+        'matchNote': found.get('note'),
+        'attempts': found.get('attempts'),
+    })
+    return got
 
 
 def sha256(path):

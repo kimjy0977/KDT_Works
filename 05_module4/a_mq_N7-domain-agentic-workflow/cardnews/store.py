@@ -52,7 +52,7 @@ def engine_dir(pid):
     return d
 
 
-def create(topic, period_days=7):
+def create(topic, period_days=7, mode='news'):
     pid = new_id('p')
     d = project_dir(pid)
     os.makedirs(os.path.join(d, 'cards'), exist_ok=True)
@@ -65,6 +65,9 @@ def create(topic, period_days=7):
     st = {
         'projectId': pid,
         'topic': topic,
+        # ★모드 — 'news'(최근 소식·웹 검색) | 'myth'(신화 이야기·아카이브 색인)
+        #   무엇을 «조사»하고 무엇을 «검증»하는지가 통째로 달라진다. myth.py 머리말 참조.
+        'mode': mode if mode in ('news', 'myth') else 'news',
         'periodDays': period_days,
         'createdAt': time.time(),
         'status': 'created',        # created|researching|waiting_for_user|ready|producing|done|error
@@ -106,7 +109,18 @@ def save(st):
     tmp = p + '.tmp'
     with open(tmp, 'w', encoding='utf-8', newline='\n') as f:
         json.dump(st, f, ensure_ascii=False, indent=1)
-    os.replace(tmp, p)
+    # ★실측 2026-09-09 (Windows) — os.replace 가 [WinError 5] 로 터진다.
+    #   목적지 파일을 «다른 프로세스가 잠깐 열고 있으면» 교체가 거부된다
+    #   (백신·탐색기·앞서 뜬 서버). 락은 «한 프로세스 안»에서만 통한다.
+    #   → 잠깐 기다렸다 다시 건다. 그래도 안 되면 «숨기지 않고» 올린다.
+    for i in range(6):
+        try:
+            os.replace(tmp, p)
+            return st
+        except PermissionError:
+            if i == 5:
+                raise
+            time.sleep(0.15 * (i + 1))
     return st
 
 

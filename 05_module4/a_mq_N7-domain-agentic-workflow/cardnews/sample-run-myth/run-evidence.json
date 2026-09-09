@@ -1,0 +1,1105 @@
+{
+ "projectId": "p-998f1d84e9f6",
+ "topic": "피그말리온과 갈라테이아",
+ "mode": "myth",
+ "periodDays": 7,
+ "createdAt": 1788961374.0379558,
+ "status": "done",
+ "stage": "export",
+ "engine": "claude-cli",
+ "sessionId": "(가림)",
+ "searchedAt": "2026-09-09 22:42",
+ "candidates": [
+  {
+   "id": "c1",
+   "title": "갈라테이아 × 피그말리온",
+   "people": [
+    "갈라테이아",
+    "피그말리온"
+   ],
+   "works": 6,
+   "artists": [
+    "루이 장 프랑수아 라그레네",
+    "안 루이 지로데 트리오종",
+    "안뇰로 브론치노",
+    "에티엔 모리스 팔코네",
+    "장 레옹 제롬"
+   ],
+   "eras": [
+    "19세기",
+    "르네상스",
+    "신고전주의"
+   ],
+   "titles": [
+    "피그말리온과 갈라테이아",
+    "피그말리온과 갈라테이아",
+    "피그말리온과 갈라테이아 (측면 각도)",
+    "피그말리온과 갈라테이아",
+    "피그말리온과 갈라테이아",
+    "피그말리온과 갈라테이아"
+   ],
+   "matched": true,
+   "summary": "여성에게 환멸을 느낀 조각가 피그말리온이 상아로 이상적인 여인상을 깎고 그 조각상과 사랑에 빠진다. 아프로디테(베누스)가 기도를 들어 조각상에 생명을 불어넣어 둘은 부부가 된다.",
+   "source": "오비디우스 「변신 이야기」 10권",
+   "value": "창조자가 자기 피조물과 사랑에 빠진다는 원형 — AI·이상형·자기애 시대에 곧장 겹쳐 읽힌다.",
+   "uncertainty": "오비디우스 원전에는 조각상 이름이 없다 — '갈라테이아'는 후대에 붙은 이름이라 원전 기준 명칭이 다르다.",
+   "published": null,
+   "kind": "신화"
+  },
+  {
+   "id": "c2",
+   "title": "안드로메다 × 페르세우스",
+   "people": [
+    "안드로메다",
+    "페르세우스"
+   ],
+   "works": 7,
+   "artists": [
+    "렘브란트 판 레인",
+    "요아힘 뷔테발",
+    "티치아노 베첼리오",
+    "파올로 베로네세",
+    "페테르 파울 루벤스",
+    "피에로 디 코지모"
+   ],
+   "eras": [
+    "르네상스",
+    "바로크"
+   ],
+   "titles": [
+    "페르세우스와 안드로메다",
+    "안드로메다",
+    "안드로메다를 구하는 페르세우스",
+    "페르세우스와 안드로메다",
+    "페르세우스와 안드로메다",
+    "페르세우스와 안드로메다"
+   ],
+   "matched": false,
+   "summary": "어머니 카시오페이아의 오만 탓에 벌을 받아 안드로메다가 바다 괴물의 제물로 바위에 묶인다. 메두사를 처치하고 돌아오던 페르세우스가 그녀를 보고 괴물을 죽인 뒤 아내로 맞는다.",
+   "source": "오비디우스 「변신 이야기」 4권",
+   "value": "구출·결혼담이면서 결혼식장의 유혈 다툼(피네우스)까지 이어지는 극적 서사.",
+   "uncertainty": "이야기가 4권에서 시작해 5권 초반(피네우스 사건)으로 이어져 한 권으로 딱 끊기지 않는다.",
+   "published": null,
+   "kind": "신화"
+  },
+  {
+   "id": "c3",
+   "title": "에오스 × 호라이 (계절·법의 자매)",
+   "people": [
+    "에오스",
+    "호라이 (계절·법의 자매)"
+   ],
+   "works": 5,
+   "artists": [
+    "게르치노",
+    "구이도 레니",
+    "니콜라 푸생",
+    "프랑수아 부셰",
+    "피에르 나르시스 게랭"
+   ],
+   "eras": [
+    "낭만주의",
+    "바로크",
+    "신고전주의"
+   ],
+   "titles": [
+    "오로라와 케팔로스",
+    "오로라와 케팔로스",
+    "아우로라",
+    "케팔로스와 아우로라",
+    "아우로라 (새벽의 여신)"
+   ],
+   "matched": false,
+   "summary": "에오스는 새벽의 여신으로 매일 태양에 앞서 하늘 문을 연다. 호라이는 계절과 질서(에우노미아·디케·에이레네)를 관장하는 자매들로, 하늘의 시간과 결부돼 등장한다.",
+   "source": null,
+   "value": "시간·계절·질서를 의인화한 여신들 — '하루의 시작'과 '순환'을 시각화하기 좋다.",
+   "uncertainty": "에오스와 호라이를 한 이야기로 엮은 고전 원전을 찾지 못함. 헤시오도스에서 호라이는 제우스·테미스의 딸이지 에오스의 자매가 아니라, '자매' 묶음은 큐레이션상의 구성으로 보인다.",
+   "published": null,
+   "kind": "신화"
+  },
+  {
+   "id": "c4",
+   "title": "나르키소스 × 에코",
+   "people": [
+    "나르키소스",
+    "에코"
+   ],
+   "works": 4,
+   "artists": [
+    "니콜라 푸생",
+    "익명",
+    "존 윌리엄 워터하우스",
+    "카라바조"
+   ],
+   "eras": [
+    "19세기",
+    "고대",
+    "바로크"
+   ],
+   "titles": [
+    "나르키소스",
+    "에코와 나르키소스",
+    "에코와 나르키소스",
+    "나르키소스"
+   ],
+   "matched": false,
+   "summary": "남의 말끝만 되풀이하도록 저주받은 님프 에코가 미소년 나르키소스를 사랑하지만 거절당해 목소리만 남고 스러진다. 나르키소스는 물에 비친 제 모습과 사랑에 빠져 그 자리를 떠나지 못하고 죽어 수선화가 된다.",
+   "source": "오비디우스 「변신 이야기」 3권",
+   "value": "자기애(narcissism)와 메아리(echo) — 두 단어의 어원이 된 이야기로 SNS 시대 자기 이미지와 곧장 연결된다.",
+   "uncertainty": "원전·권 모두 확인됨 — 특별히 확인 못 한 점 없음.",
+   "published": null,
+   "kind": "신화"
+  },
+  {
+   "id": "c5",
+   "title": "다프네 × 아폴론",
+   "people": [
+    "다프네",
+    "아폴론"
+   ],
+   "works": 4,
+   "artists": [
+    "니콜라 푸생",
+    "도소 도시",
+    "안토니오 델 폴라이올로",
+    "잔 로렌초 베르니니"
+   ],
+   "eras": [
+    "르네상스",
+    "바로크"
+   ],
+   "titles": [
+    "아폴론과 다프네",
+    "아폴론과 다프네",
+    "아폴로와 다프네",
+    "아폴론과 다프네"
+   ],
+   "matched": false,
+   "summary": "에로스의 화살에 맞은 아폴론이 다프네를 미친 듯이 쫓지만 다프네는 순결을 지키려 도망친다. 붙잡히기 직전 아버지 강의 신 페네이오스에게 빌어 월계수로 변하고, 아폴론은 그 나무를 자신의 상징으로 삼는다.",
+   "source": "오비디우스 「변신 이야기」 1권",
+   "value": "쫓는 자와 도망치는 자, 변신의 순간 — 베르니니 조각 등 미술사에서 가장 많이 재현된 장면 중 하나.",
+   "uncertainty": "원전·권 확인됨. 다만 세부 행 번호는 카드에 싣지 않았다(판본별 편차 우려).",
+   "published": null,
+   "kind": "신화"
+  },
+  {
+   "id": "c6",
+   "title": "메두사 × 페르세우스",
+   "people": [
+    "메두사",
+    "페르세우스"
+   ],
+   "works": 4,
+   "artists": [
+    "르네 앙투안 우아스",
+    "벤베누토 첼리니",
+    "세바스티노 리치",
+    "카라바조"
+   ],
+   "eras": [
+    "르네상스",
+    "바로크"
+   ],
+   "titles": [
+    "메두사의 머리를 든 페르세우스",
+    "메두사",
+    "메두사 머리로 피네우스 일행을 돌로 만드는 페르세우스",
+    "메두사와 싸울 수 있도록 방패를 페르세우스에게 전해주는 미네르바"
+   ],
+   "matched": false,
+   "summary": "아테나(미네르바)의 노여움으로 머리카락이 뱀이 되고 보는 이를 돌로 만드는 괴물이 된 메두사를, 페르세우스가 방패에 비친 상을 보며 잠든 사이 목을 벤다. 잘린 목에서 날개 달린 페가소스가 태어나고, 페르세우스는 그 머리를 무기로 쓴다.",
+   "source": "오비디우스 「변신 이야기」 4권",
+   "value": "피해자에서 괴물로, 다시 영웅의 전리품으로 — 시선·권력의 서사가 현대적으로 재해석되는 소재.",
+   "uncertainty": "오비디우스 4권에서 페르세우스가 결혼 잔치에서 회고하는 형식으로 확인됨 — 특별히 확인 못 한 점 없음.",
+   "published": null,
+   "kind": "신화"
+  },
+  {
+   "id": "c7",
+   "title": "셀레네 × 아르테미스",
+   "people": [
+    "셀레네",
+    "아르테미스"
+   ],
+   "works": 4,
+   "artists": [
+    "게르치노",
+    "니콜라 푸생",
+    "안니발레 카라치",
+    "플라치도 코스탄지"
+   ],
+   "eras": [
+    "바로크",
+    "신고전주의"
+   ],
+   "titles": [
+    "디아나와 엔디미온",
+    "엔디미온",
+    "셀레네와 엔디미온",
+    "디아나와 엔디미온"
+   ],
+   "matched": false,
+   "summary": "셀레네는 밤하늘의 달 그 자체를 의인화한 여신으로 두 마리 말이 끄는 수레를 타고 하늘을 가른다. 원래 사냥의 여신이던 아르테미스가 후대에 달의 여신 셀레네와 동일시되면서 둘의 기능과 숭배가 뒤섞였다.",
+   "source": null,
+   "value": "'같은 달을 가리키는 두 여신' — 신격이 합쳐지는 습합(신크레티즘)을 보여 주는 사례.",
+   "uncertainty": "셀레네와 아르테미스를 한 이야기로 엮은 고전 원전은 없음. 동일시는 기원전 5세기 이후 점진적 습합의 결과라 단일 서사 원전을 특정할 수 없다.",
+   "published": null,
+   "kind": "신화"
+  },
+  {
+   "id": "c8",
+   "title": "미노타우로스 × 테세우스",
+   "people": [
+    "미노타우로스",
+    "테세우스"
+   ],
+   "works": 3,
+   "artists": [
+    "안토니오 카노바",
+    "익명 적색상",
+    "조반니 바티스타 치마 다 코넬리아노"
+   ],
+   "eras": [
+    "고대",
+    "르네상스",
+    "신고전주의"
+   ],
+   "titles": [
+    "테세우스와 미노타우로스 (적색상 킬릭스)",
+    "테세우스와 미노타우로스",
+    "미노타우로스를 죽이는 테세우스"
+   ],
+   "matched": false,
+   "summary": "아테네가 크레타에 바치던 제물로 자원한 테세우스가 아리아드네가 준 실타래를 풀며 미궁으로 들어간다. 반인반우의 미노타우로스를 죽이고 실을 되감아 빠져나오지만, 돌아오는 길에 낙소스 섬에 아리아드네를 버린다.",
+   "source": "오비디우스 「변신 이야기」 8권",
+   "value": "미궁·실타래·배신 — '길 찾기'와 '버림받은 여인'이라는 두 강력한 이미지를 한 이야기에 담는다.",
+   "uncertainty": "판본마다 결말이 갈림(오비디우스에선 테세우스가 버리지만 아폴로도로스에선 디오니소스가 데려감) — 어느 판을 기준하느냐에 따라 서사가 달라진다.",
+   "published": null,
+   "kind": "신화"
+  },
+  {
+   "id": "c9",
+   "title": "안타이오스 × 헤라클레스",
+   "people": [
+    "안타이오스",
+    "헤라클레스"
+   ],
+   "works": 3,
+   "artists": [
+    "안드레아 만테냐",
+    "안토니오 델 폴라이올로"
+   ],
+   "eras": [
+    "르네상스"
+   ],
+   "titles": [
+    "헤라클레스와 안타이오스",
+    "헤라클레스와 안타이오스 (청동상)",
+    "헤라클레스와 안타이오스"
+   ],
+   "matched": false,
+   "summary": "리비아를 지나던 헤라클레스가 나그네를 붙잡아 씨름으로 죽이던 거인 안타이오스와 맞붙는다. 대지의 여신 가이아의 아들인 안타이오스가 땅에 닿을 때마다 힘을 되찾자, 헤라클레스는 그를 공중으로 들어 올려 짓눌러 죽인다.",
+   "source": "아폴로도로스 「비블리오테케(신화집)」 2권",
+   "value": "'땅에서 힘을 얻는 적을 땅에서 떼어 이긴다' — 약점 간파와 역발상을 한 장면에 담은 우화.",
+   "uncertainty": "현존 최완본이 기원후 2세기 위(僞)-아폴로도로스라, 더 이른 판본의 세부는 확인하기 어렵다.",
+   "published": null,
+   "kind": "신화"
+  },
+  {
+   "id": "c10",
+   "title": "에로스 × 프시케",
+   "people": [
+    "에로스",
+    "프시케"
+   ],
+   "works": 3,
+   "artists": [
+    "안토니 반 다이크",
+    "안토니오 카노바",
+    "프랑수아 제라르"
+   ],
+   "eras": [
+    "바로크",
+    "신고전주의"
+   ],
+   "titles": [
+    "큐피드와 프시케",
+    "큐피드와 프시케 (입맞춤)",
+    "프시케에게 키스로 살아나는 큐피드"
+   ],
+   "matched": false,
+   "summary": "인간이면서 미의 여신을 능가하는 아름다움으로 시샘을 산 프시케가, 얼굴을 보아선 안 된다는 금기 속에서 에로스(쿠피도)와 밤마다 만난다. 호기심에 등불로 그의 얼굴을 비추다 사랑을 잃고, 온갖 시련을 거친 끝에 신이 되어 재회한다.",
+   "source": "아풀레이우스 「변신 이야기(황금 당나귀)」 4~6권",
+   "value": "금기·시련·재회의 '미녀와 야수' 원형 — 영혼(psyche)과 사랑(eros)의 결합이라는 알레고리.",
+   "uncertainty": "이야기가 4권 후반에서 시작해 6권 중반에서 끝나 권 단위로 딱 떨어지지 않는다.",
+   "published": null,
+   "kind": "신화"
+  },
+  {
+   "id": "c11",
+   "title": "테튀스 (티탄) × 테티스",
+   "people": [
+    "테튀스 (티탄)",
+    "테티스"
+   ],
+   "works": 3,
+   "artists": [
+    "샤를 드 라 포스",
+    "요아힘 뷔테발",
+    "익명"
+   ],
+   "eras": [
+    "고대",
+    "르네상스",
+    "바로크"
+   ],
+   "titles": [
+    "테티스가 헤파이스토스의 대장간에서 아킬레우스의 새 무기를 받다",
+    "펠레우스와 테티스의 결혼",
+    "아폴로와 테티스 (테티스가 태양신을 맞이함)"
+   ],
+   "matched": false,
+   "summary": "테튀스는 우라노스와 가이아의 딸인 티탄 여신으로, 오케아노스와 짝을 이뤄 강과 오케아니데스를 낳은 태고의 물의 여신이다. 테티스는 이름이 비슷한 네레이드(바다 님프)로, 펠레우스와 결혼해 영웅 아킬레우스를 낳는다.",
+   "source": "헤시오도스 「신들의 계보(신통기)」",
+   "value": "'이름이 닮아 자주 혼동되는 두 여신'을 나란히 놓아 구별해 주는, 지식 큐레이션형 카드에 적합한 소재.",
+   "uncertainty": "둘을 한 이야기로 엮은 신화는 없음 — 이 짝은 공유 서사가 아니라 '구별'을 위한 병치다. 신통기가 둘을 각각 수록하나 정확한 행 번호는 확인하지 못했다.",
+   "published": null,
+   "kind": "신화"
+  },
+  {
+   "id": "c12",
+   "title": "페르세포네 × 하데스",
+   "people": [
+    "페르세포네",
+    "하데스"
+   ],
+   "works": 3,
+   "artists": [
+    "작가 미상",
+    "잔 로렌초 베르니니",
+    "페테르 파울 루벤스"
+   ],
+   "eras": [
+    "바로크",
+    "익명·미식별"
+   ],
+   "titles": [
+    "하데스의 페르세포네 납치",
+    "프로세르피나의 납치",
+    "프로세르피나의 납치 (페르세포네 납치)"
+   ],
+   "matched": false,
+   "summary": "들판에서 꽃을 꺾던 페르세포네를 지하 세계의 왕 하데스가 땅을 가르고 나타나 납치한다. 딸을 잃은 데메테르가 대지를 메마르게 하자 제우스가 중재해, 페르세포네는 한 해의 일부는 지상, 일부는 지하에서 지내게 되어 계절이 생긴다.",
+   "source": "「호메로스 찬가 2번 — 데메테르 찬가」",
+   "value": "납치·상실·계절의 기원을 한 번에 설명하는 원형 — 죽음과 재생, 모녀 서사로 폭넓게 읽힌다.",
+   "uncertainty": "오비디우스 「변신 이야기」 5권 등 판본마다 세부(석류 씨 개수·지하 체류 기간)가 달라 한 판으로 통일되지 않는다.",
+   "published": null,
+   "kind": "신화"
+  }
+ ],
+ "selection": [
+  "c1"
+ ],
+ "selectionVersion": 1,
+ "question": null,
+ "answers": [
+  {
+   "questionId": "audience-1",
+   "version": 1,
+   "answer": "그림을 보러 온 사람",
+   "at": 1788961915.2252343
+  }
+ ],
+ "research": {
+  "verified": [
+   "오비디우스 「변신 이야기」 10권: 피그말리온은 몸을 파는 프로포이티데스를 보고 여성에게 환멸을 느껴 독신으로 지내다, 눈처럼 흰 상아로 어떤 여인보다 아름다운 상을 깎고 그것과 사랑에 빠진다.",
+   "베누스(아프로디테) 축제일, 피그말리온은 제단에서 차마 '내 상아 처녀'라 말하지 못하고 '내 상아상 같은 여인'을 아내로 달라 빌며, 축제에 함께한 베누스가 그 뜻을 알아채고 조각상에 생명을 준다.",
+   "장 레옹 제롬은 1890년경 이 주제를 유화 여러 점과 조각으로 제작했고, 각 유화가 조각상을 서로 다른 각도에서 보여 준다 — 메트로폴리탄 미술관 소장본은 갈라테이아를 주로 뒤에서 본 구도다.",
+   "안뇰로 브론치노의 「피그말리온과 갈라테이아」(1529~1530년경, 패널에 유채)는 피렌체 우피치 미술관 소장.",
+   "루이 장 프랑수아 라그레네의 1781년작(캔버스에 유채)은 디트로이트 미술관 소장.",
+   "에티엔 모리스 팔코네의 대리석 「피그말리온과 갈라테이아」는 1763년 살롱에 출품된 작품으로 전한다."
+  ],
+  "claims": [
+   "'갈라테이아'라는 이름은 후대에 붙은 것으로, 조각상에 생명이 깃드는 이야기를 '창조자가 제 피조물과 사랑에 빠진다'는 원형으로 읽는 것은 근·현대의 해석이다.",
+   "제롬의 여러 유화가 '한 조각을 빙 둘러 본 연작'처럼 읽힌다는 것은 미술사적 해석."
+  ],
+  "unverified": [
+   "안 루이 지로데 트리오종 작품의 제작 연도 — 아카이브는 1819년으로 적으나, 통상 1813년 착수·1819년 완성으로 소개된다(현 소장: 루브르).",
+   "팔코네 대리석의 '어느 소장본'인지 — 볼티모어 월터스 미술관본과 루브르본이 모두 존재해, 아카이브의 1점이 둘 중 어느 것인지 미확인."
+  ],
+  "conflicts": [
+   "조각상의 이름: 오비디우스 원전에는 조각상에 이름이 없다. '갈라테이아'는 원전이 아니라 후대 전승에서 붙은 이름이다 — 카드에서 '원전 속 이름'처럼 쓰지 않도록 주의.",
+   "팔코네 대리석: 루브르는 자관 소장본을 '1763년 살롱 출품작'이라 하고, 월터스 미술관도 1763년작 대리석을 소장한다 — 같은 주제의 대리석이 복수로 존재."
+  ],
+  "sources": [
+   {
+    "title": "Ovid, Metamorphoses Book 10 (Perseus/Tufts)",
+    "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.02.0028:book%3D10:card%3D243",
+    "published": ""
+   },
+   {
+    "title": "OVID, METAMORPHOSES 10 — Theoi Classical Texts",
+    "url": "https://www.theoi.com/Text/OvidMetamorphoses10.html",
+    "published": ""
+   },
+   {
+    "title": "Jean-Léon Gérôme, Pygmalion and Galatea — The Met",
+    "url": "https://www.metmuseum.org/art/collection/search/436483",
+    "published": ""
+   },
+   {
+    "title": "Pygmalion and Galatea (Gérôme painting) — Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Pygmalion_and_Galatea_(G%C3%A9r%C3%B4me_painting)",
+    "published": ""
+   },
+   {
+    "title": "Agnolo Bronzino, Pigmalione e Galatea 1529-30 (Uffizi) — beniculturali",
+    "url": "https://catalogo.beniculturali.it/detail/HistoricOrArtisticProperty/0900233176",
+    "published": ""
+   },
+   {
+    "title": "Pygmalion and Galatea (Girodet) — Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Pygmalion_and_Galatea_(Girodet)",
+    "published": ""
+   },
+   {
+    "title": "Étienne-Maurice Falconet, Pygmalion and Galatea (1763) — Walters Art Museum",
+    "url": "https://art.thewalters.org/object/27.387/",
+    "published": ""
+   },
+   {
+    "title": "Louis-Jean-François Lagrenée, Pygmalion and Galatea (1781) — Detroit Institute of Arts",
+    "url": "https://dia.org/collection/pygmalion-and-galatea-51641",
+    "published": ""
+   }
+  ]
+ },
+ "storyboard": {
+  "title": "돌에서 사람으로 — 여섯 시대가 그린 '깨어나는 순간'",
+  "cards": [
+   {
+    "n": 1,
+    "role": "표지",
+    "title": "돌에서 사람으로",
+    "body": "조각가가 깎은 상아상이 숨을 얻는 순간. 화가들은 같은 장면을 300년 넘게 다시 그렸다.",
+    "source": "오비디우스 「변신 이야기」 10권",
+    "workSlug": "greek-8a6ecf7fc6",
+    "imagePlan": "입맞춤과 함께 깨어나는 몸을 가장 극적으로 포착한 장면이라 표지로 시선을 끈다."
+   },
+   {
+    "n": 2,
+    "role": "본문",
+    "title": "가장 오래된 화면",
+    "body": "이 묶음에서 가장 이른 그림. 제단과 인물, 배경까지 담아 이야기를 '설명하듯' 펼친다.",
+    "source": "오비디우스 「변신 이야기」 10권",
+    "workSlug": "greek-85805a319a",
+    "imagePlan": "여섯 점 중 제작이 가장 이르고 서사 요소가 많아, 비교의 출발점으로 둔다."
+   },
+   {
+    "n": 3,
+    "role": "본문",
+    "title": "돌이 부드러워질 때",
+    "body": "단단한 돌로 빚은 장면. 조각이 스스로, 굳은 것이 살로 녹는 순간을 증명한다.",
+    "source": "https://art.thewalters.org/object/27.387/",
+    "workSlug": "greek-2a03908f61",
+    "imagePlan": "유일한 대리석 작품 — '돌이 사람이 된다'는 주제를 매체 자체로 보여줘 흐름의 전환점."
+   },
+   {
+    "n": 4,
+    "role": "본문",
+    "title": "조용한 사랑",
+    "body": "손끝이 맞닿는 친밀한 실내. 기적을 요란한 사건이 아니라 사적인 순간으로 담았다.",
+    "source": "오비디우스 「변신 이야기」 10권",
+    "workSlug": "greek-57f6594ebb",
+    "imagePlan": "극적 각도 대신 밀착과 촉감을 강조한 구도라, 앞 대리석의 긴장을 부드럽게 이어받는다."
+   },
+   {
+    "n": 5,
+    "role": "요약",
+    "title": "왜 계속 그렸나",
+    "body": "창조자가 제 이상을 빚어 생명을 준다 — 이 꿈이 시대마다 화가를 다시 붓 들게 했다.",
+    "source": "오비디우스 「변신 이야기」 10권",
+    "workSlug": "greek-da8d824f57",
+    "imagePlan": "이상을 빚어낸다는 주제를 매끄럽게 완성한 후기 유화로, '왜 반복됐나'라는 마무리 질문에 맞춘다."
+   }
+  ],
+  "version": 1,
+  "approved": true
+ },
+ "cards": [
+  {
+   "n": 1,
+   "role": "표지",
+   "title": "돌에서 사람으로",
+   "body": "조각가가 깎은 상아상이 숨을 얻는 순간. 화가들은 같은 장면을 300년 넘게 다시 그렸다.",
+   "source": "피그말리온과 갈라테이아 · 장 레옹 제롬 · 1890년경",
+   "workSlug": "greek-8a6ecf7fc6",
+   "match": "exact",
+   "imagePlan": "입맞춤과 함께 깨어나는 몸을 가장 극적으로 포착한 장면이라 표지로 시선을 끈다.",
+   "imageQuery": null,
+   "bg": "bg-01.jpg",
+   "provenance": {
+    "kind": "archive-matched-public-domain",
+    "source": "Wikimedia Commons",
+    "file": "File:Pygmalion and Galatea MET DT1969.jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Pygmalion_and_Galatea_MET_DT1969.jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/Pygmalion_and_Galatea_MET_DT1969.jpg/1920px-Pygmalion_and_Galatea_MET_DT1969.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "author": "Jean-Léon Gérôme",
+    "verdict": "pd",
+    "fetchedAt": "2026-09-09 23:00",
+    "generator": null,
+    "prompt": null,
+    "archiveWork": {
+     "slug": "greek-8a6ecf7fc6",
+     "title": "피그말리온과 갈라테이아",
+     "artist": "장 레옹 제롬",
+     "inception": "1890년경",
+     "collection": "메트로폴리탄 박물관, 뉴욕, 미국 미술관 (뉴욕)",
+     "material": "캔버스에 유채"
+    },
+    "artistEn": "Jean-Léon Gérôme",
+    "match": "exact",
+    "via": "wikidata-p18",
+    "wikidataQid": "Q17305070",
+    "width": 2938,
+    "height": 3722,
+    "creditBasis": "archive",
+    "matchNote": null,
+    "attempts": [
+     {
+      "query": "wikidata:P18 «Pygmalion and Galatea» + Jean-Léon Gérôme",
+      "ok": true,
+      "n": 1
+     }
+    ]
+   },
+   "render": {
+    "ok": true,
+    "path": "C:\\Users\\EAN22V01\\Desktop\\KDT\\00_shared\\repos\\KDT_Works\\05_module4\\a_mq_N7-domain-agentic-workflow\\cardnews\\data\\p-998f1d84e9f6\\cards\\card-01.png",
+    "size": [
+     1080,
+     1350
+    ],
+    "bytes": 1629766,
+    "sha256": "80f5cb8df5aee332",
+    "titleLines": 1,
+    "bodyLines": 2,
+    "bodyTruncated": false
+   },
+   "error": null
+  },
+  {
+   "n": 2,
+   "role": "본문",
+   "title": "가장 오래된 화면",
+   "body": "이 묶음에서 가장 이른 그림. 제단과 인물, 배경까지 담아 이야기를 '설명하듯' 펼친다.",
+   "source": "피그말리온과 갈라테이아 · 안뇰로 브론치노 · 1529년~1530년경",
+   "workSlug": "greek-85805a319a",
+   "match": "exact",
+   "imagePlan": "여섯 점 중 제작이 가장 이르고 서사 요소가 많아, 비교의 출발점으로 둔다.",
+   "imageQuery": null,
+   "bg": "bg-02.jpg",
+   "provenance": {
+    "kind": "archive-matched-public-domain",
+    "source": "Wikimedia Commons",
+    "file": "File:Angelo Bronzino 068.jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Angelo_Bronzino_068.jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Angelo_Bronzino_068.jpg/1920px-Angelo_Bronzino_068.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "author": "Bronzino",
+    "verdict": "pd",
+    "fetchedAt": "2026-09-09 23:00",
+    "generator": null,
+    "prompt": null,
+    "archiveWork": {
+     "slug": "greek-85805a319a",
+     "title": "피그말리온과 갈라테이아",
+     "artist": "안뇰로 브론치노",
+     "inception": "1529년~1530년경",
+     "collection": "우피치 미술관, 피렌체",
+     "material": "패널에 유채"
+    },
+    "artistEn": "Bronzino",
+    "match": "exact",
+    "via": "wikidata-p18",
+    "wikidataQid": "Q111577849",
+    "width": 2684,
+    "height": 3500,
+    "creditBasis": "archive",
+    "matchNote": null,
+    "attempts": [
+     {
+      "query": "wikidata:P18 «Pygmalion and Galatea» + Bronzino",
+      "ok": true,
+      "n": 1
+     }
+    ]
+   },
+   "render": {
+    "ok": true,
+    "path": "C:\\Users\\EAN22V01\\Desktop\\KDT\\00_shared\\repos\\KDT_Works\\05_module4\\a_mq_N7-domain-agentic-workflow\\cardnews\\data\\p-998f1d84e9f6\\cards\\card-02.png",
+    "size": [
+     1080,
+     1350
+    ],
+    "bytes": 2419728,
+    "sha256": "479fe212faa976e1",
+    "titleLines": 1,
+    "bodyLines": 2,
+    "bodyTruncated": false
+   },
+   "error": null
+  },
+  {
+   "n": 3,
+   "role": "본문",
+   "title": "돌이 부드러워질 때",
+   "body": "단단한 돌로 빚은 장면. 조각이 스스로, 굳은 것이 살로 녹는 순간을 증명한다.",
+   "source": "피그말리온과 갈라테이아 · 에티엔 모리스 팔코네 · 1763년",
+   "workSlug": "greek-2a03908f61",
+   "match": "exact",
+   "imagePlan": "유일한 대리석 작품 — '돌이 사람이 된다'는 주제를 매체 자체로 보여줘 흐름의 전환점.",
+   "imageQuery": null,
+   "bg": "bg-03.jpg",
+   "provenance": {
+    "kind": "archive-matched-public-domain",
+    "source": "Wikimedia Commons",
+    "file": "File:Falconet - Pygmalion & Galatee (1763)-black bg.jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Falconet_-_Pygmalion_%26_Galatee_(1763)-black_bg.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/27/Falconet_-_Pygmalion_%26_Galatee_%281763%29-black_bg.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "author": "Falconet_-_Pygmalion_&amp;_Galatee_(1763).jpg: Scupture by Étienne Maurice Falconet, photographed by  Alex Bakharev at en.wikipedia\nderivative work: Coyau (talk)",
+    "verdict": "pd",
+    "fetchedAt": "2026-09-09 23:00",
+    "generator": null,
+    "prompt": null,
+    "archiveWork": {
+     "slug": "greek-2a03908f61",
+     "title": "피그말리온과 갈라테이아",
+     "artist": "에티엔 모리스 팔코네",
+     "inception": "1763년",
+     "collection": "에르미타주 박물관, 상트페테르부르크 (1772년 카트린 2세 구입)",
+     "material": "대리석"
+    },
+    "artistEn": "Étienne Maurice Falconet",
+    "match": "exact",
+    "via": "wikidata-p18",
+    "wikidataQid": "Q17315628",
+    "width": 1133,
+    "height": 1700,
+    "creditBasis": "archive",
+    "matchNote": null,
+    "attempts": [
+     {
+      "query": "wikidata:P18 «Pygmalion and Galatea» + Étienne Maurice Falconet",
+      "ok": true,
+      "n": 1
+     }
+    ]
+   },
+   "render": {
+    "ok": true,
+    "path": "C:\\Users\\EAN22V01\\Desktop\\KDT\\00_shared\\repos\\KDT_Works\\05_module4\\a_mq_N7-domain-agentic-workflow\\cardnews\\data\\p-998f1d84e9f6\\cards\\card-03.png",
+    "size": [
+     1080,
+     1350
+    ],
+    "bytes": 699386,
+    "sha256": "7d37bc5b24f417e6",
+    "titleLines": 1,
+    "bodyLines": 2,
+    "bodyTruncated": false
+   },
+   "error": null
+  },
+  {
+   "n": 4,
+   "role": "본문",
+   "title": "조용한 사랑",
+   "body": "손끝이 맞닿는 친밀한 실내. 기적을 요란한 사건이 아니라 사적인 순간으로 담았다.",
+   "source": "Auguste Rodin (Wikimedia Commons)",
+   "workSlug": "greek-57f6594ebb",
+   "match": "unverified",
+   "imagePlan": "극적 각도 대신 밀착과 촉감을 강조한 구도라, 앞 대리석의 긴장을 부드럽게 이어받는다.",
+   "imageQuery": null,
+   "bg": "bg-04.jpg",
+   "provenance": {
+    "kind": "archive-matched-public-domain",
+    "source": "Wikimedia Commons",
+    "file": "File:Pygmalion and Galatea MET DP-13618-003.jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Pygmalion_and_Galatea_MET_DP-13618-003.jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/Pygmalion_and_Galatea_MET_DP-13618-003.jpg/1920px-Pygmalion_and_Galatea_MET_DP-13618-003.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "author": "Auguste Rodin",
+    "verdict": "pd",
+    "fetchedAt": "2026-09-09 23:00",
+    "generator": null,
+    "prompt": null,
+    "archiveWork": {
+     "slug": "greek-57f6594ebb",
+     "title": "피그말리온과 갈라테이아",
+     "artist": "루이 장 프랑수아 라그레네",
+     "inception": "1781년",
+     "collection": "개인 소장 또는 프랑스 지역 미술관 (추정)",
+     "material": "캔버스에 유채"
+    },
+    "artistEn": null,
+    "match": "unverified",
+    "via": null,
+    "wikidataQid": null,
+    "width": 4000,
+    "height": 3276,
+    "creditBasis": "commons",
+    "matchNote": "작가 「루이 장 프랑수아 라그레네」의 영문 표기를 찾지 못해 **대조하지 못했습니다.** 맞을 수도 아닐 수도 있으므로 카드에는 Commons 가 밝힌 작가만 적습니다.",
+    "attempts": [
+     {
+      "query": "Pygmalion and Galatea",
+      "ok": true,
+      "n": 8
+     }
+    ]
+   },
+   "render": {
+    "ok": true,
+    "path": "C:\\Users\\EAN22V01\\Desktop\\KDT\\00_shared\\repos\\KDT_Works\\05_module4\\a_mq_N7-domain-agentic-workflow\\cardnews\\data\\p-998f1d84e9f6\\cards\\card-04.png",
+    "size": [
+     1080,
+     1350
+    ],
+    "bytes": 977511,
+    "sha256": "7d912ea445f7c08c",
+    "titleLines": 1,
+    "bodyLines": 2,
+    "bodyTruncated": false
+   },
+   "error": null
+  },
+  {
+   "n": 5,
+   "role": "요약",
+   "title": "왜 계속 그렸나",
+   "body": "창조자가 제 이상을 빚어 생명을 준다 — 이 꿈이 시대마다 화가를 다시 붓 들게 했다.",
+   "source": "Auguste Rodin (Wikimedia Commons)",
+   "workSlug": "greek-da8d824f57",
+   "match": "unverified",
+   "imagePlan": "이상을 빚어낸다는 주제를 매끄럽게 완성한 후기 유화로, '왜 반복됐나'라는 마무리 질문에 맞춘다.",
+   "imageQuery": null,
+   "bg": "bg-05.jpg",
+   "provenance": {
+    "kind": "archive-matched-public-domain",
+    "source": "Wikimedia Commons",
+    "file": "File:Pygmalion and Galatea MET DP-13618-004.jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Pygmalion_and_Galatea_MET_DP-13618-004.jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4a/Pygmalion_and_Galatea_MET_DP-13618-004.jpg/1920px-Pygmalion_and_Galatea_MET_DP-13618-004.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "author": "Auguste Rodin",
+    "verdict": "pd",
+    "fetchedAt": "2026-09-09 23:00",
+    "generator": null,
+    "prompt": null,
+    "archiveWork": {
+     "slug": "greek-da8d824f57",
+     "title": "피그말리온과 갈라테이아",
+     "artist": "안 루이 지로데 트리오종",
+     "inception": "1819년",
+     "collection": "루브르 박물관, 파리 (RF 2002-4)",
+     "material": "캔버스에 유채"
+    },
+    "artistEn": null,
+    "match": "unverified",
+    "via": null,
+    "wikidataQid": null,
+    "width": 4000,
+    "height": 3149,
+    "creditBasis": "commons",
+    "matchNote": "작가 「안 루이 지로데 트리오종」의 영문 표기를 찾지 못해 **대조하지 못했습니다.** 맞을 수도 아닐 수도 있으므로 카드에는 Commons 가 밝힌 작가만 적습니다.",
+    "attempts": [
+     {
+      "query": "Pygmalion and Galatea",
+      "ok": true,
+      "n": 8
+     }
+    ]
+   },
+   "render": {
+    "ok": true,
+    "path": "C:\\Users\\EAN22V01\\Desktop\\KDT\\00_shared\\repos\\KDT_Works\\05_module4\\a_mq_N7-domain-agentic-workflow\\cardnews\\data\\p-998f1d84e9f6\\cards\\card-05.png",
+    "size": [
+     1080,
+     1350
+    ],
+    "bytes": 1007106,
+    "sha256": "5746ff25c952245d",
+    "titleLines": 1,
+    "bodyLines": 2,
+    "bodyTruncated": false
+   },
+   "error": null
+  }
+ ],
+ "runs": [
+  {
+   "at": 1788961374.0749242,
+   "kind": "system",
+   "step": "research",
+   "note": "색인에서 후보 12개를 «셈»"
+  },
+  {
+   "at": 1788961374.0749292,
+   "kind": "engine",
+   "step": "research",
+   "note": "원전 확인 시작"
+  },
+  {
+   "at": 1788961572.549572,
+   "kind": "engine",
+   "step": "research",
+   "ok": true,
+   "ms": 198472,
+   "webSearches": 0,
+   "costUsd": 1.0233365,
+   "reason": null
+  },
+  {
+   "at": 1788961598.0114486,
+   "kind": "human",
+   "step": "selection",
+   "note": "후보 1개 선택",
+   "picked": [
+    "c1"
+   ]
+  },
+  {
+   "at": 1788961598.0186915,
+   "kind": "engine",
+   "step": "deep",
+   "note": "심층 검증 시작"
+  },
+  {
+   "at": 1788961696.3740032,
+   "kind": "engine",
+   "step": "deep",
+   "ok": true,
+   "ms": 98352,
+   "webSearches": 0,
+   "costUsd": 0.8483475,
+   "reason": null
+  },
+  {
+   "at": 1788961863.173507,
+   "kind": "engine",
+   "step": "deep",
+   "note": "심층 검증 시작"
+  },
+  {
+   "at": 1788961913.588849,
+   "kind": "engine",
+   "step": "deep",
+   "ok": true,
+   "ms": 50412,
+   "webSearches": 0,
+   "costUsd": 0.6672855000000001,
+   "reason": null
+  },
+  {
+   "at": 1788961915.2252395,
+   "kind": "human",
+   "step": "answer",
+   "note": "답변: 그림을 보러 온 사람"
+  },
+  {
+   "at": 1788961966.7792568,
+   "kind": "engine",
+   "step": "deep",
+   "note": "심층 검증 시작"
+  },
+  {
+   "at": 1788962007.6583316,
+   "kind": "engine",
+   "step": "deep",
+   "ok": true,
+   "ms": 40876,
+   "webSearches": 0,
+   "costUsd": 0.1343605,
+   "reason": null
+  },
+  {
+   "at": 1788962010.8280244,
+   "kind": "engine",
+   "step": "storyboard",
+   "note": "기획 시작"
+  },
+  {
+   "at": 1788962069.6618335,
+   "kind": "engine",
+   "step": "storyboard",
+   "ok": true,
+   "ms": 58830,
+   "costUsd": 0.1590335,
+   "reason": null
+  },
+  {
+   "at": 1788962090.2397385,
+   "kind": "human",
+   "step": "approve",
+   "note": "스토리보드 v1 승인"
+  },
+  {
+   "at": 1788962106.6582122,
+   "kind": "system",
+   "step": "produce",
+   "note": "카드 5장 제작"
+  },
+  {
+   "at": 1788962209.7206256,
+   "kind": "human",
+   "step": "approve",
+   "note": "스토리보드 v1 승인"
+  },
+  {
+   "at": 1788962238.5920553,
+   "kind": "system",
+   "step": "produce",
+   "note": "카드 5장 제작"
+  },
+  {
+   "at": 1788962396.1270373,
+   "kind": "human",
+   "step": "approve",
+   "note": "스토리보드 v1 승인"
+  },
+  {
+   "at": 1788962417.914237,
+   "kind": "system",
+   "step": "produce",
+   "note": "카드 5장 제작"
+  },
+  {
+   "at": 1788962519.7103753,
+   "kind": "human",
+   "step": "approve",
+   "note": "최종 승인"
+  }
+ ],
+ "requests": {
+  "e9b4bac958a9": {
+   "payload": {
+    "op": "research",
+    "widen": false
+   },
+   "result": {
+    "ok": true,
+    "runId": "run-879d5d255840",
+    "status": "running"
+   },
+   "at": 1788961374.0608974
+  },
+  "65560ffd0cb6": {
+   "payload": {
+    "op": "deep",
+    "sel": [
+     "c1"
+    ]
+   },
+   "result": {
+    "ok": true,
+    "runId": "run-995f50829735",
+    "status": "running"
+   },
+   "at": 1788961598.0163224
+  },
+  "637da2f8ca22": {
+   "payload": {
+    "op": "deep",
+    "sel": [
+     "c1"
+    ]
+   },
+   "result": {
+    "ok": true,
+    "runId": "run-baeaebbaa5c3",
+    "status": "running"
+   },
+   "at": 1788961863.1615138
+  },
+  "1093ff553d3f": {
+   "payload": {
+    "op": "answer",
+    "q": "audience-1",
+    "v": 1,
+    "a": "그림을 보러 온 사람"
+   },
+   "result": {
+    "ok": true,
+    "accepted": true
+   },
+   "at": 1788961915.2252433
+  },
+  "668f5fdb5db2": {
+   "payload": {
+    "op": "deep",
+    "sel": [
+     "c1"
+    ]
+   },
+   "result": {
+    "ok": true,
+    "runId": "run-c02e34a7439e",
+    "status": "running"
+   },
+   "at": 1788961966.7675097
+  },
+  "9ce238a02081": {
+   "payload": {
+    "op": "storyboard",
+    "n": 5
+   },
+   "result": {
+    "ok": true,
+    "runId": "run-274472e6ca40",
+    "status": "running"
+   },
+   "at": 1788962010.8244023
+  }
+ },
+ "errors": [
+  {
+   "at": 1788961915.2324345,
+   "where": "deep",
+   "reason": "crashed",
+   "detail": "tore.py\", line 123, in update\n    return save(st)\n  File \"C:\\Users\\EAN22V01\\Desktop\\KDT\\00_shared\\repos\\KDT_Works\\05_module4\\a_mq_N7-domain-agentic-workflow\\cardnews\\store.py\", line 112, in save\n    os.replace(tmp, p)\n    ~~~~~~~~~~^^^^^^^^\nPermissionError: [WinError 5] 액세스가 거부되었습니다: 'C:\\\\Users\\\\EAN22V01\\\\Desktop\\\\KDT\\\\00_shared\\\\repos\\\\KDT_Works\\\\05_module4\\\\a_mq_N7-domain-agentic-workflow\\\\cardnews\\\\data\\\\p-998f1d84e9f6\\\\state.json.tmp' -> 'C:\\\\Users\\\\EAN22V01\\\\Desktop\\\\KDT\\\\00_shared\\\\repos\\\\KDT_Works\\\\05_module4\\\\a_mq_N7-domain-agentic-workflow\\\\cardnews\\\\data\\\\p-998f1d84e9f6\\\\state.json'\n",
+   "retry": "다시 시도"
+  }
+ ],
+ "exports": {
+  "zip": "cardnews.zip",
+  "zipBytes": 6736720,
+  "cards": [
+   "card-01.png",
+   "card-02.png",
+   "card-03.png",
+   "card-04.png",
+   "card-05.png"
+  ],
+  "manifest": "manifest.json"
+ },
+ "shortfall": null,
+ "editorial": {
+  "audience": "그림을 보러 온 사람",
+  "why": "6점이 모두 '조각상이 깨어나는 같은 순간'을 1529~1890년 서로 다른 손으로 그린 것이라, 시대·매체 비교가 이 아카이브의 가장 강한 자산이다.",
+  "format": "비교형",
+  "formatWhy": "같은 장면을 브론치노(르네상스 패널)·팔코네(신고전 대리석)·라그레네·지로데(신고전 유화)·제롬(19세기 아카데미즘)이 어떻게 달리 포착했는지 시대순으로 나란히 놓으면, 한 장의 그림보다 '변화'가 이야기를 만든다.",
+  "hooks": [
+   "돌에서 사람으로 — 여섯 손이 그린 '깨어나는 순간'",
+   "1529 → 1890, 같은 장면을 그린 여섯 개의 시대",
+   "조각가가 자기 작품과 사랑에 빠졌다 — 화가들은 그 순간을 어떻게 봤나"
+  ]
+ },
+ "finalApprovedAt": 1788962519.7103713
+}

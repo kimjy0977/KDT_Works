@@ -13,6 +13,7 @@ import threading
 import time
 
 import engine
+import myth
 import store
 
 # 오래 걸리는 작업은 스레드로 돌리고 상태는 «파일»에 남긴다 — 서버가 죽어도 기록이 남게.
@@ -32,6 +33,36 @@ def _period(days):
 # ════════════════════════════════════════════════════════════
 # ① 넓은 조사
 # ════════════════════════════════════════════════════════════
+# ── 신화 모드 ──────────────────────────────────────────
+# ★후보를 모델이 «만들지» 않는다. 색인에서 «세어» 주고 이야기만 시킨다.
+#   (CURATOR 의 autoRepair 와 같은 원칙 — 조회는 대신, 판단은 대신하지 않는다.)
+MYTH_RESEARCH_PROMPT = """당신은 신화 카드뉴스 제작을 돕는 조사자입니다.
+
+주제: {topic}
+
+## ★후보 목록은 이미 «정해져 있습니다»
+아래는 제 아카이브에 **실제로 있는** 이야기와 작품 수입니다. 제가 «세어» 넣었습니다.
+
+{clusters}
+
+## 반드시 지킬 것
+1. **목록에 없는 이야기를 만들어 넣지 마세요.** id 를 그대로 씁니다.
+2. **작품 수·작가 이름을 바꾸지 마세요.** 그 숫자는 제가 셌습니다. 다시 적을 필요 없습니다.
+3. 각 이야기마다 이것만 채웁니다:
+   - `summary` 두 문장. **무슨 일이 일어나는가.**
+   - `source` 고전 원전. 예: `오비디우스 「변신 이야기」 10권`. **확실하지 않으면 null.**
+   - `value` 카드뉴스로 만들 만한 이유 한 줄
+   - `uncertainty` 확인하지 못한 것 한 줄
+4. **원전 출처는 웹으로 확인하세요.** 확인 못 했으면 source 를 null 로 두고
+   uncertainty 에 «무엇을 확인 못 했는지» 적습니다.
+   ⛔ 기억으로 권·행 번호를 «지어내지» 마세요. 신화는 판본마다 다릅니다.
+
+## 출력 — JSON 객체 하나만. 설명·코드펜스 없이.
+{{"status":"result",
+  "candidates":[
+    {{"id":"c1","summary":"","source":null,"value":"","uncertainty":""}}
+  ]}}"""
+
 RESEARCH_PROMPT = """당신은 카드뉴스 제작을 돕는 조사자입니다.
 
 주제: {topic}
@@ -58,7 +89,89 @@ RESEARCH_PROMPT = """당신은 카드뉴스 제작을 돕는 조사자입니다.
   ]}}"""
 
 
+def _clusters_for(st):
+    """신화 모드의 후보 — 색인에서 «세어» 만든다. 주제가 특정 이야기를 지목하면 맨 앞에 둔다."""
+    rows = myth.clusters(limit=12)
+    named = myth.find_story(st['topic'])
+    if named:
+        key = set(named['people'])
+        rows = ([r for r in rows if set(r['people']) == key]
+                or [dict(named)]) + [r for r in rows if set(r['people']) != key]
+        rows = rows[:12]
+        rows[0]['matched'] = True
+    for i, r in enumerate(rows):
+        r['id'] = 'c%d' % (i + 1)
+    return rows
+
+
+def _run_myth_research(pid):
+    """★후보는 «세어서» 만들고, 모델에게는 이야기만 시킨다."""
+    def work():
+        st = store.load(pid)
+        rows = _clusters_for(st)
+        brief = '\n'.join(
+            '- %s  「%s」  작품 %d점 · 작가: %s'
+            % (r['id'], ' × '.join(r['people']), r['works'], ', '.join(r['artists'][:4]))
+            for r in rows)
+        prompt = MYTH_RESEARCH_PROMPT.format(topic=st['topic'], clusters=brief)
+
+        store.update(pid, lambda s: (s.update({'status': 'researching', 'stage': 'research',
+                                               'searchedAt': _now_kst().strftime('%Y-%m-%d %H:%M')}),
+                                     store.add_run(s, 'system', step='research',
+                                                   note='색인에서 후보 %d개를 «셈»' % len(rows)),
+                                     store.add_run(s, 'engine', step='research',
+                                                   note='원전 확인 시작')))
+        r = engine.ask(prompt, session_id=st.get('sessionId'), cwd=store.engine_dir(pid),
+                       tools=['WebSearch', 'WebFetch'], timeout=420)
+
+        def apply(s):
+            store.add_run(s, 'engine', step='research', ok=r['ok'], ms=r.get('ms'),
+                          webSearches=r.get('webSearches'), costUsd=r.get('costUsd'),
+                          reason=r.get('reason'))
+            said = {}
+            if r['ok']:
+                if r.get('sessionId'):
+                    s['sessionId'] = r['sessionId']
+                norm = engine.normalize(engine.extract_json(r['text']))
+                data = norm.get('data') or {}
+                for c in ((data.get('candidates') if isinstance(data, dict) else data) or []):
+                    if c.get('id'):
+                        said[c['id']] = c
+            else:
+                store.add_error(s, 'research', r['reason'], r.get('detail'),
+                                retry='다시 조사하기 — 이야기 목록은 이미 있으니 요약만 다시 받습니다')
+
+            # ★★모델이 무엇을 말했든 «작품 수·작가·인물»은 색인 값으로 덮어쓴다.
+            #   지어낼 자리를 남기지 않는다. 못 받은 요약은 «비워 둔다» — 채우지 않는다.
+            out = []
+            for row in rows:
+                m = said.get(row['id']) or {}
+                out.append({
+                    'id': row['id'],
+                    'title': ' × '.join(row['people']),
+                    'people': row['people'], 'works': row['works'],
+                    'artists': row['artists'], 'eras': row['eras'], 'titles': row['titles'],
+                    'matched': row.get('matched', False),
+                    'summary': m.get('summary') or '(요약을 받지 못했습니다)',
+                    'source': m.get('source'),
+                    'value': m.get('value') or '아카이브에 %d점' % row['works'],
+                    'uncertainty': m.get('uncertainty') or ('요약 미수신' if not m else ''),
+                    'published': None, 'kind': '신화',
+                })
+            s['candidates'] = out
+            s['shortfall'] = None
+            s['status'] = 'ready'
+            s['stage'] = 'select'
+        store.update(pid, apply)
+        _RUNNING.pop(pid, None)
+
+    return _spawn(pid, 'research', work)
+
+
 def run_research(pid, widen=False):
+    if store.load(pid).get('mode') == 'myth':
+        return _run_myth_research(pid)
+
     def work():
         st = store.load(pid)
         days = 30 if widen else st['periodDays']
@@ -109,6 +222,47 @@ def run_research(pid, widen=False):
 # ════════════════════════════════════════════════════════════
 # ③ 심층 검증 + 편집 판단 (독자 질문이 여기서 나온다)
 # ════════════════════════════════════════════════════════════
+MYTH_DEEP_PROMPT = """당신은 신화 카드뉴스 제작을 돕는 편집자입니다.
+
+사용자가 다음 이야기를 골랐습니다:
+{picked}
+
+이 이야기를 그린 작품이 아카이브에 **{nworks}점** 있습니다:
+{works}
+
+## 1단계 — 심층 확인
+웹으로 **고전 원전**과 **작품 정보**를 확인하세요.
+- **확인한 사실**(원전에 그렇게 적혀 있다) / **해석**(후대의 읽기다) / **확인 못 한 것** 을 «나눠서».
+- ★신화는 **판본마다 다릅니다.** 오비디우스와 아폴로도로스가 다르면 그건 «오류»가 아니라
+  **서로 다른 전승**입니다. conflicts 에 «어느 판본이 무엇을 말하는지» 적습니다.
+- ⛔ 널리 퍼진 «통속 요약»을 원전이라고 적지 마세요. 확인 못 했으면 unverified 로.
+
+## 2단계 — 편집 판단
+**대상 독자**와 **카드 형식**을 정하고 이유를 답니다.
+{audience_hint}
+
+## 출력 — JSON 객체 하나만.
+{{"status":"{want}",
+  "research":{{
+    "verified":["원전으로 확인한 사실"],
+    "claims":["후대의 해석·통설"],
+    "unverified":["확인 못 한 것"],
+    "conflicts":["판본끼리 다른 대목 — 어느 판본이 무엇을 말하는지"],
+    "sources":[{{"title":"","url":"","published":""}}]
+  }},
+  "editorial":{{
+    "audience":"정한 독자","why":"그렇게 본 이유 한 줄",
+    "format":"이야기형|비교형|목록형|단계 안내형",
+    "formatWhy":"그 형식을 고른 이유",
+    "hooks":["표지 문구 후보 2~3개"]
+  }}{extra}}}"""
+
+MYTH_ASK_BLOCK = """,
+  "question_id":"audience-1","version":1,
+  "question":"어떤 독자에게 전달할까요?",
+  "options":["신화가 처음인 사람","그림을 보러 온 사람","이야기의 해석이 궁금한 사람"],
+  "why":"선택에 따라 «줄거리»를 앞에 둘지 «그림»을 앞에 둘지가 달라집니다\""""
+
 DEEP_PROMPT = """당신은 카드뉴스 제작을 돕는 편집자입니다.
 
 사용자가 다음 소식을 골랐습니다:
@@ -159,11 +313,24 @@ def run_deep(pid):
                 % _answer_of(st, 'audience')) if not want_ask else \
                ('독자에 따라 결과가 «크게» 달라지면 status 를 need_input 으로 하고 질문을 넣으세요. '
                 '이미 명확하면 status 를 result 로 하고 추천 이유만 제시하세요.')
-        prompt = DEEP_PROMPT.format(
-            picked=json.dumps(picked, ensure_ascii=False, indent=1),
-            audience_hint=hint,
-            want='result' if not want_ask else 'result 또는 need_input',
-            extra=ASK_BLOCK if want_ask else '')
+        if st.get('mode') == 'myth':
+            ws = []
+            for c in picked:
+                ws += myth.works_of(c.get('people') or [])
+            prompt = MYTH_DEEP_PROMPT.format(
+                picked=json.dumps([{k: v for k, v in c.items()
+                                    if k in ('id', 'title', 'people', 'summary', 'source')}
+                                   for c in picked], ensure_ascii=False, indent=1),
+                nworks=len(ws), works=_works_brief(ws),
+                audience_hint=hint,
+                want='result' if not want_ask else 'result 또는 need_input',
+                extra=MYTH_ASK_BLOCK if want_ask else '')
+        else:
+            prompt = DEEP_PROMPT.format(
+                picked=json.dumps(picked, ensure_ascii=False, indent=1),
+                audience_hint=hint,
+                want='result' if not want_ask else 'result 또는 need_input',
+                extra=ASK_BLOCK if want_ask else '')
 
         store.update(pid, lambda s: (s.update({'status': 'researching', 'stage': 'deep'}),
                                      store.add_run(s, 'engine', step='deep', note='심층 검증 시작')))
@@ -186,9 +353,12 @@ def run_deep(pid):
                 store.add_error(s, 'deep', 'unparsable', (r['text'] or '')[:400], retry='심층 검증 다시')
                 return
             data = norm.get('data') or {}
+            # ★있는 것만 덮어쓴다 — 뒤이은 호출이 «빈 값으로» 앞의 결과를 지우지 않게.
             if isinstance(data, dict):
-                s['research'] = data.get('research')
-                s['editorial'] = data.get('editorial')
+                if data.get('research'):
+                    s['research'] = data['research']
+                if data.get('editorial'):
+                    s['editorial'] = data['editorial']
             if norm['kind'] == 'need_input':
                 q = norm['question']
                 q['version'] = 1
@@ -216,6 +386,36 @@ def _answer_of(st, prefix):
 # ════════════════════════════════════════════════════════════
 # ④ 스토리보드
 # ════════════════════════════════════════════════════════════
+MYTH_STORY_PROMPT = """확인한 내용으로 신화 카드뉴스 스토리보드를 만드세요.
+
+독자: {audience}
+형식: {fmt}
+카드 수: {n}장
+
+## ★각 카드에 «아카이브의 작품»을 배정합니다
+아래 작품 중에서 고릅니다. **slug 를 그대로** `workSlug` 에 적습니다.
+목록에 없는 slug 를 만들면 그 카드는 그림 없이 나갑니다.
+
+{works}
+
+## 반드시 지킬 것
+- **한 장에 «메시지 하나».** 이야기가 «흘러가게» 배치합니다.
+- 표지는 관심을 끌되 **확인한 사실의 범위 안에서만**. 근거 없는 수치·단정 금지.
+- 마지막 장은 **요약 또는 「이 이야기가 왜 계속 그려졌나」**.
+- ★작품은 **장면에 맞게** 고릅니다. 같은 작품을 두 번 쓰지 마세요.
+  (작품이 카드 수보다 적으면 그때만 겹쳐도 됩니다.)
+- **그림에 글자를 넣으라고 하지 마세요.** 글자는 앱이 따로 얹습니다.
+- ⛔ **작가·연도를 body 에 적지 마세요.** 앱이 색인에서 «확인된 것만» 자동으로 답니다.
+  (모델이 적으면 틀려도 아무도 못 잡습니다.)
+
+## 출력 — JSON 객체 하나만.
+{{"status":"result","storyboard":{{
+  "title":"카드뉴스 제목",
+  "cards":[{{"n":1,"role":"표지|본문|요약","title":"카드 제목(20자 이내)",
+             "body":"핵심 문장 1~2개(80자 이내)","source":"근거 URL 또는 원전",
+             "workSlug":"위 목록의 slug","imagePlan":"이 그림을 고른 이유 한 줄"}}]
+}}}}"""
+
 STORY_PROMPT = """검증한 내용으로 카드뉴스 스토리보드를 만드세요.
 
 독자: {audience}
@@ -239,12 +439,30 @@ STORY_PROMPT = """검증한 내용으로 카드뉴스 스토리보드를 만드�
 }}}}"""
 
 
+def _works_brief(works):
+    """작품 목록을 «색인 그대로» 한 줄씩. 모델이 여기 없는 것을 쓰면 그림이 안 붙는다."""
+    out = []
+    for w in works:
+        bits = [w.get('artist'), w.get('inception'), w.get('material')]
+        out.append('- %s | %s | %s' % (w['slug'], w.get('title') or '',
+                                       ' · '.join(b for b in bits if b)))
+    return '\n'.join(out) or '(작품 없음)'
+
+
 def run_storyboard(pid, n_cards=5):
     def work():
         st = store.load(pid)
         ed = st.get('editorial') or {}
         aud = _answer_of(st, 'audience') or ed.get('audience') or '일반 독자'
-        prompt = STORY_PROMPT.format(audience=aud, fmt=ed.get('format') or '목록형', n=n_cards)
+        if st.get('mode') == 'myth':
+            ws = []
+            for c in st['candidates']:
+                if c['id'] in st['selection']:
+                    ws += myth.works_of(c.get('people') or [])
+            prompt = MYTH_STORY_PROMPT.format(audience=aud, fmt=ed.get('format') or '이야기형',
+                                              n=n_cards, works=_works_brief(ws))
+        else:
+            prompt = STORY_PROMPT.format(audience=aud, fmt=ed.get('format') or '목록형', n=n_cards)
         store.update(pid, lambda s: (s.update({'status': 'researching', 'stage': 'storyboard'}),
                                      store.add_run(s, 'engine', step='storyboard', note='기획 시작')))
         r = engine.ask(prompt, session_id=st.get('sessionId'), cwd=store.engine_dir(pid), timeout=300)
