@@ -25,22 +25,80 @@ export const SETTINGS = {
   tight: { label: '⑤ 예산 절반 (스텝 6 · 90초)', autoRepair: true, model: 'qwen3.5:2b', limits: { maxSteps: 6, wallClockMs: 90000 } },
 };
 
-// ── 채점기. 표기가 흔들리므로 «느슨하게» 맞춘다. 느슨함의 정도를 여기 한 곳에 적어 둔다.
+// ── 채점기.
+//
+// ★2026-09-09 — 첫 판을 돌린 뒤 «채점기 자신»의 결함 넷을 찾아 고쳤다.
+//   고치기 전 숫자로 보고했다면 «에이전트가 나쁘다»는 틀린 결론이 나왔을 것이다.
+//     ① 소장처 정답지가 깨져 있었다 (괄호 안 마침표에서 잘림) → build-index.py 에서 수정
+//     ② 매체 「유채, 캔버스」 vs 「캔버스에 유채」 가 «불일치»로 세어졌다 → 토큰 집합 비교로
+//     ③ 「기원전 1200년」의 부호를 안 봤다 → BCE 를 음수로
+//     ④ 「미상」·「정보없음」을 정답으로 세어 «맞힐 수 없는 문제»를 오답으로 세었다 → 채점 대상 외
+//   ⑤ era 는 고치지 않고 «따로» 보고한다 — 아래 eraEq 주석 참조.
+const NO_ANSWER = /^(미상|불명|정보없음|알 수 없|없음|unknown|n\/a|-)$/i;
 const norm = (s) => String(s ?? '').toLowerCase().replace(/[\s()·,．.'"「」<>]+/g, '');
+const isBlank = (v) => !v || NO_ANSWER.test(String(v).trim());
+
 function looseEq(got, want) {
-  if (!want) return null;            // 정답이 없으면 채점하지 않는다 (null = 대상 외)
-  if (!got) return false;
+  if (isBlank(want)) return null;    // 정답이 없으면 채점하지 않는다 (null = 대상 외)
+  if (isBlank(got)) return false;
   const g = norm(got), w = norm(want);
   if (!g) return false;
   return g.includes(w) || w.includes(g);
 }
+
+/** 낱말 집합으로 견준다 — 「유채, 캔버스」와 「캔버스에 유채」는 같은 말이다. */
+function tokenEq(got, want) {
+  if (isBlank(want)) return null;
+  if (isBlank(got)) return false;
+  if (looseEq(got, want) === true) return true;
+  const tok = (s) => new Set(String(s).toLowerCase()
+    .split(/[^a-z0-9가-힣]+/).filter((t) => t.length > 1)
+    .map((t) => t.replace(/(에|의|으로|로|과|와|에서)$/, '')).filter((t) => t.length > 1));
+  const a = tok(got), b = tok(want);
+  if (!a.size || !b.size) return false;
+  let hit = 0;
+  for (const t of b) if (a.has(t)) hit++;
+  return hit / b.size >= 0.5;        // 정답 낱말의 절반 이상이 답에 있으면 맞은 것으로 본다
+}
+
+/** 기관 이름만 견준다 — 「메트로폴리탄 미술관 (MET)」과 「메트로폴리탄 미술관, 뉴욕, 미국」은 같은 곳이다. */
+function placeEq(got, want) {
+  if (isBlank(want)) return null;
+  if (isBlank(got)) return false;
+  const head = (s) => String(s).split(/[,(]/)[0].trim();
+  return looseEq(head(got), head(want)) === true || tokenEq(got, want) === true;
+}
+
+/** 연도. ★「기원전 1200년」을 음수로 읽는다 — 안 그러면 BCE 유물이 전부 오답이 된다. */
 function yearEq(got, want) {
-  if (!want) return null;
-  const gy = String(got ?? '').match(/\d{3,4}/)?.[0];
-  const wy = String(want).match(/\d{3,4}/)?.[0];
-  if (!wy) return null;
-  if (!gy) return false;
-  return Math.abs(+gy - +wy) <= 5;   // 「1580년경」 같은 표기를 견딘다
+  const yr = (v) => {
+    const s = String(v ?? '');
+    const m = s.match(/\d{1,4}/);
+    if (!m) return null;
+    const bce = /기원전|bce|b\.c/i.test(s) ? -1 : 1;
+    return bce * +m[0];
+  };
+  const wy = yr(want);
+  if (isBlank(want) || wy === null) return null;
+  const gy = yr(got);
+  if (isBlank(got) || gy === null) return false;
+  // 오래된 유물일수록 연대 폭이 넓다 — 허용 오차를 «연대에 비례»시킨다
+  const tol = Math.abs(wy) > 1000 && wy < 0 ? 200 : Math.abs(wy) < 1400 ? 50 : 5;
+  return Math.abs(gy - wy) <= tol;
+}
+
+/**
+ * ★era 는 «고치지 않고 따로 본다».
+ * 내 아카이브의 era 는 「르네상스 1400년~1600년」·「상·주 기원전 1600년~기원전 256년」처럼
+ * «시대 이름 + 연대 범위» 를 묶은 값이고, Wikidata 의 P135 는 «미술 사조» 하나다.
+ * 둘은 «같은 것을 가리키는 다른 분류 체계»라 일치를 요구하는 것 자체가 틀렸다.
+ * 그래서 연대 범위를 떼고 «이름 부분»만 견주되, 이 지표는 보고서에서 «참고»로만 쓴다.
+ */
+function eraEq(got, want) {
+  if (isBlank(want)) return null;
+  if (isBlank(got)) return false;
+  const name = (s) => String(s).replace(/기원전|년|경|~|—|–|-|\d+/g, '').replace(/\s+/g, ' ').trim();
+  return looseEq(name(got), name(want));
 }
 function peopleHit(got, want) {
   if (!want || !want.length) return null;
@@ -90,10 +148,10 @@ export function grade(item, run) {
     identified,
     fields: {
       artist: looseEq(d.artist, t.artist),
-      era: looseEq(d.era, t.era),
+      era: eraEq(d.era, t.era),                    // ⚠분류 체계가 달라 «참고»용
       inception: yearEq(d.inception, t.inception),
-      material: looseEq(d.material, t.material),
-      collection: looseEq(d.collection, t.collection),
+      material: tokenEq(d.material, t.material),
+      collection: placeEq(d.collection, t.collection),
       people: peopleHit(d.people, t.people),
       origTitle: looseEq(d.origTitle, t.origTitle),
     },
@@ -216,7 +274,9 @@ async function main() {
     await runToApproval(run, cfg, { archive });
     const g = grade(it, run);
     rows.push(g);
-    runs.push({ id: it.id, steps: run.steps, status: run.status, gate: run.gate, stopReason: run.stopReason, finish: run.finish });
+    runs.push({ id: it.id, steps: run.steps, status: run.status, gate: run.gate,
+                stopReason: run.stopReason, finish: run.finish,
+                usage: run.usage, startedAt: run.startedAt, model: S.model, repairs: run.repairs || 0 });
     const ok = g.reachedApproval ? (g.gateBlocked ? '△' : 'O') : '✗';
     const hits = Object.entries(g.fields).filter(([, v]) => v === true).map(([k]) => k[0]).join('');
     console.log(`${String(i + 1).padStart(3)}/${items.length} ${ok} ${it.id.padEnd(22)} ${String(Math.round(g.perf.wallMs / 1000)).padStart(3)}s ` +
