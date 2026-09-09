@@ -342,6 +342,87 @@ export const TOOLS = [
   },
 
   {
+    name: 'archive_facets',
+    description:
+      '아카이브 982점이 «어떻게 분포하는지»를 한 번에 본다. 전시를 기획할 때 첫 수단으로 쓴다. ' +
+      '신화별·사조별 작품 수와 가장 많이 등장하는 인물을 돌려주므로, ' +
+      '「어느 신화에서 몇 점을 뽑을 수 있는가」를 «추측하지 않고» 알 수 있다. ' +
+      'by 로 축을 고른다: myth(신화) · era(사조) · people(등장인물).',
+    input: {
+      type: 'object',
+      properties: {
+        by: { type: 'string', enum: ['myth', 'era', 'people'], default: 'myth' },
+        top: { type: 'integer', minimum: 3, maximum: 25, default: 12 },
+      },
+    },
+    output: '{ ok, by, total, facets: [{value, count}] }',
+    writes: false,
+    async run({ by = 'myth', top = 12 }, ctx) {
+      const index = ctx?.archive;
+      if (!Array.isArray(index)) return { ok: false, reason: 'index_not_loaded' };
+      const c = new Map();
+      for (const it of index) {
+        const vals = by === 'people' ? (it.people || []) : [by === 'myth' ? it.mythKo : it.era];
+        for (const v of vals) if (v) c.set(v, (c.get(v) || 0) + 1);
+      }
+      const facets = [...c.entries()].sort((a, b) => b[1] - a[1])
+        .slice(0, Math.min(25, top)).map(([value, count]) => ({ value, count }));
+      return { ok: true, by, total: index.length, facets };
+    },
+  },
+
+  {
+    name: 'emit_exhibition',
+    description:
+      '전시 구성을 확정한다. 큐레이션 워크플로의 «결과물»이다. ' +
+      '★사람이 승인하기 전에는 호출해도 거부된다. ' +
+      '⚠works 에는 archive_search 가 «실제로 돌려준» slug 만 넣는다 — 지어낸 slug 는 거부된다.',
+    input: {
+      type: 'object',
+      required: ['title', 'sections'],
+      properties: {
+        title: { type: 'string', description: '전시 제목' },
+        statement: { type: 'string', description: '기획 의도 한 문단' },
+        sections: {
+          type: 'array',
+          description: '동선 구획. 각 구획에 작품 slug 와 벽면 텍스트',
+          items: {
+            type: 'object',
+            required: ['name', 'works'],
+            properties: {
+              name: { type: 'string' },
+              wallText: { type: 'string' },
+              works: { type: 'array', items: { type: 'string', description: '아카이브 slug' } },
+            },
+          },
+        },
+      },
+    },
+    output: '{ ok, exhibition }',
+    writes: true,
+    async run(args, ctx) {
+      if (!ctx?.approved) {
+        return { ok: false, reason: 'not_approved', detail: '사람 승인 전에는 확정할 수 없습니다' };
+      }
+      if (!args?.title || !Array.isArray(args.sections) || !args.sections.length) {
+        return { ok: false, reason: 'schema', detail: 'title 과 sections 가 필요합니다' };
+      }
+      // ★지어낸 slug 를 막는다. 전시에 «없는 작품»이 걸리면 그건 결과물이 아니라 오류다.
+      const known = new Set((ctx.archive || []).map((x) => x.slug));
+      const bad = [];
+      let n = 0;
+      for (const s of args.sections) {
+        for (const w of s.works || []) { n++; if (!known.has(w)) bad.push(w); }
+      }
+      if (bad.length) {
+        return { ok: false, reason: 'unknown_slug', detail: `아카이브에 없는 작품: ${bad.slice(0, 5).join(', ')}` };
+      }
+      if (n < 6) return { ok: false, reason: 'too_few', detail: `작품이 ${n}점뿐입니다 (최소 6점)` };
+      return { ok: true, exhibition: { ...args, workCount: n, emittedAt: new Date().toISOString() } };
+    },
+  },
+
+  {
     name: 'emit_record',
     description:
       '등재 레코드를 확정한다. 이것이 이 워크플로의 «결과물»이다. ' +

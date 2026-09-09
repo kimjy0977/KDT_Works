@@ -24,8 +24,8 @@ async function check(label, fn) {
 const must = (cond, msg) => { if (!cond) throw new Error(msg); };
 
 console.log('■ 0. 스키마 자체 점검');
-await check('도구 6종 등록', () => {
-  must(TOOLS.length === 6, `${TOOLS.length}종`);
+await check('도구 8종 등록', () => {
+  must(TOOLS.length === 8, `${TOOLS.length}종`);
   return TOOLS.map((t) => t.name).join(', ');
 });
 await check('모든 도구가 name·description·input·output 을 갖춤', () => {
@@ -36,10 +36,10 @@ await check('모든 도구가 name·description·input·output 을 갖춤', () =
   }
   return '6/6';
 });
-await check('쓰기 도구는 «하나»뿐 (권한 최소화)', () => {
-  const w = TOOLS.filter((t) => t.writes).map((t) => t.name);
-  must(w.length === 1 && w[0] === 'emit_record', `쓰기 도구: ${w.join(',') || '없음'}`);
-  return 'emit_record 만';
+await check('쓰기 도구는 «워크플로마다 하나»뿐 (권한 최소화)', () => {
+  const w = TOOLS.filter((t) => t.writes).map((t) => t.name).sort();
+  must(w.length === 2 && w[0] === 'emit_exhibition' && w[1] === 'emit_record', `쓰기 도구: ${w.join(',') || '없음'}`);
+  return '등재=emit_record · 큐레이션=emit_exhibition';
 });
 
 console.log('\n■ 1. wd_search — 실제 호출');
@@ -176,7 +176,48 @@ await check('인자가 아예 없어도 던지지 않는다', async () => {
     const r = await callTool(t.name, undefined, { archive, approved: false });
     must(typeof r.ok === 'boolean', `${t.name} 이 {ok} 를 안 돌려줌`);
   }
-  return '6/6 모두 {ok} 반환';
+  return `${TOOLS.length}/${TOOLS.length} 모두 {ok} 반환`;
+});
+
+console.log('\n■ 8. 큐레이션 도구 — archive_facets · emit_exhibition');
+await check('archive_facets 가 «추측 없이» 분포를 준다', async () => {
+  const r = await callTool('archive_facets', { by: 'myth' }, { archive });
+  must(r.ok && r.facets.length >= 6, JSON.stringify(r).slice(0, 120));
+  must(r.total === 982, `total=${r.total}`);
+  return r.facets.slice(0, 3).map((f) => `${f.value} ${f.count}`).join(' · ');
+});
+await check('archive_facets by=people', async () => {
+  const r = await callTool('archive_facets', { by: 'people', top: 5 }, { archive });
+  must(r.ok && r.facets.length === 5, JSON.stringify(r).slice(0, 120));
+  return r.facets.map((f) => `${f.value}(${f.count})`).join(' ');
+});
+await check('★emit_exhibition — 지어낸 slug 를 거부한다', async () => {
+  const r = await callTool('emit_exhibition', {
+    title: '변신', sections: [{ name: 'a', works: ['greek-5e38acc683', 'greek-없는작품', 'greek-2be2a8a891'] }],
+  }, { archive, approved: true });
+  must(!r.ok && r.reason === 'unknown_slug', JSON.stringify(r));
+  return r.detail;
+});
+await check('emit_exhibition — 작품이 너무 적으면 거부', async () => {
+  const real = archive.slice(0, 3).map((x) => x.slug);
+  const r = await callTool('emit_exhibition', { title: '변신', sections: [{ name: 'a', works: real }] }, { archive, approved: true });
+  must(!r.ok && r.reason === 'too_few', JSON.stringify(r));
+  return r.detail;
+});
+await check('emit_exhibition — 승인 없이는 거부', async () => {
+  const real = archive.slice(0, 8).map((x) => x.slug);
+  const r = await callTool('emit_exhibition', { title: '변신', sections: [{ name: 'a', works: real }] }, { archive, approved: false });
+  must(!r.ok && r.reason === 'not_approved', JSON.stringify(r));
+  return 'not_approved';
+});
+await check('emit_exhibition — 실제 slug 8점이면 통과', async () => {
+  const real = archive.slice(0, 8).map((x) => x.slug);
+  const r = await callTool('emit_exhibition', {
+    title: '변신', statement: 'x',
+    sections: [{ name: '1부', wallText: 'w', works: real.slice(0, 4) }, { name: '2부', wallText: 'w', works: real.slice(4) }],
+  }, { archive, approved: true });
+  must(r.ok && r.exhibition.workCount === 8, JSON.stringify(r).slice(0, 140));
+  return `${r.exhibition.workCount}점 · ${r.exhibition.sections.length}구획`;
 });
 
 console.log('\n' + '='.repeat(56));

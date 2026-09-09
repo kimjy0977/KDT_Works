@@ -314,6 +314,92 @@ await check('도구 카탈로그에 emit_record 가 없다', async () => {
   return '읽기 5종만 노출';
 });
 
+console.log('\n■ 8. 두 번째 워크플로 — 큐레이션 (루프·승인·트레이스를 그대로 재사용)');
+// ⚠myth 값은 'greek' 이 아니라 'greco-roman' 이다 — slug 접두로 고른다(시험 데이터가 조용히 비면 검사가 무의미해진다)
+const realSlugs = archive.filter((x) => x.slug.startsWith('greek-')).slice(0, 9).map((x) => x.slug);
+if (realSlugs.length !== 9) { console.error('시험 데이터 준비 실패: 표본 ' + realSlugs.length + '점'); process.exit(1); }
+const EXH = {
+  title: '변신 — 모습이 바뀌는 순간',
+  statement: '신화에서 변신은 도피이자 처벌이며 구원이다.',
+  sections: [
+    { name: '1부 · 쫓김', wallText: 'ㄱ', works: realSlugs.slice(0, 3) },
+    { name: '2부 · 굳어짐', wallText: 'ㄴ', works: realSlugs.slice(3, 6) },
+    { name: '3부 · 다시 태어남', wallText: 'ㄷ', works: realSlugs.slice(6, 9) },
+  ],
+};
+await check('큐레이션 워크플로가 «다른» 도구 목록을 본다', async () => {
+  const r = newRun({ title: '변신', backend: 'mock', model: 'mock', workflow: 'curate' });
+  let seen = '';
+  const cfg = {
+    workflow: 'curate',
+    complete: async (_c, { messages, system }) => {
+      seen = messages[0].content + '\n@@SYS@@' + system;
+      return { ok: true, text: JSON.stringify({ thought: 'x', stop: { reason: 'other', detail: 'ok' } }), usage: { in: 1, out: 1 }, ms: 1 };
+    },
+  };
+  await runToApproval(r, cfg, ctx);
+  must(seen.includes('archive_facets'), '큐레이션 전용 도구가 안 보인다');
+  must(!seen.includes('### wd_search'), '등재 전용 도구가 새어 나왔다');
+  must(!seen.includes('emit_exhibition\n'), 'emit_exhibition 이 카탈로그에 노출됨');
+  must(seen.includes('전시 기획자'), '큐레이션 시스템 프롬프트가 아니다');
+  must(seen.includes('전시 주제:'), '작업 설명이 등재용 그대로다');
+  return '도구 3종만 · 전용 프롬프트';
+});
+await check('★지어낸 slug 가 섞이면 게이트가 막는다', async () => {
+  const r = newRun({ title: '변신', backend: 'mock', model: 'mock', workflow: 'curate' });
+  const fake = JSON.parse(JSON.stringify(EXH));
+  fake.sections[0].works[0] = 'greek-이건없는작품';
+  const cfg = {
+    workflow: 'curate',
+    complete: scripted([
+      { thought: '검색', action: { tool: 'archive_search', args: { q: '변신' } } },
+      { thought: '끝', finish: { draft: fake, notes: '' } },
+    ]),
+  };
+  await runToApproval(r, cfg, ctx);
+  must(r.status === 'awaiting_approval', r.status);
+  must(r.gate.blocked && r.gate.why.some((w) => w.includes('없는 작품')), JSON.stringify(r.gate));
+  return r.gate.why[0];
+});
+await check('archive_search 를 한 번도 안 부르면 막는다', async () => {
+  const r = newRun({ title: '변신', backend: 'mock', model: 'mock', workflow: 'curate' });
+  const cfg = { workflow: 'curate', complete: scripted([{ thought: '바로 끝', finish: { draft: EXH, notes: '' } }]) };
+  await runToApproval(r, cfg, ctx);
+  must(r.gate.blocked && r.gate.why.some((w) => w.includes('archive_search')), JSON.stringify(r.gate));
+  return r.gate.why.join(' / ');
+});
+await check('autoRepair 는 큐레이션에 «끼어들지 않는다»', async () => {
+  const r = newRun({ title: '변신', backend: 'mock', model: 'mock', workflow: 'curate' });
+  const cfg = { workflow: 'curate', autoRepair: true, complete: scripted([{ thought: '끝', finish: { draft: EXH, notes: '' } }]) };
+  await runToApproval(r, cfg, ctx);
+  must(!r.repairs, `보정이 ${r.repairs}회 일어남 — 큐레이션엔 중복확인 개념이 없다`);
+  return '보정 0회 — 워크플로마다 다른 규칙';
+});
+await check('정상 경로 → 승인 → emit_exhibition 으로 확정된다', async () => {
+  const r = newRun({ title: '변신', backend: 'mock', model: 'mock', workflow: 'curate' });
+  const cfg = {
+    workflow: 'curate',
+    complete: scripted([
+      { thought: '분포 확인', action: { tool: 'archive_facets', args: { by: 'myth' } } },
+      { thought: '검색', action: { tool: 'archive_search', args: { q: '변신 다프네', topK: 8 } } },
+      { thought: '끝', finish: { draft: EXH, notes: '' } },
+    ]),
+  };
+  await runToApproval(r, cfg, ctx);
+  must(!r.gate.blocked, JSON.stringify(r.gate));
+  const out = await approveAndCommit(r, {}, ctx, cfg);
+  must(out.ok, JSON.stringify(out));
+  must(r.record.workCount === 9, `작품 ${r.record.workCount}점`);
+  must(r.status === 'done', r.status);
+  return `${r.record.workCount}점 · ${r.record.sections.length}구획 · emit_exhibition 으로 확정`;
+});
+await check('승인 «전»에는 emit_exhibition 이 거부된다', async () => {
+  const { callTool } = await import('../app/tools.js');
+  const out = await callTool('emit_exhibition', EXH, { ...ctx, approved: false });
+  must(!out.ok && out.reason === 'not_approved', JSON.stringify(out));
+  return 'not_approved';
+});
+
 console.log('\n' + '='.repeat(56));
 console.log(`통과 ${pass} · 실패 ${fail}`);
 for (const f of FAILS) console.log('  ✗ ' + f);
