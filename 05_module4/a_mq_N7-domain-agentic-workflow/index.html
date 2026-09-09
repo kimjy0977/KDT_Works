@@ -42,14 +42,19 @@
   </div>
 
   <div class="card">
-    <h2>작품 입력</h2>
-    <div class="row">
-      <label>제목 <span class="hint">원제(영문)가 한국어보다 훨씬 잘 맞습니다</span>
+    <h2>워크플로 <span class="hint">루프·승인·트레이스는 그대로 쓰고 «규칙»만 갈아 끼웁니다</span></h2>
+    <div class="modes" id="workflows"></div>
+  </div>
+
+  <div class="card">
+    <h2 id="inputHead">작품 입력</h2>
+    <div class="row" id="inputRow">
+      <label id="lblTitle">제목 <span class="hint" id="hintTitle">원제(영문)가 한국어보다 훨씬 잘 맞습니다</span>
         <input id="inTitle" placeholder="Rape of the Sabine Women"></label>
-      <label>작가
+      <label id="lblArtist">작가
         <input id="inArtist" placeholder="Giambologna"></label>
     </div>
-    <div class="row">
+    <div class="row" id="rowRepair">
       <label class="chk"><input type="checkbox" id="optRepair" checked>
         <span>autoRepair — 모델이 중복확인을 건너뛰면 시스템이 대신 수행</span></label>
     </div>

@@ -5,7 +5,7 @@
 //   ② 게이트가 막혀 있으면 승인 버튼이 «눌리지 않는다». 화면에서도 한 겹 더 막는다.
 //   ③ 트레이스는 요약하지 않는다 — 인자와 결과 원문을 접어서라도 남긴다.
 import { TOOLS } from './tools.js';
-import { newRun, runToApproval, approveAndCommit, reject, summary, saveRun, loadRuns, PHASES, LIMITS } from './agent.js';
+import { newRun, runToApproval, approveAndCommit, reject, summary, saveRun, loadRuns, PHASES, LIMITS, WORKFLOWS } from './agent.js';
 import { BACKENDS, estimateCost } from './llm.js';
 
 const $ = (s) => document.querySelector(s);
@@ -16,6 +16,7 @@ let archive = [];
 let demoRuns = [];
 let current = null;
 let mode = 'demo';
+let wfId = 'intake';
 const cfgState = { ollamaModel: 'qwen3.5:2b', ollamaHost: 'http://localhost:11434', apiKey: '', apiModel: '' };
 
 // ── 탭
@@ -26,6 +27,49 @@ $('#tabs').addEventListener('click', (e) => {
   if (b.dataset.tab === 'eval') loadEval();
 });
 const goTab = (name) => document.querySelector(`.tabs button[data-tab="${name}"]`).click();
+
+// ── 워크플로 선택
+const SAMPLES = {
+  intake: [
+    ['Rape of the Sabine Women', 'Giambologna'],
+    ['The Birth of Venus', '산드로 보티첼리'],
+    ['Apollo and Daphne', '잔 로렌초 베르니니'],
+    ['The Flaying of Marsyas', '티치아노'],
+  ],
+  curate: [
+    ['변신 — 모습이 바뀌는 순간', ''],
+    ['물과 바다의 신들', ''],
+    ['죽음과 저승으로 가는 길', ''],
+    ['영웅의 시련', ''],
+  ],
+};
+function renderWorkflows() {
+  const box = $('#workflows'); box.innerHTML = '';
+  for (const [k, v] of Object.entries(WORKFLOWS)) {
+    const b = el('button', 'mode' + (k === wfId ? ' on' : ''),
+      `<b>${esc(v.label)}</b><span>도구 ${v.tools.length}종 · 결과물 <code>${esc(v.emit)}</code></span>`);
+    b.onclick = () => { wfId = k; renderWorkflows(); renderInputs(); };
+    box.appendChild(b);
+  }
+}
+function renderInputs() {
+  const curate = wfId === 'curate';
+  $('#inputHead').textContent = curate ? '전시 주제' : '작품 입력';
+  $('#lblArtist').hidden = curate;
+  $('#rowRepair').hidden = curate;
+  $('#hintTitle').textContent = curate
+    ? '한 줄이면 됩니다. 아카이브 982점 안에서 골라 줍니다'
+    : '원제(영문)가 한국어보다 훨씬 잘 맞습니다';
+  $('#lblTitle').firstChild.textContent = curate ? '주제 ' : '제목 ';
+  $('#inTitle').placeholder = curate ? '변신 — 모습이 바뀌는 순간' : 'Rape of the Sabine Women';
+  $('#inTitle').value = ''; $('#inArtist').value = '';
+  const box = $('#samples'); box.innerHTML = '';
+  for (const [t, a] of SAMPLES[wfId]) {
+    const b = el('button', '', esc(t));
+    b.onclick = () => { $('#inTitle').value = t; $('#inArtist').value = a; };
+    box.appendChild(b);
+  }
+}
 
 // ── 모드 선택
 function renderModes() {
@@ -82,12 +126,12 @@ async function start() {
   if (BACKENDS[mode].needsKey && !cfgState.apiKey) { $('#runNote').textContent = 'API 키를 넣어 주세요.'; return; }
 
   const c = backendCfg();
-  current = newRun({ title, artist, backend: c.backend, model: c.model });
+  current = newRun({ title, artist, backend: c.backend, model: c.model, workflow: wfId });
   $('#btnRun').disabled = true;
   $('#runNote').textContent = '실행 중…';
   goTab('trace');
   try {
-    await runToApproval(current, { ...c, autoRepair: $('#optRepair').checked, limits: LIMITS }, { archive },
+    await runToApproval(current, { ...c, workflow: wfId, autoRepair: $('#optRepair').checked, limits: LIMITS }, { archive },
       (r) => { renderTrace(r); });
   } finally {
     $('#btnRun').disabled = false;
@@ -200,6 +244,7 @@ function renderApprove(run) {
   }
   const d = run.finish.draft || {};
   const g = run.gate || {};
+  if ((run.workflow || 'intake') === 'curate') { renderApproveCurate(run, d, g, box); return; }
 
   const head = el('div', 'card');
   head.innerHTML = `<h2>사람 승인 <span class="hint">되돌리기 어려운 작업 앞의 마지막 문</span></h2>
@@ -266,6 +311,64 @@ function renderApprove(run) {
   box.appendChild(card);
 }
 
+// ── 승인 · 큐레이션판
+//    등재는 «필드»를 확인하고, 큐레이션은 «작품 목록»을 확인한다. 확인해야 할 것이 다르니 화면도 다르다.
+function renderApproveCurate(run, d, g, box) {
+  const bySlug = Object.fromEntries(archive.map((x) => [x.slug, x]));
+  const head = el('div', 'card');
+  head.innerHTML = `<h2>전시 구성 승인 <span class="hint">아카이브에 «있는» 작품만 걸 수 있습니다</span></h2>
+    ${g.blocked ? `<p class="warn"><b>확정할 수 없습니다.</b><br>${(g.why || []).map(esc).join('<br>')}</p>`
+      : `<p><span class="badge ok">안전 검사 통과</span> ${g.stats?.works ?? 0}점 · ${g.stats?.sections ?? 0}구획 ·
+         <b>지어낸 작품 0점</b></p>`}
+    ${run.finish.notes ? `<p class="note">모델 메모: ${esc(run.finish.notes)}</p>` : ''}`;
+  box.appendChild(head);
+
+  const card = el('div', 'card');
+  card.innerHTML = `<h2>구성 확인 <span class="hint">체크를 풀면 그 작품은 «빠집니다»</span></h2>
+    <div class="field"><div class="k">전시 제목</div><div class="v"><input id="exTitle" value="${esc(d.title || '')}"></div></div>
+    <div class="field"><div class="k">기획 의도</div><div class="v"><textarea id="exStmt">${esc(d.statement || '')}</textarea></div></div>`;
+  (d.sections || []).forEach((sec, i) => {
+    const wrap = el('div', 'field');
+    const items = (sec.works || []).map((slug) => {
+      const w = bySlug[slug];
+      return `<label class="chk"><input type="checkbox" data-sec="${i}" data-slug="${esc(slug)}" checked>
+        <span>${w ? `${esc(w.title)} <span class="hint">· ${esc(w.artist)} · ${esc(w.mythKo)} · ${esc(w.era)}</span>
+        <a href="${esc(w.url)}" target="_blank" rel="noopener">보기</a>`
+        : `<span class="badge bad">아카이브에 없음</span> <code>${esc(slug)}</code>`}</span></label>`;
+    }).join('');
+    wrap.innerHTML = `<div class="k">구획 ${i + 1}</div><div class="v">
+      <input data-secname="${i}" value="${esc(sec.name || '')}">
+      <textarea data-sectext="${i}" style="margin-top:6px">${esc(sec.wallText || '')}</textarea>
+      <div style="margin-top:7px">${items || '<span class="note">작품 없음</span>'}</div></div>`;
+    card.appendChild(wrap);
+  });
+
+  const act = el('div', 'actions');
+  const approve = el('button', 'primary', g.blocked ? '확정 (차단됨)' : '승인하고 확정');
+  approve.disabled = !!g.blocked;
+  approve.onclick = async () => {
+    const secs = (d.sections || []).map((sec, i) => ({
+      name: card.querySelector(`[data-secname="${i}"]`)?.value ?? sec.name,
+      wallText: card.querySelector(`[data-sectext="${i}"]`)?.value ?? sec.wallText,
+      works: [...card.querySelectorAll(`input[data-sec="${i}"]:checked`)].map((x) => x.dataset.slug),
+    })).filter((sec) => sec.works.length);
+    const edits = { title: $('#exTitle').value, statement: $('#exStmt').value, sections: secs };
+    const out = await approveAndCommit(current, edits, { archive }, { workflow: 'curate' });
+    if (!out.ok) { alert('확정 실패: ' + out.reason + ' — ' + (out.detail || '')); return; }
+    saveRun(current); renderTrace(current); renderResult(current); renderApprove(current); renderHistory();
+    goTab('result');
+  };
+  const rej = el('button', 'ghost', '거부');
+  rej.onclick = () => {
+    const why = prompt('거부 사유를 적어 주세요 (트레이스에 남습니다)') || '';
+    reject(current, why); saveRun(current); renderTrace(current); renderApprove(current); renderHistory();
+  };
+  act.append(approve, rej);
+  if (g.blocked) act.appendChild(el('span', 'note', '안전 검사를 통과하지 못해 승인 버튼이 잠겨 있습니다.'));
+  card.appendChild(act);
+  box.appendChild(card);
+}
+
 // ── 결과
 function renderResult(run) {
   const box = $('#result'); box.innerHTML = '';
@@ -291,7 +394,21 @@ function renderResult(run) {
   c.appendChild(a);
   box.appendChild(c);
 
-  if (r.sections) {
+  if (Array.isArray(r.sections)) {
+    // 큐레이션 결과 — 전시를 «걸린 그대로» 보여 준다
+    const bySlug = Object.fromEntries(archive.map((x) => [x.slug, x]));
+    const s = el('div', 'card');
+    s.innerHTML = `<h2>${esc(r.title)} <span class="hint">${r.workCount}점 · ${r.sections.length}구획</span></h2>` +
+      (r.statement ? `<p>${esc(r.statement)}</p>` : '') +
+      r.sections.map((sec) => `<h3>${esc(sec.name)}</h3>` +
+        (sec.wallText ? `<p class="note">${esc(sec.wallText)}</p>` : '') +
+        '<div class="tw"><table><tbody>' + (sec.works || []).map((slug) => {
+          const w = bySlug[slug];
+          return `<tr><td>${w ? `<a href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.title)}</a>` : esc(slug)}</td>
+            <td>${esc(w?.artist || '')}</td><td>${esc(w?.mythKo || '')}</td><td>${esc(w?.era || '')}</td></tr>`;
+        }).join('') + '</tbody></table></div>').join('');
+    box.appendChild(s);
+  } else if (r.sections) {
     const s = el('div', 'card');
     s.innerHTML = '<h2>해설 4단</h2>' + Object.entries(r.sections)
       .map(([k, v]) => `<h3>${esc({ meta: '기본정보', description: '작품 해설', myth: '신화 배경', insight: '감상 포인트' }[k] || k)}</h3><p>${esc(v)}</p>`).join('');
@@ -373,18 +490,7 @@ function renderToolDocs() {
   $('#btnRun').onclick = start;
 
   archive = await fetch('data/works-index.json').then((r) => r.json()).catch(() => []);
-  const samples = [
-    ['Rape of the Sabine Women', 'Giambologna'],
-    ['The Birth of Venus', '산드로 보티첼리'],
-    ['Apollo and Daphne', '잔 로렌초 베르니니'],
-    ['The Flaying of Marsyas', '티치아노'],
-  ];
-  $('#samples').innerHTML = '';
-  for (const [t, a] of samples) {
-    const b = el('button', '', esc(t));
-    b.onclick = () => { $('#inTitle').value = t; $('#inArtist').value = a; };
-    $('#samples').appendChild(b);
-  }
+  renderWorkflows(); renderInputs();
   demoRuns = await fetch('results/demo-runs.json').then((r) => r.ok ? r.json() : []).catch(() => []);
   renderModeCfg(); renderHistory();
 })();

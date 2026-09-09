@@ -62,9 +62,105 @@ const SYSTEM = `당신은 신화 명화 아카이브의 «등재 담당»입니�
 진행할 수 없을 때:
 {"thought":"...","stop":{"reason":"license_unknown|not_found|other","detail":"..."}}`;
 
-function toolCatalog() {
+const CURATE_SYSTEM = `당신은 신화 명화 아카이브의 «전시 기획자»입니다.
+주제 한 줄을 받아, 아카이브 982점 중에서 작품을 골라 동선과 벽면 텍스트까지 갖춘
+전시 구성 초안을 만들어 «사람의 승인 앞에» 갖다 놓는 것이 임무입니다.
+
+## 반드시 지킬 것
+
+1. **한 번에 «행동 하나»** 만 고릅니다. 결과를 본 뒤 다음을 정합니다.
+2. **아카이브에 «있는» 작품만 고릅니다.** archive_search 가 실제로 돌려준 slug 만 씁니다.
+   기억나는 명화를 적지 마세요 — 아카이브에 없으면 전시에 걸 수 없습니다.
+3. **먼저 archive_facets 로 분포를 봅니다.** 어느 신화에 몇 점이 있는지 «추측하지 않고» 확인한 뒤
+   주제에 맞는 검색어로 archive_search 를 여러 번 부릅니다.
+4. **8~12점**을 고르고 **3구획**으로 나눕니다. 구획마다 벽면 텍스트를 씁니다.
+5. emit_exhibition 은 부르지 않습니다. 사람이 승인하면 시스템이 부릅니다.
+
+## 출력 형식 — JSON 객체 «하나»만. 설명·코드펜스 없이.
+
+⚠ **finish 와 stop 은 «도구가 아닙니다».** 최상위 키는 action · finish · stop 중 하나입니다.
+
+도구를 고를 때:
+{"thought":"왜 이걸 하는지 한 문장","action":{"tool":"도구이름","args":{...}}}
+
+충분히 모았을 때:
+{"thought":"...","finish":{
+  "draft":{
+    "title":"전시 제목",
+    "statement":"기획 의도 한 문단",
+    "sections":[
+      {"name":"구획 이름","wallText":"벽면 텍스트","works":["아카이브 slug", "..."]}
+    ]
+  },
+  "notes":"주제에 맞는 작품을 충분히 찾지 못했다면 여기에 적습니다"
+}}
+
+진행할 수 없을 때:
+{"thought":"...","stop":{"reason":"not_found|other","detail":"..."}}`;
+
+/**
+ * 워크플로 정의. 루프·상태·트레이스·승인은 «그대로» 쓰고 이것만 갈아 끼운다.
+ * ★쓰기 도구는 워크플로마다 «하나»뿐이고, 어느 쪽도 모델에게 보여 주지 않는다.
+ */
+export const WORKFLOWS = {
+  intake: {
+    id: 'intake',
+    label: '등재 — 작품 한 점을 아카이브에 올린다',
+    system: null,          // 아래에서 SYSTEM 을 넣는다 (선언 순서 때문)
+    tools: ['wd_search', 'wd_entity', 'wd_sparql', 'commons_file', 'archive_search'],
+    emit: 'emit_record',
+    inputs: [['title', '제목'], ['artist', '작가']],
+    gate(run) {
+      const lic = String(run.finish?.draft?.license || '').toLowerCase();
+      const licenseOk = /pd|public domain|cc/.test(lic);
+      const dedupeChecked = run.steps.some((s) => s.kind === 'act' && s.action.tool === 'archive_search');
+      return {
+        blocked: !licenseOk || !dedupeChecked,
+        why: [
+          !licenseOk ? '라이선스가 PD/CC 로 확인되지 않았습니다' : null,
+          !dedupeChecked ? 'archive_search 로 중복 등재를 확인하지 않았습니다' : null,
+        ].filter(Boolean),
+      };
+    },
+  },
+  curate: {
+    id: 'curate',
+    label: '큐레이션 — 주제 하나로 전시를 구성한다',
+    system: CURATE_SYSTEM,
+    tools: ['archive_facets', 'archive_search', 'wd_entity'],
+    emit: 'emit_exhibition',
+    inputs: [['title', '전시 주제']],
+    gate(run, ctx) {
+      const d = run.finish?.draft || {};
+      const secs = Array.isArray(d.sections) ? d.sections : [];
+      const slugs = secs.flatMap((s) => s.works || []);
+      const known = new Set((ctx?.archive || []).map((x) => x.slug));
+      // ★가장 중요한 검사 — 지어낸 작품이 섞였는가. 전시에 «없는 그림»이 걸리면 결과물이 아니다.
+      const unknown = slugs.filter((s) => !known.has(s));
+      const searched = run.steps.some((s) => s.kind === 'act' && s.action.tool === 'archive_search');
+      return {
+        blocked: unknown.length > 0 || slugs.length < 6 || !searched,
+        why: [
+          unknown.length ? `아카이브에 없는 작품이 ${unknown.length}점 섞였습니다: ${unknown.slice(0, 3).join(', ')}` : null,
+          slugs.length < 6 ? `작품이 ${slugs.length}점뿐입니다 (최소 6점)` : null,
+          !searched ? 'archive_search 를 한 번도 부르지 않았습니다' : null,
+        ].filter(Boolean),
+        stats: { works: slugs.length, sections: secs.length, unknown: unknown.length },
+      };
+    },
+  },
+};
+
+WORKFLOWS.intake.system = SYSTEM;
+
+export function workflowOf(run, cfg) {
+  return WORKFLOWS[cfg?.workflow || run?.workflow || 'intake'] || WORKFLOWS.intake;
+}
+
+function toolCatalog(wf) {
+  const allow = new Set(wf.tools);
   return toolSpecs()
-    .filter((t) => t.name !== 'emit_record')   // 모델에게는 «보여 주지도» 않는다
+    .filter((t) => allow.has(t.name))   // 쓰기 도구는 모델에게 «보여 주지도» 않는다
     .map((t) => `### ${t.name}\n${t.description}\n입력 스키마: ${JSON.stringify(t.input_schema)}`)
     .join('\n\n');
 }
@@ -79,7 +175,8 @@ function summarize(name, out) {
   else if (name === 'commons_file') { c.file = out.file; c.verdict = out.verdict; }
   else if (name === 'archive_search') {
     c.hits = out.hits.map((h) => ({ slug: h.slug, title: h.title, origTitle: h.origTitle, artist: h.artist, score: h.score }));
-  } else Object.assign(c, out);
+  } else if (name === 'archive_facets') { c.by = out.by; c.total = out.total; c.facets = out.facets; }
+  else Object.assign(c, out);
   return c;
 }
 
@@ -121,10 +218,11 @@ function repeatCount(run, tool, args) {
   return n;
 }
 
-export function newRun({ title, artist, backend, model }) {
+export function newRun({ title, artist, backend, model, workflow = 'intake' }) {
   return {
     runId: `run-${Date.now()}-${Math.floor(Math.random() * 1e4)}`,
     input: { title, artist },
+    workflow,
     backend, model,
     startedAt: Date.now(),
     phase: 'identify',
@@ -148,13 +246,13 @@ function budgetLeft(run, limits) {
 }
 
 /** 지금까지의 트레이스를 모델이 읽을 대화로 바꾼다. 상태에서 «파생»하므로 재개해도 같다. */
-function buildMessages(run) {
+function buildMessages(run, wf) {
+  const task = wf.id === 'curate'
+    ? `## 이번 작업\n전시 주제: ${run.input.title}\n\n이 주제로 전시 구성 초안을 만들어 주세요. 행동을 하나 고르세요.`
+    : `## 이번 작업\n제목: ${run.input.title}\n작가: ${run.input.artist || '(모름)'}\n\n이 작품의 등재 초안을 만들어 주세요. 행동을 하나 고르세요.`;
   const msgs = [{
     role: 'user',
-    content:
-      `## 쓸 수 있는 도구\n\n${toolCatalog()}\n\n` +
-      `## 이번 작업\n제목: ${run.input.title}\n작가: ${run.input.artist || '(모름)'}\n\n` +
-      `이 작품의 등재 초안을 만들어 주세요. 행동을 하나 고르세요.`,
+    content: `## 쓸 수 있는 도구\n\n${toolCatalog(wf)}\n\n` + task,
   }];
   for (const s of run.steps) {
     if (s.kind !== 'act') continue;
@@ -173,6 +271,7 @@ function buildMessages(run) {
  */
 export async function step(run, cfg, ctx, onEvent = () => {}) {
   if (run.status !== 'running') return run;
+  const wf = workflowOf(run, cfg);
 
   const b = budgetLeft(run, cfg.limits || LIMITS);
   if (b.over) {
@@ -187,7 +286,7 @@ export async function step(run, cfg, ctx, onEvent = () => {}) {
   //    cfg.complete 로 갈아끼울 수 있게 열어 둔다 — 데모 재생과 루프 시험이 여기로 들어온다.
   //    (모델을 안 부르고도 루프의 «구조»를 검사할 수 있어야 한다)
   const ask = cfg.complete || complete;
-  const res = await ask(cfg, { system: SYSTEM, messages: buildMessages(run) });
+  const res = await ask(cfg, { system: wf.system, messages: buildMessages(run, wf) });
   if (!res.ok) {
     run.status = 'failed';
     run.stopReason = { reason: res.reason, detail: res.detail };
@@ -221,7 +320,7 @@ export async function step(run, cfg, ctx, onEvent = () => {}) {
     //   지시를 «지키지 않고» 끝내려 했다. 소형 모델에서 흔한 일이다.
     //   중복 확인은 읽기 전용이고 8ms 짜리다. 사람을 부르기 전에 «시스템이» 한 번 해 준다.
     //   ⚠단, 라이선스 판정은 자동 보정하지 않는다 — 그건 판단이지 조회가 아니다.
-    if (cfg.autoRepair && !run.steps.some((s) => s.kind === 'act' && s.action.tool === 'archive_search')) {
+    if (cfg.autoRepair && wf.id === 'intake' && !run.steps.some((s) => s.kind === 'act' && s.action.tool === 'archive_search')) {
       const q = parsed.finish.draft?.origTitle || parsed.finish.draft?.title || run.input.title;
       const obs = await callTool('archive_search', { q, topK: 5 }, { ...ctx, approved: false });
       run.toolCalls++;
@@ -239,18 +338,8 @@ export async function step(run, cfg, ctx, onEvent = () => {}) {
     run.finish = parsed.finish;
     run.phase = 'approval';
     // ★루프가 «스스로» 안전 규칙을 다시 검사한다. 모델의 말을 믿지 않는다.
-    const lic = String(parsed.finish.draft?.license || '').toLowerCase();
-    const licenseOk = /pd|public domain|cc/.test(lic);
-    const dedupeChecked = run.steps.some((s) => s.kind === 'act' && s.action.tool === 'archive_search');
-    run.gate = {
-      licenseOk,
-      dedupeChecked,
-      blocked: !licenseOk || !dedupeChecked,
-      why: [
-        !licenseOk ? '라이선스가 PD/CC 로 확인되지 않았습니다' : null,
-        !dedupeChecked ? 'archive_search 로 중복 등재를 확인하지 않았습니다' : null,
-      ].filter(Boolean),
-    };
+    //   무엇을 검사하는지는 워크플로가 정한다 — 등재는 «라이선스·중복», 큐레이션은 «지어낸 작품».
+    run.gate = wf.gate(run, ctx);
     run.status = 'awaiting_approval';
     run.steps.push({
       kind: 'finish', at: Date.now(), ms: res.ms, thought: parsed.thought,
@@ -316,15 +405,16 @@ export async function step(run, cfg, ctx, onEvent = () => {}) {
 }
 
 /** 승인 뒤에만 부를 수 있다. 여기가 «되돌리기 어려운 작업» 앞의 마지막 문이다. */
-export async function approveAndCommit(run, edits, ctx) {
+export async function approveAndCommit(run, edits, ctx, cfg) {
   if (run.status !== 'awaiting_approval') {
     return { ok: false, reason: 'not_ready', detail: `상태가 ${run.status} 입니다` };
   }
+  const wf = workflowOf(run, cfg);
   run.approved = true;
   const draft = { ...(run.finish?.draft || {}), ...(edits || {}) };
-  const out = await callTool('emit_record', draft, { ...ctx, approved: true });
+  const out = await callTool(wf.emit, draft, { ...ctx, approved: true });
   if (!out.ok) { run.approved = false; return out; }
-  run.record = out.record;
+  run.record = out.record || out.exhibition;
   run.status = 'done';
   run.phase = 'commit';
   run.steps.push({ kind: 'commit', at: Date.now(), ms: out.ms, editedFields: Object.keys(edits || {}) });
