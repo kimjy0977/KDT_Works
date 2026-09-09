@@ -87,18 +87,34 @@ async function boot(){
       :'<span class="badge warn">없음</span> → AI 이미지 «생성»은 미검증. PD/CC 이미지 경로로 진행합니다'}</td></tr></table>`;
   if(pid) return watch();
   $('#start').innerHTML=`<h2>주제 입력</h2>
-    <div class="row"><input id="topic" value="AI 최신소식" placeholder="AI 최신소식">
-    <select id="days" style="max-width:150px"><option value="7">최근 7일</option><option value="30">최근 30일</option></select>
-    <button class="primary" onclick="start()">조사 시작</button></div>
-    <p class="note">기본 7일. 결과가 부족하면 30일로 넓힐지 물어봅니다.</p>
+    <div class="row">
+      <select id="mode" style="max-width:220px" onchange="onMode()">
+        <option value="news">최근 소식 (웹 검색)</option>
+        <option value="myth">신화 이야기 (내 아카이브)</option>
+      </select>
+      <input id="topic" value="AI 최신소식" placeholder="AI 최신소식">
+      <select id="days" style="max-width:150px"><option value="7">최근 7일</option><option value="30">최근 30일</option></select>
+      <button class="primary" onclick="start()">조사 시작</button></div>
+    <p class="note" id="modeNote">기본 7일. 결과가 부족하면 30일로 넓힐지 물어봅니다.</p>
     <div id="recent"></div>`;
   const l=await jget('/api/projects');
   if(l.projects.length) $('#recent').innerHTML='<h3>지난 작업</h3>'+l.projects.slice(0,8).map(p=>
     `<div class="row"><a href="?p=${p.projectId}">${esc(p.topic)}</a>
      <span class="dim">${esc(p.stage)} · ${esc(p.status)}</span></div>`).join('');
 }
+function onMode(){
+  const m=$('#mode').value, myth=(m==='myth');
+  $('#days').style.display = myth?'none':'';
+  $('#topic').value = myth?'그리스로마 신화':'AI 최신소식';
+  $('#topic').placeholder = myth?'그리스로마 신화 / 피그말리온과 갈라테이아':'AI 최신소식';
+  $('#modeNote').innerHTML = myth
+    ? '아카이브 <b>982점</b>에서 이야기 후보를 «세어» 뽑습니다. 웹은 <b>원전 확인</b>에만 씁니다. '
+      + '이야기를 콕 집어 넣으면(예: 피그말리온과 갈라테이아) 그 이야기를 맨 앞에 둡니다.'
+    : '기본 7일. 결과가 부족하면 30일로 넓힐지 물어봅니다.';
+}
 async function start(){
-  const r=await jpost('/api/projects',{topic:$('#topic').value,periodDays:+$('#days').value});
+  const r=await jpost('/api/projects',{topic:$('#topic').value,periodDays:+$('#days').value,
+                                       mode:$('#mode').value});
   if(!r.data.projectId) return alert(r.data.message||'실패');
   pid=r.data.projectId; history.replaceState({},'','?p='+pid);
   await jpost(`/api/projects/${pid}/research`,{requestId:rid()});
@@ -171,6 +187,12 @@ async function render(){
         <span class="note">★승인 전에는 이미지 제작을 시작하지 않습니다</span></div>`:''}</div>`; }
 
   // ⑤⑥ 카드와 검수
+  // ★그림이 «색인이 말한 그 작품인지»를 화면에 그대로 보인다.
+  //   맞았을 때만 색인의 작가·연도를 적는다. 모르면 «모른다»고 적는다.
+  const MATCH={
+    'exact':'<br><span class="badge ok">작가 확인됨</span> <span class="dim">Wikidata 작품 항목과 대조</span>',
+    'different-artist':'<br><span class="badge warn">다른 화가</span> <span class="dim">같은 이야기의 다른 작품 — 색인의 작가를 적지 않았습니다</span>',
+    'unverified':'<br><span class="badge warn">대조 못 함</span> <span class="dim">작가의 영문 표기를 못 찾아 확인하지 못했습니다 — Commons 표기만 적었습니다</span>'};
   if(s.cards?.length){
     h+=`<div class="card"><h2>카드 ${s.cards.length}장 <span class="dim">글자는 이미지와 «따로» 얹었습니다</span></h2>
       <div class="grid">${s.cards.map(c=>`<figure>
@@ -179,6 +201,7 @@ async function render(){
           ${c.error?'<span class="badge bad">'+esc(c.error.reason)+'</span>':''}
           ${c.render?.bodyTruncated?'<span class="badge warn">본문 잘림</span>':''}
           ${c.provenance?'<br>이미지 '+esc(c.provenance.license||'')+' · <a href="'+esc(c.provenance.pageUrl||'#')+'" target="_blank" rel="noopener">출처</a>':'<br><span class="badge warn">배경 없음</span>'}
+          ${MATCH[c.match]||''}
         </figcaption>
         <div class="row"><input id="t${c.n}" value="${esc(c.title||'')}" placeholder="제목">
         </div><div class="row"><textarea id="b${c.n}" placeholder="본문">${esc(c.body||'')}</textarea></div>

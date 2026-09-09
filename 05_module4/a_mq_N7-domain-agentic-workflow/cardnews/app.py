@@ -24,6 +24,7 @@ sys.path.insert(0, HERE)
 
 import engine      # noqa: E402
 import images      # noqa: E402
+import myth        # noqa: E402
 import store       # noqa: E402
 import workflow    # noqa: E402
 
@@ -50,7 +51,8 @@ def api(handler, method, path, body, query):
         topic = (body.get('topic') or '').strip()
         if not topic:
             return 400, {'error': 'topic_required', 'message': '주제를 입력하세요'}
-        st = store.create(topic, int(body.get('periodDays') or 7))
+        mode = (body.get('mode') or 'news').strip()
+        st = store.create(topic, int(body.get('periodDays') or 7), mode=mode)
         return 200, {'projectId': st['projectId']}
 
     if p.startswith('/api/projects/'):
@@ -201,27 +203,45 @@ def _produce(pid):
         sb = st['storyboard']
         d = store.project_dir(pid)
         cards = []
+        used = set()      # ★한 카드뉴스 안에서 같은 그림을 두 번 쓰지 않는다
         for c in sb['cards']:
             n = c.get('n') or (len(cards) + 1)
             bg = os.path.join(d, 'images', 'bg-%02d.jpg' % n)
-            prov, bg_path = None, None
+            prov, bg_path, got = None, None, None
             if os.path.exists(bg):
                 bg_path = bg
             else:
-                q = c.get('imageQuery') or c.get('imagePlan') or st['topic']
-                got = images.fetch_background(q, os.path.join(d, 'images'), 'bg-%02d' % n)
+                # ★신화 모드는 검색어를 «모델이 만들지 않는다» — 색인의 작품으로 찍는다.
+                if st.get('mode') == 'myth' and c.get('workSlug'):
+                    w = next((x for x in myth.index() if x['slug'] == c['workSlug']), None)
+                    got = (images.fetch_archive_background(w, os.path.join(d, 'images'),
+                                                           'bg-%02d' % n, used=used) if w else
+                           {'ok': False, 'reason': 'unknown_slug',
+                            'detail': '색인에 없는 slug: %s' % c['workSlug'],
+                            'retry': '스토리보드를 다시 만드세요'})
+                else:
+                    q = c.get('imageQuery') or c.get('imagePlan') or st['topic']
+                    got = images.fetch_background(q, os.path.join(d, 'images'), 'bg-%02d' % n)
                 if got['ok']:
                     bg_path, prov = got['path'], got['provenance']
+                    if prov.get('file'):
+                        used.add(prov['file'])
                 else:
                     store.update(pid, lambda s, g=got, nn=n: store.add_error(
                         s, 'image', g['reason'], g.get('detail'),
                         retry='카드 %d 의 [이미지 다시] 를 누르세요' % nn))
             out = os.path.join(d, 'cards', 'card-%02d.png' % n)
+            # ★출처 줄은 «확인된 것만» 앱이 단다. 모델이 적은 작가·연도는 쓰지 않는다.
+            src = c.get('source')
+            if prov and prov.get('kind') == 'archive-matched-public-domain':
+                src = ((got or {}).get('credit') or {}).get('line') or src
             r = images.render_card(bg_path, out, title=c.get('title') or '',
-                                   body=c.get('body') or '', source=c.get('source'),
+                                   body=c.get('body') or '', source=src,
                                    n=n, total=len(sb['cards']), role=c.get('role') or '본문')
             cards.append({'n': n, 'role': c.get('role'), 'title': c.get('title'),
-                          'body': c.get('body'), 'source': c.get('source'),
+                          'body': c.get('body'), 'source': src,
+                          'workSlug': c.get('workSlug'),
+                          'match': (prov or {}).get('match'),
                           'imagePlan': c.get('imagePlan'), 'imageQuery': c.get('imageQuery'),
                           'bg': os.path.basename(bg_path) if bg_path else None,
                           'provenance': prov,

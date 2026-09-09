@@ -1,0 +1,273 @@
+{
+ "topic": "피그말리온과 갈라테이아",
+ "searchedAt": "2026-09-09 22:42",
+ "periodDays": 7,
+ "audience": "그림을 보러 온 사람",
+ "storyboardVersion": 1,
+ "cards": [
+  {
+   "n": 1,
+   "title": "돌에서 사람으로",
+   "body": "조각가가 깎은 상아상이 숨을 얻는 순간. 화가들은 같은 장면을 300년 넘게 다시 그렸다.",
+   "source": "피그말리온과 갈라테이아 · 장 레옹 제롬 · 1890년경",
+   "file": "card-01.png",
+   "image": {
+    "kind": "archive-matched-public-domain",
+    "source": "Wikimedia Commons",
+    "file": "File:Pygmalion and Galatea MET DT1969.jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Pygmalion_and_Galatea_MET_DT1969.jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/Pygmalion_and_Galatea_MET_DT1969.jpg/1920px-Pygmalion_and_Galatea_MET_DT1969.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "author": "Jean-Léon Gérôme",
+    "verdict": "pd",
+    "fetchedAt": "2026-09-09 23:00",
+    "generator": null,
+    "prompt": null,
+    "archiveWork": {
+     "slug": "greek-8a6ecf7fc6",
+     "title": "피그말리온과 갈라테이아",
+     "artist": "장 레옹 제롬",
+     "inception": "1890년경",
+     "collection": "메트로폴리탄 박물관, 뉴욕, 미국 미술관 (뉴욕)",
+     "material": "캔버스에 유채"
+    },
+    "artistEn": "Jean-Léon Gérôme",
+    "match": "exact",
+    "via": "wikidata-p18",
+    "wikidataQid": "Q17305070",
+    "width": 2938,
+    "height": 3722,
+    "creditBasis": "archive",
+    "matchNote": null,
+    "attempts": [
+     {
+      "query": "wikidata:P18 «Pygmalion and Galatea» + Jean-Léon Gérôme",
+      "ok": true,
+      "n": 1
+     }
+    ]
+   }
+  },
+  {
+   "n": 2,
+   "title": "가장 오래된 화면",
+   "body": "이 묶음에서 가장 이른 그림. 제단과 인물, 배경까지 담아 이야기를 '설명하듯' 펼친다.",
+   "source": "피그말리온과 갈라테이아 · 안뇰로 브론치노 · 1529년~1530년경",
+   "file": "card-02.png",
+   "image": {
+    "kind": "archive-matched-public-domain",
+    "source": "Wikimedia Commons",
+    "file": "File:Angelo Bronzino 068.jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Angelo_Bronzino_068.jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Angelo_Bronzino_068.jpg/1920px-Angelo_Bronzino_068.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "author": "Bronzino",
+    "verdict": "pd",
+    "fetchedAt": "2026-09-09 23:00",
+    "generator": null,
+    "prompt": null,
+    "archiveWork": {
+     "slug": "greek-85805a319a",
+     "title": "피그말리온과 갈라테이아",
+     "artist": "안뇰로 브론치노",
+     "inception": "1529년~1530년경",
+     "collection": "우피치 미술관, 피렌체",
+     "material": "패널에 유채"
+    },
+    "artistEn": "Bronzino",
+    "match": "exact",
+    "via": "wikidata-p18",
+    "wikidataQid": "Q111577849",
+    "width": 2684,
+    "height": 3500,
+    "creditBasis": "archive",
+    "matchNote": null,
+    "attempts": [
+     {
+      "query": "wikidata:P18 «Pygmalion and Galatea» + Bronzino",
+      "ok": true,
+      "n": 1
+     }
+    ]
+   }
+  },
+  {
+   "n": 3,
+   "title": "돌이 부드러워질 때",
+   "body": "단단한 돌로 빚은 장면. 조각이 스스로, 굳은 것이 살로 녹는 순간을 증명한다.",
+   "source": "피그말리온과 갈라테이아 · 에티엔 모리스 팔코네 · 1763년",
+   "file": "card-03.png",
+   "image": {
+    "kind": "archive-matched-public-domain",
+    "source": "Wikimedia Commons",
+    "file": "File:Falconet - Pygmalion & Galatee (1763)-black bg.jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Falconet_-_Pygmalion_%26_Galatee_(1763)-black_bg.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/27/Falconet_-_Pygmalion_%26_Galatee_%281763%29-black_bg.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "license": "Public domain",
+    "licenseUrl": null,
+    "author": "Falconet_-_Pygmalion_&amp;_Galatee_(1763).jpg: Scupture by Étienne Maurice Falconet, photographed by  Alex Bakharev at en.wikipedia\nderivative work: Coyau (talk)",
+    "verdict": "pd",
+    "fetchedAt": "2026-09-09 23:00",
+    "generator": null,
+    "prompt": null,
+    "archiveWork": {
+     "slug": "greek-2a03908f61",
+     "title": "피그말리온과 갈라테이아",
+     "artist": "에티엔 모리스 팔코네",
+     "inception": "1763년",
+     "collection": "에르미타주 박물관, 상트페테르부르크 (1772년 카트린 2세 구입)",
+     "material": "대리석"
+    },
+    "artistEn": "Étienne Maurice Falconet",
+    "match": "exact",
+    "via": "wikidata-p18",
+    "wikidataQid": "Q17315628",
+    "width": 1133,
+    "height": 1700,
+    "creditBasis": "archive",
+    "matchNote": null,
+    "attempts": [
+     {
+      "query": "wikidata:P18 «Pygmalion and Galatea» + Étienne Maurice Falconet",
+      "ok": true,
+      "n": 1
+     }
+    ]
+   }
+  },
+  {
+   "n": 4,
+   "title": "조용한 사랑",
+   "body": "손끝이 맞닿는 친밀한 실내. 기적을 요란한 사건이 아니라 사적인 순간으로 담았다.",
+   "source": "Auguste Rodin (Wikimedia Commons)",
+   "file": "card-04.png",
+   "image": {
+    "kind": "archive-matched-public-domain",
+    "source": "Wikimedia Commons",
+    "file": "File:Pygmalion and Galatea MET DP-13618-003.jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Pygmalion_and_Galatea_MET_DP-13618-003.jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/Pygmalion_and_Galatea_MET_DP-13618-003.jpg/1920px-Pygmalion_and_Galatea_MET_DP-13618-003.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "author": "Auguste Rodin",
+    "verdict": "pd",
+    "fetchedAt": "2026-09-09 23:00",
+    "generator": null,
+    "prompt": null,
+    "archiveWork": {
+     "slug": "greek-57f6594ebb",
+     "title": "피그말리온과 갈라테이아",
+     "artist": "루이 장 프랑수아 라그레네",
+     "inception": "1781년",
+     "collection": "개인 소장 또는 프랑스 지역 미술관 (추정)",
+     "material": "캔버스에 유채"
+    },
+    "artistEn": null,
+    "match": "unverified",
+    "via": null,
+    "wikidataQid": null,
+    "width": 4000,
+    "height": 3276,
+    "creditBasis": "commons",
+    "matchNote": "작가 「루이 장 프랑수아 라그레네」의 영문 표기를 찾지 못해 **대조하지 못했습니다.** 맞을 수도 아닐 수도 있으므로 카드에는 Commons 가 밝힌 작가만 적습니다.",
+    "attempts": [
+     {
+      "query": "Pygmalion and Galatea",
+      "ok": true,
+      "n": 8
+     }
+    ]
+   }
+  },
+  {
+   "n": 5,
+   "title": "왜 계속 그렸나",
+   "body": "창조자가 제 이상을 빚어 생명을 준다 — 이 꿈이 시대마다 화가를 다시 붓 들게 했다.",
+   "source": "Auguste Rodin (Wikimedia Commons)",
+   "file": "card-05.png",
+   "image": {
+    "kind": "archive-matched-public-domain",
+    "source": "Wikimedia Commons",
+    "file": "File:Pygmalion and Galatea MET DP-13618-004.jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Pygmalion_and_Galatea_MET_DP-13618-004.jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4a/Pygmalion_and_Galatea_MET_DP-13618-004.jpg/1920px-Pygmalion_and_Galatea_MET_DP-13618-004.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "author": "Auguste Rodin",
+    "verdict": "pd",
+    "fetchedAt": "2026-09-09 23:00",
+    "generator": null,
+    "prompt": null,
+    "archiveWork": {
+     "slug": "greek-da8d824f57",
+     "title": "피그말리온과 갈라테이아",
+     "artist": "안 루이 지로데 트리오종",
+     "inception": "1819년",
+     "collection": "루브르 박물관, 파리 (RF 2002-4)",
+     "material": "캔버스에 유채"
+    },
+    "artistEn": null,
+    "match": "unverified",
+    "via": null,
+    "wikidataQid": null,
+    "width": 4000,
+    "height": 3149,
+    "creditBasis": "commons",
+    "matchNote": "작가 「안 루이 지로데 트리오종」의 영문 표기를 찾지 못해 **대조하지 못했습니다.** 맞을 수도 아닐 수도 있으므로 카드에는 Commons 가 밝힌 작가만 적습니다.",
+    "attempts": [
+     {
+      "query": "Pygmalion and Galatea",
+      "ok": true,
+      "n": 8
+     }
+    ]
+   }
+  }
+ ],
+ "sources": [
+  {
+   "title": "Ovid, Metamorphoses Book 10 (Perseus/Tufts)",
+   "url": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.02.0028:book%3D10:card%3D243",
+   "published": ""
+  },
+  {
+   "title": "OVID, METAMORPHOSES 10 — Theoi Classical Texts",
+   "url": "https://www.theoi.com/Text/OvidMetamorphoses10.html",
+   "published": ""
+  },
+  {
+   "title": "Jean-Léon Gérôme, Pygmalion and Galatea — The Met",
+   "url": "https://www.metmuseum.org/art/collection/search/436483",
+   "published": ""
+  },
+  {
+   "title": "Pygmalion and Galatea (Gérôme painting) — Wikipedia",
+   "url": "https://en.wikipedia.org/wiki/Pygmalion_and_Galatea_(G%C3%A9r%C3%B4me_painting)",
+   "published": ""
+  },
+  {
+   "title": "Agnolo Bronzino, Pigmalione e Galatea 1529-30 (Uffizi) — beniculturali",
+   "url": "https://catalogo.beniculturali.it/detail/HistoricOrArtisticProperty/0900233176",
+   "published": ""
+  },
+  {
+   "title": "Pygmalion and Galatea (Girodet) — Wikipedia",
+   "url": "https://en.wikipedia.org/wiki/Pygmalion_and_Galatea_(Girodet)",
+   "published": ""
+  },
+  {
+   "title": "Étienne-Maurice Falconet, Pygmalion and Galatea (1763) — Walters Art Museum",
+   "url": "https://art.thewalters.org/object/27.387/",
+   "published": ""
+  },
+  {
+   "title": "Louis-Jean-François Lagrenée, Pygmalion and Galatea (1781) — Detroit Institute of Arts",
+   "url": "https://dia.org/collection/pygmalion-and-galatea-51641",
+   "published": ""
+  }
+ ],
+ "imageNote": "배경 이미지는 «생성 이미지가 아니라» Wikimedia Commons 의 PD/CC 이미지입니다. 각 카드의 image 칸에 출처·라이선스·작가·가져온 날짜가 있습니다. Antigravity(agy) 가 이 환경에 없어 AI 이미지 생성 경로는 사용하지 않았습니다.",
+ "exportedAt": "2026-09-09 23:01"
+}
