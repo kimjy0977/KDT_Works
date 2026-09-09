@@ -430,6 +430,11 @@ export function reject(run, why) {
 
 /** 실행 요약 — 어디가 병목인지 보려면 이게 필요하다. */
 export function summary(run) {
+  // ⚠저장본에서 되살린 run 은 일부 필드가 없을 수 있다 — 여기서 죽으면 재집계가 통째로 막힌다.
+  if (!run || !Array.isArray(run.steps)) return { steps: 0, toolCalls: 0, usage: { in: 0, out: 0 }, toolMs: {}, costUsd: 0, wallMs: 0, modelMs: 0, toolMsTotal: 0 };
+  const usage = run.usage || run.steps.reduce(
+    (a, s) => ({ in: a.in + (s.tokens?.in || 0), out: a.out + (s.tokens?.out || 0) }), { in: 0, out: 0 });
+  const startedAt = run.startedAt || run.steps[0]?.at || Date.now();
   const acts = run.steps.filter((s) => s.kind === 'act');
   const toolMs = {};
   for (const s of acts) toolMs[s.action.tool] = (toolMs[s.action.tool] || 0) + (s.toolMs || 0);
@@ -438,14 +443,15 @@ export function summary(run) {
     runId: run.runId,
     status: run.status,
     steps: run.steps.length,
-    toolCalls: run.toolCalls,
+    // 저장본에는 toolCalls 가 없을 수 있다 — 스텝에서 «세면» 된다
+    toolCalls: run.toolCalls ?? acts.length,
     parseFails: run.parseFails,
-    wallMs: (run.steps.at(-1)?.at || Date.now()) - run.startedAt,
+    wallMs: (run.steps.at(-1)?.at || startedAt) - startedAt,
     modelMs,
     toolMsTotal: Object.values(toolMs).reduce((a, b) => a + b, 0),
     toolMs,
-    usage: run.usage,
-    costUsd: estimateCost(run.model, run.usage),
+    usage,
+    costUsd: estimateCost(run.model, usage),
   };
 }
 

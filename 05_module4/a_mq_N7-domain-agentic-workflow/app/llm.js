@@ -23,7 +23,8 @@ export const PRICES = {
 
 export function estimateCost(model, usage) {
   const p = PRICES[model] || PRICES._default;
-  return ((usage.in || 0) * p.in + (usage.out || 0) * p.out) / 1e6;
+  const u = usage || { in: 0, out: 0 };
+  return ((u.in || 0) * p.in + (u.out || 0) * p.out) / 1e6;
 }
 
 /** 모델 응답에서 JSON 한 덩어리를 판다. 앞뒤 잡담과 코드펜스를 견딘다. */
