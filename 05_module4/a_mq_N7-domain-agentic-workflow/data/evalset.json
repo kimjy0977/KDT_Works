@@ -19,7 +19,14 @@
    "collection": "상해박물관 (소장번호 미확정 — 후속 확인 필요)",
    "url": "https://myth-gallery.vercel.app/ko/chinese/works/chinese-052bd695be",
    "mythKo": "중국"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q11146149",
+   "label": "Ode to Luoshen",
+   "description": "poem by Cao Zhi"
+  },
+  "probeStrong": null
  },
  {
   "id": "chinese-4592ac508a",
@@ -43,7 +50,10 @@
    "collection": "출판지·소장처 미상 (Wikimedia 업로드본)",
    "url": "https://myth-gallery.vercel.app/ko/chinese/works/chinese-4592ac508a",
    "mythKo": "중국"
-  }
+  },
+  "findable": "none",
+  "probeTop": null,
+  "probeStrong": null
  },
  {
   "id": "chinese-8202d01b3c",
@@ -67,7 +77,14 @@
    "collection": "삼성퇴박물관, 쓰촨 광한",
    "url": "https://myth-gallery.vercel.app/ko/chinese/works/chinese-8202d01b3c",
    "mythKo": "중국"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q7420771",
+   "label": "Sanxingdui Museum",
+   "description": "public heritage museum in Guanghan, Sichuan, China"
+  },
+  "probeStrong": null
  },
  {
   "id": "chinese-ac7c674b6e",
@@ -89,6 +106,19 @@
    "collection": "개인소장 (디지털 자료, Wikimedia Commons 경유)",
    "url": "https://myth-gallery.vercel.app/ko/chinese/works/chinese-ac7c674b6e",
    "mythKo": "중국"
+  },
+  "findable": "strong",
+  "probeTop": {
+   "qid": "Q130387184",
+   "label": "Immortal with Deer",
+   "description": "painting by Zhang Lu"
+  },
+  "probeStrong": {
+   "qid": "Q130387184",
+   "label": "Immortal with Deer",
+   "creators": [
+    "장로"
+   ]
   }
  },
  {
@@ -113,7 +143,10 @@
    "collection": "CADAL 디지털 컬렉션 (CADAL02015452)",
    "url": "https://myth-gallery.vercel.app/ko/chinese/works/chinese-d251663d78",
    "mythKo": "중국"
-  }
+  },
+  "findable": "none",
+  "probeTop": null,
+  "probeStrong": null
  },
  {
   "id": "egypt-000545aafa",
@@ -135,7 +168,14 @@
    "collection": "1), 뉴욕, 미국",
    "url": "https://myth-gallery.vercel.app/ko/egypt/works/egypt-000545aafa",
    "mythKo": "이집트"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q116247836",
+   "label": "Large Kneeling Statue of Hatshepsut",
+   "description": "statue, Hatshepsut kneeling; Hatshepsut-sculpture at the Metropolitan Museum of Art (MET, 29.3.1)"
+  },
+  "probeStrong": null
  },
  {
   "id": "egypt-4963d39a4f",
@@ -157,7 +197,14 @@
    "collection": "BURGM-paoil174)",
    "url": "https://myth-gallery.vercel.app/ko/egypt/works/egypt-4963d39a4f",
    "mythKo": "이집트"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q119124598",
+   "label": "The Gods and Their Makers",
+   "description": "painting by Edwin Long (1829–1891), Towneley Hall Art Gallery & Museum"
+  },
+  "probeStrong": null
  },
  {
   "id": "egypt-8b801ba760",
@@ -184,7 +231,14 @@
    "collection": "대영박물관 (British Museum, EA 10554)",
    "url": "https://myth-gallery.vercel.app/ko/egypt/works/egypt-8b801ba760",
    "mythKo": "이집트"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q111289093",
+   "label": "Climate change drives spatial mismatch and threatens the biotic interactions of the Brazil nut",
+   "description": "scientific article published on 05 November 2020"
+  },
+  "probeStrong": null
  },
  {
   "id": "egypt-c7a0b8bc28",
@@ -208,7 +262,14 @@
    "collection": "루브르 박물관 (수장번호 E 17496), 파리, 프랑스",
    "url": "https://myth-gallery.vercel.app/ko/egypt/works/egypt-c7a0b8bc28",
    "mythKo": "이집트"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q116430487",
+   "label": "Thoth (Cynocephalus baboon) amulet",
+   "description": "amulet, Thoth as baboon at the Metropolitan Museum of Art (MET, 09.180.2351)"
+  },
+  "probeStrong": null
  },
  {
   "id": "greek-011d6bf12a",
@@ -233,7 +294,14 @@
    "collection": "프라도 미술관, 마드리드, 스페인",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-011d6bf12a",
    "mythKo": "그리스로마"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q2352789",
+   "label": "The Rape of Proserpina",
+   "description": "sculpture by Gian Lorenzo Bernini"
+  },
+  "probeStrong": null
  },
  {
   "id": "greek-0dd998c491",
@@ -255,6 +323,19 @@
    "collection": "오르세 미술관, 파리, 프랑스",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-0dd998c491",
    "mythKo": "그리스로마"
+  },
+  "findable": "strong",
+  "probeTop": {
+   "qid": "Q151047",
+   "label": "The Birth of Venus",
+   "description": "painting by Sandro Botticelli, Uffizi"
+  },
+  "probeStrong": {
+   "qid": "Q1212861",
+   "label": "The Birth of Venus",
+   "creators": [
+    "알렉상드르 카바넬"
+   ]
   }
  },
  {
@@ -280,7 +361,14 @@
    "collection": "예르미타시 미술관, 상트페테르부르크",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-1ce1419a22",
    "mythKo": "그리스로마"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q26510588",
+   "label": "Perseus and Andromeda",
+   "description": "painting after Guido Reni"
+  },
+  "probeStrong": null
  },
  {
   "id": "greek-2be2a8a891",
@@ -305,7 +393,14 @@
    "collection": "런던 내셔널갤러리 (소장 번호 NG928)",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-2be2a8a891",
    "mythKo": "그리스로마"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q1028282",
+   "label": "Apollo and Daphne",
+   "description": "painting by Piero del Pollaiolo"
+  },
+  "probeStrong": null
  },
  {
   "id": "greek-3a8223c66f",
@@ -329,6 +424,19 @@
    "collection": "내셔널 갤러리 오브 아트 (워싱턴)",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-3a8223c66f",
    "mythKo": "그리스로마"
+  },
+  "findable": "strong",
+  "probeTop": {
+   "qid": "Q18687896",
+   "label": "Apollo pursuing Daphne",
+   "description": "painting by Domenichino"
+  },
+  "probeStrong": {
+   "qid": "Q20178078",
+   "label": "Apollo Pursuing Daphne",
+   "creators": [
+    "조반니 바티스타 티에폴로"
+   ]
   }
  },
  {
@@ -351,7 +459,14 @@
    "collection": "길드홀 미술관 (Guildhall Art Gallery), 런던",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-47894c38d9",
    "mythKo": "그리스로마"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q119056644",
+   "label": "Orestes Seized by the Furies after the Murder of Clytemnestra",
+   "description": "painting by David Scott (1806–1849), Aberdeen Art Gallery & Museums"
+  },
+  "probeStrong": null
  },
  {
   "id": "greek-547eb88986",
@@ -376,7 +491,14 @@
    "collection": "갤러리아 보르게세, 로마",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-547eb88986",
    "mythKo": "그리스로마"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q1028282",
+   "label": "Apollo and Daphne",
+   "description": "painting by Piero del Pollaiolo"
+  },
+  "probeStrong": null
  },
  {
   "id": "greek-5e4194b435",
@@ -400,6 +522,19 @@
    "collection": "빈 미술사 박물관",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-5e4194b435",
    "mythKo": "그리스로마"
+  },
+  "findable": "strong",
+  "probeTop": {
+   "qid": "Q131561685",
+   "label": "Theseus defeating the Centaur",
+   "description": "sculpture in the Gipsoteca canoviana, Possagno, Italy, by Antonio Canova"
+  },
+  "probeStrong": {
+   "qid": "Q131561685",
+   "label": "Theseus defeating the Centaur",
+   "creators": [
+    "안토니오 카노바"
+   ]
   }
  },
  {
@@ -424,6 +559,19 @@
    "collection": "에르미타주 미술관, 상트페테르부르크",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-6ded2e4e36",
    "mythKo": "그리스로마"
+  },
+  "findable": "strong",
+  "probeTop": {
+   "qid": "Q1058055",
+   "label": "The Three Graces",
+   "description": "Canova sculptures in two versions"
+  },
+  "probeStrong": {
+   "qid": "Q1058055",
+   "label": "The Three Graces",
+   "creators": [
+    "안토니오 카노바"
+   ]
   }
  },
  {
@@ -450,7 +598,14 @@
    "collection": null,
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-7bfd1038bb",
    "mythKo": "그리스로마"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q7716517",
+   "label": "The Bengali Night",
+   "description": "1988 film by Nicolas Klotz"
+  },
+  "probeStrong": null
  },
  {
   "id": "greek-88f27df758",
@@ -474,6 +629,19 @@
    "collection": "에르미타주 미술관, 상트페테르부르크",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-88f27df758",
    "mythKo": "그리스로마"
+  },
+  "findable": "strong",
+  "probeTop": {
+   "qid": "Q16665313",
+   "label": "Morpheus and Iris",
+   "description": "painting by Pierre-Narcisse Guérin"
+  },
+  "probeStrong": {
+   "qid": "Q16665313",
+   "label": "Morpheus and Iris",
+   "creators": [
+    "피에르나르시스 게랭"
+   ]
   }
  },
  {
@@ -498,6 +666,19 @@
    "collection": "대주교구 미술관, 크로메르지주, 체코",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-96d0e70cef",
    "mythKo": "그리스로마"
+  },
+  "findable": "strong",
+  "probeTop": {
+   "qid": "Q26692572",
+   "label": "The Flaying of Marsyas",
+   "description": "painting by Domenichino"
+  },
+  "probeStrong": {
+   "qid": "Q3925598",
+   "label": "The Flaying of Marsyas",
+   "creators": [
+    "티치아노"
+   ]
   }
  },
  {
@@ -520,7 +701,14 @@
    "collection": "프라하 국립미술관",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-a3b9c0b18c",
    "mythKo": "그리스로마"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q105387178",
+   "label": "Faun and Nymph",
+   "description": "painting by Pál Szinyei Merse"
+  },
+  "probeStrong": null
  },
  {
   "id": "greek-af4415f231",
@@ -544,6 +732,19 @@
    "collection": "78A)",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-af4415f231",
    "mythKo": "그리스로마"
+  },
+  "findable": "strong",
+  "probeTop": {
+   "qid": "Q100539958",
+   "label": "Allegory of Music (Erato)",
+   "description": "painting by Filippino Lippi, Gemäldegalerie, Berlin"
+  },
+  "probeStrong": {
+   "qid": "Q100539958",
+   "label": "Allegory of Music (Erato)",
+   "creators": [
+    "필리피노 리피"
+   ]
   }
  },
  {
@@ -569,7 +770,14 @@
    "collection": "루브르 박물관",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-b853599d82",
    "mythKo": "그리스로마"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q11729456",
+   "label": "Jupiter and Antiope",
+   "description": "three paintings by Anthony van Dyck"
+  },
+  "probeStrong": null
  },
  {
   "id": "greek-c7ccbfe674",
@@ -594,6 +802,19 @@
    "collection": "개인 소장",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-c7ccbfe674",
    "mythKo": "그리스로마"
+  },
+  "findable": "strong",
+  "probeTop": {
+   "qid": "Q6163843",
+   "label": "Jason and Medea",
+   "description": "painting by John William Waterhouse"
+  },
+  "probeStrong": {
+   "qid": "Q6163843",
+   "label": "Jason and Medea",
+   "creators": [
+    "존 윌리엄 워터하우스"
+   ]
   }
  },
  {
@@ -616,7 +837,14 @@
    "collection": "스털링 앤 프랜신 클락 미술관",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-d0efde7f71",
    "mythKo": "그리스로마"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q3555076",
+   "label": "Nymphs and Satyr",
+   "description": "painting by William-Adolphe Bouguereau"
+  },
+  "probeStrong": null
  },
  {
   "id": "greek-e03f0980af",
@@ -640,7 +868,14 @@
    "collection": "폴 게티 미술관, 로스앤젤레스",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-e03f0980af",
    "mythKo": "그리스로마"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q26705598",
+   "label": "Mars and Venus",
+   "description": "painting by Palma Giovane"
+  },
+  "probeStrong": null
  },
  {
   "id": "greek-ebc8b05d04",
@@ -664,7 +899,14 @@
    "collection": "비엔나 박물관",
    "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-ebc8b05d04",
    "mythKo": "그리스로마"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q64679027",
+   "label": "Pallas Athene",
+   "description": "statue in Wuppertal, Germany"
+  },
+  "probeStrong": null
  },
  {
   "id": "hindu-00cf1dfa57",
@@ -689,7 +931,10 @@
    "collection": "906)",
    "url": "https://myth-gallery.vercel.app/ko/hindu/works/hindu-00cf1dfa57",
    "mythKo": "힌두"
-  }
+  },
+  "findable": "none",
+  "probeTop": null,
+  "probeStrong": null
  },
  {
   "id": "hindu-332d6eb52c",
@@ -715,7 +960,10 @@
    "collection": "인도 카르나타카 바다미 3번 힌두 석굴 (Badami Cave 3)",
    "url": "https://myth-gallery.vercel.app/ko/hindu/works/hindu-332d6eb52c",
    "mythKo": "힌두"
-  }
+  },
+  "findable": "none",
+  "probeTop": null,
+  "probeStrong": null
  },
  {
   "id": "hindu-6b002ff5ca",
@@ -739,7 +987,14 @@
    "collection": "1)",
    "url": "https://myth-gallery.vercel.app/ko/hindu/works/hindu-6b002ff5ca",
    "mythKo": "힌두"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q137299408",
+   "label": "The Goddess Bhairavi Devi with Shiva",
+   "description": "1630s Mughal painting attributed to Payag"
+  },
+  "probeStrong": null
  },
  {
   "id": "hindu-9ceab2ae98",
@@ -763,7 +1018,10 @@
    "collection": "72)",
    "url": "https://myth-gallery.vercel.app/ko/hindu/works/hindu-9ceab2ae98",
    "mythKo": "힌두"
-  }
+  },
+  "findable": "none",
+  "probeTop": null,
+  "probeStrong": null
  },
  {
   "id": "hindu-cb3d21cf23",
@@ -787,7 +1045,14 @@
    "collection": "인도 비하르 박물관, 파트나",
    "url": "https://myth-gallery.vercel.app/ko/hindu/works/hindu-cb3d21cf23",
    "mythKo": "힌두"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q5274083",
+   "label": "Didarganj Yakshi",
+   "description": "very early Indian stone statue"
+  },
+  "probeStrong": null
  },
  {
   "id": "meso-00ddc086ef",
@@ -809,7 +1074,14 @@
    "collection": "루브르 박물관 (수장번호 AO 6620), 파리, 프랑스",
    "url": "https://myth-gallery.vercel.app/ko/meso/works/meso-00ddc086ef",
    "mythKo": "메소포타미아"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q126868770",
+   "label": "Cylinder Seal with Priest-King Feeding Herd",
+   "description": "cylinder seal from the Uruk IV period"
+  },
+  "probeStrong": null
  },
  {
   "id": "meso-765ea995ac",
@@ -835,7 +1107,14 @@
    "collection": "루브르 박물관 (AO 15775)",
    "url": "https://myth-gallery.vercel.app/ko/meso/works/meso-765ea995ac",
    "mythKo": "메소포타미아"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q3501413",
+   "label": "Baal with Thunderbolt",
+   "description": "Ugarit stele"
+  },
+  "probeStrong": null
  },
  {
   "id": "meso-b2efba12e6",
@@ -858,6 +1137,19 @@
    "collection": "테이트, 런던 (Tate, London, 소장번호 N00358)",
    "url": "https://myth-gallery.vercel.app/ko/meso/works/meso-b2efba12e6",
    "mythKo": "메소포타미아"
+  },
+  "findable": "strong",
+  "probeTop": {
+   "qid": "Q18756478",
+   "label": "Candaules, King of Lydia, Shews his Wife by Stealth to Gyges, One of his Ministers, as She Goes to Bed",
+   "description": "painting by William Etty"
+  },
+  "probeStrong": {
+   "qid": "Q18756478",
+   "label": "Candaules, King of Lydia, Shews his Wife by Stealth to Gyges, One of his Ministers, as She Goes to Bed",
+   "creators": [
+    "윌리엄 에티"
+   ]
   }
  },
  {
@@ -880,7 +1172,14 @@
    "collection": "스웨덴 국립박물관 (Nationalmuseum), 스톡홀름, 스웨덴",
    "url": "https://myth-gallery.vercel.app/ko/norse/works/norse-011c0f35e9",
    "mythKo": "북유럽"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q732678",
+   "label": "Aslaug",
+   "description": "figure in Norse mythology, the third wife of Ragnar Lodbrok"
+  },
+  "probeStrong": null
  },
  {
   "id": "norse-471d9b3cad",
@@ -905,7 +1204,14 @@
    "collection": "영국 왕립미술원 (런던)",
    "url": "https://myth-gallery.vercel.app/ko/norse/works/norse-471d9b3cad",
    "mythKo": "북유럽"
-  }
+  },
+  "findable": "weak",
+  "probeTop": {
+   "qid": "Q28004357",
+   "label": "Thor Battering the Midgard Serpent",
+   "description": "1790 painting by the Swiss artist Henry Fuseli"
+  },
+  "probeStrong": null
  },
  {
   "id": "norse-761de4ab0c",
@@ -929,7 +1235,10 @@
    "collection": "(래컴 「마법의 땅 (The Land of Enchantment)」 117쪽, Cassell and Company, 1907)",
    "url": "https://myth-gallery.vercel.app/ko/norse/works/norse-761de4ab0c",
    "mythKo": "북유럽"
-  }
+  },
+  "findable": "none",
+  "probeTop": null,
+  "probeStrong": null
  },
  {
   "id": "norse-aa60789a47",
@@ -953,6 +1262,9 @@
    "collection": "스웨덴 국립박물관 (Nationalmuseum, 스톡홀름)",
    "url": "https://myth-gallery.vercel.app/ko/norse/works/norse-aa60789a47",
    "mythKo": "북유럽"
-  }
+  },
+  "findable": "none",
+  "probeTop": null,
+  "probeStrong": null
  }
 ]
