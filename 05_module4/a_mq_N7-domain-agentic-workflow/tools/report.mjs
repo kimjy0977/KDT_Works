@@ -66,5 +66,44 @@ for (const s of out) {
 }
 fs.writeFileSync(path.join(ROOT, 'results', 'tables.md'), L.join('\n') + '\n', 'utf8');
 
+// ── EVALUATION.md 의 표 자리를 «직접» 채운다.
+//    손으로 옮기면 반드시 어긋난다 — 실제로 README 의 도구 개수가 한 번 어긋났다.
+function inject(file, marker, body) {
+  const p = path.join(ROOT, file);
+  if (!fs.existsSync(p)) return false;
+  const s = fs.readFileSync(p, 'utf8');
+  const re = new RegExp(`(<!-- ${marker}:START[^>]*-->)[\\s\\S]*?(<!-- ${marker}:END -->)`);
+  if (!re.test(s)) return false;
+  fs.writeFileSync(p, s.replace(re, `$1\n\n${body}\n\n$2`), 'utf8');
+  return true;
+}
+const stamp = `> 생성: \`node tools/report.mjs\` · 원본 ${out.map((s) => `\`results/${s.setting.name}.json\``).join(' · ')}`;
+if (inject('EVALUATION.md', 'TABLES', L.join('\n') + '\n\n' + stamp)) console.log('\nEVALUATION.md §5 갱신');
+
+// 큐레이션 결과가 있으면 그 절도 채운다
+const cp = path.join(ROOT, 'results', 'curate.json');
+if (fs.existsSync(cp)) {
+  const c = JSON.parse(fs.readFileSync(cp, 'utf8'));
+  const a = c.aggregate;
+  const body = [
+    `| 지표 | 값 |`, `|---|---:|`,
+    `| 주제 수 | ${a.n} |`,
+    `| 모델 | \`${a.model}\` |`,
+    `| 승인 도달 | ${a.reachedApprovalPct}% |`,
+    `| 게이트 통과 | ${a.passedGatePct}% |`,
+    `| **★지어낸 slug** | **${a.totalUnknown}/${a.totalWorks} = ${a.unknownRatePct}%** |`,
+    `| 하나라도 지어낸 실행 | ${a.runsWithUnknown}/${a.n} |`,
+    `| 평균 작품 수 | ${a.avgWorks}점 |`,
+    `| 평균 신화 분산 | ${a.avgMyths}개 |`,
+    `| 평균 스텝 · 시간 | ${a.avgSteps} · ${a.avgSec}초 |`,
+    '', '주제별:', '',
+    `| 주제 | 상태 | 작품 | 지어냄 | 신화 | 스텝 | 초 |`,
+    `|---|---|---:|---:|---:|---:|---:|`,
+    ...c.rows.map((r) => `| ${r.topic} | ${r.gateBlocked ? '게이트 차단' : r.reachedApproval ? '승인 대기' : (r.stopReason || r.status)} | ` +
+      `${r.works} | ${r.unknown} | ${r.myths} | ${r.perf.steps} | ${Math.round(r.perf.wallMs / 1000)} |`),
+  ].join('\n');
+  if (inject('EVALUATION.md', 'CURATE', body)) console.log('EVALUATION.md §7 갱신');
+}
+
 console.log('\n' + L.join('\n'));
 console.log('\n→ results/summary.json · results/tables.md');
