@@ -215,6 +215,21 @@ await check('★finish 를 «도구»로 부른 응답을 받아 준다 (실측 
   must(r.parseFails === 0, `parseFails=${r.parseFails}`);
   return 'action.tool=finish → finish 로 정규화됨';
 });
+await check('★action 과 finish 를 «둘 다» 내면 finish 가 이긴다 (실측 실패 유형)', async () => {
+  const r = newRun({ title: 'x', artist: 'y', backend: 'mock', model: 'mock' });
+  const cfg = {
+    complete: scripted([
+      { thought: '중복 확인', action: { tool: 'archive_search', args: { q: 'Mercury' } } },
+      // 모델이 실제로 낸 모양 — 초안이 «다 들어 있는데» 버려지고 있었다
+      { thought: '끝', action: { tool: 'archive_search', args: { q: '또' } }, finish: { identified: true, draft: GOOD_DRAFT, notes: '' } },
+    ]),
+  };
+  await runToApproval(r, cfg, ctx);
+  must(r.status === 'awaiting_approval', `상태 ${r.status}`);
+  must(r.finish?.draft?.origTitle === GOOD_DRAFT.origTitle, '초안이 유실됨');
+  must(r.toolCalls === 1, `도구 ${r.toolCalls}회 — finish 인데 도구를 또 불렀다`);
+  return '초안 보존 · 도구 재호출 없음';
+});
 await check('action 을 빠뜨린 {tool,args} 도 받아 준다', async () => {
   const r = newRun({ title: 'x', artist: 'y', backend: 'mock', model: 'mock' });
   const cfg = {
