@@ -1,0 +1,16 @@
+=== 보낸 messages ===
+[system] 기술 문서 톤으로 답한다
+[user] 배송일은 언제인가요?
+
+=== 응답 ===
+배송일은 다양한 제조업체 및 특정 브랜드에 따라 다를 수 있습니다. 일반적으로, 배송일은 following 형식으로 определя됩니다.
+
+1.  **수리 및 testing** : 브랜드에서 수리 및 testing를 위한 배송일입니다. 수리와 testing는 사용자 또는 수리원에 의해 수행되며, 이 단계에서 제품의 내부 또는 외부를 inspect 합니다. 대부분의 브랜드는 수리와 testing를 포함한 5-7 ngày之间 배송을 제공합니다.
+2.  **수리 및 testing 완료** : 브랜드가 제품을 수리하고 testing를 완료한 배송일입니다. 수리와 testing를 포함한 완료 단계는 1-3 ngày之间에 completion occurs.
+3.  **고정shipping** : 브랜드가 제품을 수리 및 testing 후에 정리하고 shipped합니다. 고정shipping은 3-7일之间에完成됩니다.
+4.  **고정shipping 완료** : 브랜드가 제품을 수리 및 testing 후에 정리하고 shipped한 배송일입니다. 고정shipping 완료 단계는 1-3일之间에 completion occurs.
+5.  **수리 및 testing 완료 + shipping** : 브랜드가 제품을 수리 및 testing 후에 정리하고 ship합니다. 수리 및 testing 완료 + shipping은 1-3일之间에 completion occurs.
+
+수리와 testing가 Completion Day에 달하면 shipping Day가 다음 day에 달합니다. 하지만, 브랜드의 배송정의에 따라,Shipping Day는 1-3일之间에 달할 수 있습니다.
+
+이러한 단계는 브랜드에 따라shipping 일을 differable할 수 있습니다.
