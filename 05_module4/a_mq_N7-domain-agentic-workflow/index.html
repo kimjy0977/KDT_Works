@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CURATOR — 아카이브 등재 에이전트</title>
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="app/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <b>CURATOR</b>
+    <span class="sub">신화 명화 아카이브 등재 에이전트 · 모듈4 메인 퀘스트</span>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button data-tab="run" class="on">① 실행</button>
+    <button data-tab="trace">② 트레이스</button>
+    <button data-tab="approve">③ 승인</button>
+    <button data-tab="result">④ 결과</button>
+    <button data-tab="eval">⑤ 평가</button>
+    <button data-tab="about">문서</button>
+  </nav>
+</header>
+
+<main>
+<!-- ═══════════ ① 실행 ═══════════ -->
+<section id="tab-run" class="tab on">
+  <div class="card">
+    <h2>무엇을 하는 서비스인가</h2>
+    <p>그림 한 점의 <b>제목과 작가</b>만 주면, 에이전트가 공개 데이터에서 사실을 캐고
+      <b>라이선스를 판정</b>하고 <b>중복 등재를 확인</b>한 뒤 한국어 해설 초안까지 만들어
+      <b>사람의 승인 앞에</b> 갖다 놓습니다.</p>
+    <p class="warn"><b>승인 없이는 아무것도 등재되지 않습니다.</b> 등재 도구는 모델에게 보여 주지도 않고,
+      런타임이 승인 상태를 검사합니다.</p>
+  </div>
+
+  <div class="card">
+    <h2>실행 모드</h2>
+    <div class="modes" id="modes"></div>
+    <div id="modeCfg" class="modecfg"></div>
+  </div>
+
+  <div class="card">
+    <h2>작품 입력</h2>
+    <div class="row">
+      <label>제목 <span class="hint">원제(영문)가 한국어보다 훨씬 잘 맞습니다</span>
+        <input id="inTitle" placeholder="Rape of the Sabine Women"></label>
+      <label>작가
+        <input id="inArtist" placeholder="Giambologna"></label>
+    </div>
+    <div class="row">
+      <label class="chk"><input type="checkbox" id="optRepair" checked>
+        <span>autoRepair — 모델이 중복확인을 건너뛰면 시스템이 대신 수행</span></label>
+    </div>
+    <div class="samples" id="samples"></div>
+    <div class="actions">
+      <button id="btnRun" class="primary">실행</button>
+      <button id="btnResume" class="ghost" hidden>중단된 실행 이어하기</button>
+      <span id="runNote" class="note"></span>
+    </div>
+  </div>
+
+  <div class="card" id="historyCard" hidden>
+    <h2>지난 실행</h2>
+    <div id="history"></div>
+  </div>
+</section>
+
+<!-- ═══════════ ② 트레이스 ═══════════ -->
+<section id="tab-trace" class="tab">
+  <div class="card">
+    <h2>실행 트레이스 <span class="hint">에이전트가 무엇을 왜 불렀고 무엇이 돌아왔는가</span></h2>
+    <div id="runMeta" class="meta"></div>
+    <div id="phases" class="phases"></div>
+  </div>
+  <div class="card">
+    <h2>단계별 소요 시간 <span class="hint">어디가 병목인가</span></h2>
+    <div id="bottleneck"></div>
+  </div>
+  <div id="trace"></div>
+</section>
+
+<!-- ═══════════ ③ 승인 ═══════════ -->
+<section id="tab-approve" class="tab">
+  <div id="approve"></div>
+</section>
+
+<!-- ═══════════ ④ 결과 ═══════════ -->
+<section id="tab-result" class="tab">
+  <div id="result"></div>
+</section>
+
+<!-- ═══════════ ⑤ 평가 ═══════════ -->
+<section id="tab-eval" class="tab">
+  <div id="evalView"><div class="card"><p class="note">불러오는 중…</p></div></div>
+</section>
+
+<!-- ═══════════ 문서 ═══════════ -->
+<section id="tab-about" class="tab">
+  <div class="card">
+    <h2>문서</h2>
+    <ul class="links">
+      <li><a href="PRD.md">PRD.md</a> — 문제 정의 · 워크플로 설계 · 도구 계획 · 사람 개입 지점</li>
+      <li><a href="README.md">README.md</a> — 전체 설명과 실행 방법</li>
+      <li><a href="EVALUATION.md">EVALUATION.md</a> — 평가 결과와 실패 분석</li>
+      <li><a href="https://github.com/kimjy0977/KDT_Works/tree/main/05_module4/a_mq_N7-domain-agentic-workflow">GitHub 저장소</a></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>도구 6종</h2>
+    <div id="toolDocs"></div>
+  </div>
+</section>
+</main>
+
+<script type="module" src="app/ui.js"></script>
+</body>
+</html>
