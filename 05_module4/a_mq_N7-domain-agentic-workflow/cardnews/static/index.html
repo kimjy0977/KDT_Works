@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>카드뉴스 에이전트</title>
+<style>
+:root{--bg:#f7f6f3;--card:#fff;--ink:#1b1a18;--dim:#6b6660;--line:#e3dfd8;
+--accent:#8a5a20;--accent-bg:#f4ece0;--ok:#2f6b45;--ok-bg:#e9f3ec;
+--warn:#9a5b12;--warn-bg:#fbf1e2;--bad:#9b3232;--bad-bg:#fbeaea;--code:#f1eee8;
+--mono:ui-monospace,Consolas,monospace}
+@media(prefers-color-scheme:dark){:root{--bg:#17161a;--card:#1f1e23;--ink:#eae7e1;--dim:#a49e96;
+--line:#34323a;--accent:#d8b47a;--accent-bg:#2b2620;--ok:#7fc39a;--ok-bg:#1e2b23;
+--warn:#e0ab63;--warn-bg:#2c2418;--bad:#e08585;--bad-bg:#2e1e1e;--code:#26252b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.65 -apple-system,"Segoe UI","Malgun Gothic",sans-serif}
+header{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line);
+padding:11px clamp(12px,3vw,26px)}
+header b{font-size:17px}header span{color:var(--dim);font-size:13px;margin-left:9px}
+main{max-width:1000px;margin:0 auto;padding:18px clamp(12px,3vw,26px) 80px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:15px 17px;margin-bottom:13px}
+h2{font-size:15px;margin:0 0 10px}h3{font-size:13.5px;margin:14px 0 6px}
+p{margin:6px 0}.dim,.note{color:var(--dim);font-size:12.5px}
+.warn{background:var(--warn-bg);border-left:3px solid var(--warn);padding:9px 12px;border-radius:0 7px 7px 0;margin:8px 0}
+.bad{background:var(--bad-bg);border-left:3px solid var(--bad);padding:9px 12px;border-radius:0 7px 7px 0;margin:8px 0}
+.okbox{background:var(--ok-bg);border-left:3px solid var(--ok);padding:9px 12px;border-radius:0 7px 7px 0;margin:8px 0}
+input,textarea,select{width:100%;padding:8px 10px;font:inherit;font-size:14px;border:1px solid var(--line);
+border-radius:7px;background:var(--bg);color:var(--ink);font-family:inherit}
+textarea{min-height:60px;resize:vertical}
+button{font:inherit;font-size:14px;padding:8px 15px;border-radius:8px;cursor:pointer;border:1px solid var(--accent)}
+button.primary{background:var(--accent);color:var(--card);font-weight:600}
+button.ghost{background:transparent;color:var(--accent)}
+button.small{font-size:12.5px;padding:4px 10px;background:transparent;color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:9px 0}
+.steps{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}
+.st{font-size:12px;padding:3px 10px;border-radius:20px;border:1px solid var(--line);color:var(--dim)}
+.st.now{background:var(--accent-bg);border-color:var(--accent);color:var(--accent);font-weight:600}
+.st.done{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.cand{border:1px solid var(--line);border-radius:9px;padding:10px 12px;margin:7px 0;cursor:pointer}
+.cand.on{border-color:var(--accent);background:var(--accent-bg)}
+.cand h4{margin:0 0 4px;font-size:14px}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:600}
+.badge.ok{background:var(--ok-bg);color:var(--ok)}.badge.warn{background:var(--warn-bg);color:var(--warn)}
+.badge.bad{background:var(--bad-bg);color:var(--bad)}
+pre{background:var(--code);padding:9px 11px;border-radius:7px;overflow-x:auto;font-family:var(--mono);font-size:11.5px;margin:5px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.grid figure{margin:0}.grid img{width:100%;border-radius:8px;border:1px solid var(--line);display:block}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+th{background:var(--code)}
+a{color:var(--accent)}
+.tw{overflow-x:auto}
+details>summary{cursor:pointer;font-size:12.5px;color:var(--dim)}
+</style>
+</head>
+<body>
+<header><b>카드뉴스 에이전트</b><span>주제 하나 → 조사 → <b>내가 고르고</b> → 승인 → 카드</span></header>
+<main>
+  <div class="card" id="env"></div>
+  <div class="card" id="start"></div>
+  <div id="work"></div>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const rid=()=>'r-'+Math.random().toString(36).slice(2,12);
+let pid=new URLSearchParams(location.search).get('p'), poll=null, sel=new Set();
+
+async function jget(u){const r=await fetch(u);return r.json()}
+async function jpost(u,b){const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify(b||{})});return {status:r.status,data:await r.json()}}
+
+const STAGES=[['research','조사'],['select','후보 선택'],['deep','심층 검증'],
+  ['storyboard','기획 승인'],['produce','제작'],['review','검수'],['export','내려받기']];
+
+async function boot(){
+  const h=await jget('/api/health');
+  $('#env').innerHTML=`<h2>환경 — 「설치」와 「인증」은 다릅니다</h2>
+    <table><tr><th>실행 엔진 (Claude CLI)</th><td>${h.engine.ok
+      ?'<span class="badge ok">인증 확인됨</span>'
+      :'<span class="badge bad">'+esc(h.engine.reason)+'</span> '+esc(h.engine.detail||'')}</td></tr>
+    <tr><th>한국어 글꼴</th><td>${h.font?'<span class="badge ok">있음</span> <span class="dim">'+esc(h.font)+'</span>'
+      :'<span class="badge bad">없음</span> 글자가 깨지므로 렌더를 «멈춥니다»'}</td></tr>
+    <tr><th>Antigravity (agy)</th><td>${h.antigravity?'<span class="badge ok">있음</span>'
+      :'<span class="badge warn">없음</span> → AI 이미지 «생성»은 미검증. PD/CC 이미지 경로로 진행합니다'}</td></tr></table>`;
+  if(pid) return watch();
+  $('#start').innerHTML=`<h2>주제 입력</h2>
+    <div class="row"><input id="topic" value="AI 최신소식" placeholder="AI 최신소식">
+    <select id="days" style="max-width:150px"><option value="7">최근 7일</option><option value="30">최근 30일</option></select>
+    <button class="primary" onclick="start()">조사 시작</button></div>
+    <p class="note">기본 7일. 결과가 부족하면 30일로 넓힐지 물어봅니다.</p>
+    <div id="recent"></div>`;
+  const l=await jget('/api/projects');
+  if(l.projects.length) $('#recent').innerHTML='<h3>지난 작업</h3>'+l.projects.slice(0,8).map(p=>
+    `<div class="row"><a href="?p=${p.projectId}">${esc(p.topic)}</a>
+     <span class="dim">${esc(p.stage)} · ${esc(p.status)}</span></div>`).join('');
+}
+async function start(){
+  const r=await jpost('/api/projects',{topic:$('#topic').value,periodDays:+$('#days').value});
+  if(!r.data.projectId) return alert(r.data.message||'실패');
+  pid=r.data.projectId; history.replaceState({},'','?p='+pid);
+  await jpost(`/api/projects/${pid}/research`,{requestId:rid()});
+  watch();
+}
+function watch(){ if(poll) clearInterval(poll); render(); poll=setInterval(render,2500); }
+
+async function render(){
+  const s=await jget('/api/projects/'+pid); if(s.error) return;
+  const busy=s.running||s.status==='researching';
+  let h=`<div class="card"><h2>${esc(s.topic)} <span class="dim">· ${esc(s.projectId)}</span></h2>
+    <div class="steps">${STAGES.map(([k,l])=>{
+      const i=STAGES.findIndex(x=>x[0]===s.stage), j=STAGES.findIndex(x=>x[0]===k);
+      return `<span class="st ${j<i?'done':j===i?'now':''}">${l}</span>`}).join('')}</div>
+    <p class="note">상태 <b>${esc(s.status)}</b>${busy?' · 작업 중…':''}
+      ${s.searchedAt?' · 조사 기준 '+esc(s.searchedAt)+' (최근 '+s.periodDays+'일)':''}</p>`;
+
+  (s.errors||[]).slice(-3).forEach(e=>{ h+=`<div class="bad"><b>${esc(e.where)} 실패 — ${esc(e.reason)}</b>
+    <div class="note">${esc(e.detail||'')}</div>${e.retry?'<div class="note">→ '+esc(e.retry)+'</div>':''}</div>`});
+  h+='</div>';
+
+  // ★질문 대기 — 실패가 아니라 «정상적인 과정»
+  if(s.question){ const q=s.question;
+    h+=`<div class="card"><h2>답을 기다리는 중 <span class="badge warn">사람 차례</span></h2>
+      <p><b>${esc(q.question)}</b></p>${q.why?'<p class="note">'+esc(q.why)+'</p>':''}
+      <div class="row" id="qopts">${(q.options||[]).map((o,i)=>
+        `<button class="ghost" data-ans="${i}">${esc(o)}</button>`).join('')}</div>
+      <div class="row"><input id="freeAns" placeholder="직접 입력">
+        <button class="small" id="freeSend">보내기</button></div>
+      <p class="note">답하기 전에는 다음 단계로 넘어가지 않습니다. 새로고침해도 이 질문은 남습니다.</p></div>`; }
+
+  // ① 후보
+  if(s.candidates?.length && s.stage==='select'){
+    h+=`<div class="card"><h2>후보 ${s.candidates.length}개 — 1~3개를 고르세요</h2>
+      ${s.shortfall?'<div class="warn">'+esc(s.shortfall)+' <button class="small" onclick="widen()">30일로 넓히기</button></div>':''}
+      ${s.candidates.map(c=>`<div class="cand ${sel.has(c.id)?'on':''}" onclick="pick('${c.id}')">
+        <h4>${esc(c.title)}</h4><p class="note">${esc(c.summary||'')}</p>
+        <p class="note">${c.published?esc(c.published):'<span class="badge warn">게시일 미확인</span>'}
+          · ${esc(c.kind||'')} · <a href="${esc(c.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">원문 ↗</a></p>
+        ${c.value?'<p class="note">고를 가치: '+esc(c.value)+'</p>':''}
+        ${c.uncertainty?'<p class="note">⚠ '+esc(c.uncertainty)+'</p>':''}</div>`).join('')}
+      <div class="row"><button class="primary" onclick="submitSel(${s.selectionVersion})" ${busy?'disabled':''}>
+        선택하고 심층 검증</button><span class="note" id="selN">${sel.size}개 선택됨</span></div></div>`; }
+
+  // ③ 심층 검증 결과
+  if(s.research){ const r=s.research;
+    h+=`<div class="card"><h2>심층 검증 <span class="dim">확인한 것과 못 한 것을 나눕니다</span></h2>
+      ${sec('확인한 사실',r.verified,'ok')}${sec('발표 주체의 주장',r.claims,'warn')}
+      ${sec('아직 확인 못 한 것',r.unverified,'bad')}${sec('자료끼리 어긋나는 것',r.conflicts,'bad')}
+      ${(r.sources||[]).length?'<h3>출처</h3>'+r.sources.map(x=>
+        `<div class="note"><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title||x.url)}</a> ${esc(x.published||'')}</div>`).join(''):''}
+      </div>`; }
+  if(s.editorial){ const e=s.editorial;
+    h+=`<div class="card"><h2>편집 판단</h2>
+      <table><tr><th>독자</th><td>${esc(e.audience)} <span class="note">${esc(e.why||'')}</span></td></tr>
+      <tr><th>형식</th><td>${esc(e.format)} <span class="note">${esc(e.formatWhy||'')}</span></td></tr>
+      <tr><th>표지 후보</th><td>${(e.hooks||[]).map(esc).join('<br>')}</td></tr></table>
+      ${s.stage==='storyboard'&&!s.storyboard?`<div class="row"><button class="primary" onclick="story()" ${busy?'disabled':''}>스토리보드 만들기</button></div>`:''}</div>`; }
+
+  // ④ 스토리보드
+  if(s.storyboard){ const sb=s.storyboard;
+    h+=`<div class="card"><h2>${esc(sb.title||'스토리보드')} <span class="dim">v${sb.version} ${sb.approved?'· 승인됨':''}</span></h2>
+      <div class="tw"><table><tr><th>#</th><th>역할</th><th>제목</th><th>핵심</th><th>그림 계획</th><th>출처</th></tr>
+      ${sb.cards.map(c=>`<tr><td>${c.n}</td><td>${esc(c.role||'')}</td><td><b>${esc(c.title||'')}</b></td>
+        <td>${esc(c.body||'')}</td><td class="note">${esc(c.imagePlan||'')}</td>
+        <td class="note">${c.source?'<a href="'+esc(c.source)+'" target="_blank" rel="noopener">링크</a>':'-'}</td></tr>`).join('')}
+      </table></div>
+      ${!sb.approved?`<div class="row"><button class="primary" onclick="approve('storyboard',${sb.version})" ${busy?'disabled':''}>
+        기획 승인하고 제작</button><button class="ghost" onclick="story()">다시 기획</button>
+        <span class="note">★승인 전에는 이미지 제작을 시작하지 않습니다</span></div>`:''}</div>`; }
+
+  // ⑤⑥ 카드와 검수
+  if(s.cards?.length){
+    h+=`<div class="card"><h2>카드 ${s.cards.length}장 <span class="dim">글자는 이미지와 «따로» 얹었습니다</span></h2>
+      <div class="grid">${s.cards.map(c=>`<figure>
+        <img src="/files/${pid}/cards/card-${String(c.n).padStart(2,'0')}.png?t=${Date.now()}" alt="">
+        <figcaption class="note">${c.n}. ${esc(c.title||'')}
+          ${c.error?'<span class="badge bad">'+esc(c.error.reason)+'</span>':''}
+          ${c.render?.bodyTruncated?'<span class="badge warn">본문 잘림</span>':''}
+          ${c.provenance?'<br>이미지 '+esc(c.provenance.license||'')+' · <a href="'+esc(c.provenance.pageUrl||'#')+'" target="_blank" rel="noopener">출처</a>':'<br><span class="badge warn">배경 없음</span>'}
+        </figcaption>
+        <div class="row"><input id="t${c.n}" value="${esc(c.title||'')}" placeholder="제목">
+        </div><div class="row"><textarea id="b${c.n}" placeholder="본문">${esc(c.body||'')}</textarea></div>
+        <div class="row"><button class="small" onclick="revise(${c.n})">이 카드만 수정</button></div>
+      </figure>`).join('')}</div>
+      <div class="row"><button class="primary" onclick="approve('final',0)">최종 승인하고 내려받기</button>
+        <span class="note">수정하면 최종 승인이 «해제»됩니다</span></div>
+      <div id="revNote"></div></div>`; }
+
+  if(s.exports){ h+=`<div class="card"><h2>내려받기 <span class="badge ok">최종 승인됨</span></h2>
+    <div class="row"><a href="/files/${pid}/cardnews.zip"><button class="primary">전체 ZIP (${Math.round(s.exports.zipBytes/1024)} KB)</button></a>
+    <a href="/files/${pid}/manifest.json" target="_blank"><button class="ghost">출처·이미지 기록</button></a></div>
+    <p class="note">ZIP 에 카드별 PNG 와 manifest.json(출처·라이선스·조사 기준일)이 들어 있습니다.</p></div>`; }
+
+  // 트레이스
+  if(s.runs?.length){ h+=`<div class="card"><h2>실행 기록</h2><div class="tw"><table>
+    <tr><th>때</th><th>주체</th><th>단계</th><th>내용</th></tr>
+    ${s.runs.slice(-14).reverse().map(r=>`<tr><td class="note">${new Date(r.at*1000).toLocaleTimeString('ko')}</td>
+      <td>${r.kind==='human'?'<b>사람</b>':esc(r.kind)}</td><td>${esc(r.step||'')}</td>
+      <td class="note">${esc(r.note||'')}${r.ms?' · '+(r.ms/1000).toFixed(1)+'s':''}${r.webSearches?' · 검색 '+r.webSearches+'회':''}${r.costUsd?' · $'+r.costUsd.toFixed(3):''}${r.reason?' · <b>'+esc(r.reason)+'</b>':''}${r.backgroundUnchanged!==undefined?' · 배경 '+(r.backgroundUnchanged?'유지됨':'★바뀜'):''}</td></tr>`).join('')}
+    </table></div></div>`; }
+
+  $('#start').innerHTML=''; $('#work').innerHTML=h;
+  // ★선택지 텍스트를 «코드에 끼워 넣지 않고» 값으로 넘긴다
+  if(s.question){ const q=s.question;
+    document.querySelectorAll('#qopts button').forEach(b=>{
+      b.onclick=()=>answer(q.id,q.version,q.options[+b.dataset.ans]); });
+    const fs=$('#freeSend'); if(fs) fs.onclick=()=>answer(q.id,q.version,$('#freeAns').value); }
+  if(s.stage==='export'||s.status==='error'){ if(poll){clearInterval(poll);poll=null;} }
+}
+function sec(t,arr,cls){ if(!arr||!arr.length) return '';
+  return `<h3>${t}</h3>`+arr.map(x=>`<div class="${cls==='ok'?'okbox':cls==='warn'?'warn':'bad'}">${esc(x)}</div>`).join(''); }
+function pick(id){ sel.has(id)?sel.delete(id):(sel.size<3&&sel.add(id));
+  document.querySelectorAll('.cand').forEach((el,i)=>{}); render(); }
+async function submitSel(v){ if(!sel.size) return alert('1~3개를 고르세요');
+  const r=await jpost(`/api/projects/${pid}/selection`,{candidateIds:[...sel],version:v});
+  if(r.status!==200) return alert(r.data.message||r.data.error);
+  await jpost(`/api/projects/${pid}/deep`,{requestId:rid()}); render(); }
+async function answer(qid,v,a){ if(!a) return;
+  const r=await jpost(`/api/projects/${pid}/answers`,{questionId:qid,version:v,answer:a,requestId:rid()});
+  if(r.status!==200) alert(r.data.message||r.data.error); render(); }
+async function story(){ await jpost(`/api/projects/${pid}/storyboard`,{cards:5,requestId:rid()}); render(); }
+async function approve(stage,v){ const r=await jpost(`/api/projects/${pid}/approve`,{stage,version:v,requestId:rid()});
+  if(r.status!==200) alert(r.data.message||r.data.error); if(!poll) watch(); render(); }
+async function widen(){ await jpost(`/api/projects/${pid}/research`,{widen:true,requestId:rid()}); render(); }
+async function revise(n){ const r=await jpost(`/api/projects/${pid}/revisions`,
+    {cardNo:n,title:$('#t'+n).value,body:$('#b'+n).value,requestId:rid()});
+  $('#revNote').innerHTML=r.data.ok?`<div class="okbox">카드 ${n} 수정됨 —
+    배경 ${r.data.backgroundUnchanged?'<b>그대로</b>(다시 받지 않음)':'★바뀜'} ·
+    나머지 카드 ${r.data.otherCardsUnchanged?'<b>유지됨</b>':'★바뀜'}</div>`
+    :`<div class="bad">수정 실패: ${esc(r.data.render?.reason||r.data.reason)}</div>`;
+  render(); }
+boot();
+</script>
+</body>
+</html>
