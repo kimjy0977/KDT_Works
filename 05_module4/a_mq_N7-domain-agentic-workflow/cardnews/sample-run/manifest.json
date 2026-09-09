@@ -1,0 +1,138 @@
+{
+ "topic": "AI 최신소식",
+ "searchedAt": "2026-09-09 18:02 UTC+09:00",
+ "periodDays": 7,
+ "audience": "AI 입문자 — '소버린 AI가 뭐고 왜 중요한가'부터",
+ "storyboardVersion": 1,
+ "cards": [
+  {
+   "n": 1,
+   "title": "삼성, 유럽 AI에 30억 유로",
+   "body": "프랑스 스타트업 Mistral이 삼성 주도로 30억 유로를 투자받았다. 왜 화제일까?",
+   "source": "https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/",
+   "file": "card-01.png",
+   "image": {
+    "kind": "public-domain-or-cc",
+    "source": "Wikimedia Commons",
+    "file": "File:Nuclear power station.svg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Nuclear_power_station.svg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Nuclear_power_station.svg/1920px-Nuclear_power_station.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "author": "Ichabod Paleogene, Krzysztof Kori",
+    "verdict": "cc",
+    "fetchedAt": "2026-09-09 18:21",
+    "generator": null,
+    "prompt": null
+   }
+  },
+  {
+   "n": 2,
+   "title": "'소버린 AI'가 뭐야?",
+   "body": "미국·중국 기업에 기대지 않고 내 나라·내 손으로 굴리는 AI. 유럽이 노리는 '제3의 길'이다.",
+   "source": "https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/",
+   "file": "card-02.png",
+   "image": {
+    "kind": "public-domain-or-cc",
+    "source": "Wikimedia Commons",
+    "file": "File:CAMPUS - Military Data Center (52106762896).jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:CAMPUS_-_Military_Data_Center_(52106762896).jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/CAMPUS_-_Military_Data_Center_%2852106762896%29.jpg/1920px-CAMPUS_-_Military_Data_Center_%2852106762896%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "author": "Kecko from Eastern Switzerland",
+    "verdict": "cc",
+    "fetchedAt": "2026-09-09 18:21",
+    "generator": null,
+    "prompt": null
+   }
+  },
+  {
+   "n": 3,
+   "title": "1년 만에 몸값이 2배로",
+   "body": "작년 117억 유로였던 기업가치가 이번엔 210억 유로. 다만 달러 환산액은 매체마다 다르다.",
+   "source": "https://qz.com/mistral-ai-samsung-series-d-funding-valuation-090826",
+   "file": "card-03.png",
+   "image": {
+    "kind": "public-domain-or-cc",
+    "source": "Wikimedia Commons",
+    "file": "File:A lady pricing oil.jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:A_lady_pricing_oil.jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/A_lady_pricing_oil.jpg/1920px-A_lady_pricing_oil.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "author": "Umshushima",
+    "verdict": "cc",
+    "fetchedAt": "2026-09-09 18:21",
+    "generator": null,
+    "prompt": null
+   }
+  },
+  {
+   "n": 4,
+   "title": "칩 회사가 주주로",
+   "body": "NVIDIA·ASML·삼성 등 반도체 핵심 기업이 투자자로 합류했다. AI엔 결국 '칩'이 열쇠라는 뜻.",
+   "source": "https://sifted.eu/articles/mistral-series-d-samsung-nvidia-asml",
+   "file": "card-04.png",
+   "image": {
+    "kind": "public-domain-or-cc",
+    "source": "Wikimedia Commons",
+    "file": "File:Intel 8742 153056995.jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Intel_8742_153056995.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/64/Intel_8742_153056995.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "author": "Ioan Sameli",
+    "verdict": "cc",
+    "fetchedAt": "2026-09-09 18:21",
+    "generator": null,
+    "prompt": null
+   }
+  },
+  {
+   "n": 5,
+   "title": "그래서 뭐가 달라지나",
+   "body": "거대 AI 판에 미국·중국 외 '또 하나의 선택지'가 커진다. 앞으로 어느 AI를 쓸지 폭이 넓어진다.",
+   "source": "https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/",
+   "file": "card-05.png",
+   "image": {
+    "kind": "public-domain-or-cc",
+    "source": "Wikimedia Commons",
+    "file": "File:Corinth Crossroads trains.png",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Corinth_Crossroads_trains.png",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Corinth_Crossroads_trains.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "author": "Unknown authorUnknown author",
+    "verdict": "pd",
+    "fetchedAt": "2026-09-09 18:22",
+    "generator": null,
+    "prompt": null
+   }
+  }
+ ],
+ "sources": [
+  {
+   "title": "Mistral raises €3B as sovereign AI becomes big business — TechCrunch",
+   "url": "https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/",
+   "published": "2026-09-08"
+  },
+  {
+   "title": "Exclusive: Samsung, Nvidia, ASML and Scaleup Fund back Mistral in €3bn fundraise — Sifted",
+   "url": "https://sifted.eu/articles/mistral-series-d-samsung-nvidia-asml",
+   "published": "2026-09-08"
+  },
+  {
+   "title": "Mistral AI raises €3 billion in Samsung-led Series D round — Quartz",
+   "url": "https://qz.com/mistral-ai-samsung-series-d-funding-valuation-090826",
+   "published": "2026-09-08"
+  },
+  {
+   "title": "Mistral AI Raises €3 Billion in Samsung-Led Round, the Largest in European Tech — Eastern Herald",
+   "url": "https://easternherald.com/2026/09/09/mistral-ai-samsung-series-d-european-tech-record/",
+   "published": "2026-09-09"
+  }
+ ],
+ "imageNote": "배경 이미지는 «생성 이미지가 아니라» Wikimedia Commons 의 PD/CC 이미지입니다. 각 카드의 image 칸에 출처·라이선스·작가·가져온 날짜가 있습니다. Antigravity(agy) 가 이 환경에 없어 AI 이미지 생성 경로는 사용하지 않았습니다.",
+ "exportedAt": "2026-09-09 18:22"
+}

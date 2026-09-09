@@ -1,0 +1,598 @@
+{
+ "topic": "AI 최신소식",
+ "periodDays": 7,
+ "searchedAt": "2026-09-09 18:02 UTC+09:00",
+ "stage": "export",
+ "status": "done",
+ "selection": [
+  "c1"
+ ],
+ "candidates": [
+  {
+   "id": "c1",
+   "title": "Mistral, 30억 유로 시리즈 D 유치 — 삼성 주도, 기업가치 210억 유로 돌파",
+   "summary": "프랑스 Mistral이 삼성전자 주도로 30억 유로(포스트머니 210억 유로+) 규모 시리즈 D를 마감했다고 발표했다. 유럽 테크 사상 최대 규모 지분 투자로, '소버린 AI'가 본격 사업 영역이 됐음을 보여준다.",
+   "published": "2026-09-08",
+   "eventDate": "2026-09-08",
+   "url": "https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/",
+   "kind": "기타",
+   "value": "유럽 최대 테크 투자이자 소버린 AI 흐름의 상징적 이정표",
+   "uncertainty": "세부 투자자 명단·정확한 밸류에이션은 매체마다 소폭 다름"
+  },
+  {
+   "id": "c2",
+   "title": "Meta, 개인용 AI 에이전트 'Muse' 웹·모바일 출시",
+   "summary": "Meta가 이메일·캘린더·쇼핑 커넥터를 통합한 개인 AI 에이전트 Muse를 웹과 모바일로 공개했다. 보안 VM 아키텍처 위에서 실제 작업을 대신 수행하는 '에이전트' 제품이라는 점이 특징이다.",
+   "published": "2026-09-08",
+   "eventDate": "2026-09-08",
+   "url": "https://aiweekly.co/ai-news-today",
+   "kind": "제품",
+   "value": "모델이 아닌 '실사용 에이전트 제품'으로의 이동을 보여주는 대표 사례",
+   "uncertainty": "Meta 공식 발표 원문(1차 출처)을 직접 확인하지 못함 — 뉴스 집계 기반"
+  },
+  {
+   "id": "c3",
+   "title": "Google, Gemini 3.8 Flash 공개 (Cyber 변형 포함)",
+   "summary": "Google이 3.7 Flash와 동일한 도입가로 Gemini 3.8 Flash를 출시하고, Fairwind 프로그램 회원용으로 완화 규정을 적용한 Cyber 변형을 함께 내놨다. 도입가는 2026년 12월 31일까지 적용된다.",
+   "published": "2026-09-02",
+   "eventDate": "2026-09-02",
+   "url": "https://www.digitalapplied.com/blog/ai-model-releases-september-2026-tracker",
+   "kind": "모델",
+   "value": "주요 랩의 저가·고속 모델 갱신 + 보안 게이트 변형이라는 최신 패턴",
+   "uncertainty": "Cyber 변형의 접근 조건·벤치마크 수치는 미확인"
+  },
+  {
+   "id": "c4",
+   "title": "OpenAI, GPT-6 Astra 엔진 기반 ChatGPT 안정판 배포",
+   "summary": "OpenAI가 GPT-6 Astra를 구동하는 ChatGPT 안정판을 배포했다. SRE-Bench에서 1회 시도 88.0%(4회 내 99.2%)를 기록해 이전 세대 대비 큰 향상을 보였다고 전해진다.",
+   "published": "2026-09-04",
+   "eventDate": "2026-09-04",
+   "url": "https://llm-stats.com/ai-news",
+   "kind": "모델",
+   "value": "OpenAI 차세대 플래그십의 실서비스 반영 — 파급력이 큼",
+   "uncertainty": "출처마다 릴리스 날짜가 9/3~9/4로 엇갈리고 일부 트래커는 미기재 — 날짜 확정도 낮음"
+  },
+  {
+   "id": "c5",
+   "title": "Nex-AGI, 35B 에이전트 모델 'Nex-N2.5-mini' 공개",
+   "summary": "Nex-AGI가 35B 규모의 Nex-N2.5-mini를 공개했다. Terminal-Bench 73.4, BrowseComp 83.4를 기록하며 에이전트·브라우징 과제에 특화됐다.",
+   "published": "2026-09-09",
+   "eventDate": "2026-09-09",
+   "url": "https://aiweekly.co/ai-news-today",
+   "kind": "모델",
+   "value": "중소형·에이전트 특화 모델 경쟁을 보여주는 신규 플레이어",
+   "uncertainty": "벤치마크 조건과 공개 라이선스·가중치 여부는 미확인"
+  },
+  {
+   "id": "c6",
+   "title": "UC Berkeley 'TANGO' — 휴머노이드 내비게이션용 29-DOF VLA 모델",
+   "summary": "UC Berkeley의 TANGO가 휴머노이드 로봇의 29자유도 관절 동작을 예측하는 최초의 비전-언어-행동(VLA) 모델이라고 발표됐다. 실제 환경 내비게이션에서 73% 성공률을 기록했다.",
+   "published": "2026-09-09",
+   "eventDate": "2026-09-09",
+   "url": "https://aiweekly.co/ai-news-today",
+   "kind": "연구",
+   "value": "임베디드/로보틱스로 확장되는 VLA 연구의 최신 성과",
+   "uncertainty": "논문 원문·평가 세부(과제 수, 환경)를 직접 확인하지 못함"
+  },
+  {
+   "id": "c7",
+   "title": "Claude·Codex 보조로 오일러 방정식 유한시간 폭발 'Lean 검증' 증명 발표",
+   "summary": "Tristan Buckmaster와 Levent Alpöge가 오일러 방정식의 유한시간 블로업에 대한 Lean 형식검증 증명을 공개했다. AI(Claude·Codex)를 증명 보조 도구로 활용했다는 점에서 주목된다.",
+   "published": "2026-09-08",
+   "eventDate": "2026-09-08",
+   "url": "https://aiweekly.co/ai-news-today",
+   "kind": "연구",
+   "value": "AI가 최전선 수학 증명의 실질 도구가 된 구체적 사례",
+   "uncertainty": "증명 공개 형태(프리프린트/저장소)와 AI 기여 범위는 미확인"
+  },
+  {
+   "id": "c8",
+   "title": "OpenBMB, Apache 2.0 오픈 모델 'MiniCPM5-2B' 공개",
+   "summary": "OpenBMB가 2.52B 파라미터의 MiniCPM5-2B를 Apache 2.0으로 공개했다. 평균 벤치마크 53.9로 더 큰 Qwen3.5-4B를 앞선다고 밝혔다.",
+   "published": "2026-09-07",
+   "eventDate": "2026-09-07",
+   "url": "https://aiweekly.co/ai-news-today",
+   "kind": "개발도구",
+   "value": "상용 친화 라이선스의 초소형 고효율 오픈 모델 — 온디바이스 개발에 유용",
+   "uncertainty": "벤치마크 비교 조건과 가중치 배포 채널은 미확인"
+  },
+  {
+   "id": "c9",
+   "title": "XPeng, 76자유도 휴머노이드 로봇 'IRON' 양산 착수",
+   "summary": "XPeng이 76자유도와 3개의 Turing AI 칩(총 2,250 TOPS)을 탑재한 휴머노이드 로봇 IRON의 양산에 돌입했다. 데모를 넘어 대량생산 단계로 진입했다는 점이 핵심이다.",
+   "published": "2026-09-08",
+   "eventDate": "2026-09-08",
+   "url": "https://aiweekly.co/ai-news-today",
+   "kind": "제품",
+   "value": "휴머노이드 로봇의 '양산' 진입 — 물리 AI 상용화 신호",
+   "uncertainty": "양산 규모·출하 시점 등 구체 수치는 미확인"
+  },
+  {
+   "id": "c10",
+   "title": "Tencent 'Gander' — 오디오·비디오·텍스트 융합 옴니 상호작용 에이전트",
+   "summary": "Tencent이 오디오·비디오·텍스트를 융합하는 옴니 상호작용 에이전트 Gander를 공개했다. 턴테이킹 적절성 100%(GPT-4 Realtime 96% 대비)를 기록했다고 밝혔다.",
+   "published": "2026-09-09",
+   "eventDate": "2026-09-09",
+   "url": "https://aiweekly.co/ai-news-today",
+   "kind": "연구",
+   "value": "실시간 멀티모달 대화 에이전트 경쟁의 최신 결과",
+   "uncertainty": "평가 방식·데이터셋과 공개 범위는 미확인"
+  }
+ ],
+ "answers": [
+  {
+   "questionId": "audience-1",
+   "version": 1,
+   "answer": "AI 입문자 — '소버린 AI가 뭐고 왜 중요한가'부터",
+   "at": 1788945391.335694
+  }
+ ],
+ "research": {
+  "verified": [
+   "Mistral이 2026-09-08 삼성전자 주도로 30억 유로 규모 시리즈 D를 마감했다고 발표 (TechCrunch 등 복수 매체 확인)",
+   "포스트머니 기업가치 약 210억 유로(달러 환산 ~$24B)로, 1년 전 시리즈 C의 117억 유로에서 약 2배 상승",
+   "공동 리드: EQT 운용 Scaleup Europe Fund와 기존 투자자 PSG Equity",
+   "참여 투자자: 신규 Advent·BlackRock·룩셈부르크 대공국, 기존 a16z·ASML·General Catalyst·Lightspeed·NVIDIA·Salesforce Ventures",
+   "직전 시리즈 C(약 1년 전)는 ASML이 리드했고 당시 가치는 117억 유로",
+   "자금 용도: 컴퓨트 확충·인프라 구축·상업화 가속·해외 확장"
+  ],
+  "claims": [
+   "Mistral 주장: '유럽 테크 기업 사상 최대 규모의 지분 투자'",
+   "Mistral 자기규정: '유럽판 ChatGPT'가 아니라 '소버린 오픈웨이트 AI 랩'을 지향한다",
+   "마크롱 프랑스 대통령: 프랑스·한국의 'AI 제3의 길' 구축을 반영한다는 정치적 해석"
+  ],
+  "unverified": [
+   "리드 투자자인 삼성이 실제 투입한 금액과 취득 지분율",
+   "발표된 밸류에이션이 클로징 확정 기준인지 텀시트 기준인지",
+   "'유럽 사상 최대'라는 표현이 독립 데이터로 검증됐는지"
+  ],
+  "conflicts": [
+   "달러 환산액이 매체마다 상이: ~$3.5B(TechCrunch/다수) vs $3.3B(TradingKey), 밸류에이션도 $24B~$24.4B — 환율·반올림 차이로 추정. 유로 금액(30억)·가치(210억)는 일치",
+   "리드 표기 차이: 다수는 '삼성 단독 리드', 일부(Sifted)는 삼성·NVIDIA·ASML·Scaleup 공동 강조"
+  ],
+  "sources": [
+   {
+    "title": "Mistral raises €3B as sovereign AI becomes big business — TechCrunch",
+    "url": "https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/",
+    "published": "2026-09-08"
+   },
+   {
+    "title": "Exclusive: Samsung, Nvidia, ASML and Scaleup Fund back Mistral in €3bn fundraise — Sifted",
+    "url": "https://sifted.eu/articles/mistral-series-d-samsung-nvidia-asml",
+    "published": "2026-09-08"
+   },
+   {
+    "title": "Mistral AI raises €3 billion in Samsung-led Series D round — Quartz",
+    "url": "https://qz.com/mistral-ai-samsung-series-d-funding-valuation-090826",
+    "published": "2026-09-08"
+   },
+   {
+    "title": "Mistral AI Raises €3 Billion in Samsung-Led Round, the Largest in European Tech — Eastern Herald",
+    "url": "https://easternherald.com/2026/09/09/mistral-ai-samsung-series-d-european-tech-record/",
+    "published": "2026-09-09"
+   }
+  ]
+ },
+ "editorial": {
+  "audience": "AI 입문자 — '소버린 AI가 뭐고 왜 중요한가'부터",
+  "why": "입문자는 숫자 자체보다 '왜 이 돈이 화제인지'와 소버린 AI 개념이 먼저 잡혀야 뉴스가 이해됨",
+  "format": "이야기형",
+  "formatWhy": "'삼성이 왜? → 소버린 AI란? → 1년 만에 몸값 2배 → 그래서 우리에게 무슨 의미'로 이어지는 서사가 개념과 사건을 한 흐름에 담아 입문자에게 가장 친절함",
+  "hooks": [
+   "삼성이 유럽 AI 회사에 4조 원을 넣은 이유",
+   "'소버린 AI'가 뭐길래 — Mistral 몸값 1년 만에 2배",
+   "미국도 중국도 아닌 '제3의 AI', 유럽의 승부수"
+  ]
+ },
+ "storyboard": {
+  "title": "삼성이 유럽 AI에 4조 원을 넣은 이유 — '소버린 AI' 이야기",
+  "cards": [
+   {
+    "n": 1,
+    "role": "표지",
+    "title": "삼성, 유럽 AI에 30억 유로",
+    "body": "프랑스 스타트업 Mistral이 삼성 주도로 30억 유로를 투자받았다. 왜 화제일까?",
+    "source": "https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/",
+    "imagePlan": "유럽 지도 위 프랑스 자리에 빛나는 작은 회사 건물, 한국 방향에서 큰 화살표가 자금을 실어 날아오는 장면",
+    "imageQuery": "europe map france startup investment arrow from korea illustration"
+   },
+   {
+    "n": 2,
+    "role": "본문",
+    "title": "'소버린 AI'가 뭐야?",
+    "body": "미국·중국 기업에 기대지 않고 내 나라·내 손으로 굴리는 AI. 유럽이 노리는 '제3의 길'이다.",
+    "source": "https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/",
+    "imagePlan": "미국 깃발 서버와 중국 깃발 서버 사이에서, 유럽연합 색의 세 번째 서버가 독립적으로 서 있는 구도",
+    "imageQuery": "three data center servers usa china europe flags independence illustration"
+   },
+   {
+    "n": 3,
+    "role": "본문",
+    "title": "1년 만에 몸값 2배",
+    "body": "작년 시리즈 C에서 117억 유로였던 기업가치가 이번엔 210억 유로로 뛰었다.",
+    "source": "https://qz.com/mistral-ai-samsung-series-d-funding-valuation-090826",
+    "imagePlan": "작은 저울추(117)에서 두 배 큰 저울추(210)로 커지는 성장 그래프, 위로 치솟는 화살표",
+    "imageQuery": "company valuation doubling growth chart rising arrow illustration"
+   },
+   {
+    "n": 4,
+    "role": "본문",
+    "title": "칩 회사가 주주로",
+    "body": "NVIDIA·ASML·삼성 등 반도체 핵심 기업이 투자자로 합류했다. AI엔 결국 '칩'이 열쇠라는 뜻.",
+    "source": "https://sifted.eu/articles/mistral-series-d-samsung-nvidia-asml",
+    "imagePlan": "컴퓨터 칩을 중심에 두고 여러 대기업 손이 함께 그 칩을 떠받치는 장면",
+    "imageQuery": "computer chip supported by multiple corporate hands semiconductor illustration"
+   },
+   {
+    "n": 5,
+    "role": "요약",
+    "title": "그래서 뭐가 달라지나",
+    "body": "거대 AI 판에 미국·중국 외 '또 하나의 선택지'가 커진다. 앞으로 어느 AI를 쓸지 폭이 넓어진다.",
+    "source": "https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/",
+    "imagePlan": "사용자가 여러 갈래 길 앞에 서서 세 방향(미국·중국·유럽) 이정표를 바라보는 뒷모습",
+    "imageQuery": "person standing at crossroads three signposts choice future illustration"
+   }
+  ],
+  "version": 1,
+  "approved": true
+ },
+ "runs": [
+  {
+   "at": 1788944572.6951525,
+   "kind": "engine",
+   "step": "research",
+   "note": "웹 검색 시작"
+  },
+  {
+   "at": 1788944697.2235138,
+   "kind": "engine",
+   "step": "research",
+   "ok": true,
+   "ms": 124527,
+   "webSearches": 0,
+   "costUsd": 0.7311910000000001,
+   "reason": null
+  },
+  {
+   "at": 1788944732.7146423,
+   "kind": "human",
+   "step": "selection",
+   "note": "후보 1개 선택",
+   "picked": [
+    "c1"
+   ]
+  },
+  {
+   "at": 1788944732.7313426,
+   "kind": "engine",
+   "step": "deep",
+   "note": "심층 검증 시작"
+  },
+  {
+   "at": 1788944787.7211268,
+   "kind": "engine",
+   "step": "deep",
+   "ok": true,
+   "ms": 54988,
+   "webSearches": 0,
+   "costUsd": 0.242338,
+   "reason": null
+  },
+  {
+   "at": 1788945391.3356986,
+   "kind": "human",
+   "step": "answer",
+   "note": "답변: AI 입문자 — '소버린 AI가 뭐고 왜 중요한가'부터"
+  },
+  {
+   "at": 1788945391.337833,
+   "kind": "engine",
+   "step": "deep",
+   "note": "심층 검증 시작"
+  },
+  {
+   "at": 1788945422.7987278,
+   "kind": "engine",
+   "step": "deep",
+   "ok": true,
+   "ms": 31459,
+   "webSearches": 0,
+   "costUsd": 0.10773250000000001,
+   "reason": null
+  },
+  {
+   "at": 1788945479.8704386,
+   "kind": "engine",
+   "step": "storyboard",
+   "note": "기획 시작"
+  },
+  {
+   "at": 1788945505.8032362,
+   "kind": "engine",
+   "step": "storyboard",
+   "ok": true,
+   "ms": 25931,
+   "costUsd": 0.087262,
+   "reason": null
+  },
+  {
+   "at": 1788945536.4736726,
+   "kind": "human",
+   "step": "approve",
+   "note": "스토리보드 v1 승인"
+  },
+  {
+   "at": 1788945550.4568694,
+   "kind": "system",
+   "step": "produce",
+   "note": "카드 5장 제작"
+  },
+  {
+   "at": 1788945697.91668,
+   "kind": "human",
+   "step": "approve",
+   "note": "스토리보드 v1 승인"
+  },
+  {
+   "at": 1788945722.0243769,
+   "kind": "system",
+   "step": "produce",
+   "note": "카드 5장 제작"
+  },
+  {
+   "at": 1788945776.7721844,
+   "kind": "human",
+   "step": "revise",
+   "note": "카드 3 수정",
+   "backgroundUnchanged": true
+  },
+  {
+   "at": 1788945776.7907624,
+   "kind": "human",
+   "step": "approve",
+   "note": "최종 승인"
+  }
+ ],
+ "errors": [
+  {
+   "at": 1788945537.7148757,
+   "where": "image",
+   "reason": "no_usable_license",
+   "detail": "검색 결과에 PD/CC 이미지가 없습니다 (0건 확인)",
+   "retry": "카드 1 의 [이미지 다시] 를 누르세요"
+  },
+  {
+   "at": 1788945538.5475366,
+   "where": "image",
+   "reason": "no_usable_license",
+   "detail": "검색 결과에 PD/CC 이미지가 없습니다 (0건 확인)",
+   "retry": "카드 2 의 [이미지 다시] 를 누르세요"
+  },
+  {
+   "at": 1788945543.28291,
+   "where": "image",
+   "reason": "download_or_decode_failed",
+   "detail": "cannot identify image file <_io.BytesIO object at 0x000001DCEC040BD0>",
+   "retry": "카드 3 의 [이미지 다시] 를 누르세요"
+  },
+  {
+   "at": 1788945546.1505835,
+   "where": "image",
+   "reason": "download_or_decode_failed",
+   "detail": "cannot identify image file <_io.BytesIO object at 0x000001DCECE09530>",
+   "retry": "카드 4 의 [이미지 다시] 를 누르세요"
+  },
+  {
+   "at": 1788945550.4223228,
+   "where": "image",
+   "reason": "download_or_decode_failed",
+   "detail": "cannot identify image file <_io.BytesIO object at 0x000001DCECE095D0>",
+   "retry": "카드 5 의 [이미지 다시] 를 누르세요"
+  }
+ ],
+ "exports": {
+  "zip": "cardnews.zip",
+  "zipBytes": 5761230,
+  "cards": [
+   "card-01.png",
+   "card-02.png",
+   "card-03.png",
+   "card-04.png",
+   "card-05.png"
+  ],
+  "manifest": "manifest.json"
+ },
+ "sessionId": "(가림 — 계정 식별값)",
+ "cards": [
+  {
+   "n": 1,
+   "role": "표지",
+   "title": "삼성, 유럽 AI에 30억 유로",
+   "body": "프랑스 스타트업 Mistral이 삼성 주도로 30억 유로를 투자받았다. 왜 화제일까?",
+   "source": "https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/",
+   "imagePlan": "유럽 지도 위 프랑스 자리에 빛나는 작은 회사 건물, 한국 방향에서 큰 화살표가 자금을 실어 날아오는 장면",
+   "imageQuery": "europe map france startup investment arrow from korea illustration",
+   "bg": "bg-01.jpg",
+   "render": {
+    "ok": true,
+    "path": "C:\\Users\\EAN22V01\\Desktop\\KDT\\00_shared\\repos\\KDT_Works\\05_module4\\a_mq_N7-domain-agentic-workflow\\cardnews\\data\\p-a449fe0e7614\\cards\\card-01.png",
+    "size": [
+     1080,
+     1350
+    ],
+    "bytes": 618609,
+    "sha256": "1bc003d0d5783fdf",
+    "titleLines": 1,
+    "bodyLines": 2,
+    "bodyTruncated": false
+   },
+   "error": null,
+   "provenance": {
+    "kind": "public-domain-or-cc",
+    "source": "Wikimedia Commons",
+    "file": "File:Nuclear power station.svg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Nuclear_power_station.svg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Nuclear_power_station.svg/1920px-Nuclear_power_station.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+    "author": "Ichabod Paleogene, Krzysztof Kori",
+    "verdict": "cc",
+    "fetchedAt": "2026-09-09 18:21",
+    "generator": null,
+    "prompt": null
+   }
+  },
+  {
+   "n": 2,
+   "role": "본문",
+   "title": "'소버린 AI'가 뭐야?",
+   "body": "미국·중국 기업에 기대지 않고 내 나라·내 손으로 굴리는 AI. 유럽이 노리는 '제3의 길'이다.",
+   "source": "https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/",
+   "imagePlan": "미국 깃발 서버와 중국 깃발 서버 사이에서, 유럽연합 색의 세 번째 서버가 독립적으로 서 있는 구도",
+   "imageQuery": "three data center servers usa china europe flags independence illustration",
+   "bg": "bg-02.jpg",
+   "render": {
+    "ok": true,
+    "path": "C:\\Users\\EAN22V01\\Desktop\\KDT\\00_shared\\repos\\KDT_Works\\05_module4\\a_mq_N7-domain-agentic-workflow\\cardnews\\data\\p-a449fe0e7614\\cards\\card-02.png",
+    "size": [
+     1080,
+     1350
+    ],
+    "bytes": 1489997,
+    "sha256": "a3d2289d6a0d7277",
+    "titleLines": 1,
+    "bodyLines": 2,
+    "bodyTruncated": false
+   },
+   "error": null,
+   "provenance": {
+    "kind": "public-domain-or-cc",
+    "source": "Wikimedia Commons",
+    "file": "File:CAMPUS - Military Data Center (52106762896).jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:CAMPUS_-_Military_Data_Center_(52106762896).jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/CAMPUS_-_Military_Data_Center_%2852106762896%29.jpg/1920px-CAMPUS_-_Military_Data_Center_%2852106762896%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "author": "Kecko from Eastern Switzerland",
+    "verdict": "cc",
+    "fetchedAt": "2026-09-09 18:21",
+    "generator": null,
+    "prompt": null
+   }
+  },
+  {
+   "n": 3,
+   "role": "본문",
+   "title": "1년 만에 몸값이 2배로",
+   "body": "작년 117억 유로였던 기업가치가 이번엔 210억 유로. 다만 달러 환산액은 매체마다 다르다.",
+   "source": "https://qz.com/mistral-ai-samsung-series-d-funding-valuation-090826",
+   "imagePlan": "작은 저울추(117)에서 두 배 큰 저울추(210)로 커지는 성장 그래프, 위로 치솟는 화살표",
+   "imageQuery": "company valuation doubling growth chart rising arrow illustration",
+   "bg": "bg-03.jpg",
+   "render": {
+    "ok": true,
+    "path": "C:\\Users\\EAN22V01\\Desktop\\KDT\\00_shared\\repos\\KDT_Works\\05_module4\\a_mq_N7-domain-agentic-workflow\\cardnews\\data\\p-a449fe0e7614\\cards\\card-03.png",
+    "size": [
+     1080,
+     1350
+    ],
+    "bytes": 1177959,
+    "sha256": "cb1cfd10ea9d41e0",
+    "titleLines": 1,
+    "bodyLines": 2,
+    "bodyTruncated": false
+   },
+   "error": null,
+   "provenance": {
+    "kind": "public-domain-or-cc",
+    "source": "Wikimedia Commons",
+    "file": "File:A lady pricing oil.jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:A_lady_pricing_oil.jpg",
+    "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/A_lady_pricing_oil.jpg/1920px-A_lady_pricing_oil.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "author": "Umshushima",
+    "verdict": "cc",
+    "fetchedAt": "2026-09-09 18:21",
+    "generator": null,
+    "prompt": null
+   }
+  },
+  {
+   "n": 4,
+   "role": "본문",
+   "title": "칩 회사가 주주로",
+   "body": "NVIDIA·ASML·삼성 등 반도체 핵심 기업이 투자자로 합류했다. AI엔 결국 '칩'이 열쇠라는 뜻.",
+   "source": "https://sifted.eu/articles/mistral-series-d-samsung-nvidia-asml",
+   "imagePlan": "컴퓨터 칩을 중심에 두고 여러 대기업 손이 함께 그 칩을 떠받치는 장면",
+   "imageQuery": "computer chip supported by multiple corporate hands semiconductor illustration",
+   "bg": "bg-04.jpg",
+   "render": {
+    "ok": true,
+    "path": "C:\\Users\\EAN22V01\\Desktop\\KDT\\00_shared\\repos\\KDT_Works\\05_module4\\a_mq_N7-domain-agentic-workflow\\cardnews\\data\\p-a449fe0e7614\\cards\\card-04.png",
+    "size": [
+     1080,
+     1350
+    ],
+    "bytes": 1683709,
+    "sha256": "de7fd160b0660d03",
+    "titleLines": 1,
+    "bodyLines": 2,
+    "bodyTruncated": false
+   },
+   "error": null,
+   "provenance": {
+    "kind": "public-domain-or-cc",
+    "source": "Wikimedia Commons",
+    "file": "File:Intel 8742 153056995.jpg",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Intel_8742_153056995.jpg",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/64/Intel_8742_153056995.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "author": "Ioan Sameli",
+    "verdict": "cc",
+    "fetchedAt": "2026-09-09 18:21",
+    "generator": null,
+    "prompt": null
+   }
+  },
+  {
+   "n": 5,
+   "role": "요약",
+   "title": "그래서 뭐가 달라지나",
+   "body": "거대 AI 판에 미국·중국 외 '또 하나의 선택지'가 커진다. 앞으로 어느 AI를 쓸지 폭이 넓어진다.",
+   "source": "https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/",
+   "imagePlan": "사용자가 여러 갈래 길 앞에 서서 세 방향(미국·중국·유럽) 이정표를 바라보는 뒷모습",
+   "imageQuery": "person standing at crossroads three signposts choice future illustration",
+   "bg": "bg-05.jpg",
+   "render": {
+    "ok": true,
+    "path": "C:\\Users\\EAN22V01\\Desktop\\KDT\\00_shared\\repos\\KDT_Works\\05_module4\\a_mq_N7-domain-agentic-workflow\\cardnews\\data\\p-a449fe0e7614\\cards\\card-05.png",
+    "size": [
+     1080,
+     1350
+    ],
+    "bytes": 787818,
+    "sha256": "7e75e743d7935a0d",
+    "titleLines": 1,
+    "bodyLines": 2,
+    "bodyTruncated": false
+   },
+   "error": null,
+   "provenance": {
+    "kind": "public-domain-or-cc",
+    "source": "Wikimedia Commons",
+    "file": "File:Corinth Crossroads trains.png",
+    "pageUrl": "https://commons.wikimedia.org/wiki/File:Corinth_Crossroads_trains.png",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Corinth_Crossroads_trains.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "author": "Unknown authorUnknown author",
+    "verdict": "pd",
+    "fetchedAt": "2026-09-09 18:22",
+    "generator": null,
+    "prompt": null
+   }
+  }
+ ]
+}
