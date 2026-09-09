@@ -1,0 +1,958 @@
+[
+ {
+  "id": "chinese-052bd695be",
+  "input": {
+   "title": "The Goddess of the Luo River",
+   "artist": "임웅"
+  },
+  "queries": [
+   "The Goddess of the Luo River"
+  ],
+  "truth": {
+   "title": "〈낙신도〉",
+   "origTitle": "The Goddess of the Luo River",
+   "artist": "임웅",
+   "era": "명·청 1368 — 1912",
+   "people": [],
+   "inception": "1850년대",
+   "material": "비단에 수묵채색, 족자",
+   "collection": "상해박물관 (소장번호 미확정 — 후속 확인 필요)",
+   "url": "https://myth-gallery.vercel.app/ko/chinese/works/chinese-052bd695be",
+   "mythKo": "중국"
+  }
+ },
+ {
+  "id": "chinese-4592ac508a",
+  "input": {
+   "title": "Emperor Shun Commanding King Yu to Control the Flood",
+   "artist": "작자 미상 / 곽후 등"
+  },
+  "queries": [
+   "Emperor Shun Commanding King Yu to Control the Flood"
+  ],
+  "truth": {
+   "title": "〈제순명우왕왕치수〉 (帝舜命禹王徃治水)",
+   "origTitle": "Emperor Shun Commanding King Yu to Control the Flood",
+   "artist": "작자 미상 / 곽후 등",
+   "era": "명·청 1368 — 1912",
+   "people": [
+    "우 (대우)"
+   ],
+   "inception": "1600년~1800년경",
+   "material": "목판화 (서적 삽화)",
+   "collection": "출판지·소장처 미상 (Wikimedia 업로드본)",
+   "url": "https://myth-gallery.vercel.app/ko/chinese/works/chinese-4592ac508a",
+   "mythKo": "중국"
+  }
+ },
+ {
+  "id": "chinese-8202d01b3c",
+  "input": {
+   "title": "Bronze Protruding-Eye Mask (Sanxingdui Museum)",
+   "artist": "작자 미상"
+  },
+  "queries": [
+   "Bronze Protruding-Eye Mask (Sanxingdui Museum)",
+   "Bronze Protruding-Eye Mask",
+   "Sanxingdui Museum"
+  ],
+  "truth": {
+   "title": "청동종목면구 (삼성퇴박물관 소장)",
+   "origTitle": "Bronze Protruding-Eye Mask (Sanxingdui Museum)",
+   "artist": "작자 미상",
+   "era": "상·주 기원전 1600년~기원전 256년",
+   "people": [],
+   "inception": "기원전 1200년경",
+   "material": "청동 주조",
+   "collection": "삼성퇴박물관, 쓰촨 광한",
+   "url": "https://myth-gallery.vercel.app/ko/chinese/works/chinese-8202d01b3c",
+   "mythKo": "중국"
+  }
+ },
+ {
+  "id": "chinese-ac7c674b6e",
+  "input": {
+   "title": "Immortal with Deer",
+   "artist": "장로"
+  },
+  "queries": [
+   "Immortal with Deer"
+  ],
+  "truth": {
+   "title": "〈신선과 사슴〉",
+   "origTitle": "Immortal with Deer",
+   "artist": "장로",
+   "era": "명·청 1368 — 1912",
+   "people": [],
+   "inception": "1500년경",
+   "material": "비단에 수묵담채",
+   "collection": "개인소장 (디지털 자료, Wikimedia Commons 경유)",
+   "url": "https://myth-gallery.vercel.app/ko/chinese/works/chinese-ac7c674b6e",
+   "mythKo": "중국"
+  }
+ },
+ {
+  "id": "chinese-d251663d78",
+  "input": {
+   "title": "Pangu Emerging from Chaos, from Pangu Chronicle",
+   "artist": "작자 미상 / 곽후 등"
+  },
+  "queries": [
+   "Pangu Emerging from Chaos, from Pangu Chronicle"
+  ],
+  "truth": {
+   "title": "〈혼돈장개 반고수출〉 (混沌將開盤古首出) — 「반고지전(盤古誌傳)」 삽화",
+   "origTitle": "Pangu Emerging from Chaos, from Pangu Chronicle",
+   "artist": "작자 미상 / 곽후 등",
+   "era": "명·청 1368 — 1912",
+   "people": [
+    "반고"
+   ],
+   "inception": "1650년경",
+   "material": "목판화 (서적 삽화)",
+   "collection": "CADAL 디지털 컬렉션 (CADAL02015452)",
+   "url": "https://myth-gallery.vercel.app/ko/chinese/works/chinese-d251663d78",
+   "mythKo": "중국"
+  }
+ },
+ {
+  "id": "egypt-000545aafa",
+  "input": {
+   "title": "Large Kneeling Statue of Hatshepsut",
+   "artist": "익명"
+  },
+  "queries": [
+   "Large Kneeling Statue of Hatshepsut"
+  ],
+  "truth": {
+   "title": "봉헌하는 하트셉수트 (대형 무릎상)",
+   "origTitle": "Large Kneeling Statue of Hatshepsut",
+   "artist": "익명",
+   "era": "신왕국 기원전 1550년~기원전 1069년",
+   "people": [],
+   "inception": "기원전 1479년~기원전 1458년경",
+   "material": "화강암 환조",
+   "collection": "1), 뉴욕, 미국",
+   "url": "https://myth-gallery.vercel.app/ko/egypt/works/egypt-000545aafa",
+   "mythKo": "이집트"
+  }
+ },
+ {
+  "id": "egypt-4963d39a4f",
+  "input": {
+   "title": "The Gods and Their Makers",
+   "artist": "에드윈 롱"
+  },
+  "queries": [
+   "The Gods and Their Makers"
+  ],
+  "truth": {
+   "title": "〈신들과 그 제작자들〉",
+   "origTitle": "The Gods and Their Makers",
+   "artist": "에드윈 롱",
+   "era": "근대 수용 1800년~",
+   "people": [],
+   "inception": "1878년",
+   "material": "캔버스에 유채",
+   "collection": "BURGM-paoil174)",
+   "url": "https://myth-gallery.vercel.app/ko/egypt/works/egypt-4963d39a4f",
+   "mythKo": "이집트"
+  }
+ },
+ {
+  "id": "egypt-8b801ba760",
+  "input": {
+   "title": "Nut and Geb",
+   "artist": "작자 미상"
+  },
+  "queries": [
+   "Nut and Geb"
+  ],
+  "truth": {
+   "title": "그린필드 파피루스: 누트와 게브",
+   "origTitle": "Nut and Geb",
+   "artist": "작자 미상",
+   "era": "신왕국 기원전 1550년~기원전 1069년",
+   "people": [
+    "아툼",
+    "게브",
+    "누트",
+    "테프누트"
+   ],
+   "inception": "기원전 1000년경",
+   "material": "파피루스에 잉크·안료",
+   "collection": "대영박물관 (British Museum, EA 10554)",
+   "url": "https://myth-gallery.vercel.app/ko/egypt/works/egypt-8b801ba760",
+   "mythKo": "이집트"
+  }
+ },
+ {
+  "id": "egypt-c7a0b8bc28",
+  "input": {
+   "title": "Thoth as Baboon",
+   "artist": "익명"
+  },
+  "queries": [
+   "Thoth as Baboon"
+  ],
+  "truth": {
+   "title": "토트 개코원숭이상",
+   "origTitle": "Thoth as Baboon",
+   "artist": "익명",
+   "era": "말기 왕조 기원전 664년~기원전 332년",
+   "people": [
+    "토트"
+   ],
+   "inception": "기원전 664년~기원전 332년경",
+   "material": "파이앙스 또는 청동 (출처상 정확 매체 미공개)",
+   "collection": "루브르 박물관 (수장번호 E 17496), 파리, 프랑스",
+   "url": "https://myth-gallery.vercel.app/ko/egypt/works/egypt-c7a0b8bc28",
+   "mythKo": "이집트"
+  }
+ },
+ {
+  "id": "greek-011d6bf12a",
+  "input": {
+   "title": "The Rape of Proserpina",
+   "artist": "페테르 파울 루벤스"
+  },
+  "queries": [
+   "The Rape of Proserpina"
+  ],
+  "truth": {
+   "title": "프로세르피나의 납치",
+   "origTitle": "The Rape of Proserpina",
+   "artist": "페테르 파울 루벤스",
+   "era": "바로크 1600년~1750년",
+   "people": [
+    "하데스",
+    "페르세포네"
+   ],
+   "inception": "1636년~1638년",
+   "material": "패널에 유채",
+   "collection": "프라도 미술관, 마드리드, 스페인",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-011d6bf12a",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-0dd998c491",
+  "input": {
+   "title": "The Birth of Venus",
+   "artist": "알렉상드르 카바넬"
+  },
+  "queries": [
+   "The Birth of Venus"
+  ],
+  "truth": {
+   "title": "비너스의 탄생",
+   "origTitle": "The Birth of Venus",
+   "artist": "알렉상드르 카바넬",
+   "era": "19세기 후반 1850년~1910년",
+   "people": [],
+   "inception": "1863년",
+   "material": "캔버스에 유채",
+   "collection": "오르세 미술관, 파리, 프랑스",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-0dd998c491",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-1ce1419a22",
+  "input": {
+   "title": "Perseus and Andromeda",
+   "artist": "페테르 파울 루벤스"
+  },
+  "queries": [
+   "Perseus and Andromeda"
+  ],
+  "truth": {
+   "title": "페르세우스와 안드로메다",
+   "origTitle": "Perseus and Andromeda",
+   "artist": "페테르 파울 루벤스",
+   "era": "바로크 1600년~1750년",
+   "people": [
+    "페르세우스",
+    "안드로메다"
+   ],
+   "inception": "1622년경",
+   "material": "캔버스에 유채",
+   "collection": "예르미타시 미술관, 상트페테르부르크",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-1ce1419a22",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-2be2a8a891",
+  "input": {
+   "title": "Apollo and Daphne",
+   "artist": "안토니오 델 폴라이올로"
+  },
+  "queries": [
+   "Apollo and Daphne"
+  ],
+  "truth": {
+   "title": "아폴론과 다프네",
+   "origTitle": "Apollo and Daphne",
+   "artist": "안토니오 델 폴라이올로",
+   "era": "르네상스 1400년~1600년",
+   "people": [
+    "아폴론",
+    "다프네"
+   ],
+   "inception": "1470년경~1475년경",
+   "material": "목판에 템페라",
+   "collection": "런던 내셔널갤러리 (소장 번호 NG928)",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-2be2a8a891",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-3a8223c66f",
+  "input": {
+   "title": "Apollo Pursuing Daphne",
+   "artist": "조반니 바티스타 티에폴로"
+  },
+  "queries": [
+   "Apollo Pursuing Daphne"
+  ],
+  "truth": {
+   "title": "아폴로와 다프네",
+   "origTitle": "Apollo Pursuing Daphne",
+   "artist": "조반니 바티스타 티에폴로",
+   "era": "바로크 1600년~1750년",
+   "people": [
+    "다프네"
+   ],
+   "inception": "1755년~1760년경",
+   "material": "캔버스에 유채",
+   "collection": "내셔널 갤러리 오브 아트 (워싱턴)",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-3a8223c66f",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-47894c38d9",
+  "input": {
+   "title": "Clytemnestra after the Murder",
+   "artist": "존 콜리어"
+  },
+  "queries": [
+   "Clytemnestra after the Murder"
+  ],
+  "truth": {
+   "title": "살해 후의 클리타임네스트라",
+   "origTitle": "Clytemnestra after the Murder",
+   "artist": "존 콜리어",
+   "era": "19세기 후반 1850년~1910년",
+   "people": [],
+   "inception": "1882년",
+   "material": "캔버스에 유채",
+   "collection": "길드홀 미술관 (Guildhall Art Gallery), 런던",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-47894c38d9",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-547eb88986",
+  "input": {
+   "title": "Apollo and Daphne",
+   "artist": "도소 도시"
+  },
+  "queries": [
+   "Apollo and Daphne"
+  ],
+  "truth": {
+   "title": "아폴론과 다프네",
+   "origTitle": "Apollo and Daphne",
+   "artist": "도소 도시",
+   "era": "르네상스 1400년~1600년",
+   "people": [
+    "아폴론",
+    "다프네"
+   ],
+   "inception": "1522년경",
+   "material": "캔버스에 유채",
+   "collection": "갤러리아 보르게세, 로마",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-547eb88986",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-5e4194b435",
+  "input": {
+   "title": "Theseus and the Centaur",
+   "artist": "안토니오 카노바"
+  },
+  "queries": [
+   "Theseus and the Centaur"
+  ],
+  "truth": {
+   "title": "켄타우로스를 무찌르는 테세우스",
+   "origTitle": "Theseus and the Centaur",
+   "artist": "안토니오 카노바",
+   "era": "신고전주의 1750년~1830년",
+   "people": [
+    "테세우스"
+   ],
+   "inception": "1804년~1819년",
+   "material": "대리석",
+   "collection": "빈 미술사 박물관",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-5e4194b435",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-6ded2e4e36",
+  "input": {
+   "title": "The Three Graces",
+   "artist": "안토니오 카노바"
+  },
+  "queries": [
+   "The Three Graces"
+  ],
+  "truth": {
+   "title": "삼미신",
+   "origTitle": "The Three Graces",
+   "artist": "안토니오 카노바",
+   "era": "신고전주의 1750년~1830년",
+   "people": [
+    "카리테스 (삼미신)"
+   ],
+   "inception": "1813년~1816년",
+   "material": "대리석 조각",
+   "collection": "에르미타주 미술관, 상트페테르부르크",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-6ded2e4e36",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-7bfd1038bb",
+  "input": {
+   "title": "Night (La Nuit)",
+   "artist": "윌리엄 아돌프 부그로"
+  },
+  "queries": [
+   "Night (La Nuit)",
+   "Night",
+   "La Nuit"
+  ],
+  "truth": {
+   "title": "밤 (라 뉘)",
+   "origTitle": "Night (La Nuit)",
+   "artist": "윌리엄 아돌프 부그로",
+   "era": "19세기 후반 1850년~1910년",
+   "people": [
+    "닉스"
+   ],
+   "inception": "1883년",
+   "material": "캔버스에 유채",
+   "collection": null,
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-7bfd1038bb",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-88f27df758",
+  "input": {
+   "title": "Morpheus and Iris",
+   "artist": "피에르 나르시스 게랭"
+  },
+  "queries": [
+   "Morpheus and Iris"
+  ],
+  "truth": {
+   "title": "모르페우스와 이리스",
+   "origTitle": "Morpheus and Iris",
+   "artist": "피에르 나르시스 게랭",
+   "era": "낭만주의 1800년~1860년",
+   "people": [
+    "이리스"
+   ],
+   "inception": "1811년",
+   "material": "캔버스에 유채",
+   "collection": "에르미타주 미술관, 상트페테르부르크",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-88f27df758",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-96d0e70cef",
+  "input": {
+   "title": "The Flaying of Marsyas",
+   "artist": "티치아노 베첼리오"
+  },
+  "queries": [
+   "The Flaying of Marsyas"
+  ],
+  "truth": {
+   "title": "마르시아스의 처형",
+   "origTitle": "The Flaying of Marsyas",
+   "artist": "티치아노 베첼리오",
+   "era": "르네상스 1400년~1600년",
+   "people": [
+    "아폴론"
+   ],
+   "inception": "1570년경~1576년경",
+   "material": "캔버스에 유채",
+   "collection": "대주교구 미술관, 크로메르지주, 체코",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-96d0e70cef",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-a3b9c0b18c",
+  "input": {
+   "title": "Faun and Nymph",
+   "artist": "프란츠 폰 슈투크"
+  },
+  "queries": [
+   "Faun and Nymph"
+  ],
+  "truth": {
+   "title": "파우누스와 님프",
+   "origTitle": "Faun and Nymph",
+   "artist": "프란츠 폰 슈투크",
+   "era": "19세기 후반 1850년~1910년",
+   "people": [],
+   "inception": "1892년",
+   "material": "캔버스에 유채",
+   "collection": "프라하 국립미술관",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-a3b9c0b18c",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-af4415f231",
+  "input": {
+   "title": "Allegory of Music (Erato)",
+   "artist": "필리피노 리피"
+  },
+  "queries": [
+   "Allegory of Music (Erato)",
+   "Allegory of Music",
+   "Erato"
+  ],
+  "truth": {
+   "title": "음악의 알레고리 (에라토)",
+   "origTitle": "Allegory of Music (Erato)",
+   "artist": "필리피노 리피",
+   "era": "르네상스 1400년~1600년",
+   "people": [],
+   "inception": "1500년경",
+   "material": "패널에 유채",
+   "collection": "78A)",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-af4415f231",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-b853599d82",
+  "input": {
+   "title": "Jupiter and Antiope",
+   "artist": "장 오귀스트 도미니크 앵그르"
+  },
+  "queries": [
+   "Jupiter and Antiope"
+  ],
+  "truth": {
+   "title": "유피테르와 안티오페",
+   "origTitle": "Jupiter and Antiope",
+   "artist": "장 오귀스트 도미니크 앵그르",
+   "era": "신고전주의 1750년~1830년",
+   "people": [
+    "제우스",
+    "안티오페"
+   ],
+   "inception": "1851년",
+   "material": "캔버스에 유채",
+   "collection": "루브르 박물관",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-b853599d82",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-c7ccbfe674",
+  "input": {
+   "title": "Jason and Medea",
+   "artist": "존 윌리엄 워터하우스"
+  },
+  "queries": [
+   "Jason and Medea"
+  ],
+  "truth": {
+   "title": "이아손과 메데이아",
+   "origTitle": "Jason and Medea",
+   "artist": "존 윌리엄 워터하우스",
+   "era": "19세기 후반 1850년~1910년",
+   "people": [
+    "이아손",
+    "메데이아"
+   ],
+   "inception": "1907년",
+   "material": "캔버스에 유채",
+   "collection": "개인 소장",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-c7ccbfe674",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-d0efde7f71",
+  "input": {
+   "title": "Nymphs and Satyr",
+   "artist": "윌리엄 아돌프 부그로"
+  },
+  "queries": [
+   "Nymphs and Satyr"
+  ],
+  "truth": {
+   "title": "님프와 사티로스",
+   "origTitle": "Nymphs and Satyr",
+   "artist": "윌리엄 아돌프 부그로",
+   "era": "19세기 후반 1850년~1910년",
+   "people": [],
+   "inception": "1873년",
+   "material": "캔버스에 유채",
+   "collection": "스털링 앤 프랜신 클락 미술관",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-d0efde7f71",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-e03f0980af",
+  "input": {
+   "title": "Mars and Venus",
+   "artist": "루이 장 프랑수아 라그레네"
+  },
+  "queries": [
+   "Mars and Venus"
+  ],
+  "truth": {
+   "title": "마르스와 비너스",
+   "origTitle": "Mars and Venus",
+   "artist": "루이 장 프랑수아 라그레네",
+   "era": "신고전주의 1750년~1830년",
+   "people": [
+    "아레스"
+   ],
+   "inception": "1770년",
+   "material": "캔버스에 유채",
+   "collection": "폴 게티 미술관, 로스앤젤레스",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-e03f0980af",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "greek-ebc8b05d04",
+  "input": {
+   "title": "Pallas Athene",
+   "artist": "구스타프 클림트"
+  },
+  "queries": [
+   "Pallas Athene"
+  ],
+  "truth": {
+   "title": "팔라스 아테나",
+   "origTitle": "Pallas Athene",
+   "artist": "구스타프 클림트",
+   "era": "근현대 1900년~",
+   "people": [
+    "아테나"
+   ],
+   "inception": "1898년",
+   "material": "캔버스에 유채",
+   "collection": "비엔나 박물관",
+   "url": "https://myth-gallery.vercel.app/ko/greek/works/greek-ebc8b05d04",
+   "mythKo": "그리스로마"
+  }
+ },
+ {
+  "id": "hindu-00cf1dfa57",
+  "input": {
+   "title": "The Recumbent Vishnu and the Creation of Brahma",
+   "artist": "익명"
+  },
+  "queries": [
+   "The Recumbent Vishnu and the Creation of Brahma"
+  ],
+  "truth": {
+   "title": "누운 비슈누와 브라흐마의 탄생",
+   "origTitle": "The Recumbent Vishnu and the Creation of Brahma",
+   "artist": "익명",
+   "era": "무굴 1526년~1857년",
+   "people": [
+    "브라흐마",
+    "비슈누"
+   ],
+   "inception": "1775년~1800년",
+   "material": "종이에 불투명 수채 (과슈)·금, 파하리 (굴레르) 세밀화",
+   "collection": "906)",
+   "url": "https://myth-gallery.vercel.app/ko/hindu/works/hindu-00cf1dfa57",
+   "mythKo": "힌두"
+  }
+ },
+ {
+  "id": "hindu-332d6eb52c",
+  "input": {
+   "title": "Indra and Indrani on the elephant Airavata — Badami Cave 3 ceiling",
+   "artist": "작자 미상"
+  },
+  "queries": [
+   "Indra and Indrani on the elephant Airavata — Badami Cave 3 ceiling",
+   "Indra and Indrani on the elephant Airavata"
+  ],
+  "truth": {
+   "title": "바다미 동굴 천장 — 인드라와 인드라니 (코끼리 아이라바타 위)",
+   "origTitle": "Indra and Indrani on the elephant Airavata — Badami Cave 3 ceiling",
+   "artist": "작자 미상",
+   "era": "중세 600년~1500년",
+   "people": [
+    "인드라",
+    "아이라바타"
+   ],
+   "inception": "578년경",
+   "material": "사암 동굴 천장 패널 조각",
+   "collection": "인도 카르나타카 바다미 3번 힌두 석굴 (Badami Cave 3)",
+   "url": "https://myth-gallery.vercel.app/ko/hindu/works/hindu-332d6eb52c",
+   "mythKo": "힌두"
+  }
+ },
+ {
+  "id": "hindu-6b002ff5ca",
+  "input": {
+   "title": "The Goddess Bhairavi Devi with Shiva",
+   "artist": "파야그"
+  },
+  "queries": [
+   "The Goddess Bhairavi Devi with Shiva"
+  ],
+  "truth": {
+   "title": "〈시바와 바이라비 여신〉",
+   "origTitle": "The Goddess Bhairavi Devi with Shiva",
+   "artist": "파야그",
+   "era": "무굴 1526년~1857년",
+   "people": [
+    "시바"
+   ],
+   "inception": "1630년경~1635년경",
+   "material": "종이에 불투명 수채·금·잉크",
+   "collection": "1)",
+   "url": "https://myth-gallery.vercel.app/ko/hindu/works/hindu-6b002ff5ca",
+   "mythKo": "힌두"
+  }
+ },
+ {
+  "id": "hindu-9ceab2ae98",
+  "input": {
+   "title": "Four-armed Yama on His Caparisoned Buffalo",
+   "artist": "익명"
+  },
+  "queries": [
+   "Four-armed Yama on His Caparisoned Buffalo"
+  ],
+  "truth": {
+   "title": "물소를 탄 사신 야마",
+   "origTitle": "Four-armed Yama on His Caparisoned Buffalo",
+   "artist": "익명",
+   "era": "무굴 1526년~1857년",
+   "people": [
+    "야마"
+   ],
+   "inception": "1850년경",
+   "material": "종이에 과슈 (힌두교 신상 82점 화첩 중 1점)",
+   "collection": "72)",
+   "url": "https://myth-gallery.vercel.app/ko/hindu/works/hindu-9ceab2ae98",
+   "mythKo": "힌두"
+  }
+ },
+ {
+  "id": "hindu-cb3d21cf23",
+  "input": {
+   "title": "Didarganj Yakshi (Chauri-Bearer)",
+   "artist": "작자 미상"
+  },
+  "queries": [
+   "Didarganj Yakshi (Chauri-Bearer)",
+   "Didarganj Yakshi",
+   "Chauri-Bearer"
+  ],
+  "truth": {
+   "title": "디다르간지 약시 (불자를 든 시녀상)",
+   "origTitle": "Didarganj Yakshi (Chauri-Bearer)",
+   "artist": "작자 미상",
+   "era": "고대 인도 기원전 2500년~200년",
+   "people": [],
+   "inception": "기원전 300년~기원전 200년경 (마우리아기, 추정)",
+   "material": "마우리아 연마 사암 (추나르 사암)",
+   "collection": "인도 비하르 박물관, 파트나",
+   "url": "https://myth-gallery.vercel.app/ko/hindu/works/hindu-cb3d21cf23",
+   "mythKo": "힌두"
+  }
+ },
+ {
+  "id": "meso-00ddc086ef",
+  "input": {
+   "title": "Cylinder Seal of the Uruk Period",
+   "artist": "작자 미상"
+  },
+  "queries": [
+   "Cylinder Seal of the Uruk Period"
+  ],
+  "truth": {
+   "title": "우루크 시대 왕·사제 원통 인장",
+   "origTitle": "Cylinder Seal of the Uruk Period",
+   "artist": "작자 미상",
+   "era": "수메르 기원전 4000년~기원전 2000년",
+   "people": [],
+   "inception": "기원전 3100년경",
+   "material": "석재 원통 (대리석 또는 석회암) 음각",
+   "collection": "루브르 박물관 (수장번호 AO 6620), 파리, 프랑스",
+   "url": "https://myth-gallery.vercel.app/ko/meso/works/meso-00ddc086ef",
+   "mythKo": "메소포타미아"
+  }
+ },
+ {
+  "id": "meso-765ea995ac",
+  "input": {
+   "title": "Baal with Thunderbolt (Baal au foudre stele)",
+   "artist": "작가 미상"
+  },
+  "queries": [
+   "Baal with Thunderbolt (Baal au foudre stele)",
+   "Baal with Thunderbolt",
+   "Baal au foudre stele"
+  ],
+  "truth": {
+   "title": "바알 (천둥을 든 바알 석비)",
+   "origTitle": "Baal with Thunderbolt (Baal au foudre stele)",
+   "artist": "작가 미상",
+   "era": "바빌로니아 기원전 2000년~기원전 500년",
+   "people": [
+    "바알"
+   ],
+   "inception": "기원전 1400년경",
+   "material": "석회암 부조",
+   "collection": "루브르 박물관 (AO 15775)",
+   "url": "https://myth-gallery.vercel.app/ko/meso/works/meso-765ea995ac",
+   "mythKo": "메소포타미아"
+  }
+ },
+ {
+  "id": "meso-b2efba12e6",
+  "input": {
+   "title": "Candaules, King of Lydia, Shews his Wife by Stealth to Gyges, One of his Ministers, as She Goes to Bed",
+   "artist": "윌리엄 에티"
+  },
+  "queries": [
+   "Candaules, King of Lydia, Shews his Wife by Stealth to Gyges, One of his Ministers, as She Goes to Bed",
+   "Candaules"
+  ],
+  "truth": {
+   "title": "리디아의 왕 칸다울레스, 자신의 부인을 신하 기게스에게 몰래 보여주다",
+   "origTitle": "Candaules, King of Lydia, Shews his Wife by Stealth to Gyges, One of his Ministers, as She Goes to Bed",
+   "artist": "윌리엄 에티",
+   "era": "근대 수용 1800년~",
+   "people": [],
+   "inception": "1820년",
+   "material": "캔버스에 유채",
+   "collection": "테이트, 런던 (Tate, London, 소장번호 N00358)",
+   "url": "https://myth-gallery.vercel.app/ko/meso/works/meso-b2efba12e6",
+   "mythKo": "메소포타미아"
+  }
+ },
+ {
+  "id": "norse-011c0f35e9",
+  "input": {
+   "title": "Kraka",
+   "artist": "모르텐 에스킬 빙에"
+  },
+  "queries": [
+   "Kraka"
+  ],
+  "truth": {
+   "title": "크라카",
+   "origTitle": "Kraka",
+   "artist": "모르텐 에스킬 빙에",
+   "era": "민족낭만주의 1870년~1900년",
+   "people": [],
+   "inception": "1862년",
+   "material": "캔버스에 유채",
+   "collection": "스웨덴 국립박물관 (Nationalmuseum), 스톡홀름, 스웨덴",
+   "url": "https://myth-gallery.vercel.app/ko/norse/works/norse-011c0f35e9",
+   "mythKo": "북유럽"
+  }
+ },
+ {
+  "id": "norse-471d9b3cad",
+  "input": {
+   "title": "Thor Battering the Midgard Serpent",
+   "artist": "요한 하인리히 퓌슬리"
+  },
+  "queries": [
+   "Thor Battering the Midgard Serpent"
+  ],
+  "truth": {
+   "title": "미드가르드 뱀과 싸우는 토르",
+   "origTitle": "Thor Battering the Midgard Serpent",
+   "artist": "요한 하인리히 퓌슬리",
+   "era": "근세 수용 1500년~1800년",
+   "people": [
+    "토르",
+    "요르문간드"
+   ],
+   "inception": "1790년",
+   "material": "캔버스에 유채",
+   "collection": "영국 왕립미술원 (런던)",
+   "url": "https://myth-gallery.vercel.app/ko/norse/works/norse-471d9b3cad",
+   "mythKo": "북유럽"
+  }
+ },
+ {
+  "id": "norse-761de4ab0c",
+  "input": {
+   "title": "Sigurd pierced him with his sword",
+   "artist": "아서 라컴"
+  },
+  "queries": [
+   "Sigurd pierced him with his sword"
+  ],
+  "truth": {
+   "title": "시구르드가 칼로 그를 꿰뚫었다",
+   "origTitle": "Sigurd pierced him with his sword",
+   "artist": "아서 라컴",
+   "era": "근현대 (북유럽) 1900년~",
+   "people": [
+    "시구르드"
+   ],
+   "inception": "1901년",
+   "material": "종이에 펜·잉크 (책 삽화)",
+   "collection": "(래컴 「마법의 땅 (The Land of Enchantment)」 117쪽, Cassell and Company, 1907)",
+   "url": "https://myth-gallery.vercel.app/ko/norse/works/norse-761de4ab0c",
+   "mythKo": "북유럽"
+  }
+ },
+ {
+  "id": "norse-aa60789a47",
+  "input": {
+   "title": "Freyja Seeking her Husband",
+   "artist": "닐스 블롬메르"
+  },
+  "queries": [
+   "Freyja Seeking her Husband"
+  ],
+  "truth": {
+   "title": "〈남편을 찾는 프레이야〉",
+   "origTitle": "Freyja Seeking her Husband",
+   "artist": "닐스 블롬메르",
+   "era": "낭만주의 (북유럽) 1830년~1870년",
+   "people": [
+    "프레이야"
+   ],
+   "inception": "1852년",
+   "material": "캔버스에 유채",
+   "collection": "스웨덴 국립박물관 (Nationalmuseum, 스톡홀름)",
+   "url": "https://myth-gallery.vercel.app/ko/norse/works/norse-aa60789a47",
+   "mythKo": "북유럽"
+  }
+ }
+]
