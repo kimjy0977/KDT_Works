@@ -323,9 +323,17 @@ export const TOOLS = [
       if (!terms.length) return { ok: true, hits: [] };
       const scored = [];
       for (const it of index) {
-        const hay = norm([it.title, it.origTitle, it.artist, it.era, (it.people || []).join(' ')].join(' '));
+        // ★두 칸으로 나눠 «가중치»를 다르게 준다.
+        //   id 칸(제목·작가·인물)은 «중복 등재 판정»의 근거라 정밀해야 하고,
+        //   theme 칸(신화 배경·감상)은 «주제 검색»용이라 넓게 걸려야 한다.
+        //   한 칸에 몰아넣으면 주제어가 중복 판정을 흐린다.
+        const idHay = norm([it.title, it.origTitle, it.artist, it.era, (it.people || []).join(' ')].join(' '));
+        const themeHay = norm(it.theme || '');
         let s = 0;
-        for (const t of terms) if (hay.includes(t)) s += t.length;
+        for (const t of terms) {
+          if (idHay.includes(t)) s += t.length * 3;
+          else if (themeHay.includes(t)) s += t.length;   // 주제 일치는 «약하게»
+        }
         // 제목이 통째로 들어맞으면 크게 가산 — 중복 등재 판정이 이 신호에 달려 있다
         if (norm(it.origTitle).includes(norm(q)) || norm(it.title).includes(norm(q))) s += 40;
         if (s > 0) scored.push({ ...it, score: s });

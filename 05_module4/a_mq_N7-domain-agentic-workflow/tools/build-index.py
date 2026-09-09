@@ -108,6 +108,12 @@ def main():
             'hasDesc': 'description' in s,
             'hasMyth': 'myth' in s,
             'hasInsight': 'insight' in s,
+            # ★주제 검색용 텍스트.
+            #   처음엔 제목·작가·인물만 넣었는데, 큐레이션 평가에서 «주제어»로 아무것도 못 찾았다
+            #   (「변신」 1건 · 「죽음」 0건 · 「그리스로마 신화」 0건).
+            #   주제어는 «신화 배경» 문단에 있다. 전문을 다 넣으면 색인이 2.2MB로 돌아가므로 앞부분만.
+            'theme': ((s.get('myth', {}).get('text', '')[:300] + ' ' +
+                       s.get('insight', {}).get('text', '')[:150]).strip() or None),
         })
 
     os.makedirs(OUT, exist_ok=True)

@@ -72,9 +72,14 @@ const CURATE_SYSTEM = `당신은 신화 명화 아카이브의 «전시 기획�
 2. **아카이브에 «있는» 작품만 고릅니다.** archive_search 가 실제로 돌려준 slug 만 씁니다.
    기억나는 명화를 적지 마세요 — 아카이브에 없으면 전시에 걸 수 없습니다.
 3. **먼저 archive_facets 로 분포를 봅니다.** 어느 신화에 몇 점이 있는지 «추측하지 않고» 확인한 뒤
-   주제에 맞는 검색어로 archive_search 를 여러 번 부릅니다.
-4. **8~12점**을 고르고 **3구획**으로 나눕니다. 구획마다 벽면 텍스트를 씁니다.
-5. emit_exhibition 은 부르지 않습니다. 사람이 승인하면 시스템이 부릅니다.
+   주제에 맞는 검색어로 archive_search 를 부릅니다.
+4. ★**archive_search 는 «3~5회면 충분»합니다.** 그 뒤에는 «더 찾지 말고» 지금까지 나온 후보에서 골라
+   finish 하세요. **앞선 검색 결과는 이 대화에 그대로 남아 있습니다 — 다시 찾을 필요가 없습니다.**
+   같은 결과가 또 나오면 «이미 충분히 모았다»는 뜻입니다.
+   ⚠ 「신화 이름」(그리스로마 등)으로는 검색되지 않습니다. **주제어·인물·사건**으로 찾으세요.
+5. **6~12점**을 고르고 **2~3구획**으로 나눕니다. 구획마다 벽면 텍스트를 씁니다.
+   ⚠ **action 과 finish 를 «같이» 쓰지 마세요.** 끝낼 거면 finish «하나»만 냅니다.
+6. emit_exhibition 은 부르지 않습니다. 사람이 승인하면 시스템이 부릅니다.
 
 ## 출력 형식 — JSON 객체 «하나»만. 설명·코드펜스 없이.
 
@@ -110,6 +115,8 @@ export const WORKFLOWS = {
     tools: ['wd_search', 'wd_entity', 'wd_sparql', 'commons_file', 'archive_search'],
     emit: 'emit_record',
     inputs: [['title', '제목'], ['artist', '작가']],
+    // 실측 — 등재는 4~5스텝이면 끝난다. 예산을 절반(6스텝·90초)으로 줄여도 결과가 «동일»했다.
+    limits: { maxSteps: 8, maxToolCalls: 14, wallClockMs: 150000 },
     gate(run) {
       const lic = String(run.finish?.draft?.license || '').toLowerCase();
       const licenseOk = /pd|public domain|cc/.test(lic);
@@ -130,6 +137,10 @@ export const WORKFLOWS = {
     tools: ['archive_facets', 'archive_search', 'wd_entity'],
     emit: 'emit_exhibition',
     inputs: [['title', '전시 주제']],
+    // ★큐레이션은 «검색을 여러 번» 해야 한다 — 분포 확인 + 주제어 3~6회 + 마무리.
+    //   등재와 같은 예산(10스텝)을 줬더니 «모으다가 예산이 끝나» 승인 도달 0% 가 나왔다.
+    //   워크플로가 다르면 예산도 달라야 한다.
+    limits: { maxSteps: 18, maxToolCalls: 24, wallClockMs: 300000 },
     gate(run, ctx) {
       const d = run.finish?.draft || {};
       const secs = Array.isArray(d.sections) ? d.sections : [];
@@ -190,6 +201,11 @@ function summarize(name, out) {
  */
 export function normalize(p) {
   if (!p || typeof p !== 'object') return p;
+  // ★실측 2026-09-09 — 모델이 action 과 finish 를 «동시에» 내는 일이 있다.
+  //   큐레이션 평가에서 draft(7점 선정·제목·기획의도)가 «다 들어 있는데» 버려졌다.
+  //   둘 다 있으면 «끝내겠다»는 쪽이 더 강한 의사표시다. finish 를 택한다.
+  if (p.finish && p.action) return { thought: p.thought, finish: p.finish };
+  if (p.stop && p.action) return { thought: p.thought, stop: p.stop };
   const t = p.action?.tool;
   if (t === 'finish' || t === 'done' || t === 'complete') {
     return { thought: p.thought, finish: p.action.args || p.action.arguments || {} };
@@ -273,7 +289,7 @@ export async function step(run, cfg, ctx, onEvent = () => {}) {
   if (run.status !== 'running') return run;
   const wf = workflowOf(run, cfg);
 
-  const b = budgetLeft(run, cfg.limits || LIMITS);
+  const b = budgetLeft(run, { ...LIMITS, ...(wf.limits || {}), ...(cfg.limits || {}) });
   if (b.over) {
     run.status = 'stopped';
     run.stopReason = { reason: 'budget', detail: b.why };
@@ -306,7 +322,7 @@ export async function step(run, cfg, ctx, onEvent = () => {}) {
       raw: String(res.text || '').slice(0, 500),
       tokens: { in: res.usage?.in || 0, out: res.usage?.out || 0 },
     });
-    if (run.parseFails > (cfg.limits || LIMITS).maxParseFails) {
+    if (run.parseFails > ({ ...LIMITS, ...(wf.limits || {}), ...(cfg.limits || {}) }).maxParseFails) {
       run.status = 'failed';
       run.stopReason = { reason: 'parse_fail', detail: `JSON 을 ${run.parseFails}회 못 냈습니다` };
     }
@@ -369,7 +385,7 @@ export async function step(run, cfg, ctx, onEvent = () => {}) {
   //   먼저 «관찰로» 알려 주고(모델이 스스로 빠져나올 기회), 그래도 계속하면 접는다.
   const rep = repeatCount(run, tool, args);
   if (rep >= 2) {
-    const lim = cfg.limits || LIMITS;
+    const lim = { ...LIMITS, ...(wf.limits || {}), ...(cfg.limits || {}) };
     if (rep >= (lim.maxRepeat || 3)) {
       run.status = 'stopped';
       run.stopReason = { reason: 'repeat_loop', detail: `${tool} 을 같은 인자로 ${rep + 1}회 반복했습니다` };

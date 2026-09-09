@@ -31,7 +31,8 @@ const TOPICS = [
   '창조와 세계의 시작',
 ];
 
-const cfg = { backend: 'ollama', model, numCtx: 16384, workflow: 'curate', limits: { ...LIMITS, maxSteps: 10 } };
+// limits 를 «주지 않는다» — 워크플로가 가진 자기 예산을 쓰게 한다
+const cfg = { backend: 'ollama', model, numCtx: 16384, workflow: 'curate' };
 const rows = [];
 const runs = [];
 
