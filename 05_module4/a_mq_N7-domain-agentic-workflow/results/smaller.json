@@ -1,0 +1,6144 @@
+{
+ "setting": {
+  "name": "smaller",
+  "label": "③ 모델 교체 — llama3.2:1b",
+  "autoRepair": true,
+  "model": "llama3.2:1b"
+ },
+ "aggregate": {
+  "setting": {
+   "name": "smaller",
+   "label": "③ 모델 교체 — llama3.2:1b",
+   "autoRepair": true,
+   "model": "llama3.2:1b"
+  },
+  "n": 40,
+  "reachedApproval": {
+   "n": 37,
+   "pct": 93
+  },
+  "passedGate": {
+   "n": 0,
+   "pct": 0
+  },
+  "duplicateFound": {
+   "n": 37,
+   "pct": 93
+  },
+  "hallucinated": {
+   "n": 0,
+   "pct": 0
+  },
+  "fieldAcc": {
+   "origTitle": {
+    "n": 40,
+    "hit": 0,
+    "pct": 0
+   },
+   "artist": {
+    "n": 40,
+    "hit": 0,
+    "pct": 0
+   },
+   "era": {
+    "n": 40,
+    "hit": 0,
+    "pct": 0
+   },
+   "inception": {
+    "n": 40,
+    "hit": 0,
+    "pct": 0
+   },
+   "material": {
+    "n": 40,
+    "hit": 0,
+    "pct": 0
+   },
+   "collection": {
+    "n": 39,
+    "hit": 0,
+    "pct": 0
+   },
+   "people": {
+    "n": 26,
+    "hit": 0,
+    "pct": 0
+   }
+  },
+  "split": {
+   "strong": {
+    "n": 10,
+    "reachedApprovalPct": 90,
+    "artistPct": 0,
+    "dupPct": 90
+   },
+   "weak": {
+    "n": 23,
+    "reachedApprovalPct": 91,
+    "artistPct": 0,
+    "dupPct": 91
+   },
+   "none": {
+    "n": 7,
+    "reachedApprovalPct": 100,
+    "artistPct": 0,
+    "dupPct": 100
+   }
+  },
+  "byMyth": {
+   "중국": {
+    "n": 5,
+    "approval": 5,
+    "artist": 0,
+    "artistN": 5
+   },
+   "이집트": {
+    "n": 4,
+    "approval": 4,
+    "artist": 0,
+    "artistN": 4
+   },
+   "그리스로마": {
+    "n": 19,
+    "approval": 16,
+    "artist": 0,
+    "artistN": 19
+   },
+   "힌두": {
+    "n": 5,
+    "approval": 5,
+    "artist": 0,
+    "artistN": 5
+   },
+   "메소포타미아": {
+    "n": 3,
+    "approval": 3,
+    "artist": 0,
+    "artistN": 3
+   },
+   "북유럽": {
+    "n": 4,
+    "approval": 4,
+    "artist": 0,
+    "artistN": 4
+   }
+  },
+  "failures": {
+   "gate_blocked": 37,
+   "format_broken": 3
+  },
+  "perf": {
+   "steps": 3,
+   "toolCalls": 2,
+   "wallMs": 2413,
+   "tokensIn": 3389,
+   "tokensOut": 181
+  }
+ },
+ "rows": [
+  {
+   "id": "chinese-052bd695be",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": null,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "중국",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 7236,
+    "modelMs": 7226,
+    "toolMsTotal": 8,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 8
+    },
+    "usage": {
+     "in": 3299,
+     "out": 200
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "chinese-4592ac508a",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "none",
+   "myth": "중국",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2466,
+    "modelMs": 2458,
+    "toolMsTotal": 8,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 8
+    },
+    "usage": {
+     "in": 3323,
+     "out": 202
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "chinese-8202d01b3c",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": null,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "중국",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2468,
+    "modelMs": 2463,
+    "toolMsTotal": 5,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 5
+    },
+    "usage": {
+     "in": 3317,
+     "out": 202
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "chinese-ac7c674b6e",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": null,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "strong",
+   "myth": "중국",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 2,
+    "toolCalls": 1,
+    "wallMs": 309,
+    "modelMs": 305,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 1627,
+     "out": 22
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "chinese-d251663d78",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "none",
+   "myth": "중국",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2432,
+    "modelMs": 2427,
+    "toolMsTotal": 5,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 5
+    },
+    "usage": {
+     "in": 3321,
+     "out": 198
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "egypt-000545aafa",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": null,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "이집트",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2410,
+    "modelMs": 2406,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3307,
+     "out": 195
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "egypt-4963d39a4f",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": null,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "이집트",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2435,
+    "modelMs": 2429,
+    "toolMsTotal": 5,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 5
+    },
+    "usage": {
+     "in": 3307,
+     "out": 196
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "egypt-8b801ba760",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "이집트",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2565,
+    "modelMs": 2561,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3297,
+     "out": 207
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "egypt-c7a0b8bc28",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "이집트",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2464,
+    "modelMs": 2460,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3297,
+     "out": 199
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-011d6bf12a",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2664,
+    "modelMs": 2660,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3313,
+     "out": 214
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-0dd998c491",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": null,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "strong",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2500,
+    "modelMs": 2495,
+    "toolMsTotal": 5,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 5
+    },
+    "usage": {
+     "in": 3309,
+     "out": 202
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-1ce1419a22",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2555,
+    "modelMs": 2551,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3313,
+     "out": 206
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-2be2a8a891",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2499,
+    "modelMs": 2495,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3313,
+     "out": 200
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-3a8223c66f",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "strong",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2500,
+    "modelMs": 2496,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3315,
+     "out": 200
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-47894c38d9",
+   "status": "failed",
+   "reachedApproval": false,
+   "gateBlocked": false,
+   "gateWhy": [],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": null,
+    "origTitle": false
+   },
+   "duplicateFound": false,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 0,
+   "failureKind": "format_broken",
+   "perf": {
+    "status": "failed",
+    "steps": 3,
+    "toolCalls": 0,
+    "wallMs": 199,
+    "modelMs": 199,
+    "toolMsTotal": 0,
+    "toolMs": {},
+    "usage": {
+     "in": 4893,
+     "out": 6
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-547eb88986",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2595,
+    "modelMs": 2590,
+    "toolMsTotal": 5,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 5
+    },
+    "usage": {
+     "in": 3299,
+     "out": 205
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-5e4194b435",
+   "status": "failed",
+   "reachedApproval": false,
+   "gateBlocked": false,
+   "gateWhy": [],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": false,
+   "hallucinatedQid": null,
+   "findable": "strong",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 0,
+   "failureKind": "format_broken",
+   "perf": {
+    "status": "failed",
+    "steps": 3,
+    "toolCalls": 0,
+    "wallMs": 207,
+    "modelMs": 207,
+    "toolMsTotal": 0,
+    "toolMs": {},
+    "usage": {
+     "in": 4902,
+     "out": 6
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-6ded2e4e36",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "strong",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2574,
+    "modelMs": 2568,
+    "toolMsTotal": 5,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 5
+    },
+    "usage": {
+     "in": 3305,
+     "out": 206
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-7bfd1038bb",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": null,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 4,
+    "toolCalls": 2,
+    "wallMs": 3462,
+    "modelMs": 3458,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3313,
+     "out": 196
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-88f27df758",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "strong",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 1236,
+    "modelMs": 1232,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3313,
+     "out": 98
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-96d0e70cef",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "strong",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2828,
+    "modelMs": 2824,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3313,
+     "out": 228
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-a3b9c0b18c",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": null,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 1190,
+    "modelMs": 1186,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3309,
+     "out": 96
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-af4415f231",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": null,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "strong",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2446,
+    "modelMs": 2442,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3309,
+     "out": 195
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-b853599d82",
+   "status": "failed",
+   "reachedApproval": false,
+   "gateBlocked": false,
+   "gateWhy": [],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": false,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 0,
+   "failureKind": "format_broken",
+   "perf": {
+    "status": "failed",
+    "steps": 3,
+    "toolCalls": 0,
+    "wallMs": 160,
+    "modelMs": 160,
+    "toolMsTotal": 0,
+    "toolMs": {},
+    "usage": {
+     "in": 4914,
+     "out": 6
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-c7ccbfe674",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "strong",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2740,
+    "modelMs": 2735,
+    "toolMsTotal": 5,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 5
+    },
+    "usage": {
+     "in": 3309,
+     "out": 221
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-d0efde7f71",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": null,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2316,
+    "modelMs": 2312,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3315,
+     "out": 184
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-e03f0980af",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2613,
+    "modelMs": 2608,
+    "toolMsTotal": 5,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 5
+    },
+    "usage": {
+     "in": 3311,
+     "out": 209
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "greek-ebc8b05d04",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "그리스로마",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2523,
+    "modelMs": 2519,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3303,
+     "out": 201
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "hindu-00cf1dfa57",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "none",
+   "myth": "힌두",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2570,
+    "modelMs": 2565,
+    "toolMsTotal": 5,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 5
+    },
+    "usage": {
+     "in": 3311,
+     "out": 204
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "hindu-332d6eb52c",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "none",
+   "myth": "힌두",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2458,
+    "modelMs": 2452,
+    "toolMsTotal": 6,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 6
+    },
+    "usage": {
+     "in": 3327,
+     "out": 194
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "hindu-6b002ff5ca",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "힌두",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2435,
+    "modelMs": 2430,
+    "toolMsTotal": 5,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 5
+    },
+    "usage": {
+     "in": 3309,
+     "out": 193
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "hindu-9ceab2ae98",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "none",
+   "myth": "힌두",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2528,
+    "modelMs": 2522,
+    "toolMsTotal": 6,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 6
+    },
+    "usage": {
+     "in": 3311,
+     "out": 200
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "hindu-cb3d21cf23",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": null,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "힌두",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2458,
+    "modelMs": 2454,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3313,
+     "out": 194
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "meso-00ddc086ef",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": null,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "메소포타미아",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2507,
+    "modelMs": 2502,
+    "toolMsTotal": 5,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 5
+    },
+    "usage": {
+     "in": 3305,
+     "out": 198
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "meso-765ea995ac",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "메소포타미아",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2629,
+    "modelMs": 2624,
+    "toolMsTotal": 5,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 5
+    },
+    "usage": {
+     "in": 3319,
+     "out": 208
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "meso-b2efba12e6",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": null,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "strong",
+   "myth": "메소포타미아",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2752,
+    "modelMs": 2743,
+    "toolMsTotal": 8,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 8
+    },
+    "usage": {
+     "in": 3351,
+     "out": 218
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "norse-011c0f35e9",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": null,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "북유럽",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2476,
+    "modelMs": 2473,
+    "toolMsTotal": 3,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 3
+    },
+    "usage": {
+     "in": 3303,
+     "out": 197
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "norse-471d9b3cad",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "weak",
+   "myth": "북유럽",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2464,
+    "modelMs": 2458,
+    "toolMsTotal": 5,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 5
+    },
+    "usage": {
+     "in": 3321,
+     "out": 194
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "norse-761de4ab0c",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "none",
+   "myth": "북유럽",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 4047,
+    "modelMs": 4042,
+    "toolMsTotal": 4,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 4
+    },
+    "usage": {
+     "in": 3305,
+     "out": 323
+    },
+    "costUsd": 0
+   }
+  },
+  {
+   "id": "norse-aa60789a47",
+   "status": "awaiting_approval",
+   "reachedApproval": true,
+   "gateBlocked": true,
+   "gateWhy": [
+    "라이선스가 PD/CC 로 확인되지 않았습니다"
+   ],
+   "identified": false,
+   "fields": {
+    "artist": false,
+    "era": false,
+    "inception": false,
+    "material": false,
+    "collection": false,
+    "people": false,
+    "origTitle": false
+   },
+   "duplicateFound": true,
+   "hallucinatedQid": null,
+   "findable": "none",
+   "myth": "북유럽",
+   "license": null,
+   "sectionsFilled": 0,
+   "repairs": 1,
+   "failureKind": "gate_blocked",
+   "perf": {
+    "status": "awaiting_approval",
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2617,
+    "modelMs": 2612,
+    "toolMsTotal": 5,
+    "toolMs": {
+     "undefined": 0,
+     "archive_search": 5
+    },
+    "usage": {
+     "in": 3311,
+     "out": 206
+    },
+    "costUsd": 0
+   }
+  }
+ ],
+ "runs": [
+  {
+   "id": "chinese-052bd695be",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938852920,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 7014,
+     "tokens": {
+      "in": 1629,
+      "out": 182
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938853140,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "The Goddess of the Luo River",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "chinese-052bd695be",
+        "title": "〈낙신도〉",
+        "origTitle": "The Goddess of the Luo River",
+        "artist": "임웅",
+        "score": 63
+       },
+       {
+        "slug": "chinese-f39cdef0ee",
+        "title": "낙신도",
+        "origTitle": "Goddess of the Lo River (Luoshen)",
+        "artist": "고기패",
+        "score": 23
+       },
+       {
+        "slug": "chinese-07b3aa2952",
+        "title": "상군상부인도",
+        "origTitle": "The Goddess and the Lady of the Xiang River",
+        "artist": "문징명",
+        "score": 20
+       },
+       {
+        "slug": "chinese-5625633b37",
+        "title": "낙신부도",
+        "origTitle": "Nymph of the Luo River",
+        "artist": "고개지",
+        "score": 16
+       },
+       {
+        "slug": "egypt-685c02bd0e",
+        "title": "무트 여신 좌상",
+        "origTitle": "Statue of the Goddess Mut",
+        "artist": "익명",
+        "score": 15
+       }
+      ]
+     },
+     "toolMs": 8
+    },
+    {
+     "kind": "finish",
+     "at": 1788938853140,
+     "ms": 212,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "chinese-052bd695be"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1670,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "chinese-052bd695be"
+   },
+   "usage": {
+    "in": 3299,
+    "out": 200
+   },
+   "startedAt": 1788938845904,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "chinese-4592ac508a",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938855345,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2204,
+     "tokens": {
+      "in": 1641,
+      "out": 180
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938855607,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Emperor Shun Commanding King Yu to Control the Flood",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "chinese-4592ac508a",
+        "title": "〈제순명우왕왕치수〉 (帝舜命禹王徃治水)",
+        "origTitle": "Emperor Shun Commanding King Yu to Control the Flood",
+        "artist": "작자 미상 / 곽후 등",
+        "score": 84
+       },
+       {
+        "slug": "chinese-ed631af4c9",
+        "title": "역대제왕도",
+        "origTitle": "Portraits of the Thirteen Emperors",
+        "artist": "옌리번",
+        "score": 10
+       },
+       {
+        "slug": "chinese-bd414b0d59",
+        "title": "〈역대명의도형〉 중 황제 (歷代名醫圖形‧黃帝)",
+        "origTitle": "Portrait of the Yellow Emperor from Famous Medical Figures",
+        "artist": "작자 미상 / 곽후 등",
+        "score": 10
+       },
+       {
+        "slug": "greek-2d52a67fcc",
+        "title": "아이올로스에게 바람을 풀어달라고 청하는 유노",
+        "origTitle": "Juno Asking Aeolus to Release the Winds",
+        "artist": "프랑수아 부셰",
+        "score": 9
+       },
+       {
+        "slug": "norse-5501e6e2cf",
+        "title": "스비프다그의 아들들이 바다왕의 홀로 가다",
+        "origTitle": "The Sons of Svipdag Go to the Hall of the Sea King",
+        "artist": "에리크 베렌숄",
+        "score": 9
+       }
+      ]
+     },
+     "toolMs": 8
+    },
+    {
+     "kind": "finish",
+     "at": 1788938855607,
+     "ms": 254,
+     "finish": {
+      "qid": "Q3545179",
+      "lang": "ko",
+      "duplicateOf": "chinese-4592ac508a"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1682,
+      "out": 22
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "lang": "ko",
+    "duplicateOf": "chinese-4592ac508a"
+   },
+   "usage": {
+    "in": 3323,
+    "out": 202
+   },
+   "startedAt": 1788938853141,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "chinese-8202d01b3c",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938857820,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2212,
+     "tokens": {
+      "in": 1638,
+      "out": 180
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938858076,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Bronze Protruding-Eye Mask (Sanxingdui Museum)",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "chinese-8202d01b3c",
+        "title": "청동종목면구 (삼성퇴박물관 소장)",
+        "origTitle": "Bronze Protruding-Eye Mask (Sanxingdui Museum)",
+        "artist": "작자 미상",
+        "score": 79
+       },
+       {
+        "slug": "chinese-72eda431f1",
+        "title": "청동신수 (삼성퇴박물관 소장)",
+        "origTitle": "Bronze Sacred Tree (Sanxingdui Museum)",
+        "artist": "작자 미상",
+        "score": 22
+       },
+       {
+        "slug": "chinese-2287e07137",
+        "title": "청동조인상 (삼성퇴박물관 소장)",
+        "origTitle": "Bronze Bird-Man Figure (Sanxingdui Museum)",
+        "artist": "작자 미상",
+        "score": 22
+       },
+       {
+        "slug": "chinese-5335beecfb",
+        "title": "청동태양형기 (삼성퇴박물관 소장)",
+        "origTitle": "Bronze Sun-Wheel (Sanxingdui Museum)",
+        "artist": "작자 미상",
+        "score": 22
+       },
+       {
+        "slug": "chinese-d387e21b95",
+        "title": "청동대립인상 (삼성퇴박물관 소장)",
+        "origTitle": "Bronze Standing Figure (Sanxingdui Museum)",
+        "artist": "작자 미상",
+        "score": 22
+       }
+      ]
+     },
+     "toolMs": 5
+    },
+    {
+     "kind": "finish",
+     "at": 1788938858076,
+     "ms": 251,
+     "finish": {
+      "qid": "Q3545179",
+      "lang": "ko",
+      "duplicateOf": "chinese-8202d01b3c"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1679,
+      "out": 22
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "lang": "ko",
+    "duplicateOf": "chinese-8202d01b3c"
+   },
+   "usage": {
+    "in": 3317,
+    "out": 202
+   },
+   "startedAt": 1788938855608,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "chinese-ac7c674b6e",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938858386,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Immortal with Deer",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "chinese-ac7c674b6e",
+        "title": "〈신선과 사슴〉",
+        "origTitle": "Immortal with Deer",
+        "artist": "장로",
+        "score": 56
+       },
+       {
+        "slug": "chinese-435abad858",
+        "title": "〈도교 신선의 바둑〉",
+        "origTitle": "Landscape with Daoist Immortals Playing Weiqi",
+        "artist": "대진",
+        "score": 12
+       },
+       {
+        "slug": "chinese-8ccba54394",
+        "title": "〈마고헌수도 (麻姑獻壽圖)〉",
+        "origTitle": "Magu Holding a Vase, with a Deer (Magu Xianshou tu)",
+        "artist": "황신",
+        "score": 8
+       },
+       {
+        "slug": "chinese-a0dcd208aa",
+        "title": "하선고상 (何仙姑泛舟)",
+        "origTitle": "Figure of the Daoist Immortal He Xiangu",
+        "artist": "익명",
+        "score": 8
+       },
+       {
+        "slug": "chinese-fbac436eb9",
+        "title": "팔선도 (八仙圖)",
+        "origTitle": "The Eight Immortals (Baxian)",
+        "artist": "익명",
+        "score": 8
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938858386,
+     "ms": 305,
+     "finish": {
+      "qid": "Q3545179",
+      "lang": "ko",
+      "duplicateOf": "chinese-ac7c674b6e"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1627,
+      "out": 22
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "lang": "ko",
+    "duplicateOf": "chinese-ac7c674b6e"
+   },
+   "usage": {
+    "in": 1627,
+    "out": 22
+   },
+   "startedAt": 1788938858077,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "chinese-d251663d78",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938860604,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2218,
+     "tokens": {
+      "in": 1640,
+      "out": 180
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938860818,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Pangu Emerging from Chaos, from Pangu Chronicle",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "chinese-d251663d78",
+        "title": "〈혼돈장개 반고수출〉 (混沌將開盤古首出) — 「반고지전(盤古誌傳)」 삽화",
+        "origTitle": "Pangu Emerging from Chaos, from Pangu Chronicle",
+        "artist": "작자 미상 / 곽후 등",
+        "score": 80
+       },
+       {
+        "slug": "chinese-91f86347a3",
+        "title": "〈반고나석부착혼돈〉 (盤古拿石斧鑿混沌) — 「반고지전」 삽화",
+        "origTitle": "Pangu Wielding Stone Axe to Carve Chaos, from Pangu Chronicle",
+        "artist": "작자 미상 / 곽후 등",
+        "score": 32
+       },
+       {
+        "slug": "chinese-e6cc8c4f9d",
+        "title": "〈반고분천지〉 (盤古分天地) — 「이십일사통속연의(廿一史通俗衍義)」 삽화",
+        "origTitle": "Pangu Separating Heaven and Earth, from Popular Romance of the Twenty-One Histories",
+        "artist": "작자 미상 / 곽후 등",
+        "score": 18
+       },
+       {
+        "slug": "greek-3c586743ea",
+        "title": "호메로스 낭독",
+        "origTitle": "A Reading from Homer",
+        "artist": "로렌스 알마-타데마",
+        "score": 8
+       },
+       {
+        "slug": "greek-9336bc4966",
+        "title": "아르고스의 눈을 받는 유노",
+        "origTitle": "Juno Receiving the Eyes of Argus from Mercury",
+        "artist": "헨드릭 골치우스",
+        "score": 8
+       }
+      ]
+     },
+     "toolMs": 5
+    },
+    {
+     "kind": "finish",
+     "at": 1788938860818,
+     "ms": 209,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "chinese-d251663d78"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1681,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "chinese-d251663d78"
+   },
+   "usage": {
+    "in": 3321,
+    "out": 198
+   },
+   "startedAt": 1788938858386,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "egypt-000545aafa",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938863005,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2187,
+     "tokens": {
+      "in": 1633,
+      "out": 176
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938863228,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Large Kneeling Statue of Hatshepsut",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "egypt-000545aafa",
+        "title": "봉헌하는 하트셉수트 (대형 무릎상)",
+        "origTitle": "Large Kneeling Statue of Hatshepsut",
+        "artist": "익명",
+        "score": 71
+       },
+       {
+        "slug": "greek-a6477e3970",
+        "title": "조각의 기원, 또는 자신의 조각상에 생명을 달라고 비너스에게 기원하는 피그말리온",
+        "origTitle": "The Origin of Sculpture, or Pygmalion Imploring Venus to Animate His Statue",
+        "artist": "장-바티스트 레뇨",
+        "score": 8
+       },
+       {
+        "slug": "egypt-f7ac30f66a",
+        "title": "에드푸 신전의 호루스 매 석상",
+        "origTitle": "Falcon Statue of Horus at the Temple of Edfu",
+        "artist": "익명",
+        "score": 8
+       },
+       {
+        "slug": "egypt-d237f679f2",
+        "title": "아피스 황소 청동상",
+        "origTitle": "Bronze Statuette of the Apis Bull",
+        "artist": "익명",
+        "score": 8
+       },
+       {
+        "slug": "egypt-309c92bc87",
+        "title": "나일신 하피 상반신상",
+        "origTitle": "Upper Part of a Statue of the Nile God Hapy",
+        "artist": "익명",
+        "score": 8
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938863228,
+     "ms": 219,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "egypt-000545aafa"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1674,
+      "out": 19
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "egypt-000545aafa"
+   },
+   "usage": {
+    "in": 3307,
+    "out": 195
+   },
+   "startedAt": 1788938860818,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "egypt-4963d39a4f",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938865453,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2223,
+     "tokens": {
+      "in": 1633,
+      "out": 178
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938865664,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "The Gods and Their Makers",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "egypt-4963d39a4f",
+        "title": "〈신들과 그 제작자들〉",
+        "origTitle": "The Gods and Their Makers",
+        "artist": "에드윈 롱",
+        "score": 61
+       },
+       {
+        "slug": "egypt-d50d1ddba3",
+        "title": "아크나톤 가족과 아텐 (가정 제단 부조)",
+        "origTitle": "Akhenaten, Nefertiti and Their Daughters beneath the Aten",
+        "artist": "익명",
+        "score": 11
+       },
+       {
+        "slug": "greek-4606704803",
+        "title": "신들과 기간테스의 전투",
+        "origTitle": "The Battle Between the Gods and the Giants",
+        "artist": "요아힘 뷔테발",
+        "score": 10
+       },
+       {
+        "slug": "greek-ea0b015db3",
+        "title": "헤르메스와 다른 신들",
+        "origTitle": "Mercury and Other Gods (ceiling detail)",
+        "artist": "샤를 르 브룅",
+        "score": 10
+       },
+       {
+        "slug": "greek-4217a5bc85",
+        "title": "신들의 향연",
+        "origTitle": "The Feast of the Gods",
+        "artist": "조반니 벨리니",
+        "score": 7
+       }
+      ]
+     },
+     "toolMs": 5
+    },
+    {
+     "kind": "finish",
+     "at": 1788938865664,
+     "ms": 206,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "egypt-4963d39a4f"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1674,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "egypt-4963d39a4f"
+   },
+   "usage": {
+    "in": 3307,
+    "out": 196
+   },
+   "startedAt": 1788938863229,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "egypt-8b801ba760",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938867964,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2300,
+     "tokens": {
+      "in": 1628,
+      "out": 185
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938868229,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Nut and Geb",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "egypt-8b801ba760",
+        "title": "그린필드 파피루스: 누트와 게브",
+        "origTitle": "Nut and Geb",
+        "artist": "작자 미상",
+        "score": 49
+       },
+       {
+        "slug": "greek-6f54460858",
+        "title": "헤라클레스와 카쿠스",
+        "origTitle": "Hercules and Cacus",
+        "artist": "바초 반디넬리",
+        "score": 3
+       },
+       {
+        "slug": "greek-02746781c1",
+        "title": "데우칼리온과 피라",
+        "origTitle": "Deucalion and Pyrrha",
+        "artist": "페테르 파울 루벤스",
+        "score": 3
+       },
+       {
+        "slug": "greek-2be2a8a891",
+        "title": "아폴론과 다프네",
+        "origTitle": "Apollo and Daphne",
+        "artist": "안토니오 델 폴라이올로",
+        "score": 3
+       },
+       {
+        "slug": "greek-695bbf14e1",
+        "title": "헤라클레스와 안타이오스",
+        "origTitle": "Hercules and Antaeus",
+        "artist": "안드레아 만테냐",
+        "score": 3
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938868229,
+     "ms": 261,
+     "finish": {
+      "qid": "Q3545179",
+      "lang": "ko",
+      "duplicateOf": "egypt-8b801ba760"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1669,
+      "out": 22
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "lang": "ko",
+    "duplicateOf": "egypt-8b801ba760"
+   },
+   "usage": {
+    "in": 3297,
+    "out": 207
+   },
+   "startedAt": 1788938865664,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "egypt-c7a0b8bc28",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938870480,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2251,
+     "tokens": {
+      "in": 1628,
+      "out": 181
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938870693,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Thoth as Baboon",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "egypt-c7a0b8bc28",
+        "title": "토트 개코원숭이상",
+        "origTitle": "Thoth as Baboon",
+        "artist": "익명",
+        "score": 53
+       },
+       {
+        "slug": "greek-6350a512c6",
+        "title": "카르타고의 아이네아스",
+        "origTitle": "Aeneas at Carthage",
+        "artist": "아폴로니오 디 조반니 디 토마소",
+        "score": 2
+       },
+       {
+        "slug": "greek-4217a5bc85",
+        "title": "신들의 향연",
+        "origTitle": "The Feast of the Gods",
+        "artist": "조반니 벨리니",
+        "score": 2
+       },
+       {
+        "slug": "greek-22ddc6d999",
+        "title": "페르가몬 제단 동쪽 프리즈 — 아테나, 알퀴오네우스, 가이아, 니케",
+        "origTitle": "Pergamon Altar East Frieze — Athena, Alkyoneus, Gaia, Nike",
+        "artist": "익명",
+        "score": 2
+       },
+       {
+        "slug": "greek-d59eae4a45",
+        "title": "순결의 승리",
+        "origTitle": "The Triumph of Chastity",
+        "artist": "로렌초 로토",
+        "score": 2
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938870693,
+     "ms": 209,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "egypt-c7a0b8bc28"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1669,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "egypt-c7a0b8bc28"
+   },
+   "usage": {
+    "in": 3297,
+    "out": 199
+   },
+   "startedAt": 1788938868229,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-011d6bf12a",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938873119,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2426,
+     "tokens": {
+      "in": 1636,
+      "out": 195
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938873357,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "The Rape of Proserpina",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-011d6bf12a",
+        "title": "프로세르피나의 납치",
+        "origTitle": "The Rape of Proserpina",
+        "artist": "페테르 파울 루벤스",
+        "score": 59
+       },
+       {
+        "slug": "greek-7cfc3ff621",
+        "title": "프로세르피나의 납치 (페르세포네 납치)",
+        "origTitle": "The Rape of Proserpina",
+        "artist": "잔 로렌초 베르니니",
+        "score": 59
+       },
+       {
+        "slug": "greek-4d28822aaf",
+        "title": "가니메데스의 납치",
+        "origTitle": "The Rape of Ganymede",
+        "artist": "미켈란젤로 부오나로티",
+        "score": 9
+       },
+       {
+        "slug": "greek-188909b31b",
+        "title": "헬레네의 납치",
+        "origTitle": "The Rape of Helen",
+        "artist": "구이도 레니",
+        "score": 9
+       },
+       {
+        "slug": "greek-d2c571efd8",
+        "title": "하데스의 페르세포네 납치",
+        "origTitle": "The Rape of Persephone by Hades",
+        "artist": "작가 미상",
+        "score": 9
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938873357,
+     "ms": 234,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "greek-011d6bf12a"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1677,
+      "out": 19
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "greek-011d6bf12a"
+   },
+   "usage": {
+    "in": 3313,
+    "out": 214
+   },
+   "startedAt": 1788938870693,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-0dd998c491",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938875593,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2236,
+     "tokens": {
+      "in": 1634,
+      "out": 180
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938875857,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "The Birth of Venus",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-de8fb574af",
+        "title": "비너스의 탄생",
+        "origTitle": "The Birth of Venus",
+        "artist": "산드로 보티첼리",
+        "score": 55
+       },
+       {
+        "slug": "greek-0dd998c491",
+        "title": "비너스의 탄생",
+        "origTitle": "The Birth of Venus",
+        "artist": "알렉상드르 카바넬",
+        "score": 55
+       },
+       {
+        "slug": "greek-0604953128",
+        "title": "비너스의 탄생",
+        "origTitle": "The Birth of Venus",
+        "artist": "윌리엄 아돌프 부그로",
+        "score": 55
+       },
+       {
+        "slug": "greek-17480d2719",
+        "title": "비너스의 탄생",
+        "origTitle": "Birth of Venus",
+        "artist": "프리츠 주베르뷜러",
+        "score": 12
+       },
+       {
+        "slug": "greek-a089e0a9ae",
+        "title": "비너스의 옥좌 앞의 프시케",
+        "origTitle": "Psyche before the Throne of Venus",
+        "artist": "헨리에타 레이",
+        "score": 10
+       }
+      ]
+     },
+     "toolMs": 5
+    },
+    {
+     "kind": "finish",
+     "at": 1788938875857,
+     "ms": 259,
+     "finish": {
+      "qid": "Q3545179",
+      "lang": "ko",
+      "duplicateOf": "greek-de8fb574af"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1675,
+      "out": 22
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "lang": "ko",
+    "duplicateOf": "greek-de8fb574af"
+   },
+   "usage": {
+    "in": 3309,
+    "out": 202
+   },
+   "startedAt": 1788938873357,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-1ce1419a22",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938878194,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2337,
+     "tokens": {
+      "in": 1636,
+      "out": 188
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938878412,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Perseus and Andromeda",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-ec0ec9c22b",
+        "title": "페르세우스와 안드로메다",
+        "origTitle": "Perseus and Andromeda",
+        "artist": "티치아노 베첼리오",
+        "score": 59
+       },
+       {
+        "slug": "greek-86b3833696",
+        "title": "페르세우스와 안드로메다",
+        "origTitle": "Perseus and Andromeda",
+        "artist": "안톤 라파엘 멩스",
+        "score": 59
+       },
+       {
+        "slug": "greek-f696d05bd8",
+        "title": "페르세우스와 안드로메다",
+        "origTitle": "Perseus and Andromeda",
+        "artist": "프레더릭 레이턴",
+        "score": 59
+       },
+       {
+        "slug": "greek-fd860be0c3",
+        "title": "페르세우스와 안드로메다",
+        "origTitle": "Perseus and Andromeda",
+        "artist": "요아힘 뷔테발",
+        "score": 59
+       },
+       {
+        "slug": "greek-1ce1419a22",
+        "title": "페르세우스와 안드로메다",
+        "origTitle": "Perseus and Andromeda",
+        "artist": "페테르 파울 루벤스",
+        "score": 59
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938878412,
+     "ms": 214,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "greek-ec0ec9c22b"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1677,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "greek-ec0ec9c22b"
+   },
+   "usage": {
+    "in": 3313,
+    "out": 206
+   },
+   "startedAt": 1788938875857,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-2be2a8a891",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938880684,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2272,
+     "tokens": {
+      "in": 1636,
+      "out": 181
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938880911,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Apollo and Daphne",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-2be2a8a891",
+        "title": "아폴론과 다프네",
+        "origTitle": "Apollo and Daphne",
+        "artist": "안토니오 델 폴라이올로",
+        "score": 55
+       },
+       {
+        "slug": "greek-1baaaf4156",
+        "title": "아폴로와 다프네",
+        "origTitle": "Apollo and Daphne",
+        "artist": "존 윌리엄 워터하우스",
+        "score": 55
+       },
+       {
+        "slug": "greek-547eb88986",
+        "title": "아폴론과 다프네",
+        "origTitle": "Apollo and Daphne",
+        "artist": "도소 도시",
+        "score": 55
+       },
+       {
+        "slug": "greek-702d497e7a",
+        "title": "아폴로와 다프네",
+        "origTitle": "Apollo and Daphne",
+        "artist": "잔 로렌초 베르니니",
+        "score": 55
+       },
+       {
+        "slug": "greek-f3ce98c868",
+        "title": "아폴론과 다프네",
+        "origTitle": "Apollo and Daphne",
+        "artist": "니콜라 푸생",
+        "score": 55
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938880911,
+     "ms": 223,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "greek-2be2a8a891"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1677,
+      "out": 19
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "greek-2be2a8a891"
+   },
+   "usage": {
+    "in": 3313,
+    "out": 200
+   },
+   "startedAt": 1788938878412,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-3a8223c66f",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938883186,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2275,
+     "tokens": {
+      "in": 1637,
+      "out": 181
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938883411,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Apollo Pursuing Daphne",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-3a8223c66f",
+        "title": "아폴로와 다프네",
+        "origTitle": "Apollo Pursuing Daphne",
+        "artist": "조반니 바티스타 티에폴로",
+        "score": 60
+       },
+       {
+        "slug": "greek-2be2a8a891",
+        "title": "아폴론과 다프네",
+        "origTitle": "Apollo and Daphne",
+        "artist": "안토니오 델 폴라이올로",
+        "score": 12
+       },
+       {
+        "slug": "greek-1baaaf4156",
+        "title": "아폴로와 다프네",
+        "origTitle": "Apollo and Daphne",
+        "artist": "존 윌리엄 워터하우스",
+        "score": 12
+       },
+       {
+        "slug": "greek-547eb88986",
+        "title": "아폴론과 다프네",
+        "origTitle": "Apollo and Daphne",
+        "artist": "도소 도시",
+        "score": 12
+       },
+       {
+        "slug": "greek-702d497e7a",
+        "title": "아폴로와 다프네",
+        "origTitle": "Apollo and Daphne",
+        "artist": "잔 로렌초 베르니니",
+        "score": 12
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938883411,
+     "ms": 221,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "greek-3a8223c66f"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1678,
+      "out": 19
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "greek-3a8223c66f"
+   },
+   "usage": {
+    "in": 3315,
+    "out": 200
+   },
+   "startedAt": 1788938880911,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-47894c38d9",
+   "steps": [
+    {
+     "kind": "parse_fail",
+     "at": 1788938883490,
+     "ms": 79,
+     "raw": "{}",
+     "tokens": {
+      "in": 1631,
+      "out": 2
+     }
+    },
+    {
+     "kind": "parse_fail",
+     "at": 1788938883558,
+     "ms": 68,
+     "raw": "{}",
+     "tokens": {
+      "in": 1631,
+      "out": 2
+     }
+    },
+    {
+     "kind": "parse_fail",
+     "at": 1788938883610,
+     "ms": 52,
+     "raw": "{}",
+     "tokens": {
+      "in": 1631,
+      "out": 2
+     }
+    }
+   ],
+   "status": "failed",
+   "stopReason": {
+    "reason": "parse_fail",
+    "detail": "JSON 을 3회 못 냈습니다"
+   },
+   "finish": null,
+   "usage": {
+    "in": 4893,
+    "out": 6
+   },
+   "startedAt": 1788938883411,
+   "model": "llama3.2:1b",
+   "repairs": 0
+  },
+  {
+   "id": "greek-547eb88986",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938885927,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2317,
+     "tokens": {
+      "in": 1629,
+      "out": 183
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938886205,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Apollo and Daphne",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-2be2a8a891",
+        "title": "아폴론과 다프네",
+        "origTitle": "Apollo and Daphne",
+        "artist": "안토니오 델 폴라이올로",
+        "score": 55
+       },
+       {
+        "slug": "greek-1baaaf4156",
+        "title": "아폴로와 다프네",
+        "origTitle": "Apollo and Daphne",
+        "artist": "존 윌리엄 워터하우스",
+        "score": 55
+       },
+       {
+        "slug": "greek-547eb88986",
+        "title": "아폴론과 다프네",
+        "origTitle": "Apollo and Daphne",
+        "artist": "도소 도시",
+        "score": 55
+       },
+       {
+        "slug": "greek-702d497e7a",
+        "title": "아폴로와 다프네",
+        "origTitle": "Apollo and Daphne",
+        "artist": "잔 로렌초 베르니니",
+        "score": 55
+       },
+       {
+        "slug": "greek-f3ce98c868",
+        "title": "아폴론과 다프네",
+        "origTitle": "Apollo and Daphne",
+        "artist": "니콜라 푸생",
+        "score": 55
+       }
+      ]
+     },
+     "toolMs": 5
+    },
+    {
+     "kind": "finish",
+     "at": 1788938886205,
+     "ms": 273,
+     "finish": {
+      "qid": "Q3545179",
+      "lang": "ko",
+      "duplicateOf": "greek-2be2a8a891"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1670,
+      "out": 22
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "lang": "ko",
+    "duplicateOf": "greek-2be2a8a891"
+   },
+   "usage": {
+    "in": 3299,
+    "out": 205
+   },
+   "startedAt": 1788938883610,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-5e4194b435",
+   "steps": [
+    {
+     "kind": "parse_fail",
+     "at": 1788938886268,
+     "ms": 63,
+     "raw": "{}",
+     "tokens": {
+      "in": 1634,
+      "out": 2
+     }
+    },
+    {
+     "kind": "parse_fail",
+     "at": 1788938886342,
+     "ms": 74,
+     "raw": "{}",
+     "tokens": {
+      "in": 1634,
+      "out": 2
+     }
+    },
+    {
+     "kind": "parse_fail",
+     "at": 1788938886412,
+     "ms": 70,
+     "raw": "{}",
+     "tokens": {
+      "in": 1634,
+      "out": 2
+     }
+    }
+   ],
+   "status": "failed",
+   "stopReason": {
+    "reason": "parse_fail",
+    "detail": "JSON 을 3회 못 냈습니다"
+   },
+   "finish": null,
+   "usage": {
+    "in": 4902,
+    "out": 6
+   },
+   "startedAt": 1788938886205,
+   "model": "llama3.2:1b",
+   "repairs": 0
+  },
+  {
+   "id": "greek-6ded2e4e36",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938888727,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2314,
+     "tokens": {
+      "in": 1632,
+      "out": 184
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938888986,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "The Three Graces",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-aba2b76f5d",
+        "title": "삼미신",
+        "origTitle": "The Three Graces",
+        "artist": "장-바티스트 레뇨",
+        "score": 54
+       },
+       {
+        "slug": "greek-6ded2e4e36",
+        "title": "삼미신",
+        "origTitle": "The Three Graces",
+        "artist": "안토니오 카노바",
+        "score": 54
+       },
+       {
+        "slug": "greek-8ab2263524",
+        "title": "삼미신",
+        "origTitle": "The Three Graces",
+        "artist": "페테르 파울 루벤스",
+        "score": 54
+       },
+       {
+        "slug": "greek-93ba2830bd",
+        "title": "삼미신",
+        "origTitle": "The Three Graces",
+        "artist": "라파엘로 산치오",
+        "score": 54
+       },
+       {
+        "slug": "greek-f1782ea104",
+        "title": "삼미신",
+        "origTitle": "The Three Graces",
+        "artist": "안토니오 카노바",
+        "score": 54
+       }
+      ]
+     },
+     "toolMs": 5
+    },
+    {
+     "kind": "finish",
+     "at": 1788938888986,
+     "ms": 254,
+     "finish": {
+      "qid": "Q3545179",
+      "lang": "ko",
+      "duplicateOf": "greek-aba2b76f5d"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1673,
+      "out": 22
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "lang": "ko",
+    "duplicateOf": "greek-aba2b76f5d"
+   },
+   "usage": {
+    "in": 3305,
+    "out": 206
+   },
+   "startedAt": 1788938886412,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-7bfd1038bb",
+   "steps": [
+    {
+     "kind": "parse_fail",
+     "at": 1788938890004,
+     "ms": 1018,
+     "raw": "{\"action\":{\"tool\":\"finish\",\"args\":{\"qid\":\"Q3545179\",\"lang\":\"ko\",\"limit\":5,\"topK\":5,\"title\":\"Night (La Nuit)\"}} \n\n \n  \t\t\t\n  \t\t\t\n  \t\t\t\n  \t\t\t\n  \t\t\t\n  \t\t\t\n  \t\t\t\n  \t\t\t\n  \t\t\t\n  ",
+     "tokens": {
+      "in": 0,
+      "out": 0
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938892189,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2185,
+     "tokens": {
+      "in": 1636,
+      "out": 174
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938892448,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Night (La Nuit)",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-7bfd1038bb",
+        "title": "밤 (라 뉘)",
+        "origTitle": "Night (La Nuit)",
+        "artist": "윌리엄 아돌프 부그로",
+        "score": 51
+       },
+       {
+        "slug": "greek-7072954f6f",
+        "title": "헤카테, 또는 에니타몬의 환희의 밤",
+        "origTitle": "Hecate, or The Night of Enitharmon's Joy",
+        "artist": "윌리엄 블레이크",
+        "score": 5
+       },
+       {
+        "slug": "meso-6caa1e49ea",
+        "title": "밤의 여왕 부조 (버니 부조)",
+        "origTitle": "Queen of the Night (Burney Relief)",
+        "artist": "작자 미상",
+        "score": 5
+       },
+       {
+        "slug": "greek-35d48b127d",
+        "title": "살리에라 (소금 그릇)",
+        "origTitle": "Saliera (Salt Cellar)",
+        "artist": "벤베누토 첼리니",
+        "score": 2
+       },
+       {
+        "slug": "greek-2251ca6bde",
+        "title": "이사벨라 데스테 궁정의 알레고리",
+        "origTitle": "The Allegory of the Court of Isabella d'Este (The Coronation of a Lady)",
+        "artist": "로렌초 코스타",
+        "score": 2
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938892448,
+     "ms": 255,
+     "finish": {
+      "qid": "Q3545179",
+      "lang": "ko",
+      "duplicateOf": "greek-7bfd1038bb"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1677,
+      "out": 22
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "lang": "ko",
+    "duplicateOf": "greek-7bfd1038bb"
+   },
+   "usage": {
+    "in": 3313,
+    "out": 196
+   },
+   "startedAt": 1788938888986,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-88f27df758",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938893464,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 1016,
+     "tokens": {
+      "in": 1636,
+      "out": 80
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938893684,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Morpheus and Iris",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-88f27df758",
+        "title": "모르페우스와 이리스",
+        "origTitle": "Morpheus and Iris",
+        "artist": "피에르 나르시스 게랭",
+        "score": 55
+       },
+       {
+        "slug": "egypt-4930c5fceb",
+        "title": "아니의 사자의 서 — 오시리스 심판 (심장 무게 달기)",
+        "origTitle": "Papyrus of Ani — Judgement before Osiris",
+        "artist": "익명",
+        "score": 4
+       },
+       {
+        "slug": "egypt-5c8661b7ed",
+        "title": "오시리스 청동 봉헌상 (제3중간기·말기왕조 신전 봉헌물)",
+        "origTitle": "Bronze Votive Statuette of Osiris",
+        "artist": "익명",
+        "score": 4
+       },
+       {
+        "slug": "greek-6f54460858",
+        "title": "헤라클레스와 카쿠스",
+        "origTitle": "Hercules and Cacus",
+        "artist": "바초 반디넬리",
+        "score": 3
+       },
+       {
+        "slug": "greek-02746781c1",
+        "title": "데우칼리온과 피라",
+        "origTitle": "Deucalion and Pyrrha",
+        "artist": "페테르 파울 루벤스",
+        "score": 3
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938893684,
+     "ms": 216,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "greek-88f27df758"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1677,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "greek-88f27df758"
+   },
+   "usage": {
+    "in": 3313,
+    "out": 98
+   },
+   "startedAt": 1788938892448,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-96d0e70cef",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938896271,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2587,
+     "tokens": {
+      "in": 1636,
+      "out": 209
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938896512,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "The Flaying of Marsyas",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-96d0e70cef",
+        "title": "마르시아스의 처형",
+        "origTitle": "The Flaying of Marsyas",
+        "artist": "티치아노 베첼리오",
+        "score": 59
+       },
+       {
+        "slug": "greek-ed5047ac13",
+        "title": "아폴론과 마르시아스",
+        "origTitle": "Apollo and Marsyas",
+        "artist": "게르치노",
+        "score": 7
+       },
+       {
+        "slug": "greek-3a6a537318",
+        "title": "넵투누스 분수의 넵투누스",
+        "origTitle": "Neptune of the Fountain of Neptune",
+        "artist": "바르톨로메오 암만나티",
+        "score": 5
+       },
+       {
+        "slug": "greek-de1f4ae301",
+        "title": "켄타우로스의 전투",
+        "origTitle": "The Battle of the Centaurs",
+        "artist": "미켈란젤로 부오나로티",
+        "score": 5
+       },
+       {
+        "slug": "greek-7a89b48ea4",
+        "title": "코무스의 치세",
+        "origTitle": "The Reign of Comus",
+        "artist": "로렌초 코스타",
+        "score": 5
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938896512,
+     "ms": 237,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "greek-96d0e70cef"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1677,
+      "out": 19
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "greek-96d0e70cef"
+   },
+   "usage": {
+    "in": 3313,
+    "out": 228
+   },
+   "startedAt": 1788938893684,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-a3b9c0b18c",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938897428,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 916,
+     "tokens": {
+      "in": 1634,
+      "out": 74
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938897702,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Faun and Nymph",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-a3b9c0b18c",
+        "title": "파우누스와 님프",
+        "origTitle": "Faun and Nymph",
+        "artist": "프란츠 폰 슈투크",
+        "score": 52
+       },
+       {
+        "slug": "greek-978f9c93bf",
+        "title": "디아나와 님프들을 습격하는 사티로스",
+        "origTitle": "Diana and her Nymphs Surprised by the Fauns",
+        "artist": "페테르 파울 루벤스",
+        "score": 12
+       },
+       {
+        "slug": "greek-41bcec5048",
+        "title": "님프와 목동",
+        "origTitle": "Nymph and Shepherd",
+        "artist": "티치아노 베첼리오",
+        "score": 8
+       },
+       {
+        "slug": "greek-aa79a33473",
+        "title": "힐라스와 님프들",
+        "origTitle": "Hylas and the Nymphs",
+        "artist": "존 윌리엄 워터하우스",
+        "score": 8
+       },
+       {
+        "slug": "greek-d0efde7f71",
+        "title": "님프와 사티로스",
+        "origTitle": "Nymphs and Satyr",
+        "artist": "윌리엄 아돌프 부그로",
+        "score": 8
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938897702,
+     "ms": 270,
+     "finish": {
+      "qid": "Q3545179",
+      "lang": "ko",
+      "duplicateOf": "greek-a3b9c0b18c"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1675,
+      "out": 22
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "lang": "ko",
+    "duplicateOf": "greek-a3b9c0b18c"
+   },
+   "usage": {
+    "in": 3309,
+    "out": 96
+   },
+   "startedAt": 1788938896512,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-af4415f231",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938899935,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2233,
+     "tokens": {
+      "in": 1634,
+      "out": 177
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938900148,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Allegory of Music (Erato)",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-af4415f231",
+        "title": "음악의 알레고리 (에라토)",
+        "origTitle": "Allegory of Music (Erato)",
+        "artist": "필리피노 리피",
+        "score": 60
+       },
+       {
+        "slug": "greek-2251ca6bde",
+        "title": "이사벨라 데스테 궁정의 알레고리",
+        "origTitle": "The Allegory of the Court of Isabella d'Este (The Coronation of a Lady)",
+        "artist": "로렌초 코스타",
+        "score": 10
+       },
+       {
+        "slug": "greek-deab77b5e4",
+        "title": "사랑의 알레고리 IV — 행복한 결합",
+        "origTitle": "Allegory of Love IV — Happy Union",
+        "artist": "파올로 베로네세",
+        "score": 10
+       },
+       {
+        "slug": "greek-4e3497b28a",
+        "title": "사랑의 알레고리 I — 불성실",
+        "origTitle": "Allegory of Love I — Unfaithfulness",
+        "artist": "파올로 베로네세",
+        "score": 10
+       },
+       {
+        "slug": "greek-4f4697c5f9",
+        "title": "지혜와 힘의 알레고리",
+        "origTitle": "Allegory of Wisdom and Strength",
+        "artist": "파올로 베로네세",
+        "score": 10
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938900148,
+     "ms": 209,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "greek-af4415f231"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1675,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "greek-af4415f231"
+   },
+   "usage": {
+    "in": 3309,
+    "out": 195
+   },
+   "startedAt": 1788938897702,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-b853599d82",
+   "steps": [
+    {
+     "kind": "parse_fail",
+     "at": 1788938900207,
+     "ms": 59,
+     "raw": "{}",
+     "tokens": {
+      "in": 1638,
+      "out": 2
+     }
+    },
+    {
+     "kind": "parse_fail",
+     "at": 1788938900261,
+     "ms": 54,
+     "raw": "{}",
+     "tokens": {
+      "in": 1638,
+      "out": 2
+     }
+    },
+    {
+     "kind": "parse_fail",
+     "at": 1788938900308,
+     "ms": 47,
+     "raw": "{}",
+     "tokens": {
+      "in": 1638,
+      "out": 2
+     }
+    }
+   ],
+   "status": "failed",
+   "stopReason": {
+    "reason": "parse_fail",
+    "detail": "JSON 을 3회 못 냈습니다"
+   },
+   "finish": null,
+   "usage": {
+    "in": 4914,
+    "out": 6
+   },
+   "startedAt": 1788938900148,
+   "model": "llama3.2:1b",
+   "repairs": 0
+  },
+  {
+   "id": "greek-c7ccbfe674",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938902818,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2510,
+     "tokens": {
+      "in": 1634,
+      "out": 203
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938903048,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Jason and Medea",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-c7ccbfe674",
+        "title": "이아손과 메데이아",
+        "origTitle": "Jason and Medea",
+        "artist": "존 윌리엄 워터하우스",
+        "score": 53
+       },
+       {
+        "slug": "greek-3787ad796b",
+        "title": "메데이아",
+        "origTitle": "Medea",
+        "artist": "프레더릭 샌디스",
+        "score": 5
+       },
+       {
+        "slug": "greek-a6a1419bed",
+        "title": "용을 홀리는 이아손",
+        "origTitle": "Jason Charming the Dragon",
+        "artist": "살바토르 로사",
+        "score": 5
+       },
+       {
+        "slug": "greek-01bb058f42",
+        "title": "메데이아의 분노",
+        "origTitle": "Medea about to Kill her Children",
+        "artist": "외젠 들라크루아",
+        "score": 5
+       },
+       {
+        "slug": "greek-e45fce612c",
+        "title": "이아손과 황금 양털",
+        "origTitle": "Jason with the Golden Fleece",
+        "artist": "베르텔 토르발센",
+        "score": 5
+       }
+      ]
+     },
+     "toolMs": 5
+    },
+    {
+     "kind": "finish",
+     "at": 1788938903048,
+     "ms": 225,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "greek-c7ccbfe674"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1675,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "greek-c7ccbfe674"
+   },
+   "usage": {
+    "in": 3309,
+    "out": 221
+   },
+   "startedAt": 1788938900308,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-d0efde7f71",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938905103,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2055,
+     "tokens": {
+      "in": 1637,
+      "out": 162
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938905364,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Nymphs and Satyr",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-d0efde7f71",
+        "title": "님프와 사티로스",
+        "origTitle": "Nymphs and Satyr",
+        "artist": "윌리엄 아돌프 부그로",
+        "score": 54
+       },
+       {
+        "slug": "greek-aa79a33473",
+        "title": "힐라스와 님프들",
+        "origTitle": "Hylas and the Nymphs",
+        "artist": "존 윌리엄 워터하우스",
+        "score": 9
+       },
+       {
+        "slug": "greek-978f9c93bf",
+        "title": "디아나와 님프들을 습격하는 사티로스",
+        "origTitle": "Diana and her Nymphs Surprised by the Fauns",
+        "artist": "페테르 파울 루벤스",
+        "score": 9
+       },
+       {
+        "slug": "greek-51a7a1eeaf",
+        "title": "팔라스 아테나 (켄타우로스·사티로스 장면)",
+        "origTitle": "Pallas Athena with Centaur and Satyr (Identification Unconfirmed)",
+        "artist": "작가 미상",
+        "score": 8
+       },
+       {
+        "slug": "greek-d078458e28",
+        "title": "비너스와 쿠피도, 사티로스",
+        "origTitle": "Venus and Cupid with a Satyr",
+        "artist": "안토니오 다 코레조",
+        "score": 8
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938905364,
+     "ms": 257,
+     "finish": {
+      "qid": "Q3545179",
+      "lang": "ko",
+      "duplicateOf": "greek-d0efde7f71"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1678,
+      "out": 22
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "lang": "ko",
+    "duplicateOf": "greek-d0efde7f71"
+   },
+   "usage": {
+    "in": 3315,
+    "out": 184
+   },
+   "startedAt": 1788938903048,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-e03f0980af",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938907756,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2392,
+     "tokens": {
+      "in": 1635,
+      "out": 191
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938907977,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Mars and Venus",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-e03f0980af",
+        "title": "마르스와 비너스",
+        "origTitle": "Mars and Venus",
+        "artist": "루이 장 프랑수아 라그레네",
+        "score": 52
+       },
+       {
+        "slug": "greek-3ddf1a9cb9",
+        "title": "신들에게 발각된 마르스와 베누스",
+        "origTitle": "Mars and Venus Surprised by Vulcan",
+        "artist": "요아힘 뷔테발",
+        "score": 52
+       },
+       {
+        "slug": "greek-4ced8dc25c",
+        "title": "마르스와 비너스 (헤파이스토스의 그물에 걸림)",
+        "origTitle": "Mars and Venus Caught in Vulcan's Net",
+        "artist": "작가 미상",
+        "score": 52
+       },
+       {
+        "slug": "greek-84f5349006",
+        "title": "사랑으로 결합된 마르스와 비너스",
+        "origTitle": "Mars and Venus United by Love",
+        "artist": "파올로 베로네세",
+        "score": 52
+       },
+       {
+        "slug": "greek-68ebd64d10",
+        "title": "비너스, 마르스, 큐피드",
+        "origTitle": "Venus, Mars and Cupid",
+        "artist": "피에로 디 코지모",
+        "score": 12
+       }
+      ]
+     },
+     "toolMs": 5
+    },
+    {
+     "kind": "finish",
+     "at": 1788938907977,
+     "ms": 216,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "greek-e03f0980af"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1676,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "greek-e03f0980af"
+   },
+   "usage": {
+    "in": 3311,
+    "out": 209
+   },
+   "startedAt": 1788938905364,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "greek-ebc8b05d04",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938910238,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2261,
+     "tokens": {
+      "in": 1631,
+      "out": 179
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938910500,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Pallas Athene",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "greek-ebc8b05d04",
+        "title": "팔라스 아테나",
+        "origTitle": "Pallas Athene",
+        "artist": "구스타프 클림트",
+        "score": 52
+       },
+       {
+        "slug": "greek-9075934298",
+        "title": "팔라스와 켄타우로스",
+        "origTitle": "Pallas and the Centaur",
+        "artist": "산드로 보티첼리",
+        "score": 6
+       },
+       {
+        "slug": "greek-51a7a1eeaf",
+        "title": "팔라스 아테나 (켄타우로스·사티로스 장면)",
+        "origTitle": "Pallas Athena with Centaur and Satyr (Identification Unconfirmed)",
+        "artist": "작가 미상",
+        "score": 6
+       },
+       {
+        "slug": "greek-e3890de2de",
+        "title": "팔라스 아테나 (무장한 인물)",
+        "origTitle": "Pallas Athena (Armoured Figure)",
+        "artist": "렘브란트 판 레인",
+        "score": 6
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938910500,
+     "ms": 258,
+     "finish": {
+      "qid": "Q3545179",
+      "lang": "ko",
+      "duplicateOf": "greek-ebc8b05d04"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1672,
+      "out": 22
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "lang": "ko",
+    "duplicateOf": "greek-ebc8b05d04"
+   },
+   "usage": {
+    "in": 3303,
+    "out": 201
+   },
+   "startedAt": 1788938907977,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "hindu-00cf1dfa57",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938912828,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2327,
+     "tokens": {
+      "in": 1635,
+      "out": 185
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938913071,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "The Recumbent Vishnu and the Creation of Brahma",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "hindu-00cf1dfa57",
+        "title": "누운 비슈누와 브라흐마의 탄생",
+        "origTitle": "The Recumbent Vishnu and the Creation of Brahma",
+        "artist": "익명",
+        "score": 80
+       },
+       {
+        "slug": "hindu-fdd845ec2e",
+        "title": "〈시바·비슈누·브라흐마의 숭배〉",
+        "origTitle": "The Worship of Shiva, Vishnu, and Brahma",
+        "artist": "푸르쿠",
+        "score": 23
+       },
+       {
+        "slug": "greek-e9ab96a41f",
+        "title": "아담의 창조",
+        "origTitle": "The Creation of Adam",
+        "artist": "미켈란젤로 부오나로티",
+        "score": 16
+       },
+       {
+        "slug": "hindu-655b649dbd",
+        "title": "마츠야 화신 — 비슈누의 물고기 화신",
+        "origTitle": "Matsya, the Fish Avatar of Vishnu",
+        "artist": "익명",
+        "score": 14
+       },
+       {
+        "slug": "hindu-c2c2b42a0e",
+        "title": "비슈누의 열 화신 (다샤바타라 인쇄본)",
+        "origTitle": "The Ten Avatars of Vishnu (Dashavatara Print)",
+        "artist": "캘커타 아트 스튜디오",
+        "score": 14
+       }
+      ]
+     },
+     "toolMs": 5
+    },
+    {
+     "kind": "finish",
+     "at": 1788938913071,
+     "ms": 238,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "hindu-00cf1dfa57"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1676,
+      "out": 19
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "hindu-00cf1dfa57"
+   },
+   "usage": {
+    "in": 3311,
+    "out": 204
+   },
+   "startedAt": 1788938910501,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "hindu-332d6eb52c",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938915312,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2241,
+     "tokens": {
+      "in": 1643,
+      "out": 176
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938915529,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Indra and Indrani on the elephant Airavata — Badami Cave 3 ceiling",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "hindu-332d6eb52c",
+        "title": "바다미 동굴 천장 — 인드라와 인드라니 (코끼리 아이라바타 위)",
+        "origTitle": "Indra and Indrani on the elephant Airavata — Badami Cave 3 ceiling",
+        "artist": "작자 미상",
+        "score": 93
+       },
+       {
+        "slug": "hindu-7657faec7f",
+        "title": "인드라와 사치, 아이라바타를 타고 (자이나 판차칼리야나카)",
+        "origTitle": "Indra and Indrani Riding on Airavata, Folio from a Panchakalyanak",
+        "artist": "익명",
+        "score": 25
+       },
+       {
+        "slug": "greek-ea0b015db3",
+        "title": "헤르메스와 다른 신들",
+        "origTitle": "Mercury and Other Gods (ceiling detail)",
+        "artist": "샤를 르 브룅",
+        "score": 13
+       },
+       {
+        "slug": "greek-41d92a3040",
+        "title": "벨레로폰과 페가수스 (Palazzo Sandi 천장)",
+        "origTitle": "Bellerophon on Pegasus (Palazzo Sandi ceiling)",
+        "artist": "조반니 바티스타 티에폴로",
+        "score": 12
+       },
+       {
+        "slug": "hindu-7dfdebb719",
+        "title": "락슈미 연꽃 코끼리 리소그래프 (라비 바르마 프레스)",
+        "origTitle": "Lakshmi with Lotus and Elephant (Ravi Varma Press Lithograph)",
+        "artist": "라자 라비 바르마",
+        "score": 11
+       }
+      ]
+     },
+     "toolMs": 6
+    },
+    {
+     "kind": "finish",
+     "at": 1788938915529,
+     "ms": 211,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "hindu-332d6eb52c"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1684,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "hindu-332d6eb52c"
+   },
+   "usage": {
+    "in": 3327,
+    "out": 194
+   },
+   "startedAt": 1788938913071,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "hindu-6b002ff5ca",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938917737,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2208,
+     "tokens": {
+      "in": 1634,
+      "out": 174
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938917964,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "The Goddess Bhairavi Devi with Shiva",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "hindu-6b002ff5ca",
+        "title": "〈시바와 바이라비 여신〉",
+        "origTitle": "The Goddess Bhairavi Devi with Shiva",
+        "artist": "파야그",
+        "score": 71
+       },
+       {
+        "slug": "meso-ba1d3d8440",
+        "title": "마리의 물병 여신상",
+        "origTitle": "Goddess with the Flowing Vase, Mari",
+        "artist": "익명",
+        "score": 14
+       },
+       {
+        "slug": "hindu-54f474c68d",
+        "title": "사티 여신 (시바의 아내)",
+        "origTitle": "Goddess Sati (wife of Shiva)",
+        "artist": "작가 미상",
+        "score": 12
+       },
+       {
+        "slug": "egypt-8db6d0f902",
+        "title": "멘카우레 삼위상 (하토르·노메 여신과 함께)",
+        "origTitle": "Triad of Menkaure with Hathor and a Nome Goddess",
+        "artist": "익명",
+        "score": 11
+       },
+       {
+        "slug": "egypt-685c02bd0e",
+        "title": "무트 여신 좌상",
+        "origTitle": "Statue of the Goddess Mut",
+        "artist": "익명",
+        "score": 10
+       }
+      ]
+     },
+     "toolMs": 5
+    },
+    {
+     "kind": "finish",
+     "at": 1788938917964,
+     "ms": 222,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "hindu-6b002ff5ca"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1675,
+      "out": 19
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "hindu-6b002ff5ca"
+   },
+   "usage": {
+    "in": 3309,
+    "out": 193
+   },
+   "startedAt": 1788938915529,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "hindu-9ceab2ae98",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938920262,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2298,
+     "tokens": {
+      "in": 1635,
+      "out": 181
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938920492,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Four-armed Yama on His Caparisoned Buffalo",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "hindu-9ceab2ae98",
+        "title": "물소를 탄 사신 야마",
+        "origTitle": "Four-armed Yama on His Caparisoned Buffalo",
+        "artist": "익명",
+        "score": 76
+       },
+       {
+        "slug": "hindu-9ba1ec6fbb",
+        "title": "물소를 탄 야마",
+        "origTitle": "Yama on Buffalo",
+        "artist": "익명",
+        "score": 13
+       },
+       {
+        "slug": "hindu-a3adc6a939",
+        "title": "물소 악마를 죽이는 두르가 (구레르)",
+        "origTitle": "Durga Slaying the Buffalo Demon (Guler)",
+        "artist": "익명",
+        "score": 9
+       },
+       {
+        "slug": "hindu-6f8e7baa5d",
+        "title": "마르칸데야 — 시바가 야마로부터 마르칸데야를 구하다 (라비 바르마 프레스)",
+        "origTitle": "Markandeya — Shiva defends his devotee from Yama (Ravi Varma Press)",
+        "artist": "라비 바르마 프레스",
+        "score": 7
+       },
+       {
+        "slug": "egypt-a53079d23f",
+        "title": "호루스의 네 아들 목조상 세트",
+        "origTitle": "Four Sons of Horus, Wood Figures",
+        "artist": "익명",
+        "score": 6
+       }
+      ]
+     },
+     "toolMs": 6
+    },
+    {
+     "kind": "finish",
+     "at": 1788938920492,
+     "ms": 224,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "hindu-9ceab2ae98"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1676,
+      "out": 19
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "hindu-9ceab2ae98"
+   },
+   "usage": {
+    "in": 3311,
+    "out": 200
+   },
+   "startedAt": 1788938917964,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "hindu-cb3d21cf23",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938922736,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2244,
+     "tokens": {
+      "in": 1636,
+      "out": 176
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938922950,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Didarganj Yakshi (Chauri-Bearer)",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "hindu-cb3d21cf23",
+        "title": "디다르간지 약시 (불자를 든 시녀상)",
+        "origTitle": "Didarganj Yakshi (Chauri-Bearer)",
+        "artist": "작자 미상",
+        "score": 67
+       },
+       {
+        "slug": "greek-89b07bffde",
+        "title": "도리포로스 (창을 든 남자)",
+        "origTitle": "Doryphoros (Spear-Bearer)",
+        "artist": "폴리클레이토스",
+        "score": 6
+       },
+       {
+        "slug": "hindu-e5d92342a8",
+        "title": "마투라 약시 (난간 기둥의 수목 여신)",
+        "origTitle": "Mathura Yakshi (Railing Pillar)",
+        "artist": "작자 미상",
+        "score": 6
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938922950,
+     "ms": 210,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "hindu-cb3d21cf23"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1677,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "hindu-cb3d21cf23"
+   },
+   "usage": {
+    "in": 3313,
+    "out": 194
+   },
+   "startedAt": 1788938920492,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "meso-00ddc086ef",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938925237,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2287,
+     "tokens": {
+      "in": 1632,
+      "out": 180
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938925457,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Cylinder Seal of the Uruk Period",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "meso-00ddc086ef",
+        "title": "우루크 시대 왕·사제 원통 인장",
+        "origTitle": "Cylinder Seal of the Uruk Period",
+        "artist": "작자 미상",
+        "score": 67
+       },
+       {
+        "slug": "meso-a72be32200",
+        "title": "에타나 원통 인장",
+        "origTitle": "Etana Cylinder Seal",
+        "artist": "작자 미상",
+        "score": 12
+       },
+       {
+        "slug": "meso-040c35657c",
+        "title": "키루스 원통",
+        "origTitle": "The Cyrus Cylinder",
+        "artist": "작자 미상",
+        "score": 11
+       },
+       {
+        "slug": "meso-509c6324bb",
+        "title": "아다 원통 인장",
+        "origTitle": "The Adda Seal",
+        "artist": "작자 미상",
+        "score": 7
+       },
+       {
+        "slug": "meso-ec2a2c298c",
+        "title": "와르카 가면 (우루크의 귀부인)",
+        "origTitle": "Mask of Warka (Lady of Uruk)",
+        "artist": "익명",
+        "score": 6
+       }
+      ]
+     },
+     "toolMs": 5
+    },
+    {
+     "kind": "finish",
+     "at": 1788938925457,
+     "ms": 215,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "meso-00ddc086ef"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1673,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "meso-00ddc086ef"
+   },
+   "usage": {
+    "in": 3305,
+    "out": 198
+   },
+   "startedAt": 1788938922950,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "meso-765ea995ac",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938927862,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2405,
+     "tokens": {
+      "in": 1639,
+      "out": 190
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938928086,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Baal with Thunderbolt (Baal au foudre stele)",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "meso-765ea995ac",
+        "title": "바알 (천둥을 든 바알 석비)",
+        "origTitle": "Baal with Thunderbolt (Baal au foudre stele)",
+        "artist": "작가 미상",
+        "score": 76
+       },
+       {
+        "slug": "greek-51a7a1eeaf",
+        "title": "팔라스 아테나 (켄타우로스·사티로스 장면)",
+        "origTitle": "Pallas Athena with Centaur and Satyr (Identification Unconfirmed)",
+        "artist": "작가 미상",
+        "score": 6
+       },
+       {
+        "slug": "egypt-8db6d0f902",
+        "title": "멘카우레 삼위상 (하토르·노메 여신과 함께)",
+        "origTitle": "Triad of Menkaure with Hathor and a Nome Goddess",
+        "artist": "익명",
+        "score": 6
+       },
+       {
+        "slug": "chinese-bdc5061278",
+        "title": "〈조원도 — 영락궁 삼청전 벽화〉",
+        "origTitle": "Audience with the Three Pure Ones — Yongle Palace, Sanqing Dian Murals",
+        "artist": "마군상",
+        "score": 6
+       },
+       {
+        "slug": "egypt-3263c91df3",
+        "title": "아메넴하트의 봉헌 석비",
+        "origTitle": "Stele of Amenemhat",
+        "artist": "익명",
+        "score": 5
+       }
+      ]
+     },
+     "toolMs": 5
+    },
+    {
+     "kind": "finish",
+     "at": 1788938928086,
+     "ms": 219,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "meso-765ea995ac"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1680,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "meso-765ea995ac"
+   },
+   "usage": {
+    "in": 3319,
+    "out": 208
+   },
+   "startedAt": 1788938925457,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "meso-b2efba12e6",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938930596,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2510,
+     "tokens": {
+      "in": 1655,
+      "out": 199
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938930838,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Candaules, King of Lydia, Shews his Wife by Stealth to Gyges, One of his Ministers, as She Goes to Bed",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "meso-b2efba12e6",
+        "title": "리디아의 왕 칸다울레스, 자신의 부인을 신하 기게스에게 몰래 보여주다",
+        "origTitle": "Candaules, King of Lydia, Shews his Wife by Stealth to Gyges, One of his Ministers, as She Goes to Bed",
+        "artist": "윌리엄 에티",
+        "score": 119
+       },
+       {
+        "slug": "chinese-e6cc8c4f9d",
+        "title": "〈반고분천지〉 (盤古分天地) — 「이십일사통속연의(廿一史通俗衍義)」 삽화",
+        "origTitle": "Pangu Separating Heaven and Earth, from Popular Romance of the Twenty-One Histories",
+        "artist": "작자 미상 / 곽후 등",
+        "score": 17
+       },
+       {
+        "slug": "greek-a6477e3970",
+        "title": "조각의 기원, 또는 자신의 조각상에 생명을 달라고 비너스에게 기원하는 피그말리온",
+        "origTitle": "The Origin of Sculpture, or Pygmalion Imploring Venus to Animate His Statue",
+        "artist": "장-바티스트 레뇨",
+        "score": 14
+       },
+       {
+        "slug": "chinese-978e1c285d",
+        "title": "〈송자천왕도〉",
+        "origTitle": "Heavenly King Sending Off His Son (Songzi tianwang)",
+        "artist": "오도자",
+        "score": 14
+       },
+       {
+        "slug": "greek-7b68174896",
+        "title": "피네우스를 돌로 만드는 페르세우스",
+        "origTitle": "Perseus Turning Phineus and his Followers to Stone",
+        "artist": "루카 조르다노",
+        "score": 13
+       }
+      ]
+     },
+     "toolMs": 8
+    },
+    {
+     "kind": "finish",
+     "at": 1788938930838,
+     "ms": 233,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "meso-b2efba12e6"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1696,
+      "out": 19
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "meso-b2efba12e6"
+   },
+   "usage": {
+    "in": 3351,
+    "out": 218
+   },
+   "startedAt": 1788938928086,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "norse-011c0f35e9",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938933101,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2262,
+     "tokens": {
+      "in": 1631,
+      "out": 179
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938933315,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Kraka",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "norse-011c0f35e9",
+        "title": "크라카",
+        "origTitle": "Kraka",
+        "artist": "모르텐 에스킬 빙에",
+        "score": 45
+       }
+      ]
+     },
+     "toolMs": 3
+    },
+    {
+     "kind": "finish",
+     "at": 1788938933315,
+     "ms": 211,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "norse-011c0f35e9"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1672,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "norse-011c0f35e9"
+   },
+   "usage": {
+    "in": 3303,
+    "out": 197
+   },
+   "startedAt": 1788938930839,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "norse-471d9b3cad",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938935517,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2201,
+     "tokens": {
+      "in": 1640,
+      "out": 172
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938935779,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Thor Battering the Midgard Serpent",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "norse-471d9b3cad",
+        "title": "미드가르드 뱀과 싸우는 토르",
+        "origTitle": "Thor Battering the Midgard Serpent",
+        "artist": "요한 하인리히 퓌슬리",
+        "score": 70
+       },
+       {
+        "slug": "norse-09ecfe20d5",
+        "title": "토르가 미드가르드 뱀과 싸우다 (히미르의 낚시)",
+        "origTitle": "Thor Battering the Midgard Serpent",
+        "artist": "요한 하인리히 퓌슬리",
+        "score": 70
+       },
+       {
+        "slug": "egypt-42cb99f8f5",
+        "title": "고양이로 변신한 라가 아펩(아포피스)을 죽이는 장면",
+        "origTitle": "Cat (Ra) Killing the Serpent Apep",
+        "artist": "작자 미상",
+        "score": 10
+       },
+       {
+        "slug": "hindu-c991663095",
+        "title": "〈칼리야를 제압하는 크리슈나〉 (바가바타 푸라나 연작 폴리오)",
+        "origTitle": "Krishna Quells the Serpent Kaliya (folio from a Bhagavata Purana series)",
+        "artist": "몰라 람",
+        "score": 10
+       },
+       {
+        "slug": "greek-4d3957fd82",
+        "title": "봄 — 뱀에 물리는 에우리디케",
+        "origTitle": "Spring — Eurydice Bitten by a Serpent",
+        "artist": "외젠 들라크루아",
+        "score": 7
+       }
+      ]
+     },
+     "toolMs": 5
+    },
+    {
+     "kind": "finish",
+     "at": 1788938935779,
+     "ms": 257,
+     "finish": {
+      "qid": "Q3545179",
+      "lang": "ko",
+      "duplicateOf": "norse-471d9b3cad"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1681,
+      "out": 22
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "lang": "ko",
+    "duplicateOf": "norse-471d9b3cad"
+   },
+   "usage": {
+    "in": 3321,
+    "out": 194
+   },
+   "startedAt": 1788938933315,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "norse-761de4ab0c",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938939602,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 3823,
+     "tokens": {
+      "in": 1632,
+      "out": 305
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938939826,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Sigurd pierced him with his sword",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "norse-761de4ab0c",
+        "title": "시구르드가 칼로 그를 꿰뚫었다",
+        "origTitle": "Sigurd pierced him with his sword",
+        "artist": "아서 라컴",
+        "score": 68
+       },
+       {
+        "slug": "norse-6d4f4262bf",
+        "title": "시구르드와 헬가 (「황금 갈기 말 굴팍시와 칼 군포데르」 삽화)",
+        "origTitle": "Sigurd and Helga — Illustration to \"The Horse Gullfaxi and the Sword Gunnfoder\"",
+        "artist": "헨리 저스티스 포드",
+        "score": 11
+       },
+       {
+        "slug": "norse-f16c50f202",
+        "title": "불꽃 검을 든 거인",
+        "origTitle": "The giant with the flaming sword",
+        "artist": "존 찰스 돌만",
+        "score": 9
+       },
+       {
+        "slug": "greek-dbf700fd72",
+        "title": "피그말리온이 자신의 조각상을 사랑하다",
+        "origTitle": "Pygmalion in Love with His Statue",
+        "artist": "장 라우",
+        "score": 7
+       },
+       {
+        "slug": "norse-b064b2a965",
+        "title": "거대한 휘둘림으로 망치를 들어올리다",
+        "origTitle": "He raised his hammer with a mighty swing",
+        "artist": "아서 라컴",
+        "score": 7
+       }
+      ]
+     },
+     "toolMs": 4
+    },
+    {
+     "kind": "finish",
+     "at": 1788938939826,
+     "ms": 219,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "norse-761de4ab0c"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1673,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "norse-761de4ab0c"
+   },
+   "usage": {
+    "in": 3305,
+    "out": 323
+   },
+   "startedAt": 1788938935779,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  },
+  {
+   "id": "norse-aa60789a47",
+   "steps": [
+    {
+     "kind": "act",
+     "at": 1788938942202,
+     "action": {},
+     "observation": {
+      "ok": false,
+      "reason": "unknown_tool",
+      "detail": ""
+     },
+     "toolMs": 0,
+     "modelMs": 2376,
+     "tokens": {
+      "in": 1635,
+      "out": 188
+     }
+    },
+    {
+     "kind": "act",
+     "at": 1788938942443,
+     "repaired": true,
+     "thought": "[시스템 보정] 모델이 중복 확인을 건너뛰어 대신 수행합니다",
+     "action": {
+      "tool": "archive_search",
+      "args": {
+       "q": "Freyja Seeking her Husband",
+       "topK": 5
+      }
+     },
+     "observation": {
+      "ok": true,
+      "hits": [
+       {
+        "slug": "norse-aa60789a47",
+        "title": "〈남편을 찾는 프레이야〉",
+        "origTitle": "Freyja Seeking her Husband",
+        "artist": "닐스 블롬메르",
+        "score": 63
+       },
+       {
+        "slug": "chinese-e5c498f77c",
+        "title": "금정표 종규탐매도",
+        "origTitle": "Zhong Kui Seeking Plum Blossoms, by Jin Tingbiao",
+        "artist": "작자 미상 / 곽후 등",
+        "score": 7
+       },
+       {
+        "slug": "norse-ebbdb29e62",
+        "title": "프레이야로 분장한 토르",
+        "origTitle": "Thor disguised as Freyja",
+        "artist": "카를 라르손",
+        "score": 6
+       },
+       {
+        "slug": "greek-6f54460858",
+        "title": "헤라클레스와 카쿠스",
+        "origTitle": "Hercules and Cacus",
+        "artist": "바초 반디넬리",
+        "score": 3
+       },
+       {
+        "slug": "greek-0a50eec5ef",
+        "title": "헤라클레스와 켄타우로스 네소스",
+        "origTitle": "Hercules Beating the Centaur Nessus",
+        "artist": "잠볼로냐",
+        "score": 3
+       }
+      ]
+     },
+     "toolMs": 5
+    },
+    {
+     "kind": "finish",
+     "at": 1788938942443,
+     "ms": 236,
+     "finish": {
+      "qid": "Q3545179",
+      "duplicateOf": "norse-aa60789a47"
+     },
+     "gate": {
+      "blocked": true,
+      "why": [
+       "라이선스가 PD/CC 로 확인되지 않았습니다"
+      ]
+     },
+     "tokens": {
+      "in": 1676,
+      "out": 18
+     }
+    }
+   ],
+   "status": "awaiting_approval",
+   "gate": {
+    "blocked": true,
+    "why": [
+     "라이선스가 PD/CC 로 확인되지 않았습니다"
+    ]
+   },
+   "finish": {
+    "qid": "Q3545179",
+    "duplicateOf": "norse-aa60789a47"
+   },
+   "usage": {
+    "in": 3311,
+    "out": 206
+   },
+   "startedAt": 1788938939826,
+   "model": "llama3.2:1b",
+   "repairs": 1
+  }
+ ]
+}

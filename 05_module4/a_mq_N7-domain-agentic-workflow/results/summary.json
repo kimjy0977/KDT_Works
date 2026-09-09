@@ -1,6 +1,9 @@
 {
  "generatedFrom": [
-  "base"
+  "base",
+  "repair",
+  "other3b",
+  "smaller"
  ],
  "settings": [
   {
@@ -137,6 +140,410 @@
     "wallMs": 33726,
     "tokensIn": 10731,
     "tokensOut": 691
+   }
+  },
+  {
+   "setting": {
+    "name": "repair",
+    "label": "② + autoRepair (중복확인 자동보정)",
+    "autoRepair": true,
+    "model": "qwen3.5:2b"
+   },
+   "n": 40,
+   "reachedApproval": {
+    "n": 19,
+    "pct": 48
+   },
+   "passedGate": {
+    "n": 10,
+    "pct": 25
+   },
+   "duplicateFound": {
+    "n": 23,
+    "pct": 58
+   },
+   "hallucinated": {
+    "n": 21,
+    "pct": 53
+   },
+   "fieldAcc": {
+    "origTitle": {
+     "n": 40,
+     "hit": 18,
+     "pct": 45
+    },
+    "artist": {
+     "n": 40,
+     "hit": 18,
+     "pct": 45
+    },
+    "era": {
+     "n": 40,
+     "hit": 2,
+     "pct": 5
+    },
+    "inception": {
+     "n": 40,
+     "hit": 7,
+     "pct": 18
+    },
+    "material": {
+     "n": 40,
+     "hit": 11,
+     "pct": 28
+    },
+    "collection": {
+     "n": 39,
+     "hit": 7,
+     "pct": 18
+    },
+    "people": {
+     "n": 26,
+     "hit": 5,
+     "pct": 19
+    }
+   },
+   "split": {
+    "strong": {
+     "n": 10,
+     "reachedApprovalPct": 70,
+     "artistPct": 70,
+     "dupPct": 70
+    },
+    "weak": {
+     "n": 23,
+     "reachedApprovalPct": 48,
+     "artistPct": 43,
+     "dupPct": 48
+    },
+    "none": {
+     "n": 7,
+     "reachedApprovalPct": 14,
+     "artistPct": 14,
+     "dupPct": 71
+    }
+   },
+   "byMyth": {
+    "중국": {
+     "n": 5,
+     "approval": 2,
+     "artist": 2,
+     "artistN": 5
+    },
+    "이집트": {
+     "n": 4,
+     "approval": 2,
+     "artist": 2,
+     "artistN": 4
+    },
+    "그리스로마": {
+     "n": 19,
+     "approval": 9,
+     "artist": 9,
+     "artistN": 19
+    },
+    "힌두": {
+     "n": 5,
+     "approval": 2,
+     "artist": 2,
+     "artistN": 5
+    },
+    "메소포타미아": {
+     "n": 3,
+     "approval": 3,
+     "artist": 2,
+     "artistN": 3
+    },
+    "북유럽": {
+     "n": 4,
+     "approval": 1,
+     "artist": 1,
+     "artistN": 4
+    }
+   },
+   "failures": {
+    "useless_repetition": 4,
+    "budget_exhausted": 4,
+    "gate_blocked": 9,
+    "other:other": 5,
+    "gave_up_not_found": 6,
+    "gave_up_license": 1,
+    "backend_error:timeout": 1
+   },
+   "perf": {
+    "steps": 6,
+    "toolCalls": 5,
+    "wallMs": 30263,
+    "tokensIn": 10731,
+    "tokensOut": 691
+   }
+  },
+  {
+   "setting": {
+    "name": "other3b",
+    "label": "④ 모델 교체 — qwen2.5:3b",
+    "autoRepair": true,
+    "model": "qwen2.5:3b"
+   },
+   "n": 40,
+   "reachedApproval": {
+    "n": 7,
+    "pct": 18
+   },
+   "passedGate": {
+    "n": 1,
+    "pct": 3
+   },
+   "duplicateFound": {
+    "n": 15,
+    "pct": 38
+   },
+   "hallucinated": {
+    "n": 18,
+    "pct": 45
+   },
+   "fieldAcc": {
+    "origTitle": {
+     "n": 40,
+     "hit": 5,
+     "pct": 13
+    },
+    "artist": {
+     "n": 40,
+     "hit": 4,
+     "pct": 10
+    },
+    "era": {
+     "n": 40,
+     "hit": 0,
+     "pct": 0
+    },
+    "inception": {
+     "n": 40,
+     "hit": 3,
+     "pct": 8
+    },
+    "material": {
+     "n": 40,
+     "hit": 1,
+     "pct": 3
+    },
+    "collection": {
+     "n": 39,
+     "hit": 1,
+     "pct": 3
+    },
+    "people": {
+     "n": 26,
+     "hit": 3,
+     "pct": 12
+    }
+   },
+   "split": {
+    "strong": {
+     "n": 10,
+     "reachedApprovalPct": 30,
+     "artistPct": 30,
+     "dupPct": 50
+    },
+    "weak": {
+     "n": 23,
+     "reachedApprovalPct": 17,
+     "artistPct": 4,
+     "dupPct": 39
+    },
+    "none": {
+     "n": 7,
+     "reachedApprovalPct": 0,
+     "artistPct": 0,
+     "dupPct": 14
+    }
+   },
+   "byMyth": {
+    "중국": {
+     "n": 5,
+     "approval": 1,
+     "artist": 1,
+     "artistN": 5
+    },
+    "이집트": {
+     "n": 4,
+     "approval": 1,
+     "artist": 1,
+     "artistN": 4
+    },
+    "그리스로마": {
+     "n": 19,
+     "approval": 3,
+     "artist": 1,
+     "artistN": 19
+    },
+    "힌두": {
+     "n": 5,
+     "approval": 0,
+     "artist": 0,
+     "artistN": 5
+    },
+    "메소포타미아": {
+     "n": 3,
+     "approval": 1,
+     "artist": 1,
+     "artistN": 3
+    },
+    "북유럽": {
+     "n": 4,
+     "approval": 1,
+     "artist": 0,
+     "artistN": 4
+    }
+   },
+   "failures": {
+    "gave_up_not_found": 2,
+    "budget_exhausted": 23,
+    "gate_blocked": 6,
+    "other:already_researched": 1,
+    "gave_up_license": 3,
+    "backend_error:timeout": 2,
+    "format_broken": 1,
+    "useless_repetition": 1
+   },
+   "perf": {
+    "steps": 10,
+    "toolCalls": 9,
+    "wallMs": 34721,
+    "tokensIn": 22469,
+    "tokensOut": 787
+   }
+  },
+  {
+   "setting": {
+    "name": "smaller",
+    "label": "③ 모델 교체 — llama3.2:1b",
+    "autoRepair": true,
+    "model": "llama3.2:1b"
+   },
+   "n": 40,
+   "reachedApproval": {
+    "n": 37,
+    "pct": 93
+   },
+   "passedGate": {
+    "n": 0,
+    "pct": 0
+   },
+   "duplicateFound": {
+    "n": 37,
+    "pct": 93
+   },
+   "hallucinated": {
+    "n": 0,
+    "pct": 0
+   },
+   "fieldAcc": {
+    "origTitle": {
+     "n": 40,
+     "hit": 0,
+     "pct": 0
+    },
+    "artist": {
+     "n": 40,
+     "hit": 0,
+     "pct": 0
+    },
+    "era": {
+     "n": 40,
+     "hit": 0,
+     "pct": 0
+    },
+    "inception": {
+     "n": 40,
+     "hit": 0,
+     "pct": 0
+    },
+    "material": {
+     "n": 40,
+     "hit": 0,
+     "pct": 0
+    },
+    "collection": {
+     "n": 39,
+     "hit": 0,
+     "pct": 0
+    },
+    "people": {
+     "n": 26,
+     "hit": 0,
+     "pct": 0
+    }
+   },
+   "split": {
+    "strong": {
+     "n": 10,
+     "reachedApprovalPct": 90,
+     "artistPct": 0,
+     "dupPct": 90
+    },
+    "weak": {
+     "n": 23,
+     "reachedApprovalPct": 91,
+     "artistPct": 0,
+     "dupPct": 91
+    },
+    "none": {
+     "n": 7,
+     "reachedApprovalPct": 100,
+     "artistPct": 0,
+     "dupPct": 100
+    }
+   },
+   "byMyth": {
+    "중국": {
+     "n": 5,
+     "approval": 5,
+     "artist": 0,
+     "artistN": 5
+    },
+    "이집트": {
+     "n": 4,
+     "approval": 4,
+     "artist": 0,
+     "artistN": 4
+    },
+    "그리스로마": {
+     "n": 19,
+     "approval": 16,
+     "artist": 0,
+     "artistN": 19
+    },
+    "힌두": {
+     "n": 5,
+     "approval": 5,
+     "artist": 0,
+     "artistN": 5
+    },
+    "메소포타미아": {
+     "n": 3,
+     "approval": 3,
+     "artist": 0,
+     "artistN": 3
+    },
+    "북유럽": {
+     "n": 4,
+     "approval": 4,
+     "artist": 0,
+     "artistN": 4
+    }
+   },
+   "failures": {
+    "gate_blocked": 37,
+    "format_broken": 3
+   },
+   "perf": {
+    "steps": 3,
+    "toolCalls": 2,
+    "wallMs": 2413,
+    "tokensIn": 3389,
+    "tokensOut": 181
    }
   }
  ]
