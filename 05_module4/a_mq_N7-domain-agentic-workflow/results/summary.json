@@ -3,7 +3,8 @@
   "base",
   "repair",
   "other3b",
-  "smaller"
+  "smaller",
+  "tight"
  ],
  "settings": [
   {
@@ -544,6 +545,146 @@
     "wallMs": 2413,
     "tokensIn": 3389,
     "tokensOut": 181
+   }
+  },
+  {
+   "setting": {
+    "name": "tight",
+    "label": "⑤ 예산 절반 (스텝 6 · 90초)",
+    "autoRepair": true,
+    "model": "qwen3.5:2b",
+    "limits": {
+     "maxSteps": 6,
+     "wallClockMs": 90000
+    }
+   },
+   "n": 40,
+   "reachedApproval": {
+    "n": 19,
+    "pct": 48
+   },
+   "passedGate": {
+    "n": 10,
+    "pct": 25
+   },
+   "duplicateFound": {
+    "n": 23,
+    "pct": 58
+   },
+   "hallucinated": {
+    "n": 21,
+    "pct": 53
+   },
+   "fieldAcc": {
+    "origTitle": {
+     "n": 40,
+     "hit": 18,
+     "pct": 45
+    },
+    "artist": {
+     "n": 40,
+     "hit": 18,
+     "pct": 45
+    },
+    "era": {
+     "n": 40,
+     "hit": 2,
+     "pct": 5
+    },
+    "inception": {
+     "n": 40,
+     "hit": 7,
+     "pct": 18
+    },
+    "material": {
+     "n": 40,
+     "hit": 11,
+     "pct": 28
+    },
+    "collection": {
+     "n": 39,
+     "hit": 7,
+     "pct": 18
+    },
+    "people": {
+     "n": 26,
+     "hit": 5,
+     "pct": 19
+    }
+   },
+   "split": {
+    "strong": {
+     "n": 10,
+     "reachedApprovalPct": 70,
+     "artistPct": 70,
+     "dupPct": 70
+    },
+    "weak": {
+     "n": 23,
+     "reachedApprovalPct": 48,
+     "artistPct": 43,
+     "dupPct": 48
+    },
+    "none": {
+     "n": 7,
+     "reachedApprovalPct": 14,
+     "artistPct": 14,
+     "dupPct": 71
+    }
+   },
+   "byMyth": {
+    "중국": {
+     "n": 5,
+     "approval": 2,
+     "artist": 2,
+     "artistN": 5
+    },
+    "이집트": {
+     "n": 4,
+     "approval": 2,
+     "artist": 2,
+     "artistN": 4
+    },
+    "그리스로마": {
+     "n": 19,
+     "approval": 9,
+     "artist": 9,
+     "artistN": 19
+    },
+    "힌두": {
+     "n": 5,
+     "approval": 2,
+     "artist": 2,
+     "artistN": 5
+    },
+    "메소포타미아": {
+     "n": 3,
+     "approval": 3,
+     "artist": 2,
+     "artistN": 3
+    },
+    "북유럽": {
+     "n": 4,
+     "approval": 1,
+     "artist": 1,
+     "artistN": 4
+    }
+   },
+   "failures": {
+    "useless_repetition": 2,
+    "budget_exhausted": 6,
+    "gate_blocked": 9,
+    "other:other": 5,
+    "gave_up_not_found": 6,
+    "gave_up_license": 1,
+    "backend_error:timeout": 1
+   },
+   "perf": {
+    "steps": 5,
+    "toolCalls": 4,
+    "wallMs": 33606,
+    "tokensIn": 8500,
+    "tokensOut": 625
    }
   }
  ]
