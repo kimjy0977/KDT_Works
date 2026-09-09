@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>카드뉴스 에이전트 · 실행 리포트</title><style>
+:root{--bg:#f7f6f3;--card:#fff;--ink:#1b1a18;--dim:#6b6660;--line:#e3dfd8;--accent:#8a5a20;
+--ok:#2f6b45;--ok-bg:#e9f3ec;--warn:#9a5b12;--warn-bg:#fbf1e2;--bad:#9b3232;--bad-bg:#fbeaea;--code:#f1eee8}
+@media(prefers-color-scheme:dark){:root{--bg:#17161a;--card:#1f1e23;--ink:#eae7e1;--dim:#a49e96;
+--line:#34323a;--accent:#d8b47a;--ok:#7fc39a;--ok-bg:#1e2b23;--warn:#e0ab63;--warn-bg:#2c2418;
+--bad:#e08585;--bad-bg:#2e1e1e;--code:#26252b}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.65 -apple-system,"Segoe UI","Malgun Gothic",sans-serif}
+main{max-width:1040px;margin:0 auto;padding:26px clamp(12px,3vw,26px) 80px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:16px 18px;margin-bottom:14px}
+h1{font-size:21px;margin:0 0 6px}h2{font-size:15px;margin:0 0 10px}h3{font-size:13.5px;margin:14px 0 6px}
+.note,.dim{color:var(--dim);font-size:12.5px}
+.okbox{background:var(--ok-bg);border-left:3px solid var(--ok);padding:8px 11px;border-radius:0 7px 7px 0;margin:6px 0}
+.warn{background:var(--warn-bg);border-left:3px solid var(--warn);padding:8px 11px;border-radius:0 7px 7px 0;margin:6px 0}
+.bad{background:var(--bad-bg);border-left:3px solid var(--bad);padding:8px 11px;border-radius:0 7px 7px 0;margin:6px 0}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--code)}.tw{overflow-x:auto}
+.steps{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}
+.st{font-size:12px;padding:3px 10px;border-radius:20px;border:1px solid var(--ok);
+background:var(--ok-bg);color:var(--ok)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.grid img{width:100%;border-radius:8px;border:1px solid var(--line);display:block}
+.badge{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:20px;font-weight:600}
+.badge.ok{background:var(--ok-bg);color:var(--ok)}.badge.warn{background:var(--warn-bg);color:var(--warn)}
+a{color:var(--accent)}img.sheet{width:100%;border-radius:9px;border:1px solid var(--line)}
+</style></head><body><main>
+
+<div class="card">
+<h1>카드뉴스 에이전트 · 실행 리포트</h1>
+<p class="note">이 페이지는 <b>실제 실행 기록</b>(<code>sample-run/run-evidence.json</code>)에서 «그대로» 만들어집니다.
+손으로 쓴 것이 아닙니다. 생성 스크립트: <code>tools/make-report.py</code></p>
+<div class="steps"><span class="st">① 조사</span><span class="st">② 내가 후보 선택</span><span class="st">③ 에이전트가 질문</span><span class="st">④ 내가 답변</span><span class="st">⑤ 심층 검증</span><span class="st">⑥ 기획</span><span class="st">⑦ 내가 승인</span><span class="st">⑧ 제작</span><span class="st">⑨ 부분 수정</span><span class="st">⑩ 내려받기</span></div>
+<div class="tw"><table>
+<tr><th>주제</th><td>AI 최신소식</td></tr>
+<tr><th>조사 기준</th><td>2026-09-09 18:02 UTC+09:00 · 최근 7일</td></tr>
+<tr><th>후보</th><td>10개 조사 → <b>c1</b> 선택</td></tr>
+<tr><th>독자</th><td>AI 입문자 — '소버린 AI가 뭐고 왜 중요한가'부터
+ <span class="note">— 에이전트가 «물었고» 사람이 골랐습니다</span></td></tr>
+<tr><th>카드</th><td>5장 · 1080×1350 · 배경
+ 5/5 확보</td></tr>
+<tr><th>산출물</th><td>cardnews.zip
+ (5.5 MB) + manifest.json</td></tr>
+</table></div></div>
+
+<div class="card"><h2>완성된 카드 5장</h2>
+<img class="sheet" src="cards-contact-sheet.png" alt="카드 5장">
+<div class="grid" style="margin-top:12px"><figure style="margin:0"><img src="cards/card-01.png" alt=""><figcaption class="note">1. 삼성, 유럽 AI에 30억 유로<br>배경 CC BY 3.0 · <a href="https://commons.wikimedia.org/wiki/File:Nuclear_power_station.svg" target="_blank" rel="noopener">출처</a></figcaption></figure><figure style="margin:0"><img src="cards/card-02.png" alt=""><figcaption class="note">2. '소버린 AI'가 뭐야?<br>배경 CC BY 2.0 · <a href="https://commons.wikimedia.org/wiki/File:CAMPUS_-_Military_Data_Center_(52106762896).jpg" target="_blank" rel="noopener">출처</a></figcaption></figure><figure style="margin:0"><img src="cards/card-03.png" alt=""><figcaption class="note">3. 1년 만에 몸값이 2배로<br>배경 CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:A_lady_pricing_oil.jpg" target="_blank" rel="noopener">출처</a></figcaption></figure><figure style="margin:0"><img src="cards/card-04.png" alt=""><figcaption class="note">4. 칩 회사가 주주로<br>배경 CC BY-SA 2.0 · <a href="https://commons.wikimedia.org/wiki/File:Intel_8742_153056995.jpg" target="_blank" rel="noopener">출처</a></figcaption></figure><figure style="margin:0"><img src="cards/card-05.png" alt=""><figcaption class="note">5. 그래서 뭐가 달라지나<br>배경 CC0 · <a href="https://commons.wikimedia.org/wiki/File:Corinth_Crossroads_trains.png" target="_blank" rel="noopener">출처</a></figcaption></figure></div></div>
+
+<div class="card"><h2>심층 검증 — 확인한 것과 못 한 것을 나눴습니다</h2>
+<h3>확인한 사실</h3><div class="okbox">Mistral이 2026-09-08 삼성전자 주도로 30억 유로 규모 시리즈 D를 마감했다고 발표 (TechCrunch 등 복수 매체 확인)</div><div class="okbox">포스트머니 기업가치 약 210억 유로(달러 환산 ~$24B)로, 1년 전 시리즈 C의 117억 유로에서 약 2배 상승</div><div class="okbox">공동 리드: EQT 운용 Scaleup Europe Fund와 기존 투자자 PSG Equity</div><div class="okbox">참여 투자자: 신규 Advent·BlackRock·룩셈부르크 대공국, 기존 a16z·ASML·General Catalyst·Lightspeed·NVIDIA·Salesforce Ventures</div><div class="okbox">직전 시리즈 C(약 1년 전)는 ASML이 리드했고 당시 가치는 117억 유로</div><div class="okbox">자금 용도: 컴퓨트 확충·인프라 구축·상업화 가속·해외 확장</div>
+<h3>발표 주체의 주장</h3><div class="warn">Mistral 주장: '유럽 테크 기업 사상 최대 규모의 지분 투자'</div><div class="warn">Mistral 자기규정: '유럽판 ChatGPT'가 아니라 '소버린 오픈웨이트 AI 랩'을 지향한다</div><div class="warn">마크롱 프랑스 대통령: 프랑스·한국의 'AI 제3의 길' 구축을 반영한다는 정치적 해석</div>
+<h3>아직 확인 못 한 것</h3><div class="bad">리드 투자자인 삼성이 실제 투입한 금액과 취득 지분율</div><div class="bad">발표된 밸류에이션이 클로징 확정 기준인지 텀시트 기준인지</div><div class="bad">'유럽 사상 최대'라는 표현이 독립 데이터로 검증됐는지</div>
+<h3>자료끼리 어긋나는 것</h3><div class="bad">달러 환산액이 매체마다 상이: ~$3.5B(TechCrunch/다수) vs $3.3B(TradingKey), 밸류에이션도 $24B~$24.4B — 환율·반올림 차이로 추정. 유로 금액(30억)·가치(210억)는 일치</div><div class="bad">리드 표기 차이: 다수는 '삼성 단독 리드', 일부(Sifted)는 삼성·NVIDIA·ASML·Scaleup 공동 강조</div>
+<h3>출처</h3><div class="note"><a href="https://techcrunch.com/2026/09/08/mistral-raises-e3b-as-sovereign-ai-becomes-big-business/" target="_blank" rel="noopener">Mistral raises €3B as sovereign AI becomes big business — TechCrunch</a> 2026-09-08</div><div class="note"><a href="https://sifted.eu/articles/mistral-series-d-samsung-nvidia-asml" target="_blank" rel="noopener">Exclusive: Samsung, Nvidia, ASML and Scaleup Fund back Mistral in €3bn fundraise — Sifted</a> 2026-09-08</div><div class="note"><a href="https://qz.com/mistral-ai-samsung-series-d-funding-valuation-090826" target="_blank" rel="noopener">Mistral AI raises €3 billion in Samsung-led Series D round — Quartz</a> 2026-09-08</div><div class="note"><a href="https://easternherald.com/2026/09/09/mistral-ai-samsung-series-d-european-tech-record/" target="_blank" rel="noopener">Mistral AI Raises €3 Billion in Samsung-Led Round, the Largest in European Tech — Eastern Herald</a> 2026-09-09</div></div>
+
+<div class="card"><h2>편집 판단</h2><div class="tw"><table>
+<tr><th>독자</th><td>AI 입문자 — '소버린 AI가 뭐고 왜 중요한가'부터 <span class="note">입문자는 숫자 자체보다 '왜 이 돈이 화제인지'와 소버린 AI 개념이 먼저 잡혀야 뉴스가 이해됨</span></td></tr>
+<tr><th>형식</th><td>이야기형 <span class="note">'삼성이 왜? → 소버린 AI란? → 1년 만에 몸값 2배 → 그래서 우리에게 무슨 의미'로 이어지는 서사가 개념과 사건을 한 흐름에 담아 입문자에게 가장 친절함</span></td></tr>
+<tr><th>표지 후보</th><td>삼성이 유럽 AI 회사에 4조 원을 넣은 이유<br>'소버린 AI'가 뭐길래 — Mistral 몸값 1년 만에 2배<br>미국도 중국도 아닌 '제3의 AI', 유럽의 승부수</td></tr>
+</table></div></div>
+
+<div class="card"><h2>삼성이 유럽 AI에 4조 원을 넣은 이유 — '소버린 AI' 이야기 <span class="note">스토리보드 v1 · 사람이 승인함</span></h2>
+<div class="tw"><table><tr><th>#</th><th>역할</th><th>제목</th><th>핵심</th><th>그림 계획</th></tr>
+<tr><td>1</td><td>표지</td><td><b>삼성, 유럽 AI에 30억 유로</b></td><td>프랑스 스타트업 Mistral이 삼성 주도로 30억 유로를 투자받았다. 왜 화제일까?</td><td class="note">유럽 지도 위 프랑스 자리에 빛나는 작은 회사 건물, 한국 방향에서 큰 화살표가 자금을 실어 날아오는 장면</td></tr><tr><td>2</td><td>본문</td><td><b>'소버린 AI'가 뭐야?</b></td><td>미국·중국 기업에 기대지 않고 내 나라·내 손으로 굴리는 AI. 유럽이 노리는 '제3의 길'이다.</td><td class="note">미국 깃발 서버와 중국 깃발 서버 사이에서, 유럽연합 색의 세 번째 서버가 독립적으로 서 있는 구도</td></tr><tr><td>3</td><td>본문</td><td><b>1년 만에 몸값 2배</b></td><td>작년 시리즈 C에서 117억 유로였던 기업가치가 이번엔 210억 유로로 뛰었다.</td><td class="note">작은 저울추(117)에서 두 배 큰 저울추(210)로 커지는 성장 그래프, 위로 치솟는 화살표</td></tr><tr><td>4</td><td>본문</td><td><b>칩 회사가 주주로</b></td><td>NVIDIA·ASML·삼성 등 반도체 핵심 기업이 투자자로 합류했다. AI엔 결국 '칩'이 열쇠라는 뜻.</td><td class="note">컴퓨터 칩을 중심에 두고 여러 대기업 손이 함께 그 칩을 떠받치는 장면</td></tr><tr><td>5</td><td>요약</td><td><b>그래서 뭐가 달라지나</b></td><td>거대 AI 판에 미국·중국 외 '또 하나의 선택지'가 커진다. 앞으로 어느 AI를 쓸지 폭이 넓어진다.</td><td class="note">사용자가 여러 갈래 길 앞에 서서 세 방향(미국·중국·유럽) 이정표를 바라보는 뒷모습</td></tr></table></div></div>
+
+<div class="card"><h2>실행 기록 <span class="note">사람이 끼어든 지점을 굵게</span></h2>
+<div class="tw"><table><tr><th>주체</th><th>단계</th><th>내용</th><th>소요</th><th>비용</th></tr>
+<tr><td>engine</td><td>research</td><td class="note">웹 검색 시작</td><td class="note"></td><td class="note"></td></tr><tr><td>engine</td><td>research</td><td class="note"></td><td class="note">124.5초</td><td class="note">$0.731</td></tr><tr><td><b>사람</b></td><td>selection</td><td class="note">후보 1개 선택</td><td class="note"></td><td class="note"></td></tr><tr><td>engine</td><td>deep</td><td class="note">심층 검증 시작</td><td class="note"></td><td class="note"></td></tr><tr><td>engine</td><td>deep</td><td class="note"></td><td class="note">55.0초</td><td class="note">$0.242</td></tr><tr><td><b>사람</b></td><td>answer</td><td class="note">답변: AI 입문자 — '소버린 AI가 뭐고 왜 중요한가'부터</td><td class="note"></td><td class="note"></td></tr><tr><td>engine</td><td>deep</td><td class="note">심층 검증 시작</td><td class="note"></td><td class="note"></td></tr><tr><td>engine</td><td>deep</td><td class="note"></td><td class="note">31.5초</td><td class="note">$0.108</td></tr><tr><td>engine</td><td>storyboard</td><td class="note">기획 시작</td><td class="note"></td><td class="note"></td></tr><tr><td>engine</td><td>storyboard</td><td class="note"></td><td class="note">25.9초</td><td class="note">$0.087</td></tr><tr><td><b>사람</b></td><td>approve</td><td class="note">스토리보드 v1 승인</td><td class="note"></td><td class="note"></td></tr><tr><td>system</td><td>produce</td><td class="note">카드 5장 제작</td><td class="note"></td><td class="note"></td></tr><tr><td><b>사람</b></td><td>approve</td><td class="note">스토리보드 v1 승인</td><td class="note"></td><td class="note"></td></tr><tr><td>system</td><td>produce</td><td class="note">카드 5장 제작</td><td class="note"></td><td class="note"></td></tr><tr><td><b>사람</b></td><td>revise</td><td class="note">카드 3 수정</td><td class="note"></td><td class="note"></td></tr><tr><td><b>사람</b></td><td>approve</td><td class="note">최종 승인</td><td class="note"></td><td class="note"></td></tr></table></div>
+<p class="note">엔진 호출 4회 · 사람 개입 6회 ·
+합계 $1.17</p></div>
+
+<div class="card"><h2>⚠ 남긴 오류 — 숨기지 않았습니다</h2>
+<div class="bad"><b>image — no_usable_license</b><div class="note">검색 결과에 PD/CC 이미지가 없습니다 (0건 확인)</div><div class="note">→ 카드 1 의 [이미지 다시] 를 누르세요</div></div><div class="bad"><b>image — no_usable_license</b><div class="note">검색 결과에 PD/CC 이미지가 없습니다 (0건 확인)</div><div class="note">→ 카드 2 의 [이미지 다시] 를 누르세요</div></div><div class="bad"><b>image — download_or_decode_failed</b><div class="note">cannot identify image file &lt;_io.BytesIO object at 0x000001DCEC040BD0&gt;</div><div class="note">→ 카드 3 의 [이미지 다시] 를 누르세요</div></div><div class="bad"><b>image — download_or_decode_failed</b><div class="note">cannot identify image file &lt;_io.BytesIO object at 0x000001DCECE09530&gt;</div><div class="note">→ 카드 4 의 [이미지 다시] 를 누르세요</div></div><div class="bad"><b>image — download_or_decode_failed</b><div class="note">cannot identify image file &lt;_io.BytesIO object at 0x000001DCECE095D0&gt;</div><div class="note">→ 카드 5 의 [이미지 다시] 를 누르세요</div></div>
+<p class="note">이 오류들은 «고치기 전» 기록입니다. 원인과 수정은
+<a href="README.md">README 「막힌 것과 어떻게 풀었나」</a>에 다섯 건으로 정리했습니다.</p></div>
+
+</main></body></html>
