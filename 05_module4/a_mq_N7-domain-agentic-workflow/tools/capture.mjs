@@ -57,6 +57,36 @@ const SHOTS = [
     t: '문서 — 도구 8종의 입출력 스키마와 권한' },
 ];
 
+/* ★«다 그려질 때까지» 기다린다 — 시간으로 기다리지 않는다.
+   웹폰트가 앉고, 문서 높이가 세 번 연속 같아지면 «앉았다»고 본다.
+   sleep(N) 은 느린 판에서 모자라고, 모자라면 «덜 그려진 그림»이 나온다.
+   그런 그림도 그럴듯해 보이므로 눈으로는 못 잡는다. (실측 2026-09-10) */
+const SETTLE = `new Promise(async (done) => {
+  const nap = (ms) => new Promise((r) => setTimeout(r, ms));
+  try { await document.fonts.ready; } catch (e) {}
+
+  // ① 문서 높이가 세 번 연속 같아질 때까지
+  let last = -1, same = 0;
+  for (let i = 0; i < 60; i++) {
+    const h = document.documentElement.scrollHeight;
+    if (h === last) { if (++same >= 3) break; } else { same = 0; last = h; }
+    await nap(200);
+  }
+
+  // ② ★그림이 «실제로 들어왔는지»까지 본다.
+  //    높이가 안정돼도 원격 이미지는 아직 빈 액자일 수 있다.
+  //    승인 화면은 위키미디어 원본을 불러온다 —
+  //    실측 2026-09-10: 같은 2600px 인데 241KB 와 414KB 가 나왔다.
+  for (let i = 0; i < 60; i++) {
+    const imgs = [...document.images].filter((im) => im.src && !im.src.startsWith('data:'));
+    if (imgs.every((im) => im.complete && (im.naturalWidth > 0 || im.currentSrc === ''))) break;
+    await nap(250);
+  }
+
+  done(document.documentElement.scrollHeight + ':' +
+       [...document.images].filter((im) => im.complete && im.naturalWidth > 0).length + 'img');
+})`;
+
 let msgId = 0;
 function rpc(ws, method, params = {}) {
   const id = ++msgId;
@@ -131,13 +161,15 @@ function rpc(ws, method, params = {}) {
         ws.removeEventListener('message', on); r(); } };
       ws.addEventListener('message', on); setTimeout(r, 15000);
     });
-    await sleep(2200);
+    const settled = await rpc(ws, 'Runtime.evaluate',
+      { expression: SETTLE, awaitPromise: true, returnByValue: true });
 
     let note = '';
     if (s.act) {
       const r = await rpc(ws, 'Runtime.evaluate', { expression: s.act, returnByValue: true });
       note = String(r.result?.value ?? '');
-      await sleep(1800);
+      await rpc(ws, 'Runtime.evaluate',
+        { expression: SETTLE, awaitPromise: true, returnByValue: true });
     }
 
     const shot = await rpc(ws, 'Page.captureScreenshot',
@@ -145,12 +177,17 @@ function rpc(ws, method, params = {}) {
     const buf = Buffer.from(shot.data, 'base64');
     writeFileSync(join(OUT, s.f), buf);
     const dim = `${buf.readUInt32BE(16)}×${buf.readUInt32BE(20)}`;
+    /* ★덜 그려진 그림을 «통과»시키지 않는다.
+       화면 하나가 창 높이(1000px)도 못 채우면 뭔가 안 올라온 것이다. */
+    const tall = buf.readUInt32BE(20);
+    if (tall < 1100) problems.push('높이 ' + tall + 'px — 내용이 덜 그려진 듯');
     const quiet = problems.length === 0;
     if (!quiet) noisy += problems.length;
     console.log(`  ${quiet ? '✅' : '❌'} ${s.f.padEnd(18)} ${dim.padEnd(11)} ` +
       `${String(Math.round(buf.length / 1024)).padStart(4)} KB` + (note ? `  [${note}]` : ''));
     for (const p of [...new Set(problems)]) console.log(`       ★${p}`);
-    manifest.push({ file: s.f, title: s.t, url: s.u, size: dim, clean: quiet });
+    manifest.push({ file: s.f, title: s.t, url: s.u, size: dim, clean: quiet,
+      settled: String(settled.result?.value ?? '') });
 
     ws.close();
     await fetch(`http://127.0.0.1:${PORT}/json/close/${tgt.id}`).catch(() => {});
