@@ -225,10 +225,19 @@ function renderTrace(run) {
 }
 
 // ── 승인
+// ★2026-09-10 — 필드를 «묶었다».
+//   14개가 아무 구분 없이 세로로 쌓여 있으면 «무엇을 확인해야 하는지»가 안 보인다.
+//   확인하는 «성격»이 다르다 — 이 작품이 맞나 / 사실이 맞나 / 쓸 수 있나 / 글이 맞나.
+//   '@' 로 시작하는 행은 «구분 머리»다. data-k 가 없으므로 값 수집에 섞이지 않는다.
 const FIELDS = [
+  ['@', '이 작품이 맞나', '틀리면 아래가 전부 틀린다'],
   ['title', '한국어 제목', 1], ['origTitle', '원제', 1], ['artist', '작가', 1],
+  ['@', '작품 정보', '공개 데이터에서 캔 것'],
   ['inception', '제작 시기', 1], ['material', '매체', 1], ['collection', '소장처', 1],
-  ['era', '사조', 1], ['people', '등장인물', 1], ['license', '라이선스', 1],
+  ['era', '사조', 1], ['people', '등장인물', 1],
+  ['@', '쓸 수 있나', '불명이면 게이트가 막는다'],
+  ['license', '라이선스', 1],
+  ['@', '해설 초안', '모델이 쓴 글 — 사실은 위에서 확인한 것만'],
   ['sections.meta', '해설 · 기본정보', 2], ['sections.description', '해설 · 작품', 2],
   ['sections.myth', '해설 · 신화 배경', 2], ['sections.insight', '해설 · 감상 포인트', 2],
 ];
@@ -259,6 +268,11 @@ function renderApprove(run) {
   const card = el('div', 'card');
   card.innerHTML = '<h2>필드 확인 <span class="hint">값을 고칠 수 있습니다. 고친 것은 트레이스에 남습니다</span></h2>';
   for (const [key, label, kind] of FIELDS) {
+    if (key === '@') {                       // ★구분 머리 — 값이 아니다
+      card.appendChild(el('div', 'fgroup',
+        `${esc(label)}<span>${esc(kind || '')}</span>`));
+      continue;
+    }
     const v = get(d, key);
     const row = el('div', 'field');
     const val = Array.isArray(v) ? v.join(', ') : (v ?? '');
