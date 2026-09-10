@@ -15,7 +15,7 @@
  *           (기본 http://127.0.0.1:8898)
  */
 import { spawn } from 'node:child_process';
-import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
+import { mkdirSync, writeFileSync, existsSync, rmSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -158,6 +158,16 @@ function rpc(ws, method, params = {}) {
 
   writeFileSync(join(OUT, 'INDEX.json'), JSON.stringify(manifest, null, 2) + '\n');
   chrome.kill();
+
+  /* ★자기가 만든 것은 자기가 치운다.
+     크롬 프로파일이 «돌릴 때마다» 60~70MB 씩 쌓인다. 아무도 안 지운다.
+     실사고 2026-09-10 — 이걸 세 번 돌리는 사이 C: 가 100%(남은 12MB)까지 찼다.
+     스크립트가 남긴 쓰레기는 스크립트가 치우는 게 맞다. */
+  await sleep(800);
+  try { rmSync(prof, { recursive: true, force: true, maxRetries: 5 });
+    console.log('임시 프로파일 정리함'); }
+  catch { console.log('⚠임시 프로파일이 남았습니다 — ' + prof); }
+
   console.log('\n' + '='.repeat(62));
   console.log(`${manifest.length}장 · docs/screens/INDEX.json 에 목록`);
   if (noisy) {
