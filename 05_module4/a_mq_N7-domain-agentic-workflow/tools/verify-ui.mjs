@@ -141,6 +141,22 @@ const hard = [...body.matchAll(/#[0-9A-Fa-f]{6}\b/g)].map((m) => m[0]);
 ok('토큰 밖에 하드코딩 색이 없다', hard.length === 0,
   hard.length ? '★' + [...new Set(hard)].join(', ') : '');
 
+// ── ⑨ ★DESIGN.md 가 말한 브레이크포인트가 CSS 에 «실제로» 있는가 ──
+//   실측 2026-09-10 — §7 에 720·860 을 적었는데 CSS 에 없는 숫자였다.
+//   머리로 「대충 이쯤」 하고 적으면 문서가 코드를 지어낸다.
+console.log('\n■ 9. 문서가 말한 브레이크포인트가 CSS 에 있는가');
+const design = read('DESIGN.md');
+const sec7 = design.slice(design.indexOf('## 7. 레이아웃'), design.indexOf('## 8.'));
+// ★«@media 안»의 숫자만 브레이크포인트다.
+//   그냥 (min|max)-width 를 다 잡으면 .wrap 의 max-width:1160px 같은
+//   «컨테이너 폭»까지 브레이크포인트로 오인한다 (실측으로 걸렸다).
+const claimed = [...new Set([...sec7.matchAll(/@media[^)]*?(?:min|max)-width:\s*(\d+)px/g)].map((m) => m[1]))];
+const realBp = new Set([...css.matchAll(/@media[^{]*?(?:min|max)-width:\s*(\d+)px/g)].map((m) => m[1]));
+const invented = claimed.filter((b) => !realBp.has(b));
+ok(`문서의 브레이크포인트 ${claimed.length}개가 CSS 에 있음`, invented.length === 0,
+  invented.length ? '★CSS 에 없는 숫자: ' + invented.join(', ') + 'px'
+    : '실제 ' + [...realBp].sort((a, b) => a - b).join(' / ') + 'px');
+
 console.log('\n' + '='.repeat(62));
 console.log(`통과 ${pass} · 실패 ${fail}`);
 process.exit(fail ? 1 : 0);
