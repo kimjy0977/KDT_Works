@@ -3,42 +3,48 @@
     "file": "01-실행.png",
     "title": "실행 — 무엇을 하는 서비스인지, 어떻게 도는지, 어디서 멈추는지",
     "url": "/",
-    "size": "1440×2217",
-    "clean": true
+    "size": "1440×2147",
+    "clean": true,
+    "settled": "2147:0img"
   },
   {
     "file": "02-트레이스.png",
     "title": "트레이스 — 어느 도구를 왜 불렀고 무엇이 돌아왔나 (단계별 소요·워터폴)",
     "url": "/?run=3&tab=trace",
     "size": "1440×1909",
-    "clean": true
+    "clean": true,
+    "settled": "1909:1img"
   },
   {
     "file": "03-승인.png",
     "title": "사람 승인 — 되돌리기 어려운 작업 «앞»에서 멈춘 화면",
     "url": "/?run=3&tab=approve",
-    "size": "1440×2389",
-    "clean": true
+    "size": "1440×2600",
+    "clean": true,
+    "settled": "2600:1img"
   },
   {
     "file": "04-결과.png",
     "title": "결과 — 승인 뒤 확정된 등재 레코드 (사람이 읽는 것 먼저)",
     "url": "/?run=3&tab=approve",
     "size": "1440×2645",
-    "clean": true
+    "clean": true,
+    "settled": "2600:1img"
   },
   {
     "file": "05-평가.png",
     "title": "평가 — 40문항 × 5세팅. 잘 된 것보다 «어디를 믿으면 안 되는지»",
     "url": "/?tab=eval",
     "size": "1440×3588",
-    "clean": true
+    "clean": true,
+    "settled": "3588:0img"
   },
   {
     "file": "06-문서.png",
     "title": "문서 — 도구 8종의 입출력 스키마와 권한",
     "url": "/?tab=about",
     "size": "1440×1527",
-    "clean": true
+    "clean": true,
+    "settled": "1527:0img"
   }
 ]
