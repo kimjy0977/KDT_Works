@@ -12,7 +12,25 @@
 
 ---
 
-## 실행
+## ★설치 없이 보기 — 배포된 «데모 재생»
+
+| | |
+|---|---|
+| 신화 이야기 | [`cardnews/demo/?demo=myth`](https://kimjy0977.github.io/KDT_Works/05_module4/a_mq_N7-domain-agentic-workflow/cardnews/demo/?demo=myth) |
+| AI 최신소식 | [`cardnews/demo/?demo=news`](https://kimjy0977.github.io/KDT_Works/05_module4/a_mq_N7-domain-agentic-workflow/cardnews/demo/?demo=news) |
+
+**키도 설치도 필요 없습니다.** 저장된 «실제» 실행을 단계별로 되감아 볼 수 있습니다.
+
+> **왜 재생인가** — 이 앱은 Claude CLI 를 프로세스로 부르고 로컬 글꼴로 PNG 를 그립니다.
+> 정적 호스팅에는 **실행할 프로세스가 없습니다.** 서버를 빌리면 되지만 그러면
+> **제 계정으로 아무나 태울 수 있습니다**(PRD: 키 노출 금지).
+> ⇒ 없는 것을 지어내지 않고, **있었던 것을 순서대로 드러냅니다.**
+> ⚠ 화면 코드는 **하나**입니다(`static/index.html` 사본). `?demo=` 가 붙으면 데이터 출처만 갈립니다.
+> 두 벌 유지하면 한쪽만 고쳐지고 반드시 어긋납니다.
+
+---
+
+## 직접 돌리기 (전 기능)
 
 ```bash
 pip install pillow
@@ -136,6 +154,7 @@ python app.py            # http://127.0.0.1:8765
 ```
 app.py         웹 서버 + API (표준 라이브러리만)
 myth.py        ★신화 모드 — 후보 세기·작가명 해석·그림 찾기 (MYTH-MODE.md)
+demo/          배포용 «데모 재생» (tools/build-demo.py 가 굽는다)
 workflow.py    조사 → 검증 → 스토리보드 (사람 개입 지점 셋)
 engine.py      Claude CLI 어댑터 · need_input 규약 · 세션 이어가기
 images.py      PD/CC 이미지 확보 + Pillow 렌더 (글자는 «따로»)
