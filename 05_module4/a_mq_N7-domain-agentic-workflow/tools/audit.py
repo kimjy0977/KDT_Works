@@ -26,6 +26,8 @@ import sys
 sys.stdout.reconfigure(encoding='utf-8')
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
+# ★실습은 «형제 폴더»로 갈라졌다 (노드7 6강: 1~5강 = 카드뉴스 «실습»)
+LAB = os.path.join(os.pardir, 'c_lab_N7-cardnews')
 
 FINDINGS = []           # (심각도, 갈래, 내용)
 def note(sev, kind, msg):
@@ -39,23 +41,38 @@ def read(p):
         return ''
 
 
+# ★감사 «범위» — 메인퀘와 실습이 형제 폴더로 갈렸다(2026-09-10).
+#   폴더를 가르자마자 감사가 c_lab 을 «안 보게» 됐고, 링크 검사가 31 → 23 으로
+#   «조용히» 줄었는데 그대로 «통과»했다. **범위가 줄어든 것을 통과로 읽으면 안 된다.**
+#   ⇒ 범위를 여기 한 곳에 두고, 몇 곳을 봤는지 «출력»한다.
+ROOTS = ['.', LAB]
+
+
 def walk(exts, skip_dirs=('node_modules', '.git', '__pycache__', 'engine')):
-    for r, ds, fs in os.walk('.'):
-        ds[:] = [d for d in ds if d not in skip_dirs and not d.startswith('p-')]
-        if '/data/p-' in r.replace(os.sep, '/'):
+    for root in ROOTS:
+        if not os.path.isdir(root):
+            note('★', '감사범위', '감사 범위에 없는 폴더 — %s' % root)
             continue
-        for f in fs:
-            if f.endswith(exts):
-                yield os.path.join(r, f).replace(os.sep, '/').lstrip('./')
+        for r, ds, fs in os.walk(root):
+            ds[:] = [d for d in ds if d not in skip_dirs and not d.startswith('p-')]
+            if '/data/p-' in r.replace(os.sep, '/'):
+                continue
+            for f in fs:
+                if f.endswith(exts):
+                    yield os.path.join(r, f).replace(os.sep, '/').lstrip('./')
 
 
 # ═══════════ A. 문서 ↔ 구현 ═══════════
 print('=' * 62)
+print('감사 범위 — %d 폴더' % len(ROOTS))
+for r in ROOTS:
+    print('  %-34s %s' % (os.path.abspath(r)[-34:], '있음' if os.path.isdir(r) else '★없음'))
+print('=' * 62)
 print('A. 문서 ↔ 구현')
 print('=' * 62)
 
-spec = read('cardnews/API_SPEC.md')
-app = read('cardnews/app.py')
+spec = read(LAB + '/API_SPEC.md')
+app = read(LAB + '/app.py')
 # API_SPEC 이 표에 적은 엔드포인트를 뽑는다
 declared = set(re.findall(r'`(?:GET|POST|DELETE|PUT)\s+(/api/[^`]+)`', spec))
 declared |= set(re.findall(r'\|\s*(?:GET|POST|DELETE|PUT)\s*\|\s*`([^`]+)`', spec))
@@ -113,7 +130,7 @@ print('\n' + '=' * 62)
 print('C. 배포 자산 — 화면이 부르는 파일이 있는가')
 print('=' * 62)
 missing = 0
-for html, base in [('index.html', '.'), ('cardnews/demo/index.html', 'cardnews/demo')]:
+for html, base in [('index.html', '.'), (LAB + '/demo/index.html', LAB + '/demo')]:
     # ★<script> 를 걷어내고 본다. 실측 2026-09-10 — JS 템플릿 문자열 안의
     #   src="' + cardSrc(c) + '" 를 «정적 참조»로 오인해 거짓 양성 7건이 났다.
     #   검사기가 틀렸지 코드가 틀린 게 아니었다.
@@ -130,14 +147,14 @@ for html, base in [('index.html', '.'), ('cardnews/demo/index.html', 'cardnews/d
     print('  %-28s 참조 %d개' % (html, len(refs)))
 # 데모가 fetch 하는 것
 for name in ('news', 'myth'):
-    for p in ('cardnews/demo/runs/%s.json' % name,
-              'cardnews/demo/runs/%s-manifest.json' % name):
+    for p in (LAB + '/demo/runs/%s.json' % name,
+              LAB + '/demo/runs/%s-manifest.json' % name):
         if not os.path.exists(p):
             missing += 1
             note('★', '배포', '데모가 부르는 %s 가 없다' % p)
-    st = json.loads(read('cardnews/demo/runs/%s.json' % name) or '{}')
+    st = json.loads(read(LAB + '/demo/runs/%s.json' % name) or '{}')
     for c in st.get('cards', []):
-        p = 'cardnews/demo/runs/%s-cards/card-%02d.jpg' % (name, c['n'])
+        p = LAB + '/demo/runs/%s-cards/card-%02d.jpg' % (name, c['n'])
         if not os.path.exists(p):
             missing += 1
             note('★', '배포', '데모 카드 없음 — %s' % p)
@@ -272,8 +289,10 @@ print('=' * 62)
 BASE = 'https://kimjy0977.github.io/KDT_Works/05_module4/a_mq_N7-domain-agentic-workflow'
 PATHS = ['/', '/app/style.css', '/app/ui.js', '/app/agent.js', '/app/tools.js',
          '/data/works-index.json', '/results/demo-runs.json',
-         '/cardnews/demo/', '/cardnews/demo/runs/myth.json', '/cardnews/demo/runs/news.json',
-         '/cardnews/demo/runs/myth-cards/card-01.jpg']
+         '/../c_lab_N7-cardnews/demo/',
+         '/../c_lab_N7-cardnews/demo/runs/myth.json',
+         '/../c_lab_N7-cardnews/demo/runs/news.json',
+         '/../c_lab_N7-cardnews/demo/runs/myth-cards/card-01.jpg']
 import urllib.request
 for u in PATHS:
     try:
