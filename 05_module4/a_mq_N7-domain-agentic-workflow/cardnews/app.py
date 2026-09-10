@@ -168,6 +168,13 @@ def api(handler, method, path, body, query):
                 return 200, _export(pid)
             return 400, {'error': 'bad_stage'}
 
+        # ★취소 — PRD 는 `/api/runs/{id}/cancel` 이라 적었지만 이 앱의 자원은
+        #   «프로젝트»다. 경로를 자원에 맞췄고 그 차이를 API_SPEC 에 적어 뒀다.
+        if tail == 'cancel' and method == 'POST':
+            def run():
+                return workflow.cancel(pid)
+            return 200, _idem(pid, body, {'op': 'cancel'}, run)
+
         if tail == 'revisions' and method == 'POST':
             n = body.get('cardNo')
             if not n:
