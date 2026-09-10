@@ -398,7 +398,7 @@ Claude Desktop 설정(`claude_desktop_config.json`):
 PRD.md              기획 문서
 EVALUATION.md       평가 결과와 실패 분석
 index.html          화면
-app/tools.js        도구 6종 (스키마·설명·실패 규칙)
+app/tools.js        도구 8종 (스키마·설명·실패 규칙) — 읽기 6 · 쓰기 2
 app/agent.js        에이전트 루프 · 상태 · 종료 조건 · 승인 게이트
 app/llm.js          모델 백엔드 4종
 app/ui.js           5탭 화면

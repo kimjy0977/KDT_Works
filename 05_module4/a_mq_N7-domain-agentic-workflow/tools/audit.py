@@ -167,9 +167,14 @@ print('=' * 62)
 idx = json.loads(read('data/works-index.json') or '[]')
 facts = {'아카이브 점수': len(idx), 'CURATOR 도구': n_tools}
 docs = ' '.join(read(p) for p in walk('.md'))
+# ★손으로 적은 숫자는 «반드시» 어긋난다. 화면에 「도구 6종」이라 박혀 있는데
+#   실제로 8종이었다(2026-09-10 발견). 주장하는 숫자를 여기 모아 «센다».
+n_write = len(re.findall(r'writes:\s*true', tools_js))
 claims = [
     ('982점', len(idx), 982),
     ('도구 8종', n_tools, 8),
+    ('읽기 6', n_tools - n_write, 6),
+    ('쓰기 2', n_write, 2),
 ]
 for label, actual, claimed in claims:
     said = label in docs
@@ -289,21 +294,23 @@ print('=' * 62)
 BASE = 'https://kimjy0977.github.io/KDT_Works/05_module4/a_mq_N7-domain-agentic-workflow'
 PATHS = ['/', '/app/style.css', '/app/ui.js', '/app/agent.js', '/app/tools.js',
          '/data/works-index.json', '/results/demo-runs.json',
-         '/../c_lab_N7-cardnews/demo/',
-         '/../c_lab_N7-cardnews/demo/runs/myth.json',
-         '/../c_lab_N7-cardnews/demo/runs/news.json',
-         '/../c_lab_N7-cardnews/demo/runs/myth-cards/card-01.jpg']
+         ]
+# ★실습은 «형제 폴더»라 배포 URL 의 뿌리가 다르다. 따로 잰다.
+LAB_BASE = 'https://kimjy0977.github.io/KDT_Works/05_module4/c_lab_N7-cardnews'
+LAB_PATHS = ['/demo/', '/demo/runs/myth.json', '/demo/runs/news.json',
+             '/demo/runs/myth-cards/card-01.jpg']
 import urllib.request
-for u in PATHS:
+for base, u in [(BASE, x) for x in PATHS] + [(LAB_BASE, x) for x in LAB_PATHS]:
     try:
-        r = urllib.request.urlopen(BASE + u, timeout=30)
+        r = urllib.request.urlopen(base + u, timeout=30)
         code, n = r.status, len(r.read())
     except Exception as e:
         code, n = getattr(e, 'code', 0), 0
     ok = code == 200 and n > 0
-    print('    %-44s %s %d bytes' % (u, code, n))
+    tag = 'lab' if base is LAB_BASE else 'mq '
+    print('    [%s] %-40s %s %d bytes' % (tag, u, code, n))
     if not ok:
-        note('★', '배포', '%s → HTTP %s' % (u, code))
+        note('★', '배포', '%s%s → HTTP %s' % (base[-22:], u, code))
 
 # ═══════════ 요약 ═══════════
 print('\n' + '=' * 62)
