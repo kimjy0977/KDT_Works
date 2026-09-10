@@ -389,35 +389,131 @@ function renderApproveCurate(run, d, g, box) {
 // ── 결과
 function renderResult(run) {
   const box = $('#result'); box.innerHTML = '';
-  if (!run?.record) {
-    box.innerHTML = '<div class="card"><p class="note">아직 등재된 결과물이 없습니다.</p></div>';
+  if (!run || !run.record) {
+    box.innerHTML = '<div class="card"><p class="note">아직 확정된 결과물이 없습니다.</p></div>';
     return;
   }
   const r = run.record;
-  const c = el('div', 'card');
-  c.innerHTML = `<h2>등재 레코드 <span class="badge ok">사람이 승인함</span></h2>
-    <p class="note">에이전트가 «끝냈다»고 말하는 것과 결과물이 실제로 만들어진 것은 다릅니다. 아래가 실물입니다.</p>
-    <p class="warn">★<b>여기까지가 이 서비스의 몫입니다.</b>
-      이 JSON 은 <b>공개 아카이브에 «자동으로 들어가지 않습니다».</b>
-      내려받아 아카이브에 넣는 것은 <b>사람</b>이 합니다.<br>
-      <span class="note">지금 이 레코드는 <b>브라우저에만</b>(localStorage · 최근 20건) 있습니다.
-      서버도 데이터베이스도 없습니다. 남기려면 아래에서 내려받으세요.</span></p>
-    <pre>${esc(JSON.stringify(r, null, 1))}</pre>`;
-  const a = el('div', 'actions');
-  const dl = el('button', 'primary', 'JSON 내려받기');
-  dl.onclick = () => {
-    const blob = new Blob([JSON.stringify(r, null, 1)], { type: 'application/json' });
+  const isExhibition = Array.isArray(r.sections);
+
+  // ★사람이 읽는 것을 «먼저». JSON 은 접어서 아래로.
+  //   PRD 의 2차 유저(소규모 아카이브·전시 기획자)는 개발자가 아닐 수 있다.
+  //   화면 맨 위의 중괄호 덩어리는 그 사람에게 「이게 뭐지」로 끝난다.
+  const FIELD_LABELS = [
+    ['title', '한국어 제목'], ['origTitle', '원제'], ['artist', '작가'],
+    ['inception', '제작 시기'], ['material', '매체'], ['collection', '소장처'],
+    ['era', '사조'], ['people', '등장인물'], ['license', '라이선스'],
+  ];
+  const SEC_LABELS = { meta: '기본정보', description: '작품 해설', myth: '신화 배경', insight: '감상 포인트' };
+
+  if (!isExhibition) {
+    // ── ① 등재할 내용 — 표로
+    const head = el('div', 'card');
+    head.innerHTML = `<h2>등재할 내용 <span class="badge ok">사람이 승인함</span></h2>
+      <p class="warn">★<b>여기까지가 이 서비스의 몫입니다.</b>
+        이 내용은 <b>공개 아카이브에 «자동으로 들어가지 않습니다».</b>
+        아래에서 내려받아 아카이브에 넣는 것은 <b>사람</b>이 합니다.<br>
+        <span class="note">지금 이 레코드는 <b>브라우저에만</b>(localStorage · 최근 20건) 있습니다.
+        서버도 데이터베이스도 없습니다.</span></p>
+      <div class="tw"><table><tbody>` +
+      FIELD_LABELS.map(([k, lab]) => {
+        const v = Array.isArray(r[k]) ? r[k].join(', ') : (r[k] || '');
+        return `<tr><th style="width:120px">${lab}</th><td>${v ? esc(v)
+          : '<span class="note">비어 있습니다 — 자료에서 확정하지 못했습니다</span>'}</td></tr>`;
+      }).join('') + `</tbody></table></div>`;
+    box.appendChild(head);
+
+    // ── ② 해설 4단 — 사람이 읽는 본문
+    if (r.sections && !Array.isArray(r.sections)) {
+      const s2 = el('div', 'card');
+      s2.innerHTML = '<h2>해설 초안 <span class="hint">그대로 쓰지 말고 «확인한 사실»로 다듬어 쓰세요</span></h2>' +
+        Object.entries(r.sections).map(([k, v]) =>
+          `<h3>${esc(SEC_LABELS[k] || k)}</h3><p>${esc(v)}</p>`).join('');
+      box.appendChild(s2);
+    }
+
+    // ── ③ 근거 · 이미지
+    if ((r.sources && r.sources.length) || r.imageUrl) {
+      const s3 = el('div', 'card');
+      s3.innerHTML = '<h2>근거 <span class="hint">각 사실이 어디서 왔는가</span></h2>' +
+        ((r.sources && r.sources.length)
+          ? '<ul class="links">' + r.sources.map((u) =>
+              `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a></li>`).join('') + '</ul>'
+          : '<p class="note">근거 링크가 없습니다.</p>') +
+        (r.imageUrl ? `<h3>이미지</h3>
+          <img src="${esc(r.imageUrl)}" alt="" style="max-width:100%;max-height:280px;border-radius:8px">
+          <p class="note" style="word-break:break-all">${esc(r.imageUrl)}</p>` : '');
+      box.appendChild(s3);
+    }
+  }
+
+  // ── ④ 내려받기 — «누구에게 쓸모 있는지»를 적는다
+  const dl = el('div', 'card');
+  dl.innerHTML = `<h2>가져가기 <span class="hint">쓰는 곳에 맞는 형식을 고르세요</span></h2>
+    <div class="tw"><table><tbody>
+      <tr><th style="width:120px">Markdown</th><td><b>사람이 읽고 붙여 넣는 용</b> —
+        노션·워드·블로그에 그대로 붙습니다. <b>JSON 을 몰라도 됩니다.</b></td></tr>
+      <tr><th>JSON</th><td>아카이브·스프레드시트에 <b>기계로 넣을 때</b>. 필드 이름이 그대로 살아 있습니다.</td></tr>
+      <tr><th>복사</th><td>파일을 만들지 않고 <b>클립보드로</b> 바로.</td></tr>
+    </tbody></table></div>`;
+  const acts = el('div', 'actions');
+
+  const toMarkdown = () => {
+    if (isExhibition) {
+      const bySlug = Object.fromEntries(archive.map((x) => [x.slug, x]));
+      return `# ${r.title || '전시'}\n\n${r.statement || ''}\n\n` +
+        (r.sections || []).map((sec) => `## ${sec.name}\n\n${sec.wallText || ''}\n\n` +
+          (sec.works || []).map((slug) => {
+            const w = bySlug[slug];
+            return `- ${w ? `${w.title} — ${w.artist || ''} (${w.era || ''})` : slug}`;
+          }).join('\n')).join('\n\n') + '\n';
+    }
+    let m = `# ${r.title || ''}${r.origTitle ? ` (${r.origTitle})` : ''}\n\n`;
+    m += FIELD_LABELS.filter(([k]) => k !== 'title' && k !== 'origTitle')
+      .map(([k, lab]) => `- **${lab}**: ${Array.isArray(r[k]) ? r[k].join(', ') : (r[k] || '—')}`).join('\n');
+    if (r.sections && !Array.isArray(r.sections)) {
+      m += '\n\n' + Object.entries(r.sections)
+        .map(([k, v]) => `## ${SEC_LABELS[k] || k}\n\n${v}`).join('\n\n');
+    }
+    if (r.sources && r.sources.length) {
+      m += '\n\n## 근거\n\n' + r.sources.map((u) => `- ${u}`).join('\n');
+    }
+    if (r.imageUrl) m += `\n\n## 이미지\n\n${r.imageUrl}`;
+    m += `\n\n---\n\n*확정 ${r.emittedAt || ''} · CURATOR 가 만든 초안입니다. 사실은 위 근거로 확인하세요.*\n`;
+    return m;
+  };
+
+  const save = (text, ext, mime) => {
+    const name = `record-${String(r.origTitle || r.title || 'work').replace(/\W+/g, '-').slice(0, 40)}.${ext}`;
+    const blob = new Blob([text], { type: mime });
     const u = URL.createObjectURL(blob);
     const a2 = document.createElement('a');
-    a2.href = u; a2.download = `record-${(r.origTitle || 'work').replace(/\W+/g, '-').slice(0, 40)}.json`;
+    a2.href = u; a2.download = name;
     document.body.appendChild(a2); a2.click(); a2.remove(); URL.revokeObjectURL(u);
   };
-  a.appendChild(dl);
-  c.appendChild(a);
-  box.appendChild(c);
 
-  if (Array.isArray(r.sections)) {
-    // 큐레이션 결과 — 전시를 «걸린 그대로» 보여 준다
+  const bMd = el('button', 'primary', 'Markdown 내려받기');
+  bMd.onclick = () => save(toMarkdown(), 'md', 'text/markdown;charset=utf-8');
+  const bJson = el('button', 'ghost', 'JSON 내려받기');
+  bJson.onclick = () => save(JSON.stringify(r, null, 1), 'json', 'application/json');
+  const bCopy = el('button', 'ghost', '클립보드에 복사');
+  bCopy.onclick = async () => {
+    try {
+      await navigator.clipboard.writeText(toMarkdown());
+      bCopy.textContent = '복사됨 ✓';
+      setTimeout(() => { bCopy.textContent = '클립보드에 복사'; }, 1800);
+    } catch (e) {
+      // ★실패를 «성공한 척» 하지 않는다. 브라우저가 막을 수 있다.
+      bCopy.textContent = '복사 실패 — 내려받기를 쓰세요';
+      setTimeout(() => { bCopy.textContent = '클립보드에 복사'; }, 2600);
+    }
+  };
+  acts.append(bMd, bJson, bCopy);
+  dl.appendChild(acts);
+  box.appendChild(dl);
+
+  // ── ⑤ 전시 결과 (큐레이션) — 걸린 그대로
+  if (isExhibition) {
     const bySlug = Object.fromEntries(archive.map((x) => [x.slug, x]));
     const s = el('div', 'card');
     s.innerHTML = `<h2>${esc(r.title)} <span class="hint">${r.workCount}점 · ${r.sections.length}구획</span></h2>` +
@@ -427,18 +523,18 @@ function renderResult(run) {
         '<div class="tw"><table><tbody>' + (sec.works || []).map((slug) => {
           const w = bySlug[slug];
           return `<tr><td>${w ? `<a href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.title)}</a>` : esc(slug)}</td>
-            <td>${esc(w?.artist || '')}</td><td>${esc(w?.mythKo || '')}</td><td>${esc(w?.era || '')}</td></tr>`;
+            <td>${esc((w && w.artist) || '')}</td><td>${esc((w && w.mythKo) || '')}</td><td>${esc((w && w.era) || '')}</td></tr>`;
         }).join('') + '</tbody></table></div>').join('');
     box.appendChild(s);
-  } else if (r.sections) {
-    const s = el('div', 'card');
-    s.innerHTML = '<h2>해설 4단</h2>' + Object.entries(r.sections)
-      .map(([k, v]) => `<h3>${esc({ meta: '기본정보', description: '작품 해설', myth: '신화 배경', insight: '감상 포인트' }[k] || k)}</h3><p>${esc(v)}</p>`).join('');
-    box.appendChild(s);
   }
+
+  // ── ⑥ 원본 JSON — «접어서» 아래로. 필요한 사람만 편다.
+  const raw = el('details', 'card');
+  raw.innerHTML = `<summary><b>원본 JSON</b> <span class="hint">기계가 읽는 형태 — 개발자·채점자용</span></summary>
+    <pre>${esc(JSON.stringify(r, null, 1))}</pre>`;
+  box.appendChild(raw);
 }
 
-// ── 지난 실행
 function renderHistory() {
   const runs = loadRuns();
   const box = $('#history');
