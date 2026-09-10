@@ -212,7 +212,13 @@ export function normalize(p) {
   }
   if (t === 'stop' || t === 'abort' || t === 'give_up') {
     const a = p.action.args || {};
-    return { thought: p.thought, stop: { reason: a.reason || 'other', detail: a.detail || '' } };
+    // ★detail 이 비면 «왜 멈췄는지»가 통째로 사라진다.
+    //   실측 2026-09-10 — 평가 174건 중 15건이 reason='other', detail='' 로
+    //   떨어져 「기타」로만 분류됐다. 무엇 때문에 멈췄는지 아무도 모른다.
+    //   모델은 thought 를 같이 보낸다. 그걸 쓰면 «왜»가 남는다.
+    return { thought: p.thought,
+      stop: { reason: a.reason || 'other',
+              detail: a.detail || p.thought || '(모델이 사유를 남기지 않음)' } };
   }
   // {"tool":"...","args":{...}} 처럼 action 을 빠뜨린 경우도 받아 준다
   if (!p.action && !p.finish && !p.stop && p.tool) {
