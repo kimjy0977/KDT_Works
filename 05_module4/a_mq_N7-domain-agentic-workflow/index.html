@@ -34,34 +34,32 @@
 <main>
 <!-- ═══════════ ① 실행 ═══════════ -->
 <section id="tab-run" class="tab on">
-  <div class="card">
-    <h2>무엇을 하는 서비스인가</h2>
-    <p>그림 한 점의 <b>제목과 작가</b>만 주면, 에이전트가 공개 데이터에서 사실을 캐고
-      <b>라이선스를 판정</b>하고 <b>중복 등재를 확인</b>한 뒤 한국어 해설 초안까지 만들어
-      <b>사람의 승인 앞에</b> 갖다 놓습니다.</p>
-    <p class="warn"><b>승인 없이는 아무것도 등재되지 않습니다.</b> 등재 도구는 모델에게 보여 주지도 않고,
-      런타임이 승인 상태를 검사합니다.</p>
-    <h3>★무엇이 «나오는가» — 정확히</h3>
-    <p>이 서비스가 만들어 내는 것은 <b>등재 레코드 JSON 한 건</b>입니다.
-      <b>공개 아카이브에 «자동으로 써 넣지 않습니다».</b>
-      승인하면 레코드가 확정되고, <b>④ 결과</b> 탭에서 내려받아 아카이브에 넣는 것은 <b>사람</b>이 합니다.</p>
-    <p class="note">⛔<b>일부러 그렇게 했습니다.</b> 이 페이지는 «공개 배포본»입니다.
-      여기에 실제 아카이브 쓰기 권한을 넣으면 <b>링크를 아는 누구나 남의 아카이브에 쓸 수 있게</b> 됩니다.
-      되돌리기 어려운 쓰기는 <b>공개 화면 뒤에 두지 않습니다.</b></p>
+  <div class="hero">
+    <span class="kicker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg> 모듈4 메인 퀘스트 · 내 도메인 워크플로</span>
+    <h1>그림 한 점의 <em>제목과 작가</em>만 주면,<br>등재 준비를 끝까지 해 둡니다.</h1>
+    <p class="lede">공개 데이터에서 <b>사실을 캐고</b>, <b>라이선스를 판정</b>하고,
+      <b>중복 등재를 확인</b>한 뒤 한국어 해설 초안까지 만들어
+      <b>사람의 승인 앞에</b> 갖다 놓습니다.
+      한 점당 <b>70~140분</b> 걸리던 일에서 «찾아다니는 부분»만 덜어 냅니다.</p>
+    <div class="gate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      <p><b>승인 없이는 아무것도 확정되지 않습니다.</b>
+        쓰기 도구는 모델에게 <b>보여 주지도 않고</b>, 런타임이 승인 상태를 검사합니다.</p></div>
+    <div class="flow">
+      <div class="fs"><span class="n">01</span><b>동정</b><span>Wikidata 의 어느 작품인지 확정</span></div>
+      <div class="fs"><span class="n">02</span><b>사실 수집</b><span>연도·매체·소장처·사조·인물</span></div>
+      <div class="fs"><span class="n">03</span><b>라이선스</b><span>이미지 저작권 판정 — 불명이면 중단</span></div>
+      <div class="fs"><span class="n">04</span><b>아카이브 대조</b><span>이미 등재된 작품인지</span></div>
+      <div class="fs"><span class="n">05</span><b>해설 초안</b><span>한국어 4단</span></div>
+      <div class="fs human"><span class="n">06</span><b>사람 승인</b><span>★여기서 멈춘다. 사람이 연다</span></div>
+      <div class="fs tail"><span class="n">07</span><b>레코드 확정</b><span>내려받아 쓴다</span></div>
+    </div>
+    <p class="note" style="margin-top:16px">★<b>나오는 것은 등재 레코드 한 건입니다.</b>
+      공개 아카이브에 «자동으로 써 넣지 않습니다» — <b>④ 결과</b> 탭에서 내려받아
+      아카이브에 넣는 것은 <b>사람</b>이 합니다.
+      <span class="hint">이 페이지는 공개 배포본이라, 되돌리기 어려운 쓰기를 뒤에 두지 않았습니다.</span></p>
   </div>
 
-  <div class="card">
-    <h2>실행 모드</h2>
-    <div class="modes" id="modes"></div>
-    <div id="modeCfg" class="modecfg"></div>
-  </div>
-
-  <div class="card">
-    <h2>워크플로 <span class="hint">루프·승인·트레이스는 그대로 쓰고 «규칙»만 갈아 끼웁니다</span></h2>
-    <div class="modes" id="workflows"></div>
-  </div>
-
-  <div class="card">
+  <div class="card primary">
     <h2 id="inputHead">작품 입력</h2>
     <div class="row" id="inputRow">
       <label id="lblTitle">제목 <span class="hint" id="hintTitle">원제(영문)가 한국어보다 훨씬 잘 맞습니다</span>
@@ -79,6 +77,17 @@
       <button id="btnResume" class="ghost" hidden>중단된 실행 이어하기</button>
       <span id="runNote" class="note"></span>
     </div>
+  </div>
+
+  <div class="card">
+    <h2>실행 모드</h2>
+    <div class="modes" id="modes"></div>
+    <div id="modeCfg" class="modecfg"></div>
+  </div>
+
+  <div class="card">
+    <h2>워크플로 <span class="hint">루프·승인·트레이스는 그대로 쓰고 «규칙»만 갈아 끼웁니다</span></h2>
+    <div class="modes" id="workflows"></div>
   </div>
 
   <div class="card" id="historyCard" hidden>
