@@ -434,6 +434,8 @@ function nextAction(s, busy) {
     t:'스토리보드를 만들 차례입니다', d:'검증 결과와 편집 판단을 바탕으로 카드 구성을 짭니다.' };
   if (s.storyboard && !s.storyboard.approved) return { kind:'act', lab:'사람 차례',
     t:'기획을 승인하면 제작을 시작합니다', d:'★승인 전에는 이미지 제작을 시작하지 않습니다.' };
+  if (s.status === 'cancelled') return { kind:'wait', lab:'중단됨', t:'사람이 작업을 끊었습니다',
+    d:'★<b>실패가 아닙니다.</b> 여기까지 만들어진 것은 그대로 남아 있습니다. 다시 시작할 수 있습니다.' };
   if (s.exports) return { kind:'done', lab:'완료', t:'카드가 준비됐습니다',
     d:'ZIP 과 출처 기록을 내려받을 수 있습니다.' };
   if (s.cards && s.cards.length) return { kind:'act', lab:'사람 차례', t:'카드를 검수하세요',
@@ -680,7 +682,9 @@ function busyBody(s) {
     '<span class="note">' + esc((last && (last.note || last.step)) || '진행 중') + '</span>' +
     '<span class="elapsed">' + mm + ':' + ss + '</span></div>' +
     '<div class="skel" style="width:100%"></div><div class="skel" style="width:76%"></div>' +
-    '<p class="tiny" style="margin:6px 0 0">웹 검색과 모델 호출은 <b>2~4분</b>까지 걸립니다. 창을 닫아도 작업은 계속되고, 다시 열면 이어집니다.</p></div>';
+    '<div class="row mid" style="margin-top:10px;justify-content:space-between">' +
+      '<span class="tiny">웹 검색과 모델 호출은 <b>2~4분</b>까지 걸립니다. 창을 닫아도 작업은 계속되고, 다시 열면 이어집니다.</span>' +
+      '<button class="small" onclick="cancelRun()">작업 취소</button></div></div>';
 }
 function demoControls() {
   return '<div style="margin-top:12px;border-top:1px solid var(--line);padding-top:10px">' +
@@ -723,6 +727,15 @@ async function approve(stage, v) {
   if (!poll) watch(); render();
 }
 async function widen() { await jpost('/api/projects/' + pid + '/research', { widen: true, requestId: rid() }); render(); }
+/** ★취소 — 「끊었다」가 사실인지까지 화면에 적는다.
+ *  자식 프로세스를 실제로 죽였는지(processKilled)를 그대로 보여 준다. */
+async function cancelRun() {
+  if (!confirm('돌고 있는 작업을 끊습니다.
+이미 만들어진 결과물은 지우지 않습니다. 계속할까요?')) return;
+  const r = await jpost('/api/projects/' + pid + '/cancel', { requestId: rid() });
+  if (!r.data.ok) alert(r.data.detail || r.data.reason || '취소하지 못했습니다');
+  render();
+}
 async function revise(n) {
   const r = await jpost('/api/projects/' + pid + '/revisions',
     { cardNo: n, title: $('#t' + n).value, body: $('#b' + n).value, requestId: rid() });

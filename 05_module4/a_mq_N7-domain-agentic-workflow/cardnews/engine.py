@@ -15,12 +15,67 @@ import json
 import os
 import re
 import shutil
+import signal
 import subprocess
 import sys
+import threading
 import time
 
 CLAUDE = shutil.which('claude') or shutil.which('claude.cmd')
 DEFAULT_TIMEOUT = 300
+
+# ════════════════════════════════════════════════════════════
+# 취소 — 돌고 있는 자식 프로세스를 «쥐고» 있는다
+#
+# ★subprocess.run 은 끝날 때까지 돌아오지 않는다. 핸들이 없으니 죽일 수도 없다.
+#   그래서 Popen 으로 바꾸고 토큰(=프로젝트 ID)으로 등록해 둔다.
+# ════════════════════════════════════════════════════════════
+_PROCS = {}                    # token -> Popen
+_CANCELLED = set()             # 취소 «신호»를 받은 토큰
+_PLOCK = threading.Lock()
+
+
+def _kill_tree(p):
+    """★자식의 «자식»까지 죽인다.
+
+    실측 2026-09-10 (Windows) — `claude` 는 `claude.CMD`(cmd.exe) 를 거쳐
+    `node` 를 띄운다. `p.kill()` 은 **cmd.exe 만** 죽이고 node 는 살아남는다.
+    그러면 「취소했습니다」라고 말해 놓고 실제로는 계속 돈다 —
+    **「요청을 보냈다 ≠ 파일이 생겼다」와 같은 종류의 거짓말**이다.
+    → Windows 는 `taskkill /T`(트리), 그 외는 프로세스 그룹에 신호.
+    """
+    try:
+        if os.name == 'nt':
+            subprocess.run(['taskkill', '/F', '/T', '/PID', str(p.pid)],
+                           capture_output=True, shell=False, timeout=20)
+        else:
+            os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+    except Exception:
+        try:
+            p.kill()
+        except Exception:
+            pass
+
+
+def cancel(token):
+    """돌고 있는 호출을 끊는다. 없으면 False — «없는데 있었다고» 하지 않는다."""
+    with _PLOCK:
+        _CANCELLED.add(token)
+        p = _PROCS.get(token)
+    if p is None:
+        return False
+    _kill_tree(p)
+    return True
+
+
+def clear_cancel(token):
+    with _PLOCK:
+        _CANCELLED.discard(token)
+
+
+def is_cancelled(token):
+    with _PLOCK:
+        return token in _CANCELLED
 
 
 _AVAIL = {'at': 0, 'val': None}
@@ -48,7 +103,7 @@ def _check():
     return {'ok': True, 'detail': '인증 확인됨', 'sessionId': r.get('sessionId')}
 
 
-def _run(args, timeout=DEFAULT_TIMEOUT, cwd=None, prompt=None):
+def _run(args, timeout=DEFAULT_TIMEOUT, cwd=None, prompt=None, token=None):
     """claude CLI 를 한 번 호출한다. 예외를 던지지 않고 «항상» dict 를 돌려준다.
 
     ★★프롬프트는 «stdin» 으로 넘긴다. 인자로 넘기지 않는다.
@@ -63,22 +118,47 @@ def _run(args, timeout=DEFAULT_TIMEOUT, cwd=None, prompt=None):
         return {'ok': False, 'reason': 'not_installed', 'detail': 'claude CLI 없음', 'ms': 0}
     cmd = [CLAUDE] + args + ['--output-format', 'json']
     t0 = time.time()
+    # ★Popen — 핸들을 «쥐고» 있어야 취소할 수 있다
     try:
-        if prompt is None:
-            p = subprocess.run(cmd, capture_output=True, timeout=timeout, cwd=cwd,
-                               stdin=subprocess.DEVNULL, shell=False)
-        else:
-            p = subprocess.run(cmd, capture_output=True, timeout=timeout, cwd=cwd,
-                               input=prompt.encode('utf-8'), shell=False)
-    except subprocess.TimeoutExpired:
-        return {'ok': False, 'reason': 'timeout',
-                'detail': '%d초 안에 답하지 않았습니다' % timeout, 'ms': int((time.time() - t0) * 1000)}
+        proc = subprocess.Popen(
+            cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            stdin=(subprocess.PIPE if prompt is not None else subprocess.DEVNULL),
+            cwd=cwd, shell=False,
+            **({} if os.name == 'nt' else {'start_new_session': True}))
     except Exception as e:
         return {'ok': False, 'reason': 'spawn_failed', 'detail': str(e), 'ms': 0}
 
+    if token:
+        with _PLOCK:
+            _PROCS[token] = proc
+    try:
+        try:
+            so, se = proc.communicate(
+                input=(prompt.encode('utf-8') if prompt is not None else None),
+                timeout=timeout)
+        except subprocess.TimeoutExpired:
+            _kill_tree(proc)
+            try:
+                proc.communicate(timeout=10)
+            except Exception:
+                pass
+            return {'ok': False, 'reason': 'timeout',
+                    'detail': '%d초 안에 답하지 않았습니다' % timeout,
+                    'ms': int((time.time() - t0) * 1000)}
+    finally:
+        if token:
+            with _PLOCK:
+                _PROCS.pop(token, None)
+
+    # ★취소로 죽은 것을 «실패»로 적지 않는다. 사람이 끊은 것은 오류가 아니다.
+    if token and is_cancelled(token):
+        return {'ok': False, 'reason': 'cancelled',
+                'detail': '사람이 작업을 취소했습니다',
+                'ms': int((time.time() - t0) * 1000)}
+
     ms = int((time.time() - t0) * 1000)
-    out = p.stdout.decode('utf-8', 'replace')
-    err = p.stderr.decode('utf-8', 'replace')
+    out = (so or b'').decode('utf-8', 'replace')
+    err = (se or b'').decode('utf-8', 'replace')
     # 경고 줄이 앞에 붙을 수 있으므로 «첫 { 부터» 판다
     i = out.find('{')
     if i < 0:
@@ -109,7 +189,7 @@ def _run(args, timeout=DEFAULT_TIMEOUT, cwd=None, prompt=None):
     }
 
 
-def ask(prompt, session_id=None, tools=None, timeout=DEFAULT_TIMEOUT, cwd=None):
+def ask(prompt, session_id=None, tools=None, timeout=DEFAULT_TIMEOUT, cwd=None, token=None):
     """엔진에 한 번 묻는다. session_id 를 주면 «같은 대화»를 이어간다."""
     args = ['-p']                       # ★값을 붙이지 않는다 — 프롬프트는 stdin 으로
     if session_id:
@@ -118,7 +198,7 @@ def ask(prompt, session_id=None, tools=None, timeout=DEFAULT_TIMEOUT, cwd=None):
         args += ['--resume', session_id]
     if tools:
         args += ['--allowedTools'] + list(tools)
-    return _run(args, timeout=timeout, cwd=cwd, prompt=prompt)
+    return _run(args, timeout=timeout, cwd=cwd, prompt=prompt, token=token)
 
 
 # ── 모델 응답 파싱 ─────────────────────────────────────────────

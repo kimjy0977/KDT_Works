@@ -20,6 +20,39 @@ import store
 _RUNNING = {}
 
 
+# ════════════════════════════════════════════════════════════
+# 취소 (PRD 의 「작업 취소 시 하위 작업 정리」)
+#
+# ★「정리」가 무슨 뜻인지 먼저 정했다
+#   ① 자식 프로세스를 «트리째» 죽인다 (engine._kill_tree)
+#   ② 스레드가 «다음 단계로 넘어가지 않게» 막는다
+#   ③ 상태를 cancelled 로 적는다 — ⛔실패가 아니다. 사람이 끊은 것이다.
+#   ④ ★이미 만들어진 결과물은 «지우지 않는다». 취소는 «되돌리기»가 아니다.
+#      후보 10개를 받아 놓고 검증을 끊었다면 후보는 남는다.
+# ════════════════════════════════════════════════════════════
+def cancel(pid):
+    """돌고 있는 작업을 끊는다. 무엇을 실제로 끊었는지 «그대로» 돌려준다."""
+    running = _RUNNING.get(pid)
+    killed = engine.cancel(pid)          # 자식 프로세스 — 없으면 False
+    if not running and not killed:
+        return {'ok': False, 'reason': 'not_running',
+                'detail': '돌고 있는 작업이 없습니다'}
+
+    def apply(st):
+        st['status'] = 'cancelled'
+        store.add_run(st, 'human', step='cancel',
+                      note='사람이 취소 · 자식 프로세스 %s' % ('종료함' if killed else '없었음'))
+    store.update(pid, apply)
+    _RUNNING.pop(pid, None)
+    return {'ok': True, 'runId': running, 'processKilled': killed,
+            'note': '이미 만들어진 결과물은 «지우지 않았습니다» — 취소는 되돌리기가 아닙니다'}
+
+
+def _abort(pid):
+    """스레드가 다음 단계로 넘어가기 «전»에 부른다. 끊겼으면 True."""
+    return engine.is_cancelled(pid)
+
+
 def _now_kst():
     return datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))
 
@@ -121,7 +154,7 @@ def _run_myth_research(pid):
                                                    note='색인에서 후보 %d개를 «셈»' % len(rows)),
                                      store.add_run(s, 'engine', step='research',
                                                    note='원전 확인 시작')))
-        r = engine.ask(prompt, session_id=st.get('sessionId'), cwd=store.engine_dir(pid),
+        r = engine.ask(prompt, session_id=st.get('sessionId'), cwd=store.engine_dir(pid), token=pid,
                        tools=['WebSearch', 'WebFetch'], timeout=420)
 
         def apply(s):
@@ -137,6 +170,10 @@ def _run_myth_research(pid):
                 for c in ((data.get('candidates') if isinstance(data, dict) else data) or []):
                     if c.get('id'):
                         said[c['id']] = c
+            elif r.get('reason') == 'cancelled':
+                s['status'] = 'cancelled'
+                store.add_run(s, 'system', step='research', note='취소로 중단 — 후보 목록은 남습니다')
+                return
             else:
                 store.add_error(s, 'research', r['reason'], r.get('detail'),
                                 retry='다시 조사하기 — 이야기 목록은 이미 있으니 요약만 다시 받습니다')
@@ -181,13 +218,20 @@ def run_research(pid, widen=False):
         store.update(pid, lambda s: (s.update({'status': 'researching', 'stage': 'research',
                                                'periodDays': days, 'searchedAt': now}),
                                      store.add_run(s, 'engine', step='research', note='웹 검색 시작')))
-        r = engine.ask(prompt, session_id=st.get('sessionId'), cwd=store.engine_dir(pid),
+        r = engine.ask(prompt, session_id=st.get('sessionId'), cwd=store.engine_dir(pid), token=pid,
                        tools=['WebSearch', 'WebFetch'], timeout=420)
 
         def apply(s):
             store.add_run(s, 'engine', step='research', ok=r['ok'], ms=r.get('ms'),
                           webSearches=r.get('webSearches'), costUsd=r.get('costUsd'),
                           reason=r.get('reason'))
+            if not r['ok'] and r.get('reason') == 'cancelled':
+                # ★사람이 끊은 것은 «실패»가 아니다. 오류 목록에 넣지 않는다.
+                #   화면에 「research 실패 — cancelled」라고 뜨면 끊은 사람에게
+                #   「당신 때문에 실패했다」고 말하는 셈이다.
+                s['status'] = 'cancelled'
+                store.add_run(s, 'system', step='research', note='취소로 중단 — 여기까지는 남습니다')
+                return
             if not r['ok']:
                 s['status'] = 'error'
                 store.add_error(s, 'research', r['reason'], r.get('detail'),
@@ -334,13 +378,20 @@ def run_deep(pid):
 
         store.update(pid, lambda s: (s.update({'status': 'researching', 'stage': 'deep'}),
                                      store.add_run(s, 'engine', step='deep', note='심층 검증 시작')))
-        r = engine.ask(prompt, session_id=st.get('sessionId'), cwd=store.engine_dir(pid),
+        r = engine.ask(prompt, session_id=st.get('sessionId'), cwd=store.engine_dir(pid), token=pid,
                        tools=['WebSearch', 'WebFetch'], timeout=420)
 
         def apply(s):
             store.add_run(s, 'engine', step='deep', ok=r['ok'], ms=r.get('ms'),
                           webSearches=r.get('webSearches'), costUsd=r.get('costUsd'),
                           reason=r.get('reason'))
+            if not r['ok'] and r.get('reason') == 'cancelled':
+                # ★사람이 끊은 것은 «실패»가 아니다. 오류 목록에 넣지 않는다.
+                #   화면에 「deep 실패 — cancelled」라고 뜨면 끊은 사람에게
+                #   「당신 때문에 실패했다」고 말하는 셈이다.
+                s['status'] = 'cancelled'
+                store.add_run(s, 'system', step='deep', note='취소로 중단 — 여기까지는 남습니다')
+                return
             if not r['ok']:
                 s['status'] = 'error'
                 store.add_error(s, 'deep', r['reason'], r.get('detail'), retry='심층 검증 다시')
@@ -465,11 +516,18 @@ def run_storyboard(pid, n_cards=5):
             prompt = STORY_PROMPT.format(audience=aud, fmt=ed.get('format') or '목록형', n=n_cards)
         store.update(pid, lambda s: (s.update({'status': 'researching', 'stage': 'storyboard'}),
                                      store.add_run(s, 'engine', step='storyboard', note='기획 시작')))
-        r = engine.ask(prompt, session_id=st.get('sessionId'), cwd=store.engine_dir(pid), timeout=300)
+        r = engine.ask(prompt, session_id=st.get('sessionId'), cwd=store.engine_dir(pid), token=pid, timeout=300)
 
         def apply(s):
             store.add_run(s, 'engine', step='storyboard', ok=r['ok'], ms=r.get('ms'),
                           costUsd=r.get('costUsd'), reason=r.get('reason'))
+            if not r['ok'] and r.get('reason') == 'cancelled':
+                # ★사람이 끊은 것은 «실패»가 아니다. 오류 목록에 넣지 않는다.
+                #   화면에 「storyboard 실패 — cancelled」라고 뜨면 끊은 사람에게
+                #   「당신 때문에 실패했다」고 말하는 셈이다.
+                s['status'] = 'cancelled'
+                store.add_run(s, 'system', step='storyboard', note='취소로 중단 — 여기까지는 남습니다')
+                return
             if not r['ok']:
                 s['status'] = 'error'
                 store.add_error(s, 'storyboard', r['reason'], r.get('detail'), retry='기획 다시')
@@ -499,11 +557,16 @@ def _spawn(pid, kind, work):
     if _RUNNING.get(pid):
         return {'ok': False, 'reason': 'already_running', 'detail': '이미 작업이 돌고 있습니다'}
     run_id = store.new_id('run')
+    engine.clear_cancel(pid)        # ★지난 취소 신호가 남아 새 작업을 죽이지 않게
     _RUNNING[pid] = run_id
 
     def guarded():
         try:
             work()
+            # ★취소로 끝났으면 «단계를 전진시키지 않는다».
+            #   work() 안의 apply 가 이미 ready 로 올려놨을 수 있다.
+            if engine.is_cancelled(pid):
+                store.update(pid, lambda st: st.update({'status': 'cancelled'}))
         except Exception as e:
             import traceback
             store.update(pid, lambda s: (s.update({'status': 'error'}),
