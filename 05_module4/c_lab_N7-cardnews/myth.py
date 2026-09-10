@@ -38,7 +38,16 @@ import urllib.parse
 import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-INDEX_PATH = os.path.join(HERE, os.pardir, 'data', 'works-index.json')
+# ★색인은 «어디 있을지 모른다» — 폴더가 옮겨질 수 있다.
+#   실습(c_lab)과 메인퀘(a_mq)를 가르면서 상대 경로가 깨졌다(2026-09-10).
+#   ⇒ 한 곳을 «박아 두지» 않고 후보를 차례로 본다. 그리고 «어느 것을 썼는지» 말한다.
+INDEX_CANDIDATES = [
+    os.path.join(HERE, 'data', 'works-index.json'),                 # 자기 폴더
+    os.path.join(HERE, os.pardir, 'data', 'works-index.json'),      # 부모 (옛 위치)
+    os.path.join(HERE, os.pardir, 'a_mq_N7-domain-agentic-workflow',
+                 'data', 'works-index.json'),                       # 형제 (분리 후)
+]
+INDEX_PATH = next((p for p in INDEX_CANDIDATES if os.path.exists(p)), INDEX_CANDIDATES[-1])
 CACHE_DIR = os.path.join(HERE, 'data', '_cache')
 ARTIST_CACHE = os.path.join(CACHE_DIR, 'artists-en.json')
 
@@ -57,9 +66,11 @@ def index():
     with _LOCK:
         if _INDEX is None:
             if not os.path.exists(INDEX_PATH):
+                # ★«어디를 봤는지»까지 말한다. 「없다」만 던지면 고칠 수가 없다.
                 raise FileNotFoundError(
-                    '아카이브 색인을 찾을 수 없습니다: %s — '
-                    'tools/build-index.py 로 먼저 만드세요' % INDEX_PATH)
+                    '아카이브 색인을 찾을 수 없습니다. 본 곳: '
+                    + ' | '.join(INDEX_CANDIDATES)
+                    + ' → tools/build-index.py 로 먼저 만드세요')
             with io.open(INDEX_PATH, encoding='utf-8') as f:
                 _INDEX = json.load(f)
         return _INDEX

@@ -1,7 +1,7 @@
 # 카드뉴스 에이전트 — 노드7 1~5강
 
 > **Main Quest 4** 의 앞부분. 제공된 `PRD.md`(설계 키트 v5.0.0)로 만든 앱입니다.
-> 김주영 · 2026-09-09 · [상위 폴더](../README.md)에 «확장»(CURATOR)이 있습니다.
+> 김주영 · 2026-09-09 · [메인 퀘스트 — CURATOR](../a_mq_N7-domain-agentic-workflow/README.md) 는 «형제 폴더»에 있습니다.
 
 **주제 하나를 넣으면 → 조사하고 → 내가 고르고 → 에이전트가 묻고 → 내가 답하고 → 승인하면 → 카드가 나옵니다.**
 
@@ -16,8 +16,8 @@
 
 | | |
 |---|---|
-| 신화 이야기 | [`cardnews/demo/?demo=myth`](https://kimjy0977.github.io/KDT_Works/05_module4/a_mq_N7-domain-agentic-workflow/cardnews/demo/?demo=myth) |
-| AI 최신소식 | [`cardnews/demo/?demo=news`](https://kimjy0977.github.io/KDT_Works/05_module4/a_mq_N7-domain-agentic-workflow/cardnews/demo/?demo=news) |
+| 신화 이야기 | [`cardnews/demo/?demo=myth`](https://kimjy0977.github.io/KDT_Works/05_module4/c_lab_N7-cardnews/demo/?demo=myth) |
+| AI 최신소식 | [`cardnews/demo/?demo=news`](https://kimjy0977.github.io/KDT_Works/05_module4/c_lab_N7-cardnews/demo/?demo=news) |
 
 **키도 설치도 필요 없습니다.** 저장된 «실제» 실행을 단계별로 되감아 볼 수 있습니다.
 
