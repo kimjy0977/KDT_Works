@@ -294,8 +294,11 @@ function renderApprove(run) {
       <div class="src">${esc(d.imageUrl)}</div></div>`;
     card.appendChild(s);
   }
+  card.appendChild(el('p', 'note',
+    '★승인하면 <b>등재 레코드 JSON 이 확정</b>됩니다. ' +
+    '<b>공개 아카이브에 자동으로 써 넣지 않습니다</b> — ④ 결과 탭에서 내려받아 넣는 것은 사람이 합니다.'));
   const act = el('div', 'actions');
-  const approve = el('button', 'primary', g.blocked ? '등재 (차단됨)' : '승인하고 등재');
+  const approve = el('button', 'primary', g.blocked ? '등재 (차단됨)' : '승인하고 레코드 확정');
   approve.disabled = !!g.blocked;
   approve.onclick = async () => {
     const edits = {};
@@ -394,6 +397,11 @@ function renderResult(run) {
   const c = el('div', 'card');
   c.innerHTML = `<h2>등재 레코드 <span class="badge ok">사람이 승인함</span></h2>
     <p class="note">에이전트가 «끝냈다»고 말하는 것과 결과물이 실제로 만들어진 것은 다릅니다. 아래가 실물입니다.</p>
+    <p class="warn">★<b>여기까지가 이 서비스의 몫입니다.</b>
+      이 JSON 은 <b>공개 아카이브에 «자동으로 들어가지 않습니다».</b>
+      내려받아 아카이브에 넣는 것은 <b>사람</b>이 합니다.<br>
+      <span class="note">지금 이 레코드는 <b>브라우저에만</b>(localStorage · 최근 20건) 있습니다.
+      서버도 데이터베이스도 없습니다. 남기려면 아래에서 내려받으세요.</span></p>
     <pre>${esc(JSON.stringify(r, null, 1))}</pre>`;
   const a = el('div', 'actions');
   const dl = el('button', 'primary', 'JSON 내려받기');
