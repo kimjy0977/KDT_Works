@@ -25,8 +25,23 @@ $('#tabs').addEventListener('click', (e) => {
   for (const x of document.querySelectorAll('.tabs button')) x.classList.toggle('on', x === b);
   for (const s of document.querySelectorAll('.tab')) s.classList.toggle('on', s.id === 'tab-' + b.dataset.tab);
   if (b.dataset.tab === 'eval') loadEval();
+  syncUrl(b.dataset.tab);
 });
 const goTab = (name) => document.querySelector(`.tabs button[data-tab="${name}"]`).click();
+
+/* ★딥링크 — 탭·실행이 «주소»를 가진다.
+   전에는 어느 탭을 보고 있든 URL 이 하나였다. 링크로 「트레이스 화면」을
+   보낼 수 없었고, 새로고침하면 늘 첫 탭으로 돌아갔다.
+   (UX 지침 deep-linking · state-preservation · back-behavior)
+     ?tab=trace   탭 지정
+     ?run=3       저장된 데모 실행 3번을 «불러온 채로» 연다 */
+const TABS = ['run', 'trace', 'approve', 'result', 'eval', 'about'];
+function syncUrl(tab) {
+  const u = new URL(location.href);
+  if (tab === 'run') u.searchParams.delete('tab');
+  else u.searchParams.set('tab', tab);
+  history.replaceState(null, '', u);
+}
 
 // ── 워크플로 선택
 const SAMPLES = {
@@ -581,27 +596,49 @@ function renderResult(run) {
 }
 
 function renderHistory() {
+  // ★사이드바에 «상주»하는 목록이다. 표가 아니라 리스트.
+  //   전에는 ①실행 탭 «맨 아래»에 표로 있었다 — 다른 실행으로 옮기려면
+  //   탭을 되돌아가 스크롤해야 했다. 목록↔상세가 한 화면에 있어야 도구다.
   const runs = loadRuns();
   const box = $('#history');
-  $('#historyCard').hidden = runs.length === 0 && demoRuns.length === 0;
   const rows = [...demoRuns.map((r) => ({ ...r, _demo: true })), ...runs];
+  $('#historyCard').hidden = rows.length === 0;
   if (!rows.length) { box.innerHTML = ''; return; }
-  box.innerHTML = '<div class="tw"><table><thead><tr><th>작품</th><th>모드</th><th>상태</th><th class="num">스텝</th><th class="num">초</th><th></th></tr></thead><tbody></tbody></table></div>';
-  const tb = box.querySelector('tbody');
+
+  // ★클래스 이름이 «충돌»했다. 실측 2026-09-10 —
+  //   <span class="dot warn"> 가 «경고 상자»용 `.warn`(padding:14px 18px)을 먹어
+  //   7px 점이 «큰 갈색 타원»이 됐다. 제네릭 이름은 반드시 부딪힌다.
+  //   ⇒ 상태 점은 s- 접두를 붙인다.
+  const DOT = { done: 's-ok', awaiting_approval: 's-warn', failed: 's-bad', stopped: '' };
+  const KO = { done: '등재됨', awaiting_approval: '승인 대기', failed: '실패',
+    stopped: '중단', running: '실행 중' };
+
+  box.innerHTML = '<div class="runlist"></div>';
+  const list = box.querySelector('.runlist');
   for (const r of rows.slice(0, 24)) {
-    const s = summary(r);
-    const tr = el('tr', r.gate?.blocked ? 'blocked' : '');
-    tr.innerHTML = `<td>${esc(r.input.title)}</td><td>${r._demo ? '데모' : esc(r.backend)}</td>
-      <td>${esc(r.status)}</td><td class="num">${s.steps}</td><td class="num">${(s.wallMs / 1000).toFixed(0)}</td><td></td>`;
-    const b = el('button', 'small', r._demo ? '재생' : '열기');
-    b.onclick = () => { if (r._demo) replay(r); else { current = r; renderTrace(r); renderApprove(r); renderResult(r); goTab('trace'); } };
-    tr.lastElementChild.appendChild(b);
-    tb.appendChild(tr);
+    const s2 = summary(r);
+    const b = el('button', 'runitem' + (current && current.runId === r.runId ? ' on' : ''));
+    b.innerHTML =
+      `<span class="t">${esc(r.input.title)}</span>` +
+      `<span class="dot ${r.gate && r.gate.blocked ? 's-bad' : (DOT[r.status] || '')}"></span>` +
+      `<span class="m"><span>${KO[r.status] || esc(r.status)}</span>` +
+      `<span>${r._demo ? '데모' : esc(r.backend)}</span>` +
+      `<span>${s2.steps}스텝 · ${(s2.wallMs / 1000).toFixed(0)}초</span></span>`;
+    b.title = `${r.input.title} — ${KO[r.status] || r.status}`;
+    b.onclick = () => {
+      if (r._demo) { replay(r); return; }
+      current = r; renderTrace(r); renderApprove(r); renderResult(r); renderHistory(); goTab('trace');
+    };
+    list.appendChild(b);
   }
 }
 
-// ── 평가 탭
+// ★평가는 «한 번만» 부른다 — 탭을 오갈 때마다 다시 가져오지 않는다.
+//   실사고 2026-09-10: renderHistory 를 다시 쓰면서 loadEval 과 «이 줄»이
+//   같이 지워졌다. loadEval 만 되살렸더니 이번엔 evalLoaded 가 없어서
+//   평가 탭이 「불러오는 중…」에서 멈춰 있었다. 화면 캡처가 그걸 잡았다.
 let evalLoaded = false;
+
 async function loadEval() {
   if (evalLoaded) return;
   evalLoaded = true;
@@ -617,6 +654,7 @@ async function loadEval() {
       저장소의 <a href="EVALUATION.md">EVALUATION.md</a> 를 보세요.</p></div>`;
   }
 }
+
 function renderEvalHTML(d) {
   const S = d.settings || [];
   const f = ['origTitle', 'artist', 'era', 'inception', 'material', 'collection', 'people'];
@@ -748,4 +786,11 @@ function renderToolDocs() {
   renderWorkflows(); renderInputs();
   demoRuns = await fetch('results/demo-runs.json').then((r) => r.ok ? r.json() : []).catch(() => []);
   renderModeCfg(); renderHistory();
+
+  // ★주소가 가리키는 곳으로 — 링크·새로고침·캡처가 «같은 화면»을 연다
+  const q = new URLSearchParams(location.search);
+  const n = parseInt(q.get('run') || '', 10);
+  if (n >= 1 && demoRuns[n - 1]) await replay(demoRuns[n - 1]);
+  const t = q.get('tab');
+  if (t && TABS.includes(t)) goTab(t);
 })();
