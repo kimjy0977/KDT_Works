@@ -346,3 +346,59 @@ table tbody tr:hover{ background:var(--surface-2) }
   border-left-width:4px }
 .links li{ margin:7px 0 }
 details.card > summary{ font-size:14px; font-weight:700; color:var(--ink) }
+
+/* ── ★실행 헤더 — 칩이 아니라 타일 ─────────────── */
+.runhead .rh-t{ font-size:16px; margin-bottom:var(--s3) }
+.runhead .rh-t b{ font-size:17px; letter-spacing:-.02em }
+.stats{ display:grid; gap:var(--s2);
+  grid-template-columns:repeat(auto-fit,minmax(118px,1fr)) }
+.stat{ background:var(--surface-2); border:1px solid var(--line); border-radius:var(--r1);
+  padding:10px 12px; display:flex; flex-direction:column; gap:3px }
+.stat .sk{ font-size:11.5px; color:var(--dim); font-weight:600; letter-spacing:.02em }
+.stat .sv{ font-size:17px; font-weight:700; letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums }
+.stat.ok{ border-color:var(--ok); background:var(--ok-bg) } .stat.ok .sv{ color:var(--ok) }
+.stat.warn{ border-color:var(--warn); background:var(--warn-bg) } .stat.warn .sv{ color:var(--warn) }
+.stat.bad{ border-color:var(--bad); background:var(--bad-bg) } .stat.bad .sv{ color:var(--bad) }
+
+/* ── ★워터폴 — 언제 무슨 일이 있었나 ───────────── */
+.waterfall{ display:flex; flex-direction:column; gap:3px }
+.wf-row{ display:grid; grid-template-columns:26px 116px 1fr 52px; gap:var(--s2);
+  align-items:center; font-size:12.5px; padding:3px 0 }
+.wf-row:hover{ background:var(--surface-2); border-radius:6px }
+.wf-n{ color:var(--faint); text-align:right; font-variant-numeric:tabular-nums }
+.wf-name{ font-family:var(--mono); font-size:12px; color:var(--accent);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap }
+.wf-name.bad{ color:var(--bad) }
+.wf-track{ position:relative; height:15px; background:var(--code); border-radius:4px }
+.wf-bar{ position:absolute; top:2px; height:11px; border-radius:3px; min-width:2px }
+.wf-bar.model{ background:var(--accent); opacity:.85 }
+.wf-bar.tool{ background:var(--ok) }
+.wf-bar.tool.bad{ background:var(--bad) }
+.wf-ms{ color:var(--dim); text-align:right; font-variant-numeric:tabular-nums; font-size:12px }
+.wf-legend{ display:flex; gap:var(--s4); flex-wrap:wrap; margin-top:var(--s3);
+  font-size:12px; color:var(--dim); align-items:center }
+.wf-legend i{ display:inline-block; width:11px; height:11px; border-radius:3px;
+  margin-right:5px; vertical-align:-1px }
+.wf-legend i.model{ background:var(--accent); opacity:.85 }
+.wf-legend i.tool{ background:var(--ok) }
+@media (max-width:640px){ .wf-row{ grid-template-columns:22px 82px 1fr 44px } }
+
+/* ── 도구 문서 — 격자 (Bento) ──────────────────── */
+.toolgrid{ display:grid; gap:var(--s3);
+  grid-template-columns:repeat(auto-fill,minmax(268px,1fr)) }
+.tool-card{ border:1px solid var(--line); border-radius:var(--r2); padding:var(--s4);
+  background:var(--surface-2) }
+.tool-card.w{ border-color:var(--bad); background:var(--bad-bg) }
+.tc-h{ display:flex; align-items:center; gap:var(--s2); flex-wrap:wrap; margin-bottom:var(--s2) }
+.tc-h code{ font-family:var(--mono); font-size:13.5px; font-weight:700; color:var(--accent) }
+.tool-card.w .tc-h code{ color:var(--bad) }
+.tool-card details summary{ font-size:12.5px }
+.tool-card pre{ font-size:11px; max-height:230px; overflow:auto }
+
+/* ★기존 .meta 규칙이 «안쪽 글자»까지 회색 박스로 만들고 있었다.
+   실측 2026-09-10 — 타일 안의 라벨·값이 각각 칩처럼 보였고, flex 라 폭도 안 찼다.
+   새 마크업을 넣을 때는 «옛 규칙이 무엇을 잡고 있는지»를 봐야 한다. */
+#runMeta.meta{ display:block; font-size:inherit }
+#runMeta .stat span{ background:transparent; padding:0; border-radius:0 }
+#runMeta .rh-t span{ background:transparent; padding:0 }

@@ -162,13 +162,27 @@ async function replay(saved) {
 function renderTrace(run) {
   if (!run) return;
   const s = summary(run);
+  // ★실행 헤더 — 칩이 아니라 «타일». 무엇을 봐야 하는지가 먼저 눈에 들어와야 한다.
+  const STATUS_KO = { done: '등재됨', awaiting_approval: '승인 대기', stopped: '중단',
+    failed: '실패', running: '실행 중' };
+  const tiles = [
+    ['상태', STATUS_KO[run.status] || run.status, run.status === 'done' ? 'ok'
+      : run.status === 'failed' ? 'bad' : run.status === 'awaiting_approval' ? 'warn' : ''],
+    ['스텝', s.steps, ''],
+    ['도구 호출', s.toolCalls, ''],
+    ['소요', (s.wallMs / 1000).toFixed(1) + '초', ''],
+    ['토큰 in / out', s.usage.in + ' / ' + s.usage.out, ''],
+    ['비용', s.costUsd ? '$' + s.costUsd.toFixed(4) : '$0 (로컬)', ''],
+  ];
   $('#runMeta').innerHTML =
-    `<span>${esc(run.input.title)}${run.input.artist ? ' / ' + esc(run.input.artist) : ''}</span>` +
-    `<span>${esc(run.backend)} · ${esc(run.model)}</span>` +
-    `<span>상태 ${esc(run.status)}</span><span>스텝 ${s.steps}</span><span>도구 ${s.toolCalls}</span>` +
-    `<span>${(s.wallMs / 1000).toFixed(1)}초</span>` +
-    `<span>토큰 in ${s.usage.in} / out ${s.usage.out}</span>` +
-    `<span>비용 ${s.costUsd ? '$' + s.costUsd.toFixed(4) : '$0 (로컬)'}</span>`;
+    `<div class="runhead">
+      <div class="rh-t"><b>${esc(run.input.title)}</b>${run.input.artist
+        ? `<span class="hint"> / ${esc(run.input.artist)}</span>` : ''}
+        <span class="hint"> · ${esc(run.backend)} · ${esc(run.model)}</span></div>
+      <div class="stats">${tiles.map(([k, v, cls]) =>
+        `<div class="stat ${cls}"><span class="sk">${k}</span><span class="sv">${esc(String(v))}</span></div>`
+      ).join('')}</div>
+    </div>`;
 
   const done = new Set(run.steps.filter((x) => x.kind === 'act').map((x) => ({
     wd_search: 'identify', wd_sparql: 'identify', wd_entity: 'facts',
@@ -189,6 +203,37 @@ function renderTrace(run) {
      <span class="v">${(v / 1000).toFixed(1)}s</span></div>`).join('') +
     `<p class="note">모델이 ${Math.round(s.modelMs * 100 / Math.max(1, s.modelMs + s.toolMsTotal))}%,
      도구가 ${Math.round(s.toolMsTotal * 100 / Math.max(1, s.modelMs + s.toolMsTotal))}% 를 씁니다.</p>`;
+
+  // ★워터폴 — 「무엇이 총합에서 큰가」(위 막대)와 «다른 것»을 본다: 「**언제** 무슨 일이 있었나」.
+  //   에이전트 트레이스 뷰어의 정석(LangSmith·Jaeger·DevTools Network)을 따랐다.
+  //   모델이 오래 생각하고 도구가 짧게 도는 패턴이 «반복»되는지, 한 군데서만 튀는지가 보인다.
+  const t0 = run.startedAt || (run.steps[0] && run.steps[0].at) || 0;
+  const last = run.steps[run.steps.length - 1] || {};
+  const span = Math.max(1, ((last.at || t0) + (last.modelMs || 0) + (last.toolMs || 0)) - t0);
+  const wf = $('#waterfall');
+  if (wf) {
+    wf.innerHTML = run.steps.map((st, i) => {
+      const off = Math.max(0, (st.at || t0) - t0);
+      const m = st.modelMs || 0, tl = st.toolMs || 0;
+      const name = st.kind === 'act' ? (st.action && st.action.tool) || 'act'
+        : st.kind === 'parse_fail' ? '형식 오류' : st.kind;
+      const bad = st.kind === 'parse_fail' || (st.observation && st.observation.ok === false);
+      return `<div class="wf-row">
+        <span class="wf-n">${i + 1}</span>
+        <span class="wf-name${bad ? ' bad' : ''}">${esc(name)}</span>
+        <span class="wf-track">
+          <span class="wf-bar model" style="left:${(off / span) * 100}%;width:${Math.max(0.6, (m / span) * 100)}%"
+            title="모델 ${(m / 1000).toFixed(1)}s"></span>
+          <span class="wf-bar tool${bad ? ' bad' : ''}" style="left:${((off + m) / span) * 100}%;width:${Math.max(0.6, (tl / span) * 100)}%"
+            title="도구 ${tl}ms"></span>
+        </span>
+        <span class="wf-ms">${((m + tl) / 1000).toFixed(1)}s</span>
+      </div>`;
+    }).join('') +
+      `<div class="wf-legend"><span><i class="model"></i>모델이 생각한 시간</span>
+       <span><i class="tool"></i>도구가 돈 시간</span>
+       <span class="hint">가로축 = 실행 시작부터 ${(span / 1000).toFixed(1)}초</span></div>`;
+  }
 
   const box = $('#trace'); box.innerHTML = '';
   run.steps.forEach((st, i) => {
@@ -676,10 +721,22 @@ function renderEvalHTML(d) {
 }
 
 function renderToolDocs() {
-  $('#toolDocs').innerHTML = TOOLS.map((t) =>
-    `<h3>${esc(t.name)} ${t.writes ? '<span class="badge bad">쓰기 · 승인 필요</span>' : '<span class="badge ok">읽기</span>'}</h3>
-     <p class="note">${esc(t.description)}</p>
-     <details><summary>입력 스키마 / 출력</summary><pre>${esc(JSON.stringify(t.input, null, 1))}\n\n→ ${esc(t.output)}</pre></details>`).join('');
+  // ★개수를 «센다». 손으로 적으면 반드시 어긋난다 —
+  //   실제로 화면에 「도구 6종」이라 적혀 있었는데 8종이었다(2026-09-10 발견).
+  const writes = TOOLS.filter((t) => t.writes).length;
+  const head = $('#toolHead');
+  if (head) head.innerHTML = `도구 ${TOOLS.length}종
+    <span class="hint">읽기 ${TOOLS.length - writes} · <b>쓰기 ${writes}</b> — 쓰기는 승인 뒤에만 부를 수 있습니다</span>`;
+  $('#toolDocs').innerHTML = '<div class="toolgrid">' + TOOLS.map((t) =>
+    `<div class="tool-card${t.writes ? ' w' : ''}">
+      <div class="tc-h"><code>${esc(t.name)}</code>
+        ${t.writes ? '<span class="badge bad">쓰기 · 승인 필요</span>'
+                   : '<span class="badge ok">읽기</span>'}</div>
+      <p class="note">${esc(t.description)}</p>
+      <details><summary>입력 스키마 / 출력</summary><pre>${esc(JSON.stringify(t.input, null, 1))}
+
+→ ${esc(t.output)}</pre></details>
+    </div>`).join('') + '</div>';
 }
 
 // ── 부팅
