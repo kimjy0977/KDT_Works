@@ -41,11 +41,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # ★색인은 «어디 있을지 모른다» — 폴더가 옮겨질 수 있다.
 #   실습(c_lab)과 메인퀘(a_mq)를 가르면서 상대 경로가 깨졌다(2026-09-10).
 #   ⇒ 한 곳을 «박아 두지» 않고 후보를 차례로 본다. 그리고 «어느 것을 썼는지» 말한다.
+# ★색인은 «이 폴더»에 있다. 2026-09-10 이전에는 메인 퀘스트 폴더의 파일을
+#   ../ 로 거슬러 읽었다. 그러면 실습이 혼자 못 돈다 — 폴더를 옮기거나
+#   메인 퀘스트만 받아 간 사람은 신화 모드를 못 쓴다.
+#   같은 아카이브의 «사본»을 각자 갖는다. 1.2MB 로 자립을 산다.
 INDEX_CANDIDATES = [
-    os.path.join(HERE, 'data', 'works-index.json'),                 # 자기 폴더
-    os.path.join(HERE, os.pardir, 'data', 'works-index.json'),      # 부모 (옛 위치)
-    os.path.join(HERE, os.pardir, 'a_mq_N7-domain-agentic-workflow',
-                 'data', 'works-index.json'),                       # 형제 (분리 후)
+    os.path.join(HERE, 'data', 'works-index.json'),
 ]
 INDEX_PATH = next((p for p in INDEX_CANDIDATES if os.path.exists(p)), INDEX_CANDIDATES[-1])
 CACHE_DIR = os.path.join(HERE, 'data', '_cache')
