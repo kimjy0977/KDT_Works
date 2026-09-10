@@ -471,26 +471,106 @@ async function loadEval() {
 function renderEvalHTML(d) {
   const S = d.settings || [];
   const f = ['origTitle', 'artist', 'era', 'inception', 'material', 'collection', 'people'];
-  return `<div class="card"><h2>세팅별 비교 <span class="hint">한 번에 하나씩만 바꿨습니다</span></h2>
+  const pct = (o) => (o && o.pct != null) ? o.pct + '%' : '-';
+  const acc = (s, k) => (s.fieldAcc && s.fieldAcc[k]) ? s.fieldAcc[k].pct : null;
+
+  // ★「좋아 보이는데 아무것도 못 맞힌」 세팅을 «화면이» 짚어 준다.
+  //   사람이 표를 훑고 스스로 알아채길 기대하면 안 된다 — 나부터 못 알아챘다.
+  const trap = S.filter((s) => acc(s, 'artist') === 0 && s.reachedApproval.pct >= 70);
+
+  let h = '';
+
+  if (trap.length) {
+    h += `<div class="card" style="border-color:var(--warn)">
+      <h2>★이 표를 읽는 법 <span class="hint">단일 지표로 고르면 «정확히 반대로» 고릅니다</span></h2>
+      ${trap.map((s) => `<p class="warn"><b>${esc(s.setting.label)}</b> 는
+        승인도달 <b>${s.reachedApproval.pct}%</b> · 환각 <b>${s.hallucinated.pct}%</b> ·
+        <b>${(s.perf.wallMs / 1000).toFixed(0)}초</b> 로 <b>셋 다 1등</b>처럼 보입니다.
+        그런데 <b>필드 정확도 ${acc(s, 'artist')}% · 게이트 통과 ${s.passedGate.pct}%</b> 입니다 —
+        <b>아무것도 못 맞히면서 통과만 잘 받았습니다.</b>
+        ${s.n}건 중 <b>${s.n - s.passedGate.n}건</b>을 게이트가 막았습니다.</p>`).join('')}
+      <p class="note">⇒ 뒤집어 보면 <b>게이트가 «일한다»는 증거</b>이기도 합니다.
+        모델이 무엇을 내든 근거 없는 것은 등재로 넘어가지 않습니다.</p></div>`;
+  }
+
+  // ── 세팅별 — ★필드 정확도를 «같은 표에» 둔다. 다른 표로 미루면 함정이 안 보인다
+  h += `<div class="card"><h2>세팅별 비교 <span class="hint">한 번에 하나씩만 바꿨습니다</span></h2>
     <div class="tw"><table><thead><tr><th>세팅</th><th class="num">n</th><th class="num">승인도달</th>
     <th class="num">게이트통과</th><th class="num">중복탐지</th><th class="num">환각</th>
-    <th class="num">평균스텝</th><th class="num">평균초</th></tr></thead><tbody>` +
-    S.map((s) => `<tr><td>${esc(s.setting.label)}</td><td class="num">${s.n}</td>
-      <td class="num">${s.reachedApproval.pct}%</td><td class="num">${s.passedGate.pct}%</td>
-      <td class="num">${s.duplicateFound.pct}%</td><td class="num">${s.hallucinated.pct}%</td>
-      <td class="num">${s.perf.steps}</td><td class="num">${(s.perf.wallMs / 1000).toFixed(0)}</td></tr>`).join('') +
-    `</tbody></table></div></div>
-    <div class="card"><h2>필드 정확도 <span class="hint">아카이브 982점이 정답지입니다</span></h2>
+    <th class="num">★작가 정확</th><th class="num">평균스텝</th><th class="num">평균초</th></tr></thead><tbody>` +
+    S.map((s) => {
+      const a = acc(s, 'artist');
+      const bad = a === 0;
+      return `<tr${bad ? ' class="blocked"' : ''}><td>${esc(s.setting.label)}
+        ${bad ? '<span class="badge warn">못 맞힘</span>' : ''}</td>
+        <td class="num">${s.n}</td>
+        <td class="num">${s.reachedApproval.pct}%</td><td class="num">${s.passedGate.pct}%</td>
+        <td class="num">${s.duplicateFound.pct}%</td><td class="num">${s.hallucinated.pct}%</td>
+        <td class="num"><b>${a == null ? '-' : a + '%'}</b></td>
+        <td class="num">${s.perf.steps}</td><td class="num">${(s.perf.wallMs / 1000).toFixed(0)}</td></tr>`;
+    }).join('') + `</tbody></table></div>
+    <p class="note">「승인도달」은 <b>사람 앞까지 갔다</b>는 뜻이지 <b>맞았다</b>는 뜻이 아닙니다.
+      맞았는지는 <b>작가 정확</b> 열이 말합니다.</p></div>`;
+
+  // ── ★자료의 천장별 — 있는데 화면에 없었다
+  const withSplit = S.filter((s) => s.split);
+  if (withSplit.length) {
+    h += `<div class="card"><h2>★자료의 천장별
+      <span class="hint">섞어 놓고 한 숫자로 말하면 «양쪽 다» 오해가 됩니다</span></h2>
+      <p class="note">공개 데이터가 <b>충분한 것(strong)</b> · <b>부족한 것(weak)</b> ·
+        <b>아예 없는 것(none)</b> 으로 나눠 쟀습니다.
+        «에이전트의 한계»와 «자료의 한계»를 가르려면 이렇게 재야 합니다.</p>
+      <div class="tw"><table><thead><tr><th>세팅</th><th>구간</th><th class="num">n</th>
+      <th class="num">승인도달</th><th class="num">작가 정확</th><th class="num">중복탐지</th></tr></thead><tbody>` +
+      withSplit.map((s) => ['strong', 'weak', 'none'].map((k) => {
+        const v = s.split[k]; if (!v) return '';
+        return `<tr><td>${esc(s.setting.name)}</td><td><b>${k}</b></td><td class="num">${v.n}</td>
+          <td class="num">${v.reachedApprovalPct}%</td><td class="num">${v.artistPct}%</td>
+          <td class="num">${v.dupPct}%</td></tr>`;
+      }).join('')).join('') + `</tbody></table></div></div>`;
+  }
+
+  // ── ★신화별 — 이것도 있는데 화면에 없었다
+  const withMyth = S.filter((s) => s.byMyth && Object.keys(s.byMyth).length);
+  if (withMyth.length) {
+    const base = withMyth[0];
+    const keys = Object.keys(base.byMyth);
+    h += `<div class="card"><h2>신화별 <span class="hint">
+      ${esc(base.setting.label)} 기준 — 어느 문화권이 «자료가 얇은가»</span></h2>
+      <div class="tw"><table><thead><tr><th>신화</th><th class="num">n</th>
+      <th class="num">승인도달</th><th class="num">작가 정확</th></tr></thead><tbody>` +
+      keys.map((k) => {
+        const v = base.byMyth[k];
+        return `<tr><td>${esc(k)}</td><td class="num">${v.n}</td>
+          <td class="num">${v.approval}/${v.n}</td>
+          <td class="num">${v.artist}/${v.artistN}</td></tr>`;
+      }).join('') + `</tbody></table></div>
+      <p class="note">그리스로마 밖(북유럽·이집트·메소포타미아·힌두·중국)은
+        <b>Wikidata·Commons 자체가 얇습니다.</b> 낮은 숫자가 곧 «에이전트가 못했다»는 뜻은 아닙니다.</p></div>`;
+  }
+
+  // ── 필드 정확도 전체
+  h += `<div class="card"><h2>필드 정확도 <span class="hint">아카이브 982점이 정답지입니다</span></h2>
     <div class="tw"><table><thead><tr><th>세팅</th>${f.map((x) => `<th class="num">${x}</th>`).join('')}</tr></thead><tbody>` +
     S.map((s) => `<tr><td>${esc(s.setting.name)}</td>${f.map((k) =>
       `<td class="num">${s.fieldAcc[k] ? s.fieldAcc[k].pct + '%' : '-'}</td>`).join('')}</tr>`).join('') +
-    `</tbody></table></div></div>
-    <div class="card"><h2>실패 분류</h2><div class="tw"><table><thead><tr><th>세팅</th><th>유형</th></tr></thead><tbody>` +
-    S.map((s) => `<tr><td>${esc(s.setting.name)}</td><td>${Object.entries(s.failures).map(([k, v]) => `${esc(k)} ×${v}`).join(' · ') || '없음'}</td></tr>`).join('') +
-    `</tbody></table></div><p class="note">자세한 분석은 <a href="EVALUATION.md">EVALUATION.md</a>.</p></div>`;
+    `</tbody></table></div>
+    <p class="note">★<b>채점기가 틀려 있었습니다.</b> 소장처 정답지가 괄호에서 잘리고, 매체 어순·BCE 부호·
+      「미상」 처리가 어긋나 있었습니다. 고친 뒤 material 이 8%→28% 로 올랐습니다 —
+      <b>고치기 전 숫자로 결론을 냈다면 틀린 결론이 났습니다.</b></p></div>`;
+
+  // ── 실패 분류
+  h += `<div class="card"><h2>실패 분류 <span class="hint">무엇 때문에 못 갔는가</span></h2>
+    <div class="tw"><table><thead><tr><th>세팅</th><th>유형</th></tr></thead><tbody>` +
+    S.map((s) => `<tr><td>${esc(s.setting.name)}</td><td>${Object.entries(s.failures).map(([k, v]) =>
+      `${esc(k)} ×${v}`).join(' · ') || '없음'}</td></tr>`).join('') +
+    `</tbody></table></div>
+    <p class="note">자세한 분석 — <a href="EVALUATION.md">EVALUATION.md</a> ·
+      원본 트레이스 <a href="results/">results/</a> (채점 규칙을 고쳐도 <b>재실행 없이 다시 집계</b>됩니다)</p></div>`;
+
+  return h;
 }
 
-// ── 도구 문서
 function renderToolDocs() {
   $('#toolDocs').innerHTML = TOOLS.map((t) =>
     `<h3>${esc(t.name)} ${t.writes ? '<span class="badge bad">쓰기 · 승인 필요</span>' : '<span class="badge ok">읽기</span>'}</h3>
