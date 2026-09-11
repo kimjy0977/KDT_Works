@@ -13187,6 +13187,47 @@ AI Agent
         <div class="notice key"><b>🎯 이 노드의 한 문장</b> —
           <span class="hl"><b>「가장 단순한 방법(워크플로)으로 시작하고, 자율성이 꼭 필요하다는 «명백한 증거»가 있을 때만 복잡도(에이전트)를 더하라」</b></span>
           (Anthropic). 다섯 패턴 중 <b>앞의 넷은 모두 워크플로</b>다.</div>
+        <h3>🚀 더 해보기 — <b>27개</b> <span style="font-size:.86rem;opacity:.85">(7교시 «공유» 대상)</span></h3>
+        <div class="notice key"><b>🎯 시간표 7교시 = 「팀별로 각자 진행한 🚀 더 해보기의 «결과를 공유»하는 시간」.</b>
+          각 강 <b>맨 끝</b>에 붙어 있는 확장 과제다. <b>강의 본문이 아니라 «스스로 돌려 보는» 부분</b>이고,
+          <span class="hl">전부 <b>「접근 힌트」 + 「성공하면 무엇을 알게 되는가」</b> 두 줄 구조</span>로 적혀 있다.<br>
+          ★<b>「가장 먼저 해볼 것」</b>이 붙은 셋(7·9·10강의 1번)은 <b>교안이 직접 «본문에서 드러난 실패»를 고치라고</b> 지정한 것이다.
+          <b>시간이 모자라면 이 셋부터</b> 한다.</div>
+        <div class="table-wrap"><table><thead><tr><th>강</th><th>묶음 제목</th><th>과제</th></tr></thead><tbody>
+          <tr><td><a href="#m5n1-3">3강</a></td><td>(짧은 안내)</td>
+            <td>노드나 엣지를 <b>변형</b>시켜 보며 LangGraph 작동 방식 파악</td></tr>
+          <tr><td><a href="#m5n1-4">4강</a></td><td>분기를 한 걸음 밀어붙이기</td>
+            <td>① 분기를 <b>세 갈래</b>로 늘리기 ② <b>라벨 매핑</b>(딕셔너리) 방식으로 바꾸기
+              ③ 일부러 <b>루프</b>를 만들어 <code>GraphRecursionError</code> 보기</td></tr>
+          <tr><td><a href="#m5n1-5">5강</a></td><td>도구를 다루는 감각 키우기</td>
+            <td>① <b>독스트링을 망가뜨려</b> 보기 ② <b>계산 도구</b> 추가(<code>estimate_study_time</code>)
+              ③ 도구 호출 <b>횟수 상한</b> 걸기 ④ <b>사람의 승인</b> 끼워 넣기(<code>interrupt</code>)</td></tr>
+          <tr><td><a href="#m5n1-6">6강</a></td><td>체이닝을 확장하기</td>
+            <td>① <b>게이트를 일부러 실패</b>시키기 ② 체인을 <b>한 단계 더</b>(<code>make_title</code>)
+              ③ 게이트 <b>통과할 때까지 반복</b>(+ <code>attempts</code> 상한 3)
+              ④ <b>실제 데이터</b>로 교체(한국어 뉴스 요약 데이터셋)</td></tr>
+          <tr><td><a href="#m5n1-7">7강</a></td><td>라우팅을 실무 수준으로</td>
+            <td>★① <b>라벨 정의를 «배타적»으로 고쳐 정확도 되찾기</b>(우선순위 규칙 명시 · 67%가 어떻게 변하는지 기록)
+              ② <b>다중 라벨</b>로 바꾸기 ③ <b>모델 라우팅</b>으로 비용 최적화</td></tr>
+          <tr><td><a href="#m5n1-8">8강</a></td><td>병렬화의 변형 만들어 보기</td>
+            <td>① 평가 축 추가 + <b>가중 평균</b> ② <b>투표(voting)</b> 방식(<code>temperature=1.0</code> 평가자 5개)
+              ③ <b>사실 검증 축</b> 붙이기 ④ <b>실행 시간 측정</b>해 이득 확인</td></tr>
+          <tr><td><a href="#m5n1-9">9강</a></td><td>오케스트레이터-워커 다듬기</td>
+            <td>★① <b>워커에게 «근거»를 주어 환각 막기</b> ② 근거를 벗어났는지 <b>코드로 검사</b>(<code>evidence</code> 필드)
+              ③ 워커 간 <b>중복 없애기</b>(<code>exclude</code> 필드) ④ <code>synthesize</code>를 <b>LLM으로</b>
+              ⑤ 워커 수 <b>상한</b></td></tr>
+          <tr><td><a href="#m5n1-10">10강</a></td><td>평가 루프를 실무 수준으로</td>
+            <td>★① <b>주제 이탈을 막는 게이트</b> 붙이기(6강 <code>gate_check</code> 재사용)
+              ② 규칙을 <b>모호하게</b> 바꿔 비교 ③ <b>라운드별 변화 기록</b>(<code>MAX_ROUNDS</code>=5)
+              ④ <b>평가자를 «결정적»인 것으로</b> — LLM 대신 <b>테스트 실행</b></td></tr>
+        </tbody></table></div>
+        <div class="notice"><b>★교안이 「더 해보기」에 숨겨 둔 것</b> —
+          단순 연습이 아니라 <b>본문에서 «드러난 실패»를 고치는 과제</b>다.<br>
+          · 7강 ①은 <b>분류 정확도 67%</b>의 진짜 원인(배타적이지 않은 라벨)을 고치는 것<br>
+          · 9강 ①은 워커가 <b>「JavaScript Redux의 useReducer」를 설명해 버린</b> 환각을 근거 제공으로 막는 것<br>
+          · 10강 ①은 최종 노트가 <b>자바스크립트 <code>reduce</code>로 옮겨 간</b> 주제 이탈을 코드 게이트로 막는 것<br>
+          <span class="hl">⇒ <b>「프롬프트를 다듬는 것」이 아니라 «근거를 주고 코드로 검사하는 것»이 해법</b>이라는 것을
+          세 번 반복해 가르친다.</span></div>
         <div class="notice warn"><b>⚠ 실습 코드 본문은 이 노트에 없다.</b>
           LMS의 코드 셀은 별도 실행 창에 있어 화면 텍스트로 딸려 오지 않는다.
           여기 남긴 것은 <b>「무엇을 왜 그렇게 하는가」</b>와 <b>함정·판단 기준</b>이다.
