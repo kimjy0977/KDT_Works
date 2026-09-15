@@ -43,6 +43,7 @@ python run.py --hours 48 --send     # 실제 발행
 python 03_probe_topics.py --g1      # 소스를 «재서» 고르기 (후보 31곳 측정)
 python 01_test_verify.py            # 검수 장치가 «진짜 도는지» 가짜 입력으로 점검
 python 04_scorecard.py              # 쌓인 실행 기록 집계 — 어떤 소스가 실제로 기여하나
+python 05_audit.py                  # ★제출물 자체를 전수검사 (요건·비밀누출·수치 일관성)
 ```
 
 ---
@@ -93,6 +94,7 @@ python 04_scorecard.py              # 쌓인 실행 기록 집계 — 어떤 소
 | `03_probe_topics.py` | 소스를 «재는» 도구 — 후보 31곳 · G1/G2/G3 관문 |
 | `01_test_verify.py` | 검수 자가점검 — 가짜 입력 5개 |
 | `04_scorecard.py` | 쌓인 기록을 «읽는» 도구 — 소스 기여 · 단계 통과율 · 탈락 사유 |
+| `05_audit.py` | **제출물 자체**를 검사하는 도구 — 8축 51항목 (아래) |
 | `store/metrics.jsonl` | 실행마다 «숫자» 한 줄 — 기계가 센다 |
 | `store/run-*.log` | 실행마다 «로그 전문» 한 파일 — 사람이 읽는다 |
 
