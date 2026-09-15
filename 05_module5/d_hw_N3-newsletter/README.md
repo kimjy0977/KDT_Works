@@ -29,7 +29,7 @@ LangGraph로 지었고, **OpenAI 키 없이 로컬 Ollama(`qwen2.5:3b`)** 로 �
 | ① 수집 | RSS 14곳 · 48h 창 · 추적파라미터만 제거하는 중복판정 · 소스별 상한 |
 | ② 선별 | **주제별** 예선(20→8) → 본선 상대평가 → 같은사건·매체·**주제 상한** |
 | ③ 요약 | 원문 본문 추출 후 **세 칸**(`headline`·`summary`·`why`) |
-| ④ 검수 | 규칙검사 + 숫자지목 + LLM대조 **3겹** · 불통과는 재요청 3회 → 스킵 |
+| ④ 검수 | 규칙검사 + 숫자지목 + LLM대조 **3겹** · 불합격은 **재생성 1회** → 그래도 안 되면 사유와 함께 스킵 |
 | ⑤ 발행 | Discord `embed` · 한도 방어 · `DRY_RUN` 기본 켜짐 |
 
 ## 돌려보기
@@ -42,6 +42,7 @@ python run.py --hours 48            # 보내지 않고 «무엇을 보낼지»�
 python run.py --hours 48 --send     # 실제 발행
 python 03_probe_topics.py --g1      # 소스를 «재서» 고르기 (후보 31곳 측정)
 python 01_test_verify.py            # 검수 장치가 «진짜 도는지» 가짜 입력으로 점검
+python 04_scorecard.py              # 쌓인 실행 기록 집계 — 어떤 소스가 실제로 기여하나
 ```
 
 ---
@@ -91,6 +92,8 @@ python 01_test_verify.py            # 검수 장치가 «진짜 도는지» 가�
 | `settings.yaml` | 소스 14곳 · 임계값 · `group_caps` ← **개발자**가 고치는 파일 |
 | `03_probe_topics.py` | 소스를 «재는» 도구 — 후보 31곳 · G1/G2/G3 관문 |
 | `01_test_verify.py` | 검수 자가점검 — 가짜 입력 5개 |
-| `store/metrics.jsonl` | 실행 기록(깔때기 숫자) |
+| `04_scorecard.py` | 쌓인 기록을 «읽는» 도구 — 소스 기여 · 단계 통과율 · 탈락 사유 |
+| `store/metrics.jsonl` | 실행마다 «숫자» 한 줄 — 기계가 센다 |
+| `store/run-*.log` | 실행마다 «로그 전문» 한 파일 — 사람이 읽는다 |
 
 ⛔ `.env`(웹훅 주소)는 `.gitignore` 대상입니다. **웹훅 URL은 주소 자체가 열쇠**라 저장소에 올리지 않습니다.

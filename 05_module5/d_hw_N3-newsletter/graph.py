@@ -347,6 +347,23 @@ def extract_body(url):
         return ""
 
 
+def draft_sys():
+    """취재 프롬프트. ★검수의 «재생성»도 같은 문장을 쓴다 — 두 곳이 갈리면 안 된다."""
+    return (CRITERIA + "\n\n너는 국내 독자를 위한 뉴스레터 기자다.\n"
+            "반드시 «한국어»로 쓴다. 원문이 영어여도 한국어로 쓴다.\n"
+            # ★2026-09-14 실측 — 오역이 «환각처럼» 보이는 자리를 막는다.
+            #   Democrats → 「디플레민트 당」 · endemic fauna → 「고유 동물 콘텐츠」
+            #   aurochs(들소) → 「황소(en」 처럼, 모델이 모르는 고유명사를 «지어내» 옮긴다.
+            #   ⇒ 옮기지 말고 «그대로 두라»고 하면 지어낼 자리가 사라진다.
+            "★인명·지명·학명·기관명·장비명 같은 고유명사는 «원문 표기 그대로» 두고\n"
+            "  한국어 조사만 붙여라. 예: 「JWST가」 「Levant에서」 「Homo sapiens는」.\n"
+            "  한국에서 널리 쓰이는 표기가 «확실할 때만» 한글로 옮겨라(NASA·나사 등).\n"
+            "  모르는 이름을 억지로 한글로 옮기지 마라 — 그건 지어내는 것이다.\n"
+            "headline·summary 는 원문에 있는 사실만 쓴다. 지어내지 않는다.\n"
+            "why 는 우리 독자 관점의 해석이다.\n"
+            "topic 은 다음 중 하나: %s" % ", ".join(TOPICS))
+
+
 def report(state) -> dict:
     """워커. 메인 State 가 아니라 {'item': 기사 하나} 를 받는다 — 전체 상황을 모른다."""
     it = state["item"]
@@ -355,19 +372,7 @@ def report(state) -> dict:
         # 모자란다고 «다시 긁어 오지 않는다». 그날은 적게 발행한다
         return {"drafted": [], "log": ["   ⚠본문 부족(%d자) — %s" % (len(body), it["title"][:40])]}
 
-    sysmsg = (CRITERIA + "\n\n너는 국내 독자를 위한 뉴스레터 기자다.\n"
-              "반드시 «한국어»로 쓴다. 원문이 영어여도 한국어로 쓴다.\n"
-              # ★2026-09-14 실측 — 오역이 «환각처럼» 보이는 자리를 막는다.
-              #   Democrats → 「디플레민트 당」 · endemic fauna → 「고유 동물 콘텐츠」
-              #   aurochs(들소) → 「황소(en」 처럼, 모델이 모르는 고유명사를 «지어내» 옮긴다.
-              #   ⇒ 옮기지 말고 «그대로 두라»고 하면 지어낼 자리가 사라진다.
-              "★인명·지명·학명·기관명·장비명 같은 고유명사는 «원문 표기 그대로» 두고\n"
-              "  한국어 조사만 붙여라. 예: 「JWST가」 「Levant에서」 「Homo sapiens는」.\n"
-              "  한국에서 널리 쓰이는 표기가 «확실할 때만» 한글로 옮겨라(NASA·나사 등).\n"
-              "  모르는 이름을 억지로 한글로 옮기지 마라 — 그건 지어내는 것이다.\n"
-              "headline·summary 는 원문에 있는 사실만 쓴다. 지어내지 않는다.\n"
-              "why 는 우리 독자 관점의 해석이다.\n"
-              "topic 은 다음 중 하나: %s" % ", ".join(TOPICS))
+    sysmsg = draft_sys()
     human = "[제목] %s\n[매체] %s\n\n[본문]\n%s" % (it["title"], it["source"], body[:5000])
 
     # ★2026-09-15 실측 — 재시도가 «사실상 1회»였다.
@@ -502,25 +507,66 @@ def body_nums_values(body_map):
     return vals
 
 
+def redraft(d, problems):
+    """★검수 불합격분을 «지적을 붙여» 다시 쓰게 한다 (9강 선택지 ①).
+
+    9강은 셋 중 ③「버리고 로그에 남긴다」를 골랐고 우리도 그것을 «최후»로 둔다.
+    다만 ①을 «한 번만» 앞에 넣었다 —
+      · 값을 건진다: 본문 추출까지 끝난 건을 버리는 건 아깝다
+      · ①의 약점인 「재시도 이력이 노드 안에 숨는다」는 **로그에 남겨** 없앴다
+      · 비용 상한: **재생성은 건당 1회**. 그래도 안 되면 스킵한다
+        (상한이 없으면 「언제까지 다시 시도할 것인가」가 통제되지 않는다 — 9강)
+
+    ★반환은 «(원고, 사유)» 둘이다. 실패할 때 원고만 None 으로 주면
+      「재생성 실패」라고만 남고 **왜** 실패했는지가 사라진다 — 12강의 「조용한 실패」다.
+    """
+    body = d.get("body") or ""
+    if len(body) < SET["body_min"]:
+        return None, "본문 %d자(기준 %d)" % (len(body), SET["body_min"])
+    fix = ("\n\n★이전 원고가 검수에서 불합격했다. 지적은 다음과 같다:\n"
+           + "\n".join("  - " + p for p in problems[:5])
+           + "\n지적된 부분을 «고쳐서» 다시 써라. 원문에 없는 내용은 절대 넣지 마라.\n"
+             "확실하지 않은 고유명사는 «원문 표기 그대로» 두어라.")
+    why = []
+    for temp in (0.0, 0.3):
+        try:
+            nd = get_llm(temp).with_structured_output(Draft).invoke(
+                [("system", draft_sys() + fix),
+                 ("human", "[제목] %s\n[매체] %s\n\n[이전 원고]\n%s\n%s\n\n[본문]\n%s"
+                  % (d["title"], d["source"], d.get("headline", ""), d.get("summary", ""),
+                     body[:5000]))])
+        except Exception as exc:
+            why.append("t%.1f 호출오류 %s" % (temp, type(exc).__name__))
+            continue
+        if not nd:
+            why.append("t%.1f 빈 응답" % temp)
+        elif not (HAS_KO.search(nd.summary or "") and HAS_KO.search(nd.headline or "")):
+            why.append("t%.1f 한국어 아님" % temp)
+        else:
+            out = dict(d)
+            out.update({"headline": nd.headline.strip()[:120], "summary": nd.summary.strip(),
+                        "why": nd.why.strip(), "topic": nd.topic.strip(), "redrafted": True})
+            return out, ""
+    return None, " / ".join(why)
+
+
 def verify(state: Brief) -> dict:
     drafted = state.get("drafted") or []
     if not drafted:
         return {"verified": [], "log": ["④ 검수   0건"]}
     llm = get_llm(0.0)
     passed, logs = [], []
-    for d in drafted:
+    n_redraft = n_saved = 0
+
+    def judge(d):
+        """규칙 + 숫자지목 + LLM 대조. (합격여부, 지적목록)"""
         rp = rule_check(d)
         if rp:
-            logs.append("   ✗ %s … [규칙] %s" % (d["headline"][:30], "; ".join(rp)[:90]))
-            continue
-        # ★②칸(숫자 대조)을 «판정»이 아니라 «지목»으로 쓴다.
-        #   9강은 ②를 버렸지만, 버린 이유는 «번역·단위 환산을 오탐»하기 때문이었다.
-        #   판정을 맡기지 않고 「이 숫자를 특히 봐라」고 ③에게 넘기면
-        #   오탐은 ③이 걸러 주고, ③ 혼자서는 놓치던 가짜 숫자는 시야에 들어온다.
+            return False, ["[규칙] " + p for p in rp]
         hint = ""
         nums = _nums_ko(d.get("summary") or "")
-        body_nums = _nums_ko(d.get("body") or "")
-        unmatched = sorted(k for k, v in nums.items() if not (v & body_nums_values(body_nums)))
+        unmatched = sorted(k for k, v in nums.items()
+                           if not (v & body_nums_values(_nums_ko(d.get("body") or ""))))
         if unmatched:
             hint = ("\n\n★다음 숫자는 [원문]에서 «문자열 그대로»는 찾지 못했다: %s\n"
                     "  번역이나 단위 환산(60 million → 6000만)의 결과일 수 있으니 «값»으로 대조하라.\n"
@@ -534,16 +580,42 @@ def verify(state: Brief) -> dict:
                            "  - [원문]에 없는 사실이나 숫자가 [요약]에 추가됨\n"
                            "  - [원문]에 없는 «고유명사»(인명·정당명·회사명·제품명)가 [요약]에 등장함\n"
                            "둘 다 아니면 ok=true 로 한다." + hint),
-                ("human", "[요약]\n%s\n%s\n\n[원문]\n%s" % (d["headline"], d["summary"], d["body"][:4000]))])
+                ("human", "[요약]\n%s\n%s\n\n[원문]\n%s"
+                 % (d["headline"], d["summary"], (d.get("body") or "")[:4000]))])
         except Exception:
-            v = Verdict(ok=True, problems=["(검수 호출 실패 — 통과 처리)"])
-        if v.ok:
+            return True, ["(검수 호출 실패 — 통과 처리)"]
+        probs = list(v.problems or [])
+        # ★ok=false 인데 지적이 비어 오는 일이 실제로 있다(모델이 필드를 안 채운다).
+        #   그대로 두면 로그에 «빈 괄호»만 남아 왜 떨어졌는지 알 수 없다.
+        if not v.ok and not probs:
+            probs = ["(모델이 사유를 적지 않음 — ok=false 만 왔다)"]
+        return bool(v.ok), probs
+
+    for d in drafted:
+        ok, probs = judge(d)
+        if ok:
             passed.append(d)
+            continue
+        # ★1차 불합격 → «재생성» 1회
+        logs.append("   ✗ %s … %s" % (d["headline"][:30], "; ".join(probs)[:80]))
+        nd, fail = redraft(d, probs)
+        n_redraft += 1
+        if not nd:
+            logs.append("     ↳ 재생성 실패 → 스킵: %s" % (fail or "사유 미기재"))
+            continue
+        ok2, probs2 = judge(nd)
+        if ok2:
+            passed.append(nd)
+            n_saved += 1
+            logs.append("     ↳ ★재생성 후 합격: %s" % nd["headline"][:34])
         else:
-            # 9강 ③ — 버리고 로그에 남긴다. 되돌아가는 엣지를 만들지 않았다
-            logs.append("   ✗ %s … %s" % (d["headline"][:30], "; ".join(v.problems)[:80]))
-    logs.insert(0, "④ 검수   %d건 → 합격 %d · 불합격 %d"
-                % (len(drafted), len(passed), len(drafted) - len(passed)))
+            logs.append("     ↳ 재생성해도 불합격 → 스킵: %s" % "; ".join(probs2)[:60])
+
+    head = "④ 검수   %d건 → 합격 %d · 불합격 %d" % (
+        len(drafted), len(passed), len(drafted) - len(passed))
+    if n_redraft:
+        head += "  (재생성 %d회 · 그중 %d건 회복)" % (n_redraft, n_saved)
+    logs.insert(0, head)
     return {"verified": passed, "log": logs}
 
 
@@ -636,19 +708,41 @@ def run(hours=None):
         init["hours"] = int(hours)
     out = build().compile().invoke(init)
 
-    row = {"run_id": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
-           "backend": llm_backend(), "hours": init["hours"],
+    stamp = datetime.now()
+    row = {"run_id": stamp.strftime("%Y-%m-%dT%H:%M:%S"),
+           "backend": llm_backend(), "profile": PROFILE or "(기본)",
+           "hours": init["hours"],
            "collected": len(out.get("collected") or []),
            "picked": len(out.get("picked") or []),
            "drafted": len(out.get("drafted") or []),
            "published": len(out.get("verified") or []),
-           "by_source": {},
+           "by_source": {}, "by_group": {},
            "elapsed_s": round(time.time() - t0, 1),
            "log": out.get("log") or []}
     for it in (out.get("verified") or []):
         row["by_source"][it["source"]] = row["by_source"].get(it["source"], 0) + 1
+        g = it.get("group") or "-"
+        row["by_group"][g] = row["by_group"].get(g, 0) + 1
     d = os.path.join(HERE, "store")
     os.makedirs(d, exist_ok=True)
+
+    # ★실행 로그 «전문»을 파일로도 남긴다.
+    #   metrics.jsonl 은 숫자를, 이 파일은 «그날 무슨 일이 있었는지»를 담는다.
+    #   화면 출력은 창을 닫으면 사라진다 — 「오류 없이 끝까지 돌았다」의 증거가
+    #   화면에만 있으면 나중에 아무것도 못 보여준다.
+    #   ⚠ 로그 파일을 «먼저» 쓰고 그 이름을 row 에 넣는다 — 순서를 바꾸면
+    #     jsonl 에 log_file 이 빠진다(실제로 한 번 그렇게 빠뜨렸다).
+    logp = os.path.join(d, "run-%s.log" % stamp.strftime("%Y%m%d-%H%M"))
+    with open(logp, "w", encoding="utf-8") as f:
+        f.write("실행 %s · 프로필 %s · 백엔드 %s · 창 %dh · %.1fs\n"
+                % (row["run_id"], row["profile"], row["backend"], row["hours"], row["elapsed_s"]))
+        f.write("깔때기  수집 %d → 선별 %d → 취재 %d → 발행 %d\n"
+                % (row["collected"], row["picked"], row["drafted"], row["published"]))
+        f.write("=" * 70 + "\n")
+        for line in row["log"]:
+            f.write(line + "\n")
+    row["log_file"] = os.path.basename(logp)
+
     with open(os.path.join(d, "metrics.jsonl"), "a", encoding="utf-8") as f:
         f.write(json.dumps(row, ensure_ascii=False) + "\n")
     out["_metrics"] = row
