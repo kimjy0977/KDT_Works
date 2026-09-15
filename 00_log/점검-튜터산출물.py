@@ -37,47 +37,85 @@ def rd(p): return io.open(p, encoding="utf-8").read()
 # ══ 1. 제어문자 — grep 을 무력화하는 가장 조용한 결함 ═══════════════════
 def check_control_chars():
     """★고정 목록이 아니라 «훑는다» (§F-8-D).
+
     계기: 2026-09-02 빌더가 «브리지 전부 0» 이라 보고했으나 자기 집 파일 2개가
     오염돼 있었다. 점검 «범위»가 좁으면 «없다»가 아니라 «안 봤다»가 된다.
-    같은 날 정본(KDT-공통운영규칙.md)에도 6개가 있었다 — 하필 «점검 명령» 줄에."""
-    EXT = (".md", ".py", ".html", ".ps1", ".txt", ".json",
-           ".ts", ".tsx", ".css", ".mjs", ".js")
+    같은 날 정본(KDT-공통운영규칙.md)에도 6개가 있었다 — 하필 «점검 명령» 줄에.
+
+    ★★2026-09-15 전면 수정 — 이 함수 자체가 «열거»를 «두 겹» 하고 있었다.
+      매니저가 자기 `시작점검.py` 에서 같은 결함을 찾아 알려 줬고, 내 것을 재 봤다:
+      ```
+      ① 폴더 열거   03_module2 · 05_module4 · 05_module5 · 90_hackathon 을
+                    통째로 안 봤다            → EXT 대상 815개가 점검 밖
+      ② 확장자 열거 .jsonl 261 · .xml 240 · .sh 152 · .toml 84 · .ipynb 52 …
+                    보는 폴더 «안»에서만도    → 1,349개가 점검 밖
+      ```
+      ⇒ 그러고도 **매번 「제어문자 0건」이라 보고했다.**
+      ⇒ 주석에 「하위를 골라 넣으면 또 샌다」고 적어 두고
+        **«최상위»를 골라 넣어 샜다.** 적어 둔다고 안 새는 게 아니다.
+
+    ⇒ 2단계(제외)로 뒤집었다:
+      · 폴더    레포·튜터 루트를 «통째로». 열거하지 않는다
+      · 확장자  ★«텍스트 확장자 열거»를 버리고 «바이너리를 제외»한다.
+                제외 목록에 없는 바이너리는 **내용으로** 가린다(앞부분 NUL).
+                — 매니저가 뒤집자마자 오탐 35건을 겪었다(.pptx·.sog·.body).
+                  확장자 제외만으로는 또 샌다. 내용 판정이 마지막 그물이다.
+      · ★**「검사 N · 건너뜀 M」을 «항상» 찍는다.**
+        안 본 것의 수를 안 보여주면 「0건」이 «안전»인지 «안 봄»인지 못 가린다.
+    """
+    # 바이너리 확장자 — «제외» 목록이라 새 텍스트 확장자는 자동으로 들어온다
+    BIN_EXT = (".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico", ".bmp", ".svgz",
+               ".pdf", ".zip", ".gz", ".7z", ".rar", ".tar", ".whl",
+               ".mp3", ".mp4", ".wav", ".mov", ".avi", ".webm",
+               ".ttf", ".otf", ".woff", ".woff2", ".eot",
+               ".exe", ".dll", ".so", ".dylib", ".pyd", ".bin", ".pack", ".idx",
+               ".pptx", ".docx", ".xlsx", ".hwp", ".psd", ".ai",
+               ".faiss", ".npy", ".npz", ".pkl", ".pt", ".onnx", ".safetensors")
     SKIP = ("node_modules", ".git", ".venv", "venv", "dist", "__pycache__",
-            "assets", "legacy-handmade")
+            "legacy-handmade", "site-packages", ".next", "build")
+    DATA = ("chunks.json", "package-lock.json", "eval-hits")
     KDT = os.path.abspath(os.path.join(TUTOR, os.pardir))
-    # ★«튜터 관할 폴더»를 통째로 넣는다. 하위를 골라 넣으면 또 샌다.
-    # 2026-09-02 2차 확대 — 1차 확대 때도 04_module3 의 src/tools 만 넣어
-    # README·PRD·node5-requirements 를 빼먹었다. 01_onboarding·02_module1 도 통째로 빠져 있었다.
-    # 매니저 실측: «범위를 좁게 잡는 실수»가 3세션에서 3회. 하위 선택을 하지 않는다.
+
+    # ★폴더를 «열거하지 않는다» — 루트를 통째로 넣고 SKIP 만 뺀다.
+    #   모듈은 는다(2026-09 현재 05_module5 까지). 열거하면 늘 때마다 샌다.
     roots = [(TUTOR, "02_tutor"),
-             (os.path.join(KDT, "00_shared", "bridge"), "브리지")]
-    roots += [(os.path.join(REPO, d), d) for d in
-              ("00_log", "01_onboarding", "02_module1", "04_module3", "99_domain-dev")]
-    seen, n = set(), 0
+             (os.path.join(KDT, "00_shared", "bridge"), "브리지"),
+             (REPO, "KDT_Works")]
+
+    seen = set()
+    n = skipped = 0
+    why = {}
+
+    def drop(reason):
+        why[reason] = why.get(reason, 0) + 1
+
     for root, _label in roots:
         if not os.path.isdir(root):
             continue
         for dp, dns, fns in os.walk(root):
             dns[:] = [d for d in dns if not any(x in d for x in SKIP)]
-            DATA = ("myth-docs", "chunks.json", "eval-hits", "variant-",
-                    "experiment-", "package-lock.json")
             for f in fns:
-                if not f.endswith(EXT):
-                    continue
-                if any(x in f for x in DATA):
-                    continue
                 p = os.path.abspath(os.path.join(dp, f))
                 if p in seen:
                     continue
                 seen.add(p)
-                # 큰 데이터 파일은 건너뛴다 (벡터스토어 등)
+                low = f.lower()
+                if low.endswith(BIN_EXT):
+                    skipped += 1; drop("바이너리 확장자"); continue
+                if any(x in f for x in DATA):
+                    skipped += 1; drop("대용량 데이터"); continue
                 try:
                     if os.path.getsize(p) > 4_000_000:
-                        continue
+                        skipped += 1; drop("4MB 초과"); continue
                     raw = io.open(p, "rb").read()
                 except Exception as e:
+                    skipped += 1; drop("읽기 실패")
                     note("MED", os.path.basename(p), f"읽기 실패: {type(e).__name__}")
                     continue
+                # ★확장자로 못 가린 바이너리 — «내용»으로 판정한다.
+                #   NUL 이 앞부분에 있으면 텍스트가 아니다. 매니저가 겪은 오탐 35건이 이 자리다.
+                if b"\x00" in raw[:8192]:
+                    skipped += 1; drop("내용이 바이너리(NUL)"); continue
                 n += 1
                 bad = [(k, b) for k, b in enumerate(raw)
                        if b < 0x09 or 0x0b <= b <= 0x0c or 0x0e <= b <= 0x1f]
@@ -86,7 +124,9 @@ def check_control_chars():
                     note("HIGH", os.path.relpath(p, KDT),
                          f"제어문자 {len(bad)}개 (첫 위치 {ln}행 0x{bad[0][1]:02x})"
                          f" — grep 이 바이너리로 본다")
-    print(f"[제어문자] {n}개 파일 훑음")
+    # ★«검사 N · 건너뜀 M»을 항상 찍는다 — 「0건」이 «안전»인지 «안 봄»인지 가리려면 필요하다
+    detail = " · ".join(f"{k} {v}" for k, v in sorted(why.items(), key=lambda x: -x[1]))
+    print(f"[제어문자] 검사 {n}개 · 건너뜀 {skipped}개" + (f"  ({detail})" if detail else ""))
 
 
 # ══ 2. 강의노트 구조 ════════════════════════════════════════════════════
