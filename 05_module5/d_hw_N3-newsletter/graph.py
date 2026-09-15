@@ -667,12 +667,40 @@ def send(embeds, dry_run=True):
     return r.status_code
 
 
+QUIET_MARK = os.path.join(HERE, "store", "last_quiet.txt")
+
+
+def quiet_already_sent(when):
+    """오늘 «조용합니다»를 이미 보냈는가."""
+    try:
+        with open(QUIET_MARK, encoding="utf-8") as f:
+            return f.read().strip() == when
+    except Exception:
+        return False
+
+
 def publish(state: Brief) -> dict:
     items = state.get("verified") or []
     dry = os.environ.get("DRY_RUN", "1") != "0"   # ★기본은 «보내지 않음»
     when = datetime.now().strftime("%Y-%m-%d")
+
+    # ★0건인 날에도 보내는 건 «의도»다 — 안 보내면 파이프라인이 죽은 것과 구분이 안 된다.
+    #   다만 그 규칙은 **하루 한 번 도는 것**을 전제한다. 그 전제가 코드에 없었다.
+    #   실사고 2026-09-15 — 카드 제목을 고치려고 --send 를 단 채 두 번 더 돌렸더니
+    #   채널에 「오늘은 조용합니다」가 **두 장** 올라갔다(11:49 · 11:52, 둘 다 HTTP 204).
+    #   ⇒ 0건 알림은 «하루 한 번»으로 못 박는다. 기사가 있는 날은 상한이 없다 —
+    #     그건 내용이 다르지만, 조용합니다는 **몇 번을 보내도 같은 말**이기 때문이다.
+    if not items and not dry and quiet_already_sent(when):
+        return {"log": ["⑤ 발행   0건 · 건너뜀 — 「오늘은 조용합니다」는 이미 오늘 보냈다"]}
+
     embeds = build_embeds(items, when)
     code = send(embeds, dry_run=dry)
+
+    if not items and not dry and str(code).startswith("2"):
+        os.makedirs(os.path.dirname(QUIET_MARK), exist_ok=True)
+        with open(QUIET_MARK, "w", encoding="utf-8") as f:
+            f.write(when)
+
     return {"log": ["⑤ 발행   %d건 · %s (embed %d장%s)"
                     % (len(items), "dry-run" if dry else "HTTP %s" % code, len(embeds),
                        "" if items else " · 「오늘은 조용합니다」")]}
