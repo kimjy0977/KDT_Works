@@ -33,6 +33,10 @@ except Exception:
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 INDEX = os.path.join(HERE, "index.html")
+# ★2026-09-15 추가 — README 도 «보여주는 자리»다(C-1 의 «그릇»).
+#   튜터 지적: 이 도구가 index.html «만» 봐서 README 미언급 13건을 못 봤다.
+#   감사기가 «자기가 보는 것»만 본다 — §F-8-A ⑪ 의 사촌.
+README = os.path.join(HERE, "README.md")
 
 # 산출물 폴더로 세는 최상위 (00_log 는 학습 허브라 갤러리 대상이 아니다)
 TOP = re.compile(r"^((?:0[0-9]|9[0-9])_[^/]+/[^/]+)/")
@@ -98,6 +102,7 @@ def main():
         return 2
 
     html = io.open(INDEX, encoding="utf-8", errors="replace").read()
+    rm = io.open(README, encoding="utf-8", errors="replace").read() if os.path.exists(README) else ""
     ws = works()
 
     linked, missing, unsure = [], [], []
@@ -110,9 +115,12 @@ def main():
         else:
             linked.append((w, kind, where))
 
+    rm_miss = [w for w in ws if w not in rm and w.split("/")[-1] not in rm]
+
     print("═══ 갤러리 감사 %s ═══" % os.path.basename(HERE))
     print("  산출물 폴더 %d개 · 걸림 %d · ★미등재 %d · 확인필요 %d"
           % (len(ws), len(linked), len(missing), len(unsure)))
+    print("  ★README 미언급 %d개  (갤러리와 «따로» 센다 — 둘 다 «그릇»이다)" % len(rm_miss))
 
     if show_all:
         print()
@@ -127,9 +135,20 @@ def main():
             print("     %-42s %s" % (w, why))
 
     print()
-    if not missing:
-        print("  ✅ 미등재 0. 갤러리가 산출물을 전부 덮는다.")
+    if rm_miss:
+        print()
+        print("  ★README 에 «없는» 것 %d개:" % len(rm_miss))
+        for w in rm_miss:
+            print("     %s" % w)
+
+    if not missing and not rm_miss:
+        print()
+        print("  ✅ 미등재 0. 갤러리·README 가 산출물을 전부 덮는다.")
         return 0
+    if not missing:
+        print()
+        print("  ⚠ 갤러리는 전부 덮는다. ★README 만 낡았다.")
+        return 1
 
     print("  ★미등재 %d건 — 카드가 없다:" % len(missing))
     for w in missing:
