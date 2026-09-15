@@ -57,4 +57,22 @@ if [ "$N" -gt 1 ]; then
   exit 1
 fi
 
+# ── v6 (2026-09-15 · 토론 TH-20260915-SCOPE E-5 · 튜터) ─────────────
+# ★파생값 동행 검사 — 원본을 고치면 파생값도 «같은 커밋»에 (A-1)
+#   경고만 한다. 차단하면 --no-verify 가 습관이 되고 훅 전체가 무력해진다.
+#   판정 대상은 «파일 변경»이 아니라 «섹션 수 변화»다 — 상세는 스크립트 머리말에.
+#   ★검사기를 .githooks/ 에 둔다(00_log 아님) — 훅과 «같이» 바뀌어야 하는 부품이라
+#     스코프가 갈리면 훅과 부품이 다른 커밋으로 흩어진다. A-1 과 같은 문제다.
+#     (실제로 v5 훅이 이 커밋을 «스코프 혼합»으로 거부해서 알았다)
+if [ -f .githooks/파생값-동행검사.py ]; then
+  if command -v python >/dev/null 2>&1; then
+    python .githooks/파생값-동행검사.py || true
+  elif command -v python3 >/dev/null 2>&1; then
+    python3 .githooks/파생값-동행검사.py || true
+  else
+    # ★못 돌렸으면 «조용히» 넘기지 않는다 — 그게 이 훅이 막으려는 실패 방식이다
+    echo "[동행검사] ⚠ python 이 없어 검사를 «건너뛰었습니다»"
+  fi
+fi
+
 exit 0
