@@ -347,6 +347,37 @@ def extract_body(url):
         return ""
 
 
+def retry_worth_it(exc):
+    """★이 실패는 «다시 해서 달라지는가» — (재시도할까, 안 한다면 왜)
+
+    2026-09-15 피어리뷰에서 배웠다. 전대진 님(`job-news-lite`)의
+    `_is_recoverable_by_reformat()` 가 **「재시도해서 회복될 실패」와
+    「재시도해도 똑같이 실패할 것」을 갈라** 놓았고, 주석에
+    *「max_budget_usd=0.5 로 테스트했더니 재시도가 예산을 두 배 태우고도
+    같은 이유로 실패하는 걸 확인했다」* 고 실측 근거까지 적혀 있었다.
+
+    내 것은 **«횟수»(3회)로만** 막고 «유형»을 안 갈랐다. 그래서 —
+      · Ollama 가 안 떠 있으면 → 같은 연결 실패를 **세 번** 반복하고 세 배 기다린다
+      · 타임아웃이면          → 같은 조건이라 또 걸린다
+    둘 다 **온도를 바꾼다고 달라질 실패가 아니다.**
+
+    ⇒ 재시도가 의미 있는 것은 «모델이 다른 답을 낼 수 있는» 실패뿐이다:
+      한국어 이탈 · 구조화 출력 파싱 실패 · 빈 응답.
+    """
+    name = type(exc).__name__
+    text = ("%s %s" % (name, exc))[:200].lower()
+    for key, why in (("connection", "백엔드에 연결 못 함 — 온도를 바꿔도 같다"),
+                     ("connecterror", "백엔드에 연결 못 함 — 온도를 바꿔도 같다"),
+                     ("timeout", "타임아웃 — 같은 조건이면 또 걸린다"),
+                     ("refused", "연결 거부 — 백엔드가 안 떠 있다"),
+                     ("not found", "모델을 못 찾음 — 다시 물어도 없다"),
+                     ("unauthorized", "인증 실패 — 재시도로 안 풀린다"),
+                     ("api key", "키 문제 — 재시도로 안 풀린다")):
+        if key in text:
+            return False, why
+    return True, ""
+
+
 def draft_sys():
     """취재 프롬프트. ★검수의 «재생성»도 같은 문장을 쓴다 — 두 곳이 갈리면 안 된다."""
     return (CRITERIA + "\n\n너는 국내 독자를 위한 뉴스레터 기자다.\n"
@@ -385,7 +416,7 @@ def report(state) -> dict:
     #     ⇒ 한국어 실패는 줄었는데 «한자·가나»가 들어왔다. 트레이드오프다.
     #     0.9 는 3B 모델에 과했다. 살짝만 흔든다.
     RETRY_TEMPS = [0.0, 0.25, 0.45]
-    d, retried = None, 0
+    d, retried, stop = None, 0, ""
     for attempt, temp in enumerate(RETRY_TEMPS):
         llm = get_llm(temp)
         try:
@@ -396,14 +427,26 @@ def report(state) -> dict:
                                       "  영어 고유명사는 그대로 두되 «조사와 서술어는 한국어»로."
                                       if attempt else "")),
                  ("human", human)])
-        except Exception:
+        except Exception as exc:
             d = None
+            # ★2026-09-15 피어리뷰에서 배운 것 — 전대진 님 `_is_recoverable_by_reformat()`
+            #   「재시도해서 회복될 실패」와 「재시도해도 똑같이 실패할 것」은 다르다.
+            #   내 것은 «횟수»(3회)로만 막고 «유형»을 안 갈랐다. 그래서 백엔드가 꺼져 있으면
+            #   똑같은 연결 실패를 세 번 반복하고 세 배 기다렸다.
+            #   ⇒ 온도를 바꿔 달라질 실패만 재시도한다.
+            ok, why = retry_worth_it(exc)
+            if not ok:
+                stop = why
+                break
         # ★8강 더 해보기 ① — 「한글이 있는가」는 «출력만 보고» 확인할 수 있다 → 코드로 강제
         if d and HAS_KO.search(d.summary or "") and HAS_KO.search(d.headline or ""):
             break
         retried += 1
         d = None
     if not d:
+        if stop:
+            return {"drafted": [], "log": ["   ⚠취재 중단(재시도 무의미) — %s … %s"
+                                           % (it["title"][:36], stop)]}
         return {"drafted": [], "log": ["   ⚠한국어 실패(%d회 재시도) — %s"
                                        % (retried, it["title"][:40])]}
 
@@ -536,6 +579,10 @@ def redraft(d, problems):
                   % (d["title"], d["source"], d.get("headline", ""), d.get("summary", ""),
                      body[:5000]))])
         except Exception as exc:
+            ok, reason = retry_worth_it(exc)     # ★여기도 유형으로 가른다
+            if not ok:
+                why.append("중단(%s)" % reason)
+                break
             why.append("t%.1f 호출오류 %s" % (temp, type(exc).__name__))
             continue
         if not nd:
