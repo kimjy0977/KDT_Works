@@ -1,0 +1,60 @@
+모델 qwen3.5:2b · 지침 v4 + hard-fewshot x2 (2062자)
+
+== ① 의도 분류 — Ollama 라우터 · 평가셋 ==
+   대상 120건 · 418.7초 (건당 3.49초)
+   ★구조화 출력 실패 0건 — 이건 «분류 오류»가 아니라 «형식 오류»다
+   ⇒ 채점 120건 · 정확도 0.817 · macro F1 0.835
+
+               precision    recall  f1-score   support
+
+  ORDER_PLACE      0.710     0.733     0.721        30
+ PRODUCT_INFO      0.848     0.933     0.889        30
+     SHIPPING      0.923     0.800     0.857        30
+RETURN_REFUND      0.960     0.800     0.873        30
+
+    micro avg      0.852     0.817     0.834       120
+    macro avg      0.860     0.817     0.835       120
+ weighted avg      0.860     0.817     0.835       120
+
+[혼동 행렬] 행=정답, 열=예측
+               ORDER_PLACE  PRODUCT_INFO  SHIPPING  RETURN_REFUND  OTHER
+ORDER_PLACE             22             5         0              0      3
+PRODUCT_INFO             2            28         0              0      0
+SHIPPING                 5             0        24              1      0
+RETURN_REFUND            2             0         2             24      2
+OTHER                    0             0         0              0      0
+
+[오분류 22건] — 여기를 읽는 것이 개선의 출발점이다
+   ORDER_PLACE    → PRODUCT_INFO    5건
+   SHIPPING       → ORDER_PLACE     5건
+   ORDER_PLACE    → OTHER           3건
+   RETURN_REFUND  → SHIPPING        2건
+   PRODUCT_INFO   → ORDER_PLACE     2건
+   RETURN_REFUND  → OTHER           2건
+   RETURN_REFUND  → ORDER_PLACE     2건
+   SHIPPING       → RETURN_REFUND   1건
+
+   [ORDER_PLACE → OTHER]  그럼 라지로 해주세요.
+   [RETURN_REFUND → SHIPPING]  하자로 확인되면 배송비를 부담하지 않아도 되는 것이 맞죠?
+   [ORDER_PLACE → PRODUCT_INFO]  세트로만 파는 건가요 아니면 팬티만 낱개로도 구매되나요?
+   [ORDER_PLACE → OTHER]  고민하다가 이 목걸이로 결정했습니다.
+   [PRODUCT_INFO → ORDER_PLACE]  주문하면 사은품도 함께 오는 것으로 되어 있나요?
+   [RETURN_REFUND → OTHER]  검품 중으로 표시되는데 앞으로 얼마나 더 기다려야 하나요?
+   [RETURN_REFUND → ORDER_PLACE]  교환하려는 사이즈가 품절이면 어떻게 처리되는 건가요?
+   [ORDER_PLACE → PRODUCT_INFO]  이 원피스는 네이비로 하나만 부탁드려요.
+   [SHIPPING → RETURN_REFUND]  반품 접수를 했는데 회수하러 언제 오시는지 궁금합니다.
+   [SHIPPING → ORDER_PLACE]  품절 상품을 빼고 나머지만 먼저 보내주시는 것이 가능한가요?
+   [ORDER_PLACE → PRODUCT_INFO]  요 귀걸이는 은색으로 해주시면 됩니다.
+   [RETURN_REFUND → SHIPPING]  수거 신청을 했는데 예정일에 기사님이 오지 않으셨습니다.
+   [SHIPPING → ORDER_PLACE]  주소를 잘못 입력한 것 같은데 어떻게 하면 좋을까요?
+   [SHIPPING → ORDER_PLACE]  넣어둔 주문이 오늘 출고 가능한 상태인지 확인해 주시겠어요?
+   [RETURN_REFUND → ORDER_PLACE]  결제 취소를 하면 카드로 바로 환급되는 방식인가요?
+
+== ★범위 밖(outscope) 33건 ==
+   OTHER 로 제대로 보낸 것 19건 (57.6%)
+   ⇒ eval 점수만 보면 이 값이 떨어지는 걸 «못 본다»
+
+══ 요약 ══
+   Ollama(qwen3.5:2b·v4 + hard-fewshot x2)  정확도 0.817 · macro F1 0.835  [형식실패 0]
+   규칙 라우터(기준)        정확도 0.583 · macro F1 0.677
+   퍼실 제시(gpt-5.6-luna)  정확도 0.940 · macro F1 0.945  ← ⚠모델이 달라 직접 비교 불가

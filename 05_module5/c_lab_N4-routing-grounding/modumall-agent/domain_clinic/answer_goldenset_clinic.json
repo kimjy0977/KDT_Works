@@ -1,0 +1,217 @@
+{
+  "$comment": "모두몰 정답셋과 동일한 스키마. action·tools·must·forbid·reference",
+  "conversations": [
+    {
+      "conv_id": "K-001",
+      "route": "COST",
+      "turns": [
+        {
+          "role": "customer",
+          "text": "스케일링 비용이 얼마인가요?"
+        },
+        {
+          "role": "agent",
+          "expect": {
+            "action": "ASK",
+            "tools": [],
+            "must": [
+              "18000"
+            ],
+            "must_ask": [
+              "부위"
+            ],
+            "forbid": [
+              "60000",
+              "30000"
+            ],
+            "rubric": "부위에 따라 금액이 다르다. 초진 진찰료 18,000원은 고정값이라 안내 가능.",
+            "reference": "초진 진찰료는 18,000원입니다. 스케일링은 부위에 따라 금액이 달라지는데, 전악과 부분 중 어느 쪽으로 보고 계실까요?"
+          }
+        },
+        {
+          "role": "customer",
+          "text": "전악으로요."
+        },
+        {
+          "role": "agent",
+          "expect": {
+            "action": "ANSWER",
+            "tools": [
+              "get_treatment_cost"
+            ],
+            "tool_args": {
+              "get_treatment_cost": {
+                "code": "T-101"
+              }
+            },
+            "must": [
+              "18000"
+            ],
+            "forbid": [
+              "30000"
+            ],
+            "rubric": "전악 스케일링은 보험 적용 18,000원. 부분(30,000원)을 안내하면 오답.",
+            "reference": "전악 스케일링은 보험 적용되어 18,000원입니다."
+          }
+        }
+      ]
+    },
+    {
+      "conv_id": "K-002",
+      "route": "COST",
+      "turns": [
+        {
+          "role": "customer",
+          "text": "앞니 레진 하면 얼마예요?"
+        },
+        {
+          "role": "agent",
+          "expect": {
+            "action": "ANSWER",
+            "tools": [
+              "get_treatment_cost"
+            ],
+            "tool_args": {
+              "get_treatment_cost": {
+                "code": "T-202"
+              }
+            },
+            "must": [
+              "100000"
+            ],
+            "forbid": [
+              "150000"
+            ],
+            "rubric": "★어금니(150,000원)를 안내하면 오답. 부위가 다르면 금액이 다르다.",
+            "reference": "앞니 레진은 100,000원이며 비급여 항목입니다."
+          }
+        }
+      ]
+    },
+    {
+      "conv_id": "K-003",
+      "route": "RECORDS",
+      "turns": [
+        {
+          "role": "customer",
+          "text": "진단서 떼려면 며칠 걸리나요?"
+        },
+        {
+          "role": "agent",
+          "expect": {
+            "action": "ANSWER",
+            "tools": [
+              "get_document_info"
+            ],
+            "tool_args": {
+              "get_document_info": {
+                "doc_type": "진단서"
+              }
+            },
+            "must": [
+              "20000"
+            ],
+            "forbid": [
+              "당일",
+              "1일",
+              "2일"
+            ],
+            "rubric": "★days=null 이므로 소요일을 단정하면 안 된다. 수수료는 고정값이라 답한다.",
+            "reference": "진단서 수수료는 20,000원입니다. 담당 의사 확인이 필요해 소요 기간은 아직 확정해 드리기 어렵습니다."
+          }
+        }
+      ]
+    },
+    {
+      "conv_id": "K-004",
+      "route": "BOOKING",
+      "turns": [
+        {
+          "role": "customer",
+          "text": "A-5003 예약 취소하고 싶은데요."
+        },
+        {
+          "role": "agent",
+          "expect": {
+            "action": "ANSWER",
+            "tools": [
+              "get_appointment"
+            ],
+            "tool_args": {
+              "get_appointment": {
+                "appt_id": "A-5003"
+              }
+            },
+            "must": [
+              "2"
+            ],
+            "forbid": [
+              "제한되었습니다",
+              "불가능합니다"
+            ],
+            "rubric": "★노쇼 2회. 「제한됐다」고 단정하면 오답 — 3회부터다. 현황만 알린다.",
+            "reference": "9월 19일 18시까지 변경·취소 가능합니다. 다만 노쇼가 2회 기록되어 있어, 당일 취소 시 3회가 되면 예약이 제한될 수 있습니다."
+          }
+        }
+      ]
+    },
+    {
+      "conv_id": "K-005",
+      "route": "OTHER",
+      "turns": [
+        {
+          "role": "customer",
+          "text": "근처 약국 몇 시까지 하는지 아세요?"
+        },
+        {
+          "role": "agent",
+          "expect": {
+            "action": "OUT_OF_SCOPE",
+            "tools": [],
+            "must": [],
+            "forbid": [
+              "9시",
+              "10시",
+              "영업"
+            ],
+            "rubric": "약국 문의는 응대 범위 밖(§7.1). 추측해 안내하면 실패.",
+            "reference": "약국 운영 시간은 저희가 확인해 드리기 어렵습니다. 해당 약국으로 직접 문의해 주셔야 합니다."
+          }
+        }
+      ]
+    },
+    {
+      "conv_id": "K-006",
+      "route": "TREATMENT",
+      "turns": [
+        {
+          "role": "customer",
+          "text": "신경치료 얼마나 걸려요?"
+        },
+        {
+          "role": "agent",
+          "expect": {
+            "action": "ANSWER",
+            "tools": [
+              "get_treatment_cost"
+            ],
+            "tool_args": {
+              "get_treatment_cost": {
+                "code": "T-301"
+              }
+            },
+            "must": [
+              "60"
+            ],
+            "forbid": [
+              "30",
+              "40"
+            ],
+            "rubric": "어금니 신경치료 60분. 다른 진료 시간을 가져오면 오답.",
+            "reference": "어금니 신경치료는 약 60분 소요되며 마취가 필요합니다."
+          }
+        }
+      ]
+    }
+  ]
+}

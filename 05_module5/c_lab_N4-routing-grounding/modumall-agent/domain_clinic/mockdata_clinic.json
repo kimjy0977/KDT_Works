@@ -1,0 +1,122 @@
+{
+  "$comment": "다른 도메인 재현용. 모두몰과 «같은 구조»를 만든다 — 함정 포함.",
+  "as_of_date": "2026-09-16",
+  "fixed": {
+    "초진_진찰료": 18000,
+    "진단서_수수료": 20000,
+    "영수증_재발급": 0
+  },
+  "treatments": [
+    {
+      "code": "T-101",
+      "name": "스케일링",
+      "site": "전악",
+      "minutes": 30,
+      "anesthesia": false,
+      "price": 60000,
+      "insured": true,
+      "insured_price": 18000,
+      "$teaching_note": "보험 적용. 연 1회. 비보험이면 60,000원"
+    },
+    {
+      "code": "T-102",
+      "name": "스케일링",
+      "site": "부분",
+      "minutes": 15,
+      "anesthesia": false,
+      "price": 30000,
+      "insured": false,
+      "insured_price": null,
+      "$teaching_note": "★같은 «스케일링»인데 부위가 달라 금액·보험이 다르다"
+    },
+    {
+      "code": "T-201",
+      "name": "레진",
+      "site": "어금니",
+      "minutes": 40,
+      "anesthesia": true,
+      "price": 150000,
+      "insured": false,
+      "insured_price": null,
+      "$teaching_note": "비급여. 재료에 따라 다르다"
+    },
+    {
+      "code": "T-202",
+      "name": "레진",
+      "site": "앞니",
+      "minutes": 30,
+      "anesthesia": true,
+      "price": 100000,
+      "insured": false,
+      "insured_price": null,
+      "$teaching_note": "★같은 «레진»인데 부위가 달라 50,000원 차이"
+    },
+    {
+      "code": "T-301",
+      "name": "신경치료",
+      "site": "어금니",
+      "minutes": 60,
+      "anesthesia": true,
+      "price": 250000,
+      "insured": true,
+      "insured_price": 80000,
+      "$teaching_note": "보험 적용"
+    }
+  ],
+  "appointments": [
+    {
+      "appt_id": "A-5001",
+      "date": "2026-09-18",
+      "time": "14:00",
+      "treatment": "T-101",
+      "status": "예약확정",
+      "changeable_until": "2026-09-17 18:00",
+      "no_show_count": 0
+    },
+    {
+      "appt_id": "A-5002",
+      "date": "2026-09-16",
+      "time": "10:00",
+      "treatment": "T-201",
+      "status": "진료완료",
+      "changeable_until": null,
+      "no_show_count": 0
+    },
+    {
+      "appt_id": "A-5003",
+      "date": "2026-09-20",
+      "time": "11:00",
+      "treatment": "T-301",
+      "status": "예약확정",
+      "changeable_until": "2026-09-19 18:00",
+      "no_show_count": 2,
+      "$teaching_note": "★노쇼 2회 — 1회 더면 제한. 단정하지 말고 조회해서 안내"
+    }
+  ],
+  "documents": [
+    {
+      "doc_type": "진단서",
+      "fee": 20000,
+      "needs_doctor": true,
+      "days": null,
+      "$teaching_note": "★days=null — 담당 의사 확인이 필요해 «아직 확정 안 됨»"
+    },
+    {
+      "doc_type": "영수증",
+      "fee": 0,
+      "needs_doctor": false,
+      "days": 0
+    }
+  ],
+  "slots": {
+    "2026-09-18": [
+      "09:30",
+      "14:00",
+      "16:30"
+    ],
+    "2026-09-19": [],
+    "2026-09-20": [
+      "11:00"
+    ]
+  }
+}

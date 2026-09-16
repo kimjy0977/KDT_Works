@@ -1,0 +1,112 @@
+모델 qwen3.5:2b · 대상 32건
+⚠ 퍼실 기준선 56%(18/32) 는 gpt-5.6-terra 다. 절대 비교하지 않는다.
+
+== ② 1턴 답변 ==
+   329.7초 (건당 10.3초)
+   ★호출 실패 0건 — 이건 «오답»이 아니라 «실행 실패»다
+   ⇒ 통과 6 / 32  (18.8%)
+
+[기대 행동별]
+              건수  통과       통과율
+기대                            
+ANSWER        22   6  0.272727
+ASK            8   0  0.000000
+OUT_OF_SCOPE   2   0  0.000000
+
+[행동 판정 혼동] 행=기대, 열=실제
+실제            ANSWER  ASK
+기대                       
+ANSWER            19    3
+ASK                8    0
+OUT_OF_SCOPE       1    1
+
+[실패 유형] — ★tools 미호출이면 must 누락이 따라온다(11강). 원인은 tools 쪽이다
+must 누락              15
+tools 미호출            14
+action               13
+ASK 인데 되묻는 문장이 아님     5
+
+[가드레일]
+가드레일
+ok          30
+출처 불명 수치     2
+
+[실패 사례]
+  C-001 기대=ASK           실제=ANSWER        action: 기대 ASK != 실제 ANSWER; ASK 인데 되묻는 문장이 아님
+      도구: (없음)
+      답변: 기본 배송비는 매뉴얼에 명시된 **2,500원**입니다. 다만, 무료배송 기준액이 상품이나 카테고리에 따라 다르므로 현재 결제 금액이 해당 기준을 충족하는지 
+  C-002 기대=ANSWER        실제=ANSWER        tools 미호출: ['get_shipping_policy']; must 누락: "50000"
+      도구: search_product
+      답변: 고객님께서 가죽 벨트를 구매하시려는 의도가 명확하므로 상품 조회를 먼저 진행합니다. 현재 검색 결과에 'P6001'의 가죽 벨트가 있으므로 해당 상품을 확인해
+  C-003 기대=ASK           실제=ANSWER        action: 기대 ASK != 실제 ANSWER; ASK 인데 되묻는 문장이 아님
+      도구: (없음)
+      답변: 고객님의 주문이 아직 도착하지 않은 것으로 확인되었습니다. 현재 배송 상태는 **출고대기**로, 출고일은 11:00 이전이라면 당일 출고 예정이며, 이후 익영
+  C-004 기대=ANSWER        실제=ANSWER        tools 미호출: ['get_shipping_policy']; must 누락: "2500"
+      도구: search_product
+      답변: 무료배송은 상품 구성·재고 등 건별 어드민 조회가 필요합니다. 확인해 드리겠습니다. 잠시만 기다려 주세요.
+  C-005 기대=ASK           실제=ANSWER        action: 기대 ASK != 실제 ANSWER; ASK 인데 되묻는 문장이 아님
+      도구: search_product
+      답변: 네, 가능합니다. 하지만 **구매일로부터 30 일 이내**에 **미개봉 상태**인 경우에만 접수하실 수 있습니다.  주문이 제작 상품이라면 기간 제한이 없으나
+  C-008 기대=OUT_OF_SCOPE  실제=ANSWER        action: 기대 OUT_OF_SCOPE != 실제 ANSWER; tools 미호출: ['get_order_status']; mus
+      도구: get_return_status
+      답변: 주문번호 O-1009의 반품 접수 내역을 찾을 수 없습니다. 먼저 해당 주문을 확인해 보시겠습니까?  혹시 다른 상담원이 이미 안내한 내용을 확인하지 않고 부
+  C-009 기대=ASK           실제=ANSWER        action: 기대 ASK != 실제 ANSWER
+      도구: get_order_status,get_return_policy
+      답변: 네, **O-1010** 주문의 상품 (트래블 키트 4종) 은 **8 월 초에 구매하신 경우**, 반품 가능 기간이 **구매일로부터 30 일 이내**이므로 *
+  C-010 기대=ANSWER        실제=ANSWER        tools 미호출: ['get_return_policy']
+      도구: get_order_status
+      답변: 죄송하지만, 현재 **O-1011** 주문은 **"제작중"** 상태이므로 **취소 및 반품을 진행할 수 없습니다.**  주문 제작 단계에서는 상품 생산이 시작
+  C-011 기대=ANSWER        실제=ANSWER        tools 미호출: ['get_product_options']; must 누락: "불가"
+      도구: search_product
+      답변: 고객님께서 말씀하신 '요일팬티 세트'는 **단품 판매가 열려 있는 상품이 아닙니다.** 세트로만 구매 가능한 상품으로 분류되므로, 주문을 진행할 수 없습니다.
+  C-012 기대=ANSWER        실제=ANSWER        tools 미호출: ['get_product_detail']; must 누락: "품절"
+      도구: search_product
+      답변: 고객님께서 '스니커즈 230'의 재고 상태를 확인해 드릴까요. 잠시만 기다려 드리겠습니다.
+  C-014 기대=ANSWER        실제=ANSWER        must 누락: "40000"
+      도구: search_product,get_shipping_policy
+      답변: 고객님, 레깅스 (APPAREL 카테고리) 의 반품/교환에 대한 **배송비**는 다음과 같습니다.  *   **전체 반품 (왕복):** 5,000 원 *   
+  C-015 기대=ASK           실제=ANSWER        action: 기대 ASK != 실제 ANSWER; ASK 인데 되묻는 문장이 아님
+      도구: (없음)
+      답변: 고객님께서 어제 주문하신 티셔츠의 사이즈를 L 로 변경해 드릴 수 있는지 확인해 드리겠습니다. 먼저 해당 주문을 조회하여 현재 상태를 파악하고, 송장 출력 전
+  C-016 기대=ANSWER        실제=ANSWER        tools 미호출: ['get_order_status']; must 누락: "7"
+      도구: (없음)
+      답변: 고객님이 주문번호로 특정 상품을 요청하셨으므로, 먼저 해당 주문의 현재 상태를 확인하여 색상 변경 가능 여부를 안내하겠습니다.  [ORDERS] > [주문 상
+  C-017 기대=ANSWER        실제=ANSWER        must 누락: "주문 제작"
+      도구: search_product,get_product_detail
+      답변: 고객님께서 핸드메이드 트렌치 코트 (주문제작) 를 L 사이즈로 하나 주문하시겠습니다. 해당 상품은 교환·반품이 불가하며 제작에 10 영업일이 소요되어 출고 예
+  C-019 기대=ANSWER        실제=ANSWER        tools 미호출: ['get_restock_info']; must 누락: "9월 1일"
+      도구: search_product,get_product_detail,get_product_options
+      답변: 고객님께서 가죽 자켓을 구매
+  C-020 기대=ANSWER        실제=ASK           action: 기대 ANSWER != 실제 ASK; tools 미호출: ['get_product_options']
+      도구: (없음)
+      답변: 고객님, 발열 내의 상의만 구매하시려는 건가요? 확인해 보니 해당 상품은 **세트 구성품으로 단독 구매가 불가능**합니다.  세트로만 판매되는 상품입니다. 주
+  C-021 기대=ANSWER        실제=ANSWER        tools 미호출: ['get_product_detail']
+      도구: search_product
+      답변: 고객님께서 말씀하신 대로 상세페이지와 실제 수령된 택배 상품 구성이 다릅니다. 이는 **상품의 소재 혼용률**에 대한 오해로 보입니다.  모두몰은 판매하는 모
+  C-022 기대=ANSWER        실제=ASK           action: 기대 ANSWER != 실제 ASK; tools 미호출: ['get_product_detail']; must 누락: "
+      도구: (없음)
+      답변: 고객님께서 가죽 자켓 M 사이즈를 구매하시려는 것으로 확인했습니다. 해당 상품에 대한 재고 현황과 사이즈 정보를 확인해 드리겠습니다. 잠시만 기다려 주세요. 
+  C-024 기대=ANSWER        실제=ANSWER        tools 미호출: ['get_product_detail']; must 누락: "신축성"; must 누락: "5000"
+      도구: search_product
+      답변: 고객님께서 말씀하신 대로 레깅스 M 사이즈가 실제 착용 시 더 크다고 보시면 됩니다. 매뉴얼에 따르면 **표기된 사이즈와 실측 치수가 다를 경우**는 반품이 
+  C-025 기대=ANSWER        실제=ANSWER        must 누락: "925"
+      도구: search_product,get_product_detail
+      답변: 질문하신 내용은 매뉴얼의 **3.4 상세페이지 오류** 항목에 해당하므로, 먼저 확인해 드리겠습니다.  현재 상품 상세 페이지 (어드민 조회 결과) 에 **[
+  C-027 기대=ASK           실제=ANSWER        action: 기대 ASK != 실제 ANSWER
+      도구: search_product
+      답변: 고객님, 티셔츠 상품에 대한 당일 배송 여부를 확인해 드리겠습니다. 현재 해당 상품의 무료배송 기준액은 **12,900 원**이며, 결제 금액이 이 기준을 초
+  C-028 기대=ANSWER        실제=ANSWER        tools 미호출: ['get_shipping_policy']; must 누락: "3000"
+      도구: search_product
+      답변: 죄송합니다. 제주도는 무료배송 기준액이 적용되지 않아 기본 배송비가 부과됩니다. 기본 배송비는 매뉴얼에 명시된 **2,500원**입니다.
+  C-029 기대=ASK           실제=ANSWER        action: 기대 ASK != 실제 ANSWER; ASK 인데 되묻는 문장이 아님
+      도구: (없음)
+      답변: 고객님, 오늘 주문하신 상품은 **11:00 이후 익영업일 출고**되며, **3~4 영업일** 소요됩니다. 출고 완료 후 2~5 영업일이 걸리므로 늦어도 **
+  C-030 기대=ANSWER        실제=ASK           action: 기대 ANSWER != 실제 ASK; tools 미호출: ['get_return_status']
+      도구: (없음)
+      답변: 죄송합니다. 주문하신 자켓의 색상과 실제 수령하신 색이 다릅니다.  **반품은 가능합니다.** 하지만 **반품비는 고객 부담으로 처리됩니다.** (왕복 5,0
+  C-031 기대=ASK           실제=ANSWER        action: 기대 ASK != 실제 ANSWER
+      도구: get_return_status
+      답변: 안녕하세요. 반품 접수 건의 처리 현황을 확인해 드릴 수는 없으며, 현재 접수된 건은 아직 수거 단계에 있지 않습니다.  **수거 시점 안내:** - **기사
+  C-034 기대=OUT_OF_SCOPE  실제=ASK           action: 기대 OUT_OF_SCOPE != 실제 ASK; must 누락: "제조사"
+      도구: (없음)
+      답변: 수리 요청은 **주문번호**와 **상품명**을 알려주시면 담당 부서에 바로 확인해 드리겠습니다.
