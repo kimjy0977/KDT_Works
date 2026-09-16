@@ -1,0 +1,62 @@
+모델 qwen3.5:2b · 지침 fewshot 붙임 (1278자)
+
+== ① 의도 분류 — Ollama 라우터 · 평가셋 ==
+   대상 120건 · 381.3초 (건당 3.18초)
+   ★구조화 출력 실패 0건 — 이건 «분류 오류»가 아니라 «형식 오류»다
+   ⇒ 채점 120건 · 정확도 0.633 · macro F1 0.667
+
+               precision    recall  f1-score   support
+
+  ORDER_PLACE      0.657     0.767     0.708        30
+ PRODUCT_INFO      0.900     0.900     0.900        30
+     SHIPPING      0.800     0.133     0.229        30
+RETURN_REFUND      0.957     0.733     0.830        30
+
+    micro avg      0.817     0.633     0.714       120
+    macro avg      0.828     0.633     0.667       120
+ weighted avg      0.828     0.633     0.667       120
+
+[혼동 행렬] 행=정답, 열=예측
+               ORDER_PLACE  PRODUCT_INFO  SHIPPING  RETURN_REFUND  OTHER
+ORDER_PLACE             23             3         0              0      4
+PRODUCT_INFO             2            27         0              0      1
+SHIPPING                 7             0         4              1     18
+RETURN_REFUND            3             0         1             22      4
+OTHER                    0             0         0              0      0
+
+[오분류 44건] — 여기를 읽는 것이 개선의 출발점이다
+   SHIPPING       → OTHER          18건
+   SHIPPING       → ORDER_PLACE     7건
+   ORDER_PLACE    → OTHER           4건
+   RETURN_REFUND  → OTHER           4건
+   ORDER_PLACE    → PRODUCT_INFO    3건
+   RETURN_REFUND  → ORDER_PLACE     3건
+   PRODUCT_INFO   → ORDER_PLACE     2건
+   PRODUCT_INFO   → OTHER           1건
+   RETURN_REFUND  → SHIPPING        1건
+   SHIPPING       → RETURN_REFUND   1건
+
+   [SHIPPING → OTHER]  금액을 조금 더 채우면 배송비가 빠지는지 알고 싶습니다.
+   [ORDER_PLACE → OTHER]  그럼 라지로 해주세요.
+   [RETURN_REFUND → OTHER]  하자로 확인되면 배송비를 부담하지 않아도 되는 것이 맞죠?
+   [SHIPPING → ORDER_PLACE]  묶음배송 신청을 놓쳤는데 지금이라도 요청할 수 있을까요?
+   [ORDER_PLACE → PRODUCT_INFO]  세트로만 파는 건가요 아니면 팬티만 낱개로도 구매되나요?
+   [PRODUCT_INFO → OTHER]  혼용률 표기가 어디에도 없는데 알려주실 수 있나요?
+   [SHIPPING → OTHER]  얼마 이상 구매해야 무료로 보내주시는 건지 알려주세요.
+   [RETURN_REFUND → SHIPPING]  반품하려고 하는데 배송비는 누가 부담하게 되나요?
+   [SHIPPING → OTHER]  오늘 안에 받아볼 수 있는 방법이 혹시 있을까요?
+   [SHIPPING → OTHER]  배송 준비중 상태로 며칠째 멈춰 있는데 어떻게 된 일인가요?
+   [ORDER_PLACE → OTHER]  고민하다가 이 목걸이로 결정했습니다.
+   [SHIPPING → OTHER]  도착 예정일을 미리 알 수 있는 방법이 있을까요?
+   [SHIPPING → ORDER_PLACE]  어제 오후에 결제했는데 오늘 출고되는 것이 맞는지 확인하고 싶습니다.
+   [PRODUCT_INFO → ORDER_PLACE]  주문하면 사은품도 함께 오는 것으로 되어 있나요?
+   [SHIPPING → OTHER]  발송이 시작되면 따로 알림을 받아볼 수 있나요?
+
+== ★범위 밖(outscope) 33건 ==
+   OTHER 로 제대로 보낸 것 28건 (84.8%)
+   ⇒ eval 점수만 보면 이 값이 떨어지는 걸 «못 본다»
+
+══ 요약 ══
+   Ollama(qwen3.5:2b·fewshot 붙임)  정확도 0.633 · macro F1 0.667  [형식실패 0]
+   규칙 라우터(기준)        정확도 0.583 · macro F1 0.677
+   퍼실 제시(gpt-5.6-luna)  정확도 0.940 · macro F1 0.945  ← ⚠모델이 달라 직접 비교 불가

@@ -1,0 +1,94 @@
+
+== ① 의도 분류 — 규칙 라우터 · 평가셋 ==
+   대상 120건 · 정확도 0.583 · macro F1 0.677  (macro F1 은 OTHER 를 안 센다)
+
+               precision    recall  f1-score   support
+
+  ORDER_PLACE      0.800     0.267     0.400        30
+ PRODUCT_INFO      0.739     0.567     0.642        30
+     SHIPPING      0.947     0.600     0.735        30
+RETURN_REFUND      0.964     0.900     0.931        30
+
+    micro avg      0.875     0.583     0.700       120
+    macro avg      0.863     0.583     0.677       120
+ weighted avg      0.863     0.583     0.677       120
+
+[혼동 행렬] 행=정답, 열=예측
+               ORDER_PLACE  PRODUCT_INFO  SHIPPING  RETURN_REFUND  OTHER
+ORDER_PLACE              8             5         0              0     17
+PRODUCT_INFO             0            17         0              0     13
+SHIPPING                 2             0        18              1      9
+RETURN_REFUND            0             1         1             27      1
+OTHER                    0             0         0              0      0
+
+[오분류 50건 / 120건]
+   ORDER_PLACE    → OTHER          17건
+   PRODUCT_INFO   → OTHER          13건
+   SHIPPING       → OTHER           9건
+   ORDER_PLACE    → PRODUCT_INFO    5건
+   SHIPPING       → ORDER_PLACE     2건
+   RETURN_REFUND  → SHIPPING        1건
+   SHIPPING       → RETURN_REFUND   1건
+   RETURN_REFUND  → PRODUCT_INFO    1건
+   RETURN_REFUND  → OTHER           1건
+
+[오분류 전문]
+   [PRODUCT_INFO → OTHER]  세트라고 되어 있는데 정확히 무엇무엇이 들어있나요?
+   [PRODUCT_INFO → OTHER]  벨트 길이를 조절할 수 있는 구조로 되어 있나요?
+   [ORDER_PLACE → OTHER]  그럼 라지로 해주세요.
+   [RETURN_REFUND → SHIPPING]  하자로 확인되면 배송비를 부담하지 않아도 되는 것이 맞죠?
+   [PRODUCT_INFO → OTHER]  혼용률 표기가 어디에도 없는데 알려주실 수 있나요?
+   [ORDER_PLACE → PRODUCT_INFO]  선물할 거라 같은 구성으로 두 세트 구매하려고 합니다.
+   [SHIPPING → OTHER]  얼마 이상 구매해야 무료로 보내주시는 건지 알려주세요.
+   [ORDER_PLACE → OTHER]  커플잠옷에서 여자 것만 두 벌 부탁드립니다.
+   [SHIPPING → OTHER]  오늘 안에 받아볼 수 있는 방법이 혹시 있을까요?
+   [ORDER_PLACE → OTHER]  이 슬리퍼 275로 주세요.
+   [ORDER_PLACE → OTHER]  고민하다가 이 목걸이로 결정했습니다.
+   [ORDER_PLACE → PRODUCT_INFO]  사이즈 95로 두 벌 주문 넣어주시면 감사하겠습니다.
+   [ORDER_PLACE → OTHER]  파란색 말고 회색으로 바꿔서 해주세요.
+   [PRODUCT_INFO → OTHER]  이 반지가 도금 제품인지 은 제품인지 궁금합니다.
+   [ORDER_PLACE → OTHER]  양말은 세 켤레로 해서 넣어주시면 감사하겠습니다.
+   [PRODUCT_INFO → OTHER]  주문하면 사은품도 함께 오는 것으로 되어 있나요?
+   [PRODUCT_INFO → OTHER]  신발 발볼이 넓게 나온 편인지 알 수 있을까요?
+   [SHIPPING → ORDER_PLACE]  발송이 시작되면 따로 알림을 받아볼 수 있나요?
+   [PRODUCT_INFO → OTHER]  이 잠옷은 도톰한 편인가요 아니면 얇은 편인가요?
+   [ORDER_PLACE → OTHER]  지금 보고 있는 걸로 두 개 해주세요.
+   [PRODUCT_INFO → OTHER]  후드 기장이 엉덩이를 덮는 정도로 긴 편인가요?
+   [PRODUCT_INFO → OTHER]  브라 와이어가 들어간 제품인지 아닌지 알고 싶어요.
+   [ORDER_PLACE → OTHER]  이 원피스는 네이비로 하나만 부탁드려요.
+   [SHIPPING → OTHER]  주문한 지 나흘이 지났는데 아직까지 아무 연락도 없습니다.
+   [SHIPPING → RETURN_REFUND]  반품 접수를 했는데 회수하러 언제 오시는지 궁금합니다.
+   [SHIPPING → OTHER]  품절 상품을 빼고 나머지만 먼저 보내주시는 것이 가능한가요?
+   [PRODUCT_INFO → OTHER]  상세페이지에 원산지 표기가 안 보이는데 어디인가요?
+   [ORDER_PLACE → PRODUCT_INFO]  이거 색상별로 하나씩 전부 주문하고 싶은데 가능할까요?
+   [SHIPPING → OTHER]  금요일에 주문하면 월요일에는 받아볼 수 있을까요?
+   [ORDER_PLACE → OTHER]  요 귀걸이는 은색으로 해주시면 됩니다.
+   [SHIPPING → OTHER]  주소를 잘못 입력한 것 같은데 어떻게 하면 좋을까요?
+   [ORDER_PLACE → OTHER]  티는 두 장이고 바지는 하나만 해주세요.
+   [ORDER_PLACE → OTHER]  고민했는데 그 패딩 아이보리로 하겠습니다.
+   [SHIPPING → OTHER]  부재 시 경비실에 맡겨달라고 요청하는 것이 가능한가요?
+   [ORDER_PLACE → OTHER]  검정색으로 두 개 담아주시면 됩니다.
+   [ORDER_PLACE → OTHER]  요거 하나 계산해주시겠어요?
+   [ORDER_PLACE → OTHER]  브라를 75B로 하면 팬티는 맞는 걸로 같이 넣어주세요.
+   [PRODUCT_INFO → OTHER]  가방이 천연 가죽이 맞는지 확인할 수 있을까요?
+   [SHIPPING → OTHER]  발송 완료 문자를 받은 지 사흘이 지났는데 물건이 오지 않습니다.
+   [PRODUCT_INFO → OTHER]  양말 발목 길이가 어느 정도로 올라오는 제품인가요?
+   [SHIPPING → ORDER_PLACE]  어제와 오늘 따로 주문했는데 묶어서 한 번에 보내주실 수 있나요?
+   [SHIPPING → OTHER]  연휴 기간에도 발송 업무가 정상적으로 진행되나요?
+   [PRODUCT_INFO → OTHER]  패딩 충전재가 오리털인지 거위털인지 알고 싶습니다.
+   [ORDER_PLACE → PRODUCT_INFO]  이 코트 라지 사이즈로 구매 하고 싶은데 어디서 하면 되나요?
+   [ORDER_PLACE → PRODUCT_INFO]  한 주문에 색상 두 가지를 섞어서 담는 게 되나요?
+   [ORDER_PLACE → OTHER]  이 후드는 그레이 엑스라지로 부탁드립니다.
+   [ORDER_PLACE → OTHER]  이 신발은 250으로 부탁드릴게요.
+   [RETURN_REFUND → PRODUCT_INFO]  주문한 색상과 전혀 다른 제품이 왔는데 어떻게 처리하나요?
+   [RETURN_REFUND → OTHER]  같은 내용으로 벌써 세 번째 문의드리는데 처리가 안 됩니다.
+   [ORDER_PLACE → OTHER]  이 벨트는 블랙으로 해주시면 됩니다.
+
+[hard_cases.csv 열] ['qa_id', 'hard_type', 'route_expected', 'route_alt', 'question', 'expected_behavior', 'sentiment', 'provenance', 'note'] · 72행
+
+== 요약 ==
+   eval   n=120  정확도 0.583 · macro F1 0.677 · 오분류 50
+
+   ⇒ 이 숫자가 «LLM 을 쓰지 않았을 때의 바닥»이다.
+     퍼실 제시 LLM 기준선 0.94 / macro F1 0.945 와 비교하면
+     «LLM 이 벌어 준 몫»이 나온다.
