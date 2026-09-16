@@ -1,0 +1,101 @@
+   ★답변 규칙을 v2 로 교체했다 (규칙 7·8·9 추가)
+모델 qwen2.5:7b · 대상 32건
+⚠ 퍼실 기준선 56%(18/32) 는 gpt-5.6-terra 다. 절대 비교하지 않는다.
+
+== ② 1턴 답변 ==
+   1227.1초 (건당 38.3초)
+   ★호출 실패 0건 — 이건 «오답»이 아니라 «실행 실패»다
+   ⇒ 통과 11 / 32  (34.4%)
+
+[기대 행동별]
+              건수  통과       통과율
+기대                            
+ANSWER        22  10  0.454545
+ASK            8   1  0.125000
+OUT_OF_SCOPE   2   0  0.000000
+
+[행동 판정 혼동] 행=기대, 열=실제
+실제            ANSWER  ASK  OUT_OF_SCOPE
+기대                                     
+ANSWER            20    2             0
+ASK                7    1             0
+OUT_OF_SCOPE       1    0             1
+
+[실패 유형] — ★tools 미호출이면 must 누락이 따라온다(11강). 원인은 tools 쪽이다
+must 누락              12
+action               10
+tools 미호출             7
+forbid 위반             4
+ASK 인데 되묻는 문장이 아님     3
+
+   답변 전문 → 측정\답변전문_qwen2.57b_base.csv
+
+[가드레일]
+가드레일
+ok          31
+출처 불명 수치     1
+
+[실패 사례]
+  C-001 기대=ASK           실제=ANSWER        action: 기대 ASK != 실제 ANSWER
+      도구: get_shipping_policy
+      답변: 배송비는 기본적으로 **2,500원**입니다.  무료배송의 기준은 카테고리와 상품에 따라 다르므로, 구체적인 상품을 알려주시면 정확한 정보를 안내해 드리겠습니
+  C-005 기대=ASK           실제=ANSWER        action: 기대 ASK != 실제 ANSWER
+      도구: get_return_policy,search_product
+      답변: 네, 기본 티셔츠는 구매 후 7일 이내에 반품이 가능합니다. 반품 절차와 주의사항을 알려드리겠습니다.  ### 반품 절차 1. **택배 회사 접수**: 모두몰
+  C-008 기대=OUT_OF_SCOPE  실제=OUT_OF_SCOPE  must 누락: "고객센터"; forbid 위반: "3~7영업일"
+      도구: get_order_status,get_return_policy
+      답변: O-1009 주문의 환불 처리 시기를 알려드리겠습니다.  주문 정보를 확인한 결과, 현재 주문 상태는 "배송완료"이며, 이는 모두몰의 반품/교환 절차에 따라 
+  C-009 기대=ASK           실제=ANSWER        action: 기대 ASK != 실제 ANSWER; ASK 인데 되묻는 문장이 아님
+      도구: get_order_status,get_return_policy
+      답변: 네, 확인해보겠습니다.  주문 정보를 바탕으로 트래블 키트 4종의 반품 정책을 확인했습니다. 해당 제품은 다음과 같은 특징이 있습니다:  1. 카테고리: 화장
+  C-012 기대=ANSWER        실제=ANSWER        must 누락: "품절"
+      도구: search_product,get_product_detail
+      답변: 안녕하세요. 현재 스틸스니커즈 230 사이즈의 재고는 없습니다. 다른 사이즈를 추천해 드릴 수 있습니다. 필요하시다면 다른 사이즈를 확인해 보시겠어요?  만약
+  C-013 기대=ANSWER        실제=ANSWER        tools 미호출: ['get_return_status']; must 누락: "34000"
+      도구: get_order_status
+      답변: O-1007 주문의 경우 현재 "승인 완료 · 환불 처리중" 상태입니다. 전체 처리 소요 기간은 3~7영업일이지만, 현재 상태에서는 환불이 진행 중인 것으로 
+  C-014 기대=ANSWER        실제=ANSWER        must 누락: "40000"
+      도구: get_shipping_policy
+      답변: 레깅스의 배송비는 상품 카테고리에 따라 다릅니다. 먼저, 레깅스는 의류·잡화 카테고리에 속합니다. 따라서 배송비는 다음과 같습니다:  - **전체 반품 (왕복
+  C-015 기대=ASK           실제=ANSWER        action: 기대 ASK != 실제 ANSWER; forbid 위반: "변경이 불가"; ASK 인데 되묻는 문장이 아님
+      도구: (없음)
+      답변: 안녕하세요, 고객님. 현재 주문하신 티셔츠의 수량 및 옵션 변경은 송장 출력 전까지만 가능합니다. 이미 송장이 출력된 상태라면 변경이 불가능합니다.  현재 티
+  C-016 기대=ANSWER        실제=ANSWER        must 누락: "7"
+      도구: get_order_status,get_product_options,get_product_detail
+      답변: 안녕하세요. 고객님.   주문 접수 후에는 **송장이 출력된 이후에는 변경이 불가능**합니다. 현재 송장이 이미 출력된 상태이므로 색상을 변경할 수 없습니다.
+  C-017 기대=ANSWER        실제=ASK           action: 기대 ANSWER != 실제 ASK; tools 미호출: ['get_product_detail']
+      도구: (없음)
+      답변: 안녕하세요! 핸드메이드 트렌치 코트 L 사이즈를 주문해 주셔서 감사합니다.  **주의사항 안내:** - 핸드메이드 트렌치 코트는 주문 제작 상품으로, 교환 및
+  C-018 기대=ANSWER        실제=ANSWER        tools 미호출: ['get_product_detail']; must 누락: "95"
+      도구: search_product,get_product_options
+      답변: 안녕하세요. 브라·팬티 세트 80A를 구매해 주셔서 감사합니다.  브라·팬티 세트는 **세트로만 판매**되므로, 브라 80A와 함께 팬티도 80A 사이즈로 출
+  C-019 기대=ANSWER        실제=ANSWER        tools 미호출: ['get_restock_info']; must 누락: "9월 1일"
+      도구: search_product,get_product_detail
+      답변: 안녕하세요. 현재 "가죽 자켓"의 재고는 12벌이 있습니다. XL 사이즈는 재고가 확인되었습니다.  "가죽 자켓 XL"을 주문하시면 출고가 가능합니다. 주문 
+  C-020 기대=ANSWER        실제=ASK           action: 기대 ANSWER != 실제 ASK; tools 미호출: ['get_product_options']
+      도구: (없음)
+      답변: 안녕하세요! 발열 내의 상의에 대해 문의해 주셔서 감사합니다.  먼저, 해당 상품의 구성품 중 발열 내의 상의만 따로 구매할 수 있는지 확인해 보겠습니다.  
+  C-021 기대=ANSWER        실제=ANSWER        must 누락: "80"
+      도구: search_product,get_product_detail,get_product_options,escalate_to_agent
+      답변: 안녕하세요. 고객님.   슬립 원피스 상세페이지에 표기된 소재와 실제 수령품에 적힌 소재가 다름을 확인해 주셔서 감사합니다.   **사과 드립니다.** 이는 
+  C-024 기대=ANSWER        실제=ANSWER        tools 미호출: ['get_product_detail']; must 누락: "신축성"; must 누락: "5000"
+      도구: search_product,get_return_policy
+      답변: 감사합니다. 고객님의 의견을 잘 들었습니다.  현재 확인한 정보로는 검정 레깅스 M 제품의 사이즈에 대한 불만이 있습니다. 먼저, 사이즈가 표기보다 커진다는 
+  C-025 기대=ANSWER        실제=ANSWER        must 누락: "925"
+      도구: search_product,get_product_detail
+      답변: 안녕하세요! 실버 체인 목걸이의 품질보증서 동봉 여부를 안내해 드리겠습니다.  품질보증서는 **상품마다 다르게 동봉됩니다**. 실버 체인 목걸이는 **소재에 
+  C-027 기대=ASK           실제=ANSWER        action: 기대 ASK != 실제 ANSWER
+      도구: get_shipping_policy,search_product
+      답변: 안녕하세요. 당일배송은 지역에 따라 제공 여부가 달라, 배송받으실 지역을 먼저 알려 주시겠어요?
+  C-029 기대=ASK           실제=ANSWER        action: 기대 ASK != 실제 ANSWER
+      도구: get_order_status,get_shipping_policy
+      답변: 안녕하세요. 오늘 주문하신 경우, 주문 시각이 11:00 이전이면 당일 출고가 가능합니다. 11:00 이후 주문은 익영업일 출고가 됩니다.  현재 주문 시각을
+  C-030 기대=ANSWER        실제=ANSWER        tools 미호출: ['get_return_status']; forbid 위반: "고객님 부담"; forbid 위반: "5000원"
+      도구: (없음)
+      답변: 네, 해당 상황에서는 단순 변심으로 인한 교환인 경우 배송비는 고객님이 부담해야 합니다.   반품 배송비는 **5,000원**이 적용되며, 이 비용은 환불 금
+  C-031 기대=ASK           실제=ANSWER        action: 기대 ASK != 실제 ANSWER; ASK 인데 되묻는 문장이 아님
+      도구: (없음)
+      답변: 반품 접수 후 1~2영업일 내에 택배 기사가 방문하여 상품을 수거합니다.   수거가 이루어지지 않은 경우에는 재수거 접수를 해주시기 바랍니다.   만약 명절 
+  C-034 기대=OUT_OF_SCOPE  실제=ANSWER        action: 기대 OUT_OF_SCOPE != 실제 ANSWER; must 누락: "제조사"
+      도구: (없음)
+      답변: 시계 수리를 위해서는 다음과 같은 절차를 따르시면 됩니다:  1. **반품 접수**:    - 모두몰 고객센터에 문의하여 시계의 수리를 위해 반품 접수를 해주

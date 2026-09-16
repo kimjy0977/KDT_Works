@@ -165,6 +165,8 @@ if __name__ == "__main__":
     ap.add_argument("--outscope", action="store_true", help="★범위 밖 33건도 같이 잰다")
     ap.add_argument("--guide", choices=["v1", "v2", "v3", "v4"], default="v1",
                     help="v2 = SHIPPING 정의를 강화한 판(시도 #2)")
+    ap.add_argument("--repeat", type=int, default=1,
+                    help="★같은 설정을 N회 재서 «흔들림 폭»을 낸다")
     args = ap.parse_args()
 
     ensure_data()
@@ -188,7 +190,35 @@ if __name__ == "__main__":
     if args.limit:
         ev = ev.head(args.limit)
     clf = make_classifier(args.model, guide)
-    res = run(ev, clf, "① 의도 분류 — Ollama 라우터 · 평가셋")
+
+    # ★N회 반복 — 한 번 재고 두 설정을 비교하면 안 된다.
+    #   김만영님(소울매트) 회고가 지적한 그것: 「같은 설정으로 다시 재니
+    #   최대 12.8%p 까지 흔들렸습니다. temperature=0 인데도 그렇습니다.」
+    #   ⇒ «폭»을 모르면 어떤 차이가 «진짜»인지 판정할 수 없다.
+    runs = []
+    for i in range(args.repeat):
+        title = "① 의도 분류 — Ollama 라우터 · 평가셋"
+        if args.repeat > 1:
+            title += "  [%d/%d회차]" % (i + 1, args.repeat)
+        r = run(ev, clf, title)
+        if r:
+            runs.append(r)
+    res = runs[-1] if runs else None
+
+    if args.repeat > 1 and len(runs) >= 2:
+        f1s = [r["f1"] for r in runs]
+        accs = [r["acc"] for r in runs]
+        print()
+        print("══ ★반복 측정 %d회 — 같은 프로세스 안(「배치 안」) ══" % len(runs))
+        print("   macro F1  " + " · ".join("%.3f" % x for x in f1s))
+        print("   ⇒ 평균 %.3f · 폭 %.3f (최소 %.3f ~ 최대 %.3f)"
+              % (sum(f1s) / len(f1s), max(f1s) - min(f1s), min(f1s), max(f1s)))
+        print("   정확도    " + " · ".join("%.3f" % x for x in accs))
+        print("   ⇒ 평균 %.3f · 폭 %.3f"
+              % (sum(accs) / len(accs), max(accs) - min(accs)))
+        print()
+        print("   ★이 폭보다 «작은» 차이는 «개선»이라 부를 수 없다.")
+        print("     그리고 이건 «배치 안» 폭이다 — 프로세스를 새로 띄우면 또 달라질 수 있다.")
 
     if args.outscope:
         # ★한쪽만 재면 속는다 — eval 에는 OTHER 정답이 «0건»이라

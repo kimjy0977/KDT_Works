@@ -121,8 +121,32 @@ PICK_GUIDE_ASK = """너는 쇼핑몰 상담 시스템의 조회 담당이다. �
 """
 
 
+RG_STAT = {"검사": 0, "빠진값 발견": 0, "재생성": 0, "재생성 후 채움": 0}
+
+
+def missing_numbers(results, text):
+    """★역방향 가드레일 — 「조회 결과에 있는데 답변이 «안 쓴» 값」을 낸다.
+
+    14_reverse_guardrail.py 에서 «모범 답안»으로 오탐을 재고 좁힌 규칙을 그대로 쓴다.
+    오탐 24/25 → 3/25 까지 줄인 것이 그 파일이고, 여기서는 «쓰기»만 한다.
+    """
+    import importlib.util as _u
+    global _RG
+    try:
+        _RG
+    except NameError:
+        _sp = _u.spec_from_file_location("_rg", "14_reverse_guardrail.py")
+        _m = _u.module_from_spec(_sp)
+        _argv, sys.argv = sys.argv, ["x"]
+        _sp.loader.exec_module(_m)
+        sys.argv = _argv
+        _RG = _m
+    want = _RG.extract(results, "linked", text)
+    return sorted(n for n in want if not _RG.in_answer(n, text))
+
+
 def run_two_stage(pick_llm, write_llm, question, route, max_turns=MAX_TOOL_TURNS,
-                  guide=PICK_GUIDE):
+                  guide=PICK_GUIDE, reverse_guard=False):
     """1단계 도구 선택(짧은 지침) → 2단계 답변 작성(매뉴얼 + 조회결과)."""
     g = StateGraph(ToolState)
     g.add_node("agent", lambda st: {"messages": [pick_llm.invoke(st["messages"])]})
@@ -149,12 +173,35 @@ def run_two_stage(pick_llm, write_llm, question, route, max_turns=MAX_TOOL_TURNS
                 except json.JSONDecodeError:
                     used[m.name] = m.content
 
+    sys_prompt = build_answer_prompt(question, route, used or None)
     try:
         text = write_llm.invoke(
-            [("system", build_answer_prompt(question, route, used or None)),
-             ("human", question)]).content
+            [("system", sys_prompt), ("human", question)]).content
     except Exception as exc:
         return "", used, type(exc).__name__
+
+    # ★역방향 가드레일 — 빠진 값이 있으면 «그 값을 찍어» 한 번만 다시 쓰게 한다.
+    #   차단이 아니라 «재생성 1회»인 이유: 모범 답안으로 재도 오탐이 3/25 남는다.
+    #   차단하면 그 3건에서 «맞는 답»을 막는다.
+    if reverse_guard and used:
+        RG_STAT["검사"] += 1
+        miss = missing_numbers(used, text)
+        if miss:
+            RG_STAT["빠진값 발견"] += 1
+            hint = ("%s[다시 쓰기] 조회 결과의 다음 값이 답변에 빠졌습니다: %s%s"
+                    "이 값들이 «이 문의에 해당하는» 값이면 숫자를 그대로 넣어 다시 쓰십시오."
+                    "%s해당하지 않는 값이면 넣지 마십시오 — 넣으면 틀린 안내가 됩니다."
+                    % (chr(10), ", ".join(miss), chr(10), chr(10)))
+            try:
+                text2 = write_llm.invoke(
+                    [("system", sys_prompt + hint), ("human", question)]).content
+                if text2.strip():
+                    RG_STAT["재생성"] += 1
+                    if not missing_numbers(used, text2):
+                        RG_STAT["재생성 후 채움"] += 1
+                    text = text2
+            except Exception:                       # noqa: BLE001
+                pass                                # 재생성 실패면 1차 답변을 쓴다
     return text, used, ""
 
 
@@ -177,9 +224,47 @@ if __name__ == "__main__":
                     help="★도구 선택과 답변 작성을 «분리»한다(8강 방식)")
     ap.add_argument("--ask-first", action="store_true",
                     help="★조회를 «덜» 적극적으로 — ASK 를 살리는 지침(시도 #6)")
+    ap.add_argument("--search-v2", action="store_true",
+                    help="★엔티티 링킹 개선판을 쓴다(12강 한계 ① · 13_search_v2.py)")
+    ap.add_argument("--rules-v2", action="store_true",
+                    help="★답변 규칙 v2 — must 누락 15건을 읽고 고친 것(prompts_answer_v2.py)")
+    ap.add_argument("--reverse-guard", action="store_true",
+                    help="★역방향 가드레일 — 빠진 값이 있으면 재생성 1회(14_reverse_guardrail.py)")
+    ap.add_argument("--tool-turns", type=int, default=None,
+                    help="★도구 호출 상한(기본 3). 신서연님 회고: 3→5 로 올리니 효과가 있었다")
     args = ap.parse_args()
 
     ensure_data()
+
+    if args.rules_v2:
+        # ★원본 prompts.py 는 «한 줄도» 고치지 않는다. 런타임에만 갈아 끼운다.
+        #   context.build_answer_prompt 가 «함수 안»에서 import 하므로 이 대입이 닿는다.
+        #   7b 측정(측정/21)의 must 누락 15건을 문장으로 읽어 셋으로 갈랐다:
+        #     A 조회하고도 "○○원" 자리표시   B "확인해 보겠습니다"로 미룸
+        #     C 같은 뜻 다른 말("품절"을 "재고 없음"으로)
+        import prompts
+        from prompts_answer_v2 import ANSWER_RULES_V2
+        prompts.ANSWER_RULES = ANSWER_RULES_V2
+        print("   ★답변 규칙을 v2 로 교체했다 (규칙 7·8·9 추가)")
+
+    if args.search_v2:
+        # ★원본 tools.py 는 «고치지 않고», 도구 목록에서 이 함수만 바꿔 끼운다.
+        #   12강 한계 ①: search_product 가 토큰 «겹침»으로만 찾아
+        #   「요일팬티 세트」와 「브라·팬티 세트」가 동점이 된다.
+        #   13_search_v2.py 실측: 정확히 특정 15/18 → 16/18, 애매 1 → 0
+        import importlib.util as _u
+        _sp = _u.spec_from_file_location("_s2", "13_search_v2.py")
+        _m = _u.module_from_spec(_sp)
+        _argv, sys.argv = sys.argv, ["x"]
+        _sp.loader.exec_module(_m)
+        sys.argv = _argv
+        _fn = _m.search_v2
+        _fn.__name__ = "search_product"        # ★도구 «이름»은 그대로여야 한다
+        _fn.__doc__ = TOOLS["search_product"].__doc__
+        TOOLS["search_product"] = _fn
+        globals()["LC_TOOLS"] = [tool(f) for f in TOOLS.values()]
+        print("   ★search_product 를 v2(가중 점수)로 교체했다")
+
     app = build_app(args.model)
     cases = [c for c in load_cases() if c["expect"]["action"] in AUTO_ACTIONS]
     if args.limit:
@@ -202,7 +287,9 @@ if __name__ == "__main__":
         if args.two_stage:
             text, results, err = run_two_stage(
                 _pick, _write, c["question"], c["route"],
-                guide=PICK_GUIDE_ASK if args.ask_first else PICK_GUIDE)
+                guide=PICK_GUIDE_ASK if args.ask_first else PICK_GUIDE,
+                reverse_guard=args.reverse_guard,
+                max_turns=args.tool_turns or MAX_TOOL_TURNS)
         else:
             text, results, err = answer_with_tools(app, c["question"], c["route"])
         act = judge(text, results)
@@ -238,6 +325,23 @@ if __name__ == "__main__":
     kinds = [f.split(":")[0] for s in res.loc[~res["ok"], "fails"] for f in s.split("; ") if f]
     print("[실패 유형] — ★tools 미호출이면 must 누락이 따라온다(11강). 원인은 tools 쪽이다")
     print(pd.Series(kinds).value_counts().to_string() if kinds else "  없음")
+    # ★답변 «전문»을 남긴다 — 로그는 223자에서 잘린다.
+    #   재현율(빠진 값을 «실제로» 잡는가)을 나중에 재려면 전문이 있어야 한다.
+    #   1차 측정에서 이걸 안 남겨 「효과 0」의 원인을 바로 못 갈랐다.
+    import pathlib
+    _csv = pathlib.Path("측정") / ("답변전문_%s_%s.csv" % (
+        args.model.replace(":", ""), "rg" if args.reverse_guard else "base"))
+    res.to_csv(_csv, index=False, encoding="utf-8-sig")
+    print()
+    print("   답변 전문 → %s" % _csv)
+
+    if args.reverse_guard:
+        print()
+        print("[★역방향 가드레일 발동 내역]")
+        for k, v in RG_STAT.items():
+            print("   %-14s %d" % (k, v))
+        print("   ※ «검사» 는 도구 결과가 있었던 건수다. 도구를 안 부르면 검사 자체가 없다.")
+
     if args.guardrail:
         print()
         print("[가드레일]")
