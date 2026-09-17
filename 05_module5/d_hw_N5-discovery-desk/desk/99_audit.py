@@ -157,24 +157,17 @@ def audit_tools():
 # 4. ★문서와 실제가 «어긋나지» 않는가 — 어제 README §8 의 실수
 # ─────────────────────────────────────────────────────────
 def audit_docs():
-    prog = (ROOT / "notes/진행상황.md").read_text(encoding="utf-8")
     facts = json.loads((HERE / "facts_base.json").read_text(encoding="utf-8"))["facts"]
     kb = json.loads((HERE / "store/knowledge.json").read_text(encoding="utf-8"))
     seed, n_scored = _seed_rows()
 
-    pairs = [("기사", len(kb["articles"]), r"지식원 \(기사\) \| \*\*(\d+)건"),
-             ("사실카드", len(facts), r"기준 사실 카드 \| \*\*(\d+)장"),
-             ("라우팅평가셋", n_scored, r"라우팅 평가셋 \| (\d+)건")]
-    for label, actual, pat in pairs:
-        m = re.search(pat, prog)
-        if not m:
-            WARN.append("진행상황.md 에서 %s 수치를 못 찾음 (패턴 변경?)" % label)
-            continue
-        chk(int(m.group(1)) == actual,
-            "진행상황.md %s 수치 일치 (문서 %s · 실제 %d)" % (label, m.group(1), actual))
+    # ★진행상황.md 는 제출물에서 내렸다(과정 문서).
+    #   수치 대조는 아래 README·REPORT 블록 하나로 «몰아서» 한다 —
+    #   같은 것을 두 곳에서 보면 한 곳만 고치게 된다(오늘 다섯 번 겪었다).
+    prog = (ROOT / "README.md").read_text(encoding="utf-8")
 
     # 파일 목록이 실제와 맞나
-    listed = re.findall(r"^\s*[├└]── (\S+)", prog, re.M)
+    listed = re.findall(r"^\s*[├└]── (\S+)", prog, re.M)   # README 의 트리
     for name in listed:
         if name.endswith("/"):
             continue
@@ -183,7 +176,7 @@ def audit_docs():
         chk(exists, "진행상황.md 에 적힌 %s 가 실재" % name)
     # ★플레이스홀더가 «남아 있으면» 실패로 잡는다.
     #   어제 README §8 이 실제와 어긋난 채로 커밋됐다. 사람 눈으로는 빠진다.
-    for name in ("README.md", "REPORT.md", "notes/진행상황.md"):
+    for name in ("README.md", "REPORT.md"):
         f = ROOT / name
         if not f.exists():
             WARN.append("%s 가 아직 없다" % name)
@@ -220,8 +213,15 @@ def audit_docs():
         f = ROOT / name
         if not f.exists():
             continue
-        for mentioned in set(re.findall(r"`(desk/[\w./-]+\.\w+)`",
-                                        f.read_text(encoding="utf-8"))):
+        txt = f.read_text(encoding="utf-8")
+        # ① 백틱으로 적은 경로   `desk/agent.py`
+        refs = set(re.findall(r"`([\w가-힣]+/[\w가-힣./_-]+\.\w+)`", txt))
+        # ② ★마크다운 링크      [글](docs/policy.md)  — notes/ 를 내렸을 때 죽은 자리
+        for href in re.findall(r"\]\(([^)#\s]+)\)", txt):
+            if href.startswith(("http://", "https://", "mailto:")):
+                continue
+            refs.add(href)
+        for mentioned in sorted(refs):
             chk((ROOT / mentioned).exists(),
                 "%s 가 가리키는 %s 가 실재" % (name, mentioned))
 
@@ -384,6 +384,18 @@ def audit_prompt_leak():
                 elif n not in examples:
                     WARN.append("%s:%s 예시가 평가셋에 등록 안 됨 — 「%s」" % (fn, name, ex))
                     unreg += 1
+
+    # ★«누가 그 오염본을 쓰는가» — 지침 안을 보는 것만으로는 못 잡는다.
+    #   agent.py 가 GUIDE_V1 을 직접 이름으로 불러 ② 측정이 전부 오염본으로 돌았다.
+    ag = (HERE / "agent.py").read_text(encoding="utf-8")
+    # ⚠ 패턴이 넓으면 «조건부» 코드까지 잡는다 — 1차에 PICK_GUIDE 삼항식이 걸렸다.
+    #   기본값이 무엇인지는 «else 쪽»에 있다. 거기를 본다.
+    chk("_rt.GUIDE_V1)" not in ag,
+        "agent.py 라우팅이 오염본 GUIDE_V1 을 직접 쓰지 않음")
+    chk("else PICK_GUIDE_V2" in ag,
+        "agent.py 도구선택의 «기본»이 v2 (v1 은 DESK_PICK 로만)")
+    chk('DESK_GUIDE' in ag and 'GUIDES[_g]' in ag,
+        "agent.py 라우팅 지침을 20_router 와 «같은 스위치»로 고름")
     chk(leaks == 0, "★지침 %d개의 예시가 채점 문항과 겹치지 않음" % checked)
     print("[9] 프롬프트   지침 %d개 검사 · 오염 %d · 미등록 %d (GUIDE_V1 은 비교용이라 제외)"
           % (checked, leaks, unreg))
