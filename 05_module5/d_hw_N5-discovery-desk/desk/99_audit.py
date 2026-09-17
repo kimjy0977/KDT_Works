@@ -423,7 +423,8 @@ def audit_reachable():
           "list_recent": T.list_recent}
     checked = dead = 0
     for name, path in (("골든셋", HERE / "golden.json"),
-                       ("홀드아웃", ROOT / "data/holdout.json")):
+                       ("홀드아웃", ROOT / "data/holdout.json"),
+                       ("홀드아웃2", ROOT / "data/holdout2.json")):
         if not path.exists():
             continue
         for c in json.loads(path.read_text(encoding="utf-8"))["cases"]:
@@ -445,7 +446,7 @@ def audit_reachable():
                 if not ok:
                     msg = ("%s %s: %s(%s) 가 «아무것도 못 찾음» — 도달 불가능한 정답"
                            % (name, c["id"], tool, kw))
-                    if name == "홀드아웃":
+                    if name == "홀드아웃":   # 1차는 이미 쟀다 — 경고만
                         # ★홀드아웃은 «이미 쟀다». 고치면 그 점수가 무엇의 값인지
                         #   모호해진다 — 고치지 않고 «기록»으로 남긴다.
                         WARN.append(msg + " (홀드아웃이라 고치지 않음)")
