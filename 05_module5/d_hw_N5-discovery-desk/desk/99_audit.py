@@ -392,13 +392,68 @@ def audit_prompt_leak():
     #   기본값이 무엇인지는 «else 쪽»에 있다. 거기를 본다.
     chk("_rt.GUIDE_V1)" not in ag,
         "agent.py 라우팅이 오염본 GUIDE_V1 을 직접 쓰지 않음")
-    chk("else PICK_GUIDE_V2" in ag,
-        "agent.py 도구선택의 «기본»이 v2 (v1 은 DESK_PICK 로만)")
+    # ★구조가 아니라 «결과»를 본다 — 지침 버전은 늘어난다(v2 -> v3 -> …)
+    import importlib.util as _u
+    _sp = _u.spec_from_file_location("_ag", HERE / "agent.py")
+    _m = _u.module_from_spec(_sp)
+    _sp.loader.exec_module(_m)
+    chk("또는 get_term" not in _m.PICK_GUIDE,
+        "★기본 도구선택 지침에 「또는」이 없음 (어느 도구인지 하나로 정해 준다)")
+    chk(_m.PICK_GUIDE is not _m.PICK_GUIDE_V1,
+        "agent.py 도구선택의 «기본»이 오염본이 아님")
     chk('DESK_GUIDE' in ag and 'GUIDES[_g]' in ag,
         "agent.py 라우팅 지침을 20_router 와 «같은 스위치»로 고름")
     chk(leaks == 0, "★지침 %d개의 예시가 채점 문항과 겹치지 않음" % checked)
     print("[9] 프롬프트   지침 %d개 검사 · 오염 %d · 미등록 %d (GUIDE_V1 은 비교용이라 제외)"
           % (checked, leaks, unreg))
+
+
+# ─────────────────────────────────────────────────────────
+# 10. ★정답셋이 «도달 가능»한가 — 기대 도구가 실제로 찾나
+# ─────────────────────────────────────────────────────────
+def audit_reachable():
+    """골든셋·홀드아웃의 tool_args 로 «실제로 도구를 불러» 본다.
+
+    찾지 못하는 정답은 «모델이 아무리 잘해도» 통과할 수 없다.
+    그런 문항이 섞이면 점수가 낮은 이유를 «모델 탓»으로 오해한다.
+    """
+    import tools_desk as T
+    FN = {"get_fact": T.get_fact, "get_term": T.get_term,
+          "search_article": T.search_article, "get_article": T.get_article,
+          "list_recent": T.list_recent}
+    checked = dead = 0
+    for name, path in (("골든셋", HERE / "golden.json"),
+                       ("홀드아웃", ROOT / "data/holdout.json")):
+        if not path.exists():
+            continue
+        for c in json.loads(path.read_text(encoding="utf-8"))["cases"]:
+            if c["action"] != "ANSWER":
+                continue                      # 넘기기는 «못 찾는 것»이 정답이다
+            for tool, kw in (c.get("tool_args") or {}).items():
+                fn = FN.get(tool)
+                if not fn:
+                    continue
+                checked += 1
+                try:
+                    r = fn(**kw)
+                except Exception as exc:                      # noqa: BLE001
+                    FAIL.append("%s %s: %s(%s) 가 터짐 — %s"
+                                % (name, c["id"], tool, kw, exc))
+                    dead += 1
+                    continue
+                ok = r.get("found") or r.get("count") or r.get("hits")
+                if not ok:
+                    msg = ("%s %s: %s(%s) 가 «아무것도 못 찾음» — 도달 불가능한 정답"
+                           % (name, c["id"], tool, kw))
+                    if name == "홀드아웃":
+                        # ★홀드아웃은 «이미 쟀다». 고치면 그 점수가 무엇의 값인지
+                        #   모호해진다 — 고치지 않고 «기록»으로 남긴다.
+                        WARN.append(msg + " (홀드아웃이라 고치지 않음)")
+                    else:
+                        FAIL.append(msg)
+                        dead += 1
+    chk(dead == 0, "★정답셋 %d개 도구 호출이 «전부 무언가를 찾음»" % checked)
+    print("[10] 도달성    기대 도구 %d회 실제 호출 · 못 찾음 %d" % (checked, dead))
 
 
 if __name__ == "__main__":
@@ -412,6 +467,7 @@ if __name__ == "__main__":
     audit_evalset_agreement()
     audit_consistency()
     audit_prompt_leak()
+    audit_reachable()
     print()
     print("══ 결과 ══")
     print("   통과 %d · 경고 %d · ★실패 %d" % (len(OK), len(WARN), len(FAIL)))
