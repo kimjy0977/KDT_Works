@@ -2,7 +2,7 @@
 
 **모듈5 노드5 [실습 프로젝트] · 김주영 · 2026-09-17**
 
-> 자세한 판단 근거 → **[REPORT.md](REPORT.md)** · 준비 과정 → [01_진행상황.md](01_진행상황.md)
+> 자세한 판단 근거 → **[REPORT.md](REPORT.md)** · 준비 과정 → [notes/진행상황.md](notes/진행상황.md)
 
 ---
 
@@ -148,8 +148,8 @@ python make_demo.py          # 데모 녹화 갱신
 | `desk/99_audit.py` | ★산출물 전수 감사 — 문서와 실제가 어긋나는지까지 |
 | `desk/facts_base.json` | 기준 사실 카드 25장 |
 | `desk/golden.json` | ② 정답셋 **25건** (난이도 hard 14 · easy 11) |
-| `03_평가셋_씨앗.csv` | ① 라우팅 평가셋 — `eval` 41 · `outscope` 14 · ★`example` 9 |
-| `01_policy_초안.md` | 「과학 소통 원칙」 — 업무 매뉴얼에 해당 |
+| `data/eval_routing.csv` | ① 라우팅 평가셋 — `eval` 41 · `outscope` 14 · ★`example` 9 |
+| `docs/policy.md` | 「과학 소통 원칙」 — 업무 매뉴얼에 해당 |
 | `desk/store/` | 수집한 데이터 (기사 72건) |
 | `desk/측정_*.txt` | 측정 원본 — 개선 이력의 근거 |
 

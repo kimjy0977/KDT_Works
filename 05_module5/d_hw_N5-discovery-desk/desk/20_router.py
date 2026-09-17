@@ -218,7 +218,7 @@ def make_llm(model, guide):
 
 # ─────────────────────────────────────────────────────────
 def load_seed():
-    rows = list(csv.DictReader(io.open(ROOT / "03_평가셋_씨앗.csv", encoding="utf-8")))
+    rows = list(csv.DictReader(io.open(ROOT / "data/eval_routing.csv", encoding="utf-8")))
     ev = [(r["question"], r["route"]) for r in rows if r["split"] == "eval"]
     os_ = [(r["question"], r["route"]) for r in rows if r["split"] == "outscope"]
     hard = {r["question"] for r in rows if r["hard"] == "1"}
