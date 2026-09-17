@@ -1,0 +1,60 @@
+# 「발견」 뉴스레터 — 소스와 임계값
+# ★추측으로 넣지 않았다. 03_probe_topics.py 로 후보 31곳을 «재서» 넣은 것이다 (2026-09-14 실측).
+
+# group = 자리 배분(아래 group_caps)에 쓰인다.
+#   ★안 걸면 «건수 많은 우주»가 다섯 자리를 다 가져간다 — 7강 매체 상한과 같은 문제다.
+sources:
+  # ── 우주·천문 : 24h 28건 · 7일 121건 ──────────────────────
+  - {name: "NASA",            group: "우주", tier: 1, url: "https://www.nasa.gov/rss/dyn/breaking_news.rss"}
+  - {name: "ESA",             group: "우주", tier: 1, url: "https://www.esa.int/rssfeed/Our_Activities/Space_News"}
+  - {name: "Space.com",       group: "우주", tier: 2, url: "https://www.space.com/feeds/all"}
+  - {name: "Universe Today",  group: "우주", tier: 2, url: "https://www.universetoday.com/feed"}
+  - {name: "Phys.org 우주",    group: "우주", tier: 2, url: "https://phys.org/rss-feed/space-news/"}
+  - {name: "SpaceNews",       group: "우주", tier: 2, url: "https://spacenews.com/feed/"}
+
+  # ── 고고학·유적 : 24h 18건 · 7일 69건 ─────────────────────
+  - {name: "Phys.org 고고학",  group: "고고", tier: 2, url: "https://phys.org/rss-feed/science-news/archaeology/"}
+  - {name: "Nature 고고학",    group: "고고", tier: 1, url: "https://www.nature.com/subjects/archaeology.rss"}
+  - {name: "ScienceDaily 고고", group: "고고", tier: 2, url: "https://www.sciencedaily.com/rss/fossils_ruins/archaeology.xml"}
+  - {name: "The Past",        group: "고고", tier: 2, url: "https://the-past.com/feed/"}
+
+  # ── 고생물·인류 : 24h 10건 · 7일 85건 ─────────────────────
+  - {name: "Nature 고생물",    group: "고생물", tier: 1, url: "https://www.nature.com/subjects/palaeontology.rss"}
+  - {name: "Phys.org 진화",    group: "고생물", tier: 2, url: "https://phys.org/rss-feed/biology-news/evolution/"}
+  - {name: "ScienceDaily 화석", group: "고생물", tier: 2, url: "https://www.sciencedaily.com/rss/fossils_ruins.xml"}
+  - {name: "Sci.News",        group: "고생물", tier: 2, url: "https://www.sci.news/feed"}
+  # ⚠ Smithsonian SmartNews 는 269건짜리 «전체» 피드다. 과학 말고 다 섞여 온다.
+  #   넣으려면 제목 필터가 먼저다 — 지금은 뺀다.
+
+# ⚠ 한국어 소스 — 어제도 오늘도 거의 없다 (6곳 중 1곳만 살아남음)
+#   한겨레 과학/문화  30건인데 «날짜가 없다» → 시간 창에서 전부 버려진다
+#   경향 과학        최신글이 13,066시간(약 1.5년) 전 → 죽은 피드
+#   사이언스타임즈·동아사이언스  404 / 0건
+#   연합뉴스 문화     24h 120건이지만 «전체 문화» 피드 — 미술·전시만 걸러야 쓸 수 있다
+#   ⇒ 그래서 이 뉴스레터는 «영어 소스뿐»이다. 한국어 출력 강제가 그만큼 중요해진다.
+hackernews:
+  enabled: false        # AI 전용 신호라 여기선 끈다
+
+hours: 48               # 실측 24h 56건이면 되지만, 48h 로 «적게 나오는 날»을 덮는다
+per_source_cap: 10
+batch: 20
+batch_keep: 8
+tier1_cap: 2
+target: 5
+body_min: 600
+media_cap: 2
+
+# ★주제별 자리 배분 — 없으면 우주가 다 가져간다
+#   합이 target(5)보다 커도 된다. 「최대 몇 자리까지」의 뜻이다.
+group_caps:
+  우주: 2
+  고고: 2
+  고생물: 2
+
+discord:
+  title: "이번 주의 발견"          # ★카드 머리말 — 프로필마다 달라진다
+  username: "김주영 · 이번 주의 발견"
+  embed_max: 10
+  title_max: 256
+  desc_max: 4096
+  total_max: 6000

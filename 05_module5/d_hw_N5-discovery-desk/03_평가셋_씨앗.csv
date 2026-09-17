@@ -1,0 +1,65 @@
+question,route,split,hard,note
+제임스웹이 최근에 촬영한 외계행성 대기가 있나요,SPACE,eval,0,
+프록시마 센타우리까지 거리가 얼마나 되나요,SPACE,eval,0,
+달 뒷면에 착륙한 탐사선이 뭘 발견했나요,SPACE,eval,0,
+토성 고리가 사라지고 있다는 게 사실인가요,SPACE,eval,0,
+운석에서 아미노산이 나왔다는데 생명의 기원인가요,SPACE,eval,1,생명 어휘 때문에 PALEO 로 샌다
+달에서 가져온 시료의 연대는 어떻게 쟀나요,SPACE,eval,1,연대 어휘 때문에 CONCEPT 로 샌다
+화성에 옛날 강이 흘렀다는 증거가 있나요,SPACE,eval,1,옛날 어휘 때문에 ARCHAEO 로 샌다
+블랙홀 사진은 실제로 찍은 건가요,SPACE,eval,0,
+소행성 아포피스가 지구에 얼마나 가까이 오나요,SPACE,eval,1,미래 예측처럼 보여 OTHER 로 샌다
+우주 망원경이 관측할 수 있는 가장 먼 은하는 무엇인가요,SPACE,eval,0,
+폼페이에서 새로 발굴된 게 있나요,ARCHAEO,eval,0,
+사해문서는 누가 썼나요,ARCHAEO,eval,0,
+고대 무덤에서 나온 뼈로 뭘 알 수 있나요,ARCHAEO,eval,1,뼈 어휘 때문에 PALEO 로 샌다
+점토판 문자는 어떻게 해독했나요,ARCHAEO,eval,1,어떻게 때문에 CONCEPT 로 샌다
+피라미드 건설에 쓰인 돌은 어디서 왔나요,ARCHAEO,eval,0,
+스톤헨지 용도가 밝혀졌나요,ARCHAEO,eval,0,논쟁 등급이 답에 필요
+난파선에서 건진 유물은 어떻게 보존하나요,ARCHAEO,eval,1,어떻게 때문에 CONCEPT 로 샌다
+최근 라이다로 찾은 마야 유적이 있나요,ARCHAEO,eval,0,
+빙하에서 나온 미라의 사인은 무엇인가요,ARCHAEO,eval,1,★policy 1.2-3 — 사람이면 ARCHAEO
+고대 로마 콘크리트가 왜 오래가나요,ARCHAEO,eval,0,
+티라노사우루스에 깃털이 있었나요,PALEO,eval,0,논쟁 등급이 답에 필요
+공룡 멸종에 소행성이 얼마나 관여했나요,PALEO,eval,1,소행성 때문에 SPACE 로 샌다
+네안데르탈인 유적에서 도구가 나왔다던데,ARCHAEO,eval,1,★정답 수정 — policy 1.2-2 주어는 도구다
+화석의 색은 어떻게 알아내나요,PALEO,eval,1,어떻게 때문에 CONCEPT 로 샌다
+최근 발견된 가장 오래된 다세포 생물은 무엇인가요,PALEO,eval,0,
+암모나이트는 왜 멸종했나요,PALEO,eval,0,
+고생대와 중생대 경계는 언제인가요,PALEO,eval,0,정설 등급
+매머드를 되살릴 수 있나요,PALEO,eval,1,미래 예측처럼 보여 OTHER 로 샌다
+새가 공룡의 후손이라는 게 정설인가요,PALEO,eval,0,
+호박 속 곤충에서 DNA 를 뽑을 수 있나요,PALEO,eval,1,어떻게 때문에 CONCEPT 로 샌다
+방사성 탄소 연대측정이 뭔가요,CONCEPT,eval,0,
+적색편이는 왜 생기나요,CONCEPT,eval,0,
+층서학에서 지층 순서를 어떻게 정하나요,CONCEPT,eval,0,
+동위원소로 연대를 재는 원리가 뭔가요,CONCEPT,eval,0,
+광년은 시간 단위인가요 거리 단위인가요,CONCEPT,eval,0,
+표본의 오염은 연대 측정에 어떤 영향을 주나요,CONCEPT,eval,0,
+분자시계란 무엇인가요,CONCEPT,eval,1,생물 어휘 때문에 PALEO 로 샌다
+라이다 측량은 어떤 원리인가요,CONCEPT,eval,1,유적 조사에 쓰여 ARCHAEO 로 샌다
+동료평가를 거쳤다는 게 무슨 뜻인가요,CONCEPT,eval,0,
+프리프린트와 정식 논문은 뭐가 다른가요,CONCEPT,eval,0,신설 등급 설명에 필요
+제 별자리 운세를 봐주세요,OTHER,outscope,0,유사과학
+피라미드는 외계인이 지었다던데 사실인가요,ARCHAEO,eval,1,★policy v0.4 — 대상(피라미드)이 우리 분야다. 판정 말고 근거 제시
+지구가 평평하다는 주장은 왜 나왔나요,OTHER,outscope,1,CONCEPT 로 샌다
+타로 카드로 미래를 알 수 있나요,OTHER,outscope,0,유사과학
+이 영양제가 몸에 좋은가요,OTHER,outscope,0,의학 상담
+내일 지진이 날까요,OTHER,outscope,0,미래 예측
+우주 관련 주식을 사야 할까요,OTHER,outscope,0,개인 조언
+고고학과에 진학하면 취업이 되나요,OTHER,outscope,0,개인 조언
+연금술로 금을 만들 수 있나요,OTHER,outscope,1,CONCEPT 로 샌다
+백신에 칩이 들어 있나요,OTHER,outscope,0,음모론
+혈액형으로 성격을 알 수 있나요,OTHER,outscope,0,유사과학
+오늘 날씨 어때요,OTHER,outscope,0,잡담
+당신은 누구인가요,OTHER,outscope,0,잡담
+화성에 가면 외계인을 만날 수 있나요,OTHER,outscope,1,★대상은 화성이나 «외계인 조우»는 우리 자료 밖이다
+공룡이 지금 살아 있다면 사람을 잡아먹었을까요,OTHER,outscope,1,PALEO 로 샌다
+달 착륙이 조작이라던데 사실인가요,SPACE,example,1,지침예시 — 유사과학 주장이어도 대상이 우리 분야면 그 라우트
+혜성 꼬리가 왜 둘로 갈라지나요,SPACE,example,0,지침예시 — 대상이 있으면 그 대상의 라우트
+성벽이 언제 쌓였는지 어떻게 정하나요,ARCHAEO,example,0,지침예시 — 대상이 있으면 그 대상의 라우트
+표준화석이 무슨 뜻인가요,CONCEPT,example,0,지침예시 — 대상이 없으면 CONCEPT
+학명은 누가 정하나요,CONCEPT,example,0,지침예시 — 말을 물으면 CONCEPT
+청동기 무덤에서 나온 장신구,ARCHAEO,example,1,지침예시 — 사람이 만든 것이면 ARCHAEO
+이탄늪에서 나온 시신,ARCHAEO,example,1,지침예시 — 사람이면 ARCHAEO
+동굴에서 나온 곰 뼈,PALEO,example,1,지침예시 — 비인류면 PALEO
+빙하기는 언제 끝났나요,PALEO,example,0,지침예시(도구선택) — 질문의 말을 그대로 넣는다
