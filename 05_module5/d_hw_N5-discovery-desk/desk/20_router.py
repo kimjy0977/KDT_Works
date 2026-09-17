@@ -72,12 +72,12 @@ def _load_env():
     """.env 를 찾아 환경변수로 올린다 — 이미 있으면 덮지 않는다.
 
     ★키는 «파일에만» 둔다. 코드에는 «경로»만 적는다.
-      찾는 순서: desk/.env -> 프로젝트 루트 -> 노드4 (키를 거기 뒀다)
+      찾는 순서: desk/.env -> 프로젝트 루트
+      ⛔키를 «코드에» 적지 않는다. 파일에만 둔다(.gitignore 에 있다).
     """
     import os
     here = Path(__file__).parent
-    for p in (here / ".env", here.parent / ".env",
-              here.parent.parent / "c_lab_N4-routing-grounding/modumall-agent/.env"):
+    for p in (here / ".env", here.parent / ".env"):
         if not p.exists():
             continue
         for line in p.read_text(encoding="utf-8").splitlines():

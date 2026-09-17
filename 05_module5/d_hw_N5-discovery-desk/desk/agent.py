@@ -125,12 +125,12 @@ def _load_env():
     """.env 를 찾아 환경변수로 올린다 — 이미 있으면 덮지 않는다.
 
     ★키는 «파일에만» 둔다. 코드에는 «경로»만 적는다.
-      찾는 순서: desk/.env -> 프로젝트 루트 -> 노드4 (키를 거기 뒀다)
+      찾는 순서: desk/.env -> 프로젝트 루트
+      ⛔키를 «코드에» 적지 않는다. 파일에만 둔다(.gitignore 에 있다).
     """
     import os
     here = Path(__file__).parent
-    for p in (here / ".env", here.parent / ".env",
-              here.parent.parent / "c_lab_N4-routing-grounding/modumall-agent/.env"):
+    for p in (here / ".env", here.parent / ".env"):
         if not p.exists():
             continue
         for line in p.read_text(encoding="utf-8").splitlines():
@@ -212,7 +212,10 @@ def build(model="qwen2.5:7b", threshold=None):
     kw = dict(model=model, temperature=0, num_predict=700)   # 하위 그래프용
     if model.startswith("qwen3"):
         kw["reasoning"] = False
-    llm_route = _rt.make_llm(model, _rt.GUIDE_V1)
+    # ★기본은 v2(오염 제거). DESK_GUIDE=v1 로 «오염본»을 재현할 수 있다 —
+    #   20_router.py 의 --guide 와 «같은 뜻»이다. 한쪽만 바꾸면 또 어긋난다.
+    _g = "v1" if os.environ.get("DESK_GUIDE") == "v1" else "v2"
+    llm_route = _rt.make_llm(model, _rt.GUIDES[_g])
     write = mk()
 
     # ── ① 카테고리 판정 ───────────────────────────────
@@ -340,6 +343,8 @@ if __name__ == "__main__":
     ap.add_argument("--model", default="qwen2.5:7b")
     ap.add_argument("--threshold", type=float, default=None)
     ap.add_argument("--eval", action="store_true")
+    ap.add_argument("--set", default="golden", choices=["golden", "holdout"],
+                    help="★holdout 은 «지침을 고칠 때 안 본» 문항이다. 한 번만 잰다")
     ap.add_argument("--workers", type=int, default=2)
     args = ap.parse_args()
 
@@ -366,9 +371,16 @@ if __name__ == "__main__":
         from concurrent.futures import ThreadPoolExecutor
         import time
         import score_desk
-        gold = json.loads((HERE / "golden.json").read_text(encoding="utf-8"))["cases"]
-        print("=== ② 답변 채점 — %d건 · %s (agent.py 통합 파이프라인) ==="
-              % (len(gold), args.model))
+        # ★어느 셋으로 재는지 «화면에 적는다» — 섞이면 숫자의 뜻이 달라진다
+        _f = ((HERE / "golden.json") if args.set == "golden"
+              else (HERE.parent / "data/holdout.json"))
+        _d = json.loads(_f.read_text(encoding="utf-8"))
+        gold = _d["cases"]
+        print("=== ② 답변 채점 — %d건 · %s · 평가셋 %s ==="
+              % (len(gold), args.model, args.set.upper()))
+        if args.set == "holdout":
+            print("   ★홀드아웃 — 지침을 고치는 동안 «한 번도 보지 않은» 문항입니다.")
+            print("   ⛔이 결과를 보고 고치면 더는 홀드아웃이 아닙니다.")
         t0 = time.perf_counter()
 
         def run(c):
