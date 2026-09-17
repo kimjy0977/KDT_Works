@@ -42,7 +42,7 @@ def _seed_rows():
     ★example 행은 지침(프롬프트)에 쓰는 예시지 평가용이 아니다.
       이 구분을 두 곳에 나눠 적었다가 한 곳만 고친 적이 있다 — 그래서 한 곳에 둔다.
     """
-    rows = list(csv.DictReader(io.open(ROOT / "03_평가셋_씨앗.csv", encoding="utf-8")))
+    rows = list(csv.DictReader(io.open(ROOT / "data/eval_routing.csv", encoding="utf-8")))
     return rows, len([r for r in rows if r["split"] != "example"])
 
 
@@ -157,7 +157,7 @@ def audit_tools():
 # 4. ★문서와 실제가 «어긋나지» 않는가 — 어제 README §8 의 실수
 # ─────────────────────────────────────────────────────────
 def audit_docs():
-    prog = (ROOT / "01_진행상황.md").read_text(encoding="utf-8")
+    prog = (ROOT / "notes/진행상황.md").read_text(encoding="utf-8")
     facts = json.loads((HERE / "facts_base.json").read_text(encoding="utf-8"))["facts"]
     kb = json.loads((HERE / "store/knowledge.json").read_text(encoding="utf-8"))
     seed, n_scored = _seed_rows()
@@ -183,7 +183,7 @@ def audit_docs():
         chk(exists, "진행상황.md 에 적힌 %s 가 실재" % name)
     # ★플레이스홀더가 «남아 있으면» 실패로 잡는다.
     #   어제 README §8 이 실제와 어긋난 채로 커밋됐다. 사람 눈으로는 빠진다.
-    for name in ("README.md", "REPORT.md", "01_진행상황.md"):
+    for name in ("README.md", "REPORT.md", "notes/진행상황.md"):
         f = ROOT / name
         if not f.exists():
             WARN.append("%s 가 아직 없다" % name)
@@ -290,7 +290,7 @@ def audit_evalset_agreement():
     """★두 평가셋이 «같은 말»을 하는가 — 규칙 라우터로 대조한다.
 
     실측: 같은 주제가 두 곳에서 «다른 라우트»를 가리키고 있었다.
-      03_평가셋_씨앗.csv  「피라미드는 외계인이 지었다던데」 → OTHER
+      data/eval_routing.csv  「피라미드는 외계인이 지었다던데」 → OTHER
       golden.json  G10   「피라미드는 외계인이 지었나요」   → ARCHAEO
     policy 안에서도 모순이었다(§6은 외계인설을 OTHER 로, §3은 근거 제시로).
     ⇒ 눈으로는 «또» 놓친다. 그래서 검사로 만든다.
@@ -320,7 +320,7 @@ def audit_evalset_agreement():
 
 def audit_consistency():
     """★policy 와 «코드»가 같은 말을 하나 — 어제 README §8 이 어긋났던 자리."""
-    pol = (ROOT / "01_policy_초안.md").read_text(encoding="utf-8")
+    pol = (ROOT / "docs/policy.md").read_text(encoding="utf-8")
     router = (HERE / "20_router.py").read_text(encoding="utf-8")
     # CONCEPT 경계 — policy 가 「대상이 있나」로 가르는데 코드도 그런가
     chk("대상이 있나" in pol, "policy 에 CONCEPT 경계 기준이 있음")
@@ -352,7 +352,7 @@ def audit_prompt_leak():
     ⚠ GUIDE_V1 은 «일부러» 남긴 오염본이다(전후 비교용) — 검사에서 뺀다.
     """
     import ast
-    rows = list(csv.DictReader(io.open(ROOT / "03_평가셋_씨앗.csv", encoding="utf-8")))
+    rows = list(csv.DictReader(io.open(ROOT / "data/eval_routing.csv", encoding="utf-8")))
     scored = {_nq(r["question"]) for r in rows if r["split"] in ("eval", "outscope")}
     examples = {_nq(r["question"]) for r in rows if r["split"] == "example"}
     gold = json.loads((HERE / "golden.json").read_text(encoding="utf-8"))["cases"]

@@ -23,7 +23,7 @@ from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
 HERE = Path(__file__).parent
-POLICY = HERE.parent / "01_policy_초안.md"
+POLICY = HERE.parent / "docs/policy.md"
 
 # ★매핑표 — 카테고리 → (근거 문서의 어느 절, 어느 도구, 어느 사실카드 라우트)
 MAPPING = {

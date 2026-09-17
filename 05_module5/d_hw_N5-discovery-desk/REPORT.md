@@ -43,7 +43,7 @@
 |---|---|---|---|
 | `desk/facts_base.json` | 기준 사실 카드 — 내가 쓴 것 | 25장 | [정설]·[추정]·[논쟁] |
 | `desk/store/knowledge.json` | **최근 72시간 발표** — 노드3 수집기가 모은 것 | 72건 | **전부 [신설]** |
-| `01_policy_초안.md` | 「과학 소통 원칙」 — 업무 매뉴얼에 해당 | 11.6KB · 7개 절 | 판정 기준 |
+| `docs/policy.md` | 「과학 소통 원칙」 — 업무 매뉴얼에 해당 | 11.6KB · 7개 절 | 판정 기준 |
 
 ★**섞은 이유**: 노드3이 모으는 것은 **아직 다른 연구진이 확인하지 않은 발표**입니다. 「이건 지난주 발표라 아직 검증되지 않았습니다」라고 **말할 줄 아는지**가 이 프로젝트의 시험대입니다.
 
@@ -103,7 +103,7 @@
 
 | | 무엇을 재나 | 건수 | 파일 |
 |---|---|---|---|
-| ① | 문의를 5갈래 중 맞는 곳으로 보내는가 | **55건** (eval 41 · 범위밖 14) | `03_평가셋_씨앗.csv` |
+| ① | 문의를 5갈래 중 맞는 곳으로 보내는가 | **55건** (eval 41 · 범위밖 14) | `data/eval_routing.csv` |
 | ② | 조회하고 근거 있게 답하는가 | **25건** | `desk/golden.json` |
 
 ### ★예시용과 평가용을 «파일에서» 갈랐습니다
@@ -561,8 +561,8 @@ streamlit run app.py                 # 데모 화면
 
 | 요건 예시 | 이 저장소 | 무엇 |
 |---|---|---|
-| `docs/` | `01_policy_초안.md` · `02_routes_초안.yaml` | 근거 문서 — 「과학 소통 원칙」 |
-| `data/goldenset.json` | `desk/golden.json` · `03_평가셋_씨앗.csv` | 평가셋 둘 (② 답변 · ① 라우팅) |
+| `docs/` | `docs/policy.md` · `docs/routes.yaml` | 근거 문서 — 「과학 소통 원칙」 |
+| `data/goldenset.json` | `desk/golden.json` · `data/eval_routing.csv` | 평가셋 둘 (② 답변 · ① 라우팅) |
 | `prompts.py` | `desk/20_router.py`(`GUIDE_V2`) · `desk/agent.py`(`PICK_GUIDE`·`ANSWER_RULES`) | 분류 지침 · 답변 규칙 |
 | `context.py` | `desk/context_desk.py` | **매핑표** + 카테고리별 근거 조립 |
 | `agent.py` | `desk/agent.py` | 파이프라인 (LangGraph) |
