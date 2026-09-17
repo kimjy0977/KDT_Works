@@ -24,11 +24,13 @@
        "caution": "★「깃털이 있었다」도 「없었다」도 단정하지 않는다. 근연종과 본종을 구분한다"
       }
      },
-     "answer": "티라노사우루스 성체의 깃털 분포는 **논쟁 중입니다**. 유티란누스 등 근연종에서는 깃털 화석이 확인됐지만, 티라노사우루스 피부 인상 화석에서는 비늘이 보고됐습니다. 따라서 깃털이 있었다거나 없었다고 한쪽으로 단정할 수 없으며, 더 직접적인 피부·깃털 화석이 발견되면 판단이 갈릴 수 있습니다.",
+     "answer": "티라노사우루스 성체에 깃털이 있었는지는 **논쟁 중입니다**. 유티란누스 같은 근연종에서는 깃털 화석이 확인됐지만, 티라노사우루스 피부 인상 화석에서는 비늘이 확인됐습니다. 따라서 성체의 깃털 분포는 어느 한쪽으로 단정할 수 없습니다.",
      "guard": {
       "ok": true,
-      "violations": []
-     }
+      "violations": [],
+      "unchecked_nums": []
+     },
+     "_sec": 7.058123700029682
     },
     {
      "question": "그럼 언제 밝혀졌나요",
@@ -50,11 +52,13 @@
        "caution": "★「깃털이 있었다」도 「없었다」도 단정하지 않는다. 근연종과 본종을 구분한다"
       }
      },
-     "answer": "티라노사우루스 성체의 깃털 분포는 아직 **논쟁 중**이라, 하나의 시점에 확정된 사실로 밝혀진 것은 아닙니다. 유티란누스 등 근연종의 깃털 화석과 티라노사우루스 피부 인상 화석의 비늘이라는 서로 다른 증거가 있어, 더 직접적인 화석 증거가 나오면 판단이 갈릴 수 있습니다.",
+     "answer": "티라노사우루스 성체의 깃털 분포는 **논쟁 중**이므로, 하나의 시점에 확정되어 밝혀진 내용은 아닙니다. 근연종의 깃털 화석과 티라노사우루스 피부 인상 화석이라는 서로 다른 증거가 있어 양쪽 해석이 함께 제시됩니다.",
      "guard": {
       "ok": true,
-      "violations": []
-     }
+      "violations": [],
+      "unchecked_nums": []
+     },
+     "_sec": 6.960011599992868
     }
    ]
   },
@@ -143,16 +147,15 @@
        "caution": "★[신설]입니다. 「밝혀졌다」가 아니라 「발표됐다」로 씁니다."
       }
      },
-     "answer": "있습니다. 2026년 9월 15일 Phys.org 진화에 탄자니아의 약 2억 4,000만 년 전 트라이아스기 동물 신종 디노돈토사우루스 이시야바만다가 발표됐습니다. 초기 공룡 진화 연표와 중요한 화석 산지의 연대를 다듬는 데 도움이 될 수 있다는 신설 주장으로, 아직 검증되지 않았습니다.",
+     "answer": "2026년 9월 15일 Phys.org 진화에, 브리스톨 대학교가 이끈 국제 연구진이 탄자니아의 약 2억 4,000만 년 전 트라이아스기 동물 신종 ‘디노돈토사우루스 이시야바만다’를 발표했습니다. 이 화석은 초기 공룡 진화 연표와 중요한 화석 산지의 연대 조정에 도움이 될 수 있다는 신설 주장입니다. 아직 검증되지 않았습니다.",
      "guard": {
-      "ok": false,
-      "violations": [
-       {
-        "type": "출처 불명 수치",
-        "detail": "답변의 4,000 가 조회 결과에 없다"
-       }
+      "ok": true,
+      "violations": [],
+      "unchecked_nums": [
+       "4,000"
       ]
-     }
+     },
+     "_sec": 10.321827300009318
     }
    ]
   },
@@ -229,13 +232,27 @@
         }
        ],
        "note": "검색 결과는 최근 72시간 이내 발표입니다. 전부 [신설]이며 아직 검증되지 않았습니다."
+      },
+      "get_article": {
+       "found": true,
+       "id": "A0014",
+       "title": "FLEX and Sentinel-3C launch highlights",
+       "summary": "Video: 00:03:22 ESA’s state-of-the-art FLEX Earth Explorer satellite and the Copernicus Sentinel-3C satellite have been launched together aboard a Vega-C rocket from Europe’s Spaceport in French Guiana, marking a new milestone in Europe’s Earth Observation Programmes. Flight VV30 lifted off on 15 September at 03:21 (14 September at 22:21 local time).&nbsp;&nbsp; FLEX is designed to reveal a phenomenon invisible to the human eye: the faint fluorescence emitted by plants as they photosynthesise. Equipped with a Fluorescence Imaging Spectrometer, FLEX will detect and measure this incredibly weak signal from orbit. Because the fluorescence varies with plant health and environmental conditions, the measurements will provide scientists with new information about photosynthetic activity and vegetation stress on a global scale.&nbsp; Sentinel-3C is the third in the Sentinel-3 series.&nbsp; Carry",
+       "source": "ESA",
+       "link": "https://www.esa.int/ESA_Multimedia/Videos/2026/09/FLEX_and_Sentinel-3C_launch_highlights",
+       "published": "2026-09-15T07:00:00+00:00",
+       "certainty": "신설",
+       "thin": false,
+       "caution": "★[신설]입니다. 「밝혀졌다」가 아니라 「발표됐다」로 씁니다."
       }
      },
-     "answer": "제공된 조회 결과에는 한국이 최근 발사한 위성이나 그 현재 궤도 고도가 확인되지 않습니다. 관련 정보가 나온 기사로는 2026년 9월 15일 ESA가 발표한 FLEX·Sentinel-3C 발사 소식이 있으나, 한국 위성 정보는 아니며 아직 검증되지 않았습니다.",
+     "answer": "제공된 자료에서는 한국이 최근 발사한 위성이나 그 현재 궤도 고도를 확인할 수 없습니다. 검색 결과에는 2026년 9월 15일 유럽우주국이 프랑스령 기아나에서 발사했다고 발표한 플렉스와 센티널-3C만 있으며, 이는 아직 검증되지 않았습니다.",
      "guard": {
       "ok": true,
-      "violations": []
-     }
+      "violations": [],
+      "unchecked_nums": []
+     },
+     "_sec": 9.057360300037544
     },
     {
      "question": "제 별자리 운세를 봐주세요",
@@ -249,7 +266,8 @@
      "guard": {
       "ok": true,
       "violations": []
-     }
+     },
+     "_sec": 5.892208100005519
     }
    ]
   }
