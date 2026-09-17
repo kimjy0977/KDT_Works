@@ -1,0 +1,133 @@
+{
+ "note": "★3차 홀드아웃 — 14건. 2차(78.6%)가 «내 수정의 부작용»을 잡은 뒤, 그 부작용을 고치고 만든 셋이다. 재료는 새로 쓴 사실 카드 10장(F036~F045)으로 골든셋·1차·2차가 한 번도 쓰지 않은 것이다. ⛔한 번만 잰다. ⚠한계는 앞과 같다 — 문항도 카드도 내가 썼다. 분명한 성질은 하나: «이 문항에 맞춰 고치지 않았다».",
+ "based_on": "새 사실 카드 F036~F045",
+ "cases": [
+  {
+   "id": "K01", "route": "SPACE", "action": "ANSWER", "difficulty": "hard",
+   "question": "달은 어떻게 생겼나요",
+   "tools": ["get_fact"], "tool_args": {"get_fact": {"topic": "달의 기원"}},
+   "must": [["충돌"], ["유력", "추정", "설"]],
+   "forbid": ["밝혀졌습니다", "확정됐습니다"],
+   "reference": "원시 지구에 화성 크기 천체가 충돌해 생긴 파편이 뭉쳤다는 거대충돌설이 유력합니다. 다만 확정된 것은 아니며, 달과 지구의 동위원소 조성이 너무 비슷한 점은 아직 설명 과제로 남아 있습니다.",
+   "why": "F036 [추정] — 「유력」과 「확정」을 섞기 쉽다"
+  },
+  {
+   "id": "K02", "route": "SPACE", "action": "ANSWER", "difficulty": "hard",
+   "question": "오르트 구름은 관측된 적이 있나요",
+   "tools": ["get_fact"], "tool_args": {"get_fact": {"topic": "오르트 구름"}},
+   "must": [["추정", "역산", "직접"], ["혜성"]],
+   "forbid": ["관측됐습니다", "발견됐습니다"],
+   "reference": "직접 관측된 적은 없습니다. 장주기 혜성의 궤도 분포에서 역산한 추정 구조이며, 혜성의 공급원으로 여겨집니다.",
+   "why": "F037 — 질문이 「관측된 적 있나」로 «예»를 유도한다"
+  },
+  {
+   "id": "K03", "route": "ARCHAEO", "action": "ANSWER", "difficulty": "hard",
+   "question": "병마용은 진시황릉 안에서 나왔나요",
+   "tools": ["get_fact"], "tool_args": {"get_fact": {"topic": "테라코타 군단"}},
+   "must": [["갱", "주변", "밖"], ["발굴되지 않", "아직"]],
+   "forbid": ["능 안에서 나왔습니다", "무덤 안에서"],
+   "reference": "능 본체가 아니라 주변 갱에서 나왔습니다. 능 본체는 아직 발굴되지 않았습니다.",
+   "why": "F038 caution — 통념과 다른 부분이라 그냥 「예」라고 답하기 쉽다"
+  },
+  {
+   "id": "K04", "route": "ARCHAEO", "action": "ANSWER", "difficulty": "hard",
+   "question": "고인돌은 전부 무덤인가요",
+   "tools": ["get_fact"], "tool_args": {"get_fact": {"topic": "고인돌"}},
+   "must": [["무덤설", "유력", "논쟁"], ["제단", "표지", "다른", "지역"]],
+   "forbid": ["전부 무덤입니다", "모두 무덤"],
+   "reference": "무덤설이 유력하지만 전부는 아닙니다. 제단이나 경계 표지 등 다른 기능도 제시되며, 유해가 나오지 않은 사례도 많아 지역마다 다릅니다.",
+   "why": "F039 [논쟁] — 「전부」라는 말에 그대로 동의하면 틀린다"
+  },
+  {
+   "id": "K05", "route": "ARCHAEO", "action": "ANSWER", "difficulty": "hard",
+   "question": "잉카는 바퀴를 몰랐나요",
+   "tools": ["get_fact"], "tool_args": {"get_fact": {"topic": "잉카 도로망"}},
+   "must": [["장난감", "알", "썼"], ["지형", "가축", "야마"]],
+   "forbid": ["몰랐습니다", "바퀴를 알지 못"],
+   "reference": "몰랐던 것은 아닙니다. 장난감에는 바퀴가 쓰였습니다. 다만 안데스의 지형과 야마라는 가축 사정상 운송에는 쓰지 않은 쪽에 가깝습니다.",
+   "why": "F040 caution — 「몰랐다」와 「안 썼다」는 다르다"
+  },
+  {
+   "id": "K06", "route": "PALEO", "action": "ANSWER", "difficulty": "hard",
+   "question": "캄브리아 대폭발은 얼마나 빠르게 일어났나요",
+   "tools": ["get_fact"], "tool_args": {"get_fact": {"topic": "캄브리아 대폭발"}},
+   "must": [["수천만", "천만"], ["보존", "화석 기록", "편향"]],
+   "forbid": ["갑자기 생겼습니다", "하루아침에"],
+   "reference": "약 5억 4천만 년 전에 시작됐고 수천만 년에 걸친 일입니다. 그 전 화석이 드문 데는 보존 편향도 작용합니다.",
+   "why": "F041 — 「폭발」이라는 이름 때문에 순식간으로 말하기 쉽다"
+  },
+  {
+   "id": "K07", "route": "PALEO", "action": "ANSWER", "difficulty": "hard",
+   "question": "익룡은 어떻게 날아올랐나요",
+   "tools": ["get_fact"], "tool_args": {"get_fact": {"topic": "익룡 비행"}},
+   "must": [["네발", "도약"], ["모델", "추정", "계산"]],
+   "forbid": ["공룡인 익룡", "익룡 같은 공룡"],
+   "reference": "네발로 도약해 날아올랐다는 모델이 제시됩니다. 다만 대형종의 이륙 방식은 생체역학 계산에 의존한 추정입니다.",
+   "why": "F042 — ★익룡은 공룡이 아니다. 그리고 [추정]이다"
+  },
+  {
+   "id": "K08", "route": "PALEO", "action": "ANSWER", "difficulty": "hard",
+   "question": "호모 플로레시엔시스는 별개 종인가요",
+   "tools": ["get_fact"], "tool_args": {"get_fact": {"topic": "호모 플로레시엔시스"}},
+   "must": [["논쟁", "우세", "확정"], ["병리", "별개"]],
+   "forbid": ["별개 종입니다", "확정됐습니다"],
+   "reference": "별개 종이라는 쪽이 우세해졌지만 확정된 것은 아닙니다. 병리 개체라는 반론이 있었고 논쟁이 이어져 왔습니다.",
+   "why": "F043 [논쟁] — 「우세」를 「확정」으로 바꾸면 안 된다"
+  },
+  {
+   "id": "K09", "route": "CONCEPT", "action": "ANSWER", "difficulty": "hard",
+   "question": "표준화석은 흔하게 나오는 화석인가요",
+   "tools": ["get_term"], "tool_args": {"get_term": {"term": "표준화석"}},
+   "must": [["짧", "널리", "넓"]],
+   "forbid": ["흔하게 나오는 화석입니다", "많이 나오는"],
+   "reference": "흔한 것이 조건은 아닙니다. 넓은 지역에 살면서 짧은 기간만 존재해야 지층 대비에 쓸 수 있습니다.",
+   "why": "F044 — 질문에 오해가 들어 있다"
+  },
+  {
+   "id": "K10", "route": "CONCEPT", "action": "ANSWER", "difficulty": "hard",
+   "question": "열발광 연대측정은 토기를 언제 만들었는지 알려주나요",
+   "tools": ["get_term"], "tool_args": {"get_term": {"term": "열발광 연대측정"}},
+   "must": [["가열", "구운"], ["방사선", "환경", "가정", "좌우"]],
+   "forbid": ["만든 때를 알려줍니다"],
+   "reference": "정확히는 마지막으로 가열된 때를 잽니다. 그리고 주변 방사선 환경 가정에 결과가 크게 좌우됩니다.",
+   "why": "F045 caution — 「만든 때」와 「가열된 때」는 다르다"
+  },
+  {
+   "id": "K11", "route": "SPACE", "action": "ESCALATE", "difficulty": "hard",
+   "question": "어제 발사된 로켓의 탑재 중량이 얼마인가요",
+   "tools": ["search_article"], "tool_args": {"search_article": {"query": "로켓 발사"}},
+   "must": [["확인되지 않", "자료에 없", "근거가 없"]],
+   "forbid": ["22.8톤", "1.5톤"],
+   "reference": "조회 결과에서 확인되지 않습니다. 수집한 최근 발표에 해당 수치가 없습니다.",
+   "why": "★시의성(「어제」)이 있으니 기사를 본다. 없으면 넘긴다 — 수치를 지어내면 안 된다"
+  },
+  {
+   "id": "K12", "route": "ARCHAEO", "action": "ESCALATE", "difficulty": "hard",
+   "question": "부여 능산리 절터에서 나온 유물의 연대는 어떻게 잡나요",
+   "tools": ["get_fact", "search_article"],
+   "tool_args": {"get_fact": {"topic": "능산리 유물"}},
+   "must": [["확인되지 않", "자료에 없", "근거가 없"]],
+   "forbid": ["6세기", "백제 금동대향로"],
+   "reference": "조회 결과에서 확인되지 않습니다. 기준 사실 카드와 최근 발표 어디에도 근거가 없습니다.",
+   "why": "★v4 규칙을 재는 문항 — 카드에 없으면 «기사도 보고» 넘겨야 한다"
+  },
+  {
+   "id": "K13", "route": "OTHER", "action": "REFUSE", "difficulty": "easy",
+   "question": "이 화석 사진 보고 진품인지 감정해주세요",
+   "tools": [], "tool_args": {},
+   "must": [["다루지 않", "답하지 않"]],
+   "forbid": ["진품", "가품", "감정"],
+   "reference": "저는 관측·발굴·화석 연구에서 나온 자료로만 답합니다. 그 주제는 다루지 않습니다.",
+   "why": "★「화석」이 들어 있어 PALEO 로 끌릴 수 있다 — 감정은 범위 밖이다"
+  },
+  {
+   "id": "K14", "route": "OTHER", "action": "REFUSE", "difficulty": "easy",
+   "question": "고고학과 대학원 어디가 좋은가요",
+   "tools": [], "tool_args": {},
+   "must": [["다루지 않", "답하지 않"]],
+   "forbid": ["추천", "서울대", "순위"],
+   "reference": "저는 관측·발굴·화석 연구에서 나온 자료로만 답합니다. 그 주제는 다루지 않습니다.",
+   "why": "★「고고학」이 들어 있어 ARCHAEO 로 끌릴 수 있다 — 진로 상담은 범위 밖"
+  }
+ ]
+}

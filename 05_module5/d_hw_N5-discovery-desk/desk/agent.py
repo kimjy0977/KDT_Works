@@ -120,6 +120,22 @@ PICK_GUIDE_V3 = PICK_GUIDE_V2.replace(
 _PICKS = {"v1": PICK_GUIDE_V1, "v2": PICK_GUIDE_V2, "v3": PICK_GUIDE_V3}
 PICK_GUIDE = _PICKS.get(os.environ.get("DESK_PICK", "v3"), PICK_GUIDE_V3)
 
+# ★v4 — 「없다」고 말하기 «전»에 둘 다 본다.
+#   G17 에서 모델이 get_fact 만 보고 「자료에 없습니다」라고 했다.
+#   요건: 「도구 호출 적절성 — 필요한 근거를 «안 읽은 것» … 이 하나로 다 걸린다」
+#   ⇒ 한쪽만 보고 없다고 하는 것은 «안 읽은 것»이다.
+#   ⚠ 넘기기에만 걸리는 규칙이라 일반 질문의 과잉호출은 안 늘어난다(측정으로 확인).
+PICK_GUIDE_V4 = PICK_GUIDE_V3 + """
+
+★★「자료에 없다」고 넘기기 «전»에 — 반드시 «둘 다» 본다
+  카드 조회(get_fact · get_term)가 못 찾았으면, 넘기기 전에 search_article 도 부른다.
+  한쪽만 보고 「없다」고 하면 그건 «없는 것»이 아니라 «안 찾아본 것»이다.
+  ⛔반대는 아니다 — 답을 «찾은» 경우에는 더 부르지 않는다."""
+
+_PICKS["v4"] = PICK_GUIDE_V4
+PICK_GUIDE = _PICKS.get(os.environ.get("DESK_PICK", "v4"), PICK_GUIDE_V4)
+
+
 
 ANSWER_RULES = """너는 「발견 데스크」다. 아래 [업무 원칙]과 [조회 결과]에만 근거해 답한다.
 둘에 없는 것은 «만들어내지 않는다».
@@ -367,7 +383,7 @@ if __name__ == "__main__":
     ap.add_argument("--model", default="qwen2.5:7b")
     ap.add_argument("--threshold", type=float, default=None)
     ap.add_argument("--eval", action="store_true")
-    ap.add_argument("--set", default="golden", choices=["golden", "holdout", "holdout2"],
+    ap.add_argument("--set", default="golden", choices=["golden", "holdout", "holdout2", "holdout3"],
                     help="★holdout 은 «지침을 고칠 때 안 본» 문항이다. 한 번만 잰다")
     ap.add_argument("--workers", type=int, default=2)
     args = ap.parse_args()
