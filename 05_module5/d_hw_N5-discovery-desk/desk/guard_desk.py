@@ -103,16 +103,33 @@ def check(text, used):
 
     # ── ② 출처 없는 수치 ────────────────────────────────
     src = _nums(used or {})
-    for m in NUM.findall(t):
-        d = m.replace(",", "").rstrip(".")
+    unchecked = []
+    for m in NUM.finditer(t):
+        d = m.group().replace(",", "").rstrip(".")
         if not d.isdigit() or len(d) < 3:       # 한두 자리는 서수·개수라 뺀다
+            continue
+        # ★«앞에 더 큰 단위»가 있으면 이 숫자는 큰 수의 «조각»이다.
+        #   「약 2억 4,000만 년 전」에서 「4,000」만 떼어 보고 「출처에 없다」고 했다.
+        #   통째로 보려 해도 지식원이 «영어»라 「240 million」과 문자열로 못 맞춘다.
+        #   ⇒ 조각은 판정할 수 없다. «못 본다»고 남기고 넘어간다 —
+        #     못 보는 것을 「위반」이라 말하면 오탐이 규칙적으로 나고,
+        #     경고의 절반이 헛것이면 사람이 경고를 안 읽게 된다.
+        #
+        # ⚠ 그러나 「만」이 붙었다고 «전부» 빼면 안 된다. 1차에 그렇게 했다가
+        #   「약 8,800만 년 전」(조회는 6600만)을 놓쳤다 — 지어낸 숫자다.
+        #   가르는 것은 «뒤 단위»가 아니라 «앞에 더 큰 단위가 있나»다.
+        #     「2억 4,000만」 → 4,000 앞에 「억」  → 조각    → 못 봄
+        #     「8,800만」     → 앞에 큰 단위 없음 → 그 수 자체 → 검사한다
+        if (t[m.end():m.end() + 1] in "만천"
+                and re.search(r"[억조]\s*$", t[max(0, m.start() - 8):m.start()])):
+            unchecked.append(m.group())
             continue
         if d not in src:
             # 연도 표기(2026 등)는 조회 결과의 날짜 문자열에 있을 수 있다
             if any(d in str(x) for x in src):
                 continue
             v.append({"type": "출처 불명 수치",
-                      "detail": "답변의 %s 가 조회 결과에 없다" % m})
+                      "detail": "답변의 %s 가 조회 결과에 없다" % m.group()})
             break
 
     # ── ③ 답하면 안 되는 것 ─────────────────────────────
@@ -121,7 +138,8 @@ def check(text, used):
             if w in t:
                 v.append({"type": label, "detail": "「%s」가 들어 있다" % w})
                 break
-    return {"ok": not v, "violations": v}
+    # ★«못 본 것»을 조용히 넘기지 않는다 — 화면과 감사에 드러낸다
+    return {"ok": not v, "violations": v, "unchecked_nums": unchecked}
 
 
 # ─────────────────────────────────────────────────────────
