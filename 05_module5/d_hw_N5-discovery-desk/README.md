@@ -57,7 +57,7 @@ LangGraph로 지었고, 같은 파이프라인에 **모델만 갈아 끼웁니�
 
 | 지표 | 값 | 비고 |
 |---|---|---|
-| ① 의도 분류 — **gpt-5.6-luna** | **평균 macro F1 0.925** (3회) · 범위 밖 78.6~85.7% | 채점 55건 · 폭 0.031 |
+| ① 의도 분류 — **gpt-5.6-luna** | 지침 v2 평균 0.925(3회) → **v3 0.975**(1회) | 채점 55건 · ★PALEO 누수 2건 → 0건 |
 | ① 의도 분류 — 로컬 qwen2.5:7b | macro F1 0.878 · 범위 밖 80.0% | 폭 0.000(3회) |
 | ② 답변 — 로컬 qwen2.5:7b | **15/25 (60.0%)** · 644초 | ★행동 오판 4건 — 답할 걸 3건 거절 |
 | ① 의도 분류 — 규칙 라우터 | macro F1 0.976 · 범위 밖 85.7% | ⚠ **과적합** — 성적이 아니라 기준선 |
@@ -126,7 +126,7 @@ python 10_collect.py --hours 72     # 지식원 수집 (RSS 14곳)
 python 11_filter.py --write         # 주제 밖 거르기 + 라우트 재배정
 
 python 20_router.py --mode rule                         # ① 규칙 기준선
-python 20_router.py --mode llm --model gpt-5.6-luna     # ① LLM (지침 v2)
+python 20_router.py --mode llm --model gpt-5.6-luna     # ① LLM (지침 v3)
 python 20_router.py --mode llm --guide v1               #   ★오염본 — 비교용
 python agent.py --eval --model gpt-5.6-terra            # ② 답변 채점
 DESK_PICK=v1 python agent.py --eval                     #   ★오염본 — 비교용
@@ -150,13 +150,13 @@ python make_demo.py          # 데모 녹화 갱신
 | `desk/score_desk.py` | 채점기 + ★자기 검증 · must/forbid 동의어 지원 |
 | `desk/tools_desk.py` | 조회 도구 5개 |
 | `desk/ko_en.py` | ★한영 사전 — 지식원이 영어인데 질문이 한국어다 |
-| `desk/20_router.py` | ① 규칙·LLM 라우터 · `--guide v1/v2` · `--repeat` 폭 측정 |
+| `desk/20_router.py` | ① 규칙·LLM 라우터 · `--guide v1/v2/v3` · `--repeat` 폭 측정 |
 | `desk/10_collect.py` `11_filter.py` | 지식원 수집(노드3 소스 14곳) · 주제 밖 거르기 |
 | `desk/app.py` `make_demo.py` | 데모 화면 + ★녹화 재생(키 없이 돈다) |
 | `desk/99_audit.py` | ★산출물 전수 감사 — 문서와 실제가 어긋나는지까지 |
 | `desk/facts_base.json` | 기준 사실 카드 35장 |
 | `desk/golden.json` | ② 정답셋 **25건** (난이도 hard 14 · easy 11) |
-| `data/eval_routing.csv` | ① 라우팅 평가셋 — `eval` 41 · `outscope` 14 · ★`example` 9 |
+| `data/eval_routing.csv` | ① 라우팅 평가셋 — `eval` 41 · `outscope` 14 · ★`example` 11 |
 | `docs/policy.md` | 「과학 소통 원칙」 — 업무 매뉴얼에 해당 |
 | `desk/store/` | 수집한 데이터 (기사 72건) |
 | `desk/측정_*.txt` | 측정 원본 — 개선 이력의 근거 |

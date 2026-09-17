@@ -1,0 +1,17 @@
+=== ① 의도 분류 — LLM gpt-5.6-luna · 지침 v3 ===
+   eval 41건 · outscope 14건 · 경계 문항 26건
+
+채점 41건 · 정확도 0.976 · macro F1 0.975 · 형식실패 0 · 13.3초
+      범위 밖 12/14 (85.7%)  ← 이 값이 떨어지는 걸 eval 만 보면 «못 본다»
+
+      [라우트별 f1]  SPACE 0.952 · ARCHAEO 1.000 · PALEO 1.000 · CONCEPT 0.947
+
+      [혼동행렬]  세로=정답 · 가로=예측 · 대각선이 맞힌 것
+                 SPACE ARCHAEO   PALEO CONCEPT   OTHER   계
+      SPACE       [10]       .       .       .       .   10
+      ARCHAEO        .    [12]       .       .       .   12
+      PALEO          .       .     [9]       .       .    9
+      CONCEPT        1       .       .     [9]       .   10
+
+      [오분류 1건 — «왜» 샜는지 문장을 읽는다]
+        적색편이는 왜 생기나요                     정답 CONCEPT  → SPACE

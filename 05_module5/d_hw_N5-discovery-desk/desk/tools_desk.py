@@ -43,10 +43,15 @@ _STOP = {"무엇", "뭐", "뭘", "어떻게", "왜", "언제", "어디", "누가
 ASK_MAP = {"언제": "시점", "왜": "원인", "어떻게": "방법", "어디": "장소"}
 
 
-def _toks(s):
-    """한글·영문·숫자 토큰. 조사는 빼고, ★의문사는 주제어로 옮긴다."""
+def _toks(s, expand=True):
+    """한글·영문·숫자 토큰. 조사는 빼고, ★의문사는 주제어로 옮긴다.
+
+    expand=False 면 옮기지 «않는다» — get_fact 의 2단계 판정이 쓴다.
+    (옮긴 말이 원본과 같은 무게를 가지면 엉뚱한 카드와 동점이 된다)
+    """
     raw = re.findall(r"[A-Za-z]+|[가-힣]+|\d+", s or "")
-    raw = [ASK_MAP.get(t, t) for t in raw]
+    if expand:
+        raw = [ASK_MAP.get(t, t) for t in raw]
     out = []
     for t in raw:
         for st in sorted(_STOP, key=len, reverse=True):
@@ -87,16 +92,44 @@ def get_fact(topic: str) -> dict:
     Args:
         topic: 찾을 주제어. 예) "공룡 멸종", "광년", "탄소 연대측정"
     """
-    qt = _toks(topic)
-    hits = []
-    for f in FACTS:
-        s = max(_score(qt, f["topic"]), _score(qt, f["claim"]) * 0.8)
-        if s > 0:
-            hits.append((s, f))
-    hits.sort(key=lambda x: -x[0])
+    # ★2단계 판정 — «원본»으로 먼저 가르고, 동점일 때만 «의문사 번역어»를 쓴다.
+    #
+    #   ASK_MAP(언제→시점 · 왜→원인)을 넣었더니 번역어가 «원본과 같은 무게»를
+    #   가져 엉뚱한 카드와 동점이 됐다:
+    #     「로제타석 «왜» 중요」 → [로제타석, 원인]
+    #       「로제타석」 카드      로제타석 1매치
+    #       「공룡 멸종 «원인»」 카드  원인 1매치      ⇒ 동점 → 되묻기
+    #   ★2차 홀드아웃이 이걸 잡았다. 골든셋에는 「왜」로 묻는 다른 주제가
+    #     없어서 «안 보였다».
+    #
+    #   ⇒ 번역어는 «가르는 데만» 쓴다 — 원본이 이미 하나를 가리키면 그것이 답이다.
+    #     (ko_en 의 「확장어는 원본보다 낮게 준다」와 같은 원리)
+    def _rank(tokens):
+        h = []
+        for f in FACTS:
+            s = max(_score(tokens, f["topic"]), _score(tokens, f["claim"]) * 0.8)
+            if s > 0:
+                h.append((s, f))
+        h.sort(key=lambda x: -x[0])
+        return h
+
+    plain = _toks(topic, expand=False)      # 의문사를 «안 옮긴» 토큰
+    qt = _toks(topic)                       # 옮긴 토큰
+    # ⚠ 원본이 «하나도» 안 맞으면 «없는 것»이다 — 번역어로 억지로 찾지 않는다.
+    #   1차에는 `_rank(plain) or _rank(qt)` 로 뒀더니
+    #   「빙하기 언제 끝」(빙하기 카드가 «없다»)이 번역어 「시점」 때문에
+    #   ★「공룡 멸종 시점」을 물어 왔다. 없는 것을 있다고 답하는 것이 더 나쁘다.
+    hits = _rank(plain)
     if not hits:
         return {"found": False, "note": "기준 사실 카드에 없습니다. 기사 검색을 쓰십시오."}
     top = [f for s, f in hits if abs(s - hits[0][0]) < 1e-9]
+    if len(top) > 1 and qt != plain:
+        # ★동점일 때만 번역어를 더해 다시 가른다
+        h2 = _rank(qt)
+        if h2:
+            t2 = [f for s, f in h2 if abs(s - h2[0][0]) < 1e-9]
+            if len(t2) == 1:
+                top = t2
     if len(top) > 1:
         return {"found": False, "ambiguous": True,
                 "candidates": [f["topic"] for f in top[:4]],
