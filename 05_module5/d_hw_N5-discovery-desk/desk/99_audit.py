@@ -194,11 +194,18 @@ def audit_docs():
             % (name, sorted(set(holes)) if holes else ""))
 
     # ★README·REPORT 의 «주요 수치»가 실제 측정과 맞는가
+    gold_n = len(json.loads((HERE / "golden.json").read_text(encoding="utf-8"))["cases"])
+    n_example = len([r for r in seed if r["split"] == "example"])
     for name, pat, actual in (
-            ("README.md", r"규칙 라우터 \| macro F1 \*\*([\d.]+)\*\*", None),
             ("REPORT.md", r"지식원 기사 (\d+)건", len(kb["articles"])),
             ("REPORT.md", r"기준 사실 카드 (\d+)장", len(facts)),
-            ("REPORT.md", r"라우팅 평가셋 (\d+)건", n_scored)):
+            ("REPORT.md", r"라우팅 평가셋 (\d+)건", n_scored),
+            ("REPORT.md", r"답변 정답셋 (\d+)건", gold_n),
+            # ★README 도 «실제로» 본다 — 여기가 None 이라 검사가 안 돌았다
+            ("README.md", r"사실 카드 (\d+)장", len(facts)),
+            ("README.md", r"기사 (\d+)건", len(kb["articles"])),
+            ("README.md", r"정답셋 \*\*(\d+)건\*\*", gold_n),
+            ("README.md", r"`example` (\d+)", n_example)):
         f = ROOT / name
         if not f.exists() or actual is None:
             continue
@@ -206,6 +213,17 @@ def audit_docs():
         if m:
             chk(int(m.group(1)) == actual,
                 "%s 의 수치 일치 (문서 %s · 실제 %d)" % (name, m.group(1), actual))
+
+    # ★문서가 «없는 파일»을 가리키지 않는가
+    #   30_answer.py 를 agent.py 로 갈아 놓고 README 는 옛 이름을 가리키고 있었다.
+    for name in ("README.md", "REPORT.md"):
+        f = ROOT / name
+        if not f.exists():
+            continue
+        for mentioned in set(re.findall(r"`(desk/[\w./-]+\.\w+)`",
+                                        f.read_text(encoding="utf-8"))):
+            chk((ROOT / mentioned).exists(),
+                "%s 가 가리키는 %s 가 실재" % (name, mentioned))
 
     print("[4] 문서       진행상황·README·REPORT 의 수치·자리표시 대조")
 
