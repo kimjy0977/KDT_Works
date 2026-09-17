@@ -367,7 +367,7 @@ if __name__ == "__main__":
     ap.add_argument("--model", default="qwen2.5:7b")
     ap.add_argument("--threshold", type=float, default=None)
     ap.add_argument("--eval", action="store_true")
-    ap.add_argument("--set", default="golden", choices=["golden", "holdout"],
+    ap.add_argument("--set", default="golden", choices=["golden", "holdout", "holdout2"],
                     help="★holdout 은 «지침을 고칠 때 안 본» 문항이다. 한 번만 잰다")
     ap.add_argument("--workers", type=int, default=2)
     args = ap.parse_args()
@@ -397,12 +397,12 @@ if __name__ == "__main__":
         import score_desk
         # ★어느 셋으로 재는지 «화면에 적는다» — 섞이면 숫자의 뜻이 달라진다
         _f = ((HERE / "golden.json") if args.set == "golden"
-              else (HERE.parent / "data/holdout.json"))
+              else (HERE.parent / ("data/%s.json" % args.set)))
         _d = json.loads(_f.read_text(encoding="utf-8"))
         gold = _d["cases"]
         print("=== ② 답변 채점 — %d건 · %s · 평가셋 %s ==="
               % (len(gold), args.model, args.set.upper()))
-        if args.set == "holdout":
+        if args.set.startswith("holdout"):
             print("   ★홀드아웃 — 지침을 고치는 동안 «한 번도 보지 않은» 문항입니다.")
             print("   ⛔이 결과를 보고 고치면 더는 홀드아웃이 아닙니다.")
         t0 = time.perf_counter()
