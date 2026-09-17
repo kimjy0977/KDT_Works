@@ -63,3 +63,5 @@ question,route,split,hard,note
 이탄늪에서 나온 시신,ARCHAEO,example,1,지침예시 — 사람이면 ARCHAEO
 동굴에서 나온 곰 뼈,PALEO,example,1,지침예시 — 비인류면 PALEO
 빙하기는 언제 끝났나요,PALEO,example,0,지침예시(도구선택) — 질문의 말을 그대로 넣는다
+삼엽충 눈은 어떻게 생겼나요,PALEO,example,1,지침예시 — 의문사가 붙어도 대상이 있으면 그 라우트
+성운은 언제 생겼나요,SPACE,example,1,지침예시 — 의문사가 붙어도 대상이 있으면 그 라우트

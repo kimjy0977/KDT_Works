@@ -238,7 +238,7 @@ def build(model="qwen2.5:7b", threshold=None):
         kw["reasoning"] = False
     # ★기본은 v2(오염 제거). DESK_GUIDE=v1 로 «오염본»을 재현할 수 있다 —
     #   20_router.py 의 --guide 와 «같은 뜻»이다. 한쪽만 바꾸면 또 어긋난다.
-    _g = "v1" if os.environ.get("DESK_GUIDE") == "v1" else "v2"
+    _g = os.environ.get("DESK_GUIDE", "v3")
     llm_route = _rt.make_llm(model, _rt.GUIDES[_g])
     write = mk()
 
