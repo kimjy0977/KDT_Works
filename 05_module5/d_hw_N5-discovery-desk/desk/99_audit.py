@@ -424,12 +424,33 @@ def audit_reachable():
     checked = dead = 0
     for name, path in (("골든셋", HERE / "golden.json"),
                        ("홀드아웃", ROOT / "data/holdout.json"),
-                       ("홀드아웃2", ROOT / "data/holdout2.json")):
+                       ("홀드아웃2", ROOT / "data/holdout2.json"),
+                       ("홀드아웃3", ROOT / "data/holdout3.json")):
         if not path.exists():
             continue
         for c in json.loads(path.read_text(encoding="utf-8"))["cases"]:
+            # ★ESCALATE 는 «못 찾아야» 정답이다 — 찾히면 그 «문항»이 틀린 것이다.
+            #   H21·K11 에서 두 번 같은 실수를 했다: 기사에 있는데 ESCALATE 로 정했다.
+            if c["action"] == "ESCALATE":
+                for tool, kw in (c.get("tool_args") or {}).items():
+                    fn = FN.get(tool)
+                    if not fn:
+                        continue
+                    try:
+                        r = fn(**kw)
+                    except Exception:
+                        continue
+                    if r.get("found") or r.get("count") or r.get("hits"):
+                        m = ("%s %s: ESCALATE 인데 %s(%s) 가 «찾았다» — "
+                             "지식원에 있는 것을 「없다」고 정한 문항이다"
+                             % (name, c["id"], tool, kw))
+                        # ★언제나 «경고»다 — 검색이 「찾았다」고 답할 만한 것은 아니다.
+                        #   실측: G16·G18 은 검색이 19건·6건을 찾았는데도
+                        #   모델이 옳게 넘겼다. 사람이 보고 판단할 자리다.
+                        WARN.append(m + " (★사람이 확인할 것 — 검색은 느슨하다)")
+                continue
             if c["action"] != "ANSWER":
-                continue                      # 넘기기는 «못 찾는 것»이 정답이다
+                continue                      # REFUSE 는 조회 자체를 안 한다
             for tool, kw in (c.get("tool_args") or {}).items():
                 fn = FN.get(tool)
                 if not fn:
@@ -446,7 +467,7 @@ def audit_reachable():
                 if not ok:
                     msg = ("%s %s: %s(%s) 가 «아무것도 못 찾음» — 도달 불가능한 정답"
                            % (name, c["id"], tool, kw))
-                    if name == "홀드아웃":   # 1차는 이미 쟀다 — 경고만
+                    if name in ("홀드아웃", "홀드아웃2"):   # 이미 쟀다 — 경고만
                         # ★홀드아웃은 «이미 쟀다». 고치면 그 점수가 무엇의 값인지
                         #   모호해진다 — 고치지 않고 «기록»으로 남긴다.
                         WARN.append(msg + " (홀드아웃이라 고치지 않음)")

@@ -1,0 +1,14 @@
+=== ② 답변 채점 — 25건 · gpt-5.6-terra · 평가셋 GOLDEN ===
+
+   ⇒ 통과 25 / 25  (100.0%) · 85.3초
+
+[행동 판정]  기대 → 실제
+     ANSWER       → ANSWER       19건
+     ESCALATE     → ESCALATE     3건
+     REFUSE       → REFUSE       3건
+
+[실패 유형]
+   없음
+
+[가드레일]
+   ok                 25건
