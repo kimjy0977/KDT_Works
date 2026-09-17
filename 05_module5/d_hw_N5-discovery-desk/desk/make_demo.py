@@ -36,7 +36,7 @@ SCENES = [
 ]
 
 KEEP = ("question", "route", "conf", "decision", "reason",
-        "context", "used", "answer", "guard")
+        "context", "used", "answer", "guard", "_sec")
 
 
 def main():
@@ -51,7 +51,10 @@ def main():
     for name, qs, note in SCENES:
         turns, history = [], []
         for q in qs:
+            import time as _t
+            _t0 = _t.perf_counter()
             s = app.invoke({"question": q, "history": list(history)})
+            s["_sec"] = _t.perf_counter() - _t0   # ★화면의 「조사 완료 N초」
             slim = {k: s.get(k) for k in KEEP}
             slim["question"] = q
             turns.append(slim)
