@@ -225,6 +225,33 @@ def load_seed():
     return ev, os_, hard
 
 
+def confusion(ev, pred):
+    """★혼동행렬 — 「어디로 샜나」는 f1 만 봐서는 모른다.
+
+    루브릭이 「정확도·macro F1·혼동행렬」을 함께 요구한다.
+    f1 0.800 은 «얼마나» 틀렸는지만 말한다. 혼동행렬은 «어느 쪽으로»
+    틀렸는지 말한다 — PALEO 가 SPACE 로 새는 것과 CONCEPT 로 새는 것은
+    고치는 방법이 다르다.
+
+    세로 = 정답 · 가로 = 예측. 대각선이 맞힌 것.
+    """
+    labs = ROUTES                      # OTHER 까지 넣는다 — 범위 밖으로 새는 것도 봐야 한다
+    cnt = {(a, b): 0 for a in labs for b in labs}
+    for (q, gold), got in zip(ev, pred):
+        if gold in labs and got in labs:
+            cnt[(gold, got)] += 1
+    w = max(len(x) for x in labs)
+    out = ["      [혼동행렬]  세로=정답 · 가로=예측 · 대각선이 맞힌 것",
+           "      " + " " * (w + 2) + " ".join("%7s" % x for x in labs) + "   계"]
+    for a in labs:
+        row = [cnt[(a, b)] for b in labs]
+        if not sum(row):
+            continue
+        cells = " ".join(("%7s" % ("[%d]" % n if a == b else (n or "."))) for b, n in zip(labs, row))
+        out.append("      %-*s  %s  %3d" % (w, a, cells, sum(row)))
+    return "\n".join(out)
+
+
 def macro_f1(y, p, labels):
     """sklearn 없이도 돌게 직접 센다 — 의존을 줄인다."""
     f1s = []
@@ -293,6 +320,8 @@ def main():
             print()
             print("      [라우트별 f1]  " + " · ".join(
                 "%s %.3f" % (L, s) for L, s in zip(LABELS4, per)))
+            print()
+            print(confusion(ev, pred))
             # ★오분류를 «문장으로» 본다 — 숫자만 보면 왜 샜는지 모른다
             wrong = [(q, a, b) for (q, a), b in zip(ev, pred) if a != b]
             if wrong:
