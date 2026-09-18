@@ -1,0 +1,23 @@
+{
+ "doc": "HBO",
+ "triples": [
+  {
+   "s": "홈 박스 오피스(Home Box Office, HBO)",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "워너 브라더스 디스커버리",
+   "origin": "HBO"
+  },
+  {
+   "s": "홈 박스 오피스(Home Box Office, HBO)",
+   "r": "SET_IN",
+   "o": "미국",
+   "origin": "HBO"
+  },
+  {
+   "s": "홈 박스 오피스(Home Box Office, HBO)",
+   "r": "WON_AWARD",
+   "o": "미국 프리미엄 채널 중 가장 많은 구독자 확보 (2018년 기준)",
+   "origin": "HBO"
+  }
+ ]
+}

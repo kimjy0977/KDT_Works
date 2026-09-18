@@ -1,0 +1,53 @@
+{
+ "doc": "넥스트엔터테인먼트월드",
+ "triples": [
+  {
+   "s": "MOVIE & NEW",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "넥스트엔터테인먼트월드",
+   "origin": "넥스트엔터테인먼트월드"
+  },
+  {
+   "s": "씨네Q",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "넥스트엔터테인먼트월드",
+   "origin": "넥스트엔터테인먼트월드"
+  },
+  {
+   "s": "뮤직앤뉴",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "넥스트엔터테인먼트월드",
+   "origin": "넥스트엔터테인먼트월드"
+  },
+  {
+   "s": "콘텐츠판다",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "넥스트엔터테인먼트월드",
+   "origin": "넥스트엔터테인먼트월드"
+  },
+  {
+   "s": "스튜디오앤뉴",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "넥스트엔터테인먼트월드",
+   "origin": "넥스트엔터테인먼트월드"
+  },
+  {
+   "s": "브라보앤뉴",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "넥스트엔터테인먼트월드",
+   "origin": "넥스트엔터테인먼트월드"
+  },
+  {
+   "s": "엔진",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "넥스트엔터테인먼트월드",
+   "origin": "넥스트엔터테인먼트월드"
+  },
+  {
+   "s": "뉴 아이디",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "넥스트엔터테인먼트월드",
+   "origin": "넥스트엔터테인먼트월드"
+  }
+ ]
+}

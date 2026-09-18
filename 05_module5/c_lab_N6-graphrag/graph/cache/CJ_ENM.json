@@ -1,0 +1,11 @@
+{
+ "doc": "CJ_ENM",
+ "triples": [
+  {
+   "s": "CJ ENM",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "CJ엔터테인먼트",
+   "origin": "CJ_ENM"
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+ "doc": "CJ엔터테인먼트",
+ "triples": [
+  {
+   "s": "씨제이엔터테인먼트 주식회사",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "씨제이엔터테인먼트 주식회사",
+   "origin": "CJ엔터테인먼트"
+  },
+  {
+   "s": "씨제이엔터테인먼트 주식회사",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "파라마운트 픽처스",
+   "origin": "CJ엔터테인먼트"
+  }
+ ]
+}

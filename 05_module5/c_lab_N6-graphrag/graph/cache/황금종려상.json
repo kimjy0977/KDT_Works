@@ -1,0 +1,11 @@
+{
+ "doc": "황금종려상",
+ "triples": [
+  {
+   "s": "황금종려상",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "칸 영화제",
+   "origin": "황금종려상"
+  }
+ ]
+}

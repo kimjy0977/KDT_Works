@@ -1,0 +1,17 @@
+{
+ "doc": "IMDb",
+ "triples": [
+  {
+   "s": "프랭크 다라본트",
+   "r": "DIRECTED",
+   "o": "쇼생크 탈출(1994)",
+   "origin": "IMDb"
+  },
+  {
+   "s": "쇼생크 탈출(1994)",
+   "r": "HAS_GENRE",
+   "o": "영화",
+   "origin": "IMDb"
+  }
+ ]
+}

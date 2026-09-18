@@ -1,0 +1,12 @@
+# ★API 키 — 요건: "API 키를 저장소에 올리지 마세요"
+.env
+*.env
+# 가상환경 (절대경로를 기억하므로 옮기면 깨진다)
+.venv/
+__pycache__/
+# 원본 데이터 (노션에서 받는다 · 1.7MiB)
+data/cinephile_d42_data.zip
+# 탐색용 임시 출력
+_*.txt
+# 한글 폰트 — 노션에서 다시 받는다 (4MB)
+data/fonts/

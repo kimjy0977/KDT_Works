@@ -1,0 +1,71 @@
+{
+ "doc": "공동경비구역_JSA",
+ "triples": [
+  {
+   "s": "박찬욱",
+   "r": "DIRECTED",
+   "o": "공동경비구역 JSA",
+   "origin": "공동경비구역_JSA"
+  },
+  {
+   "s": "공동경비구역 JSA",
+   "r": "HAS_THEME",
+   "o": "남북 관계",
+   "origin": "공동경비구역_JSA"
+  },
+  {
+   "s": "공동경비구역 JSA",
+   "r": "SET_IN",
+   "o": "판문점",
+   "origin": "공동경비구역_JSA"
+  },
+  {
+   "s": "공동경비구역 JSA",
+   "r": "SET_IN",
+   "o": "한반도 비무장 지대",
+   "origin": "공동경비구역_JSA"
+  },
+  {
+   "s": "이병헌",
+   "r": "ACTED_IN",
+   "o": "공동경비구역 JSA",
+   "origin": "공동경비구역_JSA"
+  },
+  {
+   "s": "송강호",
+   "r": "ACTED_IN",
+   "o": "공동경비구역 JSA",
+   "origin": "공동경비구역_JSA"
+  },
+  {
+   "s": "이영애",
+   "r": "ACTED_IN",
+   "o": "공동경비구역 JSA",
+   "origin": "공동경비구역_JSA"
+  },
+  {
+   "s": "김태우",
+   "r": "ACTED_IN",
+   "o": "공동경비구역 JSA",
+   "origin": "공동경비구역_JSA"
+  },
+  {
+   "s": "신하균",
+   "r": "ACTED_IN",
+   "o": "공동경비구역 JSA",
+   "origin": "공동경비구역_JSA"
+  },
+  {
+   "s": "김명수",
+   "r": "ACTED_IN",
+   "o": "공동경비구역 JSA",
+   "origin": "공동경비구역_JSA"
+  },
+  {
+   "s": "기주봉",
+   "r": "ACTED_IN",
+   "o": "공동경비구역 JSA",
+   "origin": "공동경비구역_JSA"
+  }
+ ]
+}
