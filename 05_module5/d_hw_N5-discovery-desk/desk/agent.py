@@ -345,7 +345,7 @@ def build(model="qwen2.5:7b", threshold=None):
         if dec == "REFUSE":
             reply = escalate.REFUSE_REPLY
         elif dec == "ESCALATE":
-            reply = escalate.ESCALATE_REPLY
+            reply = escalate.escalate_reply(st.get("route"))
         elif dec == "ASK":
             reply = escalate.ask_reply(st.get("used"))
         else:
