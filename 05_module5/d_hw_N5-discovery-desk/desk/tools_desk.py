@@ -23,7 +23,11 @@ _KB = json.loads((HERE / "store/knowledge.json").read_text(encoding="utf-8"))
 ARTICLES = _KB["articles"]
 FACTS = json.loads((HERE / "facts_base.json").read_text(encoding="utf-8"))["facts"]
 
+# ★「가장」을 넣은 이유 — 「가장 큰 천체는?」이 ★「가장 먼 은하」 카드를 물어 왔다.
+#   「큰」과 「먼」은 다른데 «가장»이라는 흔한 수식어에서 점수가 났다.
+#   불용어로 두면 「가장 먼 은하」 카드도 [먼, 은하]가 되어 제 질문에는 여전히 걸린다.
 _STOP = {"무엇", "뭐", "뭘", "어떻게", "왜", "언제", "어디", "누가", "인가요", "있나요",
+         "가장",
          "하나요", "되나요", "건가요", "나요", "가요", "요", "은", "는", "이", "가",
          "을", "를", "의", "에", "에서", "로", "으로", "와", "과", "도", "만"}
 
@@ -105,9 +109,13 @@ def get_fact(topic: str) -> dict:
     #   ⇒ 번역어는 «가르는 데만» 쓴다 — 원본이 이미 하나를 가리키면 그것이 답이다.
     #     (ko_en 의 「확장어는 원본보다 낮게 준다」와 같은 원리)
     def _rank(tokens):
+        # ★질의어가 «하나»면 주제어에만 인정한다.
+        #   한 단어는 claim 어디에 스쳐도 만점이 되어 동점을 만든다(실측: 「천체」).
+        topic_only = len(tokens) <= 1
         h = []
         for f in FACTS:
-            s = max(_score(tokens, f["topic"]), _score(tokens, f["claim"]) * 0.8)
+            st_ = _score(tokens, f["topic"])
+            s = st_ if topic_only else max(st_, _score(tokens, f["claim"]) * 0.8)
             if s > 0:
                 h.append((s, f))
         h.sort(key=lambda x: -x[0])
@@ -120,6 +128,16 @@ def get_fact(topic: str) -> dict:
     #   「빙하기 언제 끝」(빙하기 카드가 «없다»)이 번역어 「시점」 때문에
     #   ★「공룡 멸종 시점」을 물어 왔다. 없는 것을 있다고 답하는 것이 더 나쁘다.
     hits = _rank(plain)
+    # ★점수가 낮으면 «없는 것»으로 본다 — 되묻지 않는다.
+    #   「가장 큰 천체는?」이 「천체」 한 단어로 여러 카드에 얕게 걸려
+    #   ★「달의 기원 · 오르트 구름」을 후보로 되물었다. 답이 없는데 되묻는 것은
+    #   사용자를 헷갈리게만 한다 — 되묻기는 «둘 중 어느 쪽인지»를 물을 때 쓴다.
+    #   ⚠ 0.5 로 잡았다가 «회귀»를 만들었다 — 「스톤헨지 용도가 밝혀졌나」가
+    #     0.333 이라 걸러져 골든셋이 96 -> 80% 로 떨어졌다.
+    #     질문을 «문장으로» 쓰면 조사·어미가 토큰에 남아 점수가 낮아진다.
+    #   ⇒ 0.3 — 「천체」 같은 한 단어는 topic_only 규칙이 따로 막는다.
+    MIN_SCORE = 0.3
+    hits = [(sc, f) for sc, f in hits if sc >= MIN_SCORE]
     if not hits:
         return {"found": False, "note": "기준 사실 카드에 없습니다. 기사 검색을 쓰십시오."}
     top = [f for s, f in hits if abs(s - hits[0][0]) < 1e-9]

@@ -197,6 +197,25 @@ def render_why(s):
         st.json(used)
 
 
+# ★답이 «막혔을» 때 무엇을 아는지 보여준다 — 실제로 써 보니 막다른 길이었다.
+#   ESCALATE 판정이 안 나도(모델이 카드를 찾아 CONTINUE 가 돼도)
+#   답변이 「확인되지 않습니다」면 사용자 입장에선 «막힌 것»이다.
+DEADEND = ("확인되지 않", "자료에 없", "근거가 없", "확인할 수 없")
+
+
+def render_known(s):
+    ans = s.get("answer") or ""
+    rt = s.get("route")
+    if not rt or rt == "OTHER" or not any(k in ans for k in DEADEND):
+        return
+    topics = [f["topic"] for f in S["facts"] if f["route"] == rt]
+    if not topics:
+        return
+    st.markdown('<p class="note">※ <b>%s 분야에서 답할 수 있는 것</b> — %s</p>'
+                % (ROUTE_KO.get(rt, rt), " · ".join(topics)),
+                unsafe_allow_html=True)
+
+
 def render_answer(s):
     # ★걸린 시간을 «말풍선 안»에 둔다 — 밖에 두면 rerun 뒤 사라진다(실측).
     #   Perplexity 의 「조사 완료 1초」에서 가져온 것인데, 우리는 20~60초라
@@ -227,6 +246,7 @@ def render_answer(s):
             st.markdown('<p class="note">🔴 <b>[신설]이 섞여 있습니다</b> — '
                         '최근 72시간 발표라 아직 다른 연구진이 확인하지 '
                         '않았습니다.</p>', unsafe_allow_html=True)
+    render_known(s)
     with st.expander("왜 이렇게 답했나", expanded=OPEN_WHY):
         render_why(s)
 

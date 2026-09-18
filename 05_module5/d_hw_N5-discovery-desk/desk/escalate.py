@@ -96,6 +96,29 @@ ESCALATE_REPLY = (
     "자료에서 확인되지 않습니다. 저는 수집한 최근 발표와 기준 사실 카드로만 답하며, "
     "이 문의는 두 곳 모두에 근거가 없습니다.")
 
+
+def escalate_reply(route=None, limit=6):
+    """★「없다」로 «끝내지» 않는다 — 그 분야에서 아는 것을 함께 보여준다.
+
+    실제로 써 보니 「확인되지 않습니다」가 «막다른 길»이었다.
+    사용자는 다음에 무엇을 물어야 할지 알 수 없다.
+    ⇒ 근거 없이 답하지 «않으면서» 쓸모 있게 만드는 방법이다.
+    """
+    base = ESCALATE_REPLY
+    if not route or route == "OTHER":
+        return base
+    try:
+        import tools_desk
+        topics = [f["topic"] for f in tools_desk.FACTS if f["route"] == route]
+    except Exception:
+        return base
+    if not topics:
+        return base
+    shown = topics[:limit]
+    more = (" 외 %d가지" % (len(topics) - limit)) if len(topics) > limit else ""
+    return (base + " 이 분야에서 제가 답할 수 있는 것은 "
+            + " · ".join(shown) + more + " 입니다.")
+
 REFUSE_REPLY = (
     "저는 관측·발굴·화석 연구에서 나온 자료로만 답합니다. 그 주제는 다루지 않습니다.")
 
