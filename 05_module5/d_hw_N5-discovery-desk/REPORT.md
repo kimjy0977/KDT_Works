@@ -707,8 +707,6 @@ ESCALATE로 정했는데, 지식원에 관련 기사가 실제로 있어 모델�
 
 ## 6. 데모 설계
 
-![넘기기와 거절](docs/screens/04_넘기기와_거절.png)
-
 ### ★레퍼런스를 «실제로 열어» 같은 질문을 넣어 봤습니다
 
 기억으로 쓰면 「그럴듯한 말」이 되므로, Perplexity를 열어 **우리와 같은 질문**을 넣었습니다(2026-09-18).
@@ -785,10 +783,10 @@ http://localhost:8512/?demo=논쟁과_이어묻기&open=1
 
 | 화면 | 무엇을 보여 주나 |
 |---|---|
-| [01 시작 화면](docs/screens/01_시작화면.png) | 네 경로를 각각 눌러 볼 수 있는 입구 |
-| [02 논쟁 + 이어 묻기](docs/screens/02_논쟁과_이어묻기.png) | [논쟁]에 양쪽을 말하고, 「그럼 언제 밝혀졌나요」에 **맥락을 이어** 답한다 |
-| [03 신설](docs/screens/03_신설_검증전.png) | 최근 발표에 「아직 검증되지 않았습니다」를 붙인다 |
-| [04 넘기기·거절](docs/screens/04_넘기기와_거절.png) | 자료에 없을 때와 범위 밖일 때가 **다르게** 처리된다 |
+| [![01 시작 화면](docs/screens/01_시작화면.png)](docs/screens/01_시작화면.png)<br>**01 시작 화면** | 네 경로를 각각 눌러 볼 수 있는 입구 |
+| [![02 논쟁 + 이어 묻기](docs/screens/02_논쟁과_이어묻기.png)](docs/screens/02_논쟁과_이어묻기.png)<br>**02 논쟁 + 이어 묻기** | [논쟁]에 양쪽을 말하고, 「그럼 언제 밝혀졌나요」에 **맥락을 이어** 답한다 |
+| [![03 신설](docs/screens/03_신설_검증전.png)](docs/screens/03_신설_검증전.png)<br>**03 신설** | 최근 발표에 「아직 검증되지 않았습니다」를 붙인다 |
+| [![04 넘기기·거절](docs/screens/04_넘기기와_거절.png)](docs/screens/04_넘기기와_거절.png)<br>**04 넘기기·거절** | 자료에 없을 때와 범위 밖일 때가 **다르게** 처리된다 |
 
 **공개 배포는 하지 않았습니다.** 키가 팀 공유 잔액이라 공개 URL로 열면 남이 소진시킵니다. 녹화 모드가 있으니 화면은 키 없이도 볼 수 있습니다.
 
@@ -870,7 +868,7 @@ python 10_collect.py --hours 72      # 지식원 수집 → store/articles.json
 python 11_filter.py --write          # 주제 밖 거르기 → store/knowledge.json
 
 python 20_router.py --mode rule                        # ① 규칙 기준선
-python 20_router.py --mode llm --model gpt-5.6-luna    # ① LLM (지침 v2)
+python 20_router.py --mode llm --model gpt-5.6-luna    # ① LLM (지침 v3)
 python 20_router.py --mode llm --guide v1              #   ★오염본 — 비교용
 python agent.py --eval --model gpt-5.6-terra           # ② 답변 채점
 DESK_PICK=v1 python agent.py --eval                    #   ★오염본 — 비교용
