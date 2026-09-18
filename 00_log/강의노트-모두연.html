@@ -15710,6 +15710,259 @@ router.py:50   CONF_THRESHOLD = 0.5                       # ★바로 아래서 
         <p class="fine">📚 출처: 모듈5 노드4 12강 전문 (steps 29389~29400 · 168,721자) · 수확 2026-09-16 ·
         규칙 라우터 실측 <code>modumall-agent/측정/00_규칙라우터_20260916.txt</code></p>
       </section>
+      <section class="section" id="m5n6-0"><h2>모듈5 노드6 · 시네필 위키 — 지식 그래프와 GraphRAG <span class="dur">16강</span></h2>
+        <p class="lead">⚠ <b>이 노드는 «전강 수확이 아니다».</b>
+        <span class="hl">아래는 <b>1강(들어가며)·3강(GraphRAG의 등장)·4강(Graph 구조)·16강(마무리)</b> 네 강의 본문과,
+        <b>노드 코드를 보지 않고 직접 만들어 본 실습</b>에서 나온 것이다.</span>
+        2·5~15강 본문은 읽지 않았다. 코드 실습·퀴즈도 풀지 않았다 — 그 자리는 비어 있다.</p>
+        <p class="fine">📚 출처: LMS <code>node-version/5767</code> steps 29435(1강)·29437(3강)·29438(4강)·29450(16강) ·
+        수확 2026-09-18 · 실습 <code>05_module5/c_lab_N6-graphrag/</code></p>
+      </section>
+
+      <section class="section" id="m5n6-1"><h2>1 · 오늘의 문제 — 「어느 문서에도 적혀 있지 않은 답」 <span class="dur">1강</span></h2>
+        <p class="lead">노드가 던지는 질문 두 개가 이 노드 전체를 끌고 간다.</p>
+        <blockquote>
+          「영화 《기생충》에 출연한 배우의 <b>다른 작품</b>을 추천해줘.」<br>
+          「영화 《기생충》이 상을 받은 시상식에서 수상한 <b>다른 영화</b>를 추천해줘.」
+        </blockquote>
+        <p>《기생충》 문서에는 <b>송강호가 출연했다는 사실만</b> 있고, 송강호 문서에는 <b>그가 나온 다른 영화</b>가 적혀 있다.
+        <span class="hl">두 문서를 <b>이어 붙여야만</b> 답이 나온다.</span>
+        이렇게 <b>어느 문서에도 그대로 적혀 있지 않은</b> 답을 요구하는 것이 <b>멀티홉(multi-hop) 질문</b>이다.</p>
+
+        <div class="callout">
+          <b>★하루를 관통하는 관점 (원문 그대로)</b><br>
+          <span class="hl"><b>벡터 RAG는 «질문이 들어온 뒤에» 연결을 만들려고 하기 때문에 멀티홉에서 실패합니다.
+          GraphRAG는 «문서를 넣는 시점에» 미리 연결을 만들어 두죠.</b></span><br>
+          ⇒ 비용도 그 시점으로 옮겨 간다 — <b>「오늘 쓰는 토큰의 8할 이상이 그 한 섹션에서 나간다」</b>(그래프를 만드는 섹션).
+        </div>
+
+        <h3>오늘의 흐름 — 「벽을 만나고, 벽을 넘는다」</h3>
+        <table>
+          <thead><tr><th>섹션</th><th>하는 일</th></tr></thead>
+          <tbody>
+            <tr><td>1~3</td><td>GraphRAG가 왜 등장했는지, 지식 그래프가 무엇인지, 텍스트에서 어떻게 뽑는지</td></tr>
+            <tr><td>4~5</td><td>코퍼스 80건을 열고, basic RAG(<b>BM25</b>)로 골든셋을 풀어 <b>얼마나 못 푸는지 측정</b></td></tr>
+            <tr><td>6~9</td><td>코퍼스 전체를 그래프로 만들고, <b>정규화·보강</b>하고, <b>커뮤니티로 전역 요약</b>까지</td></tr>
+            <tr><td>10~12</td><td>LangGraph로 에이전트를 조립하고, <b>같은 골든셋으로 채점해 비교</b></td></tr>
+            <tr><td>13~14</td><td>만든 것을 <b>부품으로 저장</b>하고, 배운 것과 다루지 않은 것을 짚는다</td></tr>
+          </tbody>
+        </table>
+        <p>★<b>「개념을 먼저 잡고, 그다음 basic RAG로 골든셋을 풀어 보고 얼마나 못 푸는지를 숫자로 재는 거예요.
+        <span class="hl">벽을 확인한 뒤에야</span> 그래프를 만들기 시작합니다.」</b></p>
+
+        <div class="callout">
+          <b>★목표 선언 — 이 노드가 무엇을 «안» 하는지</b><br>
+          <span class="hl"><b>「오늘 성능의 천장까지 올리지는 않습니다.
+          «무엇이 부족한지 숫자로 말할 수 있게 되는 것»이 목표예요.」</b></span>
+        </div>
+
+        <h3>데이터와 용어</h3>
+        <ul>
+          <li><b>cinephile_kb_80</b> — 한국어 위키백과 한국영화 문서 <b>80건</b>
+            (<b>Film 33 · Person 28 · Organization 11 · Award 8</b>) · 골든셋 <b>15문항</b> · CC BY-SA</li>
+          <li><b>삼중항(triple)</b> — <code>(주어, 관계, 목적어)</code>로 적은 사실 하나. 예 <code>(봉준호, DIRECTED, 기생충)</code>.
+            ★결정적 이점은 <b>이어 붙일 수 있다</b>는 것 — <code>(송강호, ACTED_IN, 기생충)</code>과 이으면
+            「봉준호 영화에 나온 배우는?」의 답이 된다</li>
+          <li><b>BM25</b> — 단어 빈도로 점수를 매기는 고전 키워드 검색. <b>넘어야 할 벽을 재는 기준선.</b>
+            API 키가 필요 없고 <b>결과가 항상 같아</b> 비교에 좋다</li>
+          <li><b>커뮤니티</b> — 안쪽은 촘촘하고 바깥과는 성근 노드 무리. 섹션 9에서 이것으로 <b>전역 질문</b>에 답한다</li>
+        </ul>
+        <p class="fine">📚 출처: 모듈5 노드6 1강 (step 29435) · 수확 2026-09-18</p>
+      </section>
+
+      <section class="section" id="m5n6-3"><h2>3 · Vector RAG가 무너지는 «두 지점» <span class="dur">3강</span></h2>
+        <p class="lead">3강은 1강보다 원인을 명확히 쪼갠다. <b>두 가지</b>다.</p>
+
+        <div class="callout">
+          <b>① 연쇄적인 정보 추적(Multi-hop Reasoning)의 어려움</b><br>
+          단계를 거쳐 연결되는 정보는 <b>질문과 직접 겹치는 단어가 없어서 «애초에 검색 후보에 들어오지 못한다».</b><br>
+          <span class="hl">★<b>순위를 바꾸는 기법(하이브리드 검색·리랭킹)은 «후보 안에 정답이 있을 때만» 작동한다.
+          후보에 아예 없는 문서는 순위를 어떻게 흔들어도 나타나지 않는다.</b></span>
+        </div>
+        <div class="callout">
+          <b>② 전역적 맥락 파악(Global Sense-making)의 한계</b><br>
+          「이 데이터셋이 다루는 한국 영화의 주요 흐름은 무엇인가?」 같은 <b>전역 질문(Global Query)</b>에는 답하지 못한다.
+          <b>상위 k개 문서를 아무리 잘 골라도 그것은 전체가 아니라 «일부»이기 때문</b>이다.<br>
+          <span class="fine">(근거: Edge et al., 2024 — <i>From Local to Global: A Graph RAG Approach to Query-Focused Summarization</i>)</span>
+        </div>
+
+        <h3>GraphRAG 내부에서 일어나는 일 — 네 단계</h3>
+        <table>
+          <thead><tr><th>단계</th><th>하는 일</th></tr></thead>
+          <tbody>
+            <tr><td><b>1 질문 분석·시작점</b><br><span class="fine">Entity Linking</span></td>
+                <td>질문을 분석해 <b>씨앗 노드(Seed Node)</b>를 찾는다. 「봉준호 감독과 자주 작업한 배우가 출연한 다른 영화는?」이면 <b>봉준호</b>가 출발점</td></tr>
+            <tr><td><b>2 그래프 탐색</b><br><span class="fine">Graph Traversal</span></td>
+                <td><code>봉준호 -(DIRECTED)→ 기생충 -(ACTED_IN)→ 송강호 -(ACTED_IN)→ 택시운전사</code>처럼 퍼져 나가며 <b>연관 서브그래프만 솎아낸다</b></td></tr>
+            <tr><td><b>3 맥락 재구성</b></td><td>찾아낸 <b>[노드-관계-노드] 경로</b>와 관련 원문 조각을 LLM이 읽기 좋게 재조립</td></tr>
+            <tr><td><b>4 근거 기반 생성</b></td><td>정보가 <b>어떻게 얽혀 있는지 추적된 상태</b>로 입력되어, 복잡한 질문에도 <b>근거를 대며</b> 답한다</td></tr>
+          </tbody>
+        </table>
+        <p class="fine">📚 출처: 모듈5 노드6 3강 (step 29437) · 수확 2026-09-19 ·
+        참고자료 <code>microsoft.com/en-us/research/blog/graphrag-...</code> · <code>arxiv.org/pdf/2404.16130</code></p>
+      </section>
+
+      <section class="section" id="m5n6-4"><h2>4 · 지식 그래프의 구조 — 그리고 «시각화는 디버깅 도구다» <span class="dur">4강</span></h2>
+        <p class="lead">지식 그래프는 <b>노드와 엣지</b>로 정보의 관계를 저장하는 자료 구조다.</p>
+        <ul>
+          <li><b>노드</b> — 정보의 대상이 되는 「명사」 (봉준호·기생충·송강호·SF)</li>
+          <li><b>엣지</b> — 노드와 노드를 잇는 「관계(동사)」 (연출했다·출연했다·장르다)</li>
+          <li><b>삼중항</b> — 노드 둘과 그 사이 엣지를 하나로 묶은 형태</li>
+        </ul>
+
+        <div class="callout">
+          <b>★4강이 시키는 것 둘 — 둘 다 나중에 값을 한다</b><br>
+          ① <b>시각화</b>: <span class="hl">「시각화는 예쁘게 만드는 작업이 아니라 «디버깅 도구»입니다.
+          <b>추출이 잘못되면 통계보다 그림에서 먼저 티가 납니다.</b>」</span><br>
+          ② <b>노드 타입</b>: 「《기생충》의 감독은?」이라는 질문에 <b>송강호</b>가 후보로 올라왔을 때,
+          <b>타입이 있으면 걸러낼 수 있기 때문</b>이다.
+        </div>
+        <p>⚠ <b>실습에서 이 둘을 건너뛰었다가 되돌아와 메웠다.</b> 그리고 그때 <b>둘 다 실제로 버그를 잡았다</b> — §실습 참조.</p>
+        <p class="fine">📚 출처: 모듈5 노드6 4강 (step 29438) · 수확 2026-09-19</p>
+      </section>
+
+      <section class="section" id="m5n6-16"><h2>16 · ★결론 — 「그래서 GraphRAG를 쓰면 되나요?」 <span class="dur">16강·마무리</span></h2>
+        <p class="lead">이 노드의 결론은 <b>「GraphRAG가 좋다」가 아니다.</b>
+        <span class="hl">「언제 쓰고 언제 쓰지 않는가」다.</span></p>
+
+        <table>
+          <thead><tr><th></th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td><b>좋은 점</b></td><td>관계 파악에 확실히 좋고, <b>근거가 «경로»로 드러나 설명 가능성이 뛰어나다.</b>
+              「이 영화를 추천합니다 — 봉준호 감독의 다른 작품이기 때문입니다」라고 말할 수 있으면
+              사용자는 <b>추천을 신뢰하거나 거부할 근거</b>를 갖는다. <b>블랙박스 추천과 결정적으로 다른 점</b>이다</td></tr>
+            <tr><td><b>대가</b></td><td>지식 그래프 구축 비용. <b>문서 80건에 LLM을 200번 넘게</b> 불렀다.
+              문서가 10만 건이면 이야기가 완전히 달라지고, <b>그 비용은 문서가 갱신될 때마다 다시 든다</b></td></tr>
+            <tr><td>★<b>단순 질문엔<br>오히려 손해</b></td><td>실측에서 <b>단순 질문 basic RAG 1.00 vs GraphRAG 0.83.</b>
+              한 홉이면 닿는 질문에 그래프를 쓰면 <b>비용만 더 들고, 원문에 있던 부가 정보를 버린 만큼 답이 빈약해진다</b></td></tr>
+            <tr><td><b>변동성</b></td><td><b>스키마가 어떻게 설정되느냐에 따라 성능이 천차만별.</b>
+              답해야 할 질문이 미리 정해져 있지 않으면 <b>「무엇을 뽑을 것인가」가 곧 「무엇에 답할 수 있는가」를 결정</b>해 버리고,
+              <b>되돌리려면 전부 다시 뽑아야 한다</b></td></tr>
+            <tr><td>★<b>아예 못 하는 것</b></td><td>「《살인의 추억》의 줄거리를 요약해 줘」 「《버닝》은 어떤 분위기의 영화야?」 —
+              <b>그래프가 손도 못 댄다. 삼중항은 «관계»를 담고 «서술»을 버리기 때문</b>이다</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout">
+          <b>★실무의 답</b><br>
+          <span class="hl">「그래프로 갈아탄다」가 아니라 <b>«질문 유형에 따라 갈라 쓴다»</b>이다.</span>
+          오늘 만든 라우터가 하는 일이 정확히 그것이고,
+          여기에 <b>벡터 경로를 한 갈래 더 붙이는 것</b>이 자연스러운 다음 걸음이다.
+        </div>
+
+        <div class="callout">
+          <b>★★오늘 하루의 결론을 한 문장으로</b><br>
+          <span class="hl"><b>「GraphRAG의 어려움은 그래프를 «만드는» 데 있지 않고,
+          만들어진 그래프를 «믿을 수 있게» 만드는 데 있다.」</b></span>
+        </div>
+
+        <h3>★다른 데이터로 옮긴다면 — 사내 위키를 떠올려 보라</h3>
+        <table>
+          <thead><tr><th>무엇</th><th>왜</th></tr></thead>
+          <tbody>
+            <tr><td><b>역참조의 부재</b></td><td>「이 정책을 승인한 사람이 이끄는 조직은?」에서 <b>조직도 문서는 정책 이름을 언급하지 않는다</b></td></tr>
+            <tr><td><b>닫힌 집합은 사전으로</b></td><td>지명·부서명·제품 코드처럼 <b>목록이 정해진 것은 규칙보다 사전이 정확하다</b></td></tr>
+            <tr><td><b>흔한 다리는 감점</b></td><td>「같은 회의에 참석했다」처럼 <b>흔한 관계는 정보량이 낮다</b></td></tr>
+            <tr><td><b>커뮤니티 탐지</b></td><td>부서별·프로젝트별 무리를 찾고, <b>오염된 데이터를 발견</b>하는 데 쓴다</td></tr>
+            <tr><td>★<b>관계 종류가 곧<br>답할 수 있는 질문의 범위</b></td><td><b>스키마 설계가 «제품 정의»다</b></td></tr>
+          </tbody>
+        </table>
+        <p class="fine">📚 출처: 모듈5 노드6 16강 (step 29450) · 수확 2026-09-19</p>
+      </section>
+
+      <section class="section" id="m5n6-lab"><h2>★실습 — 노드 코드를 «보지 않고» 직접 만들어 본 것 <span class="dur">실측</span></h2>
+        <p class="lead">1강 설명만 읽고 파이프라인을 처음부터 만들었다.
+        <b>그래서 노드가 설계한 학습 경험(✏️YOUR CODE·🧪실험·퀴즈)은 건너뛰었다.</b>
+        대신 <b>노드가 경고한 함정을 직접 밟았고</b>, 그 기록이 아래다.
+        <span class="fine">산출물 <code>05_module5/c_lab_N6-graphrag/</code></span></p>
+
+        <h3>① 벽을 «먼저» 쟀다 — 그래프를 만들기 전에</h3>
+        <table>
+          <thead><tr><th>Recall@k</th><th>단순(1홉)</th><th>추천(2홉)</th><th>격차</th></tr></thead>
+          <tbody>
+            <tr><td>k=3</td><td>53.3%</td><td>28.7%</td><td>24.6%p</td></tr>
+            <tr><td><b>k=5</b></td><td><b>86.7%</b></td><td><b>51.8%</b></td><td><b>34.9%p</b></td></tr>
+            <tr><td>k=10</td><td>93.3%</td><td>73.3%</td><td>20.0%p</td></tr>
+            <tr><td>k=20</td><td>100.0%</td><td>85.7%</td><td>14.3%p</td></tr>
+          </tbody>
+        </table>
+        <p>★<b>어느 k에서도 멀티홉이 뒤진다.</b> 그리고 <b>k를 키우는 것은 해법이 아니다</b> —
+        k=20은 문서 80건 중 <b>20건을 통째로 문맥창에 퍼넣는</b> 것이다.
+        <span class="hl">3강이 말한 「후보에 없으면 순위를 흔들어도 안 나온다」를 숫자로 본 셈이다.</span></p>
+
+        <h3>② 만든 것 — 삼중항 2,103개</h3>
+        <ul>
+          <li>추출 <b>1,984개 / 66초</b> (병렬 8 · 캐시) · 관계 7종을 <b>골든셋에서 «읽어 와서»</b> 제한</li>
+          <li>정규화 + 위키 「분류:」 규칙 보강 <b>+193</b> → <b>2,103개</b> · ★<b>색인 커버리지 97.4%</b></li>
+          <li>커뮤니티 <b>93개</b> (모듈러리티 0.867) · ★전역 질문 하나를 <b>LLM 없이 «집계»로</b> 해결</li>
+          <li>LangGraph <b>local / path / global</b> 세 갈래</li>
+        </ul>
+
+        <h3>③ ★basic RAG와 «같은 잣대»로 — 16강 결론을 재현했다</h3>
+        <table>
+          <thead><tr><th></th><th>basic</th><th>graph</th><th></th></tr></thead>
+          <tbody>
+            <tr><td><b>단순</b>(3)</td><td><b>0.90</b></td><td>0.80</td><td>★basic 우세</td></tr>
+            <tr><td><b>추천</b>(10)</td><td>0.59</td><td><b>0.76</b></td><td>graph +0.17</td></tr>
+            <tr><td><b>전역</b>(2)</td><td>0.55</td><td><b>0.85</b></td><td>graph +0.30</td></tr>
+          </tbody>
+        </table>
+        <p>16강이 적은 <b>「단순은 basic 우세, 추천·전역은 GraphRAG 우세」</b>가 그대로 나왔다.</p>
+
+        <h3>★★④ 함정 다섯 — 이게 「믿을 수 있게 만드는」 일이었다</h3>
+        <div class="callout">
+          <b>1. 프롬프트 한 줄이 한 곳을 살리고 다른 곳을 깨뜨렸다</b><br>
+          캐스팅이 <code>송강호: 김기택 역 - 설명</code> <b>목록</b>이라 「출연했다」가 없어 <code>ACTED_IN</code>이 <b>0개</b>였다.
+          「배우: 배역 역 목록도 출연」을 넣으니 <b>0 → 12개</b>.
+          그런데 「한국영화아카데미」의 <b>졸업생 필모그래피</b>까지 출연으로 읽혀 <b>7개가 잘못 생겼다</b>
+          (「봉준호–봉준호 4편」). ⇒ <b>고친 자리와 깨진 자리가 «다른 파일»이라 바로 안 보였다.</b>
+        </div>
+        <div class="callout">
+          <b>2. ★자(尺)가 틀려 있었다</b><br>
+          정답을 <b>정확히 답했는데 17%로 찍혔다.</b> 채점기가 <code>봉준호–송강호</code>를 en dash로 안 쪼갠 탓.
+          고친 뒤 <b>총점은 8/15로 «같았는데 어느 문항이 맞았나»가 바뀌었다.</b>
+          ⇒ <span class="hl"><b>점수가 같다고 같은 상태가 아니다.</b></span>
+        </div>
+        <div class="callout">
+          <b>3. ★파이프라인이 비결정적이었다</b><br>
+          <code>list(set)[:30]</code> 때문에 같은 질의의 해시가 <b>3번 다 달랐고</b>, 한 문항이 회차마다 <b>67% ↔ 0%</b>로 뒤집혔다.
+          <b>답변 규칙을 고쳐서 깨진 줄 알았다.</b> <code>sorted()</code>로 고정하니 3회 동일.
+          ⇒ <b>재현되지 않으면 «무엇을 고쳤는지»도 말할 수 없다.</b>
+        </div>
+        <div class="callout">
+          <b>4. ★자가 «또» 틀렸다 — 두 방식에 «다른 자»를 댔다</b><br>
+          context recall이 basic 92% vs graph <b>33%</b>로 나왔다. 정규화 함수가 괄호 안을 지우는데
+          graph의 근거는 <code>(s, r, o)</code> 형식이라 <b>삼중항이 통째로 먹혔다</b>
+          (<code>key('(봉준호, DIRECTED, 기생충 (영화))') → ')'</code>).
+          고치니 <b>92% vs 100%</b>로 뒤집혔다. ⇒ 그대로 믿었으면 <b>정반대 결론</b>을 적었을 것이다.
+        </div>
+        <div class="callout">
+          <b>5. ★그림이 통계보다 먼저 잡았다 — 4강이 말한 그대로</b><br>
+          그려 보니 노드 두 개에 <b>동그란 고리(self-loop)</b>가 있었다.
+          <code>(아카데미 작품상, WON_AWARD, 아카데미 작품상)</code> — <b>내 분류 보강이 만든 것</b>이다.
+          <b>삼중항 2,103개 안에서는 안 보였다.</b> 타입을 붙이니 방향이 뒤집힌 것도 하나
+          (<code>(버닝, DIRECTED, 이창동)</code>).
+        </div>
+
+        <h3>⑤ 3회 측정 — 「평균이 아니라 폭」</h3>
+        <p>답변 적절성 <b>80.0% · 73.3% · 80.0%</b> → 평균 77.8% · <b>폭 6.7%p</b> · 안정성 13/15.
+        <span class="hl">★<b>한 번만 쟀으면 86.7%라고 적었을 것이다.</b> 실제로 그 값이 한 번 나왔다.</span></p>
+
+        <h3>⑥ 실패를 «색인·검색·생성»으로 갈랐다</h3>
+        <table>
+          <thead><tr><th>실패 종류</th><th>무엇</th><th>고치는 자리</th></tr></thead>
+          <tbody>
+            <tr><td><b>색인</b></td><td>정답 삼중항이 <b>그래프에 없다</b></td><td>8·9강(추출·보강)</td></tr>
+            <tr><td><b>검색</b></td><td>그래프엔 있는데 <b>근거로 안 왔다</b></td><td>12강(탐색)</td></tr>
+            <tr><td><b>생성</b></td><td>근거엔 왔는데 <b>답에 안 썼다</b></td><td>프롬프트·모델</td></tr>
+          </tbody>
+        </table>
+        <p>⇒ <b>세 자리는 고치는 사람이 다르다.</b> 「70점」만 알면 무엇을 고칠지 모른다.</p>
+
+        <p class="fine">📚 출처: 직접 실습 <code>05_module5/c_lab_N6-graphrag/</code> (코드 9개 · 측정 원본 14개) ·
+        커밋 <code>6d46b85</code> · <code>bff2147</code> · 2026-09-18</p>
+      </section>
+
     </main>
   </div>
   <footer class="footer"><div class="wrap">Ⓒ 모두의연구소 노드 「바이브 코딩으로 웹 만들기」 — 직접 확인·정리한 개인 학습 노트 · KDT 교육 운영 워크스페이스</div></footer>
