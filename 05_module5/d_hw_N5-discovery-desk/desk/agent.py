@@ -396,6 +396,11 @@ if __name__ == "__main__":
     ap.add_argument("--set", default="golden", choices=["golden", "holdout", "holdout2", "holdout3"],
                     help="★holdout 은 «지침을 고칠 때 안 본» 문항이다. 한 번만 잰다")
     ap.add_argument("--workers", type=int, default=2)
+    # ★2026-09-19 추가 — ①(20_router.py)에는 처음부터 있었는데 ②에는 «없었다».
+    #   평균만 보면 「전체 100%인데 «한 문항»이 회차마다 뒤집히는 것」을 놓친다.
+    #   ⛔홀드아웃에는 쓰지 않는다 — 여러 번 보면 더는 홀드아웃이 아니다.
+    ap.add_argument("--repeat", type=int, default=1,
+                    help="N회 돌려 «문항별 통과 횟수»와 안정성을 본다 (골든셋 전용)")
     args = ap.parse_args()
 
     app = build(args.model, args.threshold)
@@ -437,6 +442,43 @@ if __name__ == "__main__":
             st = ask(app, c["question"])
             return c, st.get("answer", ""), st.get("used", {}), ""
 
-        with ThreadPoolExecutor(max_workers=args.workers) as ex:
-            rows = list(ex.map(run, gold))
-        score_desk.report(rows, time.perf_counter() - t0)
+        if args.repeat > 1 and args.set.startswith("holdout"):
+            print("   ⛔홀드아웃에 --repeat 를 쓰지 않는다. 1회로 되돌린다.")
+            args.repeat = 1
+
+        passes = {}          # 문항 id -> 통과 횟수
+        for i in range(args.repeat):
+            ti = time.perf_counter()
+            with ThreadPoolExecutor(max_workers=args.workers) as ex:
+                rows = list(ex.map(run, gold))
+            if args.repeat > 1:
+                print()
+                print("── %d/%d 회차 ──" % (i + 1, args.repeat))
+            score_desk.report(rows, time.perf_counter() - ti)
+            for case, text, used, _e in rows:
+                ok, _f, _a = score_desk.score_case(case, text, used)
+                passes[case["id"]] = passes.get(case["id"], 0) + (1 if ok else 0)
+
+        # ── ★안정성 — 「맞는가」와 「같은 답을 주는가」는 다른 질문이다 ──
+        if args.repeat > 1:
+            n = len(gold)
+            stable = [i for i, c in passes.items() if c in (0, args.repeat)]
+            shaky = sorted(i for i in passes if i not in stable)
+            print()
+            print("=" * 58)
+            print("★안정성 — %d회 모두 같은 결과: %d/%d (%.1f%%)"
+                  % (args.repeat, len(stable), n, 100 * len(stable) / n))
+            if shaky:
+                print("   ⚠흔들린 문항 %d개:" % len(shaky))
+                for i in shaky:
+                    print("      %-10s %d/%d회 통과" % (i, passes[i], args.repeat))
+                print()
+                print("   ⇒ 이 문항만 5회 더 돌려 «어느 단계»가 흔들리는지 가른다.")
+                print("     분류·근거·답변 중 한 곳만 흔들리면 거기가 범인이다.")
+            else:
+                print("   ✅흔들린 문항 없음")
+            print("   ※평균은 «맞는가»를, 이 줄은 «같은 답을 주는가»를 본다.")
+            print("=" * 58)
+        elif args.repeat == 1:
+            print()
+            print("   ※--repeat 3 으로 돌리면 «문항별 흔들림»을 볼 수 있다.")
