@@ -117,8 +117,12 @@ PICK_GUIDE_V3 = PICK_GUIDE_V2.replace(
     "  (반대로 시의성이 없는데 부르면 [신설]이 답변을 오염시킨다 — 실측)")
 
 # 기본은 v3. DESK_PICK=v1(오염본) · v2(또는-문제) 로 되돌려 비교할 수 있다.
+# ★버전은 «늘어난다». 그래서 사전만 여기서 만들고
+#   «무엇을 쓸지»는 맨 아래 한 곳에서만 정한다.
+#   1차에는 여기서도 PICK_GUIDE 를 정하고 v4 를 더하면서 또 정했다 —
+#   앞 줄이 죽은 코드가 됐고, 읽는 사람은 어느 게 진짜인지 알 수 없었다.
+#   (피어리뷰에서 지적받았다 — issue #3)
 _PICKS = {"v1": PICK_GUIDE_V1, "v2": PICK_GUIDE_V2, "v3": PICK_GUIDE_V3}
-PICK_GUIDE = _PICKS.get(os.environ.get("DESK_PICK", "v3"), PICK_GUIDE_V3)
 
 # ★v4 — 「없다」고 말하기 «전»에 둘 다 본다.
 #   G17 에서 모델이 get_fact 만 보고 「자료에 없습니다」라고 했다.
@@ -133,7 +137,13 @@ PICK_GUIDE_V4 = PICK_GUIDE_V3 + """
   ⛔반대는 아니다 — 답을 «찾은» 경우에는 더 부르지 않는다."""
 
 _PICKS["v4"] = PICK_GUIDE_V4
-PICK_GUIDE = _PICKS.get(os.environ.get("DESK_PICK", "v4"), PICK_GUIDE_V4)
+
+# ★여기가 «유일한» 결정 지점이다. 기본은 최신(v4).
+#   DESK_PICK=v1(오염본) · v2(「또는」 문제) · v3(둘 다 고침) 으로
+#   되돌려 비교할 수 있다 — 개선 이력의 숫자를 재현하는 데 쓴다.
+DEFAULT_PICK = "v4"
+PICK_GUIDE = _PICKS.get(os.environ.get("DESK_PICK", DEFAULT_PICK),
+                        _PICKS[DEFAULT_PICK])
 
 
 
