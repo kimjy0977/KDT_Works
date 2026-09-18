@@ -1,0 +1,11 @@
+{
+ "doc": "백상예술대상",
+ "triples": [
+  {
+   "s": "백상예술대상",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "중앙그룹",
+   "origin": "백상예술대상"
+  }
+ ]
+}

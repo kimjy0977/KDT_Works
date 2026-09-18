@@ -1,0 +1,77 @@
+{
+ "doc": "고몽",
+ "triples": [
+  {
+   "s": "고몽",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "고몽",
+   "origin": "고몽"
+  },
+  {
+   "s": "달빛 그림자",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "고몽",
+   "origin": "고몽"
+  },
+  {
+   "s": "라붐",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "고몽",
+   "origin": "고몽"
+  },
+  {
+   "s": "라붐 2",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "고몽",
+   "origin": "고몽"
+  },
+  {
+   "s": "레옹",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "고몽",
+   "origin": "고몽"
+  },
+  {
+   "s": "마피아 소탕작전",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "고몽",
+   "origin": "고몽"
+  },
+  {
+   "s": "유 콜 잇 러브",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "고몽",
+   "origin": "고몽"
+  },
+  {
+   "s": "언터처블: 1%의 우정",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "고몽",
+   "origin": "고몽"
+  },
+  {
+   "s": "아일로",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "고몽",
+   "origin": "고몽"
+  },
+  {
+   "s": "#아이엠히어",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "고몽",
+   "origin": "고몽"
+  },
+  {
+   "s": "유령 빌리",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "고몽",
+   "origin": "고몽"
+  },
+  {
+   "s": "합체 영웅 아토믹",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "고몽",
+   "origin": "고몽"
+  }
+ ]
+}

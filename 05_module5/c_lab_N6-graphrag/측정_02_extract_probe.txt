@@ -1,0 +1,30 @@
+★관계 7종 (골든셋에서 읽어 옴): ACTED_IN, DIRECTED, HAS_GENRE, HAS_THEME, PRODUCED_OR_DISTRIBUTED_BY, SET_IN, WON_AWARD
+★모델: gpt-4.1-mini · 문서 앞 6,000자만
+======================================================================
+[기생충_(영화)] 원문 10,578자 → 입력 6,000자 · 삼중항 15개 · 4,250/396토큰 · 4.7초
+      관계별: {'HAS_GENRE': 1, 'PRODUCED_OR_DISTRIBUTED_BY': 1, 'SET_IN': 2, 'DIRECTED': 1, 'WON_AWARD': 10}
+      · (기생충, HAS_GENRE, 블랙 코미디 서스펜스 영화)
+      · (기생충, PRODUCED_OR_DISTRIBUTED_BY, CJ 엔터테인먼트)
+      · (기생충, SET_IN, 2018년)
+      · (기생충, SET_IN, 대한민국)
+      … 외 11개
+
+[봉준호] 원문 8,150자 → 입력 6,000자 · 삼중항 17개 · 4,104/367토큰 · 3.3초
+      관계별: {'DIRECTED': 9, 'WON_AWARD': 4, 'PRODUCED_OR_DISTRIBUTED_BY': 1, 'SET_IN': 3}
+      · (봉준호, DIRECTED, 백색인)
+      · (봉준호, DIRECTED, 플란다스의 개)
+      · (봉준호, DIRECTED, 살인의 추억)
+      · (봉준호, DIRECTED, 괴물)
+      … 외 13개
+
+[JK필름] 원문 109자 → 입력 109자 · 삼중항 1개 · 416/30토큰 · 0.7초
+      관계별: {'PRODUCED_OR_DISTRIBUTED_BY': 1}
+      · (JK필름, PRODUCED_OR_DISTRIBUTED_BY, CJ ENM)
+
+======================================================================
+문서 3건 실측: 입력 8,770 · 출력 793 토큰
+  문서당 평균: 입력 2,923 · 출력 264
+
+★80건 역산: 입력 233,840 · 출력 21,120 토큰
+  ⚠ 앞 6,000자만 쓴 값이다. 잘라내지 않으면 훨씬 커진다
+  ⚠ 관계 없는 문서(HBO·IMDb·KT)도 같은 비용이 든다 — 8강에서 걸러야 할 자리

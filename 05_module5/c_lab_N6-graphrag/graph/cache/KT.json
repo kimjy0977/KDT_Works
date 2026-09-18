@@ -1,0 +1,11 @@
+{
+ "doc": "KT",
+ "triples": [
+  {
+   "s": "KT",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "KT Corporation",
+   "origin": "KT"
+  }
+ ]
+}

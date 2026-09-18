@@ -1,0 +1,29 @@
+{
+ "doc": "CJ_E&M",
+ "triples": [
+  {
+   "s": "CJ E&M 영화사업부문",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "CJ E&M",
+   "origin": "CJ_E&M"
+  },
+  {
+   "s": "쿵야쿵야",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "KBS CJ ENM",
+   "origin": "CJ_E&M"
+  },
+  {
+   "s": "아스타를 향해 차구차구",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "KBS CJ ENM",
+   "origin": "CJ_E&M"
+  },
+  {
+   "s": "파파독",
+   "r": "PRODUCED_OR_DISTRIBUTED_BY",
+   "o": "KBS CJ ENM",
+   "origin": "CJ_E&M"
+  }
+ ]
+}
