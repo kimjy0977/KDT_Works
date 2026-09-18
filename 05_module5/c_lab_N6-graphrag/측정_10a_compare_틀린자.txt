@@ -1,0 +1,32 @@
+==============================================================================
+★basic RAG vs GraphRAG — «같은» 15문항 · «같은» LLM-as-judge
+   basic = BM25 top-5 문서 본문 · graph = local/path/global
+==============================================================================
+단순-01    단순    basic 1.0  graph 1.0   무승부   (ctx recall 100% / 0%)
+단순-02    단순    basic 0.7  graph 0.7   무승부   (ctx recall 100% / 100%)
+단순-03    단순    basic 1.0  graph 1.0   무승부   (ctx recall 75% / 0%)
+추천-04    추천    basic 0.7  graph 0.4   ← basic 우세   (ctx recall 100% / 0%)
+추천-05    추천    basic 1.0  graph 1.0   무승부   (ctx recall 50% / 0%)
+추천-06    추천    basic 0.0  graph 1.0   ← graph 우세   (ctx recall 100% / 50%)
+추천-07    추천    basic 1.0  graph 1.0   무승부   (ctx recall 67% / 0%)
+추천-08    추천    basic 0.7  graph 1.0   ← graph 우세   (ctx recall 100% / 33%)
+추천-09    추천    basic 0.4  graph 0.4   무승부   (ctx recall 50% / 0%)
+추천-10    추천    basic 1.0  graph 0.7   ← basic 우세   (ctx recall 100% / 50%)
+추천-11    추천    basic 1.0  graph 0.7   ← basic 우세   (ctx recall 100% / 0%)
+추천-12    추천    basic 0.7  graph 0.4   ← basic 우세   (ctx recall 50% / 50%)
+추천-13    추천    basic 0.0  graph 1.0   ← graph 우세   (ctx recall 0% / 67%)
+전역-14    전역    basic 0.7  graph 0.7   무승부
+전역-15    전역    basic 0.4  graph 0.7   ← graph 우세
+------------------------------------------------------------------------------
+            basic      graph   차이
+단순           0.90       0.90   = (3문항)
+              92%        33%   context recall
+추천           0.65       0.76   ★graph +0.11 (10문항)
+              72%        25%   context recall
+전역           0.55       0.70   ★graph +0.15 (2문항)
+------------------------------------------------------------------------------
+전체           0.69       0.78   (15문항 전체)
+==============================================================================
+
+※ 노드 16강이 적은 결론: «단순은 basic 우세, 추천·전역은 GraphRAG 우세»
+  위 표가 그 문장을 우리 데이터에서 재현했는지 본다.

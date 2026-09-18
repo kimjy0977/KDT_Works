@@ -1,0 +1,277 @@
+Matplotlib is building the font cache; this may take a moment.
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44397 (\N{HANGUL SYLLABLE GUG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51228 (\N{HANGUL SYLLABLE JE}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49884 (\N{HANGUL SYLLABLE SI}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51109 (\N{HANGUL SYLLABLE JANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 50689 (\N{HANGUL SYLLABLE YEONG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 54868 (\N{HANGUL SYLLABLE HWA}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 48177 (\N{HANGUL SYLLABLE BAEG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49345 (\N{HANGUL SYLLABLE SANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 50696 (\N{HANGUL SYLLABLE YE}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49696 (\N{HANGUL SYLLABLE SUL}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 45824 (\N{HANGUL SYLLABLE DAE}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 48512 (\N{HANGUL SYLLABLE BU}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 47928 (\N{HANGUL SYLLABLE MUN}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 45336 (\N{HANGUL SYLLABLE NEOM}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 48260 (\N{HANGUL SYLLABLE BEO}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51312 (\N{HANGUL SYLLABLE JO}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 50668 (\N{HANGUL SYLLABLE YEO}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51221 (\N{HANGUL SYLLABLE JEONG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49328 (\N{HANGUL SYLLABLE SAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 54665 (\N{HANGUL SYLLABLE HAENG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51116 (\N{HANGUL SYLLABLE JAE}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 45212 (\N{HANGUL SYLLABLE NAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 47749 (\N{HANGUL SYLLABLE MYEONG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 47049 (\N{HANGUL SYLLABLE RYANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 48373 (\N{HANGUL SYLLABLE BOG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49688 (\N{HANGUL SYLLABLE SU}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 45716 (\N{HANGUL SYLLABLE NEUN}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 45208 (\N{HANGUL SYLLABLE NA}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51032 (\N{HANGUL SYLLABLE YI}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44163 (\N{HANGUL SYLLABLE GEOS}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51060 (\N{HANGUL SYLLABLE I}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51008 (\N{HANGUL SYLLABLE EUN}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 50644 (\N{HANGUL SYLLABLE EN}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 53552 (\N{HANGUL SYLLABLE TEO}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 53580 (\N{HANGUL SYLLABLE TE}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51064 (\N{HANGUL SYLLABLE IN}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 47676 (\N{HANGUL SYLLABLE MEON}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 53944 (\N{HANGUL SYLLABLE TEU}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44032 (\N{HANGUL SYLLABLE GA}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 45733 (\N{HANGUL SYLLABLE NEUNG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 54620 (\N{HANGUL SYLLABLE HAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49324 (\N{HANGUL SYLLABLE SA}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 46993 (\N{HANGUL SYLLABLE RANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 52572 (\N{HANGUL SYLLABLE COE}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 50864 (\N{HANGUL SYLLABLE U}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49885 (\N{HANGUL SYLLABLE SIG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 48264 (\N{HANGUL SYLLABLE BEON}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 48169 (\N{HANGUL SYLLABLE BANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49440 (\N{HANGUL SYLLABLE SEON}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 47932 (\N{HANGUL SYLLABLE MUL}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 52856 (\N{HANGUL SYLLABLE KAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 45789 (\N{HANGUL SYLLABLE NING}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 45380 (\N{HANGUL SYLLABLE NYEON}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49569 (\N{HANGUL SYLLABLE SONG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44053 (\N{HANGUL SYLLABLE GANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 54840 (\N{HANGUL SYLLABLE HO}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51333 (\N{HANGUL SYLLABLE JONG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 48393 (\N{HANGUL SYLLABLE BONG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51456 (\N{HANGUL SYLLABLE JUN}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51068 (\N{HANGUL SYLLABLE IL}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44277 (\N{HANGUL SYLLABLE GONG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 46041 (\N{HANGUL SYLLABLE DONG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44221 (\N{HANGUL SYLLABLE GYEONG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 48708 (\N{HANGUL SYLLABLE BI}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44396 (\N{HANGUL SYLLABLE GU}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 50669 (\N{HANGUL SYLLABLE YEOG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44340 (\N{HANGUL SYLLABLE GOE}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 48149 (\N{HANGUL SYLLABLE BAG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49548 (\N{HANGUL SYLLABLE SO}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 45812 (\N{HANGUL SYLLABLE DAM}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49444 (\N{HANGUL SYLLABLE SEOL}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 50676 (\N{HANGUL SYLLABLE YEOL}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 52264 (\N{HANGUL SYLLABLE CA}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 53076 (\N{HANGUL SYLLABLE KO}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 48120 (\N{HANGUL SYLLABLE MI}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 46356 (\N{HANGUL SYLLABLE DI}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 46300 (\N{HANGUL SYLLABLE DEU}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 46972 (\N{HANGUL SYLLABLE RA}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 47560 (\N{HANGUL SYLLABLE MA}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49772 (\N{HANGUL SYLLABLE SWI}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 47532 (\N{HANGUL SYLLABLE RI}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44060 (\N{HANGUL SYLLABLE GAE}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 48317 (\N{HANGUL SYLLABLE BYEOG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51204 (\N{HANGUL SYLLABLE JEON}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 46020 (\N{HANGUL SYLLABLE DO}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 50672 (\N{HANGUL SYLLABLE YEON}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44537 (\N{HANGUL SYLLABLE GEUG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51649 (\N{HANGUL SYLLABLE JIG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 50629 (\N{HANGUL SYLLABLE EOB}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 48124 (\N{HANGUL SYLLABLE MIN}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 55192 (\N{HANGUL SYLLABLE HIM}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44592 (\N{HANGUL SYLLABLE GI}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49373 (\N{HANGUL SYLLABLE SAENG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 52649 (\N{HANGUL SYLLABLE CUNG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49332 (\N{HANGUL SYLLABLE SAL}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 52628 (\N{HANGUL SYLLABLE CU}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 50613 (\N{HANGUL SYLLABLE EOG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 54756 (\N{HANGUL SYLLABLE HE}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 50612 (\N{HANGUL SYLLABLE EO}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51656 (\N{HANGUL SYLLABLE JIL}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44208 (\N{HANGUL SYLLABLE GYEOL}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49900 (\N{HANGUL SYLLABLE SIM}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44305 (\N{HANGUL SYLLABLE GWANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 54644 (\N{HANGUL SYLLABLE HAE}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 50773 (\N{HANGUL SYLLABLE WANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 46108 (\N{HANGUL SYLLABLE DOEN}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 45224 (\N{HANGUL SYLLABLE NAM}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51088 (\N{HANGUL SYLLABLE JA}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 54889 (\N{HANGUL SYLLABLE HWANG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44552 (\N{HANGUL SYLLABLE GEUM}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 47140 (\N{HANGUL SYLLABLE RYEO}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 50857 (\N{HANGUL SYLLABLE YONG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51313 (\N{HANGUL SYLLABLE JOG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44288 (\N{HANGUL SYLLABLE GWAN}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 51339 (\N{HANGUL SYLLABLE JOH}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 45448 (\N{HANGUL SYLLABLE NOM}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49244 (\N{HANGUL SYLLABLE BBEUN}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 46384 (\N{HANGUL SYLLABLE DDA}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 46907 (\N{HANGUL SYLLABLE DDEUS}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 49353 (\N{HANGUL SYLLABLE SAEG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 48660 (\N{HANGUL SYLLABLE BEUL}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 47336 (\N{HANGUL SYLLABLE RU}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 45908 (\N{HANGUL SYLLABLE DEO}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 53469 (\N{HANGUL SYLLABLE TAEG}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 50868 (\N{HANGUL SYLLABLE UN}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 44160 (\N{HANGUL SYLLABLE GEOM}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+C:\Users\EAN22V01\Desktop\KDT\02_tutor\03_works\05_module5\c_lab_N6-graphrag\09_visualize.py:152: UserWarning: Glyph 46308 (\N{HANGUL SYLLABLE DEUL}) missing from font(s) DejaVu Sans.
+  plt.savefig(fn, dpi=130)
+======================================================================
+4강 누락 — 시각화 + 노드 타입
+======================================================================
+manifest 의 타입 분포: {'Person': 28, 'Film': 33, 'Award': 8, 'Organization': 11}
+그래프 엔티티 1,934개 중 타입이 붙은 것: 74
+  ?               1860
+  Film              34
+  Person            27
+  Award              7
+  Organization       6
+
+★타입이 없는 것이 1,860개 — 배역·장르·수상명 등 «문서가 없는» 엔티티다.
+  4강이 말한 「타입으로 걸러낸다」를 하려면 이쪽도 분류해야 한다.
+
+그림: graph/figs/graph_기생충영화_2hop.png  (노드 45 · 엣지 68)
+
+----------------------------------------------------------------------
+★그림이 아니라 «타입»으로 잡은 이상한 관계 (4강이 말한 그 용도)
+----------------------------------------------------------------------
+  DIRECTED 의 주어가 Film            1건
+    (버닝 (2018년 영화), DIRECTED, 이창동)  ←버닝_(2018년_영화)
+======================================================================

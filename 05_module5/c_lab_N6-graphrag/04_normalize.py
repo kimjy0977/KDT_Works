@@ -113,6 +113,12 @@ def main():
                 m = pat.match(cat)
                 if m:
                     obj = m.group(1).strip()
+                    # ★self-loop 방지 — 「아카데미 작품상」 문서의 분류에
+                    #   「아카데미 작품상 수상작」이 있어 (X, WON_AWARD, X) 가 생겼다.
+                    #   ⚠ 통계로는 안 보였다. 4강 말대로 «그림에서» 먼저 티가 났다
+                    #     (노드에 동그란 고리가 그려진다).
+                    if key(obj) == key(subj):
+                        break
                     tri.append({"s": subj, "r": rel, "o": obj,
                                 "origin": name + " (분류)"})
                     added += 1
