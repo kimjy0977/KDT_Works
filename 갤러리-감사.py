@@ -45,10 +45,23 @@ SKIP_TOP = ("00_log/",)
 
 def works():
     """git 이 아는 파일에서 «산출물 폴더»를 뽑는다. 작업트리가 아니라 인덱스 기준."""
-    out = subprocess.run(["git", "ls-files"], cwd=HERE, capture_output=True,
+    # ★2026-09-19 -c core.quotepath=false 필수.
+    #   없으면 git 이 non-ASCII 경로를 "..." 로 감싸 octal escape 로 내보낸다.
+    #   그러면 ^ 로 시작하는 TOP 패턴이 «앞 따옴표»에 막혀 조용히 샌다.
+    #   실측(2026-09-19): 1237개 중 ★321개(26%)가 따옴표 경로였다.
+    #   당시엔 폴더마다 ASCII 파일이 하나씩 있어 결과가 같았다 — ★운이 좋았을 뿐이다.
+    #   한글 파일«만» 있는 폴더가 생기는 순간 «없는 폴더»가 된다.
+    #   (§F-8-A ⑪ 도구가 「아니다」라고 말하는 것 · 튜터 KBTM-T-20260919-2 실측)
+    out = subprocess.run(["git", "-c", "core.quotepath=false", "ls-files"],
+                         cwd=HERE, capture_output=True,
                          text=True, encoding="utf-8", errors="replace").stdout
+    lines = out.splitlines()
+    quoted = [x for x in lines if x.startswith('"')]
+    if quoted:
+        # 여기 걸리면 위 플래그가 안 먹은 것이다. 침묵하지 말 것.
+        print("  ⚠️ 따옴표 경로가 %d건 남아 있다 — 셈이 샌다. 플래그를 확인하라." % len(quoted))
     found = set()
-    for p in out.splitlines():
+    for p in lines:
         if p.startswith(SKIP_TOP):
             continue
         m = TOP.match(p)
