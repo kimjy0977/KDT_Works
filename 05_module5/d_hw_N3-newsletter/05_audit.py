@@ -78,10 +78,22 @@ def walk():
 
 
 def git(*args):
+    """★-c core.quotepath=false 는 «반드시» 있어야 한다 (2026-09-19 추가).
+
+    git 은 non-ASCII 경로를 기본으로 «따옴표로 감싸고 octal escape» 해서 내보낸다.
+        05_module5/… .env        → 그대로
+        한글폴더/.env            → "\355\234\264/.env"   ← ★따옴표로 «끝난다»
+    ⇒ 아래 .env 검사의 endswith("/.env") 가 «조용히» 실패한다.
+      API 키가 커밋돼 있어도 「OK」라고 보고한다 — 검사가 샌 줄도 모른다.
+
+    실측(2026-09-19 · 이 저장소): 따옴표로 감싸인 줄 **321개**.
+    공통운영규칙 §A-4. 매니저 감사기도 같은 병이 있어 `4610c97` 로 고쳤다.
+    """
     if not REPO:
         return ""
     try:
-        return subprocess.run(["git", "-C", REPO] + list(args),
+        return subprocess.run(["git", "-C", REPO, "-c", "core.quotepath=false"]
+                              + list(args),
                               capture_output=True, text=True, encoding="utf-8",
                               errors="replace").stdout
     except Exception as exc:
@@ -124,7 +136,9 @@ def a_secrets(files):
             rec("OK", "git 히스토리 " + name, "과거 커밋에도 없음")
 
     # .env 가 등재되지 않았는가
-    tracked = (git("ls-files", PREFIX or ".") or "").split()
+    # ★.split() 이 아니라 .splitlines() — 공백이 든 파일명이 쪼개지면
+    #   「다운로드 (1).png」가 두 항목이 되어 endswith 검사가 또 샌다.
+    tracked = [t for t in (git("ls-files", PREFIX or ".") or "").splitlines() if t]
     envs = [t for t in tracked if t.endswith("/.env")]
     rec("FAIL" if envs else "OK", ".env 등재",
         "★%s" % envs if envs else "추적되지 않음 (.gitignore 유효)")
