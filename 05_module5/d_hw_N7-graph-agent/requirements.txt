@@ -1,0 +1,6 @@
+langchain-core==1.6.3
+langgraph==1.2.11
+networkx==3.6.1
+openai==1.109.1
+python-dotenv==1.2.3
+streamlit==1.64.0

@@ -1,0 +1,15 @@
+#  ★API 키를 저장소에 올리지 않는다 (노드7 요건 ⑥ 명시)
+.env
+.env.*
+!.env.example
+
+#  가상환경 — 절대경로를 기억해서 옮기면 깨진다 (하네스 §3)
+.venv/
+__pycache__/
+*.pyc
+
+#  추출 캐시 — 재현은 스크립트로 한다. 캐시를 올리면 「돌려봤다」가 흐려진다
+cache/
+
+#  실행 산출물 중 «큰 것»만 제외. graph.graphml·eval.json 은 ★제출물이라 올린다
+output/runs.jsonl
