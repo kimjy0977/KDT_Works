@@ -141,10 +141,21 @@ def main():
         if len(picked) >= 4:
             break
     for i, (film, q, vals) in enumerate(picked, 1):
+        # ★그 영화가 «부르는 가치 전부»를 후보로 둔다.
+        #   영화 하나에 물음이 2~3개이고 각각 다른 가치를 부른다.
+        #   한 물음의 가치만 정답으로 두면 «맞는 답»을 틀렸다고 찍는다
+        #   (2홉-02 서브스턴스가 「내면화된 폭력」으로 답했는데 0/3 이었다).
+        all_vals = []
+        for _, q2, d2 in G.out_edges(film, data=True):
+            if d2.get("rel") != "ASKS":
+                continue
+            for _, v2, d3 in G.out_edges(q2, data=True):
+                if d3.get("rel") == "INVOKES_VALUE" and v2 not in all_vals:
+                    all_vals.append(v2)
         items.append({
             "id": "2홉-%02d" % i, "kind": "2홉",
             "user_input": "영화 《%s》가 세운 가치 대립은 무엇인가요?" % film,
-            "reference": vals,          # ★그 물음이 불러낸 가치 «전부»
+            "reference": all_vals or vals,
             "reference_contexts": [[film, "ASKS", q]]
                                   + [[q, "INVOKES_VALUE", v] for v in vals[:2]],
             "chain": "%s ─ASKS→ 물음 ─INVOKES_VALUE→ 가치 (2홉)" % film,
