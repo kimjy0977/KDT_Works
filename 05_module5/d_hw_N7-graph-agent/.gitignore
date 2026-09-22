@@ -11,5 +11,7 @@ __pycache__/
 #  추출 캐시 — 재현은 스크립트로 한다. 캐시를 올리면 「돌려봤다」가 흐려진다
 cache/
 
-#  실행 산출물 중 «큰 것»만 제외. graph.graphml·eval.json 은 ★제출물이라 올린다
-output/runs.jsonl
+#  ★output/ 은 «전부» 올린다 — 요건이 graph.graphml·runs.jsonl·eval.json 을
+#  산출물로 명시했고, runs.jsonl 이 있어야 «탄 경로»를 제3자가 확인할 수 있다.
+#  (2026-09-22: 처음엔 runs.jsonl 을 «크다»는 이유로 막았다. 그런데 바로 그 파일이
+#   요건 ④「실제로 탄 경로를 기록」의 증거다. 크기가 아니라 «역할»로 판단해야 했다)
