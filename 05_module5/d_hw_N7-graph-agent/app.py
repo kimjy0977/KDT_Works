@@ -91,6 +91,14 @@ kinds = {it["user_input"]: it["kind"] for it in gold()}
 st.session_state.setdefault("q", "")
 st.session_state.setdefault("_pick", "(직접 입력)")
 
+# ★URL 로 질문을 받는다 — ?q=…&hop=4 · 링크 하나로 결과 화면을 공유한다.
+#   위젯이 렌더되기 «전»에 session_state 에 넣어야 한다.
+_qp = st.query_params
+if _qp.get("q") and not st.session_state.get("_from_url"):
+    st.session_state["q"] = _qp["q"]
+    st.session_state["_from_url"] = True
+    st.session_state["_auto"] = True
+
 
 def _on_pick():
     p = st.session_state["_sel"]
@@ -107,7 +115,10 @@ st.text_input("질문", key="q",
               placeholder="예) 영화 «1987»과 같은 가치 대립을 다루는 다른 영화는?")
 q = st.session_state["q"]
 
-if st.button("물어보기", type="primary") and q.strip():
+_go = st.button("물어보기", type="primary")
+if st.session_state.pop("_auto", False):
+    _go = True                      # ★URL 로 들어오면 «한 번» 자동 실행
+if _go and q.strip():
     with st.spinner("그래프를 걷는 중…"):
         res = A.ask(app, G, reach, n_films, q.strip(), hop)
 
