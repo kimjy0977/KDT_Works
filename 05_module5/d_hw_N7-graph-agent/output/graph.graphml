@@ -1,0 +1,3469 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d4" for="edge" attr.name="axis" attr.type="string" />
+  <key id="d3" for="edge" attr.name="origin" attr.type="string" />
+  <key id="d2" for="edge" attr.name="rel" attr.type="string" />
+  <key id="d1" for="node" attr.name="axes" attr.type="string" />
+  <key id="d0" for="node" attr.name="kind" attr.type="string" />
+  <graph edgedefault="directed">
+    <node id="10대의 반항 (1959년 영화)">
+      <data key="d0">Film</data>
+    </node>
+    <node id="사회에서 소외된 10대 불량아들은 어떻게 광명을 찾을 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="폭력과 범죄에 빠진 청소년 집단에 따뜻한 인정은 어떤 의미를 가지는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="청소년의 구원과 재사회화">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단;책임/지는 쪽</data>
+    </node>
+    <node id="인정과 인간애">
+      <data key="d0">Value</data>
+      <data key="d1">인정/바깥의 평가;생명/다수</data>
+    </node>
+    <node id="사회적 처벌과 단죄">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단;권한/정하는 자</data>
+    </node>
+    <node id="12인의 성난 사람들 (1957년 영화)">
+      <data key="d0">Film</data>
+    </node>
+    <node id="합리적 의심이 있는 경우에도 유죄를 확신할 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="개인의 도덕률과 가치관은 집단의 판단에 어떻게 영향을 미치는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="합리적 의심의 원칙">
+      <data key="d0">Value</data>
+      <data key="d1">앎/감춤;권한/아는 자</data>
+    </node>
+    <node id="개인의 양심">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신;책임/지는 쪽</data>
+    </node>
+    <node id="도덕성">
+      <data key="d0">Value</data>
+      <data key="d1">인정/바깥의 평가</data>
+    </node>
+    <node id="신속한 재판과 평결">
+      <data key="d0">Value</data>
+      <data key="d1">시간/지금;책임/지는 쪽</data>
+    </node>
+    <node id="다수의 의견과 사회적 압력">
+      <data key="d0">Value</data>
+      <data key="d1">생명/다수;소속/집단;동의/남의 설계</data>
+    </node>
+    <node id="1987 (2017년 영화)">
+      <data key="d0">Film</data>
+    </node>
+    <node id="독재정치에 맞서 진실을 밝히는 것이 옳은가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="한 사람의 희생으로 사회 변화를 이끌어내는 것이 정당한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="진실">
+      <data key="d0">Value</data>
+      <data key="d1">앎/밝힘</data>
+    </node>
+    <node id="정의">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽</data>
+    </node>
+    <node id="민주주의와 시민의 자유">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단;동의/본인의 뜻</data>
+    </node>
+    <node id="국가 권력의 은폐와 통제">
+      <data key="d0">Value</data>
+      <data key="d1">권한/정하는 자;앎/감춤</data>
+    </node>
+    <node id="3인조">
+      <data key="d0">Film</data>
+    </node>
+    <node id="가난한 현실 속에서 어떻게 희망을 찾을 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="진정한 가족의 의미는 무엇인가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="삶의 의지">
+      <data key="d0">Value</data>
+      <data key="d1">생명/한 사람</data>
+    </node>
+    <node id="가족애">
+      <data key="d0">Value</data>
+      <data key="d1">생명/한 사람</data>
+    </node>
+    <node id="현실의 냉혹함">
+      <data key="d0">Value</data>
+      <data key="d1">책임/미루는 쪽</data>
+    </node>
+    <node id="개인의 자유">
+      <data key="d0">Value</data>
+      <data key="d1">소속/개인;동의/본인의 뜻</data>
+    </node>
+    <node id="4개월, 3주... 그리고 2일">
+      <data key="d0">Film</data>
+    </node>
+    <node id="불법 낙태를 선택하는 것이 정당한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="개인의 선택과 사회적 규범 중 어느 쪽을 우선해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="생명 존중">
+      <data key="d0">Value</data>
+      <data key="d1">생명/다수</data>
+    </node>
+    <node id="여성의 자기결정권">
+      <data key="d0">Value</data>
+      <data key="d1">소속/개인;동의/본인의 뜻</data>
+    </node>
+    <node id="사회적 질서">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단;책임/지는 쪽</data>
+    </node>
+    <node id="7번방의 선물">
+      <data key="d0">Film</data>
+    </node>
+    <node id="억울하게 누명을 쓴 사람은 어떻게 진실을 밝힐 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="장애를 가진 사람도 가족의 사랑과 희생을 통해 존중받을 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="인간 존엄성">
+      <data key="d0">Value</data>
+      <data key="d1">소속/개인;인정/자기 자신</data>
+    </node>
+    <node id="법적 절차의 한계와 권력의 부당한 개입">
+      <data key="d0">Value</data>
+      <data key="d1">권한/정하는 자;책임/미루는 쪽</data>
+    </node>
+    <node id="사회적 편견">
+      <data key="d0">Value</data>
+      <data key="d1">인정/바깥의 평가</data>
+    </node>
+    <node id="차별">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단</data>
+    </node>
+    <node id="80일간의 세계 일주 (1956년 영화)">
+      <data key="d0">Film</data>
+    </node>
+    <node id="80일 만에 세계를 일주할 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="도전 정신">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽</data>
+    </node>
+    <node id="시간 엄수">
+      <data key="d0">Value</data>
+      <data key="d1">시간/지금</data>
+    </node>
+    <node id="유연한 사고와 상황 적응">
+      <data key="d0">Value</data>
+      <data key="d1">책임/미루는 쪽</data>
+    </node>
+    <node id="8과 1 2">
+      <data key="d0">Film</data>
+    </node>
+    <node id="삶을 있는 그대로 받아들일 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="진실을 토로하는 데 어려움이 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="삶의 포용">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신</data>
+    </node>
+    <node id="진실성">
+      <data key="d0">Value</data>
+      <data key="d1">앎/밝힘;책임/지는 쪽</data>
+    </node>
+    <node id="이상적 환상">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신</data>
+    </node>
+    <node id="8월의 크리스마스 (1998년 영화)">
+      <data key="d0">Film</data>
+    </node>
+    <node id="운명 앞에서 사랑을 계속할 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="삶의 마지막 순간에 어떻게 의미를 찾을 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="사랑의 진실성">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신;앎/밝힘</data>
+    </node>
+    <node id="삶의 존엄성">
+      <data key="d0">Value</data>
+      <data key="d1">생명/한 사람;인정/자기 자신</data>
+    </node>
+    <node id="운명에 대한 수용">
+      <data key="d0">Value</data>
+      <data key="d1">책임/미루는 쪽;시간/나중</data>
+    </node>
+    <node id="삶의 무상함">
+      <data key="d0">Value</data>
+      <data key="d1">시간/나중</data>
+    </node>
+    <node id="E.T.">
+      <data key="d0">Film</data>
+    </node>
+    <node id="외계인과 인간은 서로 이해하고 공존할 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="과학적 호기심과 인간적 연민 중 어느 쪽을 우선해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="상호 이해">
+      <data key="d0">Value</data>
+      <data key="d1">동의/본인의 뜻</data>
+    </node>
+    <node id="공존">
+      <data key="d0">Value</data>
+      <data key="d1">동의/본인의 뜻</data>
+    </node>
+    <node id="인간적 연민">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신</data>
+    </node>
+    <node id="안전과 통제">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽;권한/정하는 자</data>
+    </node>
+    <node id="과학적 탐구와 연구">
+      <data key="d0">Value</data>
+      <data key="d1">앎/밝힘</data>
+    </node>
+    <node id="가장 따뜻한 색, 블루">
+      <data key="d0">Film</data>
+    </node>
+    <node id="자신의 성 정체성을 어떻게 받아들여야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="사랑과 개인의 성장 중 어느 쪽을 우선시해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="자아 수용">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신;소속/개인</data>
+    </node>
+    <node id="개인의 성장">
+      <data key="d0">Value</data>
+      <data key="d1">시간/나중</data>
+    </node>
+    <node id="관계 유지와 헌신">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽;소속/집단</data>
+    </node>
+    <node id="강변호텔">
+      <data key="d0">Film</data>
+    </node>
+    <node id="삶의 끝을 앞둔 순간에 가족과 어떻게 관계를 맺어야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="배신과 상처를 겪은 후에 사람은 어떻게 치유와 위로를 찾는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="가족 간의 화해">
+      <data key="d0">Value</data>
+      <data key="d1">생명/한 사람;동의/본인의 뜻</data>
+    </node>
+    <node id="소통">
+      <data key="d0">Value</data>
+      <data key="d1">앎/밝힘</data>
+    </node>
+    <node id="정서적 치유와 우정">
+      <data key="d0">Value</data>
+      <data key="d1">생명/다수;소속/집단</data>
+    </node>
+    <node id="개인의 내면적 고립">
+      <data key="d0">Value</data>
+      <data key="d1">소속/개인;인정/자기 자신</data>
+    </node>
+    <node id="과거의 상처와 불신">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신</data>
+    </node>
+    <node id="강원도의 힘">
+      <data key="d0">Film</data>
+    </node>
+    <node id="일상 속에서 변화하는 인간관계는 무엇인가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="특별한 사건 없이도 삶의 의미를 발견할 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="인간관계의 복잡성">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단;생명/다수</data>
+    </node>
+    <node id="일상의 재발견">
+      <data key="d0">Value</data>
+      <data key="d1">시간/지금</data>
+    </node>
+    <node id="삶의 단순성">
+      <data key="d0">Value</data>
+      <data key="d1">시간/지금</data>
+    </node>
+    <node id="개벽">
+      <data key="d0">Film</data>
+    </node>
+    <node id="혁명 지도자는 어떻게 탄압과 고난을 견뎌야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="종교적 신념과 사회적 현실은 어떻게 조화를 이룰 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="저항과 인내의 가치">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽;동의/본인의 뜻</data>
+    </node>
+    <node id="신념의 순수성">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신;동의/본인의 뜻</data>
+    </node>
+    <node id="현실적 생존">
+      <data key="d0">Value</data>
+      <data key="d1">생명/다수;시간/지금</data>
+    </node>
+    <node id="사회적 타협과 현실주의">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단;동의/남의 설계</data>
+    </node>
+    <node id="검은 사제들">
+      <data key="d0">Film</data>
+    </node>
+    <node id="악령에 사로잡힌 사람을 구하는 것이 가능한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="신앙과 과학 중 어느 쪽을 믿어야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="신앙의 힘">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신;동의/본인의 뜻</data>
+    </node>
+    <node id="종교적 신념">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신;동의/본인의 뜻</data>
+    </node>
+    <node id="합리적 사고">
+      <data key="d0">Value</data>
+      <data key="d1">앎/밝힘;권한/아는 자</data>
+    </node>
+    <node id="악령 퇴치의 필요성">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽</data>
+    </node>
+    <node id="현대 의학의 한계">
+      <data key="d0">Value</data>
+      <data key="d1">앎/감춤</data>
+    </node>
+    <node id="과학적 증거">
+      <data key="d0">Value</data>
+      <data key="d1">앎/밝힘;권한/아는 자</data>
+    </node>
+    <node id="초자연적 현상에 대한 믿음">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신;동의/본인의 뜻</data>
+    </node>
+    <node id="겨울왕국">
+      <data key="d0">Film</data>
+    </node>
+    <node id="마법의 힘을 가진 사람이 자신의 능력을 숨기고 살아야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="진정한 사랑은 어떤 행동으로 증명되는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="자기 수용과 정체성">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신;소속/개인</data>
+    </node>
+    <node id="희생과 헌신">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽;생명/다수</data>
+    </node>
+    <node id="사회적 안전과 비밀 유지">
+      <data key="d0">Value</data>
+    </node>
+    <node id="자기 보호와 생존 본능">
+      <data key="d0">Value</data>
+    </node>
+    <node id="겨울왕국 2">
+      <data key="d0">Film</data>
+    </node>
+    <node id="엘사는 자신의 마법의 기원을 찾아야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="왕국을 구하기 위해 진실을 밝혀야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="자아 발견">
+      <data key="d0">Value</data>
+      <data key="d1">동의/본인의 뜻;앎/감춤</data>
+    </node>
+    <node id="책임감">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽</data>
+    </node>
+    <node id="안전과 평온">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽</data>
+    </node>
+    <node id="경주">
+      <data key="d0">Film</data>
+    </node>
+    <node id="과거의 기억은 어떻게 현재의 삶에 영향을 미치는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="개인의 정체성과 장소의 기억은 어떤 관계인가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="기억의 중요성">
+      <data key="d0">Value</data>
+      <data key="d1">시간/나중</data>
+    </node>
+    <node id="정체성의 탐구">
+      <data key="d0">Value</data>
+      <data key="d1">앎/감춤;소속/개인</data>
+    </node>
+    <node id="현재의 삶에 집중하기">
+      <data key="d0">Value</data>
+    </node>
+    <node id="곡성">
+      <data key="d0">Film</data>
+    </node>
+    <node id="낯선 존재를 어떻게 받아들여야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="진실과 미신 중 어느 쪽을 믿어야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="공포">
+      <data key="d0">Value</data>
+      <data key="d1">생명/한 사람</data>
+    </node>
+    <node id="경계">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽</data>
+    </node>
+    <node id="이성적 판단">
+      <data key="d0">Value</data>
+      <data key="d1">앎/밝힘;책임/지는 쪽</data>
+    </node>
+    <node id="신앙">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신;동의/본인의 뜻</data>
+    </node>
+    <node id="공동경비구역 JSA">
+      <data key="d0">Film</data>
+    </node>
+    <node id="남북한 군인들이 서로 적이면서도 친구가 될 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="진실을 밝히는 것이 평화 유지보다 중요한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="인간애와 우정">
+      <data key="d0">Value</data>
+      <data key="d1">생명/다수;소속/집단</data>
+    </node>
+    <node id="충성">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽;동의/본인의 뜻</data>
+    </node>
+    <node id="평화와 안정">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽</data>
+    </node>
+    <node id="공조">
+      <data key="d0">Film</data>
+    </node>
+    <node id="남과 북은 진정한 공조가 가능한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="서로 다른 체제와 이념을 가진 사람들이 신뢰를 쌓을 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="남북 화합과 협력">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단</data>
+    </node>
+    <node id="상호 신뢰">
+      <data key="d0">Value</data>
+      <data key="d1">인정/바깥의 평가;동의/본인의 뜻</data>
+    </node>
+    <node id="이해">
+      <data key="d0">Value</data>
+      <data key="d1">동의/본인의 뜻</data>
+    </node>
+    <node id="편견과 불신">
+      <data key="d0">Value</data>
+      <data key="d1">인정/바깥의 평가</data>
+    </node>
+    <node id="관상">
+      <data key="d0">Film</data>
+    </node>
+    <node id="권력 다툼에서 진정한 왕은 누구인가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="얼굴을 통해 사람의 본성을 알 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="정의로운 통치">
+      <data key="d0">Value</data>
+      <data key="d1">권한/정하는 자;책임/지는 쪽</data>
+    </node>
+    <node id="진실의 탐구">
+      <data key="d0">Value</data>
+      <data key="d1">앎/감춤;동의/본인의 뜻</data>
+    </node>
+    <node id="광해, 왕이 된 남자">
+      <data key="d0">Film</data>
+    </node>
+    <node id="왕의 진정한 역할은 무엇인가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="권력과 생명을 지키기 위해 어떤 선택을 해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="국가의 안녕과 백성의 행복">
+      <data key="d0">Value</data>
+      <data key="d1">생명/다수</data>
+    </node>
+    <node id="권력 유지">
+      <data key="d0">Value</data>
+      <data key="d1">권한/정하는 자</data>
+    </node>
+    <node id="개인의 생명과 자유">
+      <data key="d0">Value</data>
+    </node>
+    <node id="정치적 안정과 권력 행사">
+      <data key="d0">Value</data>
+      <data key="d1">권한/정하는 자;책임/지는 쪽</data>
+    </node>
+    <node id="괴물 (2006년 영화)">
+      <data key="d0">Film</data>
+    </node>
+    <node id="괴물의 위협 앞에서 개인과 가족은 어떻게 행동해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="괴물과 같은 재난 상황에서 시민의 무관심과 정부의 대응은 어떤 문제를 야기하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="괴물">
+      <data key="d0">Question</data>
+    </node>
+    <node id="희생정신">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽</data>
+    </node>
+    <node id="시민 정신과 공동체 의식">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단</data>
+    </node>
+    <node id="무관심과 자기 보호">
+      <data key="d0">Value</data>
+      <data key="d1">책임/미루는 쪽;인정/자기 자신</data>
+    </node>
+    <node id="국제시장">
+      <data key="d0">Film</data>
+    </node>
+    <node id="가족을 위해 개인의 희생은 정당한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="과거의 아픔을 기억하는 것이 현재 세대에 어떤 의미가 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="역사적 기억">
+      <data key="d0">Value</data>
+      <data key="d1">시간/나중</data>
+    </node>
+    <node id="현재의 평화">
+      <data key="d0">Value</data>
+    </node>
+    <node id="화해">
+      <data key="d0">Value</data>
+      <data key="d1">동의/본인의 뜻</data>
+    </node>
+    <node id="그때 그사람들">
+      <data key="d0">Film</data>
+    </node>
+    <node id="역사적 진실과 표현의 자유는 어떻게 조화를 이루어야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="과거 권력자의 명예와 현대 사회의 비판적 시각 중 어느 쪽을 우선해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="표현의 자유">
+      <data key="d0">Value</data>
+      <data key="d1">동의/본인의 뜻</data>
+    </node>
+    <node id="역사적 진실">
+      <data key="d0">Value</data>
+      <data key="d1">앎/밝힘</data>
+    </node>
+    <node id="명예 보호">
+      <data key="d0">Value</data>
+      <data key="d1">인정/바깥의 평가</data>
+    </node>
+    <node id="비판적 시각">
+      <data key="d0">Value</data>
+      <data key="d1">앎/밝힘</data>
+    </node>
+    <node id="그랜 토리노">
+      <data key="d0">Film</data>
+    </node>
+    <node id="과거의 상처와 분노를 어떻게 극복할 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="이질적인 문화와 세대 간의 갈등을 어떻게 화해할 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="용서">
+      <data key="d0">Value</data>
+      <data key="d1">책임/미루는 쪽;인정/자기 자신</data>
+    </node>
+    <node id="과거에 대한 분노와 복수심">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신</data>
+    </node>
+    <node id="편견과 증오">
+      <data key="d0">Value</data>
+      <data key="d1">인정/바깥의 평가</data>
+    </node>
+    <node id="그랜드 호텔">
+      <data key="d0">Film</data>
+    </node>
+    <node id="사람들이 오고 가는 호텔에서 정말 아무 일도 일어나지 않는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="개인의 절박한 상황과 도덕적 선택은 어떻게 충돌하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="일상의 평온함">
+      <data key="d0">Value</data>
+      <data key="d1">시간/지금</data>
+    </node>
+    <node id="인간애와 도덕성">
+      <data key="d0">Value</data>
+      <data key="d1">생명/다수;책임/지는 쪽</data>
+    </node>
+    <node id="개인의 절박한 상황과 도덕적 선택">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽;동의/본인의 뜻</data>
+    </node>
+    <node id="생존을 위한 절박함과 범죄">
+      <data key="d0">Value</data>
+    </node>
+    <node id="그린 북">
+      <data key="d0">Film</data>
+    </node>
+    <node id="인종차별과 편견 속에서 진정한 우정은 가능한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="차별받는 개인의 존엄성과 사회적 현실 중 어느 쪽을 우선해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="인간 존중과 화합">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단;인정/자기 자신</data>
+    </node>
+    <node id="개인의 존엄성">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신</data>
+    </node>
+    <node id="사회적 현실과 제도적 차별">
+      <data key="d0">Value</data>
+    </node>
+    <node id="극장전">
+      <data key="d0">Film</data>
+    </node>
+    <node id="영화 속 이야기와 현실은 어떻게 연결되는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="첫사랑의 기억은 현재의 삶에 어떤 의미를 주는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="현실과 허구의 경계">
+      <data key="d0">Value</data>
+      <data key="d1">미분류</data>
+    </node>
+    <node id="과거의 추억과 현재의 자아">
+      <data key="d0">Value</data>
+      <data key="d1">시간/나중;인정/자기 자신</data>
+    </node>
+    <node id="극한직업">
+      <data key="d0">Film</data>
+    </node>
+    <node id="성과 없는 일상 속에서 진정한 직업의 의미는 무엇인가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="업무와 개인의 욕망 사이에서 어떻게 균형을 잡을 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="직업의 가치">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽;소속/집단</data>
+    </node>
+    <node id="일과 삶의 균형">
+      <data key="d0">Value</data>
+      <data key="d1">시간/지금;책임/지는 쪽</data>
+    </node>
+    <node id="개인의 욕망">
+      <data key="d0">Value</data>
+    </node>
+    <node id="글래디에이터 (2000년 영화)">
+      <data key="d0">Film</data>
+    </node>
+    <node id="권력과 복수 중 어느 쪽을 선택해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="개인의 양심과 국가의 요구는 어떻게 조화를 이룰 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="복수">
+      <data key="d0">Value</data>
+      <data key="d1">책임/미루는 쪽</data>
+    </node>
+    <node id="국가의 요구">
+      <data key="d0">Value</data>
+      <data key="d1">권한/정하는 자;소속/집단</data>
+    </node>
+    <node id="용서와 평화">
+      <data key="d0">Value</data>
+    </node>
+    <node id="권력 유지와 질서">
+      <data key="d0">Value</data>
+    </node>
+    <node id="기생충">
+      <data key="d0">Film</data>
+    </node>
+    <node id="부의 불평등은 어떻게 사회를 분열시키는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="가난한 자들이 부유한 자의 삶에 기생하는 것은 정당한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="사회 정의">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단;인정/바깥의 평가</data>
+    </node>
+    <node id="생존의 권리">
+      <data key="d0">Value</data>
+      <data key="d1">생명/한 사람</data>
+    </node>
+    <node id="나, 다니엘 블레이크">
+      <data key="d0">Film</data>
+    </node>
+    <node id="복지 제도는 개인의 인간다움을 어떻게 보장하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="어려운 상황에서 인간의 존엄성을 지키는 방법은 무엇인가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="사회적 연대">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단;책임/지는 쪽</data>
+    </node>
+    <node id="사회적 책임">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽;소속/집단</data>
+    </node>
+    <node id="복지 제도의 규정과 절차">
+      <data key="d0">Value</data>
+    </node>
+    <node id="국가의 복지 정책 요구">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단;동의/남의 설계</data>
+    </node>
+    <node id="개인의 자립 의무">
+      <data key="d0">Value</data>
+    </node>
+    <node id="남한산성">
+      <data key="d0">Film</data>
+    </node>
+    <node id="치욕스러운 항복을 받아들여 나라와 백성을 살리는 것이 옳은가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="대의명분을 지키기 위해 죽음도 감수하는 것이 옳은가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="국가와 백성의 생명">
+      <data key="d0">Value</data>
+      <data key="d1">생명/다수</data>
+    </node>
+    <node id="대의명분">
+      <data key="d0">Value</data>
+      <data key="d1">권한/정하는 자;책임/지는 쪽</data>
+    </node>
+    <node id="의리">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽;동의/본인의 뜻</data>
+    </node>
+    <node id="낮은 대로 임하소서">
+      <data key="d0">Film</data>
+    </node>
+    <node id="자신의 신념과 현실 사이에서 어떻게 살아야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="절망과 고통 속에서 삶의 의미를 어떻게 찾을 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="신념의 존중">
+      <data key="d0">Value</data>
+      <data key="d1">인정/바깥의 평가</data>
+    </node>
+    <node id="현실적 적응">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽;인정/자기 자신</data>
+    </node>
+    <node id="삶의 희망">
+      <data key="d0">Value</data>
+      <data key="d1">시간/나중</data>
+    </node>
+    <node id="현실 수용">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽;인정/자기 자신</data>
+    </node>
+    <node id="내 심장이 건너뛴 박동">
+      <data key="d0">Film</data>
+    </node>
+    <node id="자신의 진정한 삶의 길은 무엇인가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="가족의 기대와 자신의 꿈 중 어느 쪽을 선택해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="자아실현">
+      <data key="d0">Value</data>
+      <data key="d1">동의/본인의 뜻;책임/지는 쪽</data>
+    </node>
+    <node id="가족에 대한 책임감">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽</data>
+    </node>
+    <node id="내 어머니의 모든 것">
+      <data key="d0">Film</data>
+    </node>
+    <node id="모성애란 무엇인가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="정체성과 가족은 어떻게 연결되는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="자아 존중">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신</data>
+    </node>
+    <node id="사회적 기대">
+      <data key="d0">Value</data>
+    </node>
+    <node id="내가 사는 피부">
+      <data key="d0">Film</data>
+    </node>
+    <node id="강제 성전환이 정체성에 어떤 영향을 미치는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="복수를 위해 인간의 존엄성을 침해해도 되는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="정체성의 존중">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신;소속/개인</data>
+    </node>
+    <node id="과학적 실험의 자유">
+      <data key="d0">Value</data>
+      <data key="d1">동의/본인의 뜻;권한/아는 자</data>
+    </node>
+    <node id="인간의 존엄성 보호">
+      <data key="d0">Value</data>
+    </node>
+    <node id="내부자들">
+      <data key="d0">Film</data>
+    </node>
+    <node id="권력과 부패를 폭로하는 것이 정당한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="복수를 위해 어떤 수단을 써도 되는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="정의 실현">
+      <data key="d0">Value</data>
+      <data key="d1">앎/밝힘</data>
+    </node>
+    <node id="개인의 복수">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽</data>
+    </node>
+    <node id="낵 앤 하우 투 겟 잇">
+      <data key="d0">Film</data>
+    </node>
+    <node id="인기가 없는 사람이 어떻게 여자의 마음을 사로잡을 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="인기와 진정한 사랑 중 어느 쪽이 더 중요한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="개인의 노력">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽;소속/개인</data>
+    </node>
+    <node id="진심">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신</data>
+    </node>
+    <node id="진정한 사랑">
+      <data key="d0">Value</data>
+      <data key="d1">생명/다수;소속/집단</data>
+    </node>
+    <node id="외모와 사회적 인기">
+      <data key="d0">Value</data>
+      <data key="d1">인정/바깥의 평가</data>
+    </node>
+    <node id="대중적 인기와 표면적 매력">
+      <data key="d0">Value</data>
+      <data key="d1">인정/바깥의 평가</data>
+    </node>
+    <node id="도리화가">
+      <data key="d0">Film</data>
+    </node>
+    <node id="여자가 공개적으로 노래하거나 무대에 설 수 없는 사회에서 여성의 예술적 재능은 어떻게 인정받을 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="개인의 꿈과 열정이 사회적 제약과 편견을 극복할 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="여성의 예술적 권리">
+      <data key="d0">Value</data>
+      <data key="d1">소속/개인;동의/본인의 뜻</data>
+    </node>
+    <node id="자기실현의 가치">
+      <data key="d0">Value</data>
+      <data key="d1">동의/본인의 뜻;책임/지는 쪽</data>
+    </node>
+    <node id="사회적 전통과 규범">
+      <data key="d0">Value</data>
+    </node>
+    <node id="사회적 제약과 편견">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단;인정/바깥의 평가</data>
+    </node>
+    <node id="로제타">
+      <data key="d0">Film</data>
+    </node>
+    <node id="일자리를 간절히 원하는 상황에서 어떤 선택을 해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="가족의 문제와 개인의 생존 중 어느 쪽을 우선해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="생존의 절박함">
+      <data key="d0">Value</data>
+      <data key="d1">생명/한 사람</data>
+    </node>
+    <node id="록키">
+      <data key="d0">Film</data>
+    </node>
+    <node id="무명 복서가 기회를 얻었을 때 진정한 승리는 무엇인가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="어려운 환경 속에서 자신을 증명하는 것이 왜 중요한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="자기 극복과 도전 정신">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽;동의/본인의 뜻</data>
+    </node>
+    <node id="희망">
+      <data key="d0">Value</data>
+      <data key="d1">앎/감춤</data>
+    </node>
+    <node id="자기 존중">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신</data>
+    </node>
+    <node id="현실적인 한계와 실패의 두려움">
+      <data key="d0">Value</data>
+    </node>
+    <node id="사회적 무관심과 냉소">
+      <data key="d0">Value</data>
+      <data key="d1">소속/개인;인정/자기 자신</data>
+    </node>
+    <node id="마더 (2009년 영화)">
+      <data key="d0">Film</data>
+    </node>
+    <node id="아들의 결백을 지키기 위해 무엇을 희생해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="법과 정의 중 어느 쪽을 우선해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="모성애와 가족애">
+      <data key="d0">Value</data>
+      <data key="d1">생명/한 사람</data>
+    </node>
+    <node id="법적 절차">
+      <data key="d0">Value</data>
+      <data key="d1">권한/정하는 자;인정/바깥의 평가</data>
+    </node>
+    <node id="진실 추구">
+      <data key="d0">Value</data>
+      <data key="d1">앎/밝힘</data>
+    </node>
+    <node id="명량">
+      <data key="d0">Film</data>
+    </node>
+    <node id="전쟁에서 어떻게 용기와 결단이 승리를 이끄는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="개인의 고뇌와 내면은 어떻게 집단의 사기와 운명에 영향을 미치는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="용기와 결단">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽</data>
+    </node>
+    <node id="개인의 내면">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신;소속/개인</data>
+    </node>
+    <node id="집단의 사기">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단</data>
+    </node>
+    <node id="두려움과 불안">
+      <data key="d0">Value</data>
+    </node>
+    <node id="현실적 절망과 무기력">
+      <data key="d0">Value</data>
+      <data key="d1">책임/미루는 쪽;인정/자기 자신</data>
+    </node>
+    <node id="밀양">
+      <data key="d0">Film</data>
+    </node>
+    <node id="절망 속에서 신앙에 의지하는 것이 옳은가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="과거의 상처를 극복하고 새로운 삶을 받아들일 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="구원">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신;동의/본인의 뜻</data>
+    </node>
+    <node id="회복과 용서">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽;인정/자기 자신</data>
+    </node>
+    <node id="버닝 (2018년 영화)">
+      <data key="d0">Film</data>
+    </node>
+    <node id="사람들은 각자 자기만의 방식으로 살아가는 것이 옳은가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="비밀스러운 취미나 내면의 어두운 면을 숨기는 것이 정당한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="개인의 자유와 자율성">
+      <data key="d0">Value</data>
+      <data key="d1">소속/개인;동의/본인의 뜻</data>
+    </node>
+    <node id="개인 사생활의 존중">
+      <data key="d0">Value</data>
+      <data key="d1">소속/개인;인정/자기 자신</data>
+    </node>
+    <node id="타인의 안전과 신뢰">
+      <data key="d0">Value</data>
+    </node>
+    <node id="공공의 알 권리와 경계">
+      <data key="d0">Value</data>
+    </node>
+    <node id="부산행">
+      <data key="d0">Film</data>
+    </node>
+    <node id="생존을 위해 타인을 희생하는 것이 정당한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="위기 상황에서 가족과 타인 중 누구를 우선해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="자기 보호">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽;동의/본인의 뜻</data>
+    </node>
+    <node id="공동체 의식">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단</data>
+    </node>
+    <node id="살인의 추억">
+      <data key="d0">Film</data>
+    </node>
+    <node id="범인을 잡기 위해 어떤 수사 방식이 정당한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="진실을 밝히는 것과 인간의 존엄성 중 어느 쪽을 우선해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="정의로운 수사 방식">
+      <data key="d0">Value</data>
+      <data key="d1">권한/정하는 자;앎/밝힘</data>
+    </node>
+    <node id="범죄 해결의 신속성">
+      <data key="d0">Value</data>
+      <data key="d1">시간/지금;책임/지는 쪽</data>
+    </node>
+    <node id="진실 규명의 필요성">
+      <data key="d0">Value</data>
+      <data key="d1">앎/밝힘;책임/지는 쪽</data>
+    </node>
+    <node id="시">
+      <data key="d0">Film</data>
+    </node>
+    <node id="시를 쓰는 것이란 무엇인가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="어떻게 죄책감과 책임을 마주해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="어떤 상황에서 진실을 밝히는 것이 옳은가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="자기 탐구와 사물의 올바른 인식">
+      <data key="d0">Value</data>
+      <data key="d1">앎/감춤;동의/본인의 뜻</data>
+    </node>
+    <node id="도덕적 책임">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽</data>
+    </node>
+    <node id="현실의 고통과 절망">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신</data>
+    </node>
+    <node id="가족의 보호와 사회적 압력">
+      <data key="d0">Value</data>
+    </node>
+    <node id="합의와 은폐">
+      <data key="d0">Value</data>
+      <data key="d1">동의/남의 설계;앎/감춤</data>
+    </node>
+    <node id="신세계">
+      <data key="d0">Film</data>
+    </node>
+    <node id="잠복 경찰은 조직 내에서 자신의 정체를 숨기며 어떻게 의리와 충성을 지킬 수 있는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="범죄 조직 내에서 권력 다툼과 배신이 일어날 때 개인의 도덕적 선택은 무엇인가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="도덕적 선택과 책임">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽</data>
+    </node>
+    <node id="생존과 권력">
+      <data key="d0">Value</data>
+      <data key="d1">생명/한 사람;권한/정하는 자</data>
+    </node>
+    <node id="아가씨">
+      <data key="d0">Film</data>
+    </node>
+    <node id="사랑과 배신 사이에서 진정한 신뢰는 가능한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="억압과 폭력 속에서 자유와 주체성은 어떻게 실현되는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="진정한 신뢰">
+      <data key="d0">Value</data>
+      <data key="d1">인정/바깥의 평가;소속/집단</data>
+    </node>
+    <node id="사랑">
+      <data key="d0">Value</data>
+      <data key="d1">생명/한 사람</data>
+    </node>
+    <node id="자유">
+      <data key="d0">Value</data>
+      <data key="d1">소속/개인;동의/본인의 뜻</data>
+    </node>
+    <node id="주체성">
+      <data key="d0">Value</data>
+      <data key="d1">동의/본인의 뜻;책임/지는 쪽</data>
+    </node>
+    <node id="배신">
+      <data key="d0">Value</data>
+    </node>
+    <node id="속임수">
+      <data key="d0">Value</data>
+      <data key="d1">앎/감춤</data>
+    </node>
+    <node id="억압">
+      <data key="d0">Value</data>
+      <data key="d1">권한/정하는 자;책임/미루는 쪽</data>
+    </node>
+    <node id="폭력">
+      <data key="d0">Value</data>
+    </node>
+    <node id="올드보이">
+      <data key="d0">Film</data>
+    </node>
+    <node id="복수는 정당한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="진실을 알리는 것이 항상 옳은가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="진실의 가치">
+      <data key="d0">Value</data>
+      <data key="d1">앎/밝힘;인정/바깥의 평가</data>
+    </node>
+    <node id="사랑과 보호">
+      <data key="d0">Value</data>
+      <data key="d1">생명/한 사람;책임/지는 쪽</data>
+    </node>
+    <node id="택시운전사">
+      <data key="d0">Film</data>
+    </node>
+    <node id="진실을 알리는 것이 왜 중요한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="민주주의는 저절로 얻어지는 것인가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="언론의 자유">
+      <data key="d0">Value</data>
+      <data key="d1">동의/본인의 뜻;앎/밝힘</data>
+    </node>
+    <node id="민주주의의 가치">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단</data>
+    </node>
+    <node id="국가의 통제">
+      <data key="d0">Value</data>
+      <data key="d1">소속/집단;권한/정하는 자</data>
+    </node>
+    <node id="헤어질 결심">
+      <data key="d0">Film</data>
+    </node>
+    <node id="사랑과 의무 중 어느 쪽을 선택해야 하는가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="진실을 밝히는 것과 사랑하는 사람을 보호하는 것 중 무엇이 더 중요한가?">
+      <data key="d0">Question</data>
+    </node>
+    <node id="개인의 감정">
+      <data key="d0">Value</data>
+      <data key="d1">인정/자기 자신</data>
+    </node>
+    <node id="직업적 책임">
+      <data key="d0">Value</data>
+      <data key="d1">책임/지는 쪽</data>
+    </node>
+    <node id="인간관계의 신뢰">
+      <data key="d0">Value</data>
+      <data key="d1">인정/바깥의 평가;동의/본인의 뜻</data>
+    </node>
+    <node id="비밀 유지">
+      <data key="d0">Value</data>
+      <data key="d1">앎/감춤</data>
+    </node>
+    <node id="진실 공개">
+      <data key="d0">Value</data>
+      <data key="d1">앎/밝힘</data>
+    </node>
+    <edge source="10대의 반항 (1959년 영화)" target="사회에서 소외된 10대 불량아들은 어떻게 광명을 찾을 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">10대의 반항 (1959년 영화)</data>
+    </edge>
+    <edge source="10대의 반항 (1959년 영화)" target="폭력과 범죄에 빠진 청소년 집단에 따뜻한 인정은 어떤 의미를 가지는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">10대의 반항 (1959년 영화)</data>
+    </edge>
+    <edge source="사회에서 소외된 10대 불량아들은 어떻게 광명을 찾을 수 있는가?" target="청소년의 구원과 재사회화">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">10대의 반항 (1959년 영화)</data>
+    </edge>
+    <edge source="폭력과 범죄에 빠진 청소년 집단에 따뜻한 인정은 어떤 의미를 가지는가?" target="인정과 인간애">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">10대의 반항 (1959년 영화)</data>
+    </edge>
+    <edge source="인정과 인간애" target="사회적 처벌과 단죄">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">10대의 반항 (1959년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="사회적 처벌과 단죄" target="인정과 인간애">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">10대의 반항 (1959년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="12인의 성난 사람들 (1957년 영화)" target="합리적 의심이 있는 경우에도 유죄를 확신할 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">12인의 성난 사람들 (1957년 영화)</data>
+    </edge>
+    <edge source="12인의 성난 사람들 (1957년 영화)" target="개인의 도덕률과 가치관은 집단의 판단에 어떻게 영향을 미치는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">12인의 성난 사람들 (1957년 영화)</data>
+    </edge>
+    <edge source="합리적 의심이 있는 경우에도 유죄를 확신할 수 있는가?" target="합리적 의심의 원칙">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">12인의 성난 사람들 (1957년 영화)</data>
+    </edge>
+    <edge source="개인의 도덕률과 가치관은 집단의 판단에 어떻게 영향을 미치는가?" target="개인의 양심">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">12인의 성난 사람들 (1957년 영화)</data>
+    </edge>
+    <edge source="개인의 도덕률과 가치관은 집단의 판단에 어떻게 영향을 미치는가?" target="도덕성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">12인의 성난 사람들 (1957년 영화)</data>
+    </edge>
+    <edge source="합리적 의심의 원칙" target="신속한 재판과 평결">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">12인의 성난 사람들 (1957년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="개인의 양심" target="다수의 의견과 사회적 압력">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">12인의 성난 사람들 (1957년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="개인의 양심" target="권력 유지와 질서">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">글래디에이터 (2000년 영화)</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="도덕성" target="다수의 의견과 사회적 압력">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">12인의 성난 사람들 (1957년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="신속한 재판과 평결" target="합리적 의심의 원칙">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">12인의 성난 사람들 (1957년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="다수의 의견과 사회적 압력" target="개인의 양심">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">12인의 성난 사람들 (1957년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="다수의 의견과 사회적 압력" target="도덕성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">12인의 성난 사람들 (1957년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="1987 (2017년 영화)" target="독재정치에 맞서 진실을 밝히는 것이 옳은가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">1987 (2017년 영화)</data>
+    </edge>
+    <edge source="1987 (2017년 영화)" target="한 사람의 희생으로 사회 변화를 이끌어내는 것이 정당한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">1987 (2017년 영화)</data>
+    </edge>
+    <edge source="독재정치에 맞서 진실을 밝히는 것이 옳은가?" target="진실">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">1987 (2017년 영화)</data>
+    </edge>
+    <edge source="독재정치에 맞서 진실을 밝히는 것이 옳은가?" target="정의">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">1987 (2017년 영화)</data>
+    </edge>
+    <edge source="한 사람의 희생으로 사회 변화를 이끌어내는 것이 정당한가?" target="민주주의와 시민의 자유">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">1987 (2017년 영화)</data>
+    </edge>
+    <edge source="진실" target="국가 권력의 은폐와 통제">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">1987 (2017년 영화)</data>
+      <data key="d4">앎</data>
+    </edge>
+    <edge source="진실" target="법적 절차의 한계와 권력의 부당한 개입">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">7번방의 선물</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="진실" target="평화와 안정">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">공동경비구역 JSA</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="정의" target="국가 권력의 은폐와 통제">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">1987 (2017년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="정의" target="법적 절차의 한계와 권력의 부당한 개입">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">7번방의 선물</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="정의" target="합의와 은폐">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">시</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="정의" target="비밀 유지">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">헤어질 결심</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="정의" target="진실 공개">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">헤어질 결심</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="국가 권력의 은폐와 통제" target="진실">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">1987 (2017년 영화)</data>
+      <data key="d4">앎</data>
+    </edge>
+    <edge source="국가 권력의 은폐와 통제" target="정의">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">1987 (2017년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="3인조" target="가난한 현실 속에서 어떻게 희망을 찾을 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">3인조</data>
+    </edge>
+    <edge source="3인조" target="진정한 가족의 의미는 무엇인가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">3인조</data>
+    </edge>
+    <edge source="가난한 현실 속에서 어떻게 희망을 찾을 수 있는가?" target="삶의 의지">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">3인조</data>
+    </edge>
+    <edge source="진정한 가족의 의미는 무엇인가?" target="가족애">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">3인조</data>
+    </edge>
+    <edge source="삶의 의지" target="현실의 냉혹함">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">3인조</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="가족애" target="개인의 자유">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">내 어머니의 모든 것</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="가족애" target="사회적 편견">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">7번방의 선물</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="가족애" target="차별">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">7번방의 선물</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="가족애" target="공동체 의식">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">부산행</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="현실의 냉혹함" target="삶의 의지">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">3인조</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="개인의 자유" target="가족애">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">내 어머니의 모든 것</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="개인의 자유" target="사회적 질서">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">4개월, 3주... 그리고 2일</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="4개월, 3주... 그리고 2일" target="불법 낙태를 선택하는 것이 정당한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">4개월, 3주... 그리고 2일</data>
+    </edge>
+    <edge source="4개월, 3주... 그리고 2일" target="개인의 선택과 사회적 규범 중 어느 쪽을 우선해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">4개월, 3주... 그리고 2일</data>
+    </edge>
+    <edge source="불법 낙태를 선택하는 것이 정당한가?" target="생명 존중">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">4개월, 3주... 그리고 2일</data>
+    </edge>
+    <edge source="불법 낙태를 선택하는 것이 정당한가?" target="여성의 자기결정권">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">4개월, 3주... 그리고 2일</data>
+    </edge>
+    <edge source="개인의 선택과 사회적 규범 중 어느 쪽을 우선해야 하는가?" target="개인의 자유">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">4개월, 3주... 그리고 2일</data>
+    </edge>
+    <edge source="개인의 선택과 사회적 규범 중 어느 쪽을 우선해야 하는가?" target="사회적 질서">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">4개월, 3주... 그리고 2일</data>
+    </edge>
+    <edge source="생명 존중" target="여성의 자기결정권">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">4개월, 3주... 그리고 2일</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="생명 존중" target="악령 퇴치의 필요성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">검은 사제들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="생명 존중" target="정치적 안정과 권력 행사">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">광해, 왕이 된 남자</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="생명 존중" target="자기 보호">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">부산행</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="여성의 자기결정권" target="생명 존중">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">4개월, 3주... 그리고 2일</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="사회적 질서" target="개인의 자유">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">4개월, 3주... 그리고 2일</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="7번방의 선물" target="억울하게 누명을 쓴 사람은 어떻게 진실을 밝힐 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">7번방의 선물</data>
+    </edge>
+    <edge source="7번방의 선물" target="장애를 가진 사람도 가족의 사랑과 희생을 통해 존중받을 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">7번방의 선물</data>
+    </edge>
+    <edge source="억울하게 누명을 쓴 사람은 어떻게 진실을 밝힐 수 있는가?" target="진실">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">7번방의 선물</data>
+    </edge>
+    <edge source="억울하게 누명을 쓴 사람은 어떻게 진실을 밝힐 수 있는가?" target="정의">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">7번방의 선물</data>
+    </edge>
+    <edge source="장애를 가진 사람도 가족의 사랑과 희생을 통해 존중받을 수 있는가?" target="가족애">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">7번방의 선물</data>
+    </edge>
+    <edge source="장애를 가진 사람도 가족의 사랑과 희생을 통해 존중받을 수 있는가?" target="인간 존엄성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">7번방의 선물</data>
+    </edge>
+    <edge source="인간 존엄성" target="사회적 편견">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">7번방의 선물</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="인간 존엄성" target="차별">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">7번방의 선물</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="인간 존엄성" target="복지 제도의 규정과 절차">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">나, 다니엘 블레이크</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="인간 존엄성" target="진실 규명의 필요성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">살인의 추억</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="인간 존엄성" target="가족의 보호와 사회적 압력">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">시</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="법적 절차의 한계와 권력의 부당한 개입" target="진실">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">7번방의 선물</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="법적 절차의 한계와 권력의 부당한 개입" target="정의">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">7번방의 선물</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="사회적 편견" target="가족애">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">7번방의 선물</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="사회적 편견" target="인간 존엄성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">7번방의 선물</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="사회적 편견" target="자아 수용">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">가장 따뜻한 색, 블루</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="사회적 편견" target="인간 존중과 화합">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그린 북</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="차별" target="가족애">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">7번방의 선물</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="차별" target="인간 존엄성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">7번방의 선물</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="차별" target="자아 수용">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">가장 따뜻한 색, 블루</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="80일간의 세계 일주 (1956년 영화)" target="80일 만에 세계를 일주할 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">80일간의 세계 일주 (1956년 영화)</data>
+    </edge>
+    <edge source="80일 만에 세계를 일주할 수 있는가?" target="도전 정신">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">80일간의 세계 일주 (1956년 영화)</data>
+    </edge>
+    <edge source="80일 만에 세계를 일주할 수 있는가?" target="시간 엄수">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">80일간의 세계 일주 (1956년 영화)</data>
+    </edge>
+    <edge source="시간 엄수" target="유연한 사고와 상황 적응">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">80일간의 세계 일주 (1956년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="유연한 사고와 상황 적응" target="시간 엄수">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">80일간의 세계 일주 (1956년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="8과 1 2" target="삶을 있는 그대로 받아들일 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">8과 1 2</data>
+    </edge>
+    <edge source="8과 1 2" target="진실을 토로하는 데 어려움이 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">8과 1 2</data>
+    </edge>
+    <edge source="삶을 있는 그대로 받아들일 수 있는가?" target="삶의 포용">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">8과 1 2</data>
+    </edge>
+    <edge source="진실을 토로하는 데 어려움이 있는가?" target="진실성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">8과 1 2</data>
+    </edge>
+    <edge source="진실성" target="이상적 환상">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">8과 1 2</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="진실성" target="합의와 은폐">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">시</data>
+      <data key="d4">앎</data>
+    </edge>
+    <edge source="이상적 환상" target="진실성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">8과 1 2</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="8월의 크리스마스 (1998년 영화)" target="운명 앞에서 사랑을 계속할 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">8월의 크리스마스 (1998년 영화)</data>
+    </edge>
+    <edge source="8월의 크리스마스 (1998년 영화)" target="삶의 마지막 순간에 어떻게 의미를 찾을 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">8월의 크리스마스 (1998년 영화)</data>
+    </edge>
+    <edge source="운명 앞에서 사랑을 계속할 수 있는가?" target="사랑의 진실성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">8월의 크리스마스 (1998년 영화)</data>
+    </edge>
+    <edge source="삶의 마지막 순간에 어떻게 의미를 찾을 수 있는가?" target="삶의 존엄성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">8월의 크리스마스 (1998년 영화)</data>
+    </edge>
+    <edge source="사랑의 진실성" target="운명에 대한 수용">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">8월의 크리스마스 (1998년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="삶의 존엄성" target="삶의 무상함">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">8월의 크리스마스 (1998년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="운명에 대한 수용" target="사랑의 진실성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">8월의 크리스마스 (1998년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="삶의 무상함" target="삶의 존엄성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">8월의 크리스마스 (1998년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="E.T." target="외계인과 인간은 서로 이해하고 공존할 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">E.T.</data>
+    </edge>
+    <edge source="E.T." target="과학적 호기심과 인간적 연민 중 어느 쪽을 우선해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">E.T.</data>
+    </edge>
+    <edge source="외계인과 인간은 서로 이해하고 공존할 수 있는가?" target="상호 이해">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">E.T.</data>
+    </edge>
+    <edge source="외계인과 인간은 서로 이해하고 공존할 수 있는가?" target="공존">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">E.T.</data>
+    </edge>
+    <edge source="과학적 호기심과 인간적 연민 중 어느 쪽을 우선해야 하는가?" target="인간적 연민">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">E.T.</data>
+    </edge>
+    <edge source="상호 이해" target="안전과 통제">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">E.T.</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="공존" target="안전과 통제">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">E.T.</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="공존" target="편견과 증오">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그랜 토리노</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="인간적 연민" target="과학적 탐구와 연구">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">E.T.</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="안전과 통제" target="상호 이해">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">E.T.</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="안전과 통제" target="공존">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">E.T.</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="과학적 탐구와 연구" target="인간적 연민">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">E.T.</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="가장 따뜻한 색, 블루" target="자신의 성 정체성을 어떻게 받아들여야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">가장 따뜻한 색, 블루</data>
+    </edge>
+    <edge source="가장 따뜻한 색, 블루" target="사랑과 개인의 성장 중 어느 쪽을 우선시해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">가장 따뜻한 색, 블루</data>
+    </edge>
+    <edge source="자신의 성 정체성을 어떻게 받아들여야 하는가?" target="자아 수용">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">가장 따뜻한 색, 블루</data>
+    </edge>
+    <edge source="사랑과 개인의 성장 중 어느 쪽을 우선시해야 하는가?" target="개인의 성장">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">가장 따뜻한 색, 블루</data>
+    </edge>
+    <edge source="자아 수용" target="사회적 편견">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">가장 따뜻한 색, 블루</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="자아 수용" target="차별">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">가장 따뜻한 색, 블루</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="개인의 성장" target="관계 유지와 헌신">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">가장 따뜻한 색, 블루</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="관계 유지와 헌신" target="개인의 성장">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">가장 따뜻한 색, 블루</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="강변호텔" target="삶의 끝을 앞둔 순간에 가족과 어떻게 관계를 맺어야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">강변호텔</data>
+    </edge>
+    <edge source="강변호텔" target="배신과 상처를 겪은 후에 사람은 어떻게 치유와 위로를 찾는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">강변호텔</data>
+    </edge>
+    <edge source="삶의 끝을 앞둔 순간에 가족과 어떻게 관계를 맺어야 하는가?" target="가족 간의 화해">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">강변호텔</data>
+    </edge>
+    <edge source="삶의 끝을 앞둔 순간에 가족과 어떻게 관계를 맺어야 하는가?" target="소통">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">강변호텔</data>
+    </edge>
+    <edge source="배신과 상처를 겪은 후에 사람은 어떻게 치유와 위로를 찾는가?" target="정서적 치유와 우정">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">강변호텔</data>
+    </edge>
+    <edge source="가족 간의 화해" target="개인의 내면적 고립">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">강변호텔</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="소통" target="개인의 내면적 고립">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">강변호텔</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="정서적 치유와 우정" target="과거의 상처와 불신">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">강변호텔</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="개인의 내면적 고립" target="가족 간의 화해">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">강변호텔</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="개인의 내면적 고립" target="소통">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">강변호텔</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="과거의 상처와 불신" target="정서적 치유와 우정">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">강변호텔</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="강원도의 힘" target="일상 속에서 변화하는 인간관계는 무엇인가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">강원도의 힘</data>
+    </edge>
+    <edge source="강원도의 힘" target="특별한 사건 없이도 삶의 의미를 발견할 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">강원도의 힘</data>
+    </edge>
+    <edge source="일상 속에서 변화하는 인간관계는 무엇인가?" target="인간관계의 복잡성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">강원도의 힘</data>
+    </edge>
+    <edge source="특별한 사건 없이도 삶의 의미를 발견할 수 있는가?" target="일상의 재발견">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">강원도의 힘</data>
+    </edge>
+    <edge source="인간관계의 복잡성" target="삶의 단순성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">강원도의 힘</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="삶의 단순성" target="인간관계의 복잡성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">강원도의 힘</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="개벽" target="혁명 지도자는 어떻게 탄압과 고난을 견뎌야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">개벽</data>
+    </edge>
+    <edge source="개벽" target="종교적 신념과 사회적 현실은 어떻게 조화를 이룰 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">개벽</data>
+    </edge>
+    <edge source="혁명 지도자는 어떻게 탄압과 고난을 견뎌야 하는가?" target="저항과 인내의 가치">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">개벽</data>
+    </edge>
+    <edge source="종교적 신념과 사회적 현실은 어떻게 조화를 이룰 수 있는가?" target="신념의 순수성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">개벽</data>
+    </edge>
+    <edge source="종교적 신념과 사회적 현실은 어떻게 조화를 이룰 수 있는가?" target="현실적 생존">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">개벽</data>
+    </edge>
+    <edge source="저항과 인내의 가치" target="현실적 생존">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">개벽</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="신념의 순수성" target="사회적 타협과 현실주의">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">개벽</data>
+      <data key="d4">동의</data>
+    </edge>
+    <edge source="현실적 생존" target="저항과 인내의 가치">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">개벽</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="현실적 생존" target="사회적 타협과 현실주의">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">개벽</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="사회적 타협과 현실주의" target="신념의 순수성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">개벽</data>
+      <data key="d4">동의</data>
+    </edge>
+    <edge source="사회적 타협과 현실주의" target="현실적 생존">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">개벽</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="검은 사제들" target="악령에 사로잡힌 사람을 구하는 것이 가능한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">검은 사제들</data>
+    </edge>
+    <edge source="검은 사제들" target="신앙과 과학 중 어느 쪽을 믿어야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">검은 사제들</data>
+    </edge>
+    <edge source="악령에 사로잡힌 사람을 구하는 것이 가능한가?" target="생명 존중">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">검은 사제들</data>
+    </edge>
+    <edge source="악령에 사로잡힌 사람을 구하는 것이 가능한가?" target="신앙의 힘">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">검은 사제들</data>
+    </edge>
+    <edge source="신앙과 과학 중 어느 쪽을 믿어야 하는가?" target="종교적 신념">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">검은 사제들</data>
+    </edge>
+    <edge source="신앙과 과학 중 어느 쪽을 믿어야 하는가?" target="합리적 사고">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">검은 사제들</data>
+    </edge>
+    <edge source="신앙의 힘" target="현대 의학의 한계">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">검은 사제들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="종교적 신념" target="과학적 증거">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">검은 사제들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="합리적 사고" target="초자연적 현상에 대한 믿음">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">검은 사제들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="악령 퇴치의 필요성" target="생명 존중">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">검은 사제들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="현대 의학의 한계" target="신앙의 힘">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">검은 사제들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="과학적 증거" target="종교적 신념">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">검은 사제들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="초자연적 현상에 대한 믿음" target="합리적 사고">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">검은 사제들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="겨울왕국" target="마법의 힘을 가진 사람이 자신의 능력을 숨기고 살아야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">겨울왕국</data>
+    </edge>
+    <edge source="겨울왕국" target="진정한 사랑은 어떤 행동으로 증명되는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">겨울왕국</data>
+    </edge>
+    <edge source="마법의 힘을 가진 사람이 자신의 능력을 숨기고 살아야 하는가?" target="자기 수용과 정체성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">겨울왕국</data>
+    </edge>
+    <edge source="진정한 사랑은 어떤 행동으로 증명되는가?" target="희생과 헌신">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">겨울왕국</data>
+    </edge>
+    <edge source="자기 수용과 정체성" target="사회적 안전과 비밀 유지">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">겨울왕국</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="희생과 헌신" target="자기 보호와 생존 본능">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">겨울왕국</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="사회적 안전과 비밀 유지" target="자기 수용과 정체성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">겨울왕국</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="자기 보호와 생존 본능" target="희생과 헌신">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">겨울왕국</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="겨울왕국 2" target="엘사는 자신의 마법의 기원을 찾아야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">겨울왕국 2</data>
+    </edge>
+    <edge source="겨울왕국 2" target="왕국을 구하기 위해 진실을 밝혀야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">겨울왕국 2</data>
+    </edge>
+    <edge source="엘사는 자신의 마법의 기원을 찾아야 하는가?" target="자아 발견">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">겨울왕국 2</data>
+    </edge>
+    <edge source="왕국을 구하기 위해 진실을 밝혀야 하는가?" target="책임감">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">겨울왕국 2</data>
+    </edge>
+    <edge source="자아 발견" target="안전과 평온">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">겨울왕국 2</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="안전과 평온" target="자아 발견">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">겨울왕국 2</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="경주" target="과거의 기억은 어떻게 현재의 삶에 영향을 미치는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">경주</data>
+    </edge>
+    <edge source="경주" target="개인의 정체성과 장소의 기억은 어떤 관계인가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">경주</data>
+    </edge>
+    <edge source="과거의 기억은 어떻게 현재의 삶에 영향을 미치는가?" target="기억의 중요성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">경주</data>
+    </edge>
+    <edge source="개인의 정체성과 장소의 기억은 어떤 관계인가?" target="정체성의 탐구">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">경주</data>
+    </edge>
+    <edge source="기억의 중요성" target="현재의 삶에 집중하기">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">경주</data>
+      <data key="d4">시간</data>
+    </edge>
+    <edge source="현재의 삶에 집중하기" target="기억의 중요성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">경주</data>
+      <data key="d4">시간</data>
+    </edge>
+    <edge source="곡성" target="낯선 존재를 어떻게 받아들여야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">곡성</data>
+    </edge>
+    <edge source="곡성" target="진실과 미신 중 어느 쪽을 믿어야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">곡성</data>
+    </edge>
+    <edge source="낯선 존재를 어떻게 받아들여야 하는가?" target="공포">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">곡성</data>
+    </edge>
+    <edge source="낯선 존재를 어떻게 받아들여야 하는가?" target="경계">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">곡성</data>
+    </edge>
+    <edge source="진실과 미신 중 어느 쪽을 믿어야 하는가?" target="이성적 판단">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">곡성</data>
+    </edge>
+    <edge source="진실과 미신 중 어느 쪽을 믿어야 하는가?" target="신앙">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">곡성</data>
+    </edge>
+    <edge source="공포" target="이성적 판단">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">곡성</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="공포" target="신앙">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">곡성</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="경계" target="신앙">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">곡성</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="이성적 판단" target="공포">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">곡성</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="신앙" target="공포">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">곡성</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="신앙" target="경계">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">곡성</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="공동경비구역 JSA" target="남북한 군인들이 서로 적이면서도 친구가 될 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">공동경비구역 JSA</data>
+    </edge>
+    <edge source="공동경비구역 JSA" target="진실을 밝히는 것이 평화 유지보다 중요한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">공동경비구역 JSA</data>
+    </edge>
+    <edge source="남북한 군인들이 서로 적이면서도 친구가 될 수 있는가?" target="인간애와 우정">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">공동경비구역 JSA</data>
+    </edge>
+    <edge source="진실을 밝히는 것이 평화 유지보다 중요한가?" target="진실">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">공동경비구역 JSA</data>
+    </edge>
+    <edge source="진실을 밝히는 것이 평화 유지보다 중요한가?" target="정의">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">공동경비구역 JSA</data>
+    </edge>
+    <edge source="인간애와 우정" target="충성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">공동경비구역 JSA</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="충성" target="인간애와 우정">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">공동경비구역 JSA</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="평화와 안정" target="진실">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">공동경비구역 JSA</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="공조" target="남과 북은 진정한 공조가 가능한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">공조</data>
+    </edge>
+    <edge source="공조" target="서로 다른 체제와 이념을 가진 사람들이 신뢰를 쌓을 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">공조</data>
+    </edge>
+    <edge source="남과 북은 진정한 공조가 가능한가?" target="남북 화합과 협력">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">공조</data>
+    </edge>
+    <edge source="서로 다른 체제와 이념을 가진 사람들이 신뢰를 쌓을 수 있는가?" target="상호 신뢰">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">공조</data>
+    </edge>
+    <edge source="서로 다른 체제와 이념을 가진 사람들이 신뢰를 쌓을 수 있는가?" target="이해">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">공조</data>
+    </edge>
+    <edge source="이해" target="편견과 불신">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">공조</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="이해" target="편견과 증오">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그랜 토리노</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="편견과 불신" target="이해">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">공조</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="관상" target="권력 다툼에서 진정한 왕은 누구인가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">관상</data>
+    </edge>
+    <edge source="관상" target="얼굴을 통해 사람의 본성을 알 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">관상</data>
+    </edge>
+    <edge source="권력 다툼에서 진정한 왕은 누구인가?" target="정의로운 통치">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">관상</data>
+    </edge>
+    <edge source="얼굴을 통해 사람의 본성을 알 수 있는가?" target="진실의 탐구">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">관상</data>
+    </edge>
+    <edge source="광해, 왕이 된 남자" target="왕의 진정한 역할은 무엇인가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">광해, 왕이 된 남자</data>
+    </edge>
+    <edge source="광해, 왕이 된 남자" target="권력과 생명을 지키기 위해 어떤 선택을 해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">광해, 왕이 된 남자</data>
+    </edge>
+    <edge source="왕의 진정한 역할은 무엇인가?" target="국가의 안녕과 백성의 행복">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">광해, 왕이 된 남자</data>
+    </edge>
+    <edge source="권력과 생명을 지키기 위해 어떤 선택을 해야 하는가?" target="생명 존중">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">광해, 왕이 된 남자</data>
+    </edge>
+    <edge source="권력과 생명을 지키기 위해 어떤 선택을 해야 하는가?" target="권력 유지">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">광해, 왕이 된 남자</data>
+    </edge>
+    <edge source="국가의 안녕과 백성의 행복" target="개인의 생명과 자유">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">광해, 왕이 된 남자</data>
+      <data key="d4">생명</data>
+    </edge>
+    <edge source="개인의 생명과 자유" target="국가의 안녕과 백성의 행복">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">광해, 왕이 된 남자</data>
+      <data key="d4">생명</data>
+    </edge>
+    <edge source="정치적 안정과 권력 행사" target="생명 존중">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">광해, 왕이 된 남자</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="괴물 (2006년 영화)" target="괴물의 위협 앞에서 개인과 가족은 어떻게 행동해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">괴물 (2006년 영화)</data>
+    </edge>
+    <edge source="괴물 (2006년 영화)" target="괴물과 같은 재난 상황에서 시민의 무관심과 정부의 대응은 어떤 문제를 야기하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">괴물 (2006년 영화)</data>
+    </edge>
+    <edge source="괴물" target="가족애">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">괴물 (2006년 영화)</data>
+    </edge>
+    <edge source="괴물" target="희생정신">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">괴물 (2006년 영화)</data>
+    </edge>
+    <edge source="괴물" target="시민 정신과 공동체 의식">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">괴물 (2006년 영화)</data>
+    </edge>
+    <edge source="시민 정신과 공동체 의식" target="무관심과 자기 보호">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">괴물 (2006년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="무관심과 자기 보호" target="시민 정신과 공동체 의식">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">괴물 (2006년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="국제시장" target="가족을 위해 개인의 희생은 정당한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">국제시장</data>
+    </edge>
+    <edge source="국제시장" target="과거의 아픔을 기억하는 것이 현재 세대에 어떤 의미가 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">국제시장</data>
+    </edge>
+    <edge source="가족을 위해 개인의 희생은 정당한가?" target="가족애">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">국제시장</data>
+    </edge>
+    <edge source="과거의 아픔을 기억하는 것이 현재 세대에 어떤 의미가 있는가?" target="역사적 기억">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">국제시장</data>
+    </edge>
+    <edge source="역사적 기억" target="현재의 평화">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">국제시장</data>
+      <data key="d4">시간</data>
+    </edge>
+    <edge source="역사적 기억" target="화해">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">국제시장</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="현재의 평화" target="역사적 기억">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">국제시장</data>
+      <data key="d4">시간</data>
+    </edge>
+    <edge source="화해" target="역사적 기억">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">국제시장</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="화해" target="과거에 대한 분노와 복수심">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그랜 토리노</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="화해" target="정의 실현">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">올드보이</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="그때 그사람들" target="역사적 진실과 표현의 자유는 어떻게 조화를 이루어야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">그때 그사람들</data>
+    </edge>
+    <edge source="그때 그사람들" target="과거 권력자의 명예와 현대 사회의 비판적 시각 중 어느 쪽을 우선해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">그때 그사람들</data>
+    </edge>
+    <edge source="역사적 진실과 표현의 자유는 어떻게 조화를 이루어야 하는가?" target="표현의 자유">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">그때 그사람들</data>
+    </edge>
+    <edge source="역사적 진실과 표현의 자유는 어떻게 조화를 이루어야 하는가?" target="역사적 진실">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">그때 그사람들</data>
+    </edge>
+    <edge source="과거 권력자의 명예와 현대 사회의 비판적 시각 중 어느 쪽을 우선해야 하는가?" target="명예 보호">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">그때 그사람들</data>
+    </edge>
+    <edge source="과거 권력자의 명예와 현대 사회의 비판적 시각 중 어느 쪽을 우선해야 하는가?" target="비판적 시각">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">그때 그사람들</data>
+    </edge>
+    <edge source="표현의 자유" target="명예 보호">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그때 그사람들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="역사적 진실" target="명예 보호">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그때 그사람들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="명예 보호" target="표현의 자유">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그때 그사람들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="명예 보호" target="역사적 진실">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그때 그사람들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="명예 보호" target="비판적 시각">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그때 그사람들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="비판적 시각" target="명예 보호">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그때 그사람들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="그랜 토리노" target="과거의 상처와 분노를 어떻게 극복할 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">그랜 토리노</data>
+    </edge>
+    <edge source="그랜 토리노" target="이질적인 문화와 세대 간의 갈등을 어떻게 화해할 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">그랜 토리노</data>
+    </edge>
+    <edge source="과거의 상처와 분노를 어떻게 극복할 수 있는가?" target="용서">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">그랜 토리노</data>
+    </edge>
+    <edge source="과거의 상처와 분노를 어떻게 극복할 수 있는가?" target="화해">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">그랜 토리노</data>
+    </edge>
+    <edge source="이질적인 문화와 세대 간의 갈등을 어떻게 화해할 수 있는가?" target="이해">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">그랜 토리노</data>
+    </edge>
+    <edge source="이질적인 문화와 세대 간의 갈등을 어떻게 화해할 수 있는가?" target="공존">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">그랜 토리노</data>
+    </edge>
+    <edge source="용서" target="정의 실현">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">올드보이</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="과거에 대한 분노와 복수심" target="화해">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그랜 토리노</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="편견과 증오" target="이해">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그랜 토리노</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="편견과 증오" target="공존">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그랜 토리노</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="그랜드 호텔" target="사람들이 오고 가는 호텔에서 정말 아무 일도 일어나지 않는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">그랜드 호텔</data>
+    </edge>
+    <edge source="그랜드 호텔" target="개인의 절박한 상황과 도덕적 선택은 어떻게 충돌하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">그랜드 호텔</data>
+    </edge>
+    <edge source="사람들이 오고 가는 호텔에서 정말 아무 일도 일어나지 않는가?" target="일상의 평온함">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">그랜드 호텔</data>
+    </edge>
+    <edge source="개인의 절박한 상황과 도덕적 선택은 어떻게 충돌하는가?" target="인간애와 도덕성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">그랜드 호텔</data>
+    </edge>
+    <edge source="일상의 평온함" target="개인의 절박한 상황과 도덕적 선택">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그랜드 호텔</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="인간애와 도덕성" target="생존을 위한 절박함과 범죄">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그랜드 호텔</data>
+      <data key="d4">생명</data>
+    </edge>
+    <edge source="개인의 절박한 상황과 도덕적 선택" target="일상의 평온함">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그랜드 호텔</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="생존을 위한 절박함과 범죄" target="인간애와 도덕성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그랜드 호텔</data>
+      <data key="d4">생명</data>
+    </edge>
+    <edge source="그린 북" target="인종차별과 편견 속에서 진정한 우정은 가능한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">그린 북</data>
+    </edge>
+    <edge source="그린 북" target="차별받는 개인의 존엄성과 사회적 현실 중 어느 쪽을 우선해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">그린 북</data>
+    </edge>
+    <edge source="인종차별과 편견 속에서 진정한 우정은 가능한가?" target="인간 존중과 화합">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">그린 북</data>
+    </edge>
+    <edge source="차별받는 개인의 존엄성과 사회적 현실 중 어느 쪽을 우선해야 하는가?" target="개인의 존엄성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">그린 북</data>
+    </edge>
+    <edge source="인간 존중과 화합" target="사회적 편견">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그린 북</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="개인의 존엄성" target="사회적 현실과 제도적 차별">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그린 북</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="개인의 존엄성" target="국가의 복지 정책 요구">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">나, 다니엘 블레이크</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="사회적 현실과 제도적 차별" target="개인의 존엄성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">그린 북</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="극장전" target="영화 속 이야기와 현실은 어떻게 연결되는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">극장전</data>
+    </edge>
+    <edge source="극장전" target="첫사랑의 기억은 현재의 삶에 어떤 의미를 주는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">극장전</data>
+    </edge>
+    <edge source="영화 속 이야기와 현실은 어떻게 연결되는가?" target="현실과 허구의 경계">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">극장전</data>
+    </edge>
+    <edge source="첫사랑의 기억은 현재의 삶에 어떤 의미를 주는가?" target="과거의 추억과 현재의 자아">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">극장전</data>
+    </edge>
+    <edge source="극한직업" target="성과 없는 일상 속에서 진정한 직업의 의미는 무엇인가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">극한직업</data>
+    </edge>
+    <edge source="극한직업" target="업무와 개인의 욕망 사이에서 어떻게 균형을 잡을 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">극한직업</data>
+    </edge>
+    <edge source="성과 없는 일상 속에서 진정한 직업의 의미는 무엇인가?" target="직업의 가치">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">극한직업</data>
+    </edge>
+    <edge source="업무와 개인의 욕망 사이에서 어떻게 균형을 잡을 수 있는가?" target="일과 삶의 균형">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">극한직업</data>
+    </edge>
+    <edge source="직업의 가치" target="개인의 욕망">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">극한직업</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="개인의 욕망" target="직업의 가치">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">극한직업</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="글래디에이터 (2000년 영화)" target="권력과 복수 중 어느 쪽을 선택해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">글래디에이터 (2000년 영화)</data>
+    </edge>
+    <edge source="글래디에이터 (2000년 영화)" target="개인의 양심과 국가의 요구는 어떻게 조화를 이룰 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">글래디에이터 (2000년 영화)</data>
+    </edge>
+    <edge source="권력과 복수 중 어느 쪽을 선택해야 하는가?" target="정의">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">글래디에이터 (2000년 영화)</data>
+    </edge>
+    <edge source="권력과 복수 중 어느 쪽을 선택해야 하는가?" target="복수">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">글래디에이터 (2000년 영화)</data>
+    </edge>
+    <edge source="개인의 양심과 국가의 요구는 어떻게 조화를 이룰 수 있는가?" target="개인의 양심">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">글래디에이터 (2000년 영화)</data>
+    </edge>
+    <edge source="개인의 양심과 국가의 요구는 어떻게 조화를 이룰 수 있는가?" target="국가의 요구">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">글래디에이터 (2000년 영화)</data>
+    </edge>
+    <edge source="복수" target="용서와 평화">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">글래디에이터 (2000년 영화)</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="복수" target="인간의 존엄성 보호">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">내가 사는 피부</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="용서와 평화" target="복수">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">글래디에이터 (2000년 영화)</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="권력 유지와 질서" target="개인의 양심">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">글래디에이터 (2000년 영화)</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="기생충" target="부의 불평등은 어떻게 사회를 분열시키는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">기생충</data>
+    </edge>
+    <edge source="기생충" target="가난한 자들이 부유한 자의 삶에 기생하는 것은 정당한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">기생충</data>
+    </edge>
+    <edge source="부의 불평등은 어떻게 사회를 분열시키는가?" target="사회 정의">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">기생충</data>
+    </edge>
+    <edge source="가난한 자들이 부유한 자의 삶에 기생하는 것은 정당한가?" target="생존의 권리">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">기생충</data>
+    </edge>
+    <edge source="사회 정의" target="생존의 권리">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">기생충</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="생존의 권리" target="사회 정의">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">기생충</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="나, 다니엘 블레이크" target="복지 제도는 개인의 인간다움을 어떻게 보장하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">나, 다니엘 블레이크</data>
+    </edge>
+    <edge source="나, 다니엘 블레이크" target="어려운 상황에서 인간의 존엄성을 지키는 방법은 무엇인가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">나, 다니엘 블레이크</data>
+    </edge>
+    <edge source="복지 제도는 개인의 인간다움을 어떻게 보장하는가?" target="사회적 연대">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">나, 다니엘 블레이크</data>
+    </edge>
+    <edge source="복지 제도는 개인의 인간다움을 어떻게 보장하는가?" target="인간 존엄성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">나, 다니엘 블레이크</data>
+    </edge>
+    <edge source="어려운 상황에서 인간의 존엄성을 지키는 방법은 무엇인가?" target="개인의 존엄성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">나, 다니엘 블레이크</data>
+    </edge>
+    <edge source="어려운 상황에서 인간의 존엄성을 지키는 방법은 무엇인가?" target="사회적 책임">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">나, 다니엘 블레이크</data>
+    </edge>
+    <edge source="사회적 책임" target="개인의 자립 의무">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">나, 다니엘 블레이크</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="복지 제도의 규정과 절차" target="인간 존엄성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">나, 다니엘 블레이크</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="국가의 복지 정책 요구" target="개인의 존엄성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">나, 다니엘 블레이크</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="개인의 자립 의무" target="사회적 책임">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">나, 다니엘 블레이크</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="남한산성" target="치욕스러운 항복을 받아들여 나라와 백성을 살리는 것이 옳은가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">남한산성</data>
+    </edge>
+    <edge source="남한산성" target="대의명분을 지키기 위해 죽음도 감수하는 것이 옳은가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">남한산성</data>
+    </edge>
+    <edge source="치욕스러운 항복을 받아들여 나라와 백성을 살리는 것이 옳은가?" target="국가와 백성의 생명">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">남한산성</data>
+    </edge>
+    <edge source="대의명분을 지키기 위해 죽음도 감수하는 것이 옳은가?" target="대의명분">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">남한산성</data>
+    </edge>
+    <edge source="대의명분을 지키기 위해 죽음도 감수하는 것이 옳은가?" target="의리">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">남한산성</data>
+    </edge>
+    <edge source="국가와 백성의 생명" target="대의명분">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">남한산성</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="국가와 백성의 생명" target="의리">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">남한산성</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="대의명분" target="국가와 백성의 생명">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">남한산성</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="의리" target="국가와 백성의 생명">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">남한산성</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="낮은 대로 임하소서" target="자신의 신념과 현실 사이에서 어떻게 살아야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">낮은 대로 임하소서</data>
+    </edge>
+    <edge source="낮은 대로 임하소서" target="절망과 고통 속에서 삶의 의미를 어떻게 찾을 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">낮은 대로 임하소서</data>
+    </edge>
+    <edge source="자신의 신념과 현실 사이에서 어떻게 살아야 하는가?" target="신념의 존중">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">낮은 대로 임하소서</data>
+    </edge>
+    <edge source="자신의 신념과 현실 사이에서 어떻게 살아야 하는가?" target="현실적 적응">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">낮은 대로 임하소서</data>
+    </edge>
+    <edge source="절망과 고통 속에서 삶의 의미를 어떻게 찾을 수 있는가?" target="삶의 희망">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">낮은 대로 임하소서</data>
+    </edge>
+    <edge source="절망과 고통 속에서 삶의 의미를 어떻게 찾을 수 있는가?" target="현실 수용">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">낮은 대로 임하소서</data>
+    </edge>
+    <edge source="신념의 존중" target="현실적 적응">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">낮은 대로 임하소서</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="현실적 적응" target="신념의 존중">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">낮은 대로 임하소서</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="삶의 희망" target="현실 수용">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">낮은 대로 임하소서</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="현실 수용" target="삶의 희망">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">낮은 대로 임하소서</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="내 심장이 건너뛴 박동" target="자신의 진정한 삶의 길은 무엇인가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">내 심장이 건너뛴 박동</data>
+    </edge>
+    <edge source="내 심장이 건너뛴 박동" target="가족의 기대와 자신의 꿈 중 어느 쪽을 선택해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">내 심장이 건너뛴 박동</data>
+    </edge>
+    <edge source="자신의 진정한 삶의 길은 무엇인가?" target="자아실현">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">내 심장이 건너뛴 박동</data>
+    </edge>
+    <edge source="가족의 기대와 자신의 꿈 중 어느 쪽을 선택해야 하는가?" target="가족에 대한 책임감">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">내 심장이 건너뛴 박동</data>
+    </edge>
+    <edge source="내 어머니의 모든 것" target="모성애란 무엇인가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">내 어머니의 모든 것</data>
+    </edge>
+    <edge source="내 어머니의 모든 것" target="정체성과 가족은 어떻게 연결되는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">내 어머니의 모든 것</data>
+    </edge>
+    <edge source="모성애란 무엇인가?" target="가족애">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">내 어머니의 모든 것</data>
+    </edge>
+    <edge source="정체성과 가족은 어떻게 연결되는가?" target="자아 존중">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">내 어머니의 모든 것</data>
+    </edge>
+    <edge source="자아 존중" target="사회적 기대">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">내 어머니의 모든 것</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="사회적 기대" target="자아 존중">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">내 어머니의 모든 것</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="내가 사는 피부" target="강제 성전환이 정체성에 어떤 영향을 미치는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">내가 사는 피부</data>
+    </edge>
+    <edge source="내가 사는 피부" target="복수를 위해 인간의 존엄성을 침해해도 되는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">내가 사는 피부</data>
+    </edge>
+    <edge source="강제 성전환이 정체성에 어떤 영향을 미치는가?" target="정체성의 존중">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">내가 사는 피부</data>
+    </edge>
+    <edge source="복수를 위해 인간의 존엄성을 침해해도 되는가?" target="정의">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">내가 사는 피부</data>
+    </edge>
+    <edge source="복수를 위해 인간의 존엄성을 침해해도 되는가?" target="복수">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">내가 사는 피부</data>
+    </edge>
+    <edge source="정체성의 존중" target="과학적 실험의 자유">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">내가 사는 피부</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="과학적 실험의 자유" target="정체성의 존중">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">내가 사는 피부</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="인간의 존엄성 보호" target="복수">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">내가 사는 피부</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="내부자들" target="권력과 부패를 폭로하는 것이 정당한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">내부자들</data>
+    </edge>
+    <edge source="내부자들" target="복수를 위해 어떤 수단을 써도 되는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">내부자들</data>
+    </edge>
+    <edge source="권력과 부패를 폭로하는 것이 정당한가?" target="정의 실현">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">내부자들</data>
+    </edge>
+    <edge source="복수를 위해 어떤 수단을 써도 되는가?" target="개인의 복수">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">내부자들</data>
+    </edge>
+    <edge source="정의 실현" target="개인의 복수">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">내부자들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="정의 실현" target="용서">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">올드보이</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="정의 실현" target="화해">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">올드보이</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="개인의 복수" target="정의 실현">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">내부자들</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="낵 앤 하우 투 겟 잇" target="인기가 없는 사람이 어떻게 여자의 마음을 사로잡을 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">낵 앤 하우 투 겟 잇</data>
+    </edge>
+    <edge source="낵 앤 하우 투 겟 잇" target="인기와 진정한 사랑 중 어느 쪽이 더 중요한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">낵 앤 하우 투 겟 잇</data>
+    </edge>
+    <edge source="인기가 없는 사람이 어떻게 여자의 마음을 사로잡을 수 있는가?" target="개인의 노력">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">낵 앤 하우 투 겟 잇</data>
+    </edge>
+    <edge source="인기가 없는 사람이 어떻게 여자의 마음을 사로잡을 수 있는가?" target="진심">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">낵 앤 하우 투 겟 잇</data>
+    </edge>
+    <edge source="인기와 진정한 사랑 중 어느 쪽이 더 중요한가?" target="진정한 사랑">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">낵 앤 하우 투 겟 잇</data>
+    </edge>
+    <edge source="개인의 노력" target="외모와 사회적 인기">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">낵 앤 하우 투 겟 잇</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="진심" target="외모와 사회적 인기">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">낵 앤 하우 투 겟 잇</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="진정한 사랑" target="대중적 인기와 표면적 매력">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">낵 앤 하우 투 겟 잇</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="외모와 사회적 인기" target="개인의 노력">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">낵 앤 하우 투 겟 잇</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="외모와 사회적 인기" target="진심">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">낵 앤 하우 투 겟 잇</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="대중적 인기와 표면적 매력" target="진정한 사랑">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">낵 앤 하우 투 겟 잇</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="도리화가" target="여자가 공개적으로 노래하거나 무대에 설 수 없는 사회에서 여성의 예술적 재능은 어떻게 인정받을 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">도리화가</data>
+    </edge>
+    <edge source="도리화가" target="개인의 꿈과 열정이 사회적 제약과 편견을 극복할 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">도리화가</data>
+    </edge>
+    <edge source="여자가 공개적으로 노래하거나 무대에 설 수 없는 사회에서 여성의 예술적 재능은 어떻게 인정받을 수 있는가?" target="여성의 예술적 권리">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">도리화가</data>
+    </edge>
+    <edge source="개인의 꿈과 열정이 사회적 제약과 편견을 극복할 수 있는가?" target="자기실현의 가치">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">도리화가</data>
+    </edge>
+    <edge source="여성의 예술적 권리" target="사회적 전통과 규범">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">도리화가</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="자기실현의 가치" target="사회적 제약과 편견">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">도리화가</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="사회적 전통과 규범" target="여성의 예술적 권리">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">도리화가</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="사회적 제약과 편견" target="자기실현의 가치">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">도리화가</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="로제타" target="일자리를 간절히 원하는 상황에서 어떤 선택을 해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">로제타</data>
+    </edge>
+    <edge source="로제타" target="가족의 문제와 개인의 생존 중 어느 쪽을 우선해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">로제타</data>
+    </edge>
+    <edge source="일자리를 간절히 원하는 상황에서 어떤 선택을 해야 하는가?" target="생존의 절박함">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">로제타</data>
+    </edge>
+    <edge source="가족의 문제와 개인의 생존 중 어느 쪽을 우선해야 하는가?" target="가족애">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">로제타</data>
+    </edge>
+    <edge source="록키" target="무명 복서가 기회를 얻었을 때 진정한 승리는 무엇인가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">록키</data>
+    </edge>
+    <edge source="록키" target="어려운 환경 속에서 자신을 증명하는 것이 왜 중요한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">록키</data>
+    </edge>
+    <edge source="무명 복서가 기회를 얻었을 때 진정한 승리는 무엇인가?" target="자기 극복과 도전 정신">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">록키</data>
+    </edge>
+    <edge source="어려운 환경 속에서 자신을 증명하는 것이 왜 중요한가?" target="희망">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">록키</data>
+    </edge>
+    <edge source="어려운 환경 속에서 자신을 증명하는 것이 왜 중요한가?" target="자기 존중">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">록키</data>
+    </edge>
+    <edge source="자기 극복과 도전 정신" target="현실적인 한계와 실패의 두려움">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">록키</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="희망" target="사회적 무관심과 냉소">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">록키</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="현실적인 한계와 실패의 두려움" target="자기 극복과 도전 정신">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">록키</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="사회적 무관심과 냉소" target="희망">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">록키</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="마더 (2009년 영화)" target="아들의 결백을 지키기 위해 무엇을 희생해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">마더 (2009년 영화)</data>
+    </edge>
+    <edge source="마더 (2009년 영화)" target="법과 정의 중 어느 쪽을 우선해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">마더 (2009년 영화)</data>
+    </edge>
+    <edge source="아들의 결백을 지키기 위해 무엇을 희생해야 하는가?" target="모성애와 가족애">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">마더 (2009년 영화)</data>
+    </edge>
+    <edge source="법과 정의 중 어느 쪽을 우선해야 하는가?" target="법적 절차">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">마더 (2009년 영화)</data>
+    </edge>
+    <edge source="법과 정의 중 어느 쪽을 우선해야 하는가?" target="진실 추구">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">마더 (2009년 영화)</data>
+    </edge>
+    <edge source="모성애와 가족애" target="법적 절차">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">마더 (2009년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="모성애와 가족애" target="진실 추구">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">마더 (2009년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="법적 절차" target="모성애와 가족애">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">마더 (2009년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="진실 추구" target="모성애와 가족애">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">마더 (2009년 영화)</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="명량" target="전쟁에서 어떻게 용기와 결단이 승리를 이끄는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">명량</data>
+    </edge>
+    <edge source="명량" target="개인의 고뇌와 내면은 어떻게 집단의 사기와 운명에 영향을 미치는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">명량</data>
+    </edge>
+    <edge source="전쟁에서 어떻게 용기와 결단이 승리를 이끄는가?" target="용기와 결단">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">명량</data>
+    </edge>
+    <edge source="개인의 고뇌와 내면은 어떻게 집단의 사기와 운명에 영향을 미치는가?" target="개인의 내면">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">명량</data>
+    </edge>
+    <edge source="개인의 고뇌와 내면은 어떻게 집단의 사기와 운명에 영향을 미치는가?" target="집단의 사기">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">명량</data>
+    </edge>
+    <edge source="용기와 결단" target="두려움과 불안">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">명량</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="집단의 사기" target="현실적 절망과 무기력">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">명량</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="두려움과 불안" target="용기와 결단">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">명량</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="현실적 절망과 무기력" target="집단의 사기">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">명량</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="밀양" target="절망 속에서 신앙에 의지하는 것이 옳은가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">밀양</data>
+    </edge>
+    <edge source="밀양" target="과거의 상처를 극복하고 새로운 삶을 받아들일 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">밀양</data>
+    </edge>
+    <edge source="절망 속에서 신앙에 의지하는 것이 옳은가?" target="신앙">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">밀양</data>
+    </edge>
+    <edge source="절망 속에서 신앙에 의지하는 것이 옳은가?" target="구원">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">밀양</data>
+    </edge>
+    <edge source="과거의 상처를 극복하고 새로운 삶을 받아들일 수 있는가?" target="회복과 용서">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">밀양</data>
+    </edge>
+    <edge source="버닝 (2018년 영화)" target="사람들은 각자 자기만의 방식으로 살아가는 것이 옳은가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">버닝 (2018년 영화)</data>
+    </edge>
+    <edge source="버닝 (2018년 영화)" target="비밀스러운 취미나 내면의 어두운 면을 숨기는 것이 정당한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">버닝 (2018년 영화)</data>
+    </edge>
+    <edge source="사람들은 각자 자기만의 방식으로 살아가는 것이 옳은가?" target="개인의 자유와 자율성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">버닝 (2018년 영화)</data>
+    </edge>
+    <edge source="비밀스러운 취미나 내면의 어두운 면을 숨기는 것이 정당한가?" target="개인 사생활의 존중">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">버닝 (2018년 영화)</data>
+    </edge>
+    <edge source="개인의 자유와 자율성" target="타인의 안전과 신뢰">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">버닝 (2018년 영화)</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="개인 사생활의 존중" target="공공의 알 권리와 경계">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">버닝 (2018년 영화)</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="타인의 안전과 신뢰" target="개인의 자유와 자율성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">버닝 (2018년 영화)</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="공공의 알 권리와 경계" target="개인 사생활의 존중">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">버닝 (2018년 영화)</data>
+      <data key="d4">인정</data>
+    </edge>
+    <edge source="부산행" target="생존을 위해 타인을 희생하는 것이 정당한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">부산행</data>
+    </edge>
+    <edge source="부산행" target="위기 상황에서 가족과 타인 중 누구를 우선해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">부산행</data>
+    </edge>
+    <edge source="생존을 위해 타인을 희생하는 것이 정당한가?" target="생명 존중">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">부산행</data>
+    </edge>
+    <edge source="생존을 위해 타인을 희생하는 것이 정당한가?" target="자기 보호">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">부산행</data>
+    </edge>
+    <edge source="위기 상황에서 가족과 타인 중 누구를 우선해야 하는가?" target="가족애">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">부산행</data>
+    </edge>
+    <edge source="위기 상황에서 가족과 타인 중 누구를 우선해야 하는가?" target="공동체 의식">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">부산행</data>
+    </edge>
+    <edge source="자기 보호" target="생명 존중">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">부산행</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="공동체 의식" target="가족애">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">부산행</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="살인의 추억" target="범인을 잡기 위해 어떤 수사 방식이 정당한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">살인의 추억</data>
+    </edge>
+    <edge source="살인의 추억" target="진실을 밝히는 것과 인간의 존엄성 중 어느 쪽을 우선해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">살인의 추억</data>
+    </edge>
+    <edge source="범인을 잡기 위해 어떤 수사 방식이 정당한가?" target="정의로운 수사 방식">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">살인의 추억</data>
+    </edge>
+    <edge source="진실을 밝히는 것과 인간의 존엄성 중 어느 쪽을 우선해야 하는가?" target="인간 존엄성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">살인의 추억</data>
+    </edge>
+    <edge source="정의로운 수사 방식" target="범죄 해결의 신속성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">살인의 추억</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="범죄 해결의 신속성" target="정의로운 수사 방식">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">살인의 추억</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="진실 규명의 필요성" target="인간 존엄성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">살인의 추억</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="시" target="시를 쓰는 것이란 무엇인가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">시</data>
+    </edge>
+    <edge source="시" target="어떻게 죄책감과 책임을 마주해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">시</data>
+    </edge>
+    <edge source="시" target="어떤 상황에서 진실을 밝히는 것이 옳은가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">시</data>
+    </edge>
+    <edge source="시를 쓰는 것이란 무엇인가?" target="자기 탐구와 사물의 올바른 인식">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">시</data>
+    </edge>
+    <edge source="어떻게 죄책감과 책임을 마주해야 하는가?" target="도덕적 책임">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">시</data>
+    </edge>
+    <edge source="어떻게 죄책감과 책임을 마주해야 하는가?" target="인간 존엄성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">시</data>
+    </edge>
+    <edge source="어떤 상황에서 진실을 밝히는 것이 옳은가?" target="정의">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">시</data>
+    </edge>
+    <edge source="어떤 상황에서 진실을 밝히는 것이 옳은가?" target="진실성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">시</data>
+    </edge>
+    <edge source="자기 탐구와 사물의 올바른 인식" target="현실의 고통과 절망">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">시</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="현실의 고통과 절망" target="자기 탐구와 사물의 올바른 인식">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">시</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="가족의 보호와 사회적 압력" target="인간 존엄성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">시</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="합의와 은폐" target="정의">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">시</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="합의와 은폐" target="진실성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">시</data>
+      <data key="d4">앎</data>
+    </edge>
+    <edge source="신세계" target="잠복 경찰은 조직 내에서 자신의 정체를 숨기며 어떻게 의리와 충성을 지킬 수 있는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">신세계</data>
+    </edge>
+    <edge source="신세계" target="범죄 조직 내에서 권력 다툼과 배신이 일어날 때 개인의 도덕적 선택은 무엇인가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">신세계</data>
+    </edge>
+    <edge source="잠복 경찰은 조직 내에서 자신의 정체를 숨기며 어떻게 의리와 충성을 지킬 수 있는가?" target="의리">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">신세계</data>
+    </edge>
+    <edge source="잠복 경찰은 조직 내에서 자신의 정체를 숨기며 어떻게 의리와 충성을 지킬 수 있는가?" target="충성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">신세계</data>
+    </edge>
+    <edge source="범죄 조직 내에서 권력 다툼과 배신이 일어날 때 개인의 도덕적 선택은 무엇인가?" target="도덕적 선택과 책임">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">신세계</data>
+    </edge>
+    <edge source="도덕적 선택과 책임" target="생존과 권력">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">신세계</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="생존과 권력" target="도덕적 선택과 책임">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">신세계</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="아가씨" target="사랑과 배신 사이에서 진정한 신뢰는 가능한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">아가씨</data>
+    </edge>
+    <edge source="아가씨" target="억압과 폭력 속에서 자유와 주체성은 어떻게 실현되는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">아가씨</data>
+    </edge>
+    <edge source="사랑과 배신 사이에서 진정한 신뢰는 가능한가?" target="진정한 신뢰">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">아가씨</data>
+    </edge>
+    <edge source="사랑과 배신 사이에서 진정한 신뢰는 가능한가?" target="사랑">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">아가씨</data>
+    </edge>
+    <edge source="억압과 폭력 속에서 자유와 주체성은 어떻게 실현되는가?" target="자유">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">아가씨</data>
+    </edge>
+    <edge source="억압과 폭력 속에서 자유와 주체성은 어떻게 실현되는가?" target="주체성">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">아가씨</data>
+    </edge>
+    <edge source="진정한 신뢰" target="배신">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">아가씨</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="사랑" target="속임수">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">아가씨</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="자유" target="억압">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">아가씨</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="주체성" target="폭력">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">아가씨</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="배신" target="진정한 신뢰">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">아가씨</data>
+      <data key="d4">소속</data>
+    </edge>
+    <edge source="속임수" target="사랑">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">아가씨</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="억압" target="자유">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">아가씨</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="폭력" target="주체성">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">아가씨</data>
+      <data key="d4">책임</data>
+    </edge>
+    <edge source="올드보이" target="복수는 정당한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">올드보이</data>
+    </edge>
+    <edge source="올드보이" target="진실을 알리는 것이 항상 옳은가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">올드보이</data>
+    </edge>
+    <edge source="복수는 정당한가?" target="정의 실현">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">올드보이</data>
+    </edge>
+    <edge source="진실을 알리는 것이 항상 옳은가?" target="진실의 가치">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">올드보이</data>
+    </edge>
+    <edge source="진실의 가치" target="사랑과 보호">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">올드보이</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="사랑과 보호" target="진실의 가치">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">올드보이</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="택시운전사" target="진실을 알리는 것이 왜 중요한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">택시운전사</data>
+    </edge>
+    <edge source="택시운전사" target="민주주의는 저절로 얻어지는 것인가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">택시운전사</data>
+    </edge>
+    <edge source="진실을 알리는 것이 왜 중요한가?" target="언론의 자유">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">택시운전사</data>
+    </edge>
+    <edge source="민주주의는 저절로 얻어지는 것인가?" target="민주주의의 가치">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">택시운전사</data>
+    </edge>
+    <edge source="언론의 자유" target="국가의 통제">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">택시운전사</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="국가의 통제" target="언론의 자유">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">택시운전사</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="헤어질 결심" target="사랑과 의무 중 어느 쪽을 선택해야 하는가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">헤어질 결심</data>
+    </edge>
+    <edge source="헤어질 결심" target="진실을 밝히는 것과 사랑하는 사람을 보호하는 것 중 무엇이 더 중요한가?">
+      <data key="d2">ASKS</data>
+      <data key="d3">헤어질 결심</data>
+    </edge>
+    <edge source="사랑과 의무 중 어느 쪽을 선택해야 하는가?" target="개인의 감정">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">헤어질 결심</data>
+    </edge>
+    <edge source="사랑과 의무 중 어느 쪽을 선택해야 하는가?" target="직업적 책임">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">헤어질 결심</data>
+    </edge>
+    <edge source="진실을 밝히는 것과 사랑하는 사람을 보호하는 것 중 무엇이 더 중요한가?" target="정의">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">헤어질 결심</data>
+    </edge>
+    <edge source="진실을 밝히는 것과 사랑하는 사람을 보호하는 것 중 무엇이 더 중요한가?" target="인간관계의 신뢰">
+      <data key="d2">INVOKES_VALUE</data>
+      <data key="d3">헤어질 결심</data>
+    </edge>
+    <edge source="인간관계의 신뢰" target="비밀 유지">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">헤어질 결심</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="인간관계의 신뢰" target="진실 공개">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">헤어질 결심</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="비밀 유지" target="정의">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">헤어질 결심</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="비밀 유지" target="인간관계의 신뢰">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">헤어질 결심</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="진실 공개" target="정의">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">헤어질 결심</data>
+      <data key="d4">가로지름</data>
+    </edge>
+    <edge source="진실 공개" target="인간관계의 신뢰">
+      <data key="d2">CONFLICTS_WITH</data>
+      <data key="d3">헤어질 결심</data>
+      <data key="d4">가로지름</data>
+    </edge>
+  </graph>
+</graphml>
