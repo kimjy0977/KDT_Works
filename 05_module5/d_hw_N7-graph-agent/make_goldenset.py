@@ -85,9 +85,23 @@ def main():
     films = sorted(n for n, d in G.nodes(data=True) if d.get("kind") == "Film")
     items = []
 
+    # ★이 프로젝트의 출발점 — 예비 실습에서 직접 써 본 7편.
+    #   문항을 이 영화들로 «먼저» 고른다. 코퍼스에 없으면 자동으로 건너뛴다.
+    SEED = ["오펜하이머", "인터스텔라", "인셉션", "컨택트",
+            "이미테이션 게임", "덩케르크", "서브스턴스"]
+
+    def _pick(cands, n):
+        """SEED 에 있는 것을 «먼저», 나머지로 채운다."""
+        head = [c for s in SEED for c in cands if s in c]
+        rest = [c for c in cands if c not in head]
+        out = []
+        for c in head + rest:
+            if c not in out:
+                out.append(c)
+        return out[:n]
+
     # ── 1홉 — 「이 영화는 무엇을 묻나」 ──────────────────────────────
-    for film in ("1987 (2017년 영화)", "12인의 성난 사람들 (1957년 영화)",
-                 "7번방의 선물"):
+    for film in _pick(films, 3):
         qs = sorted(o for _, o, d in G.out_edges(film, data=True)
                     if d.get("rel") == "ASKS")
         if not qs:
@@ -115,8 +129,11 @@ def main():
                 two.append((film, q, vals))
     two.sort()                                    # ★sorted — 재현 가능하게
     # ★영화가 겹치지 않게 고른다 — 같은 영화로 두 문항을 만들면 다양성이 없다
+    # ★SEED 영화를 먼저, 그리고 영화가 겹치지 않게
+    order = sorted(two, key=lambda x: (0 if any(s in x[0] for s in SEED) else 1,
+                                       x[0]))
     picked, seen_f = [], set()
-    for film, q, vals in two:
+    for film, q, vals in order:
         if film in seen_f:
             continue
         seen_f.add(film)
@@ -135,11 +152,20 @@ def main():
         })
 
     # ── 4홉 — ★「같은 대립을 다룬 다른 영화」 ────────────────────────
+    used_4 = set()
     for i, (label, group) in enumerate(
-            sorted(st["bridges"].items(), key=lambda kv: -len(kv[1]))[:4], 1):
+            sorted(st["bridges"].items(), key=lambda kv: -len(kv[1]))[:6], 1):
         if len(group) < 2:
             continue
-        a, rest = group[0], group[1:]
+        # ★축마다 «다른» 영화를 고른다 — 안 그러면 같은 영화가 여러 번 나온다.
+        #   SEED 영화를 먼저 본다.
+        cand = ([f for s in SEED for f in group if s in f]
+                + [f for f in group])
+        a = next((f for f in cand if f not in used_4), group[0])
+        used_4.add(a)
+        rest = [f for f in group if f != a]
+        if len(items) - sum(1 for x in items if x["kind"] != "4홉") >= 4:
+            break
         # ★기대 경로를 «실제 그래프 형식»으로 만든다 — 형식이 다르면 대조가 안 된다
         #   (노드6 실사고 — 두 방식에 «다른 자»를 대서 graph 쪽만 0 에 가깝게 나왔다)
         ctx = []

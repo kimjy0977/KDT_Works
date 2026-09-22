@@ -20,6 +20,27 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 st.set_page_config(page_title="영화 딜레마 그래프", page_icon="🎬",
                    layout="wide")
 
+# ★화면을 압축한다 — 경로가 길어서 기본 여백으로는 스크롤이 많다.
+#   답변·탄 경로·근거가 «한 화면»에 들어와야 무엇을 하는 도구인지 보인다.
+st.markdown("""
+<style>
+  .block-container { padding-top: 1.2rem; padding-bottom: 1rem; max-width: 100%; }
+  h1 { font-size: 1.5rem !important; margin-bottom: .2rem; }
+  h2 { font-size: 1.05rem !important; margin: .6rem 0 .2rem; }
+  h3 { font-size: .95rem !important; }
+  .stMarkdown p, .stMarkdown li { font-size: .80rem; line-height: 1.45; }
+  .stCaption, .stMarkdown small { font-size: .72rem; }
+  [data-testid="stMetricValue"] { font-size: 1.15rem; }
+  [data-testid="stMetricLabel"] { font-size: .72rem; }
+  [data-testid="stSidebar"] { width: 230px !important; }
+  [data-testid="stSidebar"] [data-testid="stMetricValue"] { font-size: 1rem; }
+  .stDataFrame { font-size: .74rem; }
+  div[data-baseweb="select"] > div { font-size: .78rem; }
+  .stTextInput input { font-size: .80rem; }
+  .stAlert { padding: .5rem .7rem; }
+</style>
+""", unsafe_allow_html=True)
+
 
 @st.cache_resource
 def boot():
