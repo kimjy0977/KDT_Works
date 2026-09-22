@@ -186,7 +186,13 @@ def node_gather(st: S) -> S:
     for t in tri:
         if t not in uniq:
             uniq.append(t)
+    # ★답변에 넣는 것과 «채점에 쓰는 것»을 가른다 (피어리뷰 지적 · 오재호님)
+    #   전에는 60 으로 자른 뒤 그 목록으로 경로 재현율을 쟀다.
+    #   실측 — gather 45건 중 ★39건(87%)이 상한에 걸렸고 중앙값이 192 였다.
+    #   ⇒ 기대 삼중항이 61번째 이후면 «그래프에 있어도» 실패로 찍혔다.
+    #   답변 프롬프트는 어차피 [:40] 으로 또 자르므로 토큰 비용은 안 는다.
     st["evidence"] = uniq[:60]
+    st["evidence_all"] = uniq
     st["sources"] = sorted(srcs)
     st["trace"] = st["trace"] + [
         {"node": "gather", "n_evidence": len(uniq), "n_sources": len(srcs)}]
@@ -311,6 +317,8 @@ def main():
                              "reference_contexts": it["reference_contexts"],
                              "answer": res["answer"],
                              "evidence": res["evidence"],
+                             "evidence_all": res.get("evidence_all") or res["evidence"],
+                             "n_paths": len(res["paths"]),
                              "paths": [[list(t) for t in p]
                                        for p in res["paths"][:8]],
                              "sources": res["sources"],
