@@ -26,7 +26,7 @@
 ### 모듈2 · AI의 이해와 사용_Agt1
 - **노드9 · 메인 퀘스트** — [명화의 주인공 되기](03_module2/a_mq_N9-art-face-fusion/) — 사람 사진을 명화에 합성(ControlNet + SAM)
 - **퀘스트** — [A 트랜스포머 발표](03_module2/b_q_A-transformer-preso/) — 티처팀 통합 발표
-- **과제** — [노드5 · 8강 원하는 포즈로 만들기](03_module2/d_hw_N5-pose-image-tool/) · [Colab에서 열기 ↗](https://colab.research.google.com/github/kimjy0977/KDT_Works/blob/main/03_module2/d_hw_N5-pose-image-tool/pose_tool.ipynb) · [노드7 폰 영상으로 3D 방](03_module2/d_hw_N6-room-3d/)
+- **과제** — [노드5 · 8강 원하는 포즈로 만들기](03_module2/d_hw_N5-pose-image-tool/) · [Colab에서 열기 ↗](https://colab.research.google.com/github/kimjy0977/KDT_Works/blob/main/03_module2/d_hw_N5-pose-image-tool/pose_tool.ipynb) · [노드7 폰 영상으로 3D 방](03_module2/d_hw_N7-room-3d/)
 
 ### 모듈3 · 프롬프트 엔지니어링
 - **노드5 · 메인 퀘스트** — [MYTH GALLERY 안내 챗봇](04_module3/a_mq_N5-myth-rag-guide/) — RAG로 **근거를 걸고** 답하는 가이드 챗봇
