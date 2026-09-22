@@ -50,19 +50,28 @@ def evidence(raw, film, limit=160):
 
 
 def _axis_peers(G, film, label, fallback):
-    """★그 영화와 «축·극»을 공유하는 다른 영화 전부.
+    """★그 영화가 걸친 «모든 축»의 공유 영화 전부.
 
-    label 예: "[소속] 개인↔집단". 그 축을 가진 Value 를 거쳐 닿는 영화를 모은다.
+    ⚠처음엔 label 의 축 «하나»만 봤다. 그랬더니 에이전트가 «다른 축»으로
+      맞힌 답(7번방의 선물 ↔ 기생충, 가족애 축)을 틀렸다고 찍었다.
+      영화 하나가 여러 축에 걸치는 게 정상이므로 «전부» 후보로 둔다.
     """
-    import re as _re
-    m = _re.match(r"\[(.+?)\]", label or "")
-    axis = m.group(1) if m else None
+    my_axes = set()
+    for _, q, d in G.out_edges(film, data=True):
+        if d.get("rel") != "ASKS":
+            continue
+        for _, v, dd in G.out_edges(q, data=True):
+            if dd.get("rel") != "INVOKES_VALUE":
+                continue
+            for a in (G.nodes[v].get("axes") or "").split(";"):
+                if a and a != "미분류":
+                    my_axes.add(a)
     peers = set()
     for n, d in G.nodes(data=True):
         if d.get("kind") != "Value":
             continue
         axs = [a for a in (d.get("axes") or "").split(";") if a and a != "미분류"]
-        if axis and not any(a.startswith(axis + "/") for a in axs):
+        if not (my_axes & set(axs)):
             continue
         for q, _ in G.in_edges(n):
             if G.nodes[q].get("kind") != "Question":
@@ -71,7 +80,6 @@ def _axis_peers(G, film, label, fallback):
                 if G.nodes[f].get("kind") == "Film" and f != film:
                     peers.add(f)
     return sorted(peers) or list(fallback)
-
 def main():
     G, st, raw = load()
     films = sorted(n for n, d in G.nodes(data=True) if d.get("kind") == "Film")
@@ -160,8 +168,11 @@ def main():
 
     # ── ★거절 — 코퍼스에 «없는» 것 (루브릭 ②) ──────────────────────
     absent = [
-        ("영화 《인셉션》은 어떤 가치 대립을 다루나요?",
-         "《인셉션》은 코퍼스에 없다. 모른다고 답해야 한다."),
+        ("영화 《라라랜드》는 어떤 가치 대립을 다루나요?",
+         "《라라랜드》는 코퍼스에 없다. 모른다고 답해야 한다. "
+         "★처음엔 《인셉션》으로 물었는데 코퍼스를 늘리면서 인셉션이 «들어와» "
+         "문항이 낡았다 — 답할 수 있게 된 것을 거절하라고 물은 셈이다. "
+         "코퍼스가 자라면 거절 문항도 다시 봐야 한다."),
         ("영화 《1987》의 총 제작비는 얼마인가요?",
          "제작비는 이 그래프의 스키마에 없다(노드는 Film·Question·Value뿐). "
          "모른다고 답해야 한다."),
