@@ -8,6 +8,34 @@
 
 ---
 
+## ⚠ 먼저 — 폴더 이름은 **공개 벤치마크의 과제 이름**입니다
+
+고정 10문항은 **`alibaba/terminal-bench-pro`**(공개 저장소)의 과제를
+고정 커밋 `874af40` 에서 그대로 가져온 것입니다. **폴더 이름도 원본 그대로**입니다.
+
+| 과제 이름 | 난이도 | 원본 분류 |
+|---|---|---|
+| `extract-paper-metadata-to-json` | easy | data-processing |
+| `python-sudoku-solver-backtracking` | easy | games |
+| `detect-corrupted-blockchain-transaction` | medium | debugging |
+| `implement-go-board-analyzer` | medium | software-engineering |
+| `python-sokoban-bfs-solver` | medium | games |
+| **`recover-encrypted-db-credentials`** | medium | **data-processing** |
+| `advanced-json-to-rfc4180-csv-converter` | hard | data-processing |
+| `implement-depgraph-dependency-resolver` | hard | system-administration |
+| `implement-lz77-file-compressor` | hard | data-processing |
+| `implement-nonogram-puzzle-solver` | hard | games |
+
+★**`recover-encrypted-db-credentials` 는 이름만 보면 오해를 삽니다.**
+실제 내용은 **손상된 디스크 블록에서 파일을 복원하는 데이터 처리 문제**이고,
+원본 분류도 `data-processing` 입니다. 스도쿠·소코반·LZ77 압축기와 **나란히 있는**
+알고리즘 과제입니다. 폴더 안에 있는 것은 **벤치마크가 준 `.bin` fixture 와
+에이전트 실행 로그뿐**이며, 실제 자격증명이나 그걸 얻는 기법은 없습니다.
+
+<span style="opacity:.8">이 절을 맨 위에 둔 이유 — 2026-09-22 에 계정이 플래그돼
+저장소가 익명에게 404 가 됐습니다. 사유는 공개되지 않지만, 검토자가 **경로만 볼 수 있다**면
+이 이름은 충분히 오해를 살 수 있습니다. 숨기면 「숨겼다」가 되고 **먼저 밝히면 설명이 됩니다.**</span>
+
 ## 루브릭 항목이 어디에 있나
 
 | 평가기준 | 위치 |
