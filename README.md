@@ -14,8 +14,8 @@
 `a_mq` 메인퀘 · `b_q` 퀘스트 · `c_lab` 실습 · `d_hw` 과제
 
 ### 온보딩
-- **적응기 · 1강** — [git-setup](01_onboarding/b_q_git-setup/) — 개발환경 세팅(Git·GitHub·SSH)
-- **적응기 · 5강** — [computational-thinking](01_onboarding/d_hw_computational-thinking/) — 컴퓨팅 사고 프로젝트(분해·패턴·추상화·알고리즘)
+- **적응기 · 1강** — [git-setup](00_onboarding/b_q_git-setup/) — 개발환경 세팅(Git·GitHub·SSH)
+- **적응기 · 5강** — [computational-thinking](00_onboarding/d_hw_computational-thinking/) — 컴퓨팅 사고 프로젝트(분해·패턴·추상화·알고리즘)
 
 ### 모듈1 · 바이브코딩으로 웹페이지 만들기
 - **노드7 · 메인 퀘스트** — [ORIGIN 소스](02_module1/a_mq_L7-origin/) · [라이브 ↗](https://kdt-origin.vercel.app) — 디자인 영감 아카이브(Next.js·Supabase·Claude API)
