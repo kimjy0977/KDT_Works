@@ -102,7 +102,7 @@ def layer(item, rec, G):
     if missing:
         return "색인", "기대 삼중항 %d/%d 가 그래프에 없다" % (len(missing), len(ctx))
     # ② 탐색 — 그래프엔 있는데 근거로 안 왔나
-    pr = score_path(ctx, rec["evidence"])
+    pr = score_path(ctx, rec.get("evidence_all") or rec["evidence"])
     if pr is not None and pr < 0.5:
         return "탐색", "경로 재현 %.0f%% — 그래프엔 있는데 안 가져왔다" % (pr * 100)
     # ③ 생성 — 근거는 왔는데 답에 안 썼나
@@ -125,12 +125,13 @@ def main():
     fails = []
     for rec in runs:
         it = by_id[rec["id"]]
-        pa = score_path(it["reference_contexts"], rec["evidence"])
+        pa = score_path(it["reference_contexts"],
+                        rec.get("evidence_all") or rec["evidence"])
         sa = score_answer(it["reference"], rec["answer"])
         rows.append({"run": rec["run"], "id": rec["id"], "kind": rec["kind"],
                      "path_recall": pa, "answer": sa,
                      "refused": bool(REFUSE_PAT.search(rec["answer"] or "")),
-                     "sec": rec["sec"], "n_evidence": len(rec["evidence"])})
+                     "sec": rec["sec"], "n_evidence": len(rec.get("evidence_all") or rec["evidence"])})
         per_kind[rec["kind"]].append(rows[-1])
         if sa < 1.0:
             lay, why = layer(it, rec, G)

@@ -6,17 +6,17 @@
   "1홉": {
    "n": 9,
    "answer_acc": 1.0,
-   "path_recall": 0.5
+   "path_recall": 1.0
   },
   "2홉": {
    "n": 12,
    "answer_acc": 1.0,
-   "path_recall": 0.5833
+   "path_recall": 1.0
   },
   "4홉": {
    "n": 12,
    "answer_acc": 1.0,
-   "path_recall": 0.4583
+   "path_recall": 1.0
   },
   "거절": {
    "n": 9,
