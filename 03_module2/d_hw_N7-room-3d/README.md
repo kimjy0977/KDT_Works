@@ -4,7 +4,7 @@
 
 ## ▶ 3D 방 열기 (클릭)
 
-### 👉 **https://kimjy0977.github.io/KDT_Works/03_module2/d_hw_N6-room-3d/**
+### 👉 **https://kimjy0977.github.io/KDT_Works/03_module2/d_hw_N7-room-3d/**
 
 위 주소를 누르면 브라우저에서 방이 열립니다. **마우스를 끌면 회전**, 휠로 확대, 우측 상단 버튼으로 자동회전·위아래뒤집기·알갱이 퍼짐 조절. (폰은 손가락 하나로 끌고 두 손가락으로 벌립니다.)
 
