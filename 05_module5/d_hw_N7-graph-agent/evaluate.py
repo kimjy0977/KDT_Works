@@ -171,6 +171,28 @@ def main():
         print("      받음: %s" % f["got"][:56])
         print("      ★층: %s — %s" % (f["layer"], f["why"]))
 
+    # ── ★문항별 통과 횟수와 «폭» — 평균만 보면 흔들림을 못 본다 ──────
+    n_runs = max(r["run"] for r in rows)
+    per_item = collections.defaultdict(list)
+    for r in rows:
+        per_item[r["id"]].append(r["answer"])
+    shaky = {k: v for k, v in per_item.items()
+             if 0 < sum(v) < len(v)}            # 전부도 아니고 0도 아닌 것
+    if n_runs > 1:
+        print()
+        print("-" * 76)
+        print("★문항별 통과 횟수 (%d회 중) — 3/3·0/3 은 안정 · 그 사이가 «흔들림»"
+              % n_runs)
+        for k in sorted(per_item):
+            v = per_item[k]
+            mark = "  ★흔들림" if 0 < sum(v) < len(v) else ""
+            print("  %-9s %d/%d%s" % (k, int(sum(v)), len(v), mark))
+        print()
+        print("★흔들리는 문항 %d개 / %d개 — 여기가 고칠 자리다"
+              % (len(shaky), len(per_item)))
+        if not shaky:
+            print("    없음 — 모든 문항이 회차마다 «같은» 결과를 냈다")
+
     lay_cnt = collections.Counter(f["layer"] for f in fails)
     print()
     print("층별: " + (" · ".join("%s %d" % (k, v) for k, v in sorted(lay_cnt.items()))
@@ -187,6 +209,9 @@ def main():
                                            if any(x["path_recall"] is not None for x in g) else None)}
                        for k, g in sorted(per_kind.items())},
            "overall_answer_acc": round(sum(allv) / len(allv), 4),
+           "per_item_pass": {k: "%d/%d" % (int(sum(v)), len(v))
+                             for k, v in sorted(per_item.items())},
+           "shaky_items": sorted(shaky),
            "failures": fails, "by_layer": dict(lay_cnt),
            "_기준": {
                "답변정확": "__REFUSE__ 면 거절했으면 1 · 그 밖은 기대 정답의 조각이 답에 있으면 1",
