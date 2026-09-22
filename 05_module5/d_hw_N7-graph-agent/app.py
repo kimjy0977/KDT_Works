@@ -62,11 +62,29 @@ with st.sidebar:
                "거의 발동하지 않습니다(실측)." % (A.CFG["hub"]["degree_pct"] or 0))
 
 examples = [it["user_input"] for it in gold()][:14]
-pick = st.selectbox("평가셋에서 고르기 (14문항 · 1홉/2홉/4홉/★거절)",
-                    ["(직접 입력)"] + examples)
-q = st.text_input("질문",
-                  value="" if pick == "(직접 입력)" else pick,
-                  placeholder="예) 영화 «1987»과 같은 가치 대립을 다루는 다른 영화는?")
+kinds = {it["user_input"]: it["kind"] for it in gold()}
+
+# ★streamlit 은 위젯이 렌더된 뒤 value= 변경을 «무시»한다.
+#   그래서 selectbox 를 골라도 text_input 이 안 바뀌었다 (버그였다).
+#   key + session_state 로 «직접» 갱신해야 한다.
+st.session_state.setdefault("q", "")
+st.session_state.setdefault("_pick", "(직접 입력)")
+
+
+def _on_pick():
+    p = st.session_state["_sel"]
+    st.session_state["_pick"] = p
+    st.session_state["q"] = "" if p == "(직접 입력)" else p
+
+
+st.selectbox("평가셋에서 고르기 (14문항 · 1홉/2홉/4홉/★거절)",
+             ["(직접 입력)"] + examples, key="_sel",
+             format_func=lambda x: x if x == "(직접 입력)"
+             else "[%s] %s" % (kinds.get(x, "?"), x[:56]),
+             on_change=_on_pick)
+st.text_input("질문", key="q",
+              placeholder="예) 영화 «1987»과 같은 가치 대립을 다루는 다른 영화는?")
+q = st.session_state["q"]
 
 if st.button("물어보기", type="primary") and q.strip():
     with st.spinner("그래프를 걷는 중…"):
