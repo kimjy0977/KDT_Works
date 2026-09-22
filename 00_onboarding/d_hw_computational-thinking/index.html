@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Computational Thinking 프로젝트 · 김주영</title>
+<style>
+  body{margin:0;color:#222;background:#fff;font-family:"Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;line-height:1.7;word-break:keep-all}
+  .wrap{max-width:800px;margin:auto;padding:46px 36px 60px}
+  h1{font-size:1.55rem;margin:0 0 2px}
+  .meta{color:#777;font-size:.9rem;margin-bottom:30px}
+  h2{font-size:1.1rem;margin:28px 0 8px;padding-bottom:5px;border-bottom:1px solid #ddd}
+  p{margin:.5em 0}
+  .q{font-weight:700}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.95rem}
+  th,td{border:1px solid #ddd;padding:12px 14px;text-align:left;vertical-align:top}
+  th{background:#f6f6f6;width:96px;white-space:nowrap}
+  ol,ul{margin:.3em 0;padding-left:1.3rem}
+  li{margin:3px 0}
+  pre{background:#f6f7f9;border:1px solid #e2e4e8;border-radius:8px;padding:16px 18px;font-size:.83rem;line-height:1.6;white-space:pre-wrap;font-family:"D2Coding",Consolas,monospace}
+  @media print{.wrap{padding:0}body{font-size:11pt}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>내 문제를 네 조각으로</h1>
+  <div class="meta">김주영 · 디자인(2022~) · 아이펠 온보딩 Computational Thinking</div>
+
+  <h2>1. 고른 문제</h2>
+  <p class="q">바이브 코딩을 할 때, AI가 설명에 쓰는 개발 용어를 몰라서 자꾸 멈추게 된다.</p>
+  <p>나는 2022년부터 디자인 일을 해왔고 개발은 배운 적이 없다. 요즘 AI로 직접 웹을 만드는데, 답변에 모르는 용어가 나오면 그때마다 검색하느라 흐름이 끊긴다. 매번 반복되는 일이라 이걸 먼저 다뤄보기로 했다.</p>
+
+  <h2>2. 네 동작으로 쪼개기</h2>
+  <table>
+    <tr><th>분해</th><td>
+      <ol>
+        <li>AI 답변에서 모르는 용어를 골라낸다</li>
+        <li>용어를 종류별로 나눈다 (구조 HTML / 표현 CSS / 동작·상태 JS / 도구 / 개념)</li>
+        <li>뜻을 내가 아는 말, 디자이너가 쓰는 비유로 바꿔 적는다</li>
+        <li>지금 작업에 당장 필요한지, 나중에 봐도 되는지 가른다</li>
+        <li>용어집에 적어둔다 (이미 있으면 합친다)</li>
+        <li>다음에 같은 용어가 나오면 다시 찾아 쓴다</li>
+      </ol></td></tr>
+    <tr><th>패턴</th><td>
+      <ul>
+        <li>막히는 건 대부분 동작·상태(JS) 쪽이다. 색·간격 같은 시각 용어(CSS)는 비교적 금방 이해된다.</li>
+        <li>같은 종류의 용어가 뭉쳐서 반복해 나온다.</li>
+        <li>거의 처음 한 번만 막힌다. 적어두면 다음엔 안 막힌다.</li>
+      </ul></td></tr>
+    <tr><th>추상화</th><td>용어를 그때그때 검색하지 말고, 내 말로 번역한 용어집을 키워서 같은 용어에 두 번 막히지 않게 한다.</td></tr>
+    <tr><th>알고리즘</th><td>AI 답변 → 모르는 용어 뽑기 → 종류 나누기 → 내 말로 번역 → 필요·보류 판단 → 용어집에 등록(중복은 합침) → 작업 계속 + 용어집 갱신</td></tr>
+  </table>
+
+  <h2>3. AI에게 전달하는 형식</h2>
+<pre>[맥락]
+나는 디자인 4년차(2022년 시작)이고 개발은 배운 적이 없다. AI로 직접 웹을
+만드는데, 답변에 나오는 개발 용어를 몰라 작업이 자주 끊긴다. 이걸 정리하고 싶다.
+
+[네 동작]
+1. 분해   모르는 용어 뽑기 → 종류 나누기 → 내 말로 번역 → 필요·보류 판단
+          → 용어집 등록 → 재사용
+2. 패턴   주로 동작·상태(JS)에서 막힘 / 같은 종류가 반복 / 처음 한 번만 막힘
+3. 추상화 검색을 반복하지 말고, 내 말로 번역한 용어집을 키운다
+4. 알고리즘 답변 → 용어 뽑기 → 분류 → 번역 → 판단 → 등록(중복 합침) → 갱신
+
+[원하는 출력]
+디자이너가 읽는 용어집 항목으로. (용어 / 한 줄 뜻 / 디자인 비유 / 언제 나오는지)
+한국어로.
+
+[잘 됐는지 판단]
+개발 모르는 디자이너가 이 항목만 보고 작업을 이어갈 수 있으면 성공.</pre>
+</div>
+</body>
+</html>
