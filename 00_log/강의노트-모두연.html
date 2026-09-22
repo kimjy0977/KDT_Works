@@ -729,6 +729,18 @@
           <a href="#m5n4-11">11 ★코드를 읽어야 보이는 것 — 대회 준비<span class="toctag p">실측</span></a>
           <a href="#m5n4-12">12 한계 — 정직하게<span class="toctag q">회고</span></a>
         </div>
+        <a class="tochead" href="#m5n5">노드5 · [프로젝트] 고객 응대 에이전트 — 발견 데스크</a>
+        <div class="tocgroup" data-g="m5n5">
+        </div>
+        <a class="tochead" href="#m5n6">노드6 · 영화 추천 에이전트 — GraphRAG</a>
+        <div class="tocgroup" data-g="m5n6">
+        </div>
+        <a class="tochead" href="#m5n7">노드7 · [프로젝트] 영화 추천 에이전트 — 지식 그래프</a>
+        <div class="tocgroup" data-g="m5n7">
+        </div>
+        <a class="tochead" href="#m5n8">노드8 · 딥리서치 에이전트 — 오케스트레이션</a>
+        <div class="tocgroup" data-g="m5n8">
+        </div>
     </nav>
 
     <main>
@@ -15710,6 +15722,44 @@ router.py:50   CONF_THRESHOLD = 0.5                       # ★바로 아래서 
         <p class="fine">📚 출처: 모듈5 노드4 12강 전문 (steps 29389~29400 · 168,721자) · 수확 2026-09-16 ·
         규칙 라우터 실측 <code>modumall-agent/측정/00_규칙라우터_20260916.txt</code></p>
       </section>
+      <section class="section coursehead" id="m5n5">
+        <div class="badge">모듈5 · 노드5<span style="opacity:.7"> · 「에이전트 팀 꾸리기_Agt1」</span></div>
+        <h2>고객 응대 에이전트 만들기 [프로젝트] <span style="font-size:.86rem;opacity:.85">(강의 없음 · 요건과 루브릭만)</span></h2>
+        <p class="lead">노드4 에서 배운 <b>라우팅과 그라운딩</b>을 «내 분야»로 옮기는 프로젝트다.
+        요건이 말하는 것은 하나 — <span class="hl">「관심 있는 분야의 근거 문서를 직접 선정해
+        문의를 분류하고 근거에 기반해 답변하는 시스템을 만들고, 그 성능을 평가셋으로 «직접 측정»」</span>.
+        <span class="fine">산출물 <code>05_module5/d_hw_N5-discovery-desk/</code> ·
+        「발견 데스크」 — 우주·고고학·고생물 질문에 ★확실성 등급과 함께 답한다</span></p>
+      </section>
+
+      <section class="section" id="m5n5-proj"><h2>노드5 — 무엇을 만들었고 무엇을 배웠나 <span class="dur">실측</span></h2>
+        <h3>★무엇이 «모두몰»에 없던 문제였나</h3>
+        <p>노드4 의 모두몰은 <b>답이 매뉴얼에 있다</b>. 내 분야(과학 질문)는 다르다 —
+        <b>「6,600만 년 전」은 [추정]이고 「지난주 발표」는 [신설]</b>인데,
+        <b>둘을 같은 말투로 말하면 안 된다.</b> 그래서 <b>확실성 등급</b>을 답에 붙였다.</p>
+        <h3>배운 것 — 「고치지 않기로 한 것도 결과다」</h3>
+        <p>홀드아웃에서 ESCALATE 결함 7건 중 6건을 찾았는데 <b>문항을 고치지 않았다.</b>
+        고치면 그 문항으로 잰 <b>앞 회차와 비교가 끊기기</b> 때문이다.
+        ⇒ 홀드아웃 3차 64.3% 는 <b>그 결함을 «안은» 값</b>이다. 「고쳤습니다」로 읽히면
+        곤란해서 REPORT §7 에 그대로 적었다.</p>
+        <h3>★자가점검 점수 자체가 재현되지 않았다</h3>
+        <pre>09-15 오전   4/5   번역·단위 환산 «통과»
+09-15 저녁   3/5   번역·단위 환산 «떨어뜨림»   ← ★코드를 안 바꿨는데</pre>
+        <p>떨어진 것이 <b>통과해야 «맞는» 정상 케이스</b>였다. 원인은 세 번째 겹(LLM 대조)이
+        <code>ok=false</code> 를 낸 것. ⇒ <b>「확률적인 겹을 쓴 검수기는 여러 번 돌려
+        «분포»로 봐야 한다」</b> — 「4/5」는 성적이 아니라 <b>한 번의 관측</b>이었다.</p>
+        <p class="fine">피어리뷰 — 전대진님(이슈 #3) · 내가 주병님
+        <code>souvenir-customs-agent</code> 리뷰(3인 순환) ·
+        산출물 <code>d_hw_N5-discovery-desk/REPORT.md</code></p>
+       </section>
+
+      <section class="section coursehead" id="m5n6">
+        <div class="badge">모듈5 · 노드6<span style="opacity:.7"> · 「에이전트 팀 꾸리기_Agt1」</span></div>
+        <h2>영화 추천 에이전트 만들기 — GraphRAG <span style="font-size:.86rem;opacity:.85">(16강)</span></h2>
+        <p class="lead">한국어 위키백과 <b>영화 문서 80건</b>을 지식 그래프로 만들고, LangGraph 로 질문 유형에 따라 <b>지역·경로·전역</b> 세 갈래를 골라 답한다. 벡터 RAG 로는 풀리지 않는 <b>멀티홉</b> 질문이 이 노드의 과녁이다.
+        <span class="fine">산출물 <code>05_module5/c_lab_N6-graphrag/</code></span></p>
+      </section>
+
       <section class="section" id="m5n6-0"><h2>모듈5 노드6 · 시네필 위키 — 지식 그래프와 GraphRAG <span class="dur">16강</span></h2>
         <p class="lead">⚠ <b>이 노드는 «전강 수확이 아니다».</b>
         <span class="hl">아래는 <b>1강(들어가며)·3강(GraphRAG의 등장)·4강(Graph 구조)·16강(마무리)</b> 네 강의 본문과,
@@ -15963,6 +16013,13 @@ router.py:50   CONF_THRESHOLD = 0.5                       # ★바로 아래서 
         커밋 <code>6d46b85</code> · <code>bff2147</code> · 2026-09-18</p>
       </section>
 
+      <section class="section coursehead" id="m5n7">
+        <div class="badge">모듈5 · 노드7<span style="opacity:.7"> · 「에이전트 팀 꾸리기_Agt1」</span></div>
+        <h2>영화 추천 에이전트 만들기 [프로젝트] <span style="font-size:.86rem;opacity:.85">(강의 없음 · 요건과 루브릭만)</span></h2>
+        <p class="lead">노드6 의 GraphRAG 를 «내 분야»로 옮긴다. 내가 고른 것은 <b>「영화가 던지는 물음과 그 물음이 세우는 가치의 대립」</b> — 노드6 과 <b>같은 코퍼스에서 «다른 층»</b>을 뽑았다.
+        <span class="fine">산출물 <code>05_module5/d_hw_N7-graph-agent/</code></span></p>
+      </section>
+
       <section class="section" id="m5n7-proj"><h2>모듈5 노드7 — [실습 프로젝트] 지식 그래프 에이전트 <span class="dur">실측</span></h2>
         <p class="lead">이 노드는 <b>강의가 없다.</b> 프로젝트 요건과 루브릭만 있다.
         그래서 아래는 강의 정리가 아니라 <b>내가 만들면서 틀린 것과 «잰» 것</b>이다.
@@ -16074,6 +16131,13 @@ router.py:50   CONF_THRESHOLD = 0.5                       # ★바로 아래서 
           <tr><td>「축을 가로지르는 충돌」 53건</td><td>★제일 흥미로운데 멀티홉과 무관해 REPORT 회고에만 적었다</td></tr>
         </tbody></table>
       </section>
+      <section class="section coursehead" id="m5n8">
+        <div class="badge">모듈5 · 노드8<span style="opacity:.7"> · 「에이전트 팀 꾸리기_Agt1」</span></div>
+        <h2>딥리서치 에이전트 만들기 — 오케스트레이션 <span style="font-size:.86rem;opacity:.85">(17강)</span></h2>
+        <p class="lead">코디네이터 한 명이 <b>서브에이전트 넷을 동시에 파견</b>해 각자 한 절씩 써 오게 한다. 배우는 것은 역사도 글쓰기도 아니고 <b>「일을 어떻게 나눠 맡길 것인가」</b>다.
+        <span class="fine">산출물 <code>05_module5/c_lab_N8-deepresearch/</code></span></p>
+      </section>
+
       <section class="section" id="m5n8-orch"><h2>모듈5 노드8 — 딥리서치 에이전트 · 오케스트레이션 <span class="dur">17강</span></h2>
         <p class="lead">질문 하나로 <b>코디네이터가 목차를 짜고 서브에이전트 넷을 동시에 파견해</b>
         각자 한 절씩 써 오게 한다. 주제는 한국 근대사지만 <b>배우는 것은 역사도 글쓰기도 아니고
@@ -16202,8 +16266,8 @@ GraphRAG     인덱싱할 때 굳는다     질문이 도착하기 «전»에 �
     var toc=document.querySelector('.toc');
     var pager=document.getElementById('pager');
     var groups=[].slice.call(document.querySelectorAll('.toc .tocgroup'));
-    var names={'adn1':'협업 툴 소개','adn2':'아이펠이란?','adn3':'퀘스트란?','adn4':'코딩 0줄로 여는 첫날','adn5':'Computational Thinking','m1n1':'작업대 마련하기','m1n2':'세 겹 & 게임','m1n3':'프레임워크','m1n4':'백엔드','m1n5':'데이터베이스','m1n6':'AI 에이전트 도구','m1n7':'메인 퀘스트','m2n1':'AI는 어떻게 배우나','m2n2':'트랜스포머 (AI는 어떻게 언어를 배웠나)','m2n3':'LLM과 로컬 실행','m2n4':'AI는 문서와 사진에서 무엇을 꺼낼까?','m2n5':'[프로젝트] 이미지 생성 어플리케이션 만들기','m2n6':'여러 입력을 처리하는 모델들 (멀티모달)','m2n7':'[프로젝트] 폰 영상으로 3D 공간 만들기','m2n8':'AI가 새로 연 곳들','m2n9':'Main Quest — 도구 학습에서 적용 판단으로','m3n1':'거대 언어모델과 프롬프트','m3n2':'지시 설계 — 무엇이라고 시키는가','m3n3':'컨텍스트 엔지니어링과 서비스 설계','m3n4':'도구 설계 — 에이전트에게 무엇을 줄 것인가','m3n5':'Main Quest — RAG 가이드 챗봇 만들고 배포·평가','m4n1':'자동화와 에이전트','m4n2':'[프로젝트] 에이전트 하네스 톺아보기','m4n3':'멀티에이전트는 어떻게 적용할까?','m4n4':'OpenClaw를 사용해보자!','m4n5':'에이전트와 도구 연결','m4n6':'나만의 에이전트 하네스 만들기','m4n7':'[MQ] 사용자와 함께 만드는 카드뉴스 에이전트','m5n1':'LangGraph로 에이전트 워크플로 설계하기','m5n2':'뉴스레터 에이전트 만들기 — 수집부터 발행하기','m5n3':'[프로젝트] 뉴스레터 에이전트 만들기','m5n4':'고객 응대 에이전트 만들기 — 라우팅과 그라운딩'};
-    var order=['adn1','adn2','adn3','adn4','adn5','m1n1','m1n2','m1n3','m1n4','m1n5','m1n6','m1n7','m2n1','m2n2','m2n3','m2n4','m2n5','m2n6','m2n7','m2n8','m2n9','m3n1','m3n2','m3n3','m3n4','m3n5','m4n1','m4n2','m4n3','m4n4','m4n5','m4n6','m4n7','m5n1','m5n2','m5n3','m5n4'];
+    var names={'adn1':'협업 툴 소개','adn2':'아이펠이란?','adn3':'퀘스트란?','adn4':'코딩 0줄로 여는 첫날','adn5':'Computational Thinking','m1n1':'작업대 마련하기','m1n2':'세 겹 & 게임','m1n3':'프레임워크','m1n4':'백엔드','m1n5':'데이터베이스','m1n6':'AI 에이전트 도구','m1n7':'메인 퀘스트','m2n1':'AI는 어떻게 배우나','m2n2':'트랜스포머 (AI는 어떻게 언어를 배웠나)','m2n3':'LLM과 로컬 실행','m2n4':'AI는 문서와 사진에서 무엇을 꺼낼까?','m2n5':'[프로젝트] 이미지 생성 어플리케이션 만들기','m2n6':'여러 입력을 처리하는 모델들 (멀티모달)','m2n7':'[프로젝트] 폰 영상으로 3D 공간 만들기','m2n8':'AI가 새로 연 곳들','m2n9':'Main Quest — 도구 학습에서 적용 판단으로','m3n1':'거대 언어모델과 프롬프트','m3n2':'지시 설계 — 무엇이라고 시키는가','m3n3':'컨텍스트 엔지니어링과 서비스 설계','m3n4':'도구 설계 — 에이전트에게 무엇을 줄 것인가','m3n5':'Main Quest — RAG 가이드 챗봇 만들고 배포·평가','m4n1':'자동화와 에이전트','m4n2':'[프로젝트] 에이전트 하네스 톺아보기','m4n3':'멀티에이전트는 어떻게 적용할까?','m4n4':'OpenClaw를 사용해보자!','m4n5':'에이전트와 도구 연결','m4n6':'나만의 에이전트 하네스 만들기','m4n7':'[MQ] 사용자와 함께 만드는 카드뉴스 에이전트','m5n1':'LangGraph로 에이전트 워크플로 설계하기','m5n2':'뉴스레터 에이전트 만들기 — 수집부터 발행하기','m5n3':'[프로젝트] 뉴스레터 에이전트 만들기','m5n4':'고객 응대 에이전트 만들기 — 라우팅과 그라운딩','m5n5':'고객 응대 에이전트 [프로젝트] — 발견 데스크','m5n6':'영화 추천 에이전트 만들기 — GraphRAG','m5n7':'영화 추천 에이전트 [프로젝트] — 지식 그래프 에이전트','m5n8':'딥리서치 에이전트 만들기 — 오케스트레이션'};
+    var order=['adn1','adn2','adn3','adn4','adn5','m1n1','m1n2','m1n3','m1n4','m1n5','m1n6','m1n7','m2n1','m2n2','m2n3','m2n4','m2n5','m2n6','m2n7','m2n8','m2n9','m3n1','m3n2','m3n3','m3n4','m3n5','m4n1','m4n2','m4n3','m4n4','m4n5','m4n6','m4n7','m5n1','m5n2','m5n3','m5n4','m5n5','m5n6','m5n7','m5n8'];
     var current='m1n1';
     function nodeOf(id){if(!id)return null;var m=id.match(/^(adn\d+|m\dn\d+)(?:-\d+)?$/);return m?m[1]:null;}
     function paintToc(){
