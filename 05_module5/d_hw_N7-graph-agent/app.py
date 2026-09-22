@@ -62,42 +62,70 @@ st.caption("영화가 던지는 **물음**과 그 물음이 세우는 **가치�
            "「같은 딜레마를 다룬 다른 영화」를 찾습니다. "
            "답은 **그래프의 근거만으로** 만들고, 근거가 없으면 **모른다고 답합니다.**")
 
+examples = [it["user_input"] for it in gold()][:14]
+kinds = {it["user_input"]: it["kind"] for it in gold()}
+
+st.session_state.setdefault("q", "")
+st.session_state.setdefault("_pick", "(직접 입력)")
+st.session_state.setdefault("_hop", A.CFG["hops"]["max"])
+
+# ★URL 로 질문·홉을 받는다 — ?q=…&hop=4 · 링크 하나로 결과 화면을 공유한다.
+#   ★사이드바(슬라이더)보다 «먼저» 읽어야 한다. 위젯이 렌더된 «뒤»에는
+#   session_state 를 바꿔도 안 먹는다 — 드롭다운이 죽어 있던 것과 같은 이유다.
+_qp = st.query_params
+if not st.session_state.get("_from_url") and (_qp.get("q") or _qp.get("hop")):
+    if _qp.get("q"):
+        st.session_state["q"] = _qp["q"]
+        # 평가셋 문항이면 드롭다운도 «같이» 맞춘다 — 화면이 「직접 입력」이라고
+        # 말하면 그 질문이 어디서 왔는지 보는 사람이 알 수 없다.
+        if _qp["q"] in examples:
+            st.session_state["_sel"] = _qp["q"]
+            st.session_state["_pick"] = _qp["q"]
+        st.session_state["_auto"] = True
+    if _qp.get("hop"):
+        try:
+            st.session_state["_hop"] = max(1, min(6, int(_qp["hop"])))
+        except (TypeError, ValueError):
+            pass                      # 이상한 값이면 기본값 그대로 간다
+    st.session_state["_from_url"] = True
+
 with st.sidebar:
     st.subheader("그래프")
-    kinds = {}
+    # ★이름을 node_kinds 로 가른다 — 위에서 만든 «평가셋» kinds 를
+    #   같은 이름으로 덮어쓰면 드롭다운 라벨이 [4홉] 대신 [?] 가 된다.
+    node_kinds = {}
     for _, d in G.nodes(data=True):
         k = d.get("kind", "?")
-        kinds[k] = kinds.get(k, 0) + 1
+        node_kinds[k] = node_kinds.get(k, 0) + 1
     for k in ("Film", "Question", "Value"):
-        st.metric(k, kinds.get(k, 0))
+        st.metric(k, node_kinds.get(k, 0))
     st.caption("엣지 %d개" % G.number_of_edges())
 
     st.divider()
     st.subheader("설정")
-    hop = st.slider("최대 홉", 1, 6, A.CFG["hops"]["max"],
+    hop = st.slider("최대 홉", 1, 6, key="_hop",
                     help="4홉이면 「같은 가치 대립을 다룬 다른 영화」까지 닿습니다")
 
     st.divider()
-    st.caption("**허브 회피** — 코퍼스의 %d%% 를 넘는 영화에 닿는 가치는 "
-               "허브로 봅니다. 이 코퍼스에서는 최대가 11%% 라 "
-               "거의 발동하지 않습니다(실측)." % (A.CFG["hub"]["degree_pct"] or 0))
-
-examples = [it["user_input"] for it in gold()][:14]
-kinds = {it["user_input"]: it["kind"] for it in gold()}
+    # ★「회피」가 아니라 «표시»다 — agent.py 는 허브를 hub_used 에 기록만 하고
+    #   경로를 «거르지 않는다». 거르면 인터스텔라 4홉 답(가족애 경유)이 사라진다.
+    # ⛔수치를 손으로 적지 않는다 — 전에 「최대 11%」를 박아 뒀더니
+    #   코퍼스가 56→78건으로 자라는 동안 그 자리에 옛 값이 남았다.
+    _hp = A.CFG["hub"]["degree_pct"] or 0
+    _reach, _nf = A.hub_reach(G)
+    _hubs = sorted((kv for kv in _reach.items()
+                    if 100.0 * kv[1] / max(1, _nf) > _hp), key=lambda kv: -kv[1])
+    st.caption("**허브 표시** — 코퍼스의 %d%% 를 넘는 영화에 닿는 가치를 "
+               "허브로 «표시»합니다. ★거르지는 «않습니다» — 거르면 "
+               "「가족애」처럼 널리 쓰이는 가치를 타는 답이 통째로 사라집니다." % _hp)
+    st.caption("지금 허브 **%d개** — %s"
+               % (len(_hubs),
+                  " · ".join("%s %d편(%.0f%%)" % (v, c, 100.0 * c / max(1, _nf))
+                             for v, c in _hubs[:4]) or "없음"))
 
 # ★streamlit 은 위젯이 렌더된 뒤 value= 변경을 «무시»한다.
 #   그래서 selectbox 를 골라도 text_input 이 안 바뀌었다 (버그였다).
 #   key + session_state 로 «직접» 갱신해야 한다.
-st.session_state.setdefault("q", "")
-st.session_state.setdefault("_pick", "(직접 입력)")
-
-# ★URL 로 질문을 받는다 — ?q=…&hop=4 · 링크 하나로 결과 화면을 공유한다.
-#   위젯이 렌더되기 «전»에 session_state 에 넣어야 한다.
-_qp = st.query_params
-if _qp.get("q") and not st.session_state.get("_from_url"):
-    st.session_state["q"] = _qp["q"]
-    st.session_state["_from_url"] = True
-    st.session_state["_auto"] = True
 
 
 def _on_pick():
