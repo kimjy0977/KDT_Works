@@ -118,6 +118,32 @@ def main():
     rm = io.open(README, encoding="utf-8", errors="replace").read() if os.path.exists(README) else ""
     ws = works()
 
+    # ★2026-09-22 — 개명 후 «리다이렉트 스텁»을 산출물로 세지 않는다.
+    #   스텁 = index.html 하나뿐이고 http-equiv refresh 로 새 주소를 가리킨다.
+    #   이걸 «미등재»로 찍으면 개명할 때마다 가짜 누락이 하나씩 는다.
+    def is_stub(folder):
+        idx = os.path.join(HERE, folder, "index.html")
+        if not os.path.exists(idx):
+            return False
+        # 폴더 안 추적 파일이 index.html 하나뿐인가
+        files = [f for f in subprocess.run(
+            ["git", "-c", "core.quotepath=false", "ls-files", folder],
+            cwd=HERE, capture_output=True, text=True,
+            encoding="utf-8", errors="replace").stdout.splitlines() if f.strip()]
+        if len(files) != 1:
+            return False
+        try:
+            head = io.open(idx, encoding="utf-8", errors="replace").read(1200)
+        except Exception:
+            return False
+        return 'http-equiv="refresh"' in head and "이동했습니다" in head
+
+    stubs = [w for w in ws if is_stub(w)]
+    if stubs:
+        ws = [w for w in ws if w not in stubs]
+        print("  ↪ 리다이렉트 스텁 %d개는 산출물에서 뺀다: %s"
+              % (len(stubs), ", ".join(stubs)))
+
     linked, missing, unsure = [], [], []
     for w in ws:
         kind, where = how_linked(html, w)
