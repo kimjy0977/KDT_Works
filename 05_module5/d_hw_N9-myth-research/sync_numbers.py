@@ -24,6 +24,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 NL = chr(10)
 A0, A1 = "<!-- ABL:START -->", "<!-- ABL:END -->"
 C0, C1 = "<!-- CORPUS:START -->", "<!-- CORPUS:END -->"
+E0, E1 = "<!-- E2E:START -->", "<!-- E2E:END -->"
+R0, R1 = "<!-- RED:START -->", "<!-- RED:END -->"
 
 
 def _j(name):
@@ -125,8 +127,67 @@ def 코퍼스표():
     return NL.join(out)
 
 
+
+def e2e표():
+    """★엔드투엔드 기록 — 「돌아갑니다」가 아니라 «돌린 기록»."""
+    e = _j("output/e2e.json")
+    out = [E0, "", "```"]
+    out.append("%-20s %-26s %7s  %s"
+               % ("단계", "명령", "걸린 시간", "산출물"))
+    for x in e["단계"]:
+        out.append("%s %-18s python %-19s %6.1f초  %s"
+                   % ("OK  " if x["통과"] else "★실패", x["단계"][:18],
+                      x["명령"], x["초"], x["산출물"] or "-"))
+    out.append("")
+    out.append("총 %.1f초 · ★%d / %d 단계 통과%s"
+               % (sum(x["초"] for x in e["단계"]), e["통과"], e["전체"],
+                  "  (코퍼스부터 새로)" if e.get("fresh") else
+                  "  (코퍼스는 캐시 · --fresh 로 전부 새로)"))
+    out.append("```")
+    out.append("")
+    out.append("*`output/e2e.json` 에서 찍어냅니다 — 손으로 옮기지 않습니다.*")
+    out.append("")
+    out.append(E1)
+    return NL.join(out)
+
+
+def red표():
+    """레드팀 결과 — ★돌려서 나온 값만 적는다."""
+    import subprocess
+    import sys as _s
+    r = subprocess.run([_s.executable, os.path.join(HERE, "redteam.py")],
+                       cwd=HERE, capture_output=True, text=True,
+                       encoding="utf-8", errors="replace")
+    t = (r.stdout or "").strip().splitlines()
+    합계 = next((l for l in t if l.startswith("합계")), "(못 읽음)")
+    bad = [l.strip() for l in t if l.strip() and "  " in l
+           and t.index(l) > 0]
+    out = [R0, "", "```"]
+    # BAD/WARN 구간만 옮긴다 — OK 48줄은 파일에 있다
+    쓰기 = False
+    for l in t:
+        if l.startswith("── ★BAD") or l.startswith("── WARN"):
+            쓰기 = True
+            out.append(l)
+            continue
+        if l.startswith("── OK"):
+            쓰기 = False
+        if 쓰기 and l.strip():
+            out.append(l)
+    if len(out) == 3:
+        out.append("★BAD 0 · WARN 0 — 50항목 전부 통과")
+    out.append("")
+    out.append(합계)
+    out.append("```")
+    out.append("")
+    out.append("*`redteam.py` 를 «실제로 돌려» 찍습니다.*")
+    out.append("")
+    out.append(R1)
+    return NL.join(out)
+
 def main():
-    blocks = [(A0, A1, 절제표()), (C0, C1, 코퍼스표())]
+    blocks = [(A0, A1, 절제표()), (C0, C1, 코퍼스표()),
+              (E0, E1, e2e표()), (R0, R1, red표())]
     if "--write" not in sys.argv:
         for _a, _b, t in blocks:
             print(t)
