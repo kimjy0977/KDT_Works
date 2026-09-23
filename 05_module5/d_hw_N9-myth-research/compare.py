@@ -51,6 +51,31 @@ def 잡음범위():
             "평균": sum(pool) / len(pool)}
 
 
+
+def 잡음대차이():
+    """★「잡음이 차이보다 큰가」를 «한 곳»에서 잰다.
+
+    잡음 = 완전히 같은 설정을 여러 번 돌렸을 때 근거율이 흩어진 폭
+    차이 = 장치를 바꾼 조건들의 «평균»이 벌어진 폭 (혼자(solo)는 뺀다 —
+           혼자는 애초에 다른 장치가 아니라 다른 «방식»이다)
+
+    ⛔이 문장을 화면·README·REPORT 에 손으로 적지 않는다.
+      옛 판은 app.py 에 「12번 · 15.0%p · 11.7%p」를 박아 뒀고,
+      회차가 15번으로 늘자 ★그대로 거짓말이 됐다.
+    """
+    p = os.path.join(HERE, "output/ablation.json")
+    if not os.path.exists(p):
+        return None
+    rows = json.load(io.open(p, encoding="utf-8"))["rows"]
+    pool = 같은설정_원시값(rows)
+    평균들 = [r["근거율"] for r in rows if "solo" not in r["조건"]]
+    if len(pool) < 4 or len(평균들) < 2:
+        return None
+    return {"n": len(pool),
+            "잡음": max(pool) - min(pool),
+            "차이": max(평균들) - min(평균들),
+            "조건수": len(평균들)}
+
 def 띠(값, 범위, W=300, H=44, C=None):
     """★잡음 띠 — 이 값이 «읽을 수 있는 차이인가»를 그 자리에서 말한다.
 

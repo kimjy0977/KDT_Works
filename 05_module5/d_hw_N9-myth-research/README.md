@@ -198,6 +198,8 @@ output/runs.jsonl     회차 누적 · reports/ 보고서 · ablation.json · ba
 
 ![데모](docs/demo.png)
 
+★도면·판독까지 담긴 **전체 화면 한 장**은 [REPORT §9](REPORT.md) 에 있습니다.
+
 ```bash
 streamlit run app.py        # 로컬 실행까지가 필수 요건입니다
 ```
