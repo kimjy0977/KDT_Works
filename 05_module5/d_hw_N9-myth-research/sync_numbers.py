@@ -38,7 +38,7 @@ def 절제표():
     n = rows[0].get("회차", 1)
 
     # ★목록은 compare.py 한 곳에만 있다 — 두 곳에 두니 갈렸다
-    from compare import 같은설정, 같은설정_원시값
+    from compare import 같은설정, 같은설정_원시값, 잡음대차이, 잡음대차이
     pool = 같은설정_원시값(rows)
 
     out = [A0, "", "```"]
@@ -56,7 +56,8 @@ def 절제표():
 
     if len(pool) >= 6:
         평균들 = [r["근거율"] for r in rows if "solo" not in r["조건"]]
-        잡음 = max(pool) - min(pool)
+        # ★문장은 compare.잡음대차이() 한 곳에서 — app.py 와 갈리면 안 된다
+        잡음 = 잡음대차이()["잡음"]
         차이 = max(평균들) - min(평균들)
         solo = [r for r in rows if "solo" in r["조건"]]
         sp = [x["근거율"] for x in solo[0].get("_회차별", [])] if solo else []

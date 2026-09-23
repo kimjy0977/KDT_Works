@@ -19,7 +19,7 @@
 
 # ── 토큰 — DESIGN.md §토큰 그대로 ─────────────────────────────────
 C = {
-    "paper": "#FAF9F5",    # 미색. ⛔순백 아님 · 베이지도 아님
+    "paper": "#FCFCFA",    # ★밝게. 미색은 «조작면»으로 옮겼다
     "ink": "#16171A",      # 본문. ⛔순흑 아님
     "ink60": "#5B5D63",
     "ink40": "#8A8C92",
@@ -27,6 +27,13 @@ C = {
     "rule2": "#EFECE5",
     "mark": "#A33420",     # ★강조 «단 하나» — 근거·경보·검토 표시
     "markbg": "#FBEAE5",
+    # ★조작면 — 「여기를 누르면 된다」를 «색»이 아니라 «면»으로 말한다.
+    #   평면 디자인의 elevation 은 그림자가 아니라 면 색 차이로 낸다
+    #   (Atlassian·GitLab). 그림자 0 을 지키면서 위계를 낸다.
+    "field": "#F1EEE6",
+    # ★WCAG 1.4.11 비텍스트 대비 — 조작요소 «경계»는 바탕 대비 3:1.
+    #   redteam.py 가 이 값을 «실제로 잰다».
+    "fieldline": "#9A9281",
 }
 
 # IBM Plex — 엔지니어링 도큐먼트용 서체. ⛔Inter·Geist·Space Grotesk 안 씀
@@ -48,6 +55,7 @@ def css():
 :root{
   --paper:%(paper)s; --ink:%(ink)s; --ink60:%(ink60)s; --ink40:%(ink40)s;
   --rule:%(rule)s; --rule2:%(rule2)s; --mark:%(mark)s; --markbg:%(markbg)s;
+  --field:%(field)s; --fieldline:%(fieldline)s;
 }
 
 /* ⛔그림자 0 · 그라디언트 0 · 글로우 0 — 도면에는 없다 */
@@ -144,9 +152,45 @@ div[data-testid="stExpander"]{border:0;border-top:1px solid var(--rule2);
 div[data-testid="stExpander"] summary{font-size:12.5px;color:var(--ink60);
   padding-left:0}
 div[data-testid="stExpander"] summary:hover{color:var(--mark)}
-[data-baseweb="select"]>div{border-radius:0;border-color:var(--rule);
-  background:transparent}
+/* ★누를 수 있는 것은 «면»으로 가른다 ─────────────────────────
+   전에는 글·라벨·입력칸이 모두 같은 바탕에 같은 색이라
+   「어디를 만지면 되나」가 안 보였다(주영님 지적).
+   ⛔색을 늘려 풀지 않는다 — 면과 «경계 대비»로 푼다. */
+[data-baseweb="select"]>div,
+.stTextInput input,
+.stNumberInput input{
+  border-radius:0!important;background:var(--field)!important;
+  border:1px solid var(--fieldline)!important;
+  font-family:'IBM Plex Sans KR',sans-serif}
+[data-baseweb="select"]>div:hover,
+.stTextInput input:hover{border-color:var(--ink)!important}
+[data-baseweb="select"]>div:focus-within,
+.stTextInput input:focus{border-color:var(--mark)!important;
+  outline:2px solid var(--mark);outline-offset:1px}
+[data-baseweb="popover"] li{font-family:'IBM Plex Sans KR',sans-serif}
+
+/* 라디오·체크박스 — 글자가 아니라 «고르는 것»으로 보이게 */
+.stRadio [role="radiogroup"],
+div[data-testid="stCheckbox"]{background:var(--field);
+  border:1px solid var(--fieldline);padding:9px 14px}
+.stRadio [role="radiogroup"]{display:flex;gap:20px;flex-wrap:wrap}
+/* ★폭을 칸에 맞춘다 — 글자 길이대로 두면 네 칸이 들쭉날쭉해
+   「같은 종류」로 안 읽힌다. 장치 넷은 대등한 넷이다. */
+div[data-testid="stCheckbox"]{margin-bottom:8px;width:100%%}
+div[data-testid="stCheckbox"]>label{width:100%%}
+div[data-testid="stCheckbox"]:hover,
+.stRadio [role="radiogroup"]:hover{border-color:var(--ink)}
+.stRadio label,div[data-testid="stCheckbox"] label{cursor:pointer}
+
+/* 슬라이더 — 홈이 파인 것처럼. ⛔그림자가 아니라 면 색이다 */
 .stSlider [data-baseweb="slider"] div[role="slider"]{background:var(--ink)}
+div[data-testid="stSliderTickBarMin"],
+div[data-testid="stSliderTickBarMax"]{color:var(--ink40)}
+
+/* ★위젯 «라벨»은 본문과 다른 층이다 — 굵기·크기로 가른다 */
+label[data-testid="stWidgetLabel"] p{font-size:12px!important;
+  font-weight:600!important;color:var(--ink60)!important;
+  letter-spacing:.01em}
 hr{border-color:var(--rule)}
 code{font-family:'IBM Plex Mono',monospace;background:transparent;
   color:var(--ink60);font-size:.9em;padding:0}
@@ -168,6 +212,17 @@ code{font-family:'IBM Plex Mono',monospace;background:transparent;
 .bar .lbl{font-size:16px;font-weight:600;flex:none}
 .bar .hint{font-size:12.5px;color:var(--ink60);line-height:1.65;max-width:76ch}
 .bar .hint b{color:var(--ink);font-weight:500}
+
+/* ★띠 «안»의 소제목 — 한 단계가 두 조작으로 나뉠 때.
+   ⚠이름은 «.pair». 처음에 .sub 로 지었다가 괘선()·표제가 이미 쓰던 이름과
+     부딪혀, 안내문의 <b> 가 전부 flex 항목이 되어 ★줄줄이 끊겼다.
+     전역 클래스를 새로 만들 땐 «그 이름이 이미 있는지» 먼저 센다.
+   ⛔번호를 또 달지 않는다. 번호는 단계의 것이지 조작의 것이 아니다. */
+.pair{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  margin:22px 0 8px;padding-left:32px}
+.pair>b{font-size:13.5px;font-weight:600;flex:none}
+.pair span{font-size:12.5px;color:var(--ink60);line-height:1.65;max-width:72ch}
+.pair span b{color:var(--ink);font-weight:500}
 
 /* ── 조건 칸 — ⛔글 덩어리 대신 «칸» ─────────────────────────── */
 .chk{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));

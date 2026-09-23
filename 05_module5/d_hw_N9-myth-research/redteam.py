@@ -254,6 +254,48 @@ for f in sorted(x for x in os.listdir(HERE) if x.endswith(".py")):
         친다("문법 %s" % f, BAD, str(e)[:60])
 
 
+
+# ── ⑪ ★«그려 본다» — 파싱은 실행이 아니다 ─────────────────────
+#   ui.css() 는 % 포매팅을 쓴다. CSS 에 맨 % 를 적으면 ast.parse 는
+#   통과하지만 «부르는 순간» TypeError 로 죽는다. 실제로 그랬다.
+try:
+    import ui as _ui
+    _css = _ui.css()
+    assert len(_css) > 2000 and "--paper" in _css
+    친다("ui.css() 실제 호출", OK, "%d자 · 토큰 꽂힘" % len(_css))
+except Exception as e:
+    친다("ui.css() 실제 호출", BAD, "%s: %s" % (type(e).__name__, str(e)[:44]))
+
+#   ★전역 클래스 이름이 겹치면 «먼 곳»이 조용히 망가진다.
+#   .sub 를 새로 지었다가 괘선()·표제가 쓰던 것과 부딪혀
+#   안내문의 <b> 가 전부 flex 항목이 되어 줄줄이 끊겼다.
+try:
+    import re as _re
+    _본문 = _ui.css()
+    _본문 = _본문[:_본문.index("@media (prefers-reduced-motion")]
+    _뿌리 = _re.findall(r"^\.([a-z][a-z0-9-]*)\{", _본문, _re.M)
+    _겹침 = sorted({c for c in _뿌리 if _뿌리.count(c) > 1})
+    친다("전역 클래스 이름 겹침", BAD if _겹침 else OK,
+       ("★" + " · ".join(_겹침)) if _겹침 else "겹치는 최상위 클래스 없음")
+except Exception as e:
+    친다("전역 클래스 이름 겹침", WARN, str(e)[:50])
+
+#   ★WCAG 1.4.11 — 조작요소 «경계»는 바탕 대비 3:1.
+#   「뭘 눌러야 하는지 모르겠다」를 «잴 수 있는 것»으로 바꾼 자리다.
+try:
+    def _L(h):
+        h = h.lstrip("#")
+        v = [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+        v = [c / 12.92 if c <= .03928 else ((c + .055) / 1.055) ** 2.4
+             for c in v]
+        return .2126 * v[0] + .7152 * v[1] + .0722 * v[2]
+    _x = sorted([_L(_ui.C["fieldline"]), _L(_ui.C["paper"])], reverse=True)
+    _r = (_x[0] + .05) / (_x[1] + .05)
+    친다("조작요소 경계 대비 (WCAG 1.4.11)", OK if _r >= 3.0 else BAD,
+       "%.2f:1 (요구 3.0)" % _r)
+except Exception as e:
+    친다("조작요소 경계 대비 (WCAG 1.4.11)", WARN, str(e)[:50])
+
 # ── 출력 ──────────────────────────────────────────────────────
 def main():
     print("═══ 레드팀 — 「내가 채점자라면 어디를 칠까」 ═══\n")
