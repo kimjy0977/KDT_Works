@@ -296,6 +296,80 @@ try:
 except Exception as e:
     친다("조작요소 경계 대비 (WCAG 1.4.11)", WARN, str(e)[:50])
 
+
+# ── ⑫ ★제출물의 «정리» — 채점자가 폴더를 열면 무엇이 보이나 ────
+#   전부 「목록이 자란다」의 같은 얼굴이다. 줄을 더하지 말고 «센다».
+_RM = rd("README.md")
+try:
+    _블록 = _RM[_RM.index("## 폴더"):]
+    _블록 = _블록[:_블록.index("```", _블록.index("```") + 3)]
+except ValueError:
+    _블록 = ""
+_빠짐 = sorted(f for f in os.listdir(HERE)
+             if f.endswith(".py") and f not in _블록)
+친다("README 폴더 목록 = 실제 파일", BAD if _빠짐 else OK,
+   ("★빠짐 " + " · ".join(_빠짐)) if _빠짐
+   else "%d개 전부 적혀 있다" % len([f for f in os.listdir(HERE)
+                               if f.endswith(".py")]))
+
+#   ★고아 — 만들어는 놨는데 아무 문서도 안 가리키는 것.
+#   채점자에겐 «왜 있는지 모를 파일»이다. 지우거나, 설명하거나 둘 중 하나.
+#   ⛔어느 문서가 «세는지»를 열거하지 않는다 — 문서는 는다(§F-8-D 1단계).
+#   실제로 README·REPORT·DESIGN 만 셌더니 docs/CHECK.md 가 가리키는
+#   hero.jpg 를 ★고아라고 잘못 불렀다. ⇒ .md 는 «전부» 센다.
+_글 = ""
+for _r, _ds, _fs in os.walk(HERE):
+    if ".git" in _r or "__pycache__" in _r:
+        continue
+    for _f in _fs:
+        if _f.endswith(".md"):
+            _글 += io.open(os.path.join(_r, _f), encoding="utf-8",
+                          errors="ignore").read()
+for _d in ("docs", "output"):
+    _p = os.path.join(HERE, _d)
+    if os.path.exists(_d):
+        _안내 = os.path.join(_p, "README.md")
+        _글2 = _글 + (rd("%s/README.md" % _d)
+                    if os.path.exists(_안내) else "")
+        _고아 = sorted(f for f in os.listdir(_p)
+                     if os.path.isfile(os.path.join(_p, f))
+                     and f != "README.md" and f not in _글2)
+        친다("%s/ 안 가리키는 파일" % _d, BAD if _고아 else OK,
+           ("★" + " · ".join(_고아[:5])) if _고아 else "전부 문서가 가리킨다")
+
+#   ★clone 하면 깨지는 경로 — 설정이 «이 폴더 밖»을 가리키면 안 된다.
+#   실제로 launch.json 이 이웃 프로젝트의 .venv 를 가리키고 있었다.
+_밖 = []
+for _f in (".claude/launch.json", ".streamlit/config.toml"):
+    _fp = os.path.join(HERE, _f)
+    if os.path.exists(_fp) and ".." in rd(_f):
+        _밖.append(_f)
+친다("설정이 폴더 «밖»을 가리키나", BAD if _밖 else OK,
+   ("★" + " · ".join(_밖)) if _밖 else "전부 폴더 안")
+
+
+#   ⛔★손으로 적은 «항목 수» — 이 프로젝트에서 다섯 번 샌 바로 그 실수.
+#   README 에 「(59항목)」이 박혀 있었고 실제로는 69개였다.
+#   수는 «돌리면» 나온다. 문서에 박지 않는다.
+_박힘 = []
+for _f in ("README.md", "REPORT.md", "DESIGN.md"):
+    if not os.path.exists(os.path.join(HERE, _f)):
+        continue
+    for _m in re.finditer(r"(\d+)\s*항목", rd(_f)):
+        # 찍어내는 블록(<!-- RED:START --> 안) 은 예외다 — 거기가 «출처»다
+        _본 = rd(_f)
+        _앞 = _본[:_m.start()]
+        if _앞.count("<!-- RED:START -->") > _앞.count("<!-- RED:END -->"):
+            continue
+        # ⛔헛경고를 만들지 않는다 — 「루브릭 3항목」은 검사 수가 아니다.
+        #   ★절반이 헛경고면 사람이 경고를 «안 읽는다».
+        _창 = _본[max(0, _m.start() - 40):_m.end() + 20]
+        if not re.search(r"레드팀|redteam|합계|검사|점검", _창):
+            continue
+        _박힘.append("%s:%s항목" % (_f, _m.group(1)))
+친다("문서에 «손으로» 박은 항목 수", BAD if _박힘 else OK,
+   ("★" + " · ".join(_박힘)) if _박힘 else "없다 — 수는 돌리면 찍힌다")
+
 # ── 출력 ──────────────────────────────────────────────────────
 def main():
     print("═══ 레드팀 — 「내가 채점자라면 어디를 칠까」 ═══\n")

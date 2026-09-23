@@ -7,3 +7,7 @@ data/_cache.json
 output/_*.log
 _remote_files.txt
 _local_files.txt
+# ★노드가 열리기 «전»의 개인 준비 메모 — 제출물이 아니다.
+#   문서 스스로 「이 폴더는 레포에 안 올린 준비물」이라 적고 있었는데
+#   올라가 있었다. 빼도 동기화가 «도로» 넣어서, 여기에 박는다.
+NOTES.md

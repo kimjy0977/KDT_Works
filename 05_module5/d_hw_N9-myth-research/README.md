@@ -30,8 +30,11 @@ streamlit run app.py          # ★데모 — 누가 뭘 읽고 뭘 썼나
 
 python e2e.py                 # ★전 과정을 «실제로» 돌려 기록을 남긴다
 python e2e.py --fresh         #   코퍼스를 지우고 위키부터 (키 불필요)
-python redteam.py             # ★제출물 자체를 친다 (59항목)
+python redteam.py             # ★제출물 자체를 친다 (항목 수는 «돌리면» 찍힙니다)
 python axis_test.py           # ★축이 실제로 갈리는지 «목차»로 잰다
+python make_compare.py        # ★세 조건의 보고서를 나란히 — 사람이 읽을 것
+python sync_numbers.py --write   # ★README·REPORT 의 표를 «찍어낸다»
+python capture_demo.py        # 데모 캡처 (app 을 띄워 둔 채)
 ```
 
 ---
@@ -178,18 +181,46 @@ B 문화권 축  메소포타미아 · 그리스 · 이집트 · 북유럽
 ## 폴더
 
 ```
+■ 값·자료 — ★여기 말고 다른 데서 «정하지» 않는다
+config.json           ★도메인 값의 «유일한» 출처 (절수·예산·역할명단·축 근거)
 data/corpus.json      문서 42건 + 내부 링크
 data/questions.json   질문 + ★「왜 나눌 만한가」 + ⛔나눌 필요 «없는» 반례
-config.json           ★도메인 값의 «유일한» 출처 (절수·예산·역할명단·축 근거)
+
+■ 파이프라인
 graph.py              6노드 LangGraph · 리듀서 · Send 팬아웃 · 이중 종료
-metrics.py            정답표 없는 계기판 + ★지표사전
+metrics.py            정답표 없는 계기판 + ★지표사전 (판정은 여기 한 곳)
+run.py                질문 하나 → 보고서 + 계기판
+
+■ 실험 — 「정말 나눠서 나아졌나」
 baseline.py           ★혼자 하는 대조군 + 공정성 점검
 ablation.py           절제 실험 (--axis 로 ★축 비교 · --runs N)
-sync_numbers.py       ★표를 «찍어낸다» — 손으로 옮기지 않는다
+axis_test.py          ★목차가 «정말» 그 축으로 갈렸나 — 호출 없이 겹침만 잰다
+make_compare.py       세 조건의 보고서를 나란히 — ★사람이 읽을 것
+compare.py            회차 비교 + 잡음 띠 (★「같은 설정」 목록의 유일한 출처)
+
+■ 화면
 app.py                데모 — ★절마다 누가 뭘 읽고 뭘 썼나
+ui.py                 디자인 토큰 + CSS — ★결정의 출처는 DESIGN.md
+mapviz.py             ★배정 도면 · 판독 · 표제 도면 (SVG 를 직접 그린다)
+capture_demo.py       ★캡처를 «사람 손 없이» — 개인정보가 안 찍히고, 다시 찍게 된다
+
+■ 수집
 fetch_corpus.py       위키 수집 (429 를 «묶기»로 푼 기록이 주석에)
+fetch_hero.py         ★표제 그림 — 라이선스를 «확인하고» 받는다 (못 하면 안 받는다)
 probe_titles.py       ★제목이 실재하는지 «찾아본다» (추측으로 안 메운다)
-output/runs.jsonl     회차 누적 · reports/ 보고서 · ablation.json · baseline.jsonl
+
+■ 검사 — ★제출물 «자체»를 친다
+e2e.py                전 과정 7단계를 «실제로» 돌려 기록을 남긴다
+redteam.py            「내가 채점자라면 어디를 칠까」 — ★항목 수는 돌리면 찍힌다
+sync_numbers.py       ★표를 «찍어낸다» — 두 문서에 손으로 옮기지 않는다
+
+■ 문서
+README.md             이 파일 — 무엇이고 · 어떻게 돌리고 · 어디를 보면 되나
+REPORT.md             ★왜 그렇게 했나 · 무엇을 쟀나 · 뭐가 틀렸나 · 화면 캡처
+DESIGN.md             ★디자인 결정의 유일한 출처 (ui.py 는 이것을 옮긴 것)
+docs/CHECK.md         받은 지시 18건 · 상태 · ★어디서 확인하나
+docs/                 캡처 · 표제 그림 + 출처(hero.json)
+output/               ★무엇이 무엇인지 → output/README.md
 ```
 
 ---
