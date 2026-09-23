@@ -50,7 +50,7 @@
 - **노드3 · 프로젝트** — [「이번 주의 발견」 뉴스레터 에이전트](05_module5/d_hw_N3-newsletter/) — 우주·고고학·고생물 14소스 → 선별·요약·**3겹 검수** → Discord 발행(LangGraph · 키 없이 로컬 Ollama)
 
 ### 해커톤
-- [순순팩토리](90_hackathon/) — 팀 프로젝트
+- **기업연계 · 팀 《순순히 따라와라》** — [누가 내 케이크 먹었어?](90_hackathon/01_soonsoon-social-deduction/) — 셰어하우스 거주자 5명 중 범인을 찾는 **AI 소셜 추리 게임**. 주식회사 순순팩토리 기업연계 과제 (SPUM Engine · SAM LLM)
 
 ### 도메인개발 (백엔드 자가연습)
 - [opening-trainer](99_domain-dev/opening-trainer/) · [정적 UI ↗](https://kimjy0977.github.io/KDT_Works/99_domain-dev/opening-trainer/static/) — 체스 오프닝 트레이너(FastAPI + JSON). 정적 UI는 공개, API는 로컬 실행.
