@@ -2,8 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "_설명": "README 대로 .venv 를 만든 뒤 쓴다 — python -m venv .venv",
       "name": "myth-demo",
-      "runtimeExecutable": "../c_lab_N6-graphrag/.venv/Scripts/python.exe",
+      "runtimeExecutable": ".venv/Scripts/python.exe",
       "runtimeArgs": ["-m", "streamlit", "run", "app.py",
                       "--server.port", "8511",
                       "--server.headless", "true"],
