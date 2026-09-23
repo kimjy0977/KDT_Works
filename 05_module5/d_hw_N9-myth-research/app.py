@@ -74,66 +74,135 @@ def 괘선(제목, 설명="", 캡션=""):
 # ══ 머리 — ⛔가운데 정렬·배지 없음. 수치를 «문장 안»에 ═══════════════
 co = CFG["_코퍼스"]
 H('<div class="hd"><h1>딥리서처 · 세계 신화</h1>'
-  '<div class="meta">코디네이터 한 명이 조사관 <b>넷</b>을 동시에 파견해 '
-  '각자 한 절씩 써 옵니다. 원문은 조사관 안에서 끝나고 위로는 원고만 올라옵니다. '
-  '코퍼스는 위키백과 <span class="num">%d</span>건 '
-  '<span class="num">%s</span>자로, 모델의 창 128k 토큰의 '
-  '<b>%s</b>라 전부 넣는 길이 없습니다.</div></div>'
+  '<div class="meta">한 번에 못 읽는 분량을 <b>넷이 나눠 읽고 한 편으로 합치는</b> '
+  '시스템입니다. 코퍼스는 위키백과 <span class="num">%d</span>건 '
+  '<span class="num">%s</span>자로 모델의 창 128k 토큰의 <b>%s</b>라, '
+  '전부 넣는 길이 아예 없습니다.</div></div>'
   % (co["문서"], format(co["글자"], ","), co["창대비"].split()[0]))
 
-# ══ 질문 + 설정 — 한 줄에 붙인다 ══════════════════════════════════
+# ★표제 도면 — ⛔장식 이미지가 아니라 «코퍼스 그 자체».
+#   막대 하나가 실제 문서이고 길이가 실제 글자 수다.
+H('<div class="hero">%s</div>' % mapviz.표제(agent.DOCS, agent.설정["절수"]))
+
+# ★사용법 — 처음 온 사람은 아래 칸들이 «왜» 있는지 모른다
+H('<div class="how">'
+  '<div class="s"><div class="n">1</div><div class="t">질문을 고른다</div>'
+  '<div class="d">한 건으로 답이 나오는 질문은 나눌 이유가 없습니다. '
+  '아래 네 칸이 «이 질문이 나눌 만한지»를 검사한 결과입니다.</div></div>'
+  '<div class="s"><div class="n">2</div><div class="t">축과 규모를 정한다</div>'
+  '<div class="d">절을 <b>무엇을 기준으로</b> 나눌지가 이 프로젝트의 첫 결정입니다. '
+  '장치를 꺼 보면 무엇이 먼저 무너지는지 보입니다.</div></div>'
+  '<div class="s"><div class="n">3</div><div class="t">도면을 읽는다</div>'
+  '<div class="d">겹친 선은 중복, 몰린 선은 편중, 흐린 선은 읽고 안 쓴 것입니다. '
+  '두 번 돌리면 회차를 <b>나란히</b> 견줄 수 있습니다.</div></div>'
+  '</div>')
+
+# ══ 조작부 — ⛔접어 두지 않는다. 핵심 조작이 «보여야» 한다 ═══════
 예시 = [QS["주질문"]["text"]] + [q["text"] for q in QS["보조질문"]]
 _uq = st.session_state.get("_url_q")
+
+H('<div class="bar"><div class="lbl">질문</div>'
+  '<div class="hint">무엇을 조사할지 고릅니다. 직접 적어도 됩니다. '
+  '고르면 아래에 <b>이 질문이 나눌 만한지</b>가 네 칸으로 검사됩니다.</div></div>')
 c1, c2 = st.columns([5, 1])
 with c1:
-    고른질문 = st.selectbox("질문", 예시 + ["(직접 입력)"],
+    고른질문 = st.selectbox("질문", 예시 + ["직접 입력"],
                         index=예시.index(_uq) if _uq in 예시 else 0,
                         label_visibility="collapsed")
-    q = (st.text_input("직접 입력", "", placeholder="물어볼 것",
+    q = (st.text_input("질문", "", placeholder="물어볼 것을 적으세요",
                        label_visibility="collapsed")
-         if 고른질문 == "(직접 입력)" else 고른질문)
+         if 고른질문 == "직접 입력" else 고른질문)
 with c2:
     돌린다 = st.button("조사", type="primary", use_container_width=True)
 
-with st.expander("설정 — 절수 · 깊이 · 장치 끄기 · 절을 나누는 축"):
-    s1, s2, s3 = st.columns([1, 1, 1.4])
-    with s1:
-        절수 = st.slider("절수 (폭)", 2, 6, agent.설정["절수"])
-        예산 = st.slider("절당 읽기 예산 (깊이)", 1, 6, agent.설정["예산"])
-        st.caption("읽기 총량 %d건 = 절수 × 예산. 대조군도 같은 값을 받습니다."
-                   % (절수 * 예산))
-    with s2:
-        배정 = st.checkbox("배정 — 시작 문서를 정해 준다", agent.설정["배정"])
-        구역 = st.checkbox("구역 — 남의 구역을 알려 준다", agent.설정["구역"])
-        역할 = st.checkbox("역할 — 담당 이름을 준다", agent.설정["역할"])
-        재위임 = st.checkbox("재위임 — 부족한 절만 다시", agent.설정["재위임"])
-    with s3:
-        _축 = ["주제 — 창조·홍수·저승·영웅",
-              "문화권 — 메소포타미아·그리스·이집트·북유럽"]
-        축 = st.radio("절을 나누는 축", _축,
-                     index=1 if str(st.session_state.get("_url_axis", ""))
-                     .startswith("문화권") else 0)
-        st.caption("목차의 축이 곧 분업입니다. 다만 REPORT §6 에 적었듯 "
-                   "역할만 바꿔서는 축이 안 바뀝니다 — 목차를 정하는 것은 "
-                   "역할이 아니라 질문이라서요.")
+# ── 이 질문이 왜 나눌 만한가 — ★네 조건을 «칸»으로 ────────────────
+_docs, _links = co["문서"], co["내부링크"]
+_조건 = [("한 질문에 여러 자료가 필요한가", "네 축이 각각 여러 문화권을 요구"),
+       ("자료 전체가 모델 창에 안 들어가는가", "%s자 = 창의 %s"
+        % (format(co["글자"], ","), co["창대비"].split()[0])),
+       ("자료끼리 서로 가리키는가", "내부 링크 %d개" % _links),
+       ("산출물이 장문인가", "네 절 + 머리말·맺음말")]
+H('<div class="chk">' + "".join(
+    '<div class="c"><div class="q">%s</div><div class="a">%s</div></div>'
+    % (a, b) for a, b in _조건) + '</div>')
+H('<div class="note">요건이 요구한 「주제 고르기」 4조건입니다. '
+  '나눌 필요 <b>없는</b> 질문도 적어 뒀습니다 — %s. '
+  '이런 건 혼자가 더 싸게 이깁니다.</div>'
+  % " · ".join("«%s»" % x["text"]
+               for x in QS["⛔나눌 필요 없음 — 대조용 반례"]))
 
-with st.expander("이 질문이 왜 나눌 만한가 — 요건이 요구한 근거"):
-    if 고른질문 == QS["주질문"]["text"]:
-        for l in QS["주질문"]["왜 나눌 만한가"]:
-            st.markdown(l or "&nbsp;")
-        st.caption("나눌 필요 없는 질문도 적어 뒀습니다 — "
-                   + " · ".join(x["text"]
-                                for x in QS["⛔나눌 필요 없음 — 대조용 반례"])
-                   + ". 이런 건 혼자가 더 싸게 이깁니다. 그 경계를 아는 것이 "
-                     "「언제 팀을 꾸리나」의 답입니다.")
+# ── ★축 — 이 프로젝트의 핵심 조작. 맨 앞에 둔다 ──────────────────
+H('<div class="bar"><div class="lbl">절을 나누는 축</div>'
+  '<div class="hint">목차의 축이 곧 분업이고, 분업이 곧 결과물의 모양입니다. '
+  '코디에게 <b>이 축으로 나눠라</b>를 직접 말합니다.</div></div>')
+a1, a2 = st.columns([1.1, 2])
+with a1:
+    _축들 = ["주제", "문화권", "직접 입력"]
+    축이름 = st.radio("축", _축들, horizontal=True, label_visibility="collapsed",
+                   index=1 if str(st.session_state.get("_url_axis", ""))
+                   .startswith("문화권") else 0)
+with a2:
+    if 축이름 == "직접 입력":
+        _nm = st.text_input("축 이름", "", placeholder="예: 시대 / 전파 경로 / 학설",
+                            label_visibility="collapsed")
+        _ex = st.text_input("절 예시", "",
+                            placeholder="쉼표로 — 예: 청동기, 철기, 고전기, 중세",
+                            label_visibility="collapsed")
+        축지시 = {"이름": _nm, "예": _ex} if _nm and _ex else None
+        if not 축지시:
+            st.caption("★축 이름과 절 예시를 둘 다 적어야 코디에게 전달됩니다. "
+                       "비우면 코디가 스스로 정합니다.")
     else:
-        st.caption("data/questions.json 을 보세요.")
+        축지시 = CFG["_축지시"][축이름]
+        # ⚠st.caption 은 마크다운을 쓰는데 «축 이름»에 ** 를 붙이면
+        #   이름 자체에 별이 섞여 보였다. ★내용이 강조 문법과 겹치면 안 쓴다.
+        st.caption("코디에게 보낼 지시 — 「%s 를 기준으로 절을 나누세요. "
+                   "예: %s」" % (축지시["이름"], 축지시["예"]))
+
+# ── 설정 — ⛔접지 않는다. 지금 값이 «보여야» 한다 ─────────────────
+H('<div class="bar"><div class="lbl">규모와 장치</div>'
+  '<div class="hint">몇 명이 몇 건씩 읽을지, 그리고 네 장치를 켤지 끌지. '
+  '<b>끄고 다시 돌리면</b> 그 장치가 실제로 값을 하는지 보입니다 — '
+  '다만 잡음이 커서 한 번으로는 판단할 수 없습니다.</div></div>')
+b1, b2, b3 = st.columns([1, 1, 1.6])
+with b1:
+    절수 = st.slider("절수 — 몇 명이 나눠 맡나", 2, 6, agent.설정["절수"])
+with b2:
+    예산 = st.slider("깊이 — 한 명이 몇 건 읽나", 1, 6, agent.설정["예산"])
+with b3:
+    H('<div class="mini">장치 끄기 — 끄면 <b>무엇이 먼저 무너지는지</b> 보세요</div>')
+    d1, d2 = st.columns(2)
+    with d1:
+        배정 = st.checkbox("배정", agent.설정["배정"],
+                         help="코디가 시작 문서를 정해 준다. 끄면 편중·읽고안쓴이 뛸 것")
+        역할 = st.checkbox("역할", agent.설정["역할"],
+                         help="담당 이름을 준다. 끄면 절이 비슷해질 것")
+    with d2:
+        구역 = st.checkbox("구역", agent.설정["구역"],
+                         help="남의 구역을 알려 준다. 끄면 중복률이 먼저 뛸 것")
+        재위임 = st.checkbox("재위임", agent.설정["재위임"],
+                          help="부족한 절만 다시. 끄면 근거율이 내려갈 것")
+
+_끈것 = [n for n, v in (("배정", 배정), ("구역", 구역), ("역할", 역할),
+                     ("재위임", 재위임)) if not v]
+H('<div class="sum">읽기 총량 <b class="num">%d건</b> '
+  '= 절수 <span class="num">%d</span> × 깊이 <span class="num">%d</span>. '
+  '대조군도 같은 값을 받습니다. 장치는 <b>%s</b>. 축은 <b>%s</b>. '
+  '1회 약 <span class="num">$%.3f</span> · <span class="num">%d</span>초쯤.</div>'
+  % (절수 * 예산, 절수, 예산,
+     "전부 켬" if not _끈것 else " · ".join("%s 끔" % x for x in _끈것),
+     (축지시["이름"] if 축지시 else "코디가 정함"),
+     0.003 * 절수 * 예산 / 12 * 4, 5 * 절수))
 
 if 돌린다 or st.session_state.pop("_auto", False):
     agent.설정.update({"절수": 절수, "예산": 예산, "배정": 배정,
                       "구역": 구역, "역할": 역할, "재위임": 재위임})
-    agent.ROSTER = (agent.ROSTER_ALT if 축.startswith("문화권")
+    # ★축 — 역할 «명단»만 바꿔서는 축이 안 바뀐다(실측). 프롬프트도 바꾼다.
+    agent.ROSTER = (agent.ROSTER_ALT if 축이름 == "문화권"
                     else CFG["_역할명단"]["★주제 축(A) — 기본"])
+    agent.설정.pop("축지시", None)
+    if 축지시:
+        agent.설정["축지시"] = 축지시
     # ★C — 과정을 보인다. spinner 하나로 20초는 «어디쯤인지» 모른다.
     with st.status("조사 중", expanded=True) as 상태:
         st.write("기획 — 카드 %d건을 보고 목차를 짭니다" % len(agent.DOCS))
@@ -147,7 +216,7 @@ if 돌린다 or st.session_state.pop("_auto", False):
                   state="complete", expanded=False)
     _st["sec"] = round(time.time() - t0, 1)
     _st["설정"] = dict(agent.설정)
-    _st["축"] = "문화권" if 축.startswith("문화권") else "주제"
+    _st["축"] = (축지시["이름"] if 축지시 else "코디가 정함")
     # ★A — 회차를 «쌓는다». 전에는 한 칸이라 다시 돌리면 앞이 덮였다.
     st.session_state.setdefault("회차", []).append(_st)
     st.session_state["st"] = _st
