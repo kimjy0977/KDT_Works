@@ -4,8 +4,8 @@
 [theme]
 base = "light"                        # ⛔다크모드 안 씀 (AI 표식 #5)
 primaryColor = "#A33420"              # 강조색 «단 하나» — 근거·경보
-backgroundColor = "#F4F2ED"           # 종이. ⛔순백 아님
-secondaryBackgroundColor = "#EBE8E0"
+backgroundColor = "#FAF9F5"           # 미색. ⛔순백도 베이지도 아님
+secondaryBackgroundColor = "#EFECE5"
 textColor = "#16171A"                 # ⛔순흑 아님
 font = "sans serif"
 

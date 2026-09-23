@@ -223,3 +223,64 @@ def 판독(docs, sections, 실인용맵, m):
                      "갑니다. 그 문서로 선이 모이는 것이 보입니다."
                      % (m["편중"] * 100)))
     return 줄
+
+
+def 표제(docs, n절=4, W=1180, H=104):
+    """★표제 도면 — 장식 이미지가 아니라 «코퍼스 그 자체»를 그린다.
+
+    주영님 지적 —「헤드에 임팩트 있게. 무슨 주제인지 직관적으로 보이게」
+      ⛔스톡 이미지·그라디언트 배너를 깔지 않는다. 그건 AI 표식이고,
+        무엇보다 ★이 화면과 아무 상관이 없다.
+      ✅문서 42건이 넷으로 갈렸다가 한 편으로 모이는 그림을 그린다.
+        막대 하나하나가 «실제 문서»이고 길이가 «실제 글자 수»다.
+        ⇒ 보는 순간 「많은 자료를 나눠 읽어 한 편으로 만든다」가 읽힌다.
+    """
+    제목들 = sorted(docs, key=lambda t: -len(docs[t]))
+    n = len(제목들)
+    최대 = math.log(max(len(v) for v in docs.values()) + 1)
+    L, M, R = 8, 470, 980
+    o = ['<svg viewBox="0 0 %d %d" width="100%%" '
+         'xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'
+         '문서 %d건이 조사관 %d명에게 나뉘었다가 보고서 한 편으로 모인다">'
+         % (W, H, n, n절)]
+
+    # 왼쪽 — 문서 42건을 «격자»로. 실제 길이를 쓴다
+    col, row = 6, math.ceil(n / 6)
+    for k, t in enumerate(제목들):
+        cx = L + (k % col) * 74
+        cy = 22 + (k // col) * ((H - 44) / max(1, row - 1))
+        w = 10 + (math.log(len(docs[t]) + 1) / 최대) * 52
+        o.append('<rect x="%.0f" y="%.1f" width="%.0f" height="3" fill="%s" '
+                 'opacity=".55"><title>%s · %s자</title></rect>'
+                 % (cx, cy, w, C["ink"], _e(t), format(len(docs[t]), ",")))
+
+    # 가운데 — 넷으로 갈린다
+    for i in range(n절):
+        y = 22 + i * ((H - 44) / max(1, n절 - 1))
+        o.append('<path d="M%d 52 C%d 52,%d %.1f,%d %.1f" fill="none" '
+                 'stroke="%s" stroke-width="1"%s opacity=".55"/>'
+                 % (L + 440, M - 40, M - 10, y, M + 30, y, C["ink"],
+                    "" if DASH[i % 4] == "none"
+                    else ' stroke-dasharray="%s"' % DASH[i % 4]))
+        o.append('<rect x="%d" y="%.1f" width="86" height="3" fill="%s"/>'
+                 % (M + 30, y - 1, C["ink"]))
+        # 오른쪽 — 한 편으로 모인다
+        o.append('<path d="M%d %.1f C%d %.1f,%d 52,%d 52" fill="none" '
+                 'stroke="%s" stroke-width="1.2" opacity=".85"/>'
+                 % (M + 116, y, M + 190, y, R - 60, R, C["mark"]))
+
+    o.append('<rect x="%d" y="24" width="5" height="56" fill="%s"/>'
+             % (R, C["mark"]))
+    o.append('<text x="%d" y="46" font-size="12" fill="%s" '
+             'font-family="IBM Plex Sans KR,sans-serif">보고서 한 편</text>'
+             % (R + 16, C["ink"]))
+    o.append('<text x="%d" y="64" font-size="11" fill="%s" '
+             'font-family="IBM Plex Mono,monospace">4절 · 근거 포함</text>'
+             % (R + 16, C["ink40"]))
+    for x, t in ((L, "자료 %d건 — 한 번에 못 읽는다" % n),
+                 (M + 30, "넷이 나눠 읽는다")):
+        o.append('<text x="%d" y="12" font-size="11" fill="%s" '
+                 'font-family="IBM Plex Sans KR,sans-serif">%s</text>'
+                 % (x, C["ink40"], t))
+    o.append("</svg>")
+    return "".join(o)

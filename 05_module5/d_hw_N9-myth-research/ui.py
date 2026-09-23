@@ -19,14 +19,14 @@
 
 # ── 토큰 — DESIGN.md §토큰 그대로 ─────────────────────────────────
 C = {
-    "paper": "#F4F2ED",    # 종이. ⛔순백 아님
+    "paper": "#FAF9F5",    # 미색. ⛔순백 아님 · 베이지도 아님
     "ink": "#16171A",      # 본문. ⛔순흑 아님
     "ink60": "#5B5D63",
     "ink40": "#8A8C92",
-    "rule": "#D8D4C9",     # ★괘선 — 주 구조 요소
-    "rule2": "#EBE8E0",
+    "rule": "#DDD9CE",     # ★괘선 — 주 구조 요소
+    "rule2": "#EFECE5",
     "mark": "#A33420",     # ★강조 «단 하나» — 근거·경보·검토 표시
-    "markbg": "#F6E4DF",
+    "markbg": "#FBEAE5",
 }
 
 # IBM Plex — 엔지니어링 도큐먼트용 서체. ⛔Inter·Geist·Space Grotesk 안 씀
@@ -151,6 +151,44 @@ hr{border-color:var(--rule)}
 code{font-family:'IBM Plex Mono',monospace;background:transparent;
   color:var(--ink60);font-size:.9em;padding:0}
 .stCaption,[data-testid="stCaptionContainer"]{color:var(--ink40)!important}
+
+/* ── ★표제 도면 — 장식이 아니라 «코퍼스 그 자체» ──────────────── */
+.hero{margin:0 0 4px}
+.hero svg{display:block;width:100%%;height:auto}
+
+/* ── ★띠 — 각 칸이 «무엇을 하는 칸인지» 말한다 ──────────────────
+   처음 온 사람은 「설정」이 왜 있는지 모른다. 이름만 두면 안 된다. */
+.bar{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  border-top:1px solid var(--ink);padding-top:9px;margin:30px 0 10px}
+.bar .lbl{font-size:14px;font-weight:600;flex:none}
+.bar .hint{font-size:12.5px;color:var(--ink60);line-height:1.65;max-width:76ch}
+.bar .hint b{color:var(--ink);font-weight:500}
+
+/* ── 조건 칸 — ⛔글 덩어리 대신 «칸» ─────────────────────────── */
+.chk{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);margin:10px 0}
+.chk .c{background:var(--paper);padding:10px 13px}
+.chk .q{font-size:12px;color:var(--ink60);line-height:1.5;margin-bottom:5px}
+.chk .a{font-size:13px;font-weight:600;line-height:1.45}
+.note{font-size:12px;color:var(--ink40);line-height:1.7;margin:6px 0 0;
+  max-width:92ch}
+.note b{color:var(--ink60);font-weight:500}
+
+/* ── 지금 값 한 줄 ─────────────────────────────────────────── */
+.sum{font-size:12.5px;color:var(--ink60);line-height:1.8;margin:12px 0 0;
+  padding:9px 0;border-top:1px dashed var(--rule)}
+.sum b{color:var(--ink);font-weight:600}
+.mini{font-size:12px;color:var(--ink60);margin-bottom:6px;line-height:1.6}
+.mini b{color:var(--ink);font-weight:500}
+
+/* ── 사용법 — 처음 온 사람을 위한 세 걸음 ───────────────────────── */
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);margin:14px 0 0}
+.how .s{background:var(--paper);padding:11px 14px}
+.how .n{font-family:'IBM Plex Mono',monospace;font-size:11px;
+  color:var(--mark);margin-bottom:4px}
+.how .t{font-size:13px;font-weight:600;margin-bottom:3px}
+.how .d{font-size:12px;color:var(--ink60);line-height:1.6}
 
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
