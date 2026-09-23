@@ -72,16 +72,19 @@ for root, ds, fs in os.walk(HERE):
 ab = jd("output/ablation.json")
 if ab:
     rows = ab["rows"]
-    같은 = ("전부 켬 (기준선)", "★기준선 (재측정)", "★축 A — 주제 (우리 설정)")
-    pool = [x["근거율"] for r in rows if r["조건"] in 같은
-            for x in r.get("_회차별", [])]
+    # ★목록은 compare.py 한 곳에만 — 옛 이름으로 10개만 모아
+    #   잡음을 22.9%p 로 계산하고 헛경고를 냈다.
+    from compare import 같은설정_원시값
+    pool = 같은설정_원시값(rows)
     잡음 = (max(pool) - min(pool)) * 100 if pool else None
     if 잡음 is not None:
         for d in ("README.md", "REPORT.md"):
             t = rd(d) or ""
-            친다("%s 잡음 수치" % d,
-               OK if ("%.1f%%p" % 잡음) in t else WARN,
-               "본문이 %.1f%%p 를 말한다" % 잡음 if ("%.1f%%p" % 잡음) in t
+            # ⚠검사가 «화면에 찍히는 형태»와 달라 헛경고를 냈다.
+            #   표는 「잡음 폭 25.6%p」로 쓴다 — ★실제 문자열을 찾는다.
+            _찾 = "잡음 폭 %.1f%%p" % 잡음
+            친다("%s 잡음 수치" % d, OK if _찾 in t else WARN,
+               "본문이 %.1f%%p 를 말한다" % 잡음 if _찾 in t
                else "★sync_numbers.py --write 를 안 돌렸나")
     친다("회차별 원시값 보존", OK if rows[0].get("_회차별") else BAD,
        "%d회분 남아 있다" % len(rows[0].get("_회차별", [])))

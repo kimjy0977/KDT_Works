@@ -21,6 +21,20 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
+# ★«완전히 같은 설정»인 조건 이름 — 여기가 유일한 출처다.
+#   sync_numbers.py 와 redteam.py 가 «각자» 들고 있다가 갈렸다
+#   (축 실험을 고치며 이름이 바뀌었는데 한쪽만 고쳤다).
+#   ⇒ 같은 것을 두 군데서 정하지 않는다. 이 프로젝트에서 세 번째 같은 사고였다.
+같은설정 = ("전부 켬 (기준선)", "★기준선 (재측정)", "축 A(명단만) — 주제",
+         "★축 A — 주제 (우리 설정)")      # 옛 이름 — 지난 기록과 호환
+
+
+def 같은설정_원시값(rows):
+    """조건 이름이 바뀌어도 «지금 파일에 있는 것»만 모은다."""
+    return [x["근거율"] for r in rows if r["조건"] in 같은설정
+            for x in r.get("_회차별", [])]
+
+
 def 잡음범위():
     """★같은 설정 여러 회차의 «실제 흩어짐». ablation.json 에서 잰다.
 
@@ -30,9 +44,7 @@ def 잡음범위():
     if not os.path.exists(p):
         return None
     a = json.load(io.open(p, encoding="utf-8"))
-    같은 = ("전부 켬 (기준선)", "★기준선 (재측정)", "★축 A — 주제 (우리 설정)")
-    pool = [x["근거율"] for r in a["rows"] if r["조건"] in 같은
-            for x in r.get("_회차별", [])]
+    pool = 같은설정_원시값(a["rows"])
     if len(pool) < 4:
         return None
     return {"최소": min(pool), "최대": max(pool), "n": len(pool),

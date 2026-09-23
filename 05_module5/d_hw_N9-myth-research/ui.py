@@ -158,9 +158,14 @@ code{font-family:'IBM Plex Mono',monospace;background:transparent;
 
 /* ── ★띠 — 각 칸이 «무엇을 하는 칸인지» 말한다 ──────────────────
    처음 온 사람은 「설정」이 왜 있는지 모른다. 이름만 두면 안 된다. */
-.bar{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+.bar{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
   border-top:1px solid var(--ink);padding-top:9px;margin:30px 0 10px}
-.bar .lbl{font-size:14px;font-weight:600;flex:none}
+/* ★단계 번호 — 머리의 사용법과 «눈으로 이어지게» 한다.
+   전에는 사용법에만 1·2·3 이 있고 정작 띠에는 없었다. */
+.bar .no{font-family:'IBM Plex Mono',monospace;font-size:19px;
+  font-weight:600;color:var(--mark);line-height:1;flex:none;
+  min-width:20px}
+.bar .lbl{font-size:16px;font-weight:600;flex:none}
 .bar .hint{font-size:12.5px;color:var(--ink60);line-height:1.65;max-width:76ch}
 .bar .hint b{color:var(--ink);font-weight:500}
 
@@ -185,10 +190,36 @@ code{font-family:'IBM Plex Mono',monospace;background:transparent;
 .how{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
   gap:1px;background:var(--rule);border:1px solid var(--rule);margin:14px 0 0}
 .how .s{background:var(--paper);padding:11px 14px}
-.how .n{font-family:'IBM Plex Mono',monospace;font-size:11px;
-  color:var(--mark);margin-bottom:4px}
-.how .t{font-size:13px;font-weight:600;margin-bottom:3px}
-.how .d{font-size:12px;color:var(--ink60);line-height:1.6}
+.how .s{display:flex;gap:12px;align-items:flex-start}
+.how .n{font-family:'IBM Plex Mono',monospace;font-size:26px;
+  font-weight:600;color:var(--mark);line-height:1;flex:none;
+  min-width:26px}
+.how .t{font-size:14.5px;font-weight:600;margin-bottom:4px}
+.how .d{font-size:12.5px;color:var(--ink60);line-height:1.65}
+.how .go{font-size:11.5px;color:var(--ink40);margin-top:5px}
+
+/* ── ★표제 그림 — 신화 그림 위에 단색 막, 그 위에 글자 ──────────
+   ⛔그라디언트 막이 아니다. 단색 반투명 — «가독성»이 목적이지 장식이 아니다.
+   ⛔가운데 정렬이 아니다(AI 표식 #9). 글자는 왼쪽.                       */
+.plate{position:relative;overflow:hidden;margin:0 0 4px;
+  border:1px solid var(--ink)}
+.plate img{display:block;width:100%%;height:240px;object-fit:cover;
+  object-position:center 42%%}
+.plate .scrim{position:absolute;inset:0;background:rgba(14,12,9,.72)}
+.plate .on{position:absolute;inset:0;display:flex;flex-direction:column;
+  justify-content:center;padding:0 40px}
+.plate h1{color:#FAF9F5!important;font-size:34px;margin:0 0 10px;
+  line-height:1.2;letter-spacing:-.02em}
+.plate .sub{color:#E4E0D6;font-size:13.5px;line-height:1.8;max-width:78ch}
+.plate .sub b{color:#FAF9F5;font-weight:600}
+.plate .src{position:absolute;right:12px;bottom:9px;font-size:10.5px;
+  color:#B8B2A4;text-align:right;line-height:1.5}
+.plate .src a{color:#B8B2A4}
+@media(max-width:820px){
+  .plate img{height:300px}
+  .plate .on{padding:0 20px}
+  .plate h1{font-size:24px}
+}
 
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
