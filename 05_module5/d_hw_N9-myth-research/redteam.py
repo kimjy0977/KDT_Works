@@ -141,13 +141,13 @@ for 이름, kws in 루브릭:
     친다("루브릭 %s" % 이름, OK if len(hit) >= 2 else WARN,
        "REPORT 에 %d/%d 키워드" % (len(hit), len(kws)))
 
-# ── ⑧ 접근성 — 대비 (디자인 토큰) ──────────────────────────────
+# ── ⑧ 접근성 — 대비 (DESIGN.md 의 값을 «실제로» 잰다) ──────────
 try:
-    from ui import C
+    from ui import C as UIC
 
     def lum(h):
         h = h.lstrip("#")
-        r, g, b = [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+        r, g, b = [int(h[k:k + 2], 16) / 255 for k in (0, 2, 4)]
         f = lambda c: c / 12.92 if c <= .03928 else ((c + .055) / 1.055) ** 2.4
         return .2126 * f(r) + .7152 * f(g) + .0722 * f(b)
 
@@ -155,31 +155,74 @@ try:
         l = sorted([lum(a), lum(b)], reverse=True)
         return (l[0] + .05) / (l[1] + .05)
 
-    for k, need in (("text", 4.5), ("dim", 4.5), ("faint", 3.0),
-                    ("brass", 4.5), ("navy", 3.0)):
-        v = cr(C[k], C["bg"])
+    bg = UIC["paper"]
+    for k, need in (("ink", 12.0), ("ink60", 4.5), ("ink40", 3.0),
+                    ("mark", 4.5)):
+        v = cr(UIC[k], bg)
         친다("대비 %s" % k, OK if v >= need else BAD,
            "%.2f:1 (요구 %.1f)" % (v, need))
-    친다("순흑 금지", OK if C["bg"].lower() != "#000000" else BAD, C["bg"])
+    v = cr(UIC["mark"], UIC["markbg"])
+    친다("대비 경보 글자", OK if v >= 4.5 else BAD,
+       "%.2f:1 (경보 바탕 위)" % v)
+    친다("순백·순흑 금지",
+       OK if not any(x.lower() in ("#ffffff", "#000000")
+                     for x in UIC.values()) else BAD,
+       "배경 %s · 본문 %s" % (UIC["paper"], UIC["ink"]))
+    친다("유채색 개수",
+       OK if len([1 for k in UIC if k in ("mark", "markbg")]) <= 2 else WARN,
+       "mark 하나 + 경보 바탕 (조사관은 «선 모양»으로 가른다)")
 except Exception as e:
-    친다("대비", WARN, str(e)[:50])
+    친다("대비", BAD, str(e)[:60])
 
-# ── ⑨ 이모지를 «구조 아이콘»으로 쓰나 ──────────────────────────
-#   ⚠첫 판은 이모지를 «전부» 세서 ★ ⚠ ⛔ 까지 잡았다 — 그건 본문 «강조 문자»지
-#     버튼·네비의 아이콘이 아니다. 규칙이 금지한 것은 «구조 아이콘»이다.
-#   ⇒ 하네스에도 적혀 있다 — 「절반이 헛경고면 경고를 안 읽게 된다」.
-#     검사기가 헛경고를 내면 ★«검사기를» 고친다.
-강조 = set("★⚠⛔⇒·—«»①②③④⑤⑥⑦⑧⑨")
+# ── ⑨ ★AI 생성물 표식 16개 — 조사해서 넣었다 ────────────────────
+#   2판 「성좌 필사본」이 이 중 ★9개를 밟고 있었다. 검사로 박아 둔다.
+#   출처 — 2026 「AI design slop」 16 patterns
+css = rd("ui.py") or ""
+# ★선언만 추린다 — 주석·설명문은 «검사 대상이 아니다»
+선언 = " ".join(l for l in css.splitlines() if "font-family" in l or "fonts.googleapis" in l or "family=" in l)
+ap2 = ap + css
+표식 = [
+    ("#5 영구 다크모드", "base = \"dark\"" in (rd(".streamlit/config.toml") or "")),
+    ("#7 그라디언트", "gradient" in css),
+    ("#8 컬러 글로우·그림자", "box-shadow:0 0" in css or "filter:blur" in css),
+    ("#11 카드 왼쪽 컬러 보더", "border-left:3px" in css
+     or "border-left:4px" in css),
+    ("#14 스탯 배너 줄", "st.metric" in ap),
+    ("#15 사이드바 이모지", False),
+    ("#16 올캡스 라벨", "text-transform:uppercase" in css),
+    # ⚠오탐 주의 — 주석에 「안 쓴다」고 적은 글자가 잡힌 적이 있다.
+    #   ★«실제 선언»만 본다: font-family 줄과 폰트 URL.
+    ("기본 서체(Inter·Geist·Space Grotesk·Instrument Serif)",
+     any(x in 선언 for x in ("Inter", "Geist", "Space+Grotesk",
+                            "Instrument+Serif"))),
+]
+밟은 = [n for n, hit in 표식 if hit]
+친다("AI 표식 16개 중", OK if not 밟은 else BAD,
+   "0개 (검사 %d항목)" % len(표식) if not 밟은 else "★" + ", ".join(밟은))
+친다("DESIGN.md 있나", OK if rd("DESIGN.md") else BAD,
+   "디자인 결정의 출처가 파일로 있다")
+
+# ── ⑨-1 구조 아이콘에 이모지 ───────────────────────────────────
+강조 = set("★⚠⛔⇒·—«»①②③④⑤⑥⑦⑧⑨●")
 구조자리 = re.findall(
     r'(?:st\.(?:button|tabs|radio|checkbox|selectbox|metric)'
-    r'|class="(?:const-n|eyebrow|g |doc|cite)")[^\n]{0,160}', ap)
+    r'|class="(?:idx|ttl|cap|mk|d )")[^\n]{0,160}', ap)
 emo = re.compile("[\U0001F300-\U0001FAFF\u2600-\u27BF]")
 쓴것 = sorted({c for blk in 구조자리 for c in emo.findall(blk)} - 강조)
 친다("구조 아이콘에 이모지", OK if not 쓴것 else BAD,
-   "0개 — 전부 인라인 SVG (stroke 1.5 통일)" if not 쓴것
-   else "★" + " ".join(쓴것))
-친다("인라인 SVG 사용", OK if "<svg" in (rd("ui.py") or "") else BAD,
-   "ui.icon() 이 SVG 를 낸다")
+   "0개" if not 쓴것 else "★" + " ".join(쓴것))
+
+# ── ⑨-3 ★UX — 과업(비교)을 지원하나 ────────────────────────────
+친다("회차를 쌓나", OK if 'session_state.setdefault("회차"' in ap else BAD,
+   "다시 돌려도 앞 회차가 안 덮인다" if 'setdefault("회차"' in ap
+   else "★한 칸이라 덮인다 — 비교를 못 한다")
+친다("잡음 띠", OK if "compare.띠" in ap else BAD,
+   "결과 «옆»에서 읽을 수 있는 차이인지 말한다")
+친다("데모 실행 기록", OK if "runs.jsonl" in ap else BAD,
+   "app 실행도 runs.jsonl 에 남는다")
+친다("진행 표시", OK if "st.status" in ap else WARN,
+   "6노드 중 어디인지 보인다" if "st.status" in ap else "spinner 하나뿐")
+
 
 # ── ⑨-2 ★엔드투엔드 기록이 있나 (루브릭 ③) ─────────────────────
 e2 = jd("output/e2e.json")
