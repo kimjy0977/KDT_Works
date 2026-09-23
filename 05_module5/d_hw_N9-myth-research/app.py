@@ -18,6 +18,7 @@
   ⛔번호 단계(①②③) 없음 — ★도면이 과정 자체다
   ⛔동일 카드 반복 없음 — 블록마다 모양이 다르다
 """
+import base64
 import io
 import json
 import os
@@ -64,21 +65,43 @@ def 강조(t):
     return re.sub("«([^»\n]{1,40})»", '<span class="q">«\\1»</span>', esc(t))
 
 
-def 괘선(제목, 설명="", 캡션=""):
-    H('<div class="rule">%s<h2>%s</h2>%s</div>'
+def 괘선(제목, 설명="", 캡션="", 번호=None):
+    """★번호를 받으면 붙인다 — 머리의 사용법과 «눈으로 이어지게»."""
+    H('<div class="rule">%s<h2>%s%s</h2>%s</div>'
       % ('<div class="cap">%s</div>' % esc(캡션) if 캡션 else "",
+         ('<span style="font-family:IBM Plex Mono,monospace;color:%s;'
+          'margin-right:10px">%d</span>' % (C["mark"], 번호)) if 번호 else "",
          esc(제목),
          '<div class="sub">%s</div>' % 설명 if 설명 else ""))
 
 
 # ══ 머리 — ⛔가운데 정렬·배지 없음. 수치를 «문장 안»에 ═══════════════
 co = CFG["_코퍼스"]
-H('<div class="hd"><h1>딥리서처 · 세계 신화</h1>'
-  '<div class="meta">한 번에 못 읽는 분량을 <b>넷이 나눠 읽고 한 편으로 합치는</b> '
-  '시스템입니다. 코퍼스는 위키백과 <span class="num">%d</span>건 '
-  '<span class="num">%s</span>자로 모델의 창 128k 토큰의 <b>%s</b>라, '
-  '전부 넣는 길이 아예 없습니다.</div></div>'
-  % (co["문서"], format(co["글자"], ","), co["창대비"].split()[0]))
+_hero = os.path.join(HERE, "docs/hero.jpg")
+_hm = {}
+if os.path.exists(os.path.join(HERE, "docs/hero.json")):
+    _hm = json.load(io.open(os.path.join(HERE, "docs/hero.json"),
+                            encoding="utf-8"))
+if os.path.exists(_hero):
+    # ★그림을 data URI 로 박는다 — Streamlit 은 로컬 파일을 <img> 로 못 준다
+    _b64 = base64.b64encode(open(_hero, "rb").read()).decode()
+    H('<div class="plate">'
+      '<img src="data:image/jpeg;base64,%s" alt="사자의 서 — 후네페르 파피루스. '
+      '고대 이집트의 심판 장면">'
+      '<div class="scrim"></div><div class="on">'
+      '<h1>딥리서처 · 세계 신화</h1>'
+      '<div class="sub">한 번에 못 읽는 분량을 <b>넷이 나눠 읽고 한 편으로 '
+      '합치는</b> 시스템입니다. 코퍼스는 위키백과 <b>%d건 %s자</b>로 모델의 창 '
+      '128k 토큰의 <b>%s</b>라, 전부 넣는 길이 아예 없습니다.</div></div>'
+      '<div class="src">%s<br>퍼블릭 도메인 · 위키미디어 공용</div></div>'
+      % (_b64, co["문서"], format(co["글자"], ","), co["창대비"].split()[0],
+         esc(_hm.get("파일", "").replace("File:", "").replace(".jpg", ""))))
+else:
+    H('<div class="hd"><h1>딥리서처 · 세계 신화</h1>'
+      '<div class="meta">한 번에 못 읽는 분량을 <b>넷이 나눠 읽고 한 편으로 '
+      '합치는</b> 시스템입니다. 코퍼스 <span class="num">%d</span>건 '
+      '<span class="num">%s</span>자 = 창의 <b>%s</b>.</div></div>'
+      % (co["문서"], format(co["글자"], ","), co["창대비"].split()[0]))
 
 # ★표제 도면 — ⛔장식 이미지가 아니라 «코퍼스 그 자체».
 #   막대 하나가 실제 문서이고 길이가 실제 글자 수다.
@@ -86,22 +109,31 @@ H('<div class="hero">%s</div>' % mapviz.표제(agent.DOCS, agent.설정["절수"
 
 # ★사용법 — 처음 온 사람은 아래 칸들이 «왜» 있는지 모른다
 H('<div class="how">'
-  '<div class="s"><div class="n">1</div><div class="t">질문을 고른다</div>'
+  '<div class="s"><div class="n">1</div><div>'
+  '<div class="t">질문을 고른다</div>'
   '<div class="d">한 건으로 답이 나오는 질문은 나눌 이유가 없습니다. '
-  '아래 네 칸이 «이 질문이 나눌 만한지»를 검사한 결과입니다.</div></div>'
-  '<div class="s"><div class="n">2</div><div class="t">축과 규모를 정한다</div>'
-  '<div class="d">절을 <b>무엇을 기준으로</b> 나눌지가 이 프로젝트의 첫 결정입니다. '
-  '장치를 꺼 보면 무엇이 먼저 무너지는지 보입니다.</div></div>'
-  '<div class="s"><div class="n">3</div><div class="t">도면을 읽는다</div>'
+  '고르면 아래 네 칸이 «이 질문이 나눌 만한지»를 검사합니다.</div>'
+  '<div class="go">↓ 아래 <b style="color:%s">1</b> 질문</div></div></div>'
+  '<div class="s"><div class="n">2</div><div>'
+  '<div class="t">축과 규모를 정한다</div>'
+  '<div class="d">절을 <b>무엇을 기준으로</b> 나눌지가 첫 결정입니다. '
+  '장치를 꺼 보면 무엇이 먼저 무너지는지 보입니다.</div>'
+  '<div class="go">↓ 아래 <b style="color:%s">2</b> 절을 나누는 축 · 규모와 장치'
+  '</div></div></div>'
+  '<div class="s"><div class="n">3</div><div>'
+  '<div class="t">도면을 읽는다</div>'
   '<div class="d">겹친 선은 중복, 몰린 선은 편중, 흐린 선은 읽고 안 쓴 것입니다. '
-  '두 번 돌리면 회차를 <b>나란히</b> 견줄 수 있습니다.</div></div>'
-  '</div>')
+  '두 번 돌리면 회차를 <b>나란히</b> 견줄 수 있습니다.</div>'
+  '<div class="go">↓ <b style="color:%s">조사</b>를 누른 뒤 '
+  '<b style="color:%s">3</b> 배정 도면</div></div></div>'
+  '</div>' % (C["mark"], C["mark"], C["mark"], C["mark"]))
 
 # ══ 조작부 — ⛔접어 두지 않는다. 핵심 조작이 «보여야» 한다 ═══════
 예시 = [QS["주질문"]["text"]] + [q["text"] for q in QS["보조질문"]]
 _uq = st.session_state.get("_url_q")
 
-H('<div class="bar"><div class="lbl">질문</div>'
+H('<div class="bar"><div class="no">1</div>'
+  '<div class="lbl">질문</div>'
   '<div class="hint">무엇을 조사할지 고릅니다. 직접 적어도 됩니다. '
   '고르면 아래에 <b>이 질문이 나눌 만한지</b>가 네 칸으로 검사됩니다.</div></div>')
 c1, c2 = st.columns([5, 1])
@@ -132,7 +164,8 @@ H('<div class="note">요건이 요구한 「주제 고르기」 4조건입니다
                for x in QS["⛔나눌 필요 없음 — 대조용 반례"]))
 
 # ── ★축 — 이 프로젝트의 핵심 조작. 맨 앞에 둔다 ──────────────────
-H('<div class="bar"><div class="lbl">절을 나누는 축</div>'
+H('<div class="bar"><div class="no">2</div>'
+  '<div class="lbl">절을 나누는 축</div>'
   '<div class="hint">목차의 축이 곧 분업이고, 분업이 곧 결과물의 모양입니다. '
   '코디에게 <b>이 축으로 나눠라</b>를 직접 말합니다.</div></div>')
 a1, a2 = st.columns([1.1, 2])
@@ -160,7 +193,8 @@ with a2:
                    "예: %s」" % (축지시["이름"], 축지시["예"]))
 
 # ── 설정 — ⛔접지 않는다. 지금 값이 «보여야» 한다 ─────────────────
-H('<div class="bar"><div class="lbl">규모와 장치</div>'
+H('<div class="bar"><div class="no">2</div>'
+  '<div class="lbl">규모와 장치</div>'
   '<div class="hint">몇 명이 몇 건씩 읽을지, 그리고 네 장치를 켤지 끌지. '
   '<b>끄고 다시 돌리면</b> 그 장치가 실제로 값을 하는지 보입니다 — '
   '다만 잡음이 커서 한 번으로는 판단할 수 없습니다.</div></div>')
@@ -310,8 +344,9 @@ else:
 # ══ ★도면 ═══════════════════════════════════════════════════════
 괘선("배정 도면",
    "왼쪽은 코퍼스이고 막대 길이가 글자 수입니다. 오른쪽은 조사관이고 "
-   "<b>선 모양</b>으로 갈립니다. 가운데 선이 «누가 무엇을 읽었나»입니다.",
-   "문서 %d건 → 조사관 %d명" % (len(agent.DOCS), len(secs)))
+   "<b>선 모양</b>으로 갈립니다. 가운데 선이 «누가 무엇을 읽었나»입니다. "
+   "겹친 선은 <b>중복</b>, 몰린 선은 <b>편중</b>, 흐린 선은 <b>읽고 안 쓴</b> 것입니다.",
+   "문서 %d건 → 조사관 %d명" % (len(agent.DOCS), len(secs)), 번호=3)
 H(mapviz.도면(agent.DOCS, secs, 실인용맵,
               격리=(m["팀이읽은글자"], m["코디가본글자"])))
 
