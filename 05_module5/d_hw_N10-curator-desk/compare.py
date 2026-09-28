@@ -121,7 +121,21 @@ def 정답_카탈로그(m):
     y = m.get("연도") or {}
     if y.get("속성깨짐"):
         return True
+
+    # ★원문에 «없는» 연도가 카탈로그에 들어가면 그것도 고착이다.
+    #   ⛔이게 없을 때 A1 이 카탈로그에서 «헛멈춤»으로만 세어졌다.
+    #     발행 갈래에서 A4 에 일어난 일과 «같은 꼴»이다 —
+    #     기준이 막는 위험이 정답에 없으면 표가 「쓸모없다」고 말한다.
     글 = m.get("해설") or ""
+    원 = " ".join([m.get("설명") or "", m.get("_원문", {}).get("연도") or "",
+                  m.get("제목") or "", m.get("연도표기") or ""])
+    있 = set(연4.findall(원))
+    for k in ("이른", "늦은"):
+        if y.get(k):
+            있.add(str(y[k]))
+    if {x for x in 연4.findall(글)} - 있:
+        return True
+
     h = re.search(r"(\d{3,4})\s*년(?!대)", 글)
     if not h:
         return False

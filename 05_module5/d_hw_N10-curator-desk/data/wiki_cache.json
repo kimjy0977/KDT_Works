@@ -100,7 +100,8 @@
   "화가인가": null,
   "생": null,
   "몰": null,
-  "위키문서": null
+  "위키문서": null,
+  "도입부": null
  },
  "Bartholomeus Spranger": {
   "질의": "Bartholomeus Spranger",
@@ -279,7 +280,8 @@
   "화가인가": null,
   "생": null,
   "몰": null,
-  "위키문서": null
+  "위키문서": null,
+  "도입부": null
  },
  "Hans von Aachen": {
   "질의": "Hans von Aachen",
@@ -321,7 +323,8 @@
   "화가인가": null,
   "생": null,
   "몰": null,
-  "위키문서": null
+  "위키문서": null,
+  "도입부": null
  },
  "Jacob Jordaens": {
   "질의": "Jacob Jordaens",
@@ -368,7 +371,8 @@
    "연": 1861,
    "정밀도": 11
   },
-  "위키문서": "Jacobus Josephus Eeckhout"
+  "위키문서": "Jacobus Josephus Eeckhout",
+  "도입부": "Jacobus Josephus Eeckhout or Jacques Joseph Eeckhout (6 or 8 February  1793 – 25 December 1861) was a Flemish painter, sculptor, pastellist, water-colourist and lithographer and a Director of the Royal Academy of Art in The Hague."
  },
  "Lucas Cranach the Elder and workshop": {
   "질의": "Lucas Cranach the Elder and workshop",
@@ -468,7 +472,8 @@
    "연": 1720,
    "정밀도": 11
   },
-  "위키문서": "Pieter van Bloemen"
+  "위키문서": "Pieter van Bloemen",
+  "도입부": "Pieter van Bloemen, also known as Standaart (bapt. 17 January 1657 – 6 March 1720), first name also spelled Peter or Peeter, was a Flemish painter, draughtsman and printmaker.  He was a gifted landscape and animal artist and was very successful with his compositions depicting Italian landscapes with figures, equestrian battles, animals and genre and market scenes."
  },
  "Rick Herter": {
   "질의": "Rick Herter",
@@ -481,7 +486,8 @@
   "화가인가": null,
   "생": null,
   "몰": null,
-  "위키문서": null
+  "위키문서": null,
+  "도입부": null
  },
  "Rrroza": {
   "질의": "Rrroza",
@@ -550,7 +556,8 @@
   "화가인가": null,
   "생": null,
   "몰": null,
-  "위키문서": null
+  "위키문서": null,
+  "도입부": null
  },
  "Vincenzo Brenna and Franciszek Smuglewicz - original artwork, Marco Carloni - engraving": {
   "질의": "Vincenzo Brenna and Franciszek Smuglewicz - original artwork, Marco Carloni - engraving",
@@ -921,5 +928,1407 @@
   },
   "위키문서": "Ernest Board",
   "도입부": "Ernest Board (1877–1934) was an English painter, notably of seascapes and historical subjects. He was also a draughtsman for glass painting. \n\nErnest Board was born on 24 August 1877 in a seaside town in the south of England. His life and career were marked by a passion for portraying seascapes."
+ },
+ "Ablakok": {
+  "질의": "Ablakok",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Abraham Govaerts": {
+  "질의": "Abraham Govaerts",
+  "상태": "조회됨",
+  "Q": "Q651521",
+  "레이블": "Abraham Govaerts",
+  "레이블ko": null,
+  "레이블en": "Abraham Govaerts",
+  "직업": [
+   "화가",
+   "삽화가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1589,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1626,
+   "정밀도": 11
+  },
+  "위키문서": "Abraham Govaerts",
+  "도입부": "Abraham Govaerts (1589 – 9 September 1626) was a Flemish painter who specialized in small cabinet-sized forest landscapes in the manner of Jan Brueghel the Elder and Gillis van Coninxloo.  He was a regular collaborator with other artists who were specialists in specific genres. Govaerts would paint the landscape while these specialists painted the figures, animals or still life elements."
+ },
+ "Adela Breton (d. 1923)": {
+  "질의": "Adela Breton (d. 1923)",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Aert Anthoniszoon": {
+  "질의": "Aert Anthoniszoon",
+  "상태": "조회됨",
+  "Q": "Q2445271",
+  "레이블": "Aert Anthoniszoon",
+  "레이블ko": null,
+  "레이블en": "Aert Anthoniszoon",
+  "직업": [
+   "화가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1579,
+   "정밀도": 9
+  },
+  "몰": {
+   "연": 1620,
+   "정밀도": 11
+  },
+  "위키문서": "Aert Anthoniszoon",
+  "도입부": "Aert Anthoniszoon (abbreviated Anthonisz.) or Anthonissen, also known as Aart or Aert van Antum (born c. 1579–1580; buried 7 September 1620) was a Dutch marine painter."
+ },
+ "Alexandre Soldé": {
+  "질의": "Alexandre Soldé",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Anton Hoffmann": {
+  "질의": "Anton Hoffmann",
+  "상태": "조회됨",
+  "Q": "Q85742038",
+  "레이블": "Anton Hoffmann",
+  "레이블ko": null,
+  "레이블en": "Anton Hoffmann",
+  "직업": [
+   "건축가"
+  ],
+  "화가인가": false,
+  "생": {
+   "연": 1823,
+   "정밀도": 9
+  },
+  "몰": {
+   "연": 1908,
+   "정밀도": 11
+  },
+  "위키문서": "Anton Hoffmann",
+  "도입부": "Anton Hoffmann was an important designer and builder in Prussian-time Bydgoszcz during the entire second half of the 19th century. He witnessed the transformation of Bydgoszcz, creating numerous residential buildings throughout the city. His activity became, in a sense, an indicator of Bydgoszcz building traditions, bridging old neo classicist masters and their successors, inspired by Historicism and Art Nouveau."
+ },
+ "Antoni Gómez i Cros": {
+  "질의": "Antoni Gómez i Cros",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Antonio Ghisu": {
+  "질의": "Antonio Ghisu",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Antonio Maria Marini": {
+  "질의": "Antonio Maria Marini",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Bastienloukia14600": {
+  "질의": "Bastienloukia14600",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Boris Kustodiev": {
+  "질의": "Boris Kustodiev",
+  "상태": "조회됨",
+  "Q": "Q313275",
+  "레이블": "보리스 쿠스토디예프",
+  "레이블ko": "보리스 쿠스토디예프",
+  "레이블en": "Boris Kustodiev",
+  "직업": [
+   "화가",
+   "Q2707485"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1878,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1927,
+   "정밀도": 11
+  },
+  "위키문서": "Boris Kustodiev",
+  "도입부": "Boris Mikhaylovich Kustodiev (Russian: Борис Михайлович Кустодиев; 7 March [O.S. 23 February] 1878 – 28 May 1927) was a Russian painter, draughtsman, and stage designer during the Modernist period."
+ },
+ "Casper Casteleyn": {
+  "질의": "Casper Casteleyn",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Christian Gottlieb Kratzenstein-Stub (1783–1816)": {
+  "질의": "Christian Gottlieb Kratzenstein-Stub (1783–1816)",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Claude Deruet": {
+  "질의": "Claude Deruet",
+  "상태": "조회됨",
+  "Q": "Q355563",
+  "레이블": "클로드 데뤼에",
+  "레이블ko": "클로드 데뤼에",
+  "레이블en": "Claude Deruet",
+  "직업": [
+   "화가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1588,
+   "정밀도": 9
+  },
+  "몰": {
+   "연": 1660,
+   "정밀도": 11
+  },
+  "위키문서": "Claude Deruet",
+  "도입부": "Claude Deruet (1588–1660) was a Baroque painter of the 17th century, from the city of Nancy."
+ },
+ "Creator:Issued by William S. Kimball & Company": {
+  "질의": "Creator:Issued by William S. Kimball & Company",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Curtis, Asahel, 1874-1941": {
+  "질의": "Curtis, Asahel, 1874-1941",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Dageno": {
+  "질의": "Dageno",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Davin Arries": {
+  "질의": "Davin Arries",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Dguendel": {
+  "질의": "Dguendel",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Donsabbo": {
+  "질의": "Donsabbo",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Edward Calvert": {
+  "질의": "Edward Calvert",
+  "상태": "조회됨",
+  "Q": "Q5342196",
+  "레이블": "Edward Calvert",
+  "레이블ko": null,
+  "레이블en": "Edward Calvert",
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": "Edward Calvert",
+  "도입부": "Edward Calvert may refer to:\n\nEddie Calvert (1922–1978), brass musician\nEdward Calvert (architect) (c."
+ },
+ "Emanuel de Witte": {
+  "질의": "Emanuel de Witte",
+  "상태": "조회됨",
+  "Q": "Q711203",
+  "레이블": "Emanuel de Witte",
+  "레이블ko": null,
+  "레이블en": "Emanuel de Witte",
+  "직업": [
+   "화가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1617,
+   "정밀도": 9
+  },
+  "몰": {
+   "연": 1692,
+   "정밀도": 9
+  },
+  "위키문서": "Emanuel de Witte",
+  "도입부": "Emanuel de Witte (1617–1692) was a Dutch perspective painter.  In contrast to Pieter Jansz Saenredam, who emphasized architectural accuracy, De Witte was more concerned with the atmosphere of his interiors. Though few in number, de Witte also produced genre paintings."
+ },
+ "Felip Masó de Falp": {
+  "질의": "Felip Masó de Falp",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Ferdinand Bol": {
+  "질의": "Ferdinand Bol",
+  "상태": "조회됨",
+  "Q": "Q374039",
+  "레이블": "페르디난트 볼",
+  "레이블ko": "페르디난트 볼",
+  "레이블en": "Ferdinand Bol",
+  "직업": [
+   "화가",
+   "회화 제작자",
+   "Q1925963",
+   "Q10732476",
+   "Q10862983",
+   "Q215536"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1616,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1680,
+   "정밀도": 10
+  },
+  "위키문서": "Ferdinand Bol",
+  "도입부": "Ferdinand Bol (24 June 1616 - 24 August 1680) was a Dutch painter, etcher and draftsman. Although his surviving work is rare, it displays Rembrandt's influence; like his master, Bol favoured historical subjects, portraits, numerous self-portraits, and single figures in exotic finery."
+ },
+ "Ferdinand Leeke": {
+  "질의": "Ferdinand Leeke",
+  "상태": "조회됨",
+  "Q": "Q5443870",
+  "레이블": "Ferdinand Leeke",
+  "레이블ko": null,
+  "레이블en": "Ferdinand Leeke",
+  "직업": [
+   "화가",
+   "Q644687",
+   "Q1925963",
+   "회화 제작자"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1859,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1937,
+   "정밀도": 11
+  },
+  "위키문서": "Ferdinand Leeke",
+  "도입부": "Ferdinand Leeke (7 April 1859 – 1923) was a German Painter, famous for his depictions of scenes from Wagnerian Operas. A native of Burg bei Magdeburg, Germany, he studied at the Munich Academy under Ludwig von Herterich (1843–1905) and Sándor Liezen-Mayer, a genre and historical painter, and with Alexander von Wagner (1838–1919), a Hungarian genre and landscape painter.\nAround 1889, Siegfried Wagner, the son of the composer Richard Wagner, commissioned Leeke to paint a series of paintings showing scenes from ten operas by Wagner."
+ },
+ "Filippo Lauri": {
+  "질의": "Filippo Lauri",
+  "상태": "조회됨",
+  "Q": "Q3071902",
+  "레이블": "Filippo Lauri",
+  "레이블ko": null,
+  "레이블en": "Filippo Lauri",
+  "직업": [
+   "화가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1623,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1694,
+   "정밀도": 11
+  },
+  "위키문서": "Filippo Lauri",
+  "도입부": "Filippo Lauri (25 August 1623 - 12 December 1694) was an Italian painter of the Baroque period."
+ },
+ "Frans Floris (I)": {
+  "질의": "Frans Floris (I)",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Frans Francken the Younger": {
+  "질의": "Frans Francken the Younger",
+  "상태": "조회됨",
+  "Q": "Q1442507",
+  "레이블": "프란스 프랑컨 2세",
+  "레이블ko": "프란스 프랑컨 2세",
+  "레이블en": "Frans Francken the Younger",
+  "직업": [
+   "화가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1581,
+   "정밀도": 9
+  },
+  "몰": {
+   "연": 1642,
+   "정밀도": 11
+  },
+  "위키문서": "Frans Francken the Younger",
+  "도입부": "Frans Francken the Younger (1581, Antwerp – 6 May 1642, Antwerp) was a Flemish painter and the best-known and most prolific member of the large Francken family of artists. He painted large altarpieces for churches as well as smaller historical, mythological and allegorical scenes. His depictions of collectors' cabinets established a popular new genre of art in the era. Francken often collaborated with other artists, adding figures and narrative elements to scenes created by specialists in landscape, architectural and floral still life paintings."
+ },
+ "Franz Xaver Zalder (* 1815)": {
+  "질의": "Franz Xaver Zalder (* 1815)",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Frederick Goodall": {
+  "질의": "Frederick Goodall",
+  "상태": "조회됨",
+  "Q": "Q720073",
+  "레이블": "Frederick Goodall",
+  "레이블ko": null,
+  "레이블en": "Frederick Goodall",
+  "직업": [
+   "화가",
+   "Q18814623",
+   "Q3140857",
+   "Q12356615"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1822,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1904,
+   "정밀도": 11
+  },
+  "위키문서": "Frederick Goodall",
+  "도입부": "Frederick Goodall  (17 September 1822 – 29 July 1904) was an English painter, normally of figure subjects, often on large scale.  He painted many genre and historical subjects, and used his visits to Egypt in 1858 and 1870 to provide material both for Biblical subjects, and others treating contemporary Egyptian life.  He exhibited work at the Royal Academy 27 times between 1838 and 1859, and was elected an Associate of the Royal Academy (ARA) in 1852 and a full Royal Academician (RA) in 1863. \n\nHe was extremely successful for most of his career, but his style fell from favour, and he was declared bankrupt in 1902."
+ },
+ "Gillis van Valckenborch": {
+  "질의": "Gillis van Valckenborch",
+  "상태": "조회됨",
+  "Q": "Q5562388",
+  "레이블": "Gillis van Valckenborch",
+  "레이블ko": null,
+  "레이블en": "Gillis van Valckenborch",
+  "직업": [
+   "화가",
+   "삽화가",
+   "예술가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1570,
+   "정밀도": 9
+  },
+  "몰": {
+   "연": 1622,
+   "정밀도": 9
+  },
+  "위키문서": "Gillis van Valckenborch",
+  "도입부": "Gillis van Valckenborch or Egidius van Valckenborch (1570 in Antwerp – end of March or 1 April 1622 in Frankfurt am Main) was a Flemish painter and draughtsman who spent most of his career in Germany. He was a member of the van Valckenborch dynasty of painters who painted mainly landscapes.  Unlike his family members, he is mainly known for his large-scale compositions with many swirling figures depicting scenes from ancient history or mythology. While his landscape drawings evidence his interest in landscape art no landscape paintings have been attributed to him."
+ },
+ "Giorgio Vasari": {
+  "질의": "Giorgio Vasari",
+  "상태": "조회됨",
+  "Q": "Q128027",
+  "레이블": "조르조 바사리",
+  "레이블ko": "조르조 바사리",
+  "레이블en": "Giorgio Vasari",
+  "직업": [
+   "화가",
+   "건축가",
+   "Q1792450",
+   "Q36180",
+   "Q864380",
+   "Q17391638",
+   "Q21550346",
+   "Q2079935",
+   "Q3391743",
+   "Q11613590"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1511,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1574,
+   "정밀도": 11
+  },
+  "위키문서": "Giorgio Vasari",
+  "도입부": "Giorgio Vasari (30 July 1511 – 27 June 1574) was an Italian Renaissance painter, architect, art historian, and biographer known for his work Lives of the Most Excellent Painters, Sculptors, and Architects, considered the ideological foundation of Western art-historical writing, and still much cited in modern biographies of the many Italian Renaissance artists he covers, including Leonardo da Vinci and Michelangelo, although he is since regarded as including many factual errors, especially when covering artists from before he was born.\nVasari was a Mannerist painter highly regarded both as a painter and architect in his day, but rather less so in later centuries. He was effectively what would later be called the minister of culture to the Medici court in Florence, and the Lives promoted, with enduring success, the idea of Florentine superiority in the visual arts.\nVasari designed the Tomb of Michelangelo, his hero, in the Basilica of Santa Croce, Florence, which was completed in 1578."
+ },
+ "Giovanni Domenico Cerrini": {
+  "질의": "Giovanni Domenico Cerrini",
+  "상태": "조회됨",
+  "Q": "Q2636964",
+  "레이블": "Giovanni Domenico Cerrini",
+  "레이블ko": null,
+  "레이블en": "Giovanni Domenico Cerrini",
+  "직업": [
+   "화가",
+   "삽화가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1609,
+   "정밀도": 9
+  },
+  "몰": {
+   "연": 1681,
+   "정밀도": 9
+  },
+  "위키문서": "Giovanni Domenico Cerrini",
+  "도입부": "Giovanni Domenico Cerrini (1609–1681), also called Gian Domenico Cerrini or il Cavalier Perugino, was a painter of the Baroque period, born in Perugia and active mainly in Rome and influenced in large part by painters of the Bolognese School."
+ },
+ "Giulio Romano": {
+  "질의": "Giulio Romano",
+  "상태": "조회됨",
+  "Q": "Q215305",
+  "레이블": "줄리오 로마노",
+  "레이블ko": "줄리오 로마노",
+  "레이블en": "Giulio Romano",
+  "직업": [
+   "건축가",
+   "화가",
+   "조각가",
+   "Q3391743",
+   "Q1340643"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1499,
+   "정밀도": 9
+  },
+  "몰": {
+   "연": 1546,
+   "정밀도": 11
+  },
+  "위키문서": "Giulio Romano",
+  "도입부": "Giulio Pippi (c. 1499 – 1 November 1546), known as Giulio Romano (US:  JOOL-yoh rə-MAH-noh( Italian: [ˈdʒuːljo roˈmaːno]) and sometimes known in French as Jules Romain, was an Italian painter and architect. He was a pupil of Raphael, and his stylistic deviations from High Renaissance classicism help define the sixteenth-century style known as Mannerism. Giulio's drawings have long been treasured by collectors; contemporary prints of them engraved by Marcantonio Raimondi were a significant contribution to the spread of sixteenth-century Italian style throughout Europe."
+ },
+ "Giuseppe Maria Crespi": {
+  "질의": "Giuseppe Maria Crespi",
+  "상태": "조회됨",
+  "Q": "Q528620",
+  "레이블": "Giuseppe Maria Crespi",
+  "레이블ko": null,
+  "레이블en": "Giuseppe Maria Crespi",
+  "직업": [
+   "화가",
+   "Q3391743"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1665,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1747,
+   "정밀도": 11
+  },
+  "위키문서": "Giuseppe Crespi",
+  "도입부": "Giuseppe Maria Crespi (14 March 1665 – 16 July 1747), nicknamed Lo Spagnuolo ('The Spaniard'), was an Italian late Baroque painter of the Bolognese School. His eclectic output includes religious paintings and portraits, but he is now most famous for his genre paintings."
+ },
+ "Hans Makart": {
+  "질의": "Hans Makart",
+  "상태": "조회됨",
+  "Q": "Q511444",
+  "레이블": "Hans Makart",
+  "레이블ko": null,
+  "레이블en": "Hans Makart",
+  "직업": [
+   "화가",
+   "Q37226",
+   "Q2079935"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1840,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1884,
+   "정밀도": 11
+  },
+  "위키문서": "Hans Makart",
+  "도입부": "Hans Makart (28 May 1840 – 3 October 1884) was an Austrian academic history painter, designer and decorator. Makart was a prolific painter whose ideas significantly influenced the development of visual art in Austria-Hungary, Germany, and other countries."
+ },
+ "Herman van Swanevelt": {
+  "질의": "Herman van Swanevelt",
+  "상태": "조회됨",
+  "Q": "Q875164",
+  "레이블": "Herman van Swanevelt",
+  "레이블ko": null,
+  "레이블en": "Herman van Swanevelt",
+  "직업": [
+   "화가",
+   "회화 제작자",
+   "Q3391743",
+   "Q10862983",
+   "예술가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1603,
+   "정밀도": 9
+  },
+  "몰": {
+   "연": 1655,
+   "정밀도": 9
+  },
+  "위키문서": "Herman van Swanevelt",
+  "도입부": "Herman van Swanevelt (1603 – 1655) was a Dutch painter and etcher from the Baroque era."
+ },
+ "Ib Rasmussen": {
+  "질의": "Ib Rasmussen",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Jacob van Campen": {
+  "질의": "Jacob van Campen",
+  "상태": "조회됨",
+  "Q": "Q536951",
+  "레이블": "Jacob van Campen",
+  "레이블ko": null,
+  "레이블en": "Jacob van Campen",
+  "직업": [
+   "화가",
+   "건축가",
+   "예술가",
+   "Q5322166",
+   "Q3391743",
+   "삽화가",
+   "Q10855106",
+   "Q59922524"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1596,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1657,
+   "정밀도": 11
+  },
+  "위키문서": "Jacob van Campen",
+  "도입부": "Jacob van Campen (2 February 1596 — 13 September 1657) was a Dutch artist and architect of the Golden Age."
+ },
+ "Jacques Courtois": {
+  "질의": "Jacques Courtois",
+  "상태": "조회됨",
+  "Q": "Q1366347",
+  "레이블": "Jacques Courtois",
+  "레이블ko": null,
+  "레이블en": "Jacques Courtois",
+  "직업": [
+   "화가",
+   "회화 제작자",
+   "삽화가",
+   "Q3391743"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1621,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1676,
+   "정밀도": 9
+  },
+  "위키문서": "Jacques Courtois",
+  "도입부": "Jacques Courtois (French pronunciation: [ʒak kuʁtwa]) or Giacomo Cortese, called il Borgognone or le Bourguignon (12 ?December 1621 – 14 November 1676) was a Franche-Comtois–Italian painter, draughtsman, and etcher.  He was mainly active in Rome and Florence and became known as the leading battle painter of his age. He also created history paintings and portraits. He became a Jesuit later in life while continuing to paint."
+ },
+ "James Doyle Penrose": {
+  "질의": "James Doyle Penrose",
+  "상태": "조회됨",
+  "Q": "Q15093618",
+  "레이블": "J. 도일 펜로즈",
+  "레이블ko": "J. 도일 펜로즈",
+  "레이블en": "James Doyle Penrose",
+  "직업": [
+   "화가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1862,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1932,
+   "정밀도": 11
+  },
+  "위키문서": "J. Doyle Penrose",
+  "도입부": "James Doyle Penrose RHA JP (9 May 1862 – 2 January 1932) was an Irish painter known for his religious and mythological paintings. He was the father of psychiatrist and mathematician Lionel Penrose and of artist Roland Penrose and the grandfather of mathematical physicist Roger Penrose."
+ },
+ "James Doyle Penrose (1862-1932)": {
+  "질의": "James Doyle Penrose (1862-1932)",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "James Tissot": {
+  "질의": "James Tissot",
+  "상태": "조회됨",
+  "Q": "Q381248",
+  "레이블": "제임스 티소",
+  "레이블ko": "제임스 티소",
+  "레이블en": "James Tissot",
+  "직업": [
+   "화가",
+   "Q3658608",
+   "회화 제작자",
+   "Q10862983",
+   "Q1925963"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1836,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1902,
+   "정밀도": 11
+  },
+  "위키문서": "James Tissot",
+  "도입부": "Jacques Joseph Tissot (French: [ʒɑk ʒozɛf tiso]; 15 October 1836 – 8 August 1902), better known as James Tissot (UK:  TISS-oh, US:  tee-SOH), was a French painter, illustrator, and caricaturist. He was born to a drapery merchant and a milliner and decided to pursue a career in art at a young age, coming to incorporate elements of realism, early Impressionism, and academic art into his work. He is best known for a variety of genre paintings of contemporary European high society produced during the peak of his career, which focused on the people and women's fashion of the Belle Époque and Victorian England, but he would also explore many medieval, biblical, and Japoniste subjects throughout his life. His career included work as a caricaturist for Vanity Fair under the pseudonym of Coïdé."
+ },
+ "Jan van den Hoecke / Pieter Thijs": {
+  "질의": "Jan van den Hoecke / Pieter Thijs",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Jasper van der Lanen": {
+  "질의": "Jasper van der Lanen",
+  "상태": "조회됨",
+  "Q": "Q3807450",
+  "레이블": "Jasper van der Lanen",
+  "레이블ko": null,
+  "레이블en": "Jasper van der Lanen",
+  "직업": [
+   "화가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1585,
+   "정밀도": 9
+  },
+  "몰": {
+   "연": 1634,
+   "정밀도": 9
+  },
+  "위키문서": "Jasper van der Lanen",
+  "도입부": "Jasper van der Lanen, Jasper van der Laanen or Kasper van der Lanen  (c. 1585 in Antwerp – after 1626 in Antwerp) was a Flemish landscape painter.  He is known for his wooded landscapes with figures representing mythological or biblical stories or pastoral scenes.  His work was only rediscovered in the mid-20th century."
+ },
+ "Jean Alaux": {
+  "질의": "Jean Alaux",
+  "상태": "조회됨",
+  "Q": "Q1232255",
+  "레이블": "Jean Alaux",
+  "레이블ko": null,
+  "레이블en": "Jean Alaux",
+  "직업": [
+   "화가",
+   "예술가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1786,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1864,
+   "정밀도": 11
+  },
+  "위키문서": "Jean Alaux",
+  "도입부": "Jean Alaux, called \"le Romain\" (\"the Roman\"), (1786 – 2 March 1864) was a French history painter and Director of the French Academy in Rome from 1846 to 1852."
+ },
+ "Jean-Baptiste GREUZE": {
+  "질의": "Jean-Baptiste GREUZE",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Joachim Wtewael": {
+  "질의": "Joachim Wtewael",
+  "상태": "조회됨",
+  "Q": "Q541644",
+  "레이블": "Joachim Wtewael",
+  "레이블ko": null,
+  "레이블en": "Joachim Wtewael",
+  "직업": [
+   "화가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1566,
+   "정밀도": 9
+  },
+  "몰": {
+   "연": 1638,
+   "정밀도": 11
+  },
+  "위키문서": "Joachim Wtewael",
+  "도입부": "Joachim Anthoniszoon Wtewael (Dutch pronunciation: [ˈjoːaːxɪm ˈyːtəʋaːl]; 1566 – 1 August 1638), also known as Uytewael (pronounced [ˈœytəʋaːl]), was a Dutch Mannerist painter and draughtsman, as well as a highly successful flax merchant, and town councillor of Utrecht.  Wtewael was one of the leading Dutch exponents of Northern Mannerism, and his distinctive and attractive style remained largely untouched by the naturalistic developments happening around him, \"characterized by masterfully drawn, highly polished figures often set in capricious poses\". Wtewael was trained in the style of late 16th-century Haarlem Mannerism and remained essentially faithful to it, despite painting well into the early period of Dutch Golden Age painting.\nAltogether he has left about a hundred paintings, as well as drawings and some stained glass he designed."
+ },
+ "Johann Georg Platzer": {
+  "질의": "Johann Georg Platzer",
+  "상태": "조회됨",
+  "Q": "Q85265",
+  "레이블": "Johann Georg Platzer",
+  "레이블ko": null,
+  "레이블en": "Johann Georg Platzer",
+  "직업": [
+   "화가",
+   "조각가",
+   "Q1840507",
+   "삽화가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1704,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1761,
+   "정밀도": 11
+  },
+  "위키문서": "Johann Georg Platzer",
+  "도입부": "Johann Georg Platzer (1704–1761) was a prolific Austrian Rococo painter and draughtsman."
+ },
+ "Johann Jaritz": {
+  "질의": "Johann Jaritz",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Joseph Clover": {
+  "질의": "Joseph Clover",
+  "상태": "조회됨",
+  "Q": "Q6287397",
+  "레이블": "Joseph Thomas Clover",
+  "레이블ko": null,
+  "레이블en": "Joseph Thomas Clover",
+  "직업": [
+   "Q39631"
+  ],
+  "화가인가": false,
+  "생": {
+   "연": 1825,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1882,
+   "정밀도": 11
+  },
+  "위키문서": "Joseph Thomas Clover",
+  "도입부": "Joseph Thomas Clover (born 28 February 1825; baptised 7 May 1825 – 27 September 1882) was an English medical doctor and innovator of anaesthesia. He invented a variety of pieces of apparatus to deliver anaesthetics, including ether and chloroform, safely and controllably. By 1871, he had administered anaesthetics 13,000 times without a fatality.\nClover assisted at surgery of public figures including Napoleon III, Princess Alexandra of Denmark and her husband King Edward VII (then Prince of Wales), Sir Robert Peel, and Florence Nightingale."
+ },
+ "K.Baas": {
+  "질의": "K.Baas",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Knud Baade": {
+  "질의": "Knud Baade",
+  "상태": "조회됨",
+  "Q": "Q1508306",
+  "레이블": "Knud Baade",
+  "레이블ko": null,
+  "레이블en": "Knud Baade",
+  "직업": [
+   "화가",
+   "Q25616553",
+   "예술가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1808,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1879,
+   "정밀도": 11
+  },
+  "위키문서": "Knud Baade",
+  "도입부": "Knud Baade (28 March 1808 – 24 November 1879) was a Norwegian painter, mostly of portraits and landscapes. He was particularly known for his moonlight paintings which are characterized by strong and dramatic contrasts between light and shadow."
+ },
+ "Kurz & Allison, Chicago , Art Publishers, 1890.": {
+  "질의": "Kurz & Allison, Chicago , Art Publishers, 1890.",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Lawrence Alma-Tadema": {
+  "질의": "Lawrence Alma-Tadema",
+  "상태": "조회됨",
+  "Q": "Q240526",
+  "레이블": "로렌스 알마 타데마",
+  "레이블ko": "로렌스 알마 타데마",
+  "레이블en": "Lawrence Alma-Tadema",
+  "직업": [
+   "화가",
+   "Q3391743",
+   "Q644687",
+   "Q1925963",
+   "Q10373653",
+   "Q10862983",
+   "Q3374326",
+   "Q16947657",
+   "삽화가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1836,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1912,
+   "정밀도": 11
+  },
+  "위키문서": "Lawrence Alma-Tadema",
+  "도입부": "Sir Lawrence Alma-Tadema ( AL-mə TAD-ay-mə; born Lourens Alma Tadema, Dutch: [ˈlʌurəns ˈɑlmaː ˈtaːdəmaː]; 8 January 1836 – 25 June 1912) was a Dutch painter who later settled in the United Kingdom, becoming the last officially recognised denizen in 1873. Born in Dronryp, the Netherlands, and trained at the Royal Academy of Antwerp, Belgium, he settled in London, England in 1870 and spent the rest of his life there.\nA painter of mostly classical subjects, he became famous for his depictions of the luxury and decadence of the Roman Empire, with languorous figures set in fabulous marbled interiors or against a backdrop of dazzling blue Mediterranean sea and sky. One of the most popular Victorian painters, Alma-Tadema was admired during his lifetime for his draftsmanship and accurate depictions of classical antiquity, but his work fell out of fashion after his death, and only since the 1960s has it been appreciated for its importance within Victorian painting."
+ },
+ "Lighbulbz": {
+  "질의": "Lighbulbz",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Lorenz Frølich": {
+  "질의": "Lorenz Frølich",
+  "상태": "조회됨",
+  "Q": "Q373753",
+  "레이블": "Lorenz Frølich",
+  "레이블ko": null,
+  "레이블en": "Lorenz Frølich",
+  "직업": [
+   "Q644687",
+   "화가",
+   "Q1925963",
+   "삽화가",
+   "사진가",
+   "회화 제작자"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1820,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1908,
+   "정밀도": 11
+  },
+  "위키문서": "Lorenz Frølich",
+  "도입부": "Lorenz Frølich (25 October 1820 – 25 October 1908) was a Danish painter, illustrator, graphic artist and etcher."
+ },
+ "Manner of Jusepe de Ribera": {
+  "질의": "Manner of Jusepe de Ribera",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Marie-Lan Nguyen": {
+  "질의": "Marie-Lan Nguyen",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Marinemaler Alexander Kircher im Original": {
+  "질의": "Marinemaler Alexander Kircher im Original",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Matteo Rosselli": {
+  "질의": "Matteo Rosselli",
+  "상태": "조회됨",
+  "Q": "Q944534",
+  "레이블": "Matteo Rosselli",
+  "레이블ko": null,
+  "레이블en": "Matteo Rosselli",
+  "직업": [
+   "화가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1578,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1650,
+   "정밀도": 11
+  },
+  "위키문서": "Matteo Rosselli",
+  "도입부": "Matteo Rosselli (10 August 1578 – 18 January 1650) was an Italian painter of the late Florentine Counter-Mannerism and early Baroque. He is best known however for his highly populated grand-manner historical paintings."
+ },
+ "Metropolitan Museum of Art": {
+  "질의": "Metropolitan Museum of Art",
+  "상태": "조회됨",
+  "Q": "Q160236",
+  "레이블": "메트로폴리탄 미술관",
+  "레이블ko": "메트로폴리탄 미술관",
+  "레이블en": "Metropolitan Museum of Art",
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": "Metropolitan Museum of Art",
+  "도입부": "The Metropolitan Museum of Art, colloquially referred to as the Met, is an encyclopedic art museum in New York City. By floor area, it is the third-largest museum in the world and the largest art museum in the Americas. With 5,727,258 visitors in fiscal year 2025, it was the most-visited museum in the United States and the fifth-most visited art museum in the world.\nIn 2000, its permanent collection had over two million works; it currently lists a total of 1.5 million works."
+ },
+ "Miguel Jacinto Meléndez": {
+  "질의": "Miguel Jacinto Meléndez",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Peiser, Theodore E": {
+  "질의": "Peiser, Theodore E",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Pierre-Narcisse Guérin": {
+  "질의": "Pierre-Narcisse Guérin",
+  "상태": "조회됨",
+  "Q": "Q362704",
+  "레이블": "피에르나르시스 게랭",
+  "레이블ko": "피에르나르시스 게랭",
+  "레이블en": "Pierre-Narcisse Guérin",
+  "직업": [
+   "화가"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1774,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1833,
+   "정밀도": 11
+  },
+  "위키문서": "Pierre-Narcisse Guérin",
+  "도입부": "Pierre-Narcisse, baron Guérin (13 March 1774 – 6 July 1833) was a French painter, born in Paris."
+ },
+ "Reilly1974": {
+  "질의": "Reilly1974",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Ricardalovesmonuments": {
+  "질의": "Ricardalovesmonuments",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Rollroboter": {
+  "질의": "Rollroboter",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Rosalba Carriera": {
+  "질의": "Rosalba Carriera",
+  "상태": "조회됨",
+  "Q": "Q237726",
+  "레이블": "로살바 카리에라",
+  "레이블ko": "로살바 카리에라",
+  "레이블en": "Rosalba Carriera",
+  "직업": [
+   "화가",
+   "삽화가",
+   "Q2079935",
+   "예술가",
+   "Q3391743"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1675,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1757,
+   "정밀도": 11
+  },
+  "위키문서": "Rosalba Carriera",
+  "도입부": "Rosalba Carriera (12 January 1673 – 15 April 1757) was an Italian Rococo painter. In her younger years, she specialized in portrait miniatures. Carriera would later become known for her pastel portraits, helping popularize the medium in eighteenth-century Europe. She is remembered as one of the most successful women artists of any era."
+ },
+ "Unbekannter Meister": {
+  "질의": "Unbekannter Meister",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Unomyth": {
+  "질의": "Unomyth",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Uopo7": {
+  "질의": "Uopo7",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "Walter Crane": {
+  "질의": "Walter Crane",
+  "상태": "조회됨",
+  "Q": "Q660917",
+  "레이블": "월터 크레인",
+  "레이블ko": "월터 크레인",
+  "레이블en": "Walter Crane",
+  "직업": [
+   "화가",
+   "Q644687",
+   "삽화가",
+   "Q3391743",
+   "Q107212688",
+   "Q36180",
+   "Q5322166",
+   "Q18431816"
+  ],
+  "화가인가": true,
+  "생": {
+   "연": 1845,
+   "정밀도": 11
+  },
+  "몰": {
+   "연": 1915,
+   "정밀도": 11
+  },
+  "위키문서": "Walter Crane",
+  "도입부": "Walter Crane (15 August 1845 – 14 March 1915) was an English artist, book illustrator, and prominent advocate for anti-authoritarian democratic socialism among British socialists and in the labour movement of the 19th century. An artistic activist—retroactively classifiable as an \"artivist\"—Crane produced a large body of both apolitical illustrations for primarily children's literature, though also contemporary (Victorian era) English adult-audience trade-books and general-interest literature, as well as visual works with explicit socio-political messaging.\nHe is considered to be the most influential, and among the most prolific, children's book designers and illustrators of his generation and, along with Randolph Caldecott and Kate Greenaway, one of the strongest contributors to the child's nursery motif that the genre of English children's illustrated literature would exhibit in its developmental stages in the late 19th century.\nCrane's work featured some of the more colourful and detailed beginnings of the child-in-the-garden motifs that would characterize many nursery rhymes and children's stories for decades to come."
+ },
+ "charles lecompte": {
+  "질의": "charles lecompte",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
+ },
+ "unknown Ethiopian artist": {
+  "질의": "unknown Ethiopian artist",
+  "상태": "문서없음",
+  "Q": null,
+  "레이블": null,
+  "레이블ko": null,
+  "레이블en": null,
+  "직업": [],
+  "화가인가": null,
+  "생": null,
+  "몰": null,
+  "위키문서": null,
+  "도입부": null
  }
 }

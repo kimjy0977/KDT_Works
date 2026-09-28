@@ -48,13 +48,13 @@ _B1 = CFG["_관문"]["B1_표시의무위반"]
 #     Venus 0 · Hercules 0 · Trojan War 0 · Ovid's Metamorphoses 0
 #   ⇒ 넣기 «전»에 센다. 추측으로 목록에 넣지 않는다.
 분류 = [
-    ("신화", "Category:Paintings of Greek mythology"),      # 실측 50
+    ("신화", "Category:Paintings of Greek mythology"),      # 실측 62
     ("신화", "Category:Paintings of Roman mythology"),       # 실측 42
-    ("신화", "Category:Paintings of Norse mythology"),       # 실측 50
+    ("신화", "Category:Paintings of Norse mythology"),       # 실측 80
     ("신화", "Category:Paintings of Diana"),                 # 실측 46
-    ("역사", "Category:History paintings"),                  # 실측 50
+    ("역사", "Category:History paintings"),                  # 실측 200
     ("종교·신화", "Category:New Testament paintings"),         # 실측 12
-    ("전쟁", "Category:Paintings of battles"),               # 실측 50
+    ("전쟁", "Category:Paintings of battles"),               # 실측 213
     ("종교·신화", "Category:Old Testament paintings"),          # 실측 4
     # ⛔★「Battle paintings」는 뺐다 — 두 번 재서 두 번 0건이었다.
     #   allcategories 로는 «존재»한다고 나온다 ⇒ 있긴 있고 «파일이 없는»
@@ -63,7 +63,7 @@ _B1 = CFG["_관문"]["B1_표시의무위반"]
 ]
 
 
-def 부른다(params, 재시도=4):
+def 부른다(params, 재시도=6):
     """★429 를 «기다려서» 푼다 — 노드3 에서 겪은 그것이다.
 
     위키미디어는 빨리 부르면 429 로 막는다. 실제로 막혔다(2026-09-28).
@@ -74,7 +74,7 @@ def 부른다(params, 재시도=4):
     q = dict(params)
     q.update({"format": "json", "formatversion": "2"})
     url = API + "?" + urllib.parse.urlencode(q)
-    쉼 = 1.0
+    쉼 = 3.0                       # ★1초로는 모자랐다(실측)
     for i in range(재시도):
         try:
             req = urllib.request.Request(url, headers=UA)
@@ -102,7 +102,7 @@ def 목록(cat, n):
         cont = d.get("continue", {}).get("cmcontinue")
         if not cont:
             break
-        time.sleep(0.6)
+        time.sleep(1.5)          # ★0.6초로는 429 가 났다
     return out[:n]
 
 
@@ -111,9 +111,18 @@ def 메타(titles):
     out = []
     for i in range(0, len(titles), 20):
         묶음 = titles[i:i + 20]
-        d = 부른다({"action": "query", "titles": "|".join(묶음),
-                  "prop": "imageinfo",
-                  "iiprop": "url|size|extmetadata|mime"})
+        # ⛔★여기에 재시도가 «없어서» 429 하나에 분류가 통째로 죽었다.
+        #   목록()에는 붙여 놓고 메타()에는 안 붙였다 — §H-4 그대로다.
+        #   한 묶음이 실패해도 «나머지는 살린다».
+        try:
+            d = 부른다({"action": "query", "titles": "|".join(묶음),
+                      "prop": "imageinfo",
+                      "iiprop": "url|size|extmetadata|mime"})
+        except Exception as e:
+            print("      ⚠메타 묶음 %d~%d 못 받음: %s"
+                  % (i, i + len(묶음), str(e)[:40]))
+            time.sleep(10)
+            continue
         for pg in d.get("query", {}).get("pages", []):
             ii = (pg.get("imageinfo") or [{}])[0]
             e = ii.get("extmetadata", {})
@@ -133,7 +142,7 @@ def 메타(titles):
                 "설명원문": g("ImageDescription"),
                 "출처원문": g("Credit"),
             })
-        time.sleep(0.6)
+        time.sleep(1.5)
     return out
 
 
@@ -181,6 +190,17 @@ def 관문판정(m):
     return 걸린
 
 
+def _저장(작품):
+    """★모은 만큼 «바로» 적는다 — 옆에 쓰고 갈아 끼운다(원자적)."""
+    os.makedirs(os.path.join(HERE, "data"), exist_ok=True)
+    p = os.path.join(HERE, "data/corpus.json")
+    임시 = p + ".tmp"
+    io.open(임시, "w", encoding="utf-8", newline="").write(
+        json.dumps({"작품": 작품, "수집": len(작품)},
+                   ensure_ascii=False, indent=1))
+    os.replace(임시, p)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--list", action="store_true", help="저장 없이 훑기만")
@@ -191,10 +211,21 @@ def main():
     작품 = []
     print("═══ 회화 수집 — ★라이선스를 «원문 그대로» 같이 담는다 ═══\n")
     for 갈래, cat in 분류:
-        try:
-            ts = 목록(cat, 몫)
-        except Exception as e:
-            print("  ⚠%s — 못 가져옴: %s" % (갈래, str(e)[:50]))
+        # ⛔429 로 «분류 하나를 통째로» 잃지 않는다.
+        #   실측 2026-09-28 — 종교·신화가 통째로 빠져 목표 200 에 130 만 모였다.
+        #   ★「못 받았다」를 「없다」로 만들지 않으려면 여기서 한 번 더 기다린다.
+        ts = None
+        for 시도 in range(3):
+            try:
+                ts = 목록(cat, 몫)
+                break
+            except Exception as e:
+                쉼 = 8 * (시도 + 1)
+                print("  ⚠%s — %s · %d초 쉬고 다시(%d/3)"
+                      % (갈래, str(e)[:40], 쉼, 시도 + 1))
+                time.sleep(쉼)
+        if ts is None:
+            print("  ⛔%s — 세 번 다 실패. ★«없다»가 아니라 «못 받았다»다." % 갈래)
             continue
         ms = 메타(ts)
         for m in ms:
@@ -204,6 +235,11 @@ def main():
             m["걸린관문"] = 관문판정(m)
             작품.append(m)
         print("  %-10s %2d점  (%s)" % (갈래, len(ms), cat.replace("Category:", "")))
+        time.sleep(1.2)          # ★분류 사이에 한 박자 — 429 를 덜 만난다
+        if not a.list:
+            # ★분류 하나 끝날 때마다 «바로» 저장한다.
+            #   ⛔전에는 끝까지 가야 저장해서, 429 하나에 앞서 모은 것도 날아갔다.
+            _저장(작품)
 
     # ★센다 — 「어느 관문이 몇 건을 잡나」가 곧 갈래별 개입률이다.
     #   ⛔여기서 «기준을 고쳐야 할지»가 드러난다. 0건이면 있으나 마나다(3강).
