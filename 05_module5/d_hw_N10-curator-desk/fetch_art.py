@@ -43,18 +43,23 @@ _B1 = CFG["_관문"]["B1_표시의무위반"]
 
 # ★관심사 그대로 — 미술사 × 신화 × 세계사·전쟁사
 #   ⛔목록을 «고정»으로 보지 않는다. 모자라면 여기 한 줄 더한다.
+# ★파일 수를 «재서» 골랐다 (2026-09-28). 이름이 그럴듯해도 파일이 없을 수 있다.
+#   실측 — 「Paintings of {주제}」 꼴은 ★흔히 «파일 없는 상위 분류»다:
+#     Venus 0 · Hercules 0 · Trojan War 0 · Ovid's Metamorphoses 0
+#   ⇒ 넣기 «전»에 센다. 추측으로 목록에 넣지 않는다.
 분류 = [
-    ("신화", "Category:Paintings of Greek mythology"),
-    ("신화", "Category:Paintings of Roman mythology"),
-    ("신화", "Category:Paintings of Norse mythology"),
-    ("역사", "Category:History paintings"),
-    # ⛔★아래 둘은 «미확정» — 0건으로 나왔는데 재확인하다 429 에 막혔다.
-    #   「분류가 비었다」와 「내가 못 받았다」는 다르다.
-    #   allcategories 로는 "Battle paintings" 가 ★존재한다고 나왔다(모순).
-    #   ⇒ 레이트리밋 풀린 뒤 다시 잰다. 그때까지 결론 내지 않는다.
-    ("전쟁", "Category:Battle paintings"),
-    ("전쟁", "Category:Paintings of battles"),
-    ("종교·신화", "Category:Old Testament paintings"),
+    ("신화", "Category:Paintings of Greek mythology"),      # 실측 50
+    ("신화", "Category:Paintings of Roman mythology"),       # 실측 42
+    ("신화", "Category:Paintings of Norse mythology"),       # 실측 50
+    ("신화", "Category:Paintings of Diana"),                 # 실측 46
+    ("역사", "Category:History paintings"),                  # 실측 50
+    ("종교·신화", "Category:New Testament paintings"),         # 실측 12
+    ("전쟁", "Category:Paintings of battles"),               # 실측 50
+    ("종교·신화", "Category:Old Testament paintings"),          # 실측 4
+    # ⛔★「Battle paintings」는 뺐다 — 두 번 재서 두 번 0건이었다.
+    #   allcategories 로는 «존재»한다고 나온다 ⇒ 있긴 있고 «파일이 없는»
+    #   상위 분류다. 위의 Venus·Hercules 와 같은 꼴이다.
+    #   ⇒ 「비었다」가 아니라 ★「파일을 직접 담지 않는 분류다」가 맞는 말이다.
 ]
 
 

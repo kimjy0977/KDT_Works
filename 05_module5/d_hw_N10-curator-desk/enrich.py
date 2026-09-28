@@ -50,6 +50,11 @@ CACHE = os.path.join(HERE, "data/wiki_cache.json")
 화가류 = {"Q1028181", "Q483501", "Q1281618", "Q15296811",
          "Q329439", "Q11569986"}
 
+# ★캐시가 «쓸 수 있는 것»인지 가르는 열쇠.
+#   필드를 더하면 여기 한 줄 더한다 — 그러면 옛 캐시가 자동으로 낡은 것이 된다.
+#   ⛔안 그러면 --nocache 를 «손으로» 기억해야 하고, 잊으면 조용히 빈 채로 간다.
+필요열쇠 = {"상태", "레이블en", "도입부"}
+
 
 def 부른다(base, params, 재시도=5):
     """★429 를 만나면 «쉬었다» 다시. 0건과 못 받은 것을 섞지 않으려고."""
@@ -89,14 +94,20 @@ def 작가조회(이름):
     r = {"질의": 이름, "상태": "미조회", "Q": None,
          "레이블": None, "레이블ko": None, "레이블en": None,
          "직업": [], "화가인가": None, "생": None, "몰": None,
-         "위키문서": None}
+         "위키문서": None, "도입부": None}
     if not (이름 or "").strip():
         r["상태"] = "이름없음"
         return r
 
     try:
+        # ★도입부도 «같은 호출»로 가져온다 — 호출을 늘리지 않고 깊이를 늘린다.
+        #   ⛔전에는 생몰년·직업만 받아서 작가소개가
+        #     「X (1748~1825). 직업은 화가.」 두 문장이었다. 얄팍했다.
+        #   ⇒ 도입부가 있으면 «근거 있는» 문장을 쓸 수 있고,
+        #     A1(원문에 없는 숫자)·A2(근거 0)를 «실제로» 잴 거리가 생긴다.
         d = 부른다(WP, {"action": "query", "titles": 이름,
-                      "prop": "pageprops", "ppprop": "wikibase_item",
+                      "prop": "pageprops|extracts", "ppprop": "wikibase_item",
+                      "exintro": 1, "explaintext": 1, "exsentences": 4,
                       "redirects": 1})
     except Exception as e:
         r["오류"] = str(e)[:80]
@@ -108,6 +119,7 @@ def 작가조회(이름):
         r["상태"] = "문서없음"        # ★조회는 «됐고» 문서가 없다 — 다른 말이다
         return r
     r["위키문서"] = page.get("title")
+    r["도입부"] = (page.get("extract") or "").strip()
     q = (page.get("pageprops") or {}).get("wikibase_item")
     if not q:
         r["상태"] = "위키데이터없음"
@@ -170,7 +182,13 @@ def main():
     for i, nm in enumerate(이름들, 1):
         # ⛔★«미조회»를 캐시에 남기면 다시 돌려도 영영 안 채워진다.
         #   실패는 캐시하지 않는다 — 「못 받았다」는 답이 아니다.
-        if nm in 캐시 and 캐시[nm].get("상태") != "미조회" and not a.nocache:
+        # ★그리고 «필드가 늘면» 옛 캐시는 낡은 것이다.
+        #   전에 레이블en 을 더했을 때 --nocache 를 손으로 써야 했다.
+        #   도입부를 더할 때 또 같은 일이 났다 ⇒ ★필드로 판정한다.
+        #   필요한 열쇠가 다 있어야 「쓸 수 있는 캐시」다.
+        낡음 = nm in 캐시 and not 필요열쇠.issubset(캐시[nm].keys())
+        if (nm in 캐시 and 캐시[nm].get("상태") != "미조회"
+                and not 낡음 and not a.nocache):
             continue
         캐시[nm] = 작가조회(nm)
         새로 += 1

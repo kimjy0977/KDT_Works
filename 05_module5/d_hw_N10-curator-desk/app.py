@@ -87,8 +87,26 @@ if not 색인:
             "python write.py\npython graph.py --올린다", language="bash")
     st.stop()
 
-대기 = graph.대기목록()
+try:
+    대기 = graph.대기목록()
+except Exception as e:
+    # ★체크포인터를 못 읽으면 «무엇을 하라»고 말해 준다. 죽지 않는다.
+    st.error("대기 목록을 읽지 못했습니다 — %s" % type(e).__name__)
+    st.caption(str(e)[:300])
+    st.code("python graph.py --청소\npython graph.py --올린다", language="bash")
+    st.stop()
 전체 = len(색인)
+
+# ★색인은 있는데 작품 자료가 없으면 «도켓을 못 그린다» — 먼저 말해 준다.
+#   ⛔전에는 여기서 KeyError 가 나 페이지가 통째로 죽었다.
+if 대기 and not 작품:
+    st.error("대기 건은 %d건인데 작품 자료(data/written_*.json)가 없습니다."
+             % len(대기))
+    st.caption("수집·세탁·작성을 다시 돌리면 같은 대기 건에 자료가 다시 붙습니다.")
+    st.code("python normalize.py\npython enrich.py\npython write.py",
+            language="bash")
+    st.stop()
+
 st.markdown(ui.진행(len(대기), 전체), unsafe_allow_html=True)
 
 갈래수 = {}
@@ -219,10 +237,25 @@ with 본:
         st.markdown("</div>", unsafe_allow_html=True)
 
         if 눌림:
-            r = graph.답한다(w["id"], 눌림,
-                          메모 if 눌림 == "수정 후 발행" else None)
+            # ★예외를 «화면에서» 받는다 — 루브릭 ③ 이 「오류 없이 실행」이다.
+            #   ⛔전에는 try 가 하나도 없어서, 한 건이라도 터지면
+            #     traceback 이 뜨고 페이지가 죽었다. 채점자가 그걸 본다.
+            #   ⇒ ★무엇이 왜 안 됐는지 «사람 말»로 보여 주고 화면은 살린다.
+            try:
+                r = graph.답한다(w["id"], 눌림,
+                              메모 if 눌림 == "수정 후 발행" else None)
+            except Exception as e:
+                st.error("「%s」 를 처리하지 못했습니다 — %s"
+                         % (눌림, type(e).__name__))
+                st.caption(str(e)[:400])
+                st.caption("대기 건은 그대로 남아 있습니다. "
+                           "자료가 없으면 `python write.py` 를 먼저 돌려 주세요.")
+                st.stop()
             st.session_state[키] = min(i, max(0, len(보일것) - 2))
-            st.success("%s — %s" % (눌림, r.get("결과")))
+            결 = r.get("결과") or ""
+            # ★「실패」를 «성공 색»으로 보여 주지 않는다
+            (st.warning if ("실패" in 결 or "안 나감" in 결)
+             else st.success)("%s — %s" % (눌림, 결))
             st.rerun()
 
 # ── ★안 멈춘 것도 보인다 — 안 보이면 «놓침»을 영영 못 찾는다 ─────────

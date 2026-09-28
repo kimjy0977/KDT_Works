@@ -52,7 +52,8 @@
      "연": 1809,
      "정밀도": 11
     },
-    "위키문서": "Nicolai Abildgaard"
+    "위키문서": "Nicolai Abildgaard",
+    "도입부": "Nicolai Abraham Abildgaard (11 September 1743 – 4 June 1809) was a Danish neoclassical and royal history painter, sculptor, architect, and professor of painting, mythology, and anatomy at the New Royal Danish Academy of Art in Copenhagen, Denmark. Many of his works were in the royal Christiansborg Palace (some destroyed by fire 1794), Fredensborg Palace, and Levetzau Palace at Amalienborg."
    }
   },
   {
@@ -93,7 +94,8 @@
     "화가인가": null,
     "생": null,
     "몰": null,
-    "위키문서": null
+    "위키문서": null,
+    "도입부": null
    }
   },
   {
@@ -149,7 +151,62 @@
      "연": 1551,
      "정밀도": 11
     },
-    "위키문서": "Domenico Beccafumi"
+    "위키문서": "Domenico Beccafumi",
+    "도입부": "Domenico di Pace Beccafumi (1486 – May 18, 1551) was an Italian Renaissance-Mannerist painter active predominantly in Siena. He is considered one of the last undiluted representatives of the Sienese school of painting."
+   }
+  },
+  {
+   "슬러그": "claude-vignon-the-knight-s-dream-the-dream-of-daphnis",
+   "제목": "Claude Vignon - The Knight's Dream (The Dream of Daphnis)",
+   "갈래주제": "신화",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Claude_Vignon_-_The_Knight%27s_Dream_%28The_Dream_of_Daphnis%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 742,
+   "세로": 961,
+   "라이선스": "Public domain",
+   "작가": "Claude Vignon",
+   "설명": "",
+   "출처": "http://www.christies.com/lotfinder/Lot/claude-vignon-tours-1593-1670-paris-the-knights-5175831-details.aspx",
+   "연도": {
+    "원문": "between 1640 and 1650 date QS:P571,+1650-00-00T00:00:00Z/7,P1319,+1640-00-00T00:00:00Z/9,P1326,+1650-00-00T00:00:00Z/9",
+    "값": 1645,
+    "정밀도": 9,
+    "정밀도이름": "연(범위 중앙)",
+    "이른": 1640,
+    "늦은": 1650,
+    "속성깨짐": false,
+    "출처": "P1319~P1326"
+   },
+   "연도표기": "1640~1650년",
+   "_원문": {
+    "저작자": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Claude_Vignon\" class=\"extiw\" title=\"w:en:Claude Vignon\"><span title=\"French painter (1593–1670)\">Claude Vignon</span></a></bdi>",
+    "연도": "between 1640 and 1650<div style=\"display: none;\">date QS:P571,+1650-00-00T00:00:00Z/7,P1319,+1640-00-00T00:00:00Z/9,P1326,+1650-00-00T00:00:00Z/9</div>",
+    "설명": ""
+   },
+   "작가조회": {
+    "질의": "Claude Vignon",
+    "상태": "조회됨",
+    "Q": "Q591684",
+    "레이블": "Claude Vignon",
+    "레이블ko": null,
+    "레이블en": "Claude Vignon",
+    "직업": [
+     "화가",
+     "회화 제작자",
+     "삽화가",
+     "Q10862983",
+     "예술가"
+    ],
+    "화가인가": true,
+    "생": {
+     "연": 1593,
+     "정밀도": 11
+    },
+    "몰": {
+     "연": 1670,
+     "정밀도": 11
+    },
+    "위키문서": "Claude Vignon",
+    "도입부": "Claude Vignon (19 May 1593 – 10 May 1670) was a French painter, printmaker and illustrator who worked in a wide range of genres.  During a period of study in Italy, he became exposed to many new artistic currents, in particular through the works of Caravaggio and his followers, Guercino, Guido Reni and Annibale Caracci. A prolific artist, his work has remained enigmatic, contradictory and hard to define within a single term or style.  His mature works are vibrantly coloured, splendidly lit and often extremely expressive."
    }
   },
   {
@@ -190,7 +247,8 @@
     "화가인가": null,
     "생": null,
     "몰": null,
-    "위키문서": null
+    "위키문서": null,
+    "도입부": null
    }
   },
   {
@@ -231,7 +289,8 @@
     "화가인가": null,
     "생": null,
     "몰": null,
-    "위키문서": null
+    "위키문서": null,
+    "도입부": null
    }
   },
   {
@@ -281,7 +340,8 @@
      "연": 1933,
      "정밀도": 11
     },
-    "위키문서": "Adolf Hirémy-Hirschl"
+    "위키문서": "Adolf Hirémy-Hirschl",
+    "도입부": "Adolf Hirémy-Hirschl (1860–1933) was a Hungarian artist known for historical and mythological painting, particularly of subjects pertaining to ancient Rome. Some of his major history paintings have been lost, and many of his smaller works were retained by his heirs until the early 1980s. Although he was one of the most successful artists of fin-de-siècle Vienna, these circumstances, along with the rise of Gustav Klimt and the Vienna Secessionists, put his reputation in eclipse."
    }
   },
   {
@@ -331,7 +391,8 @@
      "연": 1933,
      "정밀도": 11
     },
-    "위키문서": "Adolf Hirémy-Hirschl"
+    "위키문서": "Adolf Hirémy-Hirschl",
+    "도입부": "Adolf Hirémy-Hirschl (1860–1933) was a Hungarian artist known for historical and mythological painting, particularly of subjects pertaining to ancient Rome. Some of his major history paintings have been lost, and many of his smaller works were retained by his heirs until the early 1980s. Although he was one of the most successful artists of fin-de-siècle Vienna, these circumstances, along with the rise of Gustav Klimt and the Vienna Secessionists, put his reputation in eclipse."
    }
   },
   {
@@ -384,7 +445,8 @@
      "연": 1611,
      "정밀도": 10
     },
-    "위키문서": "Bartholomeus Spranger"
+    "위키문서": "Bartholomeus Spranger",
+    "도입부": "Bartholomeus Spranger or Bartholomaeus Spranger (21 March 1546 – 27 June 1611) was a Flemish painter, draughtsman, sculptor, and designer of prints. Working in Prague as a court artist for the Holy Roman emperor Rudolf II, he responded to his patron's aesthetic preferences by developing a version of the artistic style referred to as Northern Mannerism. This style stressed sensuality, which was expressed in smoothly modeled, elongated figures arranged in elegant poses, often including a nude woman seen from behind. Spranger's unique style combining elements of Netherlandish painting and Italian influences, in particular the Roman Mannerists, had an important influence on other artists in Prague and elsewhere, in particular the Dutch Republic, as his paintings were disseminated widely through prints as well as by artists who had worked with him such as Karel van Mander."
    }
   },
   {
@@ -425,7 +487,8 @@
     "화가인가": null,
     "생": null,
     "몰": null,
-    "위키문서": "Patrick"
+    "위키문서": "Patrick",
+    "도입부": "Patrick may refer to:"
    }
   },
   {
@@ -479,7 +542,8 @@
      "연": 1711,
      "정밀도": 11
     },
-    "위키문서": "Gerard de Lairesse"
+    "위키문서": "Gerard de Lairesse",
+    "도입부": "Gerard or Gérard (de) Lairesse (French pronunciation: [ʒeʁaʁ də lɛʁɛs]; 11 September 1641 – June 1711) was a Dutch Golden Age painter and art theorist. His broad range of skills included music, poetry, and theatre. De Lairesse was influenced by the Perugian Cesare Ripa and French classicist painters such as Charles le Brun, Simon Vouet and authors such as Pierre Corneille and Jean Racine. His importance grew in the period following the death of Rembrandt."
    }
   },
   {
@@ -533,7 +597,8 @@
      "연": 1711,
      "정밀도": 11
     },
-    "위키문서": "Gerard de Lairesse"
+    "위키문서": "Gerard de Lairesse",
+    "도입부": "Gerard or Gérard (de) Lairesse (French pronunciation: [ʒeʁaʁ də lɛʁɛs]; 11 September 1641 – June 1711) was a Dutch Golden Age painter and art theorist. His broad range of skills included music, poetry, and theatre. De Lairesse was influenced by the Perugian Cesare Ripa and French classicist painters such as Charles le Brun, Simon Vouet and authors such as Pierre Corneille and Jean Racine. His importance grew in the period following the death of Rembrandt."
    }
   },
   {
@@ -589,7 +654,8 @@
      "연": 1615,
      "정밀도": 11
     },
-    "위키문서": "Hans von Aachen"
+    "위키문서": "Hans von Aachen",
+    "도입부": "Hans von Aachen (1552 – 4 March 1615) was a German painter who was one of the leading representatives of Northern Mannerism.\nHans von Aachen was a versatile and productive artist who worked in many genres. He was successful as a painter of princely and aristocratic portraits, and further painted religious, mythological and allegorical subjects. Known for his skill in the depiction of nudes, his eroticized mythological scenes were particularly enjoyed by his principal patron, Emperor Rudolf II.  These remain the works for which he is best known."
    }
   },
   {
@@ -639,7 +705,8 @@
      "연": 1747,
      "정밀도": 11
     },
-    "위키문서": "Francesco Solimena"
+    "위키문서": "Francesco Solimena",
+    "도입부": "Francesco Solimena (4 October 1657 – 3 April 1747) was a prolific Italian Baroque painter, one of an established family of painters and draughtsmen. In his early years, influenced above all by Luca Giordano and Mattia Preti, he developed a highly personal and dramatic handling of light and shade, yet his later art reveals a tendency towards a more restrained classicism. Solimena had many pupils, making him one of the strongest influence in Neapolitan painting of the early 18th century."
    }
   },
   {
@@ -692,7 +759,65 @@
      "연": 1611,
      "정밀도": 10
     },
-    "위키문서": "Bartholomeus Spranger"
+    "위키문서": "Bartholomeus Spranger",
+    "도입부": "Bartholomeus Spranger or Bartholomaeus Spranger (21 March 1546 – 27 June 1611) was a Flemish painter, draughtsman, sculptor, and designer of prints. Working in Prague as a court artist for the Holy Roman emperor Rudolf II, he responded to his patron's aesthetic preferences by developing a version of the artistic style referred to as Northern Mannerism. This style stressed sensuality, which was expressed in smoothly modeled, elongated figures arranged in elegant poses, often including a nude woman seen from behind. Spranger's unique style combining elements of Netherlandish painting and Italian influences, in particular the Roman Mannerists, had an important influence on other artists in Prague and elsewhere, in particular the Dutch Republic, as his paintings were disseminated widely through prints as well as by artists who had worked with him such as Karel van Mander."
+   }
+  },
+  {
+   "슬러그": "beccafumi-ercole-al-bivio",
+   "제목": "Beccafumi, ercole al bivio",
+   "갈래주제": "신화",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/11/Beccafumi%2C_ercole_al_bivio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 1043,
+   "세로": 401,
+   "라이선스": "Public domain",
+   "작가": "Domenico Beccafumi",
+   "설명": "",
+   "출처": "http://www.pgmfirenze.it/stanze/mediciriccardi/image/beccafumi_ercole.jpg",
+   "연도": {
+    "원문": "1520s date QS:P571,+1520-00-00T00:00:00Z/8",
+    "값": 1520,
+    "정밀도": 8,
+    "정밀도이름": "10년",
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": "P571"
+   },
+   "연도표기": "1520년대",
+   "_원문": {
+    "저작자": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Domenico_Beccafumi\" class=\"extiw\" title=\"w:en:Domenico Beccafumi\"><span title=\"Italian painter (1486–1551)\">Domenico Beccafumi</span></a></bdi>",
+    "연도": "1520s<div style=\"display: none;\">date QS:P571,+1520-00-00T00:00:00Z/8</div>",
+    "설명": ""
+   },
+   "작가조회": {
+    "질의": "Domenico Beccafumi",
+    "상태": "조회됨",
+    "Q": "Q455712",
+    "레이블": "도메니코 베카푸미",
+    "레이블ko": "도메니코 베카푸미",
+    "레이블en": "Domenico Beccafumi",
+    "직업": [
+     "화가",
+     "조각가",
+     "Q1437754",
+     "Q28947943",
+     "판화가",
+     "Q1925963",
+     "삽화가",
+     "Q22669155"
+    ],
+    "화가인가": true,
+    "생": {
+     "연": 1484,
+     "정밀도": 9
+    },
+    "몰": {
+     "연": 1551,
+     "정밀도": 11
+    },
+    "위키문서": "Domenico Beccafumi",
+    "도입부": "Domenico di Pace Beccafumi (1486 – May 18, 1551) was an Italian Renaissance-Mannerist painter active predominantly in Siena. He is considered one of the last undiluted representatives of the Sienese school of painting."
    }
   },
   {
@@ -733,7 +858,8 @@
     "화가인가": null,
     "생": null,
     "몰": null,
-    "위키문서": null
+    "위키문서": null,
+    "도입부": null
    }
   },
   {
@@ -782,7 +908,8 @@
      "연": 1697,
      "정밀도": 9
     },
-    "위키문서": "Alessandro Rosi"
+    "위키문서": "Alessandro Rosi",
+    "도입부": "Alessandro Rosi (28 December 1627 in Rovezzano – 19 April 1697 in Florence) was an Italian artist, working during the Baroque period, for the Medicis and other patrons."
    }
   },
   {
@@ -833,7 +960,8 @@
      "연": 1678,
      "정밀도": 11
     },
-    "위키문서": "Jacob Jordaens"
+    "위키문서": "Jacob Jordaens",
+    "도입부": "Jacques \"Jacob\" Jordaens (19 May 1593 – 18 October 1678) was a Flemish painter, draughtsman and a designer of tapestries and prints.  He was a prolific artist who created biblical, mythological, and allegorical compositions, genre scenes, landscapes, illustrations of Flemish sayings and portraits.  After the death of Rubens and Anthony van Dyck, he became the leading Flemish Baroque painter of his time.  Unlike those illustrious contemporaries he never travelled abroad to study the Antique and Italian painting and, except for a few short trips to locations elsewhere in the Low Countries, he resided in Antwerp his entire life."
    }
   },
   {
@@ -884,7 +1012,8 @@
      "연": 1678,
      "정밀도": 11
     },
-    "위키문서": "Jacob Jordaens"
+    "위키문서": "Jacob Jordaens",
+    "도입부": "Jacques \"Jacob\" Jordaens (19 May 1593 – 18 October 1678) was a Flemish painter, draughtsman and a designer of tapestries and prints.  He was a prolific artist who created biblical, mythological, and allegorical compositions, genre scenes, landscapes, illustrations of Flemish sayings and portraits.  After the death of Rubens and Anthony van Dyck, he became the leading Flemish Baroque painter of his time.  Unlike those illustrious contemporaries he never travelled abroad to study the Antique and Italian painting and, except for a few short trips to locations elsewhere in the Low Countries, he resided in Antwerp his entire life."
    }
   },
   {
@@ -933,7 +1062,8 @@
      "연": 1892,
      "정밀도": 11
     },
-    "위키문서": "Peter Nicolai Arbo"
+    "위키문서": "Peter Nicolai Arbo",
+    "도입부": "Peter Nicolai Arbo(18 June 1831 – 14 October 1892) was a Norwegian historical painter, who specialized in portraits and large narrative scenes from Norwegian history and Norse mythology. His best known work is  The Wild Hunt of Odin (Oslo), a dramatic subject based on the Wild Hunt legend and Valkyrie, the two versions of which (in Stockholm and Oslo) depict a female figure from Norse mythology."
    }
   },
   {
@@ -982,7 +1112,58 @@
      "연": 1892,
      "정밀도": 11
     },
-    "위키문서": "Peter Nicolai Arbo"
+    "위키문서": "Peter Nicolai Arbo",
+    "도입부": "Peter Nicolai Arbo(18 June 1831 – 14 October 1892) was a Norwegian historical painter, who specialized in portraits and large narrative scenes from Norwegian history and Norse mythology. His best known work is  The Wild Hunt of Odin (Oslo), a dramatic subject based on the Wild Hunt legend and Valkyrie, the two versions of which (in Stockholm and Oslo) depict a female figure from Norse mythology."
+   }
+  },
+  {
+   "슬러그": "arbo-ingeborg",
+   "제목": "Arbo-Ingeborg",
+   "갈래주제": "신화",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/10/Arbo-Ingeborg.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 817,
+   "세로": 1067,
+   "라이선스": "Public domain",
+   "작가": "Peter Nicolai Arbo",
+   "설명": "",
+   "출처": "Marit I. Lange og Anne-Berit Skaug: Peter Nicolai Arbo 1831-1892 : Drammens museum, Fylkesmuseum for Buskerud, 3. juni - 28.sept. 1986. (Exhibiton catalouge).",
+   "연도": {
+    "원문": "1868 date QS:P571,+1868-00-00T00:00:00Z/9",
+    "값": 1868,
+    "정밀도": 9,
+    "정밀도이름": "연",
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": "P571"
+   },
+   "연도표기": "1868년",
+   "_원문": {
+    "저작자": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Peter_Nicolai_Arbo\" class=\"extiw\" title=\"w:en:Peter Nicolai Arbo\"><span title=\"Norwegian painter (1831–1892)\">Peter Nicolai Arbo</span></a></bdi>",
+    "연도": "1868<div style=\"display: none;\">date QS:P571,+1868-00-00T00:00:00Z/9</div>",
+    "설명": ""
+   },
+   "작가조회": {
+    "질의": "Peter Nicolai Arbo",
+    "상태": "조회됨",
+    "Q": "Q353014",
+    "레이블": "Peter Nicolai Arbo",
+    "레이블ko": null,
+    "레이블en": "Peter Nicolai Arbo",
+    "직업": [
+     "화가"
+    ],
+    "화가인가": true,
+    "생": {
+     "연": 1831,
+     "정밀도": 11
+    },
+    "몰": {
+     "연": 1892,
+     "정밀도": 11
+    },
+    "위키문서": "Peter Nicolai Arbo",
+    "도입부": "Peter Nicolai Arbo(18 June 1831 – 14 October 1892) was a Norwegian historical painter, who specialized in portraits and large narrative scenes from Norwegian history and Norse mythology. His best known work is  The Wild Hunt of Odin (Oslo), a dramatic subject based on the Wild Hunt legend and Valkyrie, the two versions of which (in Stockholm and Oslo) depict a female figure from Norse mythology."
    }
   },
   {
@@ -1055,7 +1236,8 @@
     "화가인가": null,
     "생": null,
     "몰": null,
-    "위키문서": null
+    "위키문서": null,
+    "도입부": null
    }
   },
   {
@@ -1104,7 +1286,8 @@
      "연": 1917,
      "정밀도": 11
     },
-    "위키문서": "Albert Pinkham Ryder"
+    "위키문서": "Albert Pinkham Ryder",
+    "도입부": "Albert Pinkham Ryder (March 19, 1847 – March 28, 1917) was an American painter best known for his poetic and moody allegorical works and seascapes, as well as his eccentric personality. While his art shared an emphasis on subtle variations of color with tonalist works of the time, it was unique for accentuating form in a way that some art historians regard as a precursor to modernism."
    }
   },
   {
@@ -1153,7 +1336,8 @@
      "연": 1892,
      "정밀도": 11
     },
-    "위키문서": "Peter Nicolai Arbo"
+    "위키문서": "Peter Nicolai Arbo",
+    "도입부": "Peter Nicolai Arbo(18 June 1831 – 14 October 1892) was a Norwegian historical painter, who specialized in portraits and large narrative scenes from Norwegian history and Norse mythology. His best known work is  The Wild Hunt of Odin (Oslo), a dramatic subject based on the Wild Hunt legend and Valkyrie, the two versions of which (in Stockholm and Oslo) depict a female figure from Norse mythology."
    }
   },
   {
@@ -1202,7 +1386,8 @@
      "연": 1892,
      "정밀도": 11
     },
-    "위키문서": "Peter Nicolai Arbo"
+    "위키문서": "Peter Nicolai Arbo",
+    "도입부": "Peter Nicolai Arbo(18 June 1831 – 14 October 1892) was a Norwegian historical painter, who specialized in portraits and large narrative scenes from Norwegian history and Norse mythology. His best known work is  The Wild Hunt of Odin (Oslo), a dramatic subject based on the Wild Hunt legend and Valkyrie, the two versions of which (in Stockholm and Oslo) depict a female figure from Norse mythology."
    }
   },
   {
@@ -1251,7 +1436,8 @@
      "연": 1892,
      "정밀도": 11
     },
-    "위키문서": "Peter Nicolai Arbo"
+    "위키문서": "Peter Nicolai Arbo",
+    "도입부": "Peter Nicolai Arbo(18 June 1831 – 14 October 1892) was a Norwegian historical painter, who specialized in portraits and large narrative scenes from Norwegian history and Norse mythology. His best known work is  The Wild Hunt of Odin (Oslo), a dramatic subject based on the Wild Hunt legend and Valkyrie, the two versions of which (in Stockholm and Oslo) depict a female figure from Norse mythology."
    }
   },
   {
@@ -1297,79 +1483,39 @@
      "정밀도": 11
     },
     "몰": null,
-    "위키문서": "Francesco Bini"
+    "위키문서": "Francesco Bini",
+    "도입부": "Francesco Bini (born 2 January 1989) is an Italian footballer who plays as a defender for Serie D club Pro Palazzolo."
    }
   },
   {
-   "슬러그": "1890-1910-schlacht-von-karbala-anagoria-img7135",
-   "제목": "1890-1910 Schlacht von Karbala anagoria IMG7135",
-   "갈래주제": "전쟁",
-   "url": "https://upload.wikimedia.org/wikipedia/commons/1/11/1890-1910_Schlacht_von_Karbala_anagoria_IMG7135.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-   "가로": 3604,
-   "세로": 1872,
-   "라이선스": "CC BY 3.0",
-   "작가": "Unknown author",
+   "슬러그": "15th-century-painters-the-goddess-diana-page-from-the-chroni",
+   "제목": "15th-century painters - The Goddess Diana, page from the Chroniques de Hainaut - WGA15772",
+   "갈래주제": "신화",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/0/01/15th-century_painters_-_The_Goddess_Diana%2C_page_from_the_Chroniques_de_Hainaut_-_WGA15772.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 750,
+   "세로": 1158,
+   "라이선스": "Public domain",
+   "작가": "Unknown Miniaturist, Flemish (active in mid 15th century)",
    "설명": "",
-   "출처": "Own work , Anagoria , 20 April 2011",
+   "출처": "Web Gallery of Art : Image Info about artwork wga QS:P11807,\"zgothic/miniatur/1401-450/4flemish/06f_1400\"",
    "연도": {
-    "원문": "late 19 th century date QS:P571,+1850-00-00T00:00:00Z/7 - early 20 th century date QS:P571,+1950-00-00T00:00:00Z/7",
-    "값": 1850,
-    "정밀도": 7,
-    "정밀도이름": "세기",
+    "원문": "circa 1448 date QS:P571,+1448-00-00T00:00:00Z/9,P1480,Q5727902",
+    "값": 1448,
+    "정밀도": 9,
+    "정밀도이름": "연",
     "이른": null,
     "늦은": null,
     "속성깨짐": false,
     "출처": "P571"
    },
-   "연도표기": "19세기",
+   "연도표기": "1448년",
    "_원문": {
-    "저작자": "<div class=\"fn value\">\nUnknown author<span style=\"display: none;\">Unknown author</span></div>",
-    "연도": "late 19<sup>th</sup> century<div style=\"display: none;\">date QS:P571,+1850-00-00T00:00:00Z/7</div> - early 20<sup>th</sup> century<div style=\"display: none;\">date QS:P571,+1950-00-00T00:00:00Z/7</div>",
+    "저작자": "<div class=\"fn value\">\nUnknown Miniaturist, Flemish (active in mid 15th century)</div>",
+    "연도": "circa 1448<div style=\"display: none;\">date QS:P571,+1448-00-00T00:00:00Z/9,P1480,Q5727902</div>",
     "설명": ""
    },
    "작가조회": {
-    "질의": "Unknown author",
-    "상태": "조회됨",
-    "Q": "Q567620",
-    "레이블": "저자 불명의 저작물",
-    "레이블ko": "저자 불명의 저작물",
-    "레이블en": "anonymous work",
-    "직업": [],
-    "화가인가": null,
-    "생": null,
-    "몰": null,
-    "위키문서": "Anonymous work"
-   }
-  },
-  {
-   "슬러그": "124th-infantry-2nd-battalion-florida-national-guard-crossing",
-   "제목": "124th Infantry, 2nd Battalion, Florida National Guard, Crossing the Berm, Iraq, 2003",
-   "갈래주제": "전쟁",
-   "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/124th_Infantry%2C_2nd_Battalion%2C_Florida_National_Guard%2C_Crossing_the_Berm%2C_Iraq%2C_2003.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-   "가로": 600,
-   "세로": 400,
-   "라이선스": "Public domain",
-   "작가": "Golden, Elzie",
-   "설명": "This oil on canvas painting done by Sgt. 1st Class Elzie Golden in 2005 depicts members of the 2nd Battalion, 124th Infantry Regiment clearing berms for Special Forces Soldiers to enter into Iraq, March 19, 2003.",
-   "출처": "http://www.floridaguard.army.mil/3451",
-   "연도": {
-    "원문": "2005",
-    "값": null,
-    "정밀도": null,
-    "정밀도이름": null,
-    "이른": null,
-    "늦은": null,
-    "속성깨짐": false,
-    "출처": null
-   },
-   "연도표기": "제작연도 미상",
-   "_원문": {
-    "저작자": "<div class=\"fn value\">\nGolden, Elzie</div>",
-    "연도": "2005",
-    "설명": "This oil on canvas painting done by Sgt. 1st Class Elzie Golden in 2005 depicts members of the 2nd Battalion, 124th Infantry Regiment clearing berms for Special Forces Soldiers to enter into Iraq, March 19, 2003."
-   },
-   "작가조회": {
-    "질의": "Golden, Elzie",
+    "질의": "Unknown Miniaturist, Flemish (active in mid 15th century)",
     "상태": "문서없음",
     "Q": null,
     "레이블": null,
@@ -1379,300 +1525,386 @@
     "화가인가": null,
     "생": null,
     "몰": null,
-    "위키문서": null
+    "위키문서": null,
+    "도입부": null
    }
   },
   {
-   "슬러그": "110303-f-ot300-001-banja-luka-incident-of-1994",
-   "제목": "110303-F-OT300-001 - Banja Luka incident of 1994",
-   "갈래주제": "전쟁",
-   "url": "https://upload.wikimedia.org/wikipedia/commons/d/de/110303-F-OT300-001_-_Banja_Luka_incident_of_1994.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-   "가로": 500,
-   "세로": 321,
+   "슬러그": "norblin-a-sociable-gathering-in-a-park",
+   "제목": "Norblin A sociable gathering in a park",
+   "갈래주제": "신화",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/2/20/Norblin_A_sociable_gathering_in_a_park.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 733,
+   "세로": 483,
    "라이선스": "Public domain",
-   "작가": "Rick Herter",
-   "설명": "Flying out of Aviano Air Base, Italy, on Feb. 28, 1994, two F-16 Fighting Falcons from the 526th Fighter Squadron downed four Federal Republic of Yugoslavia J-21 Jastrebs in support of Operation Deny Flight. This was the first combat engagement in NATO's history. Both F-16s involved are now 31st Fighter Wing aircraft. (Source: 31st Fighter Wing History Office; Image: Sting of the Black Viper by Rick Herter, Air Force Art Collection 1997.052)",
-   "출처": "This image was released by the United States Air Force with the ID 110303-F-OT300-001 (next) . This tag does not indicate the copyright status of the attached work. A normal copyright tag is still required. See Commons:Licensing . العربية ∙ বাংলা ∙ Bahasa Indonesia ∙ Bahaso Jambi ∙ Deutsch ∙ Deutsch (Sie-Form) ∙ English ∙ español ∙ euskara ∙ فارسی ∙ français ∙ italiano ∙ 日本語 ∙ 한국어 ∙ македонски ∙ മലയാളം ∙ Plattdüütsch ∙ Nederlands ∙ polski ∙ پښتو ∙ português ∙ русский ∙ slovenščina ∙ svenska ∙ Türkçe ∙ українська ∙ 简体中文 ∙ 繁體中文 ∙ +/−",
-   "연도": {
-    "원문": "1997",
-    "값": null,
-    "정밀도": null,
-    "정밀도이름": null,
-    "이른": null,
-    "늦은": null,
-    "속성깨짐": false,
-    "출처": null
-   },
-   "연도표기": "제작연도 미상",
-   "_원문": {
-    "저작자": "Rick Herter",
-    "연도": "1997",
-    "설명": "Flying out of Aviano Air Base, Italy, on Feb. 28, 1994, two F-16 Fighting Falcons from the 526th Fighter Squadron downed four Federal Republic of Yugoslavia J-21 Jastrebs in support of Operation Deny Flight. This was the first combat engagement in NATO's history. Both F-16s involved are now 31st Fighter Wing aircraft. (Source: 31st Fighter Wing History Office; Image: Sting of the Black Viper by Rick Herter, Air Force Art Collection 1997.052)"
-   },
-   "작가조회": {
-    "질의": "Rick Herter",
-    "상태": "문서없음",
-    "Q": null,
-    "레이블": null,
-    "레이블ko": null,
-    "레이블en": null,
-    "직업": [],
-    "화가인가": null,
-    "생": null,
-    "몰": null,
-    "위키문서": null
-   }
-  },
-  {
-   "슬러그": "pieter-van-bloemen-battle-scene",
-   "제목": "Pieter van Bloemen - Battle scene",
-   "갈래주제": "전쟁",
-   "url": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Pieter_van_Bloemen_-_Battle_scene.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-   "가로": 2400,
-   "세로": 1878,
-   "라이선스": "Public domain",
-   "작가": "Pieter van Bloemen",
+   "작가": "Jean-Pierre Norblin de La Gourdaine",
    "설명": "",
-   "출처": "https://www.cambiaste.com/uk/auction-0343/pieter-van-bloemen-detto-lo-stendardo-anversa--1.asp",
+   "출처": "cyfrowe.mnw.art.pl",
    "연도": {
-    "원문": "between 1677 and 1720 date QS:P571,+1500-00-00T00:00:00Z/6,P1319,+1677-00-00T00:00:00Z/9,P1326,+1720-00-00T00:00:00Z/9",
-    "값": 1698,
+    "원문": "1779 date QS:P571,+1779-00-00T00:00:00Z/9",
+    "값": 1779,
     "정밀도": 9,
-    "정밀도이름": "연(범위 중앙)",
-    "이른": 1677,
-    "늦은": 1720,
+    "정밀도이름": "연",
+    "이른": null,
+    "늦은": null,
     "속성깨짐": false,
-    "출처": "P1319~P1326"
+    "출처": "P571"
    },
-   "연도표기": "1677~1720년",
+   "연도표기": "1779년",
    "_원문": {
-    "저작자": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pieter_van_Bloemen\" class=\"extiw\" title=\"w:en:Pieter van Bloemen\"><span title=\"Flemish painter and engraver (1657-1720)\">Pieter van Bloemen</span></a></bdi>",
-    "연도": "between 1677 and 1720<div style=\"display: none;\">date QS:P571,+1500-00-00T00:00:00Z/6,P1319,+1677-00-00T00:00:00Z/9,P1326,+1720-00-00T00:00:00Z/9</div>",
+    "저작자": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Jean-Pierre_Norblin_de_La_Gourdaine\" class=\"extiw\" title=\"w:en:Jean-Pierre Norblin de La Gourdaine\"><span title=\"French painter (1745-1830)\">Jean-Pierre Norblin de La Gourdaine</span></a></bdi>",
+    "연도": "1779<div style=\"display: none;\">date QS:P571,+1779-00-00T00:00:00Z/9</div>",
     "설명": ""
    },
    "작가조회": {
-    "질의": "Pieter van Bloemen",
+    "질의": "Jean-Pierre Norblin de La Gourdaine",
     "상태": "조회됨",
-    "Q": "Q1696398",
-    "레이블": "Pieter van Bloemen",
-    "레이블ko": null,
-    "레이블en": "Pieter van Bloemen",
+    "Q": "Q941569",
+    "레이블": "장피에르 노르블랭 드라구르덴",
+    "레이블ko": "장피에르 노르블랭 드라구르덴",
+    "레이블en": "Jean-Pierre Norblin de La Gourdaine",
     "직업": [
      "화가",
+     "Q3658608",
+     "Q37226",
+     "판화가",
+     "Q1925963",
+     "삽화가",
+     "Q3391743",
+     "예술가"
+    ],
+    "화가인가": true,
+    "생": {
+     "연": 1745,
+     "정밀도": 11
+    },
+    "몰": {
+     "연": 1830,
+     "정밀도": 11
+    },
+    "위키문서": "Jean-Pierre Norblin de La Gourdaine",
+    "도입부": "Jean-Pierre Norblin de La Gourdaine (Polish: Jan Piotr Norblin; 15 July 1745 – 23 February 1830) was a French painter, draughtsman, engraver and caricaturist. Born in France, from 1774 to 1796 he resided in Poland.\nHe is considered one of the most important painters of the Enlightenment in Poland. He achieved great success in Poland."
+   }
+  },
+  {
+   "슬러그": "rysselberghe-diana",
+   "제목": "Rysselberghe Diana",
+   "갈래주제": "신화",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Rysselberghe_Diana.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 180,
+   "세로": 601,
+   "라이선스": "Public domain",
+   "작가": "Théo van Rysselberghe",
+   "설명": "",
+   "출처": "Danuta Rago, Maria Raczyńska (1988). Kolekcja imienia Jana Pawła II z fundacji Janiny i Zbigniewa Karola Porczyńskich . Krajowa Agencja Wydawnicza",
+   "연도": {
+    "원문": "circa 1920-1924",
+    "값": null,
+    "정밀도": null,
+    "정밀도이름": null,
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": null
+   },
+   "연도표기": "제작연도 미상",
+   "_원문": {
+    "저작자": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Th%C3%A9o_van_Rysselberghe\" class=\"extiw\" title=\"w:en:Théo van Rysselberghe\"><span title=\"Belgian painter (1862-1926)\">Théo van Rysselberghe</span></a></bdi>",
+    "연도": "circa 1920-1924",
+    "설명": ""
+   },
+   "작가조회": {
+    "질의": "Théo van Rysselberghe",
+    "상태": "조회됨",
+    "Q": "Q671883",
+    "레이블": "Théo van Rysselberghe",
+    "레이블ko": null,
+    "레이블en": "Théo van Rysselberghe",
+    "직업": [
+     "화가",
+     "삽화가",
+     "Q1925963",
+     "조각가",
+     "Q3391743",
+     "Q5322166",
+     "Q16947657",
+     "Q644687",
+     "판화가",
+     "Q10373653",
+     "Q10862983"
+    ],
+    "화가인가": true,
+    "생": {
+     "연": 1862,
+     "정밀도": 11
+    },
+    "몰": {
+     "연": 1926,
+     "정밀도": 11
+    },
+    "위키문서": "Théo van Rysselberghe",
+    "도입부": "Théophile \"Théo\" van Rysselberghe (; French: [teofil teɔ vɑ̃ ʁisɛlbɛʁɡ]; 23 November 1862 – 13 December 1926) was a Belgian Neo-Impressionist painter who played a pivotal role in the European art scene at the turn of the twentieth century. A founding member of the Belgian avant-garde group Les XX, he was an important figure in the international Neo-Impressionist movement and helped connect the artistic circles of Brussels and Paris with wider European cultural networks. His work was distinguished by its innovative treatment of colour and light, particularly in his portraits and landscapes.\nBorn in Ghent and trained at the Academy of Ghent and the Académie Royale des Beaux-Arts in Brussels, van Rysselberghe initially worked in a realist and Orientalist style."
+   }
+  },
+  {
+   "슬러그": "dal-sole-diana-e-amorini",
+   "제목": "Dal Sole Diana e amorini",
+   "갈래주제": "신화",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Dal_Sole_Diana_e_amorini.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 425,
+   "세로": 530,
+   "라이선스": "Public domain",
+   "작가": "Giovanni Gioseffo dal Sole",
+   "설명": "",
+   "출처": "http://www.eosarte.it/images/Mostre%20Antiquarie/Amarcord%20Mostre%20Antiquarie/Pennabilli%2085/Foto-Raffaella.gif",
+   "연도": {
+    "원문": "circa 1700 date QS:P571,+1700-00-00T00:00:00Z/9,P1480,Q5727902",
+    "값": 1700,
+    "정밀도": 9,
+    "정밀도이름": "연",
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": "P571"
+   },
+   "연도표기": "1700년",
+   "_원문": {
+    "저작자": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Giovanni_Gioseffo_dal_Sole\" class=\"extiw\" title=\"w:en:Giovanni Gioseffo dal Sole\"><span title=\"Italian painter and engraver (1654-1719)\">Giovanni Gioseffo dal Sole</span></a></bdi>",
+    "연도": "circa 1700<div style=\"display: none;\">date QS:P571,+1700-00-00T00:00:00Z/9,P1480,Q5727902</div>",
+    "설명": ""
+   },
+   "작가조회": {
+    "질의": "Giovanni Gioseffo dal Sole",
+    "상태": "조회됨",
+    "Q": "Q961329",
+    "레이블": "Giovanni Gioseffo dal Sole",
+    "레이블ko": null,
+    "레이블en": "Giovanni Gioseffo dal Sole",
+    "직업": [
+     "화가",
+     "회화 제작자",
+     "Q1925963",
      "삽화가"
     ],
     "화가인가": true,
     "생": {
-     "연": 1657,
+     "연": 1654,
      "정밀도": 11
     },
     "몰": {
-     "연": 1720,
+     "연": 1719,
      "정밀도": 11
     },
-    "위키문서": "Pieter van Bloemen"
+    "위키문서": "Giovanni Gioseffo dal Sole",
+    "도입부": "Giovanni Gioseffo dal Sole (10 December 1654 – 22 July 1719) was an Italian painter and engraver from Bologna, active in the late-Baroque period. Upon the death of Carlo Cignani, Gioseffo dal Sole became among the most prominent painters in Bologna, described as the Guido Moderno."
    }
   },
   {
-   "슬러그": "carel-van-falens-attr-riders-and-ladies-on-horseback",
-   "제목": "Carel van Falens (Attr.) - Riders and ladies on horseback",
-   "갈래주제": "전쟁",
-   "url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Carel_van_Falens_%28Attr.%29_-_Riders_and_ladies_on_horseback.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-   "가로": 1871,
-   "세로": 2400,
-   "라이선스": "Public domain",
-   "작가": "Attributed to Carel van Falens",
-   "설명": "",
-   "출처": "https://www.cambiaste.com/uk/auction-0366/carel-breydel-antwerp-1678-gent-1733.asp",
+   "슬러그": "ceiling-in-palazzina-di-caccia-of-stupinigi",
+   "제목": "Ceiling in Palazzina di Caccia of Stupinigi",
+   "갈래주제": "신화",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Ceiling_in_Palazzina_di_Caccia_of_Stupinigi.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 4402,
+   "세로": 5496,
+   "라이선스": "CC BY-SA 4.0",
+   "작가": "Paris Orlando",
+   "설명": "Michele Antonio Milocco (1686/90 — 1772): Der Mythos von Diana , 1731, Deckengemälde im Appartement des Königs, Palazzina di caccia di Stupinigi",
+   "출처": "Own work",
    "연도": {
-    "원문": "between 1710 and 1733 date QS:P571,+1750-00-00T00:00:00Z/7,P1319,+1710-00-00T00:00:00Z/9,P1326,+1733-00-00T00:00:00Z/9",
-    "값": 1721,
-    "정밀도": 9,
-    "정밀도이름": "연(범위 중앙)",
-    "이른": 1710,
-    "늦은": 1733,
+    "원문": "2018-11-03 13:05:29",
+    "값": null,
+    "정밀도": null,
+    "정밀도이름": null,
+    "이른": null,
+    "늦은": null,
     "속성깨짐": false,
-    "출처": "P1319~P1326"
+    "출처": null
    },
-   "연도표기": "1710~1733년",
+   "연도표기": "제작연도 미상",
    "_원문": {
-    "저작자": "<bdi>Attributed to <a href=\"https://en.wikipedia.org/wiki/en:Carel_van_Falens\" class=\"extiw\" title=\"w:en:Carel van Falens\"><span title=\"Flemish painter (1683-1733)\">Carel van Falens</span></a></bdi>",
-    "연도": "between 1710 and 1733<div style=\"display: none;\">date QS:P571,+1750-00-00T00:00:00Z/7,P1319,+1710-00-00T00:00:00Z/9,P1326,+1733-00-00T00:00:00Z/9</div>",
+    "저작자": "<a href=\"//commons.wikimedia.org/wiki/User:Paris_Orlando\" title=\"User:Paris Orlando\">Paris Orlando</a>",
+    "연도": "2018-11-03 13:05:29",
+    "설명": "Michele Antonio Milocco (1686/90 — 1772): <i>Der Mythos von Diana</i>, 1731, Deckengemälde im Appartement des Königs, Palazzina di caccia di Stupinigi"
+   },
+   "작가조회": {
+    "질의": "Paris Orlando",
+    "상태": "문서없음",
+    "Q": null,
+    "레이블": null,
+    "레이블ko": null,
+    "레이블en": null,
+    "직업": [],
+    "화가인가": null,
+    "생": null,
+    "몰": null,
+    "위키문서": null,
+    "도입부": null
+   }
+  },
+  {
+   "슬러그": "ceiling-in-the-palazzina-di-caccia-of-stupinigi",
+   "제목": "Ceiling in the Palazzina di Caccia of Stupinigi",
+   "갈래주제": "신화",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/2/22/Ceiling_in_the_Palazzina_di_Caccia_of_Stupinigi.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 7204,
+   "세로": 5315,
+   "라이선스": "CC BY-SA 4.0",
+   "작가": "Paris Orlando",
+   "설명": "Charles André van Loo: Diana and her nymphs , 1732-33, Ceiling in the Palazzina di Caccia of Stupinigi",
+   "출처": "Own work",
+   "연도": {
+    "원문": "2018-11-03 13:10:20",
+    "값": null,
+    "정밀도": null,
+    "정밀도이름": null,
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": null
+   },
+   "연도표기": "제작연도 미상",
+   "_원문": {
+    "저작자": "<a href=\"//commons.wikimedia.org/wiki/User:Paris_Orlando\" title=\"User:Paris Orlando\">Paris Orlando</a>",
+    "연도": "2018-11-03 13:10:20",
+    "설명": "Charles André van Loo: <i>Diana and her nymphs</i>, 1732-33, Ceiling in the Palazzina di Caccia of Stupinigi"
+   },
+   "작가조회": {
+    "질의": "Paris Orlando",
+    "상태": "문서없음",
+    "Q": null,
+    "레이블": null,
+    "레이블ko": null,
+    "레이블en": null,
+    "직업": [],
+    "화가인가": null,
+    "생": null,
+    "몰": null,
+    "위키문서": null,
+    "도입부": null
+   }
+  },
+  {
+   "슬러그": "bartholomeus-spranger-diana-luna",
+   "제목": "Bartholomeus Spranger - Diana – Luna",
+   "갈래주제": "신화",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Bartholomeus_Spranger_-_Diana_%E2%80%93_Luna.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 827,
+   "세로": 1115,
+   "라이선스": "Public domain",
+   "작가": "Bartholomeus Spranger",
+   "설명": "",
+   "출처": "https://www.mfab.hu/artworks/diana-resting-after-hunt",
+   "연도": {
+    "원문": "1566-1611",
+    "값": null,
+    "정밀도": null,
+    "정밀도이름": null,
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": null
+   },
+   "연도표기": "제작연도 미상",
+   "_원문": {
+    "저작자": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Bartholomeus_Spranger\" class=\"extiw\" title=\"w:en:Bartholomeus Spranger\"><span title=\"Flemish painter (1546–1611)\">Bartholomeus Spranger</span></a></bdi>",
+    "연도": "1566-1611",
     "설명": ""
    },
    "작가조회": {
-    "질의": "Attributed to Carel van Falens",
-    "상태": "문서없음",
-    "Q": null,
-    "레이블": null,
-    "레이블ko": null,
-    "레이블en": null,
-    "직업": [],
-    "화가인가": null,
-    "생": null,
-    "몰": null,
-    "위키문서": null
-   }
-  },
-  {
-   "슬러그": "oorlogsleed-woman-and-child-at-the-battle-of-waterloo",
-   "제목": "'Oorlogsleed', woman and child at the Battle of Waterloo",
-   "갈래주제": "전쟁",
-   "url": "https://upload.wikimedia.org/wikipedia/commons/e/e1/%27Oorlogsleed%27%2C_woman_and_child_at_the_Battle_of_Waterloo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-   "가로": 750,
-   "세로": 932,
-   "라이선스": "Public domain",
-   "작가": "Jacobus Josephus Eeckhout",
-   "설명": "The painting \"Wartime Suffering\" symbolizes and recalls the suffering that war brings. J.J. Eeckhout painted it in 1826. It is a classical, romanticized depiction in which the suffering of war is personified in a market woman. She mourns her fallen husband who lies at her feet. This soldier is a flanker from a Battalion of Infantry of Line of the Dutch force, which took part in the battle of Waterloo (1815). The drama is heightened by their child and by her skyward gaze. Her suffering is said to be based on the diary of one sergeant Jan Willem van Wetering who fought at Waterloo. It tells of a market girl who, shortly after giving birth to her child, searches desperately and in vain for her husband. According to his captain, he was still alive, but she did not believe him and insisted that her husband had perished. This motif can be found, either centrally or as a detail, in the romanticized pictorial expressions of Napoleonic battles in the first half of the 19th century.",
-   "출처": "https://www.facebook.com/NationaalMilitairMuseum/photos/a.319245631528767/3359311130855520/?type=3",
-   "연도": {
-    "원문": "1826",
-    "값": null,
-    "정밀도": null,
-    "정밀도이름": null,
-    "이른": null,
-    "늦은": null,
-    "속성깨짐": false,
-    "출처": null
-   },
-   "연도표기": "제작연도 미상",
-   "_원문": {
-    "저작자": "<a href=\"//commons.wikimedia.org/w/index.php?title=Jacobus_Josephus_Eeckhout&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"Jacobus Josephus Eeckhout (page does not exist)\">Jacobus Josephus Eeckhout</a>",
-    "연도": "1826",
-    "설명": "The painting \"Wartime Suffering\" symbolizes and recalls the suffering that war brings. J.J. Eeckhout painted it in 1826. It is a classical, romanticized depiction in which the suffering of war is personified in a market woman. She mourns her fallen husband who lies at her feet. This soldier is a flanker from a Battalion of Infantry of Line of the Dutch force, which took part in the battle of Waterloo (1815). The drama is heightened by their child and by her skyward gaze. Her suffering is said to be based on the diary of one sergeant Jan Willem van Wetering who fought at Waterloo. It tells of a market girl who, shortly after giving birth to her child, searches desperately and in vain for her husband. According to his captain, he was still alive, but she did not believe him and insisted that her husband had perished.\nThis motif can be found, either centrally or as a detail, in the romanticized pictorial expressions of Napoleonic battles in the first half of the 19th century."
-   },
-   "작가조회": {
-    "질의": "Jacobus Josephus Eeckhout",
+    "질의": "Bartholomeus Spranger",
     "상태": "조회됨",
-    "Q": "Q707746",
-    "레이블": "Jacobus Josephus Eeckhout",
+    "Q": "Q447682",
+    "레이블": "Bartholomeus Spranger",
     "레이블ko": null,
-    "레이블en": "Jacobus Josephus Eeckhout",
+    "레이블en": "Bartholomeus Spranger",
     "직업": [
      "화가",
-     "조각가",
-     "Q16947657"
+     "회화 제작자",
+     "삽화가",
+     "Q10862983",
+     "조각가"
     ],
     "화가인가": true,
     "생": {
-     "연": 1793,
+     "연": 1546,
      "정밀도": 11
     },
     "몰": {
-     "연": 1861,
-     "정밀도": 11
+     "연": 1611,
+     "정밀도": 10
     },
-    "위키문서": "Jacobus Josephus Eeckhout"
+    "위키문서": "Bartholomeus Spranger",
+    "도입부": "Bartholomeus Spranger or Bartholomaeus Spranger (21 March 1546 – 27 June 1611) was a Flemish painter, draughtsman, sculptor, and designer of prints. Working in Prague as a court artist for the Holy Roman emperor Rudolf II, he responded to his patron's aesthetic preferences by developing a version of the artistic style referred to as Northern Mannerism. This style stressed sensuality, which was expressed in smoothly modeled, elongated figures arranged in elegant poses, often including a nude woman seen from behind. Spranger's unique style combining elements of Netherlandish painting and Italian influences, in particular the Roman Mannerists, had an important influence on other artists in Prague and elsewhere, in particular the Dutch Republic, as his paintings were disseminated widely through prints as well as by artists who had worked with him such as Karel van Mander."
    }
   },
   {
-   "슬러그": "a-battle-scene-from-razmanama-1616",
-   "제목": "A battle scene from Razmanama (1616)",
-   "갈래주제": "전쟁",
-   "url": "https://upload.wikimedia.org/wikipedia/commons/c/ce/A_battle_scene_from_Razmanama_%281616%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-   "가로": 1080,
-   "세로": 886,
+   "슬러그": "british-english-school-diana-silene-riding-her-chariot-from-",
+   "제목": "British (English) School - Diana (Silene) Riding Her Chariot (from the Arch of Constantine) - 108792 - National Trust",
+   "갈래주제": "신화",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/8/85/British_%28English%29_School_-_Diana_%28Silene%29_Riding_Her_Chariot_%28from_the_Arch_of_Constantine%29_-_108792_-_National_Trust.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 1200,
+   "세로": 997,
    "라이선스": "Public domain",
-   "작가": "Unknown mughal painter",
-   "설명": "A battle scene from Razmanama (1616)",
-   "출처": "https://madrascourier.com/insight/razmnama-when-the-mughals-painted-the-mahabharata/",
+   "작가": "anonymous",
+   "설명": "",
+   "출처": "Art UK",
    "연도": {
-    "원문": "1616",
-    "값": null,
-    "정밀도": null,
-    "정밀도이름": null,
-    "이른": null,
-    "늦은": null,
-    "속성깨짐": false,
-    "출처": null
+    "원문": "between 1759 and 1769 date QS:P,+1750-00-00T00:00:00Z/7,P1319,+1759-00-00T00:00:00Z/9,P1326,+1769-00-00T00:00:00Z/9",
+    "값": 1764,
+    "정밀도": 9,
+    "정밀도이름": "연(범위 중앙)",
+    "이른": 1759,
+    "늦은": 1769,
+    "속성깨짐": true,
+    "출처": "P1319~P1326"
    },
-   "연도표기": "제작연도 미상",
+   "연도표기": "1759~1769년",
    "_원문": {
-    "저작자": "Unknown mughal painter",
-    "연도": "1616",
-    "설명": "A battle scene from Razmanama (1616)"
+    "저작자": "<div class=\"fn value\">\n<table cellpadding=\"0\" cellspacing=\"0\"><tbody><tr><td><a href=\"https://www.wikidata.org/wiki/Q4233718\" class=\"extiw\" title=\"d:Q4233718\"><span title='unknown creator of a work (do not use as value of P50; use \"unknown value\" instead)'>anonymous</span></a></td><td valign=\"top\"> <span class=\"mw-valign-text-top noprint\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q52215785#P170\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span></td></tr></tbody></table></div>",
+    "연도": "between 1759 and 1769<div style=\"display: none;\">date QS:P,+1750-00-00T00:00:00Z/7,P1319,+1759-00-00T00:00:00Z/9,P1326,+1769-00-00T00:00:00Z/9</div> <span class=\"mw-valign-text-top noprint\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q52215785#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "설명": ""
    },
    "작가조회": {
-    "질의": "Unknown mughal painter",
-    "상태": "문서없음",
-    "Q": null,
-    "레이블": null,
-    "레이블ko": null,
-    "레이블en": null,
+    "질의": "anonymous",
+    "상태": "조회됨",
+    "Q": "Q223961",
+    "레이블": "어나니머스 (동음이의)",
+    "레이블ko": "어나니머스 (동음이의)",
+    "레이블en": "Anonymous",
     "직업": [],
     "화가인가": null,
     "생": null,
     "몰": null,
-    "위키문서": null
+    "위키문서": "Anonymous",
+    "도입부": "Anonymous most often refers to:"
    }
   },
   {
-   "슬러그": "night-bivouac-of-the-british-army-at-ferozeshah-on-21st-dec-",
-   "제목": "'Night Bivouac of the British Army at Ferozeshah on 21st Dec 1845', by J. Harris after Henry Martens, 1 December 1848",
-   "갈래주제": "전쟁",
-   "url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/%27Night_Bivouac_of_the_British_Army_at_Ferozeshah_on_21st_Dec_1845%27%2C_by_J._Harris_after_Henry_Martens%2C_1_December_1848.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-   "가로": 2800,
-   "세로": 2174,
-   "라이선스": "Public domain",
-   "작가": "J. Harris after Henry Martens",
-   "설명": "'Night Bivouac of the British Army at Ferozeshah on 21st Dec 1845', by J. Harris after Henry Martens, 1 December 1848. Engraved by W H Harris after H Martens after a sketch by G F White. ARTWORK DETAILS J Harris after Henry Martens Set of 6 prints on Sikh War a) J Harris after Henry Martens The Battle of Sobraon, on the February 10th, 1846 1 January 1848 Original hand-coloured aquatint on paper Print size: 19 x 24 in (48.5 x 61 cm) Sheet size: 19.6 x 25 in (50 x 63.5 cm) With mount: 25.9 x 30.9 in (66 x 78.5 cm) b) Engraved by J Harris after Henry Martens after a sketch by G F White At the Battle of Moodkee, on the 18th of December 1845 14 Jun 1848 Original hand-coloured aquatint on paper Print size: 19 x 23.8 in (48.5 x 60.5 cm) Sheet size: 19.6 x 25 in (50 x 63.5 cm) With mount: 25.9 x 30.9 in (66 x 78.5 cm) c) Engraved by W H Harris after H Martens after a sketch by G F White Night Bivouac of the British Army at Ferozeshah on 21st Dec 1845 1 December 1848 Original hand-coloured aquatint on paper Print size: 18.8 x 24 in (48 x 61 cm) Sheet size: 21 x 27.5 in (53.5 x 70 cm) With mount: 25.5 x 30.9 in (65 x 78.5 cm) d) J Harris after H Martens Charge of the 3rd King's Own Lt. Dragoons at the Battle of Chillienwallah, Jan. 13th. 1849. 18 Dec 1849 Original hand-coloured aquatint on paper Print size: 18.7 x 23.9 in (47.5 x 60.8 cm) Sheet size: 19.8 x 26.1 in (50.5 x 66.5 cm) With mount: 23.8 x 35.8 in (60.7 x 91 cm) e) J Harris after H Martens The Battle of Goojerat, on the 21st. Feb 1849 Published 29 July 1850 Original hand-coloured aquatint on paper Print size: 18.8 x 24 in (48 x 61.2 cm) Sheet size: 20.3 x 27 in (51.8 x 68.7 cm) With mount: 26.6 x 33.5 in (68 x 85.2 cm) f) J Harris after H Martens Charge of H.M. 14th Light Dragoons at the Battle of Ramnuggar. Nov. 22nd, 1848 Published 25 Jan 1851 Original hand-coloured aquatint on paper Print size: 18.8 x 23.6 in (48 x 60 cm) Sheet size: 19.8 x 26.1 in (50.5 x 66.5 cm) With mount: 26.6 x 32.2 in (67.8 x 82 cm) (Set of six)",
-   "출처": "[1]",
-   "연도": {
-    "원문": "1848-12-01",
-    "값": null,
-    "정밀도": null,
-    "정밀도이름": null,
-    "이른": null,
-    "늦은": null,
-    "속성깨짐": false,
-    "출처": null
-   },
-   "연도표기": "제작연도 미상",
-   "_원문": {
-    "저작자": "J. Harris after Henry Martens",
-    "연도": "1848-12-01",
-    "설명": "'Night Bivouac of the British Army at Ferozeshah on 21st Dec 1845', by J. Harris after Henry Martens, 1 December 1848. Engraved by W H Harris after H Martens after a sketch by G F White.\n<hr>\n<p>ARTWORK DETAILS\n</p><p>J Harris after Henry Martens\nSet of 6 prints on Sikh War\n</p><p>a) J Harris after Henry Martens\nThe Battle of Sobraon, on the February 10th, 1846\n1 January 1848\nOriginal hand-coloured aquatint on paper\nPrint size: 19 x 24 in (48.5 x 61 cm)\nSheet size: 19.6 x 25 in (50 x 63.5 cm)\nWith mount: 25.9 x 30.9 in (66 x 78.5 cm)\n</p><p>b) Engraved by J Harris after Henry Martens after a sketch by G F White\nAt the Battle of Moodkee, on the 18th of December 1845\n14 Jun 1848\nOriginal hand-coloured aquatint on paper\nPrint size: 19 x 23.8 in (48.5 x 60.5 cm)\nSheet size: 19.6 x 25 in (50 x 63.5 cm)\nWith mount: 25.9 x 30.9 in (66 x 78.5 cm)\n</p><p>c) Engraved by W H Harris after H Martens after a sketch by G F White\nNight Bivouac of the British Army at Ferozeshah on 21st Dec 1845\n1 December 1848\nOriginal hand-coloured aquatint on paper\nPrint size: 18.8 x 24 in (48 x 61 cm)\nSheet size: 21 x 27.5 in (53.5 x 70 cm)\nWith mount: 25.5 x 30.9 in (65 x 78.5 cm)\n</p><p>d) J Harris after H Martens\nCharge of the 3rd King's Own Lt. Dragoons at the Battle of Chillienwallah, Jan. 13th. 1849.\n18 Dec 1849\nOriginal hand-coloured aquatint on paper\nPrint size: 18.7 x 23.9 in (47.5 x 60.8 cm)\nSheet size: 19.8 x 26.1 in (50.5 x 66.5 cm)\nWith mount: 23.8 x 35.8 in (60.7 x 91 cm)\n</p><p>e) J Harris after H Martens\nThe Battle of Goojerat, on the 21st. Feb 1849\nPublished 29 July 1850\nOriginal hand-coloured aquatint on paper\nPrint size: 18.8 x 24 in (48 x 61.2 cm)\nSheet size: 20.3 x 27 in (51.8 x 68.7 cm)\nWith mount: 26.6 x 33.5 in (68 x 85.2 cm)\n</p><p>f) J Harris after H Martens\nCharge of H.M. 14th Light Dragoons at the Battle of Ramnuggar. Nov. 22nd, 1848\nPublished 25 Jan 1851\nOriginal hand-coloured aquatint on paper\nPrint size: 18.8 x 23.6 in (48 x 60 cm)\nSheet size: 19.8 x 26.1 in (50.5 x 66.5 cm)\nWith mount: 26.6 x 32.2 in (67.8 x 82 cm)\n</p>\n(Set of six)"
-   },
-   "작가조회": {
-    "질의": "J. Harris after Henry Martens",
-    "상태": "문서없음",
-    "Q": null,
-    "레이블": null,
-    "레이블ko": null,
-    "레이블en": null,
-    "직업": [],
-    "화가인가": null,
-    "생": null,
-    "몰": null,
-    "위키문서": null
-   }
-  },
-  {
-   "슬러그": "the-battle-between-shapur-ii-with-the-arabs-led-by-ta-ir-fol",
-   "제목": "\"The battle between Shapur II with the Arabs led by Ta'ir\", folio 368v from a copy of the Shahnameh, dated 1500. Stored in the Chester Beatty Library",
-   "갈래주제": "전쟁",
-   "url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/%22The_battle_between_Shapur_II_with_the_Arabs_led_by_Ta%27ir%22%2C_folio_368v_from_a_copy_of_the_Shahnameh%2C_dated_1500._Stored_in_the_Chester_Beatty_Library.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
-   "가로": 400,
-   "세로": 581,
+   "슬러그": "diana-giampetrino",
+   "제목": "Diana - Giampetrino",
+   "갈래주제": "신화",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Diana_-_Giampetrino.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 1042,
+   "세로": 2020,
    "라이선스": "Public domain",
    "작가": "Unknown author",
-   "설명": "\"The battle between Shapur II with the Arabs led by Ta'ir\", folio 368v from a copy of the Shahnameh, dated 1500. Stored in the Chester Beatty Library",
-   "출처": "https://cudl.lib.cam.ac.uk/view/MS-DUBLINCB-PER-00295/47",
+   "설명": "Diana - Giampetrino",
+   "출처": "https://commons.wikimedia.org",
    "연도": {
-    "원문": "1500",
+    "원문": "16 th century date QS:P,+1550-00-00T00:00:00Z/7",
     "값": null,
     "정밀도": null,
     "정밀도이름": null,
     "이른": null,
     "늦은": null,
-    "속성깨짐": false,
+    "속성깨짐": true,
     "출처": null
    },
    "연도표기": "제작연도 미상",
    "_원문": {
     "저작자": "Unknown author<span style=\"display: none;\">Unknown author</span>",
-    "연도": "1500",
-    "설명": "\"The battle between Shapur II with the Arabs led by Ta'ir\", folio 368v from a copy of the Shahnameh, dated 1500. Stored in the Chester Beatty Library"
+    "연도": "16<sup>th</sup> century<div style=\"display: none;\">date QS:P,+1550-00-00T00:00:00Z/7</div>",
+    "설명": "Diana - Giampetrino"
    },
    "작가조회": {
     "질의": "Unknown author",
@@ -1685,7 +1917,532 @@
     "화가인가": null,
     "생": null,
     "몰": null,
-    "위키문서": "Anonymous work"
+    "위키문서": "Anonymous work",
+    "도입부": "Anonymous works are creative works, such as art or literature, that have an anonymous, undisclosed, or unknown creator or author. In the case of very old works, the author's name may simply be lost over the course of history and time. There are a number of reasons anonymous works arise. Examples include Beowulf and The Arabian Nights."
+   }
+  },
+  {
+   "슬러그": "cornelis-holsteyn-diana-and-her-nymphs",
+   "제목": "Cornelis Holsteyn - Diana and her nymphs",
+   "갈래주제": "신화",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Cornelis_Holsteyn_-_Diana_and_her_nymphs.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 2000,
+   "세로": 1686,
+   "라이선스": "Public domain",
+   "작가": "Cornelis Holsteyn",
+   "설명": "",
+   "출처": "https://www.sothebys.com/en/buy/auction/2024/old-master-19th-century-paintings/diana-and-her-nymphs",
+   "연도": {
+    "원문": "1654",
+    "값": null,
+    "정밀도": null,
+    "정밀도이름": null,
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": null
+   },
+   "연도표기": "제작연도 미상",
+   "_원문": {
+    "저작자": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Cornelis_Holsteyn\" class=\"extiw\" title=\"w:en:Cornelis Holsteyn\"><span title=\"Dutch painter (1618-1658)\">Cornelis Holsteyn</span></a></bdi>",
+    "연도": "1654 <span class=\"mw-valign-text-top noprint\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q115736107#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png?utm_source=commons.wikimedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail\" decoding=\"async\" loading=\"lazy\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "설명": ""
+   },
+   "작가조회": {
+    "질의": "Cornelis Holsteyn",
+    "상태": "조회됨",
+    "Q": "Q2669459",
+    "레이블": "Cornelis Holsteyn",
+    "레이블ko": null,
+    "레이블en": "Cornelis Holsteyn",
+    "직업": [
+     "화가"
+    ],
+    "화가인가": true,
+    "생": {
+     "연": 1618,
+     "정밀도": 9
+    },
+    "몰": {
+     "연": 1658,
+     "정밀도": 11
+    },
+    "위키문서": "Cornelis Holsteyn",
+    "도입부": "Cornelis Holsteyn (1618 – 2 December 1658) was a Dutch Golden Age painter from Haarlem."
+   }
+  },
+  {
+   "슬러그": "5012-louis-xiv-r",
+   "제목": "5012-Louis XIV R°",
+   "갈래주제": "역사",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/5012-Louis_XIV_R%C2%B0.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 1145,
+   "세로": 762,
+   "라이선스": "CC BY-SA 3.0",
+   "작가": "Bruno Befreetv",
+   "설명": "Eventail/Gozes-Passage du Rhin",
+   "출처": "Own work",
+   "연도": {
+    "원문": "2006",
+    "값": null,
+    "정밀도": null,
+    "정밀도이름": null,
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": null
+   },
+   "연도표기": "제작연도 미상",
+   "_원문": {
+    "저작자": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Bruno_Befreetv&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Bruno Befreetv (page does not exist)\">Bruno Befreetv</a>",
+    "연도": "2006",
+    "설명": "Eventail/Gozes-Passage du Rhin"
+   },
+   "작가조회": {
+    "질의": "Bruno Befreetv",
+    "상태": "문서없음",
+    "Q": null,
+    "레이블": null,
+    "레이블ko": null,
+    "레이블en": null,
+    "직업": [],
+    "화가인가": null,
+    "생": null,
+    "몰": null,
+    "위키문서": null,
+    "도입부": null
+   }
+  },
+  {
+   "슬러그": "1843-greek-coup",
+   "제목": "1843 Greek coup",
+   "갈래주제": "역사",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/10/1843_Greek_coup.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 300,
+   "세로": 238,
+   "라이선스": "Public domain",
+   "작가": "Unknown author",
+   "설명": "[1] 19th century painting.",
+   "출처": "[2]",
+   "연도": {
+    "원문": "19 th century date QS:P,+1850-00-00T00:00:00Z/7",
+    "값": null,
+    "정밀도": null,
+    "정밀도이름": null,
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": true,
+    "출처": null
+   },
+   "연도표기": "제작연도 미상",
+   "_원문": {
+    "저작자": "Unknown author<span style=\"display: none;\">Unknown author</span>",
+    "연도": "19<sup>th</sup> century<div style=\"display: none;\">date QS:P,+1850-00-00T00:00:00Z/7</div>",
+    "설명": "<a rel=\"nofollow\" class=\"external autonumber\" href=\"https://www.fhw.gr/chronos/12/en/1833_1897/domestic_policy/facts/04.html\">[1]</a> 19th century painting."
+   },
+   "작가조회": {
+    "질의": "Unknown author",
+    "상태": "조회됨",
+    "Q": "Q567620",
+    "레이블": "저자 불명의 저작물",
+    "레이블ko": "저자 불명의 저작물",
+    "레이블en": "anonymous work",
+    "직업": [],
+    "화가인가": null,
+    "생": null,
+    "몰": null,
+    "위키문서": "Anonymous work",
+    "도입부": "Anonymous works are creative works, such as art or literature, that have an anonymous, undisclosed, or unknown creator or author. In the case of very old works, the author's name may simply be lost over the course of history and time. There are a number of reasons anonymous works arise. Examples include Beowulf and The Arabian Nights."
+   }
+  },
+  {
+   "슬러그": "adriaen-van-der-werff-021",
+   "제목": "Adriaen van der Werff 021",
+   "갈래주제": "역사",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Adriaen_van_der_Werff_021.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 745,
+   "세로": 862,
+   "라이선스": "Public domain",
+   "작가": "Adriaen van der Werff",
+   "설명": "",
+   "출처": "www.bildindex.de : Home : Pic , F. Bruckmann A.-G., München, date= Unknown Unknown",
+   "연도": {
+    "원문": "1699 date QS:P571,+1699-00-00T00:00:00Z/9",
+    "값": 1699,
+    "정밀도": 9,
+    "정밀도이름": "연",
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": "P571"
+   },
+   "연도표기": "1699년",
+   "_원문": {
+    "저작자": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Adriaen_van_der_Werff\" class=\"extiw\" title=\"w:en:Adriaen van der Werff\"><span title=\"Dutch painter (1659–1722)\">Adriaen van der Werff</span></a></bdi>",
+    "연도": "1699<div style=\"display: none;\">date QS:P571,+1699-00-00T00:00:00Z/9</div>",
+    "설명": ""
+   },
+   "작가조회": {
+    "질의": "Adriaen van der Werff",
+    "상태": "조회됨",
+    "Q": "Q368053",
+    "레이블": "Adriaen van der Werff",
+    "레이블ko": null,
+    "레이블en": "Adriaen van der Werff",
+    "직업": [
+     "화가",
+     "건축가",
+     "조각가",
+     "Q13365770",
+     "Q3391743"
+    ],
+    "화가인가": true,
+    "생": {
+     "연": 1659,
+     "정밀도": 11
+    },
+    "몰": {
+     "연": 1722,
+     "정밀도": 11
+    },
+    "위키문서": "Adriaen van der Werff",
+    "도입부": "Adriaen van der Werff (21 January 1659 – 12 November 1722) was a Dutch painter of portraits and erotic, devotional and mythological scenes. He painted several works for the Medicis. His brother, Pieter van der Werff (1661–1722), was his principal pupil and assistant."
+   }
+  },
+  {
+   "슬러그": "albucasis-blistering-a-patient-in-the-hospital-at-cordova-we",
+   "제목": "Albucasis blistering a patient in the hospital at Cordova. Wellcome L0015000",
+   "갈래주제": "역사",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Albucasis_blistering_a_patient_in_the_hospital_at_Cordova._Wellcome_L0015000.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 5416,
+   "세로": 3632,
+   "라이선스": "CC BY 4.0",
+   "작가": "w:Ernest Board",
+   "설명": "Albucasis (Al-Zahwari) blistering a patient in the hospital at Cordova, 1100 AD. Iconographic Collections Keywords: albucasis; i.c.; ic; Surgeon; Surgery; Spain; Ab¯ual-Q¯asim Khalaf ibn `Abb¯as al-Zahr¯aw¯i,; Ernest Board",
+   "출처": "https://wellcomeimages.org/indexplus/obf_images/9f/f5/e39e6afaafc7e5408395013786ae.jpg Gallery: https://wellcomeimages.org/indexplus/image/L0015000.html Wellcome Collection gallery (2018-03-23): https://wellcomecollection.org/works/mp9z92xk CC-BY-4.0",
+   "연도": {
+    "원문": "before 1934",
+    "값": null,
+    "정밀도": null,
+    "정밀도이름": null,
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": null
+   },
+   "연도표기": "제작연도 미상",
+   "_원문": {
+    "저작자": "<div class=\"fn value\">\n<a href=\"https://en.wikipedia.org/wiki/Ernest_Board\" class=\"extiw\" title=\"w:Ernest Board\">w:Ernest Board</a></div>",
+    "연도": "before 1934",
+    "설명": "Albucasis (Al-Zahwari) blistering a patient in the hospital at Cordova, 1100 AD.\n<p>Iconographic Collections</p>\nKeywords: albucasis; i.c.; ic; Surgeon; Surgery; Spain; Ab¯ual-Q¯asim Khalaf ibn `Abb¯as al-Zahr¯aw¯i,; Ernest Board"
+   },
+   "작가조회": {
+    "질의": "w:Ernest Board",
+    "상태": "조회됨",
+    "Q": "Q21458411",
+    "레이블": "Ernest Board",
+    "레이블ko": null,
+    "레이블en": "Ernest Board",
+    "직업": [
+     "화가"
+    ],
+    "화가인가": true,
+    "생": {
+     "연": 1877,
+     "정밀도": 9
+    },
+    "몰": {
+     "연": 1934,
+     "정밀도": 9
+    },
+    "위키문서": "Ernest Board",
+    "도입부": "Ernest Board (1877–1934) was an English painter, notably of seascapes and historical subjects. He was also a draughtsman for glass painting. \n\nErnest Board was born on 24 August 1877 in a seaside town in the south of England. His life and career were marked by a passion for portraying seascapes."
+   }
+  },
+  {
+   "슬러그": "1512-brescia",
+   "제목": "1512 Brescia",
+   "갈래주제": "역사",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/1512_Brescia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 2142,
+   "세로": 3001,
+   "라이선스": "Public domain",
+   "작가": "Charles-Philippe Larivière",
+   "설명": "Prise de Brescia par Gaston de Foix en 1512",
+   "출처": "http://collections.chateauversailles.fr/#92b3023a-e923-4c79-8808-c3d614115732",
+   "연도": {
+    "원문": "1837",
+    "값": null,
+    "정밀도": null,
+    "정밀도이름": null,
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": null
+   },
+   "연도표기": "제작연도 미상",
+   "_원문": {
+    "저작자": "Charles-Philippe Larivière",
+    "연도": "1837",
+    "설명": "Prise de Brescia par Gaston de Foix en 1512"
+   },
+   "작가조회": {
+    "질의": "Charles-Philippe Larivière",
+    "상태": "조회됨",
+    "Q": "Q1063426",
+    "레이블": "Charles-Philippe Larivière",
+    "레이블ko": null,
+    "레이블en": "Charles-Philippe Larivière",
+    "직업": [
+     "화가",
+     "삽화가",
+     "Q1925963",
+     "예술가"
+    ],
+    "화가인가": true,
+    "생": {
+     "연": 1798,
+     "정밀도": 11
+    },
+    "몰": {
+     "연": 1899,
+     "정밀도": 11
+    },
+    "위키문서": "Charles-Philippe Larivière",
+    "도입부": "Charles-Philippe Larivière (28 September 1798 – 29 February 1876) was a French academic painter and lithographer."
+   }
+  },
+  {
+   "슬러그": "1512-ravenne",
+   "제목": "1512 Ravenne",
+   "갈래주제": "역사",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/1512_Ravenne.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 3237,
+   "세로": 2148,
+   "라이선스": "Public domain",
+   "작가": "Ary Scheffer",
+   "설명": "Mort de Gaston de Foix à la bataille de Ravenne en 1512",
+   "출처": "http://collections.chateauversailles.fr/#cdc8987a-84f7-4205-945c-a77217185d69",
+   "연도": {
+    "원문": "1824",
+    "값": null,
+    "정밀도": null,
+    "정밀도이름": null,
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": null
+   },
+   "연도표기": "제작연도 미상",
+   "_원문": {
+    "저작자": "Ary Scheffer",
+    "연도": "1824",
+    "설명": "Mort de Gaston de Foix à la bataille de Ravenne en 1512"
+   },
+   "작가조회": {
+    "질의": "Ary Scheffer",
+    "상태": "조회됨",
+    "Q": "Q436726",
+    "레이블": "Ary Scheffer",
+    "레이블ko": null,
+    "레이블en": "Ary Scheffer",
+    "직업": [
+     "화가",
+     "조각가",
+     "삽화가",
+     "Q16947657",
+     "Q10862983",
+     "Q10373653",
+     "Q10429561",
+     "Q20857490"
+    ],
+    "화가인가": true,
+    "생": {
+     "연": 1795,
+     "정밀도": 11
+    },
+    "몰": {
+     "연": 1858,
+     "정밀도": 11
+    },
+    "위키문서": "Ary Scheffer",
+    "도입부": "Ary Scheffer (10 February 1795 – 15 June 1858) was a Dutch-French Romantic painter. He was known mostly for his works based on literature, with paintings based on the works of Dante, Goethe, Lord Byron and Walter Scott, as well as religious subjects. He was also a prolific painter of portraits of famous and influential people in his lifetime. Politically, Scheffer had strong ties to King Louis Philippe I, having been employed as a teacher of the latter's children, which allowed him to live a life of luxury for many years until the French Revolution of 1848."
+   }
+  },
+  {
+   "슬러그": "adolphe-willette-s-newsboy-collecting-balls-for-the-barricad",
+   "제목": "Adolphe Willette's Newsboy collecting balls for the barricade (1857-1926) famous painting. Original from The Public Institution Paris Musées. Digitally enhanced by rawpixel. (51928236600)",
+   "갈래주제": "역사",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Adolphe_Willette%27s_Newsboy_collecting_balls_for_the_barricade_%281857-1926%29_famous_painting._Original_from_The_Public_Institution_Paris_Mus%C3%A9es._Digitally_enhanced_by_rawpixel._%2851928236600%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 1290,
+   "세로": 2500,
+   "라이선스": "CC BY 2.0",
+   "작가": "Rawpixel Ltd",
+   "설명": "Free download under CC Attribution (CC BY 2.0). Please credit the artist and rawpixel.com Adolphe Léon Willette (1857-1926) was a French painter, illustrator, caricaturist, and lithographer. He contributed to several journals with somewhat questionable political views. However, he is mainly known as the architect of the famous Moulin Rouge cabaret. Higher resolutions with no attribution required can be downloaded: <a href=\" https://www.rawpixel.com/search?page=1&sort=curated&tags=$adolpheleonwillette&topic=$adolpheleonwillette&topic_group=$publicdomain \" rel=\"noreferrer nofollow\">rawpixel</a>",
+   "출처": "Adolphe Willette's Newsboy collecting balls for the barricade (1857-1926) famous painting. Original from The Public Institution Paris Musées. Digitally enhanced by rawpixel.",
+   "연도": {
+    "원문": "2021-09-20 03:26",
+    "값": null,
+    "정밀도": null,
+    "정밀도이름": null,
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": null
+   },
+   "연도표기": "제작연도 미상",
+   "_원문": {
+    "저작자": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/153584064@N07\">Rawpixel Ltd</a>",
+    "연도": "2021-09-20 03:26",
+    "설명": "<p>Free download under CC Attribution (CC BY 2.0). Please credit the artist and rawpixel.com\n</p><p>Adolphe Léon Willette (1857-1926) was a French painter, illustrator, caricaturist, and lithographer. He contributed to several journals with somewhat questionable political views. However, he is mainly known as the architect of the famous Moulin Rouge cabaret.\n</p>\nHigher resolutions with no attribution required can be downloaded: &lt;a href=\"<a rel=\"nofollow\" class=\"external free\" href=\"https://www.rawpixel.com/search?page=1&amp;sort=curated&amp;tags=%24adolpheleonwillette&amp;topic=%24adolpheleonwillette&amp;topic_group=%24publicdomain\">https://www.rawpixel.com/search?page=1&amp;sort=curated&amp;tags=$adolpheleonwillette&amp;topic=$adolpheleonwillette&amp;topic_group=$publicdomain</a>\" rel=\"noreferrer nofollow\"&gt;rawpixel&lt;/a&gt;"
+   },
+   "작가조회": {
+    "질의": "Rawpixel Ltd",
+    "상태": "문서없음",
+    "Q": null,
+    "레이블": null,
+    "레이블ko": null,
+    "레이블en": null,
+    "직업": [],
+    "화가인가": null,
+    "생": null,
+    "몰": null,
+    "위키문서": null,
+    "도입부": null
+   }
+  },
+  {
+   "슬러그": "a-horvatok-meg-rkez-se-magyarorsz-gb-l-b-cs-al-a-p-kozdi-csa",
+   "제목": "A horvatok megérkezése Magyarországból Bécs alá a pákozdi csata után. Josef Heicke",
+   "갈래주제": "역사",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/A_horvatok_meg%C3%A9rkez%C3%A9se_Magyarorsz%C3%A1gb%C3%B3l_B%C3%A9cs_al%C3%A1_a_p%C3%A1kozdi_csata_ut%C3%A1n._Josef_Heicke.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 2949,
+   "세로": 1909,
+   "라이선스": "Public domain",
+   "작가": "Joseph Heicke (1811-1861)",
+   "설명": "Joseph Heicke: The Croatian troops of Jelacic, after retreating from Hungary, arrive to Vienna, to help the Austrians to suppress the revolution from there.",
+   "출처": "https://sammlung.wienmuseum.at/objekt/3878-kampfszene-bei-goeding-hodonin-in-maehren-an-der-march-1848/?fbclid=IwAR3tQabU-p8KJ6NKS2ZTOFkZDB85Qdb-SZpydtBVHsRoe4WEyKvtL0me99k",
+   "연도": {
+    "원문": "1848-12-08",
+    "값": null,
+    "정밀도": null,
+    "정밀도이름": null,
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": null
+   },
+   "연도표기": "제작연도 미상",
+   "_원문": {
+    "저작자": "Joseph Heicke (1811-1861)",
+    "연도": "1848-12-08",
+    "설명": "Joseph Heicke: The Croatian troops of Jelacic, after retreating from Hungary, arrive to Vienna, to help the Austrians to suppress the revolution from there."
+   },
+   "작가조회": {
+    "질의": "Joseph Heicke (1811-1861)",
+    "상태": "문서없음",
+    "Q": null,
+    "레이블": null,
+    "레이블ko": null,
+    "레이블en": null,
+    "직업": [],
+    "화가인가": null,
+    "생": null,
+    "몰": null,
+    "위키문서": null,
+    "도입부": null
+   }
+  },
+  {
+   "슬러그": "accoglienza-ai-convalescenti-santissima-trinit",
+   "제목": "Accoglienza ai convalescenti, Santissima Trinità",
+   "갈래주제": "역사",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/9/98/Accoglienza_ai_convalescenti%2C_Santissima_Trinit%C3%A0.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 919,
+   "세로": 1280,
+   "라이선스": "CC BY-SA 4.0",
+   "작가": "Davidebuono",
+   "설명": "Accoglienza ai convalescenti",
+   "출처": "Own work",
+   "연도": {
+    "원문": "2022-12-17",
+    "값": null,
+    "정밀도": null,
+    "정밀도이름": null,
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": null
+   },
+   "연도표기": "제작연도 미상",
+   "_원문": {
+    "저작자": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Davidebuono&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Davidebuono (page does not exist)\">Davidebuono</a>",
+    "연도": "2022-12-17",
+    "설명": "Accoglienza ai convalescenti"
+   },
+   "작가조회": {
+    "질의": "Davidebuono",
+    "상태": "문서없음",
+    "Q": null,
+    "레이블": null,
+    "레이블ko": null,
+    "레이블en": null,
+    "직업": [],
+    "화가인가": null,
+    "생": null,
+    "몰": null,
+    "위키문서": null,
+    "도입부": null
+   }
+  },
+  {
+   "슬러그": "075-early-views-of-seattle-prosch-54",
+   "제목": "075 Early views of Seattle (PROSCH 54)",
+   "갈래주제": "역사",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/8/80/075_Early_views_of_Seattle_%28PROSCH_54%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "가로": 768,
+   "세로": 648,
+   "라이선스": "Public domain",
+   "작가": "Theodore E. Peiser",
+   "설명": "Two photographs on album page Caption to the right of top left photo: This also from a sketch, or painting, by Clarence Hanford. It is somewhat inaccurate. The west row of houses stood on the beach, the tide under several of them. The mill was opposite the first house near it. The house to south was on the point. Bark Brontes and U.S. ship Decatur are the vessels. Caption on image: Peiser 15. Battle of Seattle, 1856. Copyrighted C. Hanford 1895. Caption to the right of bottom left photo: Seattle from Madison Street to Union in 1870. The prominent buildings are Woodwards warehouse, Amos Brown's dwelling, M.P. Church, Central School, University, John Denny, W.H. Shoudy and other dwellings. Caption on image: Peiser 17, Seattle. Photo on top left: Photograph of painting depicting Piner's Point, vicinity present-day King Street in 1852. Prosch Washington Views Album, page 75 Subjects (LCTGM): Waterfronts--Washington (State)--Seattle Subjects (LCSH): Seattle (Wash.) Prosch attributes the drawing of the Battle of Seattle to Clarence Hanford, but others attribute it to Emily Inez Denny.",
+   "출처": "Prosch Albums",
+   "연도": {
+    "원문": "1856, circa 1870 date QS:P571,+1870-00-00T00:00:00Z/9,P1480,Q5727902",
+    "값": 1870,
+    "정밀도": 9,
+    "정밀도이름": "연",
+    "이른": null,
+    "늦은": null,
+    "속성깨짐": false,
+    "출처": "P571"
+   },
+   "연도표기": "1870년",
+   "_원문": {
+    "저작자": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Theodore_Peiser\" class=\"extiw\" title=\"w:en:Theodore Peiser\"><span title=\"American Photographer (1853–1922)\">Theodore E. Peiser</span></a></bdi>",
+    "연도": "1856, circa 1870<div style=\"display: none;\">date QS:P571,+1870-00-00T00:00:00Z/9,P1480,Q5727902</div>",
+    "설명": "Two photographs on album page\n<p>Caption to the right of top left photo: This also from a sketch, or painting, by Clarence Hanford. It is somewhat inaccurate. The west row of houses stood on the beach, the tide under several of them. The mill was opposite the first house near it. The house to south was on the point. Bark Brontes and U.S. ship Decatur are the vessels.  Caption on image: Peiser 15. Battle of Seattle, 1856. Copyrighted C. Hanford 1895.  Caption to the right of bottom left photo: Seattle from Madison Street to Union in 1870. The prominent buildings are Woodwards warehouse, Amos Brown's dwelling, M.P. Church, Central School, University, John Denny, W.H. Shoudy and other dwellings.  Caption on image: Peiser 17, Seattle.\n</p><p>Photo on top left: Photograph of painting depicting Piner's Point, vicinity present-day King Street in 1852.\n</p><p>Prosch Washington Views Album, page 75\n</p>\n<ul><li>Subjects (LCTGM): Waterfronts--Washington (State)--Seattle</li>\n<li>Subjects (LCSH): Seattle (Wash.)</li></ul>\n<hr>\nProsch attributes the drawing of the Battle of Seattle to Clarence Hanford, but others attribute it to Emily Inez Denny."
+   },
+   "작가조회": {
+    "질의": "Theodore E. Peiser",
+    "상태": "조회됨",
+    "Q": "Q56159174",
+    "레이블": "Theodore E. Peiser",
+    "레이블ko": null,
+    "레이블en": "Theodore E. Peiser",
+    "직업": [
+     "사진가"
+    ],
+    "화가인가": false,
+    "생": {
+     "연": 1853,
+     "정밀도": 11
+    },
+    "몰": {
+     "연": 1922,
+     "정밀도": 11
+    },
+    "위키문서": "Theodore Peiser",
+    "도입부": "Theodore E. Peiser (1853 - 1922) was an early photographer in Seattle, Washington and the Pacific Northwest. His studio and many of his photographs were lost in the Great Seattle Fire of 1889. His surviving photographs include one of the few photographs of the Seattle skyline from Beacon Hill before the fire as well as the Yesler-Leary Building in 1885, several years before it burned in the fire. He also captured the first and second Occidental Hotel buildings that preceded the Seattle Hotel and Sinking Ship."
    }
   },
   {
@@ -1726,7 +2483,8 @@
     "화가인가": null,
     "생": null,
     "몰": null,
-    "위키문서": "Anonymous work"
+    "위키문서": "Anonymous work",
+    "도입부": "Anonymous works are creative works, such as art or literature, that have an anonymous, undisclosed, or unknown creator or author. In the case of very old works, the author's name may simply be lost over the course of history and time. There are a number of reasons anonymous works arise. Examples include Beowulf and The Arabian Nights."
    }
   },
   {
@@ -1767,7 +2525,8 @@
     "화가인가": null,
     "생": null,
     "몰": null,
-    "위키문서": null
+    "위키문서": null,
+    "도입부": null
    }
   },
   {
@@ -1808,7 +2567,8 @@
     "화가인가": null,
     "생": null,
     "몰": null,
-    "위키문서": null
+    "위키문서": null,
+    "도입부": null
    }
   },
   {
@@ -1849,9 +2609,10 @@
     "화가인가": null,
     "생": null,
     "몰": null,
-    "위키문서": null
+    "위키문서": null,
+    "도입부": null
    }
   }
  ],
- "수": 40
+ "수": 54
 }

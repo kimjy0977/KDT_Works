@@ -69,6 +69,13 @@ def main():
     돈다("③ 작가 조회", ["enrich.py"])
     돈다("④ 작성 — 소박", ["write.py"])
     돈다("⑤ 작성 — 조심", ["write.py", "--조심"])
+    # ★LLM 은 «키가 있고 캐시가 있을 때만» — 돈이 드는 것을 매번 부르지 않는다.
+    #   캐시가 있으면 호출 0 이라 공짜다. 없으면 건너뛴다.
+    if os.path.exists(os.path.join(HERE, "data/_llm_cache.json")):
+        돈다("⑤-2 작성 — ★llm (캐시)", ["write.py", "--llm"], 필수=False)
+    else:
+        print("  %-26s %s  키·캐시가 없어 건너뜁니다"
+              % ("⑤-2 작성 — llm", "SKIP"))
     돈다("⑥ 관문", ["gates.py", "--입력", "data/written_소박.json"])
     돈다("⑦ 비교표", ["compare.py"])
     # ★청소 실패는 «치명»이 아니다 — streamlit 이 sqlite 를 쥐고 있으면
@@ -99,8 +106,16 @@ def main():
        "같으면 비교표에 쓸 것이 없다")
 
     c = _j("output/compare.json")
-    본다("비교표가 두 모드를 다 담았다",
-       bool(c) and set(c["모드별"]) == {"소박", "조심"})
+    # ⛔모드 목록을 «굳히지» 않는다 — llm 이 늘었을 때 여기가 터졌다(§F-8-D).
+    본다("비교표가 «만든 모드를 다» 담았다",
+       bool(c) and set(c["모드별"]) >= {"소박", "조심"},
+       "담긴 것 %s" % sorted((c or {}).get("모드별", {})))
+    있는모드 = {m for m in ("소박", "조심", "llm")
+             if os.path.exists(os.path.join(HERE, "data/written_%s.json" % m))}
+    본다("★만든 모드가 «빠짐없이» 재어졌다",
+       bool(c) and set(c["모드별"]) == 있는모드,
+       "파일 %s vs 표 %s" % (sorted(있는모드),
+                          sorted((c or {}).get("모드별", {}))))
 
     if c:
         # ★기준을 다 켜면 «놓침이 0» 이어야 한다. 아니면 기준이 못 잡는 위험이 있다.
@@ -147,6 +162,77 @@ def main():
         본다("답하면 대기가 하나 준다", 후 == 전 - 1, "%d → %d" % (전, 후))
         본다("반려는 «바깥으로 안 나간다»",
            "안 나감" in (r.get("결과") or ""), r.get("결과"))
+
+    # ★응답 넷이 «실제로» 다른가 — 이름만 다르면 자동화 근거가 무너진다
+    print()
+    print("── 응답 넷이 «서로 다른가» ──")
+    w = graph.대기목록()
+    쓴것 = {}
+    for 답 in ("발행", "수정 후 발행"):
+        후보 = [x for x in graph.대기목록() if x["id"] not in 쓴것]
+        if not 후보:
+            break
+        tid = 후보[0]["id"]
+        쓴것[tid] = 답
+        메모 = "★e2e 가 고쳐 넣은 문장입니다." if 답 == "수정 후 발행" else None
+        r = graph.답한다(tid, 답, 메모)
+        본다("「%s」 가 결과를 낸다" % 답, bool(r.get("결과")),
+           (r.get("결과") or "")[:70])
+
+    # ★「다시 해설」은 «결과를 내면 안 된다» — 다시 쓰고 «다시 멈춘다».
+    #   ⛔처음엔 「결과를 낸다」로 단정했다가 실패했다. ★내 단정이 틀렸다.
+    #     다시 쓴 글을 사람이 «또» 보는 것이 이 응답의 뜻이다.
+    후보 = [x for x in graph.대기목록() if x["id"] not in 쓴것]
+    if 후보:
+        tid = 후보[0]["id"]
+        쓴것[tid] = "다시 해설"
+        전글 = (후보[0].get("물음") or {}).get("대상")
+        graph.답한다(tid, "다시 해설")
+        남 = {x["id"]: x for x in graph.대기목록()}
+        본다("★「다시 해설」은 «다시 멈춘다» (반려와 다르다)", tid in 남,
+           "여전히 대기 중이어야 한다 — 다시 쓴 글을 사람이 또 본다")
+        st = graph.만든다().get_state(graph._cfg(tid))
+        본다("★다시 쓴 글이 «상태에» 들어갔다",
+           bool((st.values or {}).get("다시쓴글")),
+           (str((st.values or {}).get("다시쓴글"))[:64]))
+        본다("다시 쓴 횟수가 «세어진다»",
+           ((st.values or {}).get("다시횟수") or 0) >= 1,
+           "다시횟수=%s" % (st.values or {}).get("다시횟수"))
+
+    로그 = []
+    _p = os.path.join(HERE, "output/published.jsonl")
+    if os.path.exists(_p):
+        로그 = [json.loads(l) for l in io.open(_p, encoding="utf-8")]
+    수정건 = [x for x in 로그 if x["결정"] == "수정 후 발행"]
+    본다("★「수정 후 발행」이 «메모를 실제로 쓴다»",
+       bool(수정건) and "e2e 가 고쳐 넣은" in (수정건[-1]["내용"] or ""),
+       (수정건[-1]["내용"][:60] if 수정건 else "기록이 없다"))
+    결정들 = {x["결정"] for x in 로그}
+    본다("기록에 «사람이 누른» 결정이 남는다",
+       len(결정들 - {"자동통과"}) >= 2, str(sorted(결정들)))
+
+    # ★재개하면 «멈춘 단계»가 처음부터 다시 도는가 — REPORT 의 주장을 «실증»
+    print()
+    print("── 멈춘 «단계»가 처음부터 다시 도는가 (강의 2강) ──")
+    본 = []
+    원래관문 = graph.관문
+
+    def 세는관문(s):
+        본.append(s["슬러그"] + ":" + s["갈래"])
+        return 원래관문(s)
+
+    graph.관문 = 세는관문
+    graph._앱 = None                       # 그래프를 다시 짜야 훅이 걸린다
+    남 = [x for x in graph.대기목록() if x["id"] not in 쓴것]
+    if 남:
+        tid = 남[0]["id"]
+        본.clear()
+        graph.답한다(tid, "반려", "재실행 시험")
+        본다("재개하면 관문 노드가 «다시» 실행된다", len(본) >= 1,
+           "관문 %d회 — ⇒ ⛔관문 «안»에서 바깥으로 나가면 두 번 나간다"
+           % len(본))
+    graph.관문 = 원래관문
+    graph._앱 = None
 
     # ★재개 시험이 «한 건을 처리»해서 대기 수가 바뀌었다.
     #   문서 수치를 다시 찍고 나서 레드팀을 친다 —

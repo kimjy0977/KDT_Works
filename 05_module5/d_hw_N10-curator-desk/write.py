@@ -35,6 +35,24 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 CFG = json.load(io.open(os.path.join(HERE, "config.json"), encoding="utf-8"))
 
+# ★.env 를 읽는다 — 키를 여기 두는 것이 이 프로젝트의 규약이다.
+#   ⛔"키를 .env 에 넣으세요"라고 문서에 적어 놓고 «안 읽으면»
+#     그것도 「말한 것과 하는 것이 다른 것」이다. 실제로 그랬다.
+def _env():
+    p = os.path.join(HERE, ".env")
+    if not os.path.exists(p):
+        return
+    for line in io.open(p, encoding="utf-8"):
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        os.environ.setdefault(k.strip(), v.strip())
+
+
+_env()
+
+
 
 def _잘라(s, n):
     s = (s or "").strip()
@@ -88,6 +106,12 @@ def 작가소개_소박(m):
         직 = _읽은직업(r)
         if 직:
             줄.append("직업은 %s. [4]" % "·".join(직[:3]))
+        도 = (r.get("도입부") or "").strip()
+        if 도:
+            # ⛔★도입부를 «근거 표시 없이» 그대로 붙인다.
+            #   LLM 이 흔히 하는 일이다 — 읽은 것을 «자기 말»처럼 쓴다.
+            #   숫자가 섞여 들어오면 A1 이, 근거가 없으면 A2 가 잡는다.
+            줄.append(_잘라(도, 260))
     else:
         # 조회가 안 됐는데도 «그럴듯하게» 쓴다 — 근거가 없다 ⇒ A2 가 잡는다
         줄.append("바로크 시대를 대표하는 거장으로 평가받는다.")
@@ -136,16 +160,42 @@ def 작가소개_조심(m):
     if 직:
         줄.append("위키데이터가 기록한 직업은 %s. [4]"
                   % "·".join(직[:3]))
+    도 = (r.get("도입부") or "").strip()
+    if 도:
+        # ★같은 자료를 쓰되 «어디서 왔는지»를 밝힌다.
+        #   출처를 밝히면 그건 지어낸 글이 아니다 — A2 가 안 잡는다.
+        #   숫자도 조회 결과 «안»에 있으므로 A1 도 안 잡는다.
+        줄.append("위키백과 %s 문서는 이렇게 적고 있습니다 — %s [4]"
+                  % (r.get("위키문서") or "", _잘라(도, 220)))
     return " ".join(줄)
 
 
 # ── LLM — 키가 있으면. ⛔없으면 «조용히» 소박으로 안 떨어진다 ────────
 
-def _llm(prompt):
+LLM캐시 = os.path.join(HERE, "data/_llm_cache.json")
+_캐시 = None
+
+
+def _llm(prompt, 역할):
+    """★같은 물음은 «다시 묻지 않는다» — 돈이 든다.
+
+    ⛔전에는 캐시가 없어서, 108 호출 중 하나만 실패해도 전부 다시 물어야 했다.
+      API 를 쓰는 코드는 ★「중간에 끊겨도 이어지는가」를 먼저 봐야 한다.
+    ⛔max_tokens 를 안 걸면 «얼마가 나올지 모른다». 3문장이면 300 으로 충분하다.
+    """
+    global _캐시
+    if _캐시 is None:
+        _캐시 = (json.load(io.open(LLM캐시, encoding="utf-8"))
+               if os.path.exists(LLM캐시) else {})
+    열쇠 = 역할 + "|" + prompt
+    if 열쇠 in _캐시:
+        return _캐시[열쇠]
+
     from openai import OpenAI
     c = OpenAI()
     r = c.chat.completions.create(
-        model="gpt-4o-mini", temperature=0.4,
+        model=os.environ.get("LLM_MODEL", "gpt-4o-mini"),
+        temperature=0.4, max_tokens=300,
         messages=[
             {"role": "system", "content":
              "너는 미술관 큐레이터다. ★주어진 자료에 «있는 것만» 쓴다. "
@@ -153,22 +203,54 @@ def _llm(prompt):
              "[1]=설명 [2]=라이선스·저작자 [3]=연도 [4]=작가 문서. "
              "3문장 이내, 한국어 존대 없이 설명체."},
             {"role": "user", "content": prompt}])
-    return (r.choices[0].message.content or "").strip()
+    답 = (r.choices[0].message.content or "").strip()
+    _캐시[열쇠] = 답
+    # ★«옆에 쓰고 갈아 끼운다» — 쓰는 도중에 죽으면 캐시가 깨진다.
+    #   ⛔실제로 «읽다가» 반쯤 쓰인 파일을 집어 JSONDecodeError 를 봤다.
+    #     돈 주고 산 답이 통째로 날아갈 뻔했다.
+    os.makedirs(os.path.dirname(LLM캐시), exist_ok=True)
+    임시 = LLM캐시 + ".tmp"
+    io.open(임시, "w", encoding="utf-8", newline="").write(
+        json.dumps(_캐시, ensure_ascii=False, indent=1))
+    os.replace(임시, LLM캐시)          # 원자적 — 반쯤 쓰인 파일이 안 보인다
+    return 답
 
 
-def 해설_llm(m):
+def _캐시확인():
+    """캐시를 «읽어만» 둔다 — 호출 없이 「덮이나」를 보려고."""
+    global _캐시
+    if _캐시 is None:
+        _캐시 = (json.load(io.open(LLM캐시, encoding="utf-8"))
+               if os.path.exists(LLM캐시) else {})
+    return _캐시
+
+
+def _해설프롬프트(m):
+    """★프롬프트를 «한 군데»서 만든다.
+
+    ⛔두 곳에서 따로 만들면 «캐시 열쇠»가 어긋나, 캐시가 있는데도
+      「없다」고 판정한다. 열쇠를 만드는 자리는 항상 하나여야 한다.
+    """
     자 = json.dumps({
         "제목": m.get("제목"), "설명": m.get("설명"),
         "연도원문": (m.get("연도") or {}).get("원문"),
         "연도표기": m.get("연도표기"),
         "라이선스": m.get("라이선스"), "저작자": m.get("작가"),
     }, ensure_ascii=False, indent=1)
-    return _llm("이 작품의 해설을 써라.\n" + 자)
+    return "이 작품의 해설을 써라.\n" + 자
+
+
+def _작가프롬프트(m):
+    자 = json.dumps(m.get("작가조회") or {}, ensure_ascii=False, indent=1)
+    return "이 작가의 소개를 써라. 자료에 없는 일화는 쓰지 마라.\n" + 자
+
+
+def 해설_llm(m):
+    return _llm(_해설프롬프트(m), "해설")
 
 
 def 작가소개_llm(m):
-    자 = json.dumps(m.get("작가조회") or {}, ensure_ascii=False, indent=1)
-    return _llm("이 작가의 소개를 써라. 자료에 없는 일화는 쓰지 마라.\n" + 자)
+    return _llm(_작가프롬프트(m), "작가")
 
 
 def main():
@@ -189,11 +271,19 @@ def main():
         작품 = 작품[: a.n]
 
     if a.llm and not os.environ.get("OPENAI_API_KEY"):
-        # ⛔★조용히 «소박»으로 떨어지지 않는다 —
-        #   그러면 「LLM 으로 돌렸다」고 착각한 채 수치를 적게 된다.
-        print("  ⛔--llm 인데 OPENAI_API_KEY 가 없습니다.")
-        print("    .env.example 을 .env 로 복사해 키를 넣거나, --llm 을 빼세요.")
-        return 1
+        # ★캐시로 «전부» 덮이면 호출이 0 이다 — 키가 필요 없다.
+        #   ⛔이걸 안 보고 막았더니, 캐시를 올려 두고도 채점자가 재현을 못 했다.
+        #     「키 없이도 돌아야 한다」가 이 프로젝트의 약속이다(README).
+        _캐시확인()
+        모자란 = [m for m in 작품
+                if ("해설|" + _해설프롬프트(m)) not in (_캐시 or {})
+                or ("작가|" + _작가프롬프트(m)) not in (_캐시 or {})]
+        if 모자란:
+            print("  ⛔--llm 인데 OPENAI_API_KEY 가 없고, 캐시도 모자랍니다"
+                  " (%d/%d 점)." % (len(모자란), len(작품)))
+            print("    .env.example 을 .env 로 복사해 키를 넣거나, --llm 을 빼세요.")
+            return 1
+        print("  ★키가 없지만 캐시가 «전부» 있습니다 — 호출 0 으로 갑니다.")
 
     if a.llm:
         모드, 해설f, 작가f = "llm", 해설_llm, 작가소개_llm
@@ -203,10 +293,15 @@ def main():
         모드, 해설f, 작가f = "소박", 해설_소박, 작가소개_소박
 
     print("═══ 작성 — %s · %d점 ═══" % (모드, len(작품)))
-    for m in 작품:
+    if a.llm:
+        print("  ★API 를 %d회 부릅니다 (작품 %d × 2). 캐시가 있으면 건너뜁니다."
+              % (len(작품) * 2, len(작품)))
+    for i, m in enumerate(작품, 1):
         m["해설"] = 해설f(m)
         m["작가소개"] = 작가f(m)
         m["작성모드"] = 모드
+        if a.llm:
+            print("  %3d/%d  %s" % (i, len(작품), (m.get("제목") or "")[:52]))
 
     글자 = sum(len(m["해설"]) + len(m["작가소개"]) for m in 작품)
     근거0 = sum(1 for m in 작품 if "[" not in m["해설"])

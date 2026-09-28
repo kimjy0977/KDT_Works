@@ -39,12 +39,32 @@ import gates
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CFG = json.load(io.open(os.path.join(HERE, "config.json"), encoding="utf-8"))
+
+# ★.env 를 읽는다 — 키를 여기 두는 것이 이 프로젝트의 규약이다.
+#   ⛔"키를 .env 에 넣으세요"라고 문서에 적어 놓고 «안 읽으면»
+#     그것도 「말한 것과 하는 것이 다른 것」이다. 실제로 그랬다.
+def _env():
+    p = os.path.join(HERE, ".env")
+    if not os.path.exists(p):
+        return
+    for line in io.open(p, encoding="utf-8"):
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        os.environ.setdefault(k.strip(), v.strip())
+
+
+_env()
+
 DB = os.path.join(HERE, CFG["_체크포인터"]["경로"])
 색인경로 = os.path.join(HERE, "output/threads.json")
 발행로그 = os.path.join(HERE, "output/published.jsonl")
 갈래목록 = [k for k in CFG["_갈래"] if not k.startswith("_")]
 응답들 = CFG["_응답"]
-DRY_RUN = CFG["_발행"]["DRY_RUN 기본값"] and not os.environ.get("DISCORD_WEBHOOK")
+DRY_RUN = (CFG["_발행"]["DRY_RUN 기본값"]
+           and not os.environ.get("DISCORD_WEBHOOK"))
+대기한도 = int(CFG["_운영규칙"]["대기 한도(일)"])
 
 
 class 상태(TypedDict):
@@ -66,6 +86,9 @@ class 상태(TypedDict):
     결정: Optional[str]
     메모: Optional[str]
     결과: Optional[str]
+    # ★「다시 해설」 고리용 — 몇 번 다시 썼나, 무엇으로 바뀌었나
+    다시횟수: Optional[int]
+    다시쓴글: Optional[str]
 
 
 # ── 작품 창고 — ★상태 밖에 둔다 ──────────────────────────────────
@@ -116,7 +139,9 @@ def 판정(s: 상태) -> Dict[str, Any]:
       gates 에서 고친 규칙을 ★무효화했다. 발행 A1 이 4건이어야 하는데 24건이 됐다.
       규칙을 한 군데서 고치면 «그 규칙을 우회하는 자리»가 없는지 본다(§H-4).
     """
-    걸린 = gates.잰다(_작품(s), s["갈래"], 카탈로그=_카탈로그())
+    # ★다시 썼으면 «그 글»을 잰다 — 원본을 재면 다시 쓴 보람이 없다
+    걸린 = gates.잰다(_작품(s), s["갈래"], 글=s.get("다시쓴글"),
+                    카탈로그=_카탈로그())
     return {"걸린": 걸린}
 
 
@@ -146,10 +171,10 @@ def 관문(s: 상태) -> Dict[str, Any]:
 def 실행(s: 상태) -> Dict[str, Any]:
     """★바깥으로 나가는 «유일한» 자리. 관문 밖이라 두 번 나가지 않는다."""
     d = s.get("결정")
-    if d in ("반려", "다시 해설"):
+    if d in ("반려", "포기"):
         return {"결과": "안 나감 — %s" % d}
     m = _작품(s)
-    글 = gates.내보낼글(m, s["갈래"]) or m.get("제목") or ""
+    글 = s.get("다시쓴글") or gates.내보낼글(m, s["갈래"]) or m.get("제목") or ""
     if d == "수정 후 발행" and s.get("메모"):
         글 = s["메모"]
     _적는다({
@@ -163,8 +188,58 @@ def 실행(s: 상태) -> Dict[str, Any]:
     #     「0건」이 «없음»인지 «일어날 수 없음»인지 가른 자리다.
     if s["갈래"] == "카탈로그":
         _등재한다(s["슬러그"], m)
-    어디 = "DRY_RUN(파일에만)" if DRY_RUN else "Discord"
-    return {"결과": "%s → %s" % (_결과문(s["갈래"], m), 어디)}
+    보낸결과 = _보낸다(s["갈래"], m, 글)
+    return {"결과": "%s → %s" % (_결과문(s["갈래"], m), 보낸결과)}
+
+
+def _보낸다(갈래, m, 글):
+    """★바깥으로 «실제로» 보낸다 — 웹훅이 있으면.
+
+    ⛔전에는 이 코드가 «아예 없었다». DRY_RUN=False 여도 아무 데도 안 갔는데
+      README·REPORT 는 「DISCORD_WEBHOOK 이 있으면 실제 발행」이라 말했다.
+      ★문서가 거짓말을 하고 있었다 — 전수검사가 잡았다.
+      「없는 기능을 말하는 것」이 이 프로젝트가 막으려는 바로 그 일이다.
+    """
+    훅 = os.environ.get("DISCORD_WEBHOOK", "").strip()
+    if DRY_RUN or not 훅:
+        return "DRY_RUN(output/published.jsonl 에만)"
+    몸 = {"content": "**%s** — %s\n%s"
+          % (갈래, (m.get("제목") or "")[:120], (글 or "")[:1600])}
+    try:
+        import urllib.request
+        req = urllib.request.Request(
+            훅, data=json.dumps(몸).encode("utf-8"),
+            headers={"Content-Type": "application/json",
+                     "User-Agent": "KDT-curator-desk/0.1"})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            return "Discord 전송 %s" % r.status
+    except Exception as e:
+        # ⛔조용히 «성공»으로 넘기지 않는다 — 안 나갔으면 안 나갔다고 적는다
+        return "★Discord 전송 실패 — %s" % str(e)[:60]
+
+
+def 재작성(s: 상태) -> Dict[str, Any]:
+    """★「다시 해설」을 «진짜로» 다시 쓴다 — 그리고 판정으로 되돌아간다.
+
+    ⛔전에는 「반려」와 «완전히 같았다». 이름만 달랐다.
+      응답을 넷으로 둔 근거(강의 4강 — 둘만 두면 「이 문구만 고쳐서」를 전부
+      반려하게 되어 자동화가 무너진다)가 ★실제로는 셋이었다.
+      전수검사가 잡았다 — 「말한 것」과 「하는 것」이 달랐다.
+
+    ★다시 쓸 때는 «다른 작성기»를 쓴다. 같은 걸로 다시 쓰면 같은 글이 나온다.
+      소박 → 조심. 정밀도를 지켜 쓰므로 D4·A1 이 줄어든다.
+    ⛔무한히 돌지 않는다 — 다시판정 상한(config)을 넘으면 포기하고 안 내보낸다.
+    """
+    import write
+    m = _작품(s)
+    n = (s.get("다시횟수") or 0) + 1
+    상한 = int(CFG["_운영규칙"]["다시판정 상한"])
+    if n > 상한:
+        return {"다시횟수": n, "결정": "포기",
+                "결과": "안 나감 — 다시 쓰기가 상한(%d)을 넘었습니다" % 상한}
+    새글 = (write.작가소개_조심(m) if s["갈래"] == "작가"
+          else write.해설_조심(m))
+    return {"다시횟수": n, "다시쓴글": 새글, "결정": None, "걸린": []}
 
 
 def _결과문(갈래, m):
@@ -239,11 +314,22 @@ def 만든다():
     g.add_node("준비", 준비)
     g.add_node("판정", 판정)
     g.add_node("관문", 관문)
+    g.add_node("재작성", 재작성)
     g.add_node("실행", 실행)
     g.add_edge(START, "준비")
     g.add_edge("준비", "판정")
     g.add_edge("판정", "관문")
-    g.add_edge("관문", "실행")
+    # ★「다시 해설」은 «되돌아간다» — 실행으로 안 간다.
+    #   ⛔전에는 관문 → 실행 하나뿐이라 「다시 해설」이 반려와 같았다.
+    g.add_conditional_edges(
+        "관문",
+        lambda s: "재작성" if s.get("결정") == "다시 해설" else "실행",
+        {"재작성": "재작성", "실행": "실행"})
+    # 재작성 → 판정 → 관문 … 고리. 상한은 재작성 안에서 건다.
+    g.add_conditional_edges(
+        "재작성",
+        lambda s: "실행" if s.get("결정") == "포기" else "판정",
+        {"실행": "실행", "판정": "판정"})
     g.add_edge("실행", END)
     _앱 = g.compile(checkpointer=SqliteSaver(conn))
     return _앱
@@ -351,14 +437,19 @@ def 답한다(tid, 결정, 메모=None):
     return r
 
 
-def 묵은건반려():
-    """대기 %d일 경과 → ★자동 반려. 기본값을 «안 내보내기» 쪽으로."""
-    한도 = int(str(CFG["_운영규칙"]["대기 3일 경과"]).strip() and 3)
+def 묵은건반려(한도=None):
+    """대기 N일 경과 → ★자동 반려. 기본값을 «안 내보내기» 쪽으로.
+
+    ⛔전에는 이 함수를 «아무도 안 불렀다». config 에 규칙을 적고 함수도
+      만들어 놓고 호출부가 없어 ★죽은 기능이었다 — 전수검사가 잡았다.
+      `--묵은것` 으로 부르고, 화면에서도 부른다.
+    """
+    한도 = 한도 if 한도 is not None else 대기한도
     친 = []
     for w in 대기목록():
         if w["경과일"] >= 한도:
             답한다(w["id"], "반려", "대기 %d일 경과 — 자동 반려" % w["경과일"])
-            친.append(w["id"])
+            친.append((w["id"], w["경과일"]))
     return 친
 
 
@@ -370,6 +461,8 @@ def main():
     ap.add_argument("--목록", action="store_true")
     ap.add_argument("--답", nargs=2, metavar=("THREAD", "결정"))
     ap.add_argument("--청소", action="store_true")
+    ap.add_argument("--묵은것", action="store_true",
+                    help="★대기 N일 경과 건을 자동 반려한다 (config _운영규칙)")
     ap.add_argument("--입력", default="data/written_소박.json")
     ap.add_argument("--n", type=int, default=0)
     a = ap.parse_args()
@@ -417,6 +510,20 @@ def main():
               % (CFG["_체크포인터"]["쓸 것"], CFG["_체크포인터"]["경로"]))
         print("  ⛔DRY_RUN=%s — 실제 발행은 DISCORD_WEBHOOK 이 있을 때만"
               % DRY_RUN)
+        return 0
+
+    if a.묵은것:
+        친 = 묵은건반려()
+        print("═══ 묵은 건 자동 반려 — 한도 %d일 ═══" % 대기한도)
+        print()
+        if not 친:
+            print("  한도를 넘은 건이 없습니다.")
+            print("  ⛔「0건」은 «규칙이 없다»가 아닙니다 — 오늘 올린 것이라 "
+                  "아직 0일입니다.")
+        for tid, 일 in 친:
+            print("  반려  %-52s %d일" % (tid, 일))
+        print()
+        print("  왜 — %s" % CFG["_운영규칙"]["왜"])
         return 0
 
     if a.목록:
