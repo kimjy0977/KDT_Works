@@ -1,0 +1,256 @@
+# -*- coding: utf-8 -*-
+"""★큐레이터 데스크 — 승인 대기 건을 «확인하고 처리하는» 화면.
+
+  streamlit run app.py
+
+루브릭 ③ — 「승인 대기 건을 확인하고 처리하는 화면이 오류 없이 실행되며」
+
+★화면이 하는 일은 하나다 — 「10초 안에 판단하게 한다」
+  그래서 배치 순서가 «고정»이다. DESIGN.md §중요도 참조.
+    1 왜 멈췄나  2 통과시키면  3 무엇에 대한 건인가  4 대기열 어디쯤인가
+
+★대기 판정은 «snapshot.next» 가 한다 (강의 실습2)
+  ⛔색인 파일을 «대기 여부»의 근거로 쓰지 않는다. 색인은 「어떤 thread 가 있나」만 안다.
+
+⛔★st.sidebar 를 쓰지 않는다 — 실측 판단
+  이 화면을 브라우저에서 띄워 보니 사이드바가 «DOM 에 아예 안 생겼다».
+  최소 앱(sidebar 한 줄)으로 격리 시험해도 같았다 ⇒ 내 코드 문제가 아니다.
+  원인이 무엇이든, ★대기열이 «사라질 수 있는 자리»에 있으면 안 된다 —
+  채점자 화면에서 대기 건수와 갈래 필터가 통째로 없어진다.
+  ⇒ 대기열을 «본문 2단»으로 옮겼다. 접히지 않는다.
+  (부수 효과로 UX 가 나아졌다 — 처리하는 동안 대기열이 «계속 보인다»)
+"""
+import io
+import json
+import os
+import sys
+
+import streamlit as st
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+
+import gates           # noqa: E402
+import graph           # noqa: E402
+import ui              # noqa: E402
+
+CFG = graph.CFG
+응답들 = CFG["_응답"]
+갈래들 = ["발행", "이미지", "작가", "카탈로그"]
+관문수 = len([k for k in CFG["_관문"] if not k.startswith("_")])
+
+st.set_page_config(page_title="큐레이터 데스크", layout="wide",
+                   initial_sidebar_state="collapsed")
+st.markdown(ui.css(), unsafe_allow_html=True)
+
+
+# ── 자료 ────────────────────────────────────────────────────────
+
+def _mtime():
+    t = 0
+    for 모드 in ("소박", "조심"):
+        p = os.path.join(HERE, "data/written_%s.json" % 모드)
+        if os.path.exists(p):
+            t = max(t, os.path.getmtime(p))
+    return t
+
+
+@st.cache_data(show_spinner=False)
+def 작품표(_t):
+    """슬러그 → 작품. mtime 을 인자로 받아 파일이 바뀌면 캐시가 풀린다."""
+    for 모드 in ("소박", "조심"):
+        p = os.path.join(HERE, "data/written_%s.json" % 모드)
+        if os.path.exists(p):
+            d = json.load(io.open(p, encoding="utf-8"))
+            return {m["슬러그"]: m for m in d["작품"]}, d.get("모드")
+    return {}, None
+
+
+작품, 작성모드 = 작품표(_mtime())
+색인 = graph.색인읽기()
+
+st.markdown(
+    '<div class="hd"><h1>큐레이터 데스크</h1><div class="meta">'
+    '모듈5 노드10 · 사람이 승인하는 에이전트 · <b>김주영</b><br>'
+    '멈춤 기준 <b class="num">%d</b>개 · 갈래 <b class="num">4</b> · '
+    '체크포인터 <b>%s</b> · 작성기 <b>%s</b> · DRY_RUN <b>%s</b>'
+    '</div></div>'
+    % (관문수, CFG["_체크포인터"]["쓸 것"], 작성모드 or "?", graph.DRY_RUN),
+    unsafe_allow_html=True)
+
+if not 색인:
+    st.markdown(
+        '<div class="empty"><b>먼저 파이프라인을 돌려 주세요</b>'
+        '수집 → 세탁 → 작가 조회 → 작성 → 올림. 순서대로 한 번씩이면 됩니다.'
+        '</div>', unsafe_allow_html=True)
+    st.code("python fetch_art.py\npython normalize.py\npython enrich.py\n"
+            "python write.py\npython graph.py --올린다", language="bash")
+    st.stop()
+
+대기 = graph.대기목록()
+전체 = len(색인)
+st.markdown(ui.진행(len(대기), 전체), unsafe_allow_html=True)
+
+갈래수 = {}
+for w in 대기:
+    갈래수[w["갈래"]] = 갈래수.get(w["갈래"], 0) + 1
+
+# ── ★2단 — 왼쪽 대기열은 «접히지 않는다» ─────────────────────────
+레일, 본 = st.columns([1, 3.1], gap="large")
+
+with 레일:
+    st.markdown(
+        '<div class="qh"><b>승인 대기 %d건</b><br>'
+        '올린 %d건 · 자동 처리 %d건<br>'
+        '<span style="color:var(--ink40)">판정 = snapshot.next</span></div>'
+        % (len(대기), 전체, 전체 - len(대기)), unsafe_allow_html=True)
+    for g in 갈래들:
+        st.markdown('<div class="qg"><span>%s</span>'
+                    '<span class="n">%d</span></div>'
+                    % (g, 갈래수.get(g, 0)), unsafe_allow_html=True)
+    # ★딥링크 — ?갈래=작가 로 바로 열 수 있다 (UX 규칙 deep-linking).
+    #   캡처 스크립트도 이걸로 갈래별 화면을 찍는다.
+    선택지 = ["전체"] + 갈래들
+    초기 = st.query_params.get("갈래")
+    고른갈래 = st.radio("갈래로 좁히기", 선택지,
+                    index=선택지.index(초기) if 초기 in 선택지 else 0)
+    st.caption("갈래마다 «되돌릴 수 없는 것»이 다릅니다. "
+               "그래서 멈추는 기준도 다릅니다.")
+
+보일것 = [w for w in 대기 if 고른갈래 == "전체" or w["갈래"] == 고른갈래]
+
+with 본:
+    if not 보일것:
+        st.markdown(
+            '<div class="empty"><b>%s</b>'
+            '기준에 걸리지 않은 건은 사람을 거치지 않고 자동으로 나갔습니다. '
+            '무엇이 자동으로 나갔는지는 아래 「자동으로 처리된 건」에서 봅니다.'
+            '</div>'
+            % ("대기 건이 없습니다" if 고른갈래 == "전체"
+               else "「%s」 갈래에는 대기 건이 없습니다" % 고른갈래),
+            unsafe_allow_html=True)
+    else:
+        # ★한 건씩. 목록을 스크롤하게 두면 «어디까지 봤나»를 잃는다
+        키 = "커서_%s" % 고른갈래
+        i = max(0, min(st.session_state.get(키, 0), len(보일것) - 1))
+        w = 보일것[i]
+        m = 작품.get(w["슬러그"], {})
+        q = w.get("물음") or {}
+
+        st.markdown('<div class="dk"><div class="top">%s'
+                    '<span class="pos">%d / %d</span></div>'
+                    % (ui.태그(w["갈래"]), i + 1, len(보일것)),
+                    unsafe_allow_html=True)
+
+        그림, 내용 = st.columns([1, 3], gap="medium")
+        with 그림:
+            if m.get("url"):
+                st.markdown(
+                    '<img class="thumb" src="%s" alt="%s">'
+                    '<div class="cap">%s<br>저작자 %s<br>%s</div>'
+                    % (m["url"], ui._e(m.get("제목")),
+                       ui._e(m.get("라이선스") or "라이선스 미상"),
+                       ui._e(m.get("작가") or "(빈값)"),
+                       ui._e(m.get("연도표기") or "")),
+                    unsafe_allow_html=True)
+
+        # ★읽을 것을 «한 칸»에 모은다 — 정렬선이 둘이면 눈이 왔다 갔다 한다.
+        #   전에는 제목·왜멈췄나는 오른쪽 칸, 나갈 글은 전체 폭이라
+        #   왼쪽 모서리가 «두 군데»였다.
+        with 내용:
+            st.markdown(
+                '<div class="ttl">%s</div><div class="by">%s · %s</div>'
+                % (ui._e(m.get("제목") or w.get("제목")),
+                   ui._e(m.get("작가") or "저작자 미상"),
+                   ui._e(m.get("연도표기") or "")), unsafe_allow_html=True)
+
+            # ★① 왜 멈췄나 — 제일 크게
+            if q.get("왜 멈췄나"):
+                st.markdown(ui.왜멈췄나(q["왜 멈췄나"]), unsafe_allow_html=True)
+
+            # ★② 통과시키면 — 버튼 바로 위
+            st.markdown(
+                ui.통과시키면(q.get("통과시키면", ""),
+                         CFG["_갈래"][w["갈래"]]["되돌릴 수 없는 것"]),
+                unsafe_allow_html=True)
+
+            # ★③ 실제로 나갈 글
+            나갈글 = gates.내보낼글(m, w["갈래"])
+            if 나갈글:
+                st.markdown('<div class="lbl">나갈 글</div>',
+                            unsafe_allow_html=True)
+                st.markdown(ui.본문(나갈글), unsafe_allow_html=True)
+            else:
+                st.markdown(
+                    '<div class="lbl">이 갈래는 «글»을 내보내지 않습니다 — '
+                    '이미지 파일만 나갑니다</div>', unsafe_allow_html=True)
+
+        # ⛔★같은 글을 두 번 보여주지 않는다 — 위에 「나갈 글」이 이미 있다.
+        #   고칠 때만 «편다». 기본은 접힘 = 화면이 짧아지고 초점이 안 흩어진다.
+        with st.expander("고쳐서 내보내기 — 「수정 후 발행」을 누를 때만 씁니다"):
+            메모 = st.text_area("내보낼 내용", value=나갈글 or "", height=120,
+                              key="메모_%s" % w["id"],
+                              label_visibility="collapsed")
+
+        # ★응답 넷 — 으뜸은 하나
+        c = st.columns(4, gap="small")
+        눌림 = None
+        for j, (칸, 답) in enumerate(zip(c, 응답들)):
+            with 칸:
+                # ★으뜸은 하나 — Streamlit 네이티브 type 을 쓴다.
+                #   ⛔래퍼 div 로 감싸면 안 된다: markdown 블록이 갈려
+                #     .primary .stButton>button 이 «안 닿는다»(실측).
+                if st.button(답, key="b_%s_%s" % (w["id"], 답),
+                             width="stretch",
+                             type=("primary" if j == 0 else "secondary")):
+                    눌림 = 답
+
+        나 = st.columns([1, 1, 4], gap="small")
+        with 나[0]:
+            if st.button("← 이전", disabled=(i == 0), width="stretch"):
+                st.session_state[키] = i - 1
+                st.rerun()
+        with 나[1]:
+            if st.button("다음 →", disabled=(i >= len(보일것) - 1),
+                         width="stretch"):
+                st.session_state[키] = i + 1
+                st.rerun()
+
+        st.markdown("</div>", unsafe_allow_html=True)
+
+        if 눌림:
+            r = graph.답한다(w["id"], 눌림,
+                          메모 if 눌림 == "수정 후 발행" else None)
+            st.session_state[키] = min(i, max(0, len(보일것) - 2))
+            st.success("%s — %s" % (눌림, r.get("결과")))
+            st.rerun()
+
+# ── ★안 멈춘 것도 보인다 — 안 보이면 «놓침»을 영영 못 찾는다 ─────────
+with st.expander("자동으로 처리된 %d건 — ★놓침이 있다면 여기 있다"
+                 % (전체 - len(대기))):
+    st.caption("기준에 안 걸려 사람을 거치지 않고 나간 건입니다. "
+               "놓침(나갔어야 안 될 것이 나감)은 ⛔대기 목록에 «안 뜹니다». "
+               "그래서 여기를 따로 봅니다.")
+    끝난 = [(k, v) for k, v in 색인.items() if "끝남" in v]
+    for k, v in 끝난[:40]:
+        st.markdown(
+            '<div class="auto"><span class="ok">%s</span>'
+            '<span>%s</span><span style="color:var(--ink40)">%s</span></div>'
+            % (v.get("결정") or "자동", ui._e((v.get("제목") or "")[:52]),
+               ui._e(v["갈래"])), unsafe_allow_html=True)
+    if len(끝난) > 40:
+        st.caption("… 그리고 %d건 더 — 전부는 output/threads.json 에 있습니다"
+                   % (len(끝난) - 40))
+
+with st.expander("승인 기준 %d개 — 갈래마다 다릅니다" % 관문수):
+    for g in 갈래들:
+        st.markdown("**%s** — 되돌릴 수 없는 것: %s"
+                    % (g, CFG["_갈래"][g]["되돌릴 수 없는 것"]))
+        켠 = CFG.get("_권장조합", {}).get(g, CFG["_갈래"][g]["기준"])
+        행 = [{"기준": k, "켜짐": "○" if k in 켠 else "—",
+              "판정": CFG["_관문"][k]["판정"][:58],
+              "막는 위험": CFG["_관문"][k]["막는 위험"][:48]}
+             for k in CFG["_갈래"][g]["기준"]]
+        st.dataframe(행, hide_index=True, width="stretch")
+    st.caption("「켜짐 —」은 ★compare.py 가 재서 «뺀» 기준입니다. "
+               "근거는 config.json 의 _권장조합 에 적혀 있습니다.")

@@ -1,0 +1,16 @@
+# 테마 — 「결재 데스크」. 결정의 출처는 DESIGN.md 다.
+#   ⚠config.toml 은 «기본»만 잡는다. 폰트·간격·컴포넌트 모양은 못 바꾼다 —
+#     나머지는 ui.py 가 CSS 로 건다.
+[theme]
+base = "light"                        # ⛔다크모드 안 씀 (AI 표식 #5)
+primaryColor = "#A33420"              # 강조색 «단 하나» — 멈춘 이유·결과 예고
+backgroundColor = "#FCFCFA"           # ⛔순백 아님
+secondaryBackgroundColor = "#F1EEE6"  # 조작면
+textColor = "#16171A"                 # ⛔순흑 아님
+font = "sans serif"
+
+[server]
+headless = true
+
+[browser]
+gatherUsageStats = false

@@ -1,0 +1,9 @@
+# ★「되겠지」가 아니라 «돌아간 것»을 적는다 — 전 과정 실행 후 판본을 박는다
+langgraph
+langchain-core
+openai
+streamlit
+langgraph-checkpoint-sqlite
+
+# 위키미디어 수집 — 표준 라이브러리(urllib)만 쓰면 여기 없어도 된다
+requests
