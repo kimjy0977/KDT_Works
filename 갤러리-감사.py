@@ -206,5 +206,57 @@ def main():
     return 1
 
 
+
+
+# ══════════════════════════════════════════════════════════════
+# ★신선도 감사 (2026-09-28 신설) — «값이 맞나»가 아니라 «따라가야 하나»
+#
+# 왜: 2026-09-28 하루에 갤러리 수치가 ★두 번 낡았다.
+#     15:35 내가 216건을 넣음 → 15:57 튜터가 원본을 고침 → 16:46 또 고침(668건)
+#     ⇒ §9-2 A-1(원본 고치는 커밋에서 파생값도) 이 «세션이 다를 때» 안 걸린다.
+#     ⇒ 원본=튜터, 파생값(갤러리)=매니저. 튜터는 자기 것만 고치고 끝난다. 당연하다.
+#
+# ★왜 «값 대조»가 아니라 «시점 비교»인가 (§F-8-D 3단계)
+#     열거(allow-list) → 제외(deny-list) → ★시점
+#     산출물마다 수치 «표현»이 다르다(N건/N점/N%/표). 파서를 열거하면 새 산출물에서 샌다.
+#     시점은 표현과 무관하다 — 원본이 카드보다 새로우면 «따라가야 한다».
+#     ⛔이건 «값이 틀렸다»고 말하지 않는다. «확인하라»고만 말한다. 그게 정직하다.
+def 신선도():
+    import subprocess
+    def last(path):
+        try:
+            o = subprocess.check_output(
+                ["git", "log", "-1", "--format=%ct", "--", path],
+                stderr=subprocess.DEVNULL).decode().strip()
+            return int(o) if o else None
+        except Exception:
+            return None
+
+    card_t = last("index.html")
+    if card_t is None:
+        print("  ⚠신선도: index.html 커밋 시각을 못 읽었다 — 건너뛴다")
+        return 0
+    stale = []
+    for d in sorted(works()):
+        t = last(d)
+        if t and t > card_t:
+            stale.append((d, (t - card_t) // 60))
+    print()
+    print("  ── ★신선도 (원본이 갤러리보다 «나중»인가)")
+    if not stale:
+        print("     ✅ 갤러리가 모든 산출물보다 새롭다")
+        return 0
+    print("     ⚠%d개 — 원본이 더 새롭다. ★카드 값이 낡았을 수 있다:" % len(stale))
+    for d, m in stale[:10]:
+        print("        %-46s +%d분" % (d, m))
+    print("     ⛔«틀렸다»는 뜻이 아니다. «열어서 대조하라»는 뜻이다.")
+    return len(stale)
+
+
 if __name__ == "__main__":
-    sys.exit(main())
+    rc = main()
+    try:
+        신선도()          # ★결과는 종료코드에 «더하지» 않는다 — 경고지 실패가 아니다
+    except Exception as e:
+        print("  ⚠신선도 감사 실패: %s" % e)
+    sys.exit(rc)
