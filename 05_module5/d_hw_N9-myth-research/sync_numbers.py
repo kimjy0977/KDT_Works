@@ -18,6 +18,7 @@ fixlog.md 에 ★손으로 옮겨 적었다. 그 파일에 「손으로 옮긴 �
 import io
 import json
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -105,6 +106,27 @@ def 절제표():
     out.append(A1)
     return NL.join(out)
 
+
+def 대조군표():
+    """★팀 vs 혼자 — «잡음을 넘은 유일한 결과»라 숫자가 비면 안 된다.
+
+    ⛔전에는 이 표를 sync 가 «안 다뤘다». 자리표시자(%BASE% 등)만 적어 두고
+      손으로 채우려다 잊어서, 피어리뷰에서 잡혔다(김만정님, 2026-09-28).
+      「수치를 찍어낸다」고 해 놓고 이 표만 손으로 채우려 한 것이 틀렸다.
+    """
+    a = _j("output/ablation.json")
+    if not a:
+        return None
+    팀 = next((r for r in a["rows"] if "기준선" in r["조건"]
+              and "재측정" not in r["조건"]), None)
+    혼자 = next((r for r in a["rows"] if "solo" in r["조건"]), None)
+    if not 팀 or not 혼자:
+        return None
+    return {"BASE": "%.1f%%" % (팀["근거율"] * 100),
+            "BASE_UNUSED": "%.1f" % 팀.get("읽고안쓴", 0),
+            "SOLO": "%.1f%%" % (혼자["근거율"] * 100),
+            "SOLO_UNUSED": "%.1f" % 혼자.get("읽고안쓴", 0)}
+
 def 코퍼스표():
     c = _j("config.json")["_코퍼스"]
     b = _j("data/corpus.json")
@@ -189,6 +211,7 @@ def red표():
     return NL.join(out)
 
 def main():
+    빠짐 = False
     blocks = [(A0, A1, 절제표()), (C0, C1, 코퍼스표()),
               (E0, E1, e2e표()), (R0, R1, red표())]
     if "--write" not in sys.argv:
@@ -213,9 +236,28 @@ def main():
         if not hit:
             print("  건너뜀 %s — 표식 없음" % name)
             continue
+        # ★자리표시자를 «찍어낸다» — 표식 블록이 아니라 %NAME% 꼴이다
+        치 = 대조군표()
+        if 치:
+            for k, v in 치.items():
+                s = s.replace("%" + k + "%", v)
+
         io.open(p, "w", encoding="utf-8", newline="").write(s)
         print("  갱신   %s  [%s]  %d -> %d자"
               % (name, chr(183).join(hit), n0, len(s)))
+
+        # ⛔★남은 자리표시자를 «센다» — 김만정님 피어리뷰 제안(2026-09-28).
+        #   「다음에도 안 놓친다」. 0 이 아니면 실패로 끝낸다.
+        남은 = re.findall(r"%[A-Z_]{3,}%", s)
+        if 남은:
+            print("  ⛔치환 안 된 자리표시자 %d개: %s"
+                  % (len(남은), sorted(set(남은))))
+            빠짐 = True
+
+    # ★경고만 찍고 0 으로 끝내면 e2e 가 «통과»로 센다 — 아무도 안 본다.
+    #   김만정님 제안 그대로 0 이 아닌 코드로 끝낸다.
+    if 빠짐:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
