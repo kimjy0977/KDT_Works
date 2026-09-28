@@ -283,6 +283,24 @@ with 본:
             if q.get("왜 멈췄나"):
                 st.markdown(ui.왜멈췄나(q["왜 멈췄나"]), unsafe_allow_html=True)
 
+            # ★A3 는 «낱말»만 센다 — 판단은 사람이 «맥락»으로 한다.
+            #   ⛔그런데 화면이 맥락을 안 보여 줬다. 「민감어휘가 있다」만 떴다.
+            #     「Battle of Seattle, 1856」 인지 「2차대전 때 분실」 인지 가리려면
+            #     긴 설명을 다 읽어야 했다 — ★10초 목표와 정면으로 어긋난다(2026-09-29).
+            #   ⇒ 걸린 낱말과 앞뒤 문맥을 «한 줄»로 띄운다. 새 디자인 요소는 안 만든다.
+            if any(c == "A3" for c, *_ in (q.get("왜 멈췄나") or [])):
+                원 = " ".join([m.get("설명") or "", m.get("제목") or "",
+                              gates.내보낼글(m, w["갈래"]) or ""])
+                걸 = gates.민감식.search(원)
+                if 걸:
+                    앞 = 원[max(0, 걸.start() - 60):걸.start()]
+                    뒤 = 원[걸.end():걸.end() + 60]
+                    st.markdown(
+                        '<div class="lbl">A3 가 걸린 자리 — 맥락을 보고 판단하세요</div>'
+                        '<div class="body">…%s<span class="cite">%s</span>%s…</div>'
+                        % (ui._e(앞), ui._e(걸.group(0)), ui._e(뒤)),
+                        unsafe_allow_html=True)
+
             # ★② 통과시키면 — 버튼 바로 위
             st.markdown(
                 ui.통과시키면(q.get("통과시키면", ""),

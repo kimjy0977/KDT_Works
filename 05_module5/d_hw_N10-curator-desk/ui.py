@@ -238,7 +238,10 @@ h1,h2,h3,h4{color:var(--ink)!important;letter-spacing:-.02em}
 /* 나갈 글 */
 .body{font-size:14.5px;line-height:1.9;color:var(--ink);max-width:78ch;
   padding:11px 0;border-top:1px solid var(--line2);margin-top:4px}
-.body .q{color:var(--gold);font-weight:600}
+/* ⛔전에는 여기가 `.body .q` 였다 — v2 에서 대기열 상자를 `.q` 로 지으면서 «겹쳤다».
+     최상위 `.q{border-top:2px …;padding-top:12px}` 가 본문의 근거 표시 [1][2] 에도
+     걸려 ★인용마다 위에 짧은 먹선이 떴다(2026-09-29 캡처에서 찾음). ⇒ 이름을 가른다. */
+.body .cite{color:var(--gold);font-weight:600}
 /* ⛔★한글 라벨에 «영문 자간»을 주면 「나 갈 글」로 벌어진다.
      UPPERCASE + letter-spacing .18em 은 ★라틴 문자 문법이다(ORIGIN 도 영문이다).
      한글은 자간을 거의 주지 않고, «무게와 색»으로 라벨임을 말한다. */
@@ -403,7 +406,7 @@ def 태그(갈래):
 def 본문(글):
     import re
     s = _e(글 or "")
-    s = re.sub(r"(\[\d+\])", r'<span class="q">\1</span>', s)
+    s = re.sub(r"(\[\d+\])", r'<span class="cite">\1</span>', s)
     return '<div class="body">%s</div>' % s
 
 
