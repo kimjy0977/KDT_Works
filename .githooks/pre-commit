@@ -37,8 +37,14 @@ for f in $FILES; do
   case "$f" in
     90_hackathon/*)                         S=hackathon ;;
     00_log/*|0[01]_onboarding/*|0[2-9]_module*/*|99_domain-dev/*) S=content ;;
-    index.html|README.md|assets/*|.githooks/*|.gitignore|.kdt-session*) S=structure ;;
-    *)                                      S=other ;;
+    assets/*|.githooks/*)                   S=structure ;;
+    # ★2026-09-28 — 열거를 «구조»로 바꿨다(§F-8-D).
+    #   전엔 index.html|README.md|.gitignore|.kdt-session* 를 «열거»했고,
+    #   루트에 갤러리-감사.py 를 커밋하려다 other 로 잡혀 거부됐다.
+    #   §9-4 정본: 매니저 스코프 = KDT_Works «루트». ⇒ 슬래시가 없으면 루트다.
+    #   열거는 목록이 자라면 조용히 샌다. 구조는 안 샌다.
+    */*)                                    S=other ;;
+    *)                                      S=structure ;;
   esac
   case " $SCOPES " in *" $S "*) ;; *) SCOPES="$SCOPES $S" ;; esac
 done
