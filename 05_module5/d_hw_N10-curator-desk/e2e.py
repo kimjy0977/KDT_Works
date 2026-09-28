@@ -30,12 +30,18 @@ def 돈다(이름, args, 필수=True):
     out = (r.stdout or b"").decode("utf-8", "replace")
     err = (r.stderr or b"").decode("utf-8", "replace")
     ok = r.returncode == 0
-    print("  %-26s %s  %5.1f초  (exit %d)"
-          % (이름, "OK  " if ok else "⛔FAIL", 초, r.returncode))
+    # ★«실패로 세지 않는 것»을 «실패처럼» 찍지 않는다.
+    #   ⛔전에는 필수가 아닌 단계도 ⛔FAIL 로 찍혔다. 그래서 화면에
+    #     「⛔FAIL」이 있는데 요약은 「실패 0」이었다 — ★보고가 서로 다른 말을 했다.
+    #   읽는 사람은 둘 중 하나를 «틀린 것»으로 여긴다. 어느 쪽도 안 틀렸는데.
+    표 = "OK  " if ok else ("⛔FAIL" if 필수 else "⚠넘김")
+    print("  %-26s %s  %5.1f초  (exit %d)" % (이름, 표, 초, r.returncode))
     if not ok:
         print("      " + (err.strip().splitlines() or ["(빈 오류)"])[-1][:120])
         if 필수:
             실패.append(이름)
+        else:
+            print("      ⤷ 이 단계는 실패해도 «진행»합니다 — 요약의 실패 수에 안 듭니다")
     기록.append({"단계": 이름, "명령": " ".join(args), "종료코드": r.returncode,
                "초": round(초, 1), "끝줄": (out.strip().splitlines() or [""])[-1][:120]})
     return ok, out
