@@ -1,9 +1,22 @@
-# ★「되겠지」가 아니라 «돌아간 것»을 적는다 — 전 과정 실행 후 판본을 박는다
-langgraph
-langchain-core
-openai
-streamlit
-langgraph-checkpoint-sqlite
+# ★「되겠지」가 아니라 «돌아간 것»을 적는다 — 전 과정 실행 후 판본을 박는다.
+#   ⛔전에는 이름만 적고 판본을 «안 박았다». 파일 머리에 이 문장을 써 놓고도
+#     그랬다 — 정밀 검사가 잡았다(2026-09-28).
+#     판본이 없으면 다음에 깨졌을 때 «무엇이 바뀌었는지» 모른다.
+#   잰 값 — .venv/Scripts/python.exe -m pip freeze  (2026-09-28)
+#   python 3.11.15
 
-# 위키미디어 수집 — 표준 라이브러리(urllib)만 쓰면 여기 없어도 된다
-requests
+langgraph==1.2.12
+langgraph-checkpoint-sqlite==3.1.1
+langchain-core==1.6.5
+streamlit==1.64.0
+openai==3.19.2
+
+# ★capture_demo.py 가 CDP 를 «직접» 말한다 — playwright 를 안 쓴다.
+#   ⛔이걸 requirements 에 «안 적어» 뒀었다. 남이 clone 하면 캡처가 안 돈다.
+websockets==16.1.1
+
+# graph.py 의 TypedDict — python 3.11 에도 typing_extensions 쪽을 쓴다
+typing_extensions==4.16.0
+
+# ⚠수집은 표준 urllib 만 쓴다. requests 는 «안 쓴다» — 그래서 뺐다.
+#   (정밀 검사: 코드에 없는 의존성을 적어 두면 「쓰는 줄」 알고 남긴다)

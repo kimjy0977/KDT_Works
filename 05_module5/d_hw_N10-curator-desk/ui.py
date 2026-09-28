@@ -59,13 +59,9 @@ FONTS = ("https://fonts.googleapis.com/css2?"
 # ★갈래 구분 — ⛔색이 아니다. «테두리 모양»이다.
 #   도면의 범례 문법이고, 색맹에게도 갈린다(규칙 color-not-only).
 #   그리고 «글자»가 먼저다 — 모양은 거들 뿐이다.
-갈래테 = {
-    "발행": "solid",
-    "이미지": "double",
-    "작가": "dashed",
-    "카탈로그": "dotted",
-    "정정": "solid",
-}
+# ⛔★갈래테 dict 를 지웠다 — 테두리 «모양»은 CSS 에 직접 적혀 있고
+#   이 dict 는 아무도 안 읽었다. 값이 두 군데 있으면 «갈린다».
+#   (.tag.t-발행/이미지/작가/카탈로그 의 border-style 이 정본)
 
 
 def css():

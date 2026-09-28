@@ -148,8 +148,83 @@ with 본:
                else "「%s」 갈래에는 대기 건이 없습니다" % 고른갈래),
             unsafe_allow_html=True)
     else:
+        # ── ★같은 «이유»로 멈춘 것을 «묶어서» 처리 ───────────────────
+        #   ⛔정밀 검사가 잡았다 — 대기 251건을 한 건씩 보면 ★44분이다.
+        #     그런데 C5 로 멈춘 98건은 대부분 «같은 판단»이다.
+        #   ★그래도 사람이 본다 — 대표 3건을 보여 주고, 발행은 «한 번 더» 묻는다.
+        묶음들 = [x for x in graph.묶음(보일것) if x["수"] >= 3]
+        if 묶음들:
+            with st.expander(
+                    "★같은 이유로 멈춘 건을 «묶어서» 처리 — %d묶음"
+                    % len(묶음들)):
+                st.caption("한 건씩 %d번 누르는 것과 「이 이유는 전부 …」는 "
+                           "다른 일입니다. ⛔묶어도 «사람이 봅니다» — "
+                           "대표를 보고 정하고, 발행은 한 번 더 묻습니다."
+                           % len(보일것))
+                이름들 = ["%s · %s — %d건"
+                       % (x["갈래"], "·".join(x["코드"]) or "(이유 없음)",
+                          x["수"]) for x in 묶음들]
+                고른묶음 = st.selectbox("묶음", 이름들, key="묶음선택")
+                묶 = 묶음들[이름들.index(고른묶음)]
+
+                st.markdown('<div class="lbl">이 묶음의 대표 3건</div>',
+                            unsafe_allow_html=True)
+                for w2 in 묶["건"][:3]:
+                    m2 = 작품.get(w2["슬러그"], {})
+                    st.markdown(
+                        '<div class="auto"><span>%s</span>'
+                        '<span style="color:var(--ink40)">%s</span></div>'
+                        % (ui._e((m2.get("제목") or w2.get("제목") or "")[:60]),
+                           ui._e(m2.get("작가") or "저작자 미상")),
+                        unsafe_allow_html=True)
+                if 묶["수"] > 3:
+                    st.caption("… 그리고 %d건 더" % (묶["수"] - 3))
+
+                확인 = st.checkbox(
+                    "★이 %d건을 «전부» 처리합니다 — 한 건씩 보지 않습니다"
+                    % 묶["수"], key="묶음확인")
+                m1, m2c, m3 = st.columns(3, gap="small")
+                묶음눌림 = None
+                with m1:
+                    if st.button("전부 반려", width="stretch",
+                                 disabled=not 확인, key="묶음반려"):
+                        묶음눌림 = "반려"
+                with m2c:
+                    if st.button("전부 다시 해설", width="stretch",
+                                 disabled=not 확인, key="묶음다시"):
+                        묶음눌림 = "다시 해설"
+                with m3:
+                    # ★발행만 «한 번 더» 묻는다 — 되돌릴 수 없는 쪽이다
+                    if st.button("전부 발행 ★되돌릴 수 없음", width="stretch",
+                                 disabled=not 확인, key="묶음발행",
+                                 type="primary"):
+                        묶음눌림 = "발행"
+                if 묶음눌림:
+                    try:
+                        된, 터짐 = graph.묶음답한다(묶["건"], 묶음눌림)
+                    except Exception as e:
+                        st.error("묶음 처리 실패 — %s" % type(e).__name__)
+                        st.caption(str(e)[:300])
+                        st.stop()
+                    st.success("%s — %d건 처리%s"
+                               % (묶음눌림, len(된),
+                                  (" · ⛔%d건 실패" % len(터짐)) if 터짐 else ""))
+                    if 터짐:
+                        st.caption(str(터짐[:3]))
+                    st.rerun()
+
         # ★한 건씩. 목록을 스크롤하게 두면 «어디까지 봤나»를 잃는다
         키 = "커서_%s" % 고른갈래
+        # ★목록에서 «골라» 들어간다 — 「다음 →」만 있으면 251번 눌러야 한다
+        이름목록 = ["%3d. [%s] %s" % (n + 1, x["갈래"],
+                                  (x.get("제목") or x["id"])[:52])
+                 for n, x in enumerate(보일것)]
+        현재 = max(0, min(st.session_state.get(키, 0), len(보일것) - 1))
+        고름 = st.selectbox("대기 %d건 중에서 «골라» 보기" % len(보일것),
+                          이름목록, index=현재, key="고르기_%s" % 고른갈래)
+        if 이름목록.index(고름) != 현재:
+            st.session_state[키] = 이름목록.index(고름)
+            st.rerun()
         i = max(0, min(st.session_state.get(키, 0), len(보일것) - 1))
         w = 보일것[i]
         m = 작품.get(w["슬러그"], {})
