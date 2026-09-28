@@ -9,6 +9,7 @@
 | 보고 싶은 것 | 어디 |
 |---|---|
 | 무엇이고 어떻게 돌리나 | **이 파일** — 아래 [실행](#실행) · [폴더](#폴더) |
+| ★**설치 없이 화면만** 보기 (읽기 전용) | [라이브 데모](https://kimjy0977.github.io/KDT_Works/05_module5/d_hw_N9-myth-research/demo/) · [demo/](demo/) — 저장된 회차를 구운 정적 화면. 서버·API 키 없음 |
 | ★왜 그렇게 짰나 · 무엇을 쟀나 · **뭐가 틀렸나** | **[REPORT.md](REPORT.md)** |
 | 데모 화면과 그 설계 (캡처 포함) | [REPORT.md](REPORT.md) §9 데모 설계 |
 | 화면이 왜 이렇게 생겼나 (디자인 결정의 출처) | [DESIGN.md](DESIGN.md) |
@@ -214,6 +215,7 @@ app.py                데모 — ★절마다 누가 뭘 읽고 뭘 썼나
 ui.py                 디자인 토큰 + CSS — ★결정의 출처는 DESIGN.md
 mapviz.py             ★배정 도면 · 판독 · 표제 도면 (SVG 를 직접 그린다)
 capture_demo.py       ★캡처를 «사람 손 없이» — 개인정보가 안 찍히고, 다시 찍게 된다
+demo/index.html       ★읽기 전용 정적 데모 — 저장된 회차를 구웠다. 조작은 되지만 «실행»은 막았다
 
 ■ 수집
 fetch_corpus.py       위키 수집 (429 를 «묶기»로 푼 기록이 주석에)
