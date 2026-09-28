@@ -67,18 +67,14 @@ def 작품표(_t):
 
 
 작품, 작성모드 = 작품표(_mtime())
+
+# ★헤드는 «대기 수»를 알아야 한다 — 색인을 먼저 읽는다.
+#   ⛔전에는 머리를 먼저 찍고 수치를 나중에 냈다. 헤드가 «비어» 보였다.
 색인 = graph.색인읽기()
-
-st.markdown(
-    '<div class="hd"><h1>큐레이터 데스크</h1><div class="meta">'
-    '모듈5 노드10 · 사람이 승인하는 에이전트 · <b>김주영</b><br>'
-    '멈춤 기준 <b class="num">%d</b>개 · 갈래 <b class="num">4</b> · '
-    '체크포인터 <b>%s</b> · 작성기 <b>%s</b> · DRY_RUN <b>%s</b>'
-    '</div></div>'
-    % (관문수, CFG["_체크포인터"]["쓸 것"], 작성모드 or "?", graph.DRY_RUN),
-    unsafe_allow_html=True)
-
 if not 색인:
+    st.markdown(
+        ui.헤드(관문수, CFG["_체크포인터"]["쓸 것"], 작성모드,
+               graph.DRY_RUN, 0, 0), unsafe_allow_html=True)
     st.markdown(
         '<div class="empty"><b>먼저 파이프라인을 돌려 주세요</b>'
         '수집 → 세탁 → 작가 조회 → 작성 → 올림. 순서대로 한 번씩이면 됩니다.'
@@ -96,6 +92,9 @@ except Exception as e:
     st.code("python graph.py --청소\npython graph.py --올린다", language="bash")
     st.stop()
 전체 = len(색인)
+
+st.markdown(ui.헤드(관문수, CFG["_체크포인터"]["쓸 것"], 작성모드,
+                   graph.DRY_RUN, 전체, len(대기)), unsafe_allow_html=True)
 
 # ★색인은 있는데 작품 자료가 없으면 «도켓을 못 그린다» — 먼저 말해 준다.
 #   ⛔전에는 여기서 KeyError 가 나 페이지가 통째로 죽었다.
@@ -117,20 +116,15 @@ for w in 대기:
 레일, 본 = st.columns([1, 3.1], gap="large")
 
 with 레일:
-    st.markdown(
-        '<div class="qh"><b>승인 대기 %d건</b><br>'
-        '올린 %d건 · 자동 처리 %d건<br>'
-        '<span style="color:var(--ink40)">판정 = snapshot.next</span></div>'
-        % (len(대기), 전체, 전체 - len(대기)), unsafe_allow_html=True)
-    for g in 갈래들:
-        st.markdown('<div class="qg"><span>%s</span>'
-                    '<span class="n">%d</span></div>'
-                    % (g, 갈래수.get(g, 0)), unsafe_allow_html=True)
+    # ★막대로 «보인다» — 숫자만 있으면 «어디가 밀렸나»가 안 읽힌다
+    st.markdown(ui.대기열({g: 갈래수.get(g, 0) for g in 갈래들},
+                       st.session_state.get("갈래라디오", "전체"), len(대기)),
+                unsafe_allow_html=True)
     # ★딥링크 — ?갈래=작가 로 바로 열 수 있다 (UX 규칙 deep-linking).
     #   캡처 스크립트도 이걸로 갈래별 화면을 찍는다.
     선택지 = ["전체"] + 갈래들
     초기 = st.query_params.get("갈래")
-    고른갈래 = st.radio("갈래로 좁히기", 선택지,
+    고른갈래 = st.radio("갈래로 좁히기", 선택지, key="갈래라디오",
                     index=선택지.index(초기) if 초기 in 선택지 else 0)
     st.caption("갈래마다 «되돌릴 수 없는 것»이 다릅니다. "
                "그래서 멈추는 기준도 다릅니다.")

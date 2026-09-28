@@ -65,8 +65,9 @@ except Exception as e:
 
 # ★후손 선택자 — Streamlit 은 markdown 블록마다 따로 감싼다.
 #   .dk img 처럼 «내가 만든 클래스» 밑을 타고 내려가면 안 닿는다(실측).
-내클래스 = {"dk", "why", "cons", "prog", "qh", "qg", "hd", "empty",
-         "auto", "body", "tag", "thumb", "cap", "lbl"}
+내클래스 = {"dk", "why", "cons", "prog", "q", "qrow", "masthead", "sec",
+         "empty", "auto", "body", "tag", "thumb", "cap", "lbl",
+         "eyebrow", "mast-title", "mast-lede", "mast-meta", "ttl", "by"}
 후손 = []
 for sel in re.findall(r"^([^@{}\n][^{}\n]*)\{", CSS, re.M):
     for part in sel.split(","):
@@ -77,8 +78,14 @@ for sel in re.findall(r"^([^@{}\n][^{}\n]*)\{", CSS, re.M):
 # .why .h 처럼 «한 블록 안»에서 함께 그려지는 것은 괜찮다 — ui.py 가 한 문자열로 낸다
 # ★기준 = 「ui.py 나 app.py 가 그 클래스와 자식을 «한 st.markdown» 으로 내는가」.
 #   한 호출 안이면 후손 선택자가 닿는다. 호출이 갈리면 안 닿는다.
-한블록 = {"why", "cons", "prog", "qh", "qg", "hd", "empty",
-        "auto", "body", "dk"}
+# ★목록에 넣기 «전»에 그 근거를 확인했다 — 한 줄씩:
+#   masthead·mast-* : ui.헤드() 가 통째로 한 문자열을 낸다
+#   ttl·by          : app.py 가 제목+작가를 «한» st.markdown 으로 낸다
+#   cap             : 썸네일 img 와 같은 문자열 안에 있다
+#   ⛔여기 이름을 넣는 것으로 «고쳤다»가 되지 않는다. 넣기 전에 «호출을 본다».
+한블록 = {"why", "cons", "prog", "q", "qrow", "masthead", "sec",
+        "empty", "auto", "body", "dk", "cap", "ttl", "by",
+        "mast-meta", "mast-title", "mast-lede"}
 위험한후손 = [t for t in 후손
           if re.match(r"^\.([\w-]+)", t).group(1) not in 한블록]
 친다("블록을 넘는 후손 선택자가 없다", not 위험한후손, str(위험한후손[:3]))
@@ -101,21 +108,32 @@ def 대비(a, b):
 
 C = ui.C
 쌍 = [
+    # 작업면 위
     ("본문 ink/paper", C["ink"], C["paper"], 4.5),
-    ("보조 ink60/paper", C["ink60"], C["paper"], 4.5),
-    ("강조 mark/paper", C["mark"], C["paper"], 4.5),
-    ("강조 mark/markbg", C["mark"], C["markbg"], 4.5),
+    ("보조 ink50/paper", C["ink50"], C["paper"], 4.5),
+    ("강조 gold/paper", C["gold"], C["paper"], 4.5),
+    ("멈춤 stop/paper", C["stop"], C["paper"], 4.5),
+    ("멈춤 stop/stopbg", C["stop"], C["stopbg"], 4.5),
     ("자동 ok/paper", C["ok"], C["paper"], 4.5),
     ("으뜸단추 paper/ink", C["paper"], C["ink"], 4.5),
-    ("조작경계 fieldline/paper", C["fieldline"], C["paper"], 3.0),
-    ("조작경계 fieldline/field", C["fieldline"], C["field"], 3.0),
+    # ★헤드 — «잉크 바탕» 위의 글자. v2 에서 새로 생긴 면이다.
+    #   ⛔바탕이 바뀌면 «그 위의 모든 글자»를 다시 재야 한다. 안 재면 샌다.
+    ("헤드 제목 paper/ink", C["paper"], C["ink"], 4.5),
+    ("헤드 금빛 #DFAF4E/ink", "#DFAF4E", C["ink"], 4.5),
+    ("헤드 lede #AEB7C3/ink", "#AEB7C3", C["ink"], 4.5),
+    ("헤드 아이브로우 #A6B0BD/ink", "#A6B0BD", C["ink"], 4.5),
+    ("헤드 메타 #98A2AF/ink", "#98A2AF", C["ink"], 4.5),
+    # 조작요소 «경계» — WCAG 1.4.11 (3:1)
+    ("조작경계 edge/paper", C["edge"], C["paper"], 3.0),
+    ("조작경계 edge/paper2", C["edge"], C["paper2"], 3.0),
 ]
+
 for 이름, a, b, 기준 in 쌍:
     r = 대비(a, b)
     친다("%-26s %5.2f:1 (≥%.1f)" % (이름, r, 기준), r >= 기준)
-살핀다("흐린 ink40 은 «본문»에 쓰지 않는다",
-     대비(C["ink40"], C["paper"]) < 4.5 or True,
-     "ink40 %.2f:1 — 라벨 전용" % 대비(C["ink40"], C["paper"]))
+살핀다("흐린 ink30 은 «본문»에 쓰지 않는다",
+     대비(C["ink30"], C["paper"]) < 4.5 or True,
+     "ink30 %.2f:1 — 라벨 전용" % 대비(C["ink30"], C["paper"]))
 
 # ── ③ config 정합 ───────────────────────────────────────────────
 print("\n── ③ config 정합 ──")
@@ -156,6 +174,31 @@ if os.path.exists(os.path.join(HERE, "data/enriched.json")):
          "%d건 — 429 였을 수 있다. python enrich.py 로 다시" % 미조회)
     남은태그 = sum(1 for m in 작품 if "<" in (m.get("작가") or ""))
     친다("세탁 뒤 작가명에 HTML 이 없다", 남은태그 == 0, "%d건" % 남은태그)
+
+    # ★슬러그는 «열쇠»다 — 겹치면 thread_id 와 창고가 조용히 덮어쓴다.
+    #   ⛔실사고 — 60자로 자르는 바람에 연작의 «끝 일련번호»가 날아가
+    #     172점 중 5점이 겹쳤고, 색인에서 20건이 사라졌다.
+    _셈 = {}
+    for m in 작품:
+        _셈[m["슬러그"]] = _셈.get(m["슬러그"], 0) + 1
+    _겹 = [k for k, v in _셈.items() if v > 1]
+    친다("슬러그가 «전부 고유»하다 (%d개 / %d점)" % (len(_셈), len(작품)),
+       not _겹, str(_겹[:2]))
+
+# ★산술 — 「굴린 횟수」와 「색인 크기」가 같은가.
+#   ⛔이게 없어서 못 봤다. 올림 로그는 «곱셈»(172×4=688)을 찍고
+#     색인은 «실측»(668)이었는데, 둘을 ★나란히 놓은 곳이 없었다.
+#     §F-8-D-3 — 수치가 어긋나면 «설명»하지 말고 «확인»한다. 그러려면 먼저 보여야 한다.
+_ti = os.path.join(HERE, "output/threads.json")
+if os.path.exists(_ti) and os.path.exists(os.path.join(HERE,
+                                                       "data/enriched.json")):
+    _색 = json.load(io.open(_ti, encoding="utf-8"))
+    _갈 = [g for g in CFG["_갈래"] if not g.startswith("_") and g != "정정"] \
+        if "CFG" in dir() else []
+    _기대 = len(작품) * 4
+    친다("색인 %d = 작품 %d × 갈래 4 (%d)" % (len(_색), len(작품), _기대),
+       len(_색) == _기대,
+       "★%d건이 «덮어써졌다» — 슬러그 충돌을 의심하세요" % (_기대 - len(_색)))
 
 # ── ⑤ 비밀·위생 ─────────────────────────────────────────────────
 print("\n── ⑤ 비밀·위생 ──")

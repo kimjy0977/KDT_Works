@@ -1,7 +1,17 @@
 # -*- coding: utf-8 -*-
 """★수치를 «찍어낸다» — 손으로 적지 않는다.
 
-  python sync_numbers.py           README.md · REPORT.md 의 표식 구간을 갱신
+  python sync_numbers.py           표식 구간을 «갱신»한다 (문서를 고친다)
+  python sync_numbers.py --검사     ★고치지 «않고» 어긋난 곳만 알린다
+
+★⛔`--검사` 를 왜 만들었나 — 실사고 2026-09-28
+  `e2e.py` 가 이 스크립트를 «인자 없이» 불렀다. 그런데 `e2e` 는 시험하면서
+  ★대기 건을 실제로 처리한다(266 → 261). 그 상태에서 갱신이 돌아
+  **문서에 「261건 대기」가 박혔다.** 시험이 문서를 «자기 시험 중 상태»로 덮어썼다.
+  ⇒ 채점자가 `e2e.py` 를 한 번 돌리면 README 수치가 틀어진다.
+  ★더 나빴던 것 — 내가 `--write` 를 넘기고 있었는데 **파싱조차 안 했다.**
+    있는 줄 알았던 플래그가 없었고, 그래서 «항상» 쓰고 있었다.
+  ⇒ 시험은 «보기»만 한다. 고치는 것은 사람이 부를 때만.
 
 ★왜 — 노드9 에서 실제로 새어 나갔다
   같은 프로젝트가 «두 점수»를 말했다. 골든셋을 고쳐 다시 돌린 뒤
@@ -151,18 +161,43 @@ def 세탁표():
             % (v["세탁전태그"], v["세탁후태그"]))
 
 
+def 한바퀴():
+    """★「대기 N건을 한 건씩 보면 몇 분인가」 — §0 의 근거 수치.
+
+    ⛔전에는 «손»으로 적었다. 그래서 표본이 172점으로 늘고 슬러그 충돌을
+      고쳐 대기가 251→266 으로 바뀌었을 때, ★문서 네 곳이 251 을 말하고 있었다.
+      §6-10 그대로 — 성능 수치를 두 문서에 «손»으로 적으면 갈린다.
+    """
+    v = 값들()
+    n = int(v["대기"])
+    return ("대기 **%d건**을 한 건씩 보면 — 한 건 30초면 **%d분**, "
+            "10초로 줄여도 **%d분**입니다."
+            % (n, round(n * 30 / 60), round(n * 10 / 60)))
+
+
 블록 = {"관문표": 표_관문, "빼기표": 표_빼기, "작성기표": 표_작성기,
-       "요약": 요약, "세탁표": 세탁표}
+       "요약": 요약, "세탁표": 세탁표, "한바퀴": 한바퀴}
 
 
 def main():
+    # ★「고친다」와 「본다」를 가른다. 시험은 «본다»만 한다.
+    검사만 = "--검사" in sys.argv
     v = 값들()
     빠짐 = False
-    for name in ("README.md", "REPORT.md"):
+    어긋남 = []
+    # ★§F-8-D — 파일 «목록»을 적지 않는다. 목록은 자란다.
+    #   ⛔실사고 2026-09-28 — 여기가 ("README.md", "REPORT.md") 열거였다.
+    #     DESIGN.md 를 쓰면서 §0 에 수치를 적었는데 ★아무도 안 갱신했다.
+    #     문서가 셋이 된 것을 «이 줄»은 몰랐다.
+    #   ⇒ 「어떤 파일인가」가 아니라 ★「블록 표식이 있는가」로 고른다.
+    #     새 문서를 써도 표식만 넣으면 자동으로 들어온다.
+    대상 = sorted(f for f in os.listdir(HERE)
+                if f.endswith(".md")
+                and ":START -->" in io.open(os.path.join(HERE, f),
+                                            encoding="utf-8").read())
+    print("  대상 %d개 — %s" % (len(대상), " · ".join(대상)))
+    for name in 대상:
         p = os.path.join(HERE, name)
-        if not os.path.exists(p):
-            print("  건너뜀  %s (없음)" % name)
-            continue
         s = io.open(p, encoding="utf-8").read()
         n0 = len(s)
         hit = []
@@ -180,9 +215,17 @@ def main():
                 s = s.replace("%" + k + "%", val)
                 hit.append(k)
 
-        io.open(p, "w", encoding="utf-8", newline="").write(s)
-        print("  갱신  %-12s [%s]  %d -> %d자"
-              % (name, "·".join(sorted(set(hit))[:8]), n0, len(s)))
+        원본 = io.open(p, encoding="utf-8").read()
+        if 검사만:
+            if s != 원본:
+                어긋남.append(name)
+            print("  %-4s %-12s [%s]"
+                  % ("⛔다름" if s != 원본 else "OK", name,
+                     "·".join(sorted(set(hit))[:8])))
+        else:
+            io.open(p, "w", encoding="utf-8", newline="").write(s)
+            print("  갱신  %-12s [%s]  %d -> %d자"
+                  % (name, "·".join(sorted(set(hit))[:8]), n0, len(s)))
 
         # ⛔★남은 자리표시자를 «센다» — 0 이 아니면 실패로 끝낸다
         남은 = re.findall(r"%[A-Z가-힣_]{2,}%", s)
@@ -194,7 +237,12 @@ def main():
 
     if 빠짐:
         return 1
-    print("  ★남은 자리표시자 0")
+    if 검사만 and 어긋남:
+        print("  ⛔문서 수치가 «낡았습니다» — %s" % " · ".join(어긋남))
+        print("    python sync_numbers.py  로 갱신하세요")
+        return 1
+    print("  ★남은 자리표시자 0%s" % ("  (검사만 — 문서를 고치지 않았습니다)"
+                                 if 검사만 else ""))
     return 0
 
 
