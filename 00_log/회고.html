@@ -108,6 +108,12 @@
 .recap td{border-bottom:1px solid var(--rule);padding:10px 10px 10px 0;vertical-align:top}
 .recap td:first-child{font-weight:700;white-space:nowrap}
 .recap a{color:inherit;border-bottom:1px solid var(--rule)}
+
+/* ── 회고 24 — 소제목 ── */
+.read .hard-h{font-family:var(--grotesk);font-weight:800;font-size:1.02rem;
+  margin:26px 0 8px;padding-top:14px;border-top:1px solid var(--rule)}
+.read .hard-h .k{color:var(--accent);margin-right:8px}
+.read .quote{border-left:3px solid var(--accent);padding:2px 0 2px 12px;color:var(--ink-2);margin:8px 0}
 </style>
 </head>
 <body>
@@ -135,6 +141,7 @@
       <div class="backline"><a href="./">← 허브 목차로</a></div>
     </section>
     <main class="wrap list">
+      <a class="ep-row" href="#ep-24"><span class="num">24</span><div><div class="meta"><span class="date">2026 · 09 · 29</span><span class="tag">주제편 · AI와 일하기</span></div><h2>AI 세션 셋과 일하며 — 만드는 것보다 어려웠던 여섯 가지</h2><p>배운 내용이 아니라, AI에게 일을 맡기며 실제로 부딪힌 일들. 여섯 가지가 결국 한 가지로 모였다.</p></div><span class="go">읽기 <span class="arw">→</span></span></a>
       <a class="ep-row" href="#ep-23"><span class="num">23</span><div><div class="meta"><span class="date">2026 · 09 · 29</span><span class="tag">모듈5 · WRAP UP</span></div><h2>에이전트를 «언제» 믿을 수 있나 — 모듈5를 한 질문으로 다시 읽기</h2><p>에이전트 다섯 개가 한 질문에 대한 다섯 개의 답이었다. 믿음은 모델이 아니라 «구조»와 «숫자»에서 나왔다.</p></div><span class="go">읽기 <span class="arw">→</span></span></a>
       <a class="ep-row" href="#ep-09"><span class="num">09</span><div><div class="meta"><span class="date">2026 · 07 · 25</span><span class="tag">모듈2 · 노드2 트랜스포머</span></div><h2>트랜스포머 — 정보를 "얼마나"가 아니라 "어떻게 배치하느냐"</h2><p>토큰과 어텐션 앞에서 한참 헤매다, 프롬프트를 대하는 감각 자체가 바뀐 날.</p></div><span class="go">읽기 <span class="arw">→</span></span></a>
       <a class="ep-row" href="#ep-08"><span class="num">08</span><div><div class="meta"><span class="date">2026 · 07 · 23</span><span class="tag">모듈2 · 노드1 AI는 어떻게 배우나</span></div><h2>AI는 마법이 아니다 — 결국 데이터가 전부</h2><p>직접 학습을 돌려보다 연산에 막히고, "화려한 모델보다 데이터"를 몸으로 이해했다.</p></div><span class="go">읽기 <span class="arw">→</span></span></a>
@@ -151,6 +158,60 @@
       <span class="note">KDT AI 에이전트 1기 · 블로그 챌린지 회고 · 나 · 그루 · 퍼실에게 열린 공개 기록 · <a href="./">허브로 →</a></span>
     </div>
   </div>
+
+  <!-- ===== 24 주제편 · AI와 일하기 ===== -->
+  <article class="view wrap read" id="ep-24">
+    <div class="article-head"><div class="meta"><span class="date">2026 · 09 · 29</span><span class="tag">회고 24 · 주제편 · AI와 일하기</span></div>
+      <h1>AI 세션 셋과 일하며 — 만드는 것보다 어려웠던 여섯 가지</h1>
+      <p class="lede-em">이 과정에서 나는 AI 세션 셋에게 일을 나눠 맡긴다. 공부하고 만드는 세션, 레포와 일정을 관리하는 세션, 해커톤 게임을 만들던 세션. 나는 지시하고 확인한다. 이번 글은 무엇을 배웠는지가 아니라, 그렇게 일하면서 <b>실제로 잘 안 됐던 것</b>들이다.</p></div>
+
+    <div class="sec"><div class="sec-label"><span class="t">한 활동</span><span class="dash"></span><span class="en">What I did</span></div>
+      <p>7월 말부터 두 달 남짓, 과제 레포에 올라간 커밋만 600개가 넘는다. 대부분 AI 세션이 올렸다. 그런데 돌아보니 기억에 남는 건 만든 것보다 <b>부딪힌 것</b>이었다. 기록을 다시 읽으며 여섯 가지로 묶어 봤다.</p></div>
+
+    <div class="sec"><div class="sec-label"><span class="t">어려웠던 것</span><span class="dash"></span><span class="en">The hard part</span></div>
+
+      <h3 class="hard-h"><span class="k">A</span>「했다」는 말을 믿을 수 없었다</h3>
+      <p>9월 28일, 과제 화면을 크롬에 띄웠다는 보고를 받았다. 크롬을 봤는데 없었다.</p>
+      <p class="quote">「크롬 대체 어디에 띄어져 있다는 거야? 안 보이는데? 크롬이 없어.」</p>
+      <p>더 곤란한 건 숫자였다. 검사 도구가 「0건」이라고 보고하면 문제가 없는 줄 알았다. 그런데 알고 보니 <b>보지 않은 파일이 2천 개가 넘는데도</b> 「0건」이었고, 비밀 키가 올라가는지 보는 검사는 한글 경로를 못 읽으면서 「OK」라고 했다. 「0건」은 «없다»일 수도, «못 읽었다»일 수도 있었다.</p>
+
+      <h3 class="hard-h"><span class="k">B</span>맡기면 «저번 것»을 되풀이하거나, «원래 방식»을 바꿔 버린다</h3>
+      <p>마지막 과제 화면을 받아 보니 앞 과제와 거의 같은 디자인이었다.</p>
+      <p class="quote">「너무 일반적이야. 저번이랑 똑같네.」</p>
+      <p>반대로 잘 돌던 방식을 말없이 바꾼 적도 있다. 새 소식이 오면 알려 주던 감시기가 어느 날부터 30분마다 「새 글 없음」을 채팅에 쌓았다. 「원래 그렇게 했어?」라고 묻고 나서야 원래대로 돌아갔다. 데모 파일 하나를 과제 폴더가 아니라 레포 맨 위에 새 폴더를 만들어 둔 것도 같은 결이었다.</p>
+
+      <h3 class="hard-h"><span class="k">C</span>보고가 길어지면 핵심을 놓친다 — 마감까지</h3>
+      <p>작업이 길어지면 보고도 길어졌다. 「텍스트가 엄청 늘어져가지고, 다시 정리해서 보여줘」라고 말한 날도 있다. 그리고 이게 실제로 손해가 됐다. 모듈4 노드2에 제출 과제가 있다는 사실을 9월 2일에 이미 손에 쥐고 있었는데, 기록의 <b>괄호 속 한 줄</b>로만 적혀 있었다. 닷새 뒤에야 내게 전해졌고, 그 사이 마감이 지났다. 결과물은 뒤늦게 만들어 올렸다. LMS에는 지금도 그 노드가 「기간 종료 · 91%」로 남아 있다.</p>
+
+      <h3 class="hard-h"><span class="k">D</span>되돌릴 수 없는 사고는 한 번에 크게 난다</h3>
+      <p>9월 28일, 작업기록 파일이 <b>161,864자에서 0바이트</b>가 됐다. 파일을 쓰기 모드로 여는 순간 내용이 비워지고, 그 뒤에 오류가 나서 새 내용이 안 들어갔다. 되살린 건 8,565자뿐이다. 9월 22일에는 GitHub 계정에 제재가 걸렸다. 이유는 알려 주지 않았고, 이의 신청을 거쳐 풀렸다. 과제 제출도 한 번 AI에게 맡겨 본 뒤 「과제 제출은 내가 알아서 올릴게」라고 정했다. 기본은 내가 누르고, 맡길 때는 그때마다 말한다.</p>
+
+      <h3 class="hard-h"><span class="k">E</span>세션이 여럿이면 말이 엇갈리고, 자꾸 되묻는다</h3>
+      <p>세션끼리는 파일로 말을 주고받는다. 한 세션이 요청을 보낼 즈음 다른 세션이 이미 고쳐 두는 일이 하루에 두 번 있었다. 반대로, 한 세션에서 승인해 보낸 지시를 받는 세션이 다시 물어 온 적이 있다.</p>
+      <p class="quote">「내가 저기에서 승인을 해서 보낸 건데 여기에서 또 나한테 물어보면 내가 여기서 또 대답해야 되잖아. 작업이 멈추잖아.」</p>
+
+      <h3 class="hard-h"><span class="k">F</span>확인하려 해도 벽이 있다</h3>
+      <p>AI가 직접 읽지 못하는 곳이 많았다. 노션은 연동으로 못 읽어 브라우저로 열어야 했고, 점수표는 로그인이 탭마다 따로라 내가 직접 넣어야 한다. 한 화면만 보고 단정한 적도 있다. LMS의 「2027.01.15」를 과정 종료일로 알고 고쳤는데, 알고 보니 <b>강의를 볼 수 있는 기한</b>이었다. 종료일은 01-08이 맞았다.</p>
+    </div>
+
+    <div class="sec"><div class="sec-label"><span class="t">배운 것</span><span class="dash"></span><span class="en">Learned</span></div>
+      <p>여섯 가지 모두 한 번씩은 고쳤고, 고친 방법을 규칙으로 남겼다.</p>
+      <div class="tbl"><table class="recap">
+        <thead><tr><th>고충</th><th>있었던 일</th><th>지금 지키는 규칙</th></tr></thead>
+        <tbody>
+          <tr><td>A 믿음</td><td>띄웠다는 화면이 없었다 · 「0건」이 못 읽은 것</td><td>한 말은 확인까지 한다 · 0건이면 «못 읽음»부터 의심한다</td></tr>
+          <tr><td>B 되풀이</td><td>「저번이랑 똑같네」 · 말없이 바뀐 감시기</td><td>레퍼런스를 실제로 연다 · 방식을 바꿀 땐 먼저 말한다</td></tr>
+          <tr><td>C 긴 보고</td><td>괄호 속 한 줄 → 마감 경과</td><td>제출·마감은 발견 즉시 한 줄로 · 보고는 결론부터</td></tr>
+          <tr><td>D 큰 사고</td><td>작업기록 16만 자 소실 · 계정 제재</td><td>쓰기 전에 백업 · 되돌릴 수 없는 일은 내가 누른다</td></tr>
+          <tr><td>E 엇갈림</td><td>요청이 늦게 도착 · 승인한 지시를 또 물음</td><td>관할을 나눈다 · 승인된 지시는 다시 묻지 않는다</td></tr>
+          <tr><td>F 벽</td><td>로그인·권한 · 한 화면만 보고 단정</td><td>두 값이 다르면 «각각 무엇을 재는 값인지»부터</td></tr>
+        </tbody></table></div></div>
+
+    <div class="sec"><div class="sec-label"><span class="t">남은 것 · 깨달음</span><span class="dash"></span><span class="en">What stayed</span></div>
+      <p class="pull">AI에게 맡기면 만드는 일은 줄었다. 대신 «정말 됐는지» 확인하는 일은 줄지 않았다.</p>
+      <p>표의 오른쪽 칸을 보면, 여섯 가지 규칙이 모두 «확인»에 관한 것이다. 화면을 실제로 열어 보고, 0건을 한 번 더 세고, 마감을 따로 한 줄로 받고, 쓰기 전에 백업하고, 누가 무엇을 맡는지 정하고, 두 값을 나란히 놓고 본다. 만드는 속도는 AI가 올려 줬지만, 믿고 넘길 수 있는지는 이 확인들이 정했다.</p></div>
+    <nav class="epnav"><a href="#ep-23">← 이전 · 모듈5 WRAP UP</a><span class="center"><a href="#list">회고 목록</a></span><span></span></nav>
+  </article>
 
   <!-- ===== 23 모듈5 WRAP UP ===== -->
   <article class="view wrap read" id="ep-23">
@@ -191,7 +252,7 @@
     <div class="sec"><div class="sec-label"><span class="t">남은 것 · 깨달음</span><span class="dash"></span><span class="en">What stayed</span></div>
       <p class="pull">믿을 수 있다는 건 모델의 성질이 아니었다. 흐름을 보이게 하고, 근거에 묶고, 나눠 읽히고, 멈출 곳을 계산한 «구조» — 그리고 그걸 잰 «숫자»에서 나왔다.</p>
       <p>표를 다시 보면, 다섯 에이전트에서 믿음을 올린 일은 매번 모델을 바꾸는 게 아니라 구조를 고치거나 한 번 더 재는 일이었다. 다음 에이전트를 만들 땐 사다리 다섯 칸부터 채워 본다.</p></div>
-    <nav class="epnav"><a href="#ep-09">← 이전 · 트랜스포머</a><span class="center"><a href="#list">회고 목록</a></span><span></span></nav>
+    <nav class="epnav"><a href="#ep-09">← 이전 · 트랜스포머</a><span class="center"><a href="#list">회고 목록</a></span><a href="#ep-24">다음 · AI와 일하기 →</a></nav>
   </article>
 
   <!-- ===== 09 트랜스포머 ===== -->
