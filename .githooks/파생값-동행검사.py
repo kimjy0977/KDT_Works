@@ -45,7 +45,10 @@ for _s in (sys.stdout, sys.stderr):
 NOTE = "00_log/강의노트-모두연.html"
 HUB = "00_log/index.html"
 # ★`진도숫자-동기.py` 와 동일 — 한쪽만 고치면 두 도구가 다른 값을 말한다
-PAT = re.compile(r'id="((?:adn|m1n|m2n|m3n|m4n|m5n|m6n)[0-9]+-[0-9]+)"')
+# ⛔2026-09-29 — 꼬리를 «숫자»만 셌다(`m5n4-1`). 모듈5 노드5~10 은 `m5n10-why` 처럼
+#   «이름» 꼬리라, 그 강의노트를 더해도 섹션 수가 «안 바뀐 것»으로 보여 경고가 안 떴다.
+#   ⇒ 허브가 322 에 멈췄다(실제 333). 꼬리는 무엇이든 센다 — 두 도구 함께 고침.
+PAT = re.compile(r'id="((?:adn|m1n|m2n|m3n|m4n|m5n|m6n)[0-9]+-[^"\s]+)"')
 
 
 def run(*args):
