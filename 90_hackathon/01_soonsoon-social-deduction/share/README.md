@@ -59,7 +59,7 @@ SPUM Studio 는 **공식 문서·튜토리얼이 사실상 없어서**, 지금�
 > 여기서 **Object 와 Map 의 차이**부터 잡고 가세요. Object = 타일 "그림", Map = 그 타일로 "배치".
 
 ### 2️⃣ 실제로 조작할 때 — 연결·조작 정본
-**[`../notes/sam-connection-guide.md`](../notes/sam-connection-guide.md)**
+`notes/sam-connection-guide.md` — ⛔ **2026-09-29 공개 레포에서 내렸다**(팀 로컬 보관). 이유는 [`../notes/README.md`](../notes/README.md)
 
 | 절 | 내용 |
 |---|---|
