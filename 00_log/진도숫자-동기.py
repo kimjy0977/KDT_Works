@@ -33,18 +33,30 @@ except Exception:
 
 def measure():
     s = io.open(NOTE, encoding="utf-8", errors="replace").read()
-    secs = sorted(set(re.findall(r'id="(%s[0-9]+-[0-9]+)"' % PREFIX, s)))
-    nodes = sorted(set(re.findall(r'id="(%s[0-9]+)"' % PREFIX, s)))
-    # findall 이 그룹을 돌려주므로 전체 문자열로 다시 뽑는다
-    secs = sorted(set(re.findall(r'id="((?:adn|m1n|m2n|m3n|m4n|m5n|m6n)[0-9]+-[0-9]+)"', s)))
-    nodes = sorted(set(re.findall(r'id="((?:adn|m1n|m2n|m3n|m4n|m5n|m6n)[0-9]+)"', s)))
+    # ⛔2026-09-29 실사고 — 섹션을 `m5n4-1` 처럼 «숫자» 꼬리만 셌다.
+    #   모듈5 노드5~10 은 `m5n8-orch` · `m5n10-why` 처럼 «이름» 꼬리를 쓴다
+    #   ⇒ 11섹션을 못 봤고(322 vs 실제 333), 모듈별 줄은 m5n 을 「노드 5」로 찍었다
+    #     (섹션이 «숫자로» 붙은 노드만 셌다 — 실제 10).
+    #   ★그런데 이 도구는 «자기가 덜 센 값»과 허브를 비교해 「✅ 일치」라 했다.
+    #   「0건이 없음인가 못 읽음인가」 — 같은 날 세 번째(A3 글자 조각 · .q 겹침).
+    #   ⇒ 꼬리는 무엇이든 센다. 노드 수는 «노드 id» 로 센다.
+    #   (옛 첫 두 줄은 PREFIX 가 «그룹»이라 findall 이 접두사만 돌려줘 덮어쓰이던 죽은 줄 — 지움)
+    P = r"(?:adn|m1n|m2n|m3n|m4n|m5n|m6n)"
+    secs = sorted(set(re.findall(r'id="(%s[0-9]+-[^"\s]+)"' % P, s)))
+    nodes = sorted(set(re.findall(r'id="(%s[0-9]+)"' % P, s)))
     per = {}
+    for x in nodes:
+        p = re.match(r"(adn|m[0-9]+n)", x).group(1)
+        per.setdefault(p, {"sec": 0, "node": set()})
+        per[p]["node"].add(x)
     for x in secs:
-        p = re.match(r"([a-z]+[0-9]*n?)", x).group(1)
         p = re.match(r"(adn|m[0-9]+n)", x).group(1)
         per.setdefault(p, {"sec": 0, "node": set()})
         per[p]["sec"] += 1
-        per[p]["node"].add(x.split("-")[0])
+    빈 = [n for n in nodes if not any(x.startswith(n + "-") for x in secs)]
+    if 빈:
+        print("  ⚠섹션이 하나도 없는 노드 %d: %s — «없음»인지 «못 읽음»인지 볼 것"
+              % (len(빈), 빈[:6]))
     return secs, nodes, per
 
 

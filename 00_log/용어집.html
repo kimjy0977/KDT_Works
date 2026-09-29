@@ -55,6 +55,8 @@
   .term-def .hl{color:var(--ink);font-weight:600}
   .term-src{display:block;font-size:.72rem;color:var(--ink-3);margin-top:8px;letter-spacing:.02em}
   code{font-family:'Public Sans',monospace;background:var(--paper-2);padding:1px 6px;border-radius:3px;font-size:.86em;letter-spacing:0}
+  .term-group{font-size:.74rem;font-weight:700;letter-spacing:.08em;color:var(--accent);
+    padding:28px 0 10px;border-bottom:1px solid var(--ink)}
   .note{font-size:.9rem;color:var(--ink-3);margin:0 0 8px;line-height:1.6}
 
   @media(max-width:620px){.term{grid-template-columns:1fr;gap:8px}}
@@ -88,6 +90,7 @@
 
   <main class="wrap">
     <div class="glossary">
+      <div class="term-group">적응기 · 2일차</div>
       <div class="term">
         <div class="term-name">마크업 언어<small>markup language</small></div>
         <div class="term-def">글자에 <span class="hl">태그를 붙여</span> 구조·의미를 표시하는 언어 (HTML이 대표).<span class="term-src">처음 만난 곳 — 2일차 강의 (7/9)</span></div>
@@ -103,6 +106,187 @@
       <div class="term">
         <div class="term-name">마크다운<small>Markdown</small></div>
         <div class="term-def"><code>#</code>·<code>-</code>·<code>**</code> 같은 <span class="hl">가벼운 기호로</span> 서식을 주는 문법.<span class="term-src">처음 만난 곳 — 2일차 강의</span></div>
+      </div>
+      <div class="term-group">모듈1 · 바이브코딩으로 웹 만들기</div>
+      <div class="term">
+        <div class="term-name">바이브 코딩<small>vibe coding</small></div>
+        <div class="term-def">코드를 한 줄씩 쓰는 대신 <span class="hl">AI 에게 말로 시키며</span> 만드는 방식. 결과를 읽고 고치는 눈이 더 중요해진다.<span class="term-src">처음 만난 곳 — 모듈1 노드1 · 작업대 마련하기</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">프레임워크<small>framework</small></div>
+        <div class="term-def">자주 하는 일의 <span class="hl">뼈대를 미리 짜 둔</span> 도구 묶음. 무엇을 고르느냐가 이후 선택을 묶는다.<span class="term-src">처음 만난 곳 — 모듈1 노드3</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">백엔드 · API<small>backend · API</small></div>
+        <div class="term-def">화면 뒤에서 데이터를 처리하는 쪽과, 그쪽에 <span class="hl">정해진 형식으로 요청하는 창구</span>.<span class="term-src">처음 만난 곳 — 모듈1 노드4 · 세계 국가 도감</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">데이터베이스<small>database</small></div>
+        <div class="term-def">데이터를 <span class="hl">표로 오래 보관하고 꺼내는</span> 저장소. Todo 앱에서 마감일·태그를 여기 담았다.<span class="term-src">처음 만난 곳 — 모듈1 노드5</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">하네스<small>harness</small></div>
+        <div class="term-def">모델 «바깥»에서 도구·규칙·기억을 주고 <span class="hl">루프를 감싸 돌리는 틀</span>. 같은 모델도 하네스에 따라 다르게 일한다.<span class="term-src">처음 만난 곳 — 모듈1 노드6 · 다시 모듈4 노드2</span></div>
+      </div>
+      <div class="term-group">모듈2 · AI의 이해와 사용</div>
+      <div class="term">
+        <div class="term-name">손실 함수<small>loss function</small></div>
+        <div class="term-def">모델의 답이 정답과 <span class="hl">얼마나 틀렸는지를 숫자로</span> 재는 식. 학습은 이 숫자를 줄이는 일이다.<span class="term-src">처음 만난 곳 — 모듈2 노드1</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">소프트맥스<small>softmax</small></div>
+        <div class="term-def">여러 후보의 점수를 <span class="hl">합이 1인 확률</span>로 바꾸는 함수. 「이건 7일 확률 0.9」.<span class="term-src">처음 만난 곳 — 모듈2 노드1 · MNIST</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">파인튜닝<small>fine-tuning</small></div>
+        <div class="term-def">이미 배운 모델을 내 목적에 맞게 <span class="hl">조금 더 가르치는</span> 일(전이학습).<span class="term-src">처음 만난 곳 — 모듈2 노드1</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">토큰<small>token</small></div>
+        <div class="term-def">모델이 글을 읽는 <span class="hl">최소 조각</span>. 창의 크기도, 요금도 토큰으로 센다.<span class="term-src">처음 만난 곳 — 모듈2 노드2</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">어텐션<small>attention</small></div>
+        <div class="term-def">문장 안에서 <span class="hl">어느 말을 얼마나 볼지</span> 스스로 정하는 장치. 트랜스포머의 심장.<span class="term-src">처음 만난 곳 — 모듈2 노드2 · 트랜스포머</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">양자화<small>quantization</small></div>
+        <div class="term-def">모델의 숫자를 <span class="hl">더 적은 비트로</span> 줄여 가볍게 만드는 것. <code>Q4_K_M</code> 같은 이름이 붙는다.<span class="term-src">처음 만난 곳 — 모듈2 노드3 · 로컬 실행</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">KV 캐시<small>KV cache</small></div>
+        <div class="term-def">앞에서 계산한 어텐션 값을 <span class="hl">다시 계산하지 않게 저장</span>해 두는 것. 긴 글일수록 메모리를 먹는다.<span class="term-src">처음 만난 곳 — 모듈2 노드3</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">Ollama<small>Ollama</small></div>
+        <div class="term-def">내 PC 에서 LLM 을 <span class="hl">내려받아 로컬로 돌리는</span> 도구. 모듈4 에선 클라우드 n8n 이 이걸 부르게 터널을 뚫었다.<span class="term-src">처음 만난 곳 — 모듈2 노드3</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">디퓨전 모델<small>diffusion model</small></div>
+        <div class="term-def">잡음에서 시작해 <span class="hl">조금씩 잡음을 걷어 내며</span> 그림을 만드는 생성 모델.<span class="term-src">처음 만난 곳 — 모듈2 노드5 · 이미지 생성</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">ControlNet<small>ControlNet</small></div>
+        <div class="term-def">생성 그림의 <span class="hl">자세·윤곽을 붙잡아 두는</span> 보조 모델. 포즈 도구와 명화 합성에 썼다.<span class="term-src">처음 만난 곳 — 모듈2 노드5</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">멀티모달<small>multimodal</small></div>
+        <div class="term-def">글·그림·소리처럼 <span class="hl">여러 종류의 입력을 함께</span> 다루는 모델.<span class="term-src">처음 만난 곳 — 모듈2 노드6</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">가우시안 스플래팅<small>Gaussian splatting</small></div>
+        <div class="term-def">사진 여러 장에서 공간을 <span class="hl">수많은 흐릿한 점(가우시안)</span>으로 복원하는 3D 방식. 폰 영상 하나로 방을 만들었다.<span class="term-src">처음 만난 곳 — 모듈2 노드7 · 공간을 다루는 AI</span></div>
+      </div>
+      <div class="term-group">모듈3 · 거대 언어모델과 프롬프트</div>
+      <div class="term">
+        <div class="term-name">시스템 프롬프트<small>system prompt</small></div>
+        <div class="term-def">대화 «전체»에 깔리는 <span class="hl">역할·규칙 지시</span>. 사용자 메시지와 층이 다르다.<span class="term-src">처음 만난 곳 — 모듈3 노드1</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">컨텍스트 엔지니어링<small>context engineering</small></div>
+        <div class="term-def">모델에게 <span class="hl">무엇을 어떤 순서로 얼마나 보여 줄지</span> 설계하는 일. 프롬프트 한 줄보다 넓다.<span class="term-src">처음 만난 곳 — 모듈3 노드3</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">도구 호출<small>tool calling</small></div>
+        <div class="term-def">모델이 답 대신 <span class="hl">「이 도구를 이 인자로 불러 달라」</span>고 말하는 것. 실행은 바깥이 한다.<span class="term-src">처음 만난 곳 — 모듈3 노드4 · 도구 설계</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">프롬프트 인젝션<small>prompt injection</small></div>
+        <div class="term-def">입력 속에 숨긴 지시로 <span class="hl">원래 규칙을 뒤집으려는</span> 공격. 막혔더라도 «무엇이 막았는지» 봐야 한다.<span class="term-src">처음 만난 곳 — 모듈3 노드4</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">RAG<small>retrieval-augmented generation</small></div>
+        <div class="term-def">먼저 <span class="hl">자료를 찾아 와서</span> 그 근거로 답하게 하는 방식. 신화 안내 챗봇이 이것.<span class="term-src">처음 만난 곳 — 모듈3 노드5 · 메인퀘3</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">임베딩<small>embedding</small></div>
+        <div class="term-def">글의 뜻을 <span class="hl">숫자 벡터</span>로 바꾼 것. 뜻이 가까우면 벡터도 가깝다 — 검색의 바탕.<span class="term-src">처음 만난 곳 — 모듈3 노드5</span></div>
+      </div>
+      <div class="term-group">모듈4 · AI Agent 파헤치기</div>
+      <div class="term">
+        <div class="term-name">워크플로와 에이전트<small>workflow vs agent</small></div>
+        <div class="term-def">워크플로는 <span class="hl">순서가 미리 정해진</span> 자동화, 에이전트는 다음 할 일을 <span class="hl">스스로 고르는</span> 자동화.<span class="term-src">처음 만난 곳 — 모듈4 노드1 · n8n</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">에이전트 루프<small>agent loop</small></div>
+        <div class="term-def">생각 → 도구 호출 → 결과 보기를 <span class="hl">끝날 때까지 되풀이</span>하는 틀. 멈출 조건이 없으면 영원히 돈다.<span class="term-src">처음 만난 곳 — 모듈4 노드2</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">멀티에이전트<small>multi-agent</small></div>
+        <div class="term-def">여러 에이전트에게 <span class="hl">일을 나눠 맡기는</span> 구성. 나눈다고 늘 나아지진 않는다 — 재 봐야 안다.<span class="term-src">처음 만난 곳 — 모듈4 노드3</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">MCP<small>Model Context Protocol</small></div>
+        <div class="term-def">에이전트가 바깥 도구·데이터에 붙는 <span class="hl">공통 연결 규격</span>. 한 번 만들면 여러 에이전트가 쓴다.<span class="term-src">처음 만난 곳 — 모듈4 노드5</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">Human-in-the-loop<small>HITL</small></div>
+        <div class="term-def">결과가 바깥으로 나가기 전에 <span class="hl">사람의 승인을 받는</span> 단계. CURATOR 는 쓰기 도구를 모델에게 보여 주지도 않았다.<span class="term-src">처음 만난 곳 — 모듈4 노드7 · 다시 모듈5 노드10</span></div>
+      </div>
+      <div class="term-group">모듈5 · 에이전트 팀 꾸리기</div>
+      <div class="term">
+        <div class="term-name">LangGraph<small>LangGraph</small></div>
+        <div class="term-def">에이전트의 흐름을 <span class="hl">노드와 엣지로 그리는</span> 라이브러리. 흐름이 코드에서 «보인다».<span class="term-src">처음 만난 곳 — 모듈5 노드1</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">State<small>state</small></div>
+        <div class="term-def">그래프의 노드들이 <span class="hl">함께 읽고 쓰는 공용 기록</span>. 무엇을 담을지가 설계의 절반.<span class="term-src">처음 만난 곳 — 모듈5 노드1</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">조건부 엣지<small>conditional edge</small></div>
+        <div class="term-def">상태를 보고 <span class="hl">다음 노드를 고르는</span> 갈림길. 라우팅·되돌이 고리가 여기서 생긴다.<span class="term-src">처음 만난 곳 — 모듈5 노드1</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">리듀서<small>reducer</small></div>
+        <div class="term-def">여러 노드가 같은 칸에 쓸 때 <span class="hl">어떻게 합칠지</span> 정한 규칙(덮어쓰기·이어 붙이기).<span class="term-src">처음 만난 곳 — 모듈5 노드1</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">라우팅<small>routing</small></div>
+        <div class="term-def">질문을 보고 <span class="hl">어느 처리로 보낼지</span> 가르는 일. 규칙 라우터가 LLM 라우터를 이긴 적도 있다.<span class="term-src">처음 만난 곳 — 모듈5 노드4</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">그라운딩<small>grounding</small></div>
+        <div class="term-def">답을 <span class="hl">주어진 근거 안에서만</span> 하게 묶는 것. 근거가 없으면 모른다고 말하게 한다.<span class="term-src">처음 만난 곳 — 모듈5 노드4</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">골든셋<small>golden set</small></div>
+        <div class="term-def">정답을 미리 붙여 둔 <span class="hl">평가용 문항 묶음</span>. ★자를 먼저 만들고 나서 고친다.<span class="term-src">처음 만난 곳 — 모듈5 노드4 · 노드6</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">지식 그래프 · 삼중항<small>knowledge graph · triple</small></div>
+        <div class="term-def">(주어, 관계, 목적어) <span class="hl">세 칸짜리 사실</span>을 이어 붙인 그물. 영화 80편에서 2,103개를 뽑았다.<span class="term-src">처음 만난 곳 — 모듈5 노드6</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">GraphRAG<small>GraphRAG</small></div>
+        <div class="term-def">문서 대신 <span class="hl">지식 그래프를 따라가며</span> 근거를 찾는 RAG. 관계를 건너는 질문에 강하다.<span class="term-src">처음 만난 곳 — 모듈5 노드6</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">멀티홉<small>multi-hop</small></div>
+        <div class="term-def">답을 얻으려면 사실을 <span class="hl">여러 번 건너야</span> 하는 질문. 「같은 딜레마를 다룬 다른 영화」는 4홉이었다.<span class="term-src">처음 만난 곳 — 모듈5 노드6</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">오케스트레이션<small>orchestration</small></div>
+        <div class="term-def">코디네이터가 일을 쪼개 <span class="hl">서브에이전트에게 나눠 주고 모으는</span> 구성.<span class="term-src">처음 만난 곳 — 모듈5 노드8 · 딥리서치</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">컨텍스트 격리<small>context isolation</small></div>
+        <div class="term-def">서브에이전트가 읽은 원문은 <span class="hl">그 안에서 끝내고</span> 코디네이터에게는 원고만 올리는 것. 76,934자 → 1,718자.<span class="term-src">처음 만난 곳 — 모듈5 노드8</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">절제 실험<small>ablation</small></div>
+        <div class="term-def">부품을 <span class="hl">하나씩 꺼 보며</span> 무엇이 실제로 값을 하는지 재는 실험. 쌓기만 보면 나중 부품이 다 잘해 보인다.<span class="term-src">처음 만난 곳 — 모듈5 노드8</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">interrupt · resume<small>interrupt · Command(resume)</small></div>
+        <div class="term-def">그래프를 <span class="hl">멈춰 사람의 답을 기다리고</span>, 답을 받으면 멈춘 곳부터 잇는 것. ⚠멈춘 «노드»는 처음부터 다시 돈다.<span class="term-src">처음 만난 곳 — 모듈5 노드10</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">체크포인터<small>checkpointer</small></div>
+        <div class="term-def">멈춘 상태를 <span class="hl">저장해 두는 곳</span>. 나중에 열어도 이어서 처리된다 — 큐레이터 데스크는 SQLite 에 보관했다.<span class="term-src">처음 만난 곳 — 모듈5 노드10</span></div>
+      </div>
+      <div class="term">
+        <div class="term-name">개입률 · 놓침 · 헛멈춤<small>intervention · miss · false stop</small></div>
+        <div class="term-def">사람을 부른 비율 · <span class="hl">멈췄어야 하는데 나간 것</span> · 안 멈춰도 됐는데 멈춘 것. 멈춤 기준을 이 셋으로 잰다.<span class="term-src">처음 만난 곳 — 모듈5 노드10</span></div>
       </div>
     </div>
   </main>
