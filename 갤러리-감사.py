@@ -253,10 +253,47 @@ def 신선도():
     return len(stale)
 
 
+# ══════════════════════════════════════════════════════════════
+# ★상대경로 착지 감사 (2026-09-29 신설) — «걸려 있나»가 아니라 «열리나»
+#
+# 왜: 튜터가 카드마다 대조하다 404 두 장을 찾았다(KBTM-T-20260929-8).
+#     ./04_module3/c_lab_N1-prompt-layers/ · ./05_module4/c_lab_N1-ollama-tunnel/
+#     폴더에 index.html 이 없어 Pages 가 404 였다. README 는 있었다.
+#     이 감사기는 «카드가 있나»만 봤고 «그 링크가 열리나»는 안 봤다.
+# 어떻게: 네트워크 없이 잰다 — ./X/ 로 끝나면 X/index.html 이 «추적»되는지,
+#     ./X.html 이면 그 파일이 추적되는지. 없으면 Pages 에서 404 다.
+#     (Pages 는 폴더 주소에 README.md 를 띄우지 않는다)
+def 착지():
+    import subprocess
+    try:
+        tracked = set(subprocess.check_output(
+            ["git", "-c", "core.quotepath=false", "ls-files"],
+            stderr=subprocess.DEVNULL).decode("utf-8").splitlines())
+    except Exception as e:
+        print("  ⚠착지 감사: ls-files 실패 %s" % e); return 0
+    html = io.open(INDEX, encoding="utf-8").read()
+    bad = []
+    for m in re.finditer(r'href="\./([^"#?]+)', html):
+        t = m.group(1)
+        want = t + "index.html" if t.endswith("/") else t
+        if want not in tracked:
+            bad.append(t)
+    print()
+    print("  ── ★착지 (상대경로 카드가 Pages 에서 «열리나»)")
+    if not bad:
+        print("     ✅ 상대경로 링크 전부 착지 파일이 있다")
+        return 0
+    print("     ⛔%d개 — Pages 에서 404 가 난다:" % len(bad))
+    for t in bad: print("        ./%s" % t)
+    print("     ⇒ index.html 이 없는 폴더면 GitHub 폴더 주소로 걸 것")
+    return len(bad)
+
+
 if __name__ == "__main__":
     rc = main()
     try:
         신선도()          # ★결과는 종료코드에 «더하지» 않는다 — 경고지 실패가 아니다
+        rc = rc or (1 if 착지() else 0)   # ★404 는 «실패»다 — 종료코드에 반영
     except Exception as e:
         print("  ⚠신선도 감사 실패: %s" % e)
     sys.exit(rc)
