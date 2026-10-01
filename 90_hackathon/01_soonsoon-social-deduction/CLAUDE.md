@@ -13,7 +13,8 @@
 > | | 어디 |
 > |---|---|
 > | `proto/**` · `serve.sh` · `docs/tutorial.md` | 🔒 `github.com/kimjy0977/KDT_MafiaGame` |
-> | 보고서 · `notes/` · `index.html` · `pitch/` | 🌐 여기 (`KDT_Works`) |
+> | 통합 보고서 `docs/soonsoon-hackathon.html` · `docs/img/` (2026-10-01 · 디렉터 결정) | 🔒 같은 곳 · 공개 자리엔 «옮겼다» 안내 한 장 |
+> | `notes/` · `index.html` · `pitch/` | 🌐 여기 (`KDT_Works`) |
 >
 > **아래 문서의 `proto/…` 경로는 전부 비공개 저장소 기준이다.** 그쪽도 `serve.sh` 가
 > 루트, `proto/` 가 그 아래라 **구조가 같다** — `bash serve.sh` 가 그대로 동작한다.
@@ -52,7 +53,8 @@
 - **⚠ 「SPUM 세션」은 다른 뜻이다** — Studio 로그인 세션(30분 만료, `work-rules.md` A-3).
   문서에서 치환할 때 이 둘을 섞지 말 것.
 - 문서를 어디에 적을지는 **`docs/README.md` 문서 지도**를 따른다.
-- **폴더가 둘이다(2026-08-26).** `docs/` = **밖으로 나가는 것만**(문서 지도 · 공개 기술문서),
+- **폴더가 둘이다(2026-08-26).** `docs/` = **밖으로 나가는 것만**(지금은 문서 지도 · 옛 보고서 주소의 안내뿐 —
+  기술문서 `tutorial.md` 는 08-27 게임 코드와 함께, 통합 보고서는 10-01 🔒 비공개 저장소로),
   `notes/` = **우리 작업 기록**(함정·인계·기획·이력). 새 문서를 만들 때 어느 쪽인지 먼저 정한다.
   ~~⛔ `docs/soonsoon-hackathon.html` 주소는 바꾸지 않는다 — 이미 팀원들에게 보냈다.~~
   → ★**2026-10-01 디렉터 결정으로 바뀌었다.** 통합 보고서와 그 그림(`docs/img/` 10개)은
@@ -259,7 +261,7 @@ bash serve.sh            # → http://localhost:5173/game.html
 | §1 브라우저에서 바로 실행 | `bash serve.sh` → `localhost:5173` · Node 외 의존성 없음 | ✅ |
 | §2 NPC 3명 이상 · 성격 반영 | 거주자 **6명** · 근접 `E` · 전체 토론 `T` | ✅ |
 | §3 대화 맥락 유지 | 캐릭터별 history 누적 전송 · 전체 토론은 공개 대화록 | ✅ |
-| §4 기술 문서 | `README.md` + **`docs/tutorial.md`(626줄)** | ✅ |
+| §4 기술 문서 | `README.md` + **`docs/tutorial.md`(626줄 · 🔒 비공개 저장소)** | ✅ |
 | §8 키 커밋 금지 · MIT | 서버에서만 읽음 · `.env` gitignore · `LICENSE` | ✅ |
 
 **§4 추가(게임적 재미)** — 시작화면·무대 2개·참여/관전·캐릭터 선택·역할 공개·
@@ -267,7 +269,7 @@ bash serve.sh            # → http://localhost:5173/game.html
 
 ### 완료된 것 (예전 목록의 잔재를 지운다)
 
-- ~~기술 문서~~ ✅ `docs/tutorial.md` + `README.md`
+- ~~기술 문서~~ ✅ `docs/tutorial.md`(🔒 비공개 저장소) + `README.md`
 - ~~밤 시뮬 랜덤 배정~~ ✅ `proto/night.mjs` → `/api/newgame` · **플레이어 포함 매 판 랜덤**
 - ~~스프라이트 추가 추출~~ ✅ **12/12**(6명 × idle+move) · 전부 SPUM 제작본
 - ~~시야 제한~~ ✅ 밤 단계에 들어감 (요건은 아니었다)
